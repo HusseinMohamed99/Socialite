@@ -1,7 +1,7 @@
 import 'package:f_app/Pages/on-boarding/on-boarding%20screen.dart';
 import 'package:f_app/layout/Home/home_layout.dart';
-import 'package:f_app/shared/Cubit/modeCubit/state.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
+import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
 import 'package:f_app/shared/bloc_observer.dart';
 import 'package:f_app/shared/styles/themes.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -20,54 +20,48 @@ void main() async {
     blocObserver: MyBlocObserver(),
   );
   await CacheHelper.init();
-
   bool? isDark = CacheHelper.getBoolean(key: 'isDark');
-
   Widget widget;
+  uId = CacheHelper.getData(key: 'uId');
 
+  if (uId != null) {
+    widget = const HomeLayout();
+  } else {
+    widget = const OnBoard();
+  }
 
- uId = CacheHelper.getData(key: 'uId');
-
-if(uId != null) {
-  widget =   const HomeLayout();
-} else {
-  widget =  const OnBoard();
-}
-
-debugPrint(uId);
+  debugPrint(uId);
   runApp(MyApp(
-    isDark : isDark,
+    isDark: isDark,
     startWidget: widget,
   ));
 }
 
 class MyApp extends StatelessWidget {
-  final Widget startWidget;
+   Widget startWidget;
   final bool? isDark;
 
-   const MyApp({Key? key, this.isDark,required this.startWidget}) : super(key: key);
+   MyApp({Key? key, this.isDark, required this.startWidget})
+      : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return  MultiBlocProvider(
-      providers:
-      [
+    return MultiBlocProvider(
+      providers: [
         BlocProvider(
-          create: (BuildContext context)=> SocialCubit()
-            ..getUserData(),
+          create: (context) => SocialCubit()..getUserData()
         ),
         BlocProvider(
-      create: (BuildContext context)=>ModeCubit()
-    ..changeAppMode(
-      fromShared: isDark,),
-    ),
-
+          create: (BuildContext context) => ModeCubit()
+            ..changeAppMode(
+              fromShared: isDark,
+            ),
+        ),
       ],
-      child: BlocConsumer<ModeCubit,ModeStates>(
-          listener: (context,state){},
-        builder: (context,state)
-        {
+      child: BlocConsumer<SocialCubit, SocialStates>(
+        listener: (context, state) {},
+        builder: (context, state) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
@@ -81,8 +75,8 @@ class MyApp extends StatelessWidget {
               imageSize: 200,
               imageSrc: 'assets/images/s.png',
               text: 'Social App',
-               textType: TextType.ColorizeAnimationText,
-              textStyle:const TextStyle(
+              textType: TextType.ColorizeAnimationText,
+              textStyle: const TextStyle(
                 fontSize: 40.0,
               ),
               colors: const [
@@ -92,7 +86,8 @@ class MyApp extends StatelessWidget {
                 Colors.redAccent,
               ],
               backgroundColor: ModeCubit.get(context).isDark
-                  ? Colors.white :const Color(0xff063750),
+                  ? Colors.white
+                  : const Color(0xff063750),
             ),
           );
         },
@@ -100,4 +95,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

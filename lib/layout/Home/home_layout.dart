@@ -4,9 +4,9 @@ import 'package:f_app/model/drawerModel.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
 import 'package:f_app/shared/componnetns/components.dart';
+import 'package:f_app/shared/componnetns/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_switch/flutter_switch.dart';
@@ -156,104 +156,132 @@ class MenuScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = SocialCubit.get(context);
-        return Scaffold(
-          resizeToAvoidBottomInset: false,
-          extendBody: true,
-          backgroundColor: cubit.isDark
-              ? Colors.white.withOpacity(0.4)
-              : const Color(0xff063750),
-          appBar: AppBar(
-            systemOverlayStyle: const SystemUiOverlayStyle(
-              statusBarBrightness: Brightness.light,
-              statusBarColor: Colors.transparent,
-              statusBarIconBrightness: Brightness.dark,
-            ),
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-          ),
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+        var userModel = SocialCubit.get(context).userModel!;
+        return SafeArea(
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            extendBody: true,
+            backgroundColor: cubit.isDark
+                ? Colors.white.withOpacity(0.4)
+                : const Color(0xff063750),
+            body: Column(
               children: [
-                const Center(
-                  child: CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/background.jpg'),
-                    radius: 70,
+                SizedBox(
+                  height: 240,
+                  child: Stack(
+                    alignment: AlignmentDirectional.bottomCenter,
+                    children: [
+                      Align(
+                        alignment: AlignmentDirectional.topCenter,
+                        child: Container(
+                          decoration:  BoxDecoration(
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(
+                                    '${userModel.cover}'
+                                ),
+                              ),
+                              borderRadius: const BorderRadius.only(
+                                topLeft:  Radius.circular(8.0),
+                                topRight:  Radius.circular(8.0),
+                              )),
+                          width: double.infinity,
+                          height: 200,
+                        ),
+                      ),
+                      CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 65,
+                        child: CircleAvatar(
+                          backgroundImage: NetworkImage(
+                            '${userModel.image}',
+                          ),
+                          radius: 60,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Text(
-                  'Hussein Mohamed',
+                  '${userModel.name}',
+                  textAlign: TextAlign.center,
                   style: GoogleFonts.lobster(
                       fontSize: 30,
                       color: cubit.isDark ? Colors.black : Colors.white),
                 ),
                 myDivider(),
-                const Spacer(
-                  flex: 1,
-                ),
+                space(0, 15),
                 ...MenuItems.all.map(buildMenuItem).toList(),
                 const Spacer(
-                  flex: 2,
+                  flex: 6,
                 ),
-                SizedBox(
-                  width: 130,
-                  child: FlutterSwitch(
-                    duration: const Duration(milliseconds: 500),
-                    width: 120.0,
-                    height: 45.0,
-                    toggleSize: 40.0,
-                    value: cubit.isDark,
-                    borderRadius: 30.0,
-                    activeToggleColor: Colors.blue,
-                    inactiveToggleColor: Colors.grey,
-                    activeSwitchBorder: Border.all(
-                      color: const Color(0xFFD1D5DA),
-                      width: 3.0,
-                    ),
-                    inactiveSwitchBorder: Border.all(
-                      color: const Color(0xFF31125E),
-                      width: 3.0,
-                    ),
-                    activeColor: Colors.white,
-                    inactiveColor: const Color(0xFF0C0224),
-                    activeIcon: const Icon(
-                      Icons.wb_sunny,
-                      color: Color(0xFFFFDF5D),
-                    ),
-                    inactiveIcon: const Icon(
-                      Icons.nightlight_round,
-                      color: Color(0xFFF8E3A1),
-                    ),
-                    onToggle: (val) {
-                      cubit.changeMode();
-                    },
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 130,
+                        child: FlutterSwitch(
+                          duration: const Duration(milliseconds: 500),
+                          width: 120.0,
+                          height: 45.0,
+                          toggleSize: 40.0,
+                          value: cubit.isDark,
+                          borderRadius: 30.0,
+                          activeToggleColor: Colors.blue,
+                          inactiveToggleColor: Colors.grey,
+                          activeSwitchBorder: Border.all(
+                            color: const Color(0xFFD1D5DA),
+                            width: 3.0,
+                          ),
+                          inactiveSwitchBorder: Border.all(
+                            color: const Color(0xFF31125E),
+                            width: 3.0,
+                          ),
+                          activeColor: Colors.white,
+                          inactiveColor: const Color(0xFF0C0224),
+                          activeIcon: const Icon(
+                            Icons.wb_sunny,
+                            color: Color(0xFFFFDF5D),
+                          ),
+                          inactiveIcon: const Icon(
+                            Icons.nightlight_round,
+                            color: Color(0xFFF8E3A1),
+                          ),
+                          onToggle: (val) {
+                            cubit.changeMode();
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                space(0, 10),
                 InkWell(
                   onTap: () {
                     FirebaseAuth.instance.signOut();
                     navigateAndFinish(context, const LoginScreen());
                     logOut(context);
                   },
-                  child: Row(
-                    children: [
-                      Icon(Icons.power_settings_new_rounded,
-                          size: 30,
-                          color: cubit.isDark ? Colors.black : Colors.white),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'Logout',
-                        style: GoogleFonts.lobster(
-                            fontSize: 30,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Row(
+                      children: [
+                        Icon(Icons.power_settings_new_rounded,
+                            size: 30,
                             color: cubit.isDark ? Colors.black : Colors.white),
-                      )
-                    ],
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          'Logout',
+                          style: GoogleFonts.lobster(
+                              fontSize: 30,
+                              color: cubit.isDark ? Colors.black : Colors.white),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 const Spacer(
@@ -271,25 +299,28 @@ class MenuScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           var cubit = SocialCubit.get(context);
-          return ListTile(
-            selected: currentItem == item,
-            selectedTileColor: cubit.isDark ? Colors.white : Colors.black,
-            minLeadingWidth: 10,
-            leading: Icon(
-              item.icon,
-              color: cubit.isDark ? Colors.black : Colors.white,
-              size: 26,
-            ),
-            title: Text(
-              item.title,
-              style: GoogleFonts.lobster(
-                fontSize: 26,
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: ListTile(
+              selected: currentItem == item,
+              selectedTileColor: cubit.isDark ? Colors.white : Colors.black,
+              minLeadingWidth: 10,
+              leading: Icon(
+                item.icon,
                 color: cubit.isDark ? Colors.black : Colors.white,
+                size: 26,
               ),
+              title: Text(
+                item.title,
+                style: GoogleFonts.lobster(
+                  fontSize: 26,
+                  color: cubit.isDark ? Colors.black : Colors.white,
+                ),
+              ),
+              onTap: () {
+                onSelectedItem(item);
+              },
             ),
-            onTap: () {
-              onSelectedItem(item);
-            },
           );
         },
       );

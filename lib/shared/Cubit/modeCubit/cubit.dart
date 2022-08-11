@@ -13,7 +13,7 @@ class ModeCubit extends Cubit<ModeStates> {
 
 
 
-  bool isDark = false;
+  bool isDark = true;
   Color backgroundColor = Colors.white;
   void changeAppMode({bool? fromShared}) {
     if (fromShared == null) {

@@ -41,8 +41,6 @@ class UserModel {
       'cover': cover,
       'bio': bio,
       'isEmailVerified': isEmailVerified,
-
-
     };
   }
 }

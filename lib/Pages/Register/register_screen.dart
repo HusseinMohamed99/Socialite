@@ -107,6 +107,7 @@ class RegisterScreen extends StatelessWidget {
                           height: 5,
                         ),
                         defaultTextFormField(
+                          context: context,
                           controller: nameController,
                           keyboardType: TextInputType.name,
                           validate: (String? value) {
@@ -135,6 +136,7 @@ class RegisterScreen extends StatelessWidget {
                           height: 5,
                         ),
                         defaultTextFormField(
+                          context: context,
                           controller: phoneController,
                           keyboardType: TextInputType.phone,
                           validate: (String? value) {
@@ -163,6 +165,7 @@ class RegisterScreen extends StatelessWidget {
                           height: 5,
                         ),
                         defaultTextFormField(
+                          context: context,
                           controller: emailController,
                           keyboardType: TextInputType.emailAddress,
                           validate: (String? value) {
@@ -191,6 +194,7 @@ class RegisterScreen extends StatelessWidget {
                           height: 5,
                         ),
                         defaultTextFormField(
+                          context: context,
                           controller: passController,
                           keyboardType: TextInputType.visiblePassword,
                           validate: (String? value) {

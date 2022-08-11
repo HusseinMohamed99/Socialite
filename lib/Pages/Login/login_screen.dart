@@ -99,6 +99,7 @@ class LoginScreen extends StatelessWidget {
                         height: 10,
                       ),
                       defaultTextFormField(
+                        context: context,
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
                         validate: (String? value) {
@@ -127,6 +128,7 @@ class LoginScreen extends StatelessWidget {
                         height: 10,
                       ),
                       defaultTextFormField(
+                        context: context,
                         controller: passController,
                         keyboardType: TextInputType.visiblePassword,
                         validate: (String? value) {

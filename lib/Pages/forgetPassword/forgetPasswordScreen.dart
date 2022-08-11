@@ -95,6 +95,7 @@ class RestPasswordScreen extends StatelessWidget {
                                 height: 10,
                               ),
                               defaultTextFormField(
+                                context: context,
                                 controller: emailController,
                                 keyboardType: TextInputType.emailAddress,
                                 prefix: Icons.email,

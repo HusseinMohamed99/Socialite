@@ -1,9 +1,11 @@
+import 'package:f_app/Pages/Login/login_screen.dart';
 import 'package:f_app/Pages/forgetPassword/forgetPasswordScreen.dart';
 import 'package:f_app/Pages/notifications/notifications_screen.dart';
-import 'package:f_app/Pages/profile/profile_screen.dart';
+import 'package:f_app/Pages/profile/My_profile_screen.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
 import 'package:f_app/shared/componnetns/components.dart';
 import 'package:f_app/shared/componnetns/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -19,6 +21,7 @@ class SettingScreen extends StatelessWidget {
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {},
       builder: (context, state) {
+        var userModel = SocialCubit.get(context).userModel!;
         var cubit = SocialCubit.get(context);
         return SingleChildScrollView(
           child: Padding(
@@ -47,21 +50,22 @@ class SettingScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                       onTap: () {
-                        navigateTo(context, const ProfileScreen());
+                        navigateTo(context, const MyProfileScreen());
                       },
                       child: Row(
                         children: [
-                          const CircleAvatar(
+                           CircleAvatar(
                             radius: 25,
                             backgroundImage: NetworkImage(
-                                'https://img.freepik.com/free-photo/pretty-glad-brunette-asian-woman-stands-half-turned-against-pink-wall-has-good-mood-wears-stylish-jacket-with-hood-thinks-about-something-pleasant-poses-happy-indoor-emotions-concept_273609-49492.jpg?w=996&t=st=1659816072~exp=1659816672~hmac=b1e282848af61fe758af6d13ce63e6c063cb315d090b8304c1ed0c7cb5a22b32'),
+                              userModel.image!,
+                            ),
                           ),
                           space(10, 0),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Hussein Mohamed ',
+                                userModel.name!,
                                 style: GoogleFonts.lobster(
                                   color: cubit.isDark
                                       ? Colors.black
@@ -118,7 +122,7 @@ class SettingScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                       onTap: () {
-                        navigateTo(context, const ProfileScreen());
+                        navigateTo(context, const MyProfileScreen());
                       },
                       child: Row(
                         children: [
@@ -399,7 +403,12 @@ class SettingScreen extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: ()
+                      {
+                        FirebaseAuth.instance.signOut();
+                        navigateAndFinish(context, const LoginScreen());
+                        logOut(context);
+                      },
                       child: Row(
                         children: [
                           Container(
