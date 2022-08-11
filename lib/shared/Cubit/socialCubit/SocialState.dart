@@ -107,3 +107,5 @@ class GetPostsErrorState extends SocialStates {
 ///END : GetPosts
 
 // ----------------------------------------------------------//
+
+class GetUserPostsSuccessState extends SocialStates {}

@@ -1,4 +1,4 @@
-import 'dart:ffi';
+
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:f_app/Pages/chat/chatScreen.dart';
@@ -54,11 +54,11 @@ class SocialCubit extends Cubit<SocialStates> {
   int currentIndex = 0;
   List<Widget> screens =
   [
-     FeedScreen(),
-     ChatScreen(),
-     UserScreen(),
-     StoryScreen(),
-     SettingScreen(),
+     const FeedScreen(),
+     const ChatScreen(),
+     const UserScreen(),
+     const StoryScreen(),
+     const SettingScreen(),
   ];
 ///END : Screens
 
@@ -134,13 +134,13 @@ class SocialCubit extends Cubit<SocialStates> {
   Widget mScreen = const  MainScreen();
   void getScreen(context) {
     if (currentItem == MenuItems.profile) {
-     navigateTo(context, MyProfileScreen());
+     navigateTo(context, const MyProfileScreen());
       mScreen = const MainScreen();
     } else if (currentItem == MenuItems.notifications) {
-      navigateTo(context, NotificationScreen());
+      navigateTo(context, const NotificationScreen());
       mScreen = const MainScreen();
     } else if (currentItem == MenuItems.savedPost) {
-      navigateTo(context, SavePostScreen());
+      navigateTo(context, const SavePostScreen());
       mScreen =const  MainScreen();
     } else if (currentItem == MenuItems.restPassword) {
       navigateTo(context, RestPasswordScreen());
@@ -517,6 +517,7 @@ void removePostImage()
 
 ///START : GetAllPosts
   List<PostModel> posts = [];
+  PostModel? postModel;
   void getPosts()
   {
     posts.clear();
@@ -527,10 +528,9 @@ void removePostImage()
         .get()
         .then((value)
     {
-      value.docs.forEach((element)
-      {
+      for (var element in value.docs) {
         posts.add(PostModel.fromJson(element.data()));
-      });
+      }
       emit(GetPostsSuccessState());
     }).catchError((error)
     {
@@ -542,5 +542,24 @@ void removePostImage()
 
 // ----------------------------------------------------------//
 
+List <PostModel>? userPosts =[];
+  void getUserPosts(String? userID)
+  {
+   FirebaseFirestore.instance
+       .collection('posts')
+       .orderBy('dateTime')
+       .snapshots()
+       .listen((event)
+   {
+     userPosts=[];
+     for (var element in event.docs) {
+       if(element.data()['uId']==userID)
+       {
+         userPosts?.add(PostModel.fromJson(element.data()));
+       }
+     }
+     emit(GetUserPostsSuccessState());
+   });
+  }
 
 }
