@@ -5,11 +5,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:fluttericon/linearicons_free_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../model/user_model.dart';
+import '../../model/post_model.dart';
 import '../../shared/Cubit/socialCubit/SocialState.dart';
 import '../../shared/componnetns/constants.dart';
 import '../addPost/addPostScreen.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 
 class FeedScreen extends StatelessWidget {
   const FeedScreen({Key? key}) : super(key: key);
@@ -21,102 +23,111 @@ class FeedScreen extends StatelessWidget {
       builder: (context, state) {
         var userModel = SocialCubit.get(context).userModel;
         var cubit = SocialCubit.get(context);
-        return SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              Card(
-                color: SocialCubit.get(context).isDark
-                    ? Colors.white
-                    : const Color(0xff063750),
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                elevation: 10,
-                margin: const EdgeInsets.all(10),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Row(
-                    children: [
-                      InkWell(
-                        borderRadius: BorderRadius.circular(20),
-                        onTap: ()
-                        {
-                          navigateTo(context, MyProfileScreen());
-                        },
-                        child:  CircleAvatar(
-                          radius: 20,
-                          backgroundImage: NetworkImage(
-                            '${userModel!.image}'
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          width: 220,
-                          height: 50,
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          margin: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey.shade400),
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          child: TextButton(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            style: ButtonStyle(
-                              overlayColor:
-                                  MaterialStateProperty.all(Colors.grey[300]),
+        return ConditionalBuilder(
+          condition: cubit.posts.isNotEmpty,
+          builder: (BuildContext context) => RefreshIndicator(
+            onRefresh: () async {
+              cubit.getPosts();
+              return cubit.getUserData();
+            },
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  Card(
+                    color: SocialCubit.get(context).isDark
+                        ? Colors.white
+                        : const Color(0xff063750),
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    elevation: 10,
+                    margin: const EdgeInsets.all(10),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Row(
+                        children: [
+                          InkWell(
+                            borderRadius: BorderRadius.circular(20),
+                            onTap: () {
+                              navigateTo(context, const MyProfileScreen());
+                            },
+                            child: CircleAvatar(
+                              radius: 20,
+                              backgroundImage:
+                                  NetworkImage('${userModel!.image}'),
                             ),
-                            child: Text(
-                              '\' What\'s on your mind ? \'',
-                              style: GoogleFonts.lobster(
-                                fontSize: 16,
-                                color: SocialCubit.get(context).isDark
-                                    ? Colors.black
-                                    : Colors.white,
+                          ),
+                          Expanded(
+                            child: Container(
+                              width: 220,
+                              height: 50,
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              margin: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey.shade400),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              child: TextButton(
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                style: ButtonStyle(
+                                  overlayColor:
+                                      MaterialStateProperty.all(Colors.grey[300]),
+                                ),
+                                child: Text(
+                                  '\' What\'s on your mind ? \'',
+                                  style: GoogleFonts.lobster(
+                                    fontSize: 16,
+                                    color: SocialCubit.get(context).isDark
+                                        ? Colors.black
+                                        : Colors.white,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  navigateTo(context, AddPostScreen());
+                                },
                               ),
                             ),
-                            onPressed: ()
-                            {
-                              navigateTo(context, AddPostScreen());
-                            },
                           ),
-                        ),
+                          Container(
+                            width: 2,
+                            height: 50,
+                            color: Colors.grey,
+                          ),
+                          IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.photo_library_outlined,
+                              size: 30,
+                              color: cubit.isDark
+                                  ? CupertinoColors.activeBlue
+                                  : Colors.white,
+                            ),
+                            splashRadius: 20,
+                          ),
+                        ],
                       ),
-                      Container(
-                        width: 2,
-                        height: 50,
-                        color: Colors.grey,
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.photo_library_outlined,
-                          size: 30,
-                          color: cubit.isDark
-                              ? CupertinoColors.activeBlue
-                              : Colors.white,
-                        ),
-                        splashRadius: 20,
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                  space(0, 10),
+                  ListView.separated(
+                    physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: cubit.posts.length,
+                    separatorBuilder: (context, index) => space(0, 10),
+                    itemBuilder: (context, index) =>
+                        (buildPostItem(cubit.posts[index], context)),
+                  ),
+                  space(0, 10),
+                ],
               ),
-              space(0, 10),
-              ListView.separated(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 10,
-                separatorBuilder: (context, index) => space(0, 10),
-                itemBuilder: (context, index) => (buildPostItem(userModel,context)),),
-              space(0, 10),
-            ],
+            ),
           ),
+          fallback: (context) => const Center(child: CircularProgressIndicator()),
         );
       },
     );
   }
-  Widget buildPostItem(UserModel userModel,context) {
 
+  Widget buildPostItem(PostModel postModel, context) {
     return Card(
       color: SocialCubit.get(context).isDark
           ? Colors.white
@@ -132,12 +143,15 @@ class FeedScreen extends StatelessWidget {
             Row(
               children: [
                 InkWell(
-                  onTap: () {},
+                  onTap: ()
+                  {
+                    navigateTo(context, const MyProfileScreen());
+                  },
                   borderRadius: BorderRadius.circular(25),
                   child: CircleAvatar(
                     radius: 25,
                     backgroundImage: NetworkImage(
-                      '${userModel.image}',
+                      '${postModel.image}',
                     ),
                   ),
                 ),
@@ -149,9 +163,12 @@ class FeedScreen extends StatelessWidget {
                       Row(
                         children: [
                           InkWell(
-                            onTap: () {},
+                            onTap: ()
+                            {
+                              navigateTo(context, const MyProfileScreen());
+                            },
                             child: Text(
-                              '${userModel.name}',
+                              '${postModel.name}',
                               style: GoogleFonts.lobster(
                                 fontSize: 20,
                                 height: 1.3,
@@ -169,13 +186,20 @@ class FeedScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Text(
-                        'May 15,2022 at 9:00 pm',
-                        style: GoogleFonts.lobster(
-                            fontSize: 15,
-                            color: Colors.grey,
-                            textStyle: Theme.of(context).textTheme.caption,
-                            height: 1.3),
+                      Row(
+                        children: [
+                          const Icon(LineariconsFree.earth,size: 20,color: Colors.grey,),
+                          space(10, 0),
+                          Text(
+                            daysBetween(
+                                DateTime.parse(postModel.dateTime.toString())),
+                            style: GoogleFonts.lobster(
+                                fontSize: 15,
+                                color: Colors.grey,
+                                textStyle: Theme.of(context).textTheme.caption,
+                                height: 1.3),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -195,15 +219,22 @@ class FeedScreen extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15.0),
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: Container(
                 color: Colors.grey[300],
                 height: 2,
                 width: double.infinity,
               ),
             ),
-            Container(
-              child: Stack(
+            Text(
+              '${postModel.text}',
+                style: GoogleFonts.libreBaskerville(
+                  color: SocialCubit.get(context).isDark? Colors.black : Colors.white,
+                ),
+            ),
+            space(0, 12),
+            if (postModel.postImage != '')
+              Stack(
                 alignment: AlignmentDirectional.topEnd,
                 children: [
                   Align(
@@ -214,27 +245,23 @@ class FeedScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(4),
                         boxShadow: [
                           BoxShadow(
-                              color: Colors.grey.withOpacity(0.4),
-                              // blurRadius: 0,
-                              // spreadRadius: 0,
-                              // offset: Offset(0, 0)
+                            color: Colors.grey.withOpacity(0.4),
+                            // blurRadius: 0,
+                            // spreadRadius: 0,
+                            // offset: Offset(0, 0)
                           ),
                         ],
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(15),
                         child: Image(
-                            image: NetworkImage(
-                              'https://img.freepik.com/free-photo/close-up-photo-sensual-blonde-woman-pink-sunglasses-hiding-green-leaf_197531-20666.jpg?w=996&t=st=1660179701~exp=1660180301~hmac=91b7894c159519c97b5e8953e1718a1ab374ad47f5abd0d5c00e871da5dacbab',
-                            ),
+                            image: NetworkImage('${postModel.postImage}'),
                             fit: BoxFit.contain),
                       ),
-
                     ),
                   ),
                 ],
               ),
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -278,15 +305,12 @@ class FeedScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 InkWell(
-                  onTap: ()
-                  {
-                    navigateTo(context, MyProfileScreen());
+                  onTap: () {
+                    navigateTo(context, const MyProfileScreen());
                   },
                   child: CircleAvatar(
                     radius: 18,
-                    backgroundImage: NetworkImage(
-                        '${userModel.image}'
-                    ),
+                    backgroundImage: NetworkImage('${postModel.image}'),
                   ),
                 ),
                 space(10, 0),

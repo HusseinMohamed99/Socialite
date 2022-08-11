@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:f_app/Pages/chat/chatScreen.dart';
@@ -10,6 +11,7 @@ import 'package:f_app/Pages/story/story_screen.dart';
 import 'package:f_app/Pages/user/userScreen.dart';
 import 'package:f_app/layout/Home/home_layout.dart';
 import 'package:f_app/model/drawerModel.dart';
+import 'package:f_app/model/post_model.dart';
 import 'package:f_app/model/user_model.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
 import 'package:f_app/shared/componnetns/components.dart';
@@ -35,13 +37,13 @@ class SocialCubit extends Cubit<SocialStates> {
 ///START : GetUserData
   UserModel? userModel;
   void getUserData() {
-    emit(SocialGetUserDataLoadingState());
+    emit(GetUserDataLoadingState());
     FirebaseFirestore.instance.collection('users').doc(uId).get().then((value) {
       userModel = UserModel.fromJson(value.data()!);
-      emit(SocialGetUserDataSuccessState());
+      emit(GetUserDataSuccessState());
     }).catchError((error) {
       debugPrint(error.toString());
-      emit(SocialGetUserDataErrorState(error.toString()));
+      emit(GetUserDataErrorState(error.toString()));
     });
   }
 ///END : GetUserData
@@ -187,7 +189,7 @@ class SocialCubit extends Cubit<SocialStates> {
       emit(GetProfileImagePickedSuccessState());
     }else{
       debugPrint('No image selected');
-      emit(GetProfileImagePickedSuccessState());
+      emit(GetProfileImagePickedErrorState());
 
     }
   }
@@ -204,7 +206,7 @@ class SocialCubit extends Cubit<SocialStates> {
       emit(GetCoverImagePickedSuccessState());
     }else{
       debugPrint('No image selected');
-      emit(GetCoverImagePickedSuccessState());
+      emit(GetCoverImagePickedErrorState());
 
     }
   }
@@ -408,5 +410,137 @@ void updateUserData(
 ///END : UpdateUserData
 
 // ----------------------------------------------------------//
+
+
+
+  ///START : GetPostImage
+  File? postImage;
+  Future <void> getPostImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      postImage = File(pickedFile.path);
+      emit(GetPostImagePickedSuccessState());
+    }else{
+      debugPrint('No image selected');
+      emit(GetPostImagePickedErrorState());
+
+    }
+  }
+  ///END : GetPostImage
+
+  // ----------------------------------------------------------//
+  ///START : uploadPostImage
+
+  void uploadPostImage({
+    required  String dateTime,
+    required  String text,
+  })
+  {
+    emit(CreatePostLoadingState());
+    firebase_storage.FirebaseStorage.instance
+        .ref()
+        .child('postImage/${Uri.file(postImage!.path).pathSegments.last}')
+        .putFile(postImage!)
+        .then((value)
+    {
+      value.ref.getDownloadURL()
+          .then((value)
+      {
+        createPost(
+            dateTime: dateTime,
+            text: text,
+          postImage: value,
+        );
+
+       emit(CreatePostSuccessState());
+      })
+          .catchError((error)
+      {
+        emit(CreatePostErrorState());
+      });
+    })
+        .catchError((error)
+    {
+      emit(CreatePostErrorState());
+    });
+  }
+///END : uploadPostImage
+
+// ----------------------------------------------------------//
+
+  ///START : CreatePost
+  void createPost(
+      {
+        required  String dateTime,
+        required  String text,
+                  String? postImage,
+      })
+  {
+    emit(CreatePostLoadingState());
+
+    PostModel model = PostModel(
+      name: userModel!.name,
+      uId: userModel!.uId,
+      image: userModel!.image,
+      text: text,
+      postImage: postImage ?? '',
+      dateTime: dateTime,
+    );
+    FirebaseFirestore.instance
+        .collection('posts')
+        .add(model.toMap())
+        .then((value)
+    {
+      emit(CreatePostSuccessState());
+    }).catchError((error)
+    {
+      emit(CreatePostErrorState());
+    });
+
+
+  }
+///END : CreatePost
+
+// ----------------------------------------------------------//
+
+///START : RemovePostImage
+void removePostImage()
+{
+  postImage = null;
+  emit(RemovePostImageSuccessState());
+}
+
+///END : RemovePostImage
+
+
+// ----------------------------------------------------------//
+
+///START : GetAllPosts
+  List<PostModel> posts = [];
+  void getPosts()
+  {
+    posts.clear();
+    emit(GetPostsLoadingState());
+    FirebaseFirestore.instance
+        .collection('posts')
+        .orderBy('dateTime',descending: true)
+        .get()
+        .then((value)
+    {
+      value.docs.forEach((element)
+      {
+        posts.add(PostModel.fromJson(element.data()));
+      });
+      emit(GetPostsSuccessState());
+    }).catchError((error)
+    {
+      emit(GetPostsErrorState(error.toString()));
+    });
+  }
+
+///END : GetAllPosts
+
+// ----------------------------------------------------------//
+
 
 }

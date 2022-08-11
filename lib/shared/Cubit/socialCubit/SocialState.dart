@@ -4,11 +4,11 @@ class SocialInitialState extends SocialStates {}
 // ----------------------------------------------------------//
 
 ///START : GetUserData
-class SocialGetUserDataLoadingState extends SocialStates {}
-class SocialGetUserDataSuccessState extends SocialStates {}
-class SocialGetUserDataErrorState extends SocialStates {
+class GetUserDataLoadingState extends SocialStates {}
+class GetUserDataSuccessState extends SocialStates {}
+class GetUserDataErrorState extends SocialStates {
   final String error ;
-  SocialGetUserDataErrorState (this.error);
+  GetUserDataErrorState (this.error);
 }
 ///END : GetUserData
 
@@ -68,3 +68,42 @@ class UpdateUserErrorState extends SocialStates {}
 
 // ----------------------------------------------------------//
 
+///START : CreatePost
+class CreatePostLoadingState extends SocialStates {}
+class CreatePostSuccessState extends SocialStates {}
+class CreatePostErrorState extends SocialStates {}
+///END : CreatePost
+
+// ----------------------------------------------------------//
+
+///START : UploadPost
+class UploadPostLoadingState extends SocialStates {}
+class UploadPostSuccessState extends SocialStates {}
+class UploadPostErrorState extends SocialStates {}
+///END : UploadPost
+
+// ----------------------------------------------------------//
+
+///START : GetPostImage
+class GetPostImagePickedSuccessState extends SocialStates {}
+class GetPostImagePickedErrorState extends SocialStates {}
+///END : GetPostImage
+
+// ----------------------------------------------------------//
+
+///START : RemovePostImage
+class RemovePostImageSuccessState extends SocialStates {}
+///END : RemovePostImage
+
+// ----------------------------------------------------------//
+
+///START : GetPosts
+class GetPostsLoadingState extends SocialStates {}
+class GetPostsSuccessState extends SocialStates {}
+class GetPostsErrorState extends SocialStates {
+  final String error ;
+  GetPostsErrorState (this.error);
+}
+///END : GetPosts
+
+// ----------------------------------------------------------//

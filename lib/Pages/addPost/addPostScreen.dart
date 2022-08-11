@@ -1,8 +1,10 @@
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
+import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../shared/componnetns/components.dart';
 import '../../shared/componnetns/constants.dart';
 
@@ -14,13 +16,22 @@ class AddPostScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var cubit = SocialCubit.get(context);
     var userModel = SocialCubit.get(context).userModel!;
+    return BlocConsumer<SocialCubit, SocialStates>(
+  listener: (context, state) {},
+  builder: (context, state) {
     return Scaffold(
       backgroundColor: cubit.isDark ? Colors.white : const Color(0xff063750),
       appBar: AppBar(
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: cubit.isDark ?  Colors.white : const Color(0xff063750),
+          statusBarIconBrightness:cubit.isDark ? Brightness.dark : Brightness.light,
+          statusBarBrightness: cubit.isDark ? Brightness.dark : Brightness.light,
+        ),
         backgroundColor: cubit.isDark ? Colors.white : const Color(0xff063750),
         leading: IconButton(
           onPressed: () {
             pop(context);
+            cubit.removePostImage();
           },
           icon: Icon(
             IconlyLight.arrowLeft2,
@@ -38,7 +49,24 @@ class AddPostScreen extends StatelessWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: ()
+            {
+              DateTime now = DateTime.now();
+              if(cubit.postImage == null)
+              {
+                cubit.createPost(
+                    dateTime: now.toString(),
+                    text: textController.text,
+                );
+              }else
+              {
+                cubit.uploadPostImage(
+                    dateTime: now.toString(),
+                  text: textController.text,
+                );
+              }
+
+            },
             child: Text(
               'Post',
               style: GoogleFonts.lobster(
@@ -51,11 +79,13 @@ class AddPostScreen extends StatelessWidget {
         elevation: 5,
       ),
       body: Stack(
-        alignment: Alignment.bottomCenter,
+        alignment: AlignmentDirectional.bottomCenter,
         children: [
           SingleChildScrollView(
             child: Column(
               children: [
+                if(state is CreatePostLoadingState)
+                LinearProgressIndicator(),
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(
                     20,
@@ -112,7 +142,7 @@ class AddPostScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: TextFormField(
-                    maxLines: 5,
+                    maxLines: 6,
                     style: GoogleFonts.cairo(
                       height: 1.5,
                       color: cubit.isDark ? Colors.black : Colors.white,
@@ -120,7 +150,7 @@ class AddPostScreen extends StatelessWidget {
                     ),
                     controller: textController,
                     decoration: InputDecoration(
-                      hintText: 'What\'s on your mind? ',
+                      hintText: ' \' What\'s on your mind ? \' ',
                       hintStyle: GoogleFonts.lobster(
                         color: Colors.grey,
                         fontWeight: FontWeight.w700,
@@ -130,6 +160,7 @@ class AddPostScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                if (SocialCubit.get(context).postImage != null)
                 Container(
                   child: Stack(
                     alignment: AlignmentDirectional.topEnd,
@@ -139,7 +170,6 @@ class AddPostScreen extends StatelessWidget {
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-
                             borderRadius: BorderRadius.circular(10),
                             boxShadow: [
                               BoxShadow(
@@ -153,8 +183,8 @@ class AddPostScreen extends StatelessWidget {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Image(
-                                image: NetworkImage(
-                                  'https://img.freepik.com/free-photo/enthusiastic-beautiful-girl-with-short-hairstyle-posing-with-kissing-face-expression-indoor-photo-gorgeous-romantic-woman-with-flowers-hair-isolated_197531-20580.jpg?w=360&t=st=1660176975~exp=1660177575~hmac=88c32690ca5d7eaf716996c376956968d776958df0f82e113be0cdfc138d9a09'
+                                image: FileImage(
+                                 cubit.postImage!
                                 ),
                                 fit: BoxFit.contain),
                           ),
@@ -162,7 +192,7 @@ class AddPostScreen extends StatelessWidget {
                       ),
                       IconButton(
                           onPressed: () {
-                           // bloc.removePostImage();
+                           cubit.removePostImage();
                           },
                           icon: Container(
                             decoration: BoxDecoration(
@@ -179,14 +209,13 @@ class AddPostScreen extends StatelessWidget {
                                     .scaffoldBackgroundColor,
                                 child: Icon(
                                   Icons.close_rounded,
-                                  color: Colors.white,
+                                  color: Colors.black,
                                 )),
                           ))
                     ],
                   ),
                 ),
-                //Spacer(),
-
+                space(0, 50),
               ],
             ),
           ),
@@ -199,7 +228,10 @@ class AddPostScreen extends StatelessWidget {
                       cubit.isDark ? Colors.white : const Color(0xff063750),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: ()
+                  {
+                    cubit.getPostImage();
+                  },
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   label: Text(
                     'Add photo'.toUpperCase(),
@@ -215,8 +247,11 @@ class AddPostScreen extends StatelessWidget {
               ),
             ],
           ),
+
         ],
       ),
     );
+  },
+);
   }
 }

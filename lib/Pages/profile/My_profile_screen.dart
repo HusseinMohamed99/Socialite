@@ -1,4 +1,5 @@
 import 'package:f_app/Pages/profile/Edit_profile_screen.dart';
+import 'package:f_app/model/post_model.dart';
 import 'package:f_app/model/user_model.dart';
 import 'package:f_app/shared/componnetns/components.dart';
 import 'package:f_app/shared/componnetns/constants.dart';
@@ -32,22 +33,30 @@ class MyProfileScreen extends StatelessWidget {
                     child: Stack(
                       alignment: AlignmentDirectional.bottomCenter,
                       children: [
-                        Align(
-                          alignment: AlignmentDirectional.topCenter,
-                          child: Container(
-                            decoration:  BoxDecoration(
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(
-                                    '${userModel!.cover}'
+                        InkWell(
+                          onTap: ()
+                          {
+                            ///view Photo
+                            // Navigator.push(
+                            //     context, MaterialPageRoute(builder: (context) => view()));
+                          },
+                          child: Align(
+                            alignment: AlignmentDirectional.topCenter,
+                            child: Container(
+                              decoration:  BoxDecoration(
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(
+                                      '${userModel!.cover}'
+                                    ),
                                   ),
-                                ),
-                                borderRadius: const BorderRadius.only(
-                                  topLeft:  Radius.circular(8.0),
-                                  topRight:  Radius.circular(8.0),
-                                )),
-                            width: double.infinity,
-                            height: 200,
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft:  Radius.circular(8.0),
+                                    topRight:  Radius.circular(8.0),
+                                  )),
+                              width: double.infinity,
+                              height: 200,
+                            ),
                           ),
                         ),
                         CircleAvatar(
@@ -68,13 +77,13 @@ class MyProfileScreen extends StatelessWidget {
                                 {
                                   pop(context);
                                 },
-                                icon: CircleAvatar(
+                                icon:  const CircleAvatar(
                                   backgroundColor:  Colors.black,
                                   child: Icon(
                                       IconlyLight.arrowLeft2,
                                     size: 30,
                                     color: Colors.white,
-                                    
+
                                   ),
                                 ),
                             ),
@@ -420,19 +429,42 @@ class MyProfileScreen extends StatelessWidget {
                 width: double.infinity,
               ),
             ),
-            Container(
-              width: double.infinity,
-              height: 300,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  image: const DecorationImage(
-                    image: NetworkImage(
-                    'https://img.freepik.com/free-photo/outdoor-portrait-happy-white-girl-posing-nature-photo-relaxed-lady-with-wavy-hair-standing-near-beautiful-rose-bush_197531-10489.jpg?w=996&t=st=1660093589~exp=1660094189~hmac=abd4a9f52ce9be8e9f6d38cc4e82d8d2de7ce55638fc37686d9d690789bbf775',
-                    ),
-                    fit: BoxFit.cover,
-                  ),
-              ),
-            ),
+            // Text(
+            //   '${userModel.text}',
+            //   style: GoogleFonts.libreBaskerville(
+            //     color: SocialCubit.get(context).isDark? Colors.black : Colors.white,
+            //   ),
+            // ),
+            space(0, 12),
+           // if (postModel.postImage != '')
+           //    Stack(
+           //      alignment: AlignmentDirectional.topEnd,
+           //      children: [
+           //        Align(
+           //          alignment: AlignmentDirectional.bottomCenter,
+           //          child: Container(
+           //            width: double.infinity,
+           //            decoration: BoxDecoration(
+           //              borderRadius: BorderRadius.circular(4),
+           //              boxShadow: [
+           //                BoxShadow(
+           //                  color: Colors.grey.withOpacity(0.4),
+           //                  // blurRadius: 0,
+           //                  // spreadRadius: 0,
+           //                  // offset: Offset(0, 0)
+           //                ),
+           //              ],
+           //            ),
+           //            child: ClipRRect(
+           //              borderRadius: BorderRadius.circular(15),
+           //              child: Image(
+           //                  image: NetworkImage('${postModel.postImage}'),
+           //                  fit: BoxFit.contain),
+           //            ),
+           //          ),
+           //        ),
+           //      ],
+           //    ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -472,57 +504,60 @@ class MyProfileScreen extends StatelessWidget {
                 width: double.infinity,
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                CircleAvatar(
-                  radius: 18,
-                  backgroundImage: NetworkImage(
-                    '${userModel.image}'
-                  ),
-                ),
-                space(10, 0),
-                InkWell(
-                  onTap: () {},
-                  child: SizedBox(
-                    width: 150,
-                    child: Text(
-                      'Write a comment ...',
-                      style: GoogleFonts.lobster(
-                        textStyle: Theme.of(context).textTheme.caption,
-                        fontSize: 15,
-                      ),
-                    ),
-                  ),
-                ),
-                TextButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(
-                    IconlyLight.heart,
-                    color: Colors.red,
-                  ),
-                  label: Text(
-                    'Like',
-                    style: GoogleFonts.lobster(
-                      color: Colors.red,
-                    ),
-                  ),
-                ),
-                TextButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(
-                    IconlyLight.upload,
-                    color: Colors.green,
-                  ),
-                  label: Text(
-                    'Share',
-                    style: GoogleFonts.lobster(
-                      color: Colors.green,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.start,
+            //   children: [
+            //     InkWell(
+            //       onTap: () {
+            //         navigateTo(context, const MyProfileScreen());
+            //       },
+            //       child: CircleAvatar(
+            //         radius: 18,
+            //         backgroundImage: NetworkImage('${postModel.image}'),
+            //       ),
+            //     ),
+            //     space(10, 0),
+            //     InkWell(
+            //       onTap: () {},
+            //       child: SizedBox(
+            //         width: 150,
+            //         child: Text(
+            //           'Write a comment ...',
+            //           style: GoogleFonts.lobster(
+            //             textStyle: Theme.of(context).textTheme.caption,
+            //             fontSize: 15,
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //     TextButton.icon(
+            //       onPressed: () {},
+            //       icon: const Icon(
+            //         IconlyLight.heart,
+            //         color: Colors.red,
+            //       ),
+            //       label: Text(
+            //         'Like',
+            //         style: GoogleFonts.lobster(
+            //           color: Colors.red,
+            //         ),
+            //       ),
+            //     ),
+            //     TextButton.icon(
+            //       onPressed: () {},
+            //       icon: const Icon(
+            //         IconlyLight.upload,
+            //         color: Colors.green,
+            //       ),
+            //       label: Text(
+            //         'Share',
+            //         style: GoogleFonts.lobster(
+            //           color: Colors.green,
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ),

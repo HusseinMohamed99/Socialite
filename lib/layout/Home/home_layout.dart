@@ -7,6 +7,7 @@ import 'package:f_app/shared/componnetns/components.dart';
 import 'package:f_app/shared/componnetns/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_switch/flutter_switch.dart';
@@ -70,6 +71,12 @@ class MainScreen extends StatelessWidget {
             backgroundColor:
                 cubit.isDark ? Colors.white : const Color(0xff063750),
             appBar: AppBar(
+              systemOverlayStyle: SystemUiOverlayStyle(
+                statusBarColor: cubit.isDark ?  Colors.white : const Color(0xff063750),
+                statusBarIconBrightness:cubit.isDark ? Brightness.dark : Brightness.light,
+                statusBarBrightness: cubit.isDark ? Brightness.dark : Brightness.light,
+              ),
+
               backgroundColor:
                   cubit.isDark ? Colors.white : const Color(0xff063750),
               elevation: 5,
@@ -197,6 +204,25 @@ class MenuScreen extends StatelessWidget {
                             '${userModel.image}',
                           ),
                           radius: 60,
+                        ),
+                      ),
+                      Positioned(
+                        top: 60,
+                        left: 5,
+                        child: IconButton(
+                          onPressed: ()
+                          {
+                           ZoomDrawer.of(context)!.close();
+                          },
+                          icon: const CircleAvatar(
+                            backgroundColor:  Colors.black,
+                            child: Icon(
+                              IconlyLight.arrowLeft2,
+                              size: 30,
+                              color: Colors.white,
+
+                            ),
+                          ),
                         ),
                       ),
                     ],

@@ -47,10 +47,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => SocialCubit()..getUserData()
+          create: (context) => SocialCubit()..getUserData()..getPosts()
         ),
         BlocProvider(
           create: (BuildContext context) => ModeCubit()
@@ -67,8 +68,8 @@ class MyApp extends StatelessWidget {
             theme: lightTheme,
             darkTheme: darkTheme,
             themeMode: ModeCubit.get(context).isDark
-                ? ThemeMode.light
-                : ThemeMode.dark,
+                ? ThemeMode.dark
+                : ThemeMode.light,
             home: SplashScreenView(
               navigateRoute: startWidget,
               duration: 5000,
@@ -86,8 +87,8 @@ class MyApp extends StatelessWidget {
                 Colors.redAccent,
               ],
               backgroundColor: ModeCubit.get(context).isDark
-                  ? Colors.white
-                  : const Color(0xff063750),
+                  ? const Color(0xff063750)
+                  :Colors.white ,
             ),
           );
         },
