@@ -1,9 +1,8 @@
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:f_app/Pages/Login/Auth_phone/Auth_Phone.dart';
 import 'package:f_app/Pages/forgetPassword/forgetPasswordScreen.dart';
+import 'package:f_app/Pages/on-boarding/on-boarding%20screen.dart';
 import 'package:f_app/shared/Cubit/loginCubit/cubit.dart';
 import 'package:f_app/Pages/Register/register_screen.dart';
-import 'package:f_app/layout/Home/home_layout.dart';
 import 'package:f_app/shared/Cubit/loginCubit/state.dart';
 import 'package:f_app/shared/componnetns/components.dart';
 import 'package:f_app/shared/network/cache_helper.dart';
@@ -11,10 +10,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../layout/Home/home_layout.dart';
+import '../../shared/Cubit/socialCubit/SocialCubit.dart';
+import '../../shared/componnetns/constants.dart';
+import '../email_verification/email_verification_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     var formKey = GlobalKey<FormState>();
@@ -24,30 +29,43 @@ class LoginScreen extends StatelessWidget {
       create: (BuildContext context) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginStates>(
         listener: (context, state) {
-          if (state is LoginErrorState) {
+          if (state is LoginSuccessState) {
+            CacheHelper.saveData(value: state.uid, key: 'uId').then((value) {
+              uId = state.uid;
+            });
+          } else if (state is LoginErrorState) {
             showToast(
               text: state.error,
               state: ToastStates.error,
             );
           }
-          if (state is LoginSuccessState) {
-            CacheHelper.saveData(
-              key: 'uId',
-              value: state.uid,
-            ).then((value) {
-              navigateAndFinish(context,  const HomeLayout());
-            });
-          }
         },
         builder: (context, state) {
+          var cubit = SocialCubit.get(context);
           return Scaffold(
+            backgroundColor:
+                cubit.isDark ? Colors.white : const Color(0xff063750),
             appBar: AppBar(
-              systemOverlayStyle: const SystemUiOverlayStyle(
-                  statusBarBrightness: Brightness.light,
-                  statusBarColor: Colors.transparent,
-                  statusBarIconBrightness: Brightness.dark),
-              backgroundColor: Colors.transparent,
-              elevation: 0,
+              systemOverlayStyle: SystemUiOverlayStyle(
+                statusBarColor:
+                    cubit.isDark ? Colors.white : const Color(0xff063750),
+                statusBarIconBrightness:
+                    cubit.isDark ? Brightness.dark : Brightness.light,
+                statusBarBrightness:
+                    cubit.isDark ? Brightness.dark : Brightness.light,
+              ),
+              backgroundColor:
+                  cubit.isDark ? Colors.white : const Color(0xff063750),
+              leading: IconButton(
+                onPressed: () {
+                  navigateTo(context, const OnBoard());
+                },
+                icon: Icon(
+                  IconlyLight.arrowLeft2,
+                  size: 30,
+                  color: cubit.isDark ? Colors.black : Colors.white,
+                ),
+              ),
             ),
             body: SingleChildScrollView(
               child: Padding(
@@ -61,17 +79,15 @@ class LoginScreen extends StatelessWidget {
                         child: Text(
                           'Sign in Now',
                           style: GoogleFonts.lobster(
-                            textStyle: const TextStyle(
-                              color: Colors.black,
+                            textStyle: TextStyle(
+                              color: cubit.isDark ? Colors.black : Colors.white,
                               fontSize: 40,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      space(0, 10),
                       Text(
                         'Please enter your information',
                         style: GoogleFonts.lobster(
@@ -88,8 +104,8 @@ class LoginScreen extends StatelessWidget {
                       Text(
                         'E-mail Address',
                         style: GoogleFonts.lobster(
-                          textStyle: const TextStyle(
-                            color: Colors.grey,
+                          textStyle: TextStyle(
+                            color: cubit.isDark ? Colors.black : Colors.white,
                             fontSize: 20,
                             fontWeight: FontWeight.w600,
                           ),
@@ -111,9 +127,7 @@ class LoginScreen extends StatelessWidget {
                         hint: 'E-mail',
                         prefix: Icons.alternate_email,
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      space(0, 20),
                       Text(
                         'Password',
                         style: GoogleFonts.lobster(
@@ -124,9 +138,7 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      space(0, 10),
                       defaultTextFormField(
                         context: context,
                         controller: passController,
@@ -145,9 +157,7 @@ class LoginScreen extends StatelessWidget {
                           LoginCubit.get(context).showPassword();
                         },
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      space(0, 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -156,7 +166,7 @@ class LoginScreen extends StatelessWidget {
                               navigateTo(context, RestPasswordScreen());
                             },
                             child: Text(
-                              'Forget Password?',
+                              'Forget Password ?',
                               style: GoogleFonts.lobster(
                                 textStyle: const TextStyle(
                                   color: Colors.grey,
@@ -168,92 +178,136 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Center(
-                        child: ConditionalBuilder(
-                            condition: state is! LoginLoadingState,
-                            builder: (context) => defaultMaterialButton(
-                                  function: () async {
-                                    if (formKey.currentState!.validate()) {
-                                      LoginCubit.get(context).userLogin(
-                                        email: emailController.text,
-                                        password: passController.text,
-                                      );
-                                    }
-                                  },
-                                  text: 'Login',
-                                ),
-                            fallback: (BuildContext context) => const Center(
-                                child: CircularProgressIndicator())),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      space(0, 30),
+                      state is! LoginLoadingState
+                          ? Center(
+                              child: defaultMaterialButton(
+                                function: () {
+                                  if (formKey.currentState!.validate()) {
+                                    LoginCubit.get(context)
+                                        .userLogin(
+                                          email: emailController.text,
+                                          password: passController.text,
+                                        )
+                                        .then((value) => {
+                                              LoginCubit.get(context)
+                                                  .LoginreloadUser()
+                                                  .then((value) {
+                                                if (LoginCubit.get(context)
+                                                    .isEmailVerified) {
+                                                  navigateAndFinish(context,
+                                                      const HomeLayout());
+                                                  SocialCubit()..getUserData()..getPosts();
+                                                } else {
+                                                  navigateTo(context,
+                                                      const EmailVerificationScreen());
+                                                }
+                                              })
+                                            });
+                                  }
+                                },
+                                text: 'Login',
+                              ),
+                            )
+                          : const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                      space(0, 20),
                       Row(
                         children: [
                           Text(
                             'Don\'t have an account?',
                             style: GoogleFonts.lobster(
-                              textStyle: const TextStyle(
-                                color: Colors.black,
+                              textStyle: TextStyle(
+                                color:
+                                    cubit.isDark ? Colors.black : Colors.white,
                                 fontSize: 20,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),
-                          TextButton(
-                            onPressed: () {
-                              navigateTo(context, const RegisterScreen());
-                            },
-                            child: Text(
-                              'Register Now!',
-                              style: GoogleFonts.lobster(
-                                textStyle: const TextStyle(
-                                  color: Colors.blue,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                          )
+                          cubit.isDark == true
+                              ? TextButton(
+                                  onPressed: () {
+                                    navigateTo(context, const RegisterScreen());
+                                  },
+                                  child: Text(
+                                    'Register Now!',
+                                    style: GoogleFonts.lobster(
+                                      textStyle: TextStyle(
+                                        color: cubit.isDark
+                                            ? Colors.blue
+                                            : Colors.black,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : Container(
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 7),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(40)),
+                                  child: TextButton(
+                                    onPressed: () {
+                                      navigateTo(
+                                          context, const RegisterScreen());
+                                    },
+                                    child: Text(
+                                      'Register Now!',
+                                      style: GoogleFonts.lobster(
+                                        textStyle: const TextStyle(
+                                          color: Colors.blue,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
                         ],
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          InkWell(
-                            onTap: () async {
-                              UserCredential userCredential =
-                                  await LoginCubit.get(context)
-                                      .signInWithGoogle();
-                              debugPrint(userCredential.toString());
-                            },
-                            child: const CircleAvatar(
-                              backgroundImage: AssetImage(
-                                'assets/images/Google_Logo.png',
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            InkWell(
+                              borderRadius: BorderRadius.circular(15),
+                              onTap: () async {
+                                UserCredential userCredential =
+                                    await LoginCubit.get(context)
+                                        .signInWithGoogle();
+                                debugPrint(userCredential.toString());
+                                navigateTo(context, const HomeLayout());
+                              },
+                              child: CircleAvatar(
+                                backgroundImage: const AssetImage(
+                                  'assets/images/Google_Logo.png',
+                                ),
+                                radius: 30,
+                                backgroundColor:
+                                    cubit.isDark ? Colors.black : Colors.white,
                               ),
-                              radius: 30,
-                              backgroundColor: Colors.transparent,
                             ),
-                          ),
-                          const SizedBox(
-                            width: 20.0,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              navigateTo(context, const AuthPhone());
-                            },
-                            child: const CircleAvatar(
-                              backgroundImage: AssetImage(
-                                'assets/images/phone.png',
+                            InkWell(
+                              borderRadius: BorderRadius.circular(15),
+                              onTap: () {
+                                navigateTo(context, const AuthPhone());
+                              },
+                              child: CircleAvatar(
+                                backgroundImage: const AssetImage(
+                                  'assets/images/phone.png',
+                                ),
+                                radius: 30,
+                                backgroundColor:
+                                    cubit.isDark ? Colors.black : Colors.white,
                               ),
-                              radius: 50,
-                              backgroundColor: Colors.transparent,
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),

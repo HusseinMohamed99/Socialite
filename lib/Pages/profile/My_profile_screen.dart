@@ -1,4 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:f_app/Pages/addPost/addPostScreen.dart';
 import 'package:f_app/Pages/profile/Edit_profile_screen.dart';
 import 'package:f_app/model/post_model.dart';
 import 'package:f_app/shared/componnetns/components.dart';
@@ -25,7 +26,31 @@ class MyProfileScreen extends StatelessWidget {
           List<PostModel>? userPosts = SocialCubit.get(context).userPosts;
           var userModel = SocialCubit.get(context).userModel;
           var cubit = SocialCubit.get(context);
-          return userPosts!.isEmpty
+          return SocialCubit.get(context).userModel == null
+              ? Scaffold(
+              backgroundColor:
+              cubit.isDark ? Colors.white : const Color(0xff063750),
+              body: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(
+                      IconlyLight.infoSquare,
+                      size: 100,
+                      color: Colors.grey,
+                    ),
+                    Text(
+                      'No Posts yet',
+                      style: GoogleFonts.libreBaskerville(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 30,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+              )):
+            userPosts!.isEmpty
               ? SafeArea(
                 child: Scaffold(
                  backgroundColor:
@@ -297,7 +322,10 @@ class MyProfileScreen extends StatelessWidget {
                                   children: [
                                     InkWell(
                                       borderRadius: BorderRadius.circular(20),
-                                      onTap: () {},
+                                      onTap: ()
+                                      {
+                                        navigateTo(context, AddPostScreen());
+                                      },
                                       child: Row(
                                         children: [
                                           CircleAvatar(
@@ -341,7 +369,11 @@ class MyProfileScreen extends StatelessWidget {
                                       color: Colors.grey,
                                     ),
                                     IconButton(
-                                      onPressed: () {},
+                                      onPressed: ()
+                                      {
+                                        cubit.getPostImage();
+                                        navigateTo(context, AddPostScreen());
+                                      },
                                       icon: Icon(
                                         Icons.photo_library_outlined,
                                         size: 30,
@@ -372,7 +404,7 @@ class MyProfileScreen extends StatelessWidget {
                     ),
                   ),
                   fallback: (BuildContext context) =>
-                      CircularProgressIndicator(),
+                      const CircularProgressIndicator(),
                 );
         },
       );
@@ -610,8 +642,8 @@ Widget buildProfileWithOutPosts () => Builder(
           ),
         ),
         myDivider2(),
-        Spacer(),
-        Icon(
+        const Spacer(),
+        const Icon(
           IconlyLight.infoSquare,
           size: 100,
           color: Colors.grey,
@@ -622,7 +654,7 @@ Widget buildProfileWithOutPosts () => Builder(
           fontSize: 30,
           color:  Colors.grey,
         ),),
-        Spacer(),
+        const Spacer(),
       ],
     );
   }
@@ -644,7 +676,10 @@ Widget buildPostItem(PostModel postModel, context) {
           Row(
             children: [
               InkWell(
-                onTap: () {},
+                onTap: ()
+                {
+
+                },
                 borderRadius: BorderRadius.circular(25),
                 child: CircleAvatar(
                   radius: 25,
@@ -682,7 +717,8 @@ Widget buildPostItem(PostModel postModel, context) {
                       ],
                     ),
                     Text(
-                      'May 15,2022 at 9:00 pm',
+                      daysBetween(
+                          DateTime.parse(postModel.dateTime.toString())),
                       style: GoogleFonts.lobster(
                           fontSize: 15,
                           color: Colors.grey,

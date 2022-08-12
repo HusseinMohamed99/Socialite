@@ -2,8 +2,12 @@ import 'package:f_app/layout/Home/home_layout.dart';
 import 'package:f_app/shared/componnetns/components.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
+
+import '../../../shared/Cubit/socialCubit/SocialCubit.dart';
 
 class OTPScreen extends StatefulWidget {
   final String phone;
@@ -22,22 +26,48 @@ class OTPScreenState extends State<OTPScreen> {
     height: 56,
     textStyle: const TextStyle(
         fontSize: 20,
-        color: Color.fromRGBO(30, 60, 87, 1),
+        color: Colors.black,
         fontWeight: FontWeight.w600),
     decoration: BoxDecoration(
+      color: Colors.white,
       border: Border.all(color: Colors.black),
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(10),
     ),
   );
   @override
   Widget build(BuildContext context) {
+    var cubit = SocialCubit.get(context);
     return Scaffold(
+      backgroundColor:
+      cubit.isDark ? Colors.white : const Color(0xff063750),
       key: _scaffoldkey,
       appBar: AppBar(
-        title: Text('Verification',style: GoogleFonts.lato(
-          fontSize: 24,
-          fontWeight: FontWeight.w700
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: cubit.isDark ?  Colors.white : const Color(0xff063750),
+          statusBarIconBrightness:cubit.isDark ? Brightness.dark : Brightness.light,
+          statusBarBrightness: cubit.isDark ? Brightness.dark : Brightness.light,
         ),
+        backgroundColor:
+        cubit.isDark ? Colors.white : const Color(0xff063750),
+        elevation: 0,
+        title: Text('Verification',style: GoogleFonts.lobster(
+          textStyle: TextStyle(
+            color:
+            cubit.isDark ? Colors.black : Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        ),
+        leading: IconButton(
+          onPressed: () {
+            pop(context);
+          },
+          icon: Icon(
+            IconlyLight.arrowLeft2,
+            color:  cubit.isDark ? Colors.black : Colors.white,
+
+          ),
         ),
       ),
       body: Column(
@@ -46,14 +76,22 @@ class OTPScreenState extends State<OTPScreen> {
             margin: const EdgeInsets.only(top: 40),
             child: Center(
               child: Text(
-                'Verify +2-${widget.phone}',
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
+                'Verify +2${widget.phone}',
+                style: GoogleFonts.lobster(
+                  textStyle: TextStyle(
+                    color:
+                    cubit.isDark ? Colors.black : Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Pinput(
+
               length: 6,
               defaultPinTheme: defaultPinTheme,
               controller: _pinPutController,
@@ -70,7 +108,14 @@ class OTPScreenState extends State<OTPScreen> {
                   }).catchError((error)
                   {
                     ScaffoldMessenger.of(context)
-                        .showSnackBar(SnackBar(content: Text(error.toString())));
+                        .showSnackBar(SnackBar(backgroundColor: cubit.isDark ? Colors.black : Colors.white,content: Text(error.toString(),style: GoogleFonts.lobster(
+                      textStyle: TextStyle(
+                        color:
+                        cubit.isDark ? Colors.black : Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),),));
                   });
               },
             ),

@@ -2,10 +2,13 @@ import 'package:f_app/Pages/Login/login_screen.dart';
 import 'package:f_app/shared/Cubit/restPasswordCubit/rest_password_cubit.dart';
 import 'package:f_app/shared/Cubit/restPasswordCubit/rest_password_state.dart';
 import 'package:f_app/shared/componnetns/components.dart';
+import 'package:f_app/shared/componnetns/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../shared/Cubit/socialCubit/SocialCubit.dart';
 
 class RestPasswordScreen extends StatelessWidget {
   var loginFormKey = GlobalKey<FormState>();
@@ -23,23 +26,44 @@ class RestPasswordScreen extends StatelessWidget {
           }
         },
         builder: (context, state) {
+          var cubit = SocialCubit.get(context);
           return Scaffold(
             extendBodyBehindAppBar: true,
+            backgroundColor:
+                cubit.isDark ? Colors.white : const Color(0xff063750),
+            // backgroundColor:
+            // cubit.isDark ? Colors.white : Colors.white,
             appBar: AppBar(
-              systemOverlayStyle: const SystemUiOverlayStyle(
-                  statusBarBrightness: Brightness.light,
-                  statusBarColor: Colors.transparent,
-                  statusBarIconBrightness: Brightness.dark),
-              backgroundColor: Colors.transparent,
-              elevation: 0,
+              systemOverlayStyle: SystemUiOverlayStyle(
+                statusBarColor:
+                    cubit.isDark ? Colors.white : const Color(0xff063750),
+                statusBarIconBrightness:
+                    cubit.isDark ? Brightness.dark : Brightness.light,
+                statusBarBrightness:
+                    cubit.isDark ? Brightness.dark : Brightness.light,
+              ),
+              backgroundColor:
+                  cubit.isDark ? Colors.white : const Color(0xff063750),
+              elevation: 1,
               leading: IconButton(
                 onPressed: () {
                   emailController.clear();
                   pop(context);
                 },
-                icon: const Icon(
+                icon: Icon(
                   Icons.arrow_back,
-                  color: Colors.black,
+                  color: cubit.isDark ? Colors.black : Colors.white,
+                ),
+              ),
+              titleSpacing: 1,
+              title: Text(
+                'Forget Password',
+                style: GoogleFonts.lobster(
+                  textStyle: TextStyle(
+                    color: cubit.isDark ? Colors.black : Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ),
@@ -64,12 +88,12 @@ class RestPasswordScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Enter the email address associated with your account',
-                              overflow: TextOverflow.visible,
-                              style: GoogleFonts.robotoCondensed(
-                                fontSize: 30,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black.withOpacity(0.7),
+                              'Enter the E-mail address associated with your account',
+                              style: GoogleFonts.libreBaskerville(
+                                fontSize: 27,
+                                fontWeight: FontWeight.w900,
+                                color:
+                                    cubit.isDark ? Colors.black : Colors.white,
                               ),
                             ),
                           ],
@@ -78,22 +102,41 @@ class RestPasswordScreen extends StatelessWidget {
                       Container(
                         height: 200,
                         width: double.infinity,
-                        padding: const EdgeInsets.all(15),
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                          20,
+                          25,
+                          20,
+                          0,
+                        ),
                         decoration: BoxDecoration(
-                            border: Border.all(),
-                            color: Colors.grey.shade50,
+                            boxShadow: [
+                              BoxShadow(
+                                blurStyle: BlurStyle.outer,
+                                  color: cubit.isDark
+                                      ? const Color(0xff063750)
+                                      : Colors.white,
+                                  blurRadius: 9,
+                                  spreadRadius: 10,
+                                  offset: const Offset(0, 1))
+                            ],
+                            border: Border.all(
+                              color: cubit.isDark
+                                  ? const Color(0xff063750)
+                                  : Colors.white,
+                            ),
+                            color: cubit.isDark
+                                ? Colors.white
+                                : const Color(0xff063750),
                             borderRadius: const BorderRadius.only(
-                              topRight: Radius.circular(40.0),
-                              topLeft: Radius.circular(40.0),
+                              topRight: Radius.circular(50.0),
+                              topLeft: Radius.circular(50.0),
                             )),
                         child: Form(
                           key: loginFormKey,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const SizedBox(
-                                height: 10,
-                              ),
+                             space(0, 10),
                               defaultTextFormField(
                                 context: context,
                                 controller: emailController,
@@ -107,24 +150,28 @@ class RestPasswordScreen extends StatelessWidget {
                                 },
                                 hint: 'E-mail Address',
                               ),
-                              const SizedBox(
-                                height: 40,
-                              ),
+                             const Spacer(),
                               state is ResetPasswordLoadingState
                                   ? const Center(
                                       child: CircularProgressIndicator())
-                                  : defaultTextButton(
-                                      text: 'RESET PASSWORD',
-                                      function: () {
-                                        if (loginFormKey.currentState!
-                                            .validate()) {
-                                          ResetPasswordCubit.get(context)
-                                              .resetPassword(
-                                            email: emailController.text,
-                                          );
-                                        }
-                                      },
-                                    ),
+                                  : Container(
+                                color: cubit.isDark
+                                    ? Colors.blue
+                                    : Colors.white,
+                                    child: defaultTextButton(
+                                           context: context,
+                                        text: 'RESET PASSWORD',
+                                        function: () {
+                                          if (loginFormKey.currentState!
+                                              .validate()) {
+                                            ResetPasswordCubit.get(context)
+                                                .resetPassword(
+                                              email: emailController.text,
+                                            );
+                                          }
+                                        },
+                                      ),
+                                  ),
                             ],
                           ),
                         ),

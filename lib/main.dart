@@ -8,7 +8,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
-import 'shared/Cubit/modeCubit/cubit.dart';
 import 'shared/componnetns/constants.dart';
 import 'shared/network/cache_helper.dart';
 
@@ -51,14 +50,18 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => SocialCubit()..getUserData()..getPosts()
+          create: (context) => SocialCubit()
+            ..getUserData()
+            ..getPosts()
+            ..changeMode(fromShared: isDark,)
+
         ),
-        BlocProvider(
-          create: (BuildContext context) => ModeCubit()
-            ..changeAppMode(
-              fromShared: isDark,
-            ),
-        ),
+        // BlocProvider(
+        //   create: (BuildContext context) => ModeCubit()
+        //     ..changeAppMode(
+        //       fromShared: isDark,
+        //     ),
+        // ),
       ],
       child: BlocConsumer<SocialCubit, SocialStates>(
         listener: (context, state) {},
@@ -67,7 +70,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
             darkTheme: darkTheme,
-            themeMode: ModeCubit.get(context).isDark
+            themeMode: SocialCubit.get(context).isDark
                 ? ThemeMode.dark
                 : ThemeMode.light,
             home: SplashScreenView(
@@ -86,9 +89,9 @@ class MyApp extends StatelessWidget {
                 Colors.yellow,
                 Colors.redAccent,
               ],
-              backgroundColor: ModeCubit.get(context).isDark
-                  ? const Color(0xff063750)
-                  :Colors.white ,
+              backgroundColor: SocialCubit.get(context).isDark
+                  ? Colors.white
+                  : const Color(0xff063750) ,
             ),
           );
         },

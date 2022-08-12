@@ -21,7 +21,7 @@ Widget defaultTextFormField({
   InputDecoration? decoration,
   IconData? suffix,
   IconData? prefix,
-  Function? suffixPressed,}) {
+  Function? suffixPressed,  TextStyle? style,}) {
   return TextFormField(
       focusNode: FocusNode(),
       style: GoogleFonts.libreBaskerville(
@@ -87,14 +87,14 @@ Widget defaultTextFormField({
 }
 
 Widget defaultMaterialButton({
-  required Function function,
+  required Function() function,
   required String text,
   double width = 300,
   double height = 45.0,
   double radius = 10.0,
   bool isUpperCase = true,
-  Function? onTap,}) {
-  return Container(
+  Function? onTap,}) =>
+   Container(
       width: width,
       height: height,
       decoration: BoxDecoration(
@@ -105,9 +105,7 @@ Widget defaultMaterialButton({
         //  color: background,
       ),
       child: MaterialButton(
-        onPressed: () {
-          function();
-        },
+        onPressed: function,
         child: Text(
           isUpperCase ? text.toUpperCase() : text,
           style: const TextStyle(
@@ -117,16 +115,22 @@ Widget defaultMaterialButton({
         ),
       ),
     );
-}
+
 
 Widget defaultTextButton({
   required Function function,
-  required String text,}) {
+  required String text,
+required BuildContext context
+}) {
   return TextButton(
       onPressed: () {
         function();
       },
-      child: Text(text),
+      child: Text(text,style: GoogleFonts.libreBaskerville(
+        fontWeight: FontWeight.w400,
+        color:
+        SocialCubit.get(context).isDark ? Colors.white : Colors.black,
+      ),),
     );
 }
 
@@ -206,7 +210,7 @@ void logOut(context) {
     key: 'uId',
   ).then((value) {
     if (value) {
-      navigateAndFinish(context, const LoginScreen());
+      navigateAndFinish(context,  const LoginScreen());
     }
   });
 }

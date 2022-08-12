@@ -19,7 +19,30 @@ class AddPostScreen extends StatelessWidget {
     return BlocConsumer<SocialCubit, SocialStates>(
   listener: (context, state) {},
   builder: (context, state) {
-    return Scaffold(
+    return
+      // SocialCubit.get(context).userModel == null
+      //   ? Scaffold(
+      //   backgroundColor:
+      //   cubit.isDark ? Colors.white : const Color(0xff063750),
+      //   body: Column(
+      //     children: [
+      //        Icon(
+      //         IconlyLight.infoSquare,
+      //         size: 100,
+      //         color: Colors.grey,
+      //       ),
+      //       Text(
+      //         'No Posts yet',
+      //         style: GoogleFonts.libreBaskerville(
+      //           fontWeight: FontWeight.w700,
+      //           fontSize: 30,
+      //           color: Colors.grey,
+      //         ),
+      //       ),
+      //     ],
+      //   )):
+
+      Scaffold(
       backgroundColor: cubit.isDark ? Colors.white : const Color(0xff063750),
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle(
@@ -85,7 +108,7 @@ class AddPostScreen extends StatelessWidget {
             child: Column(
               children: [
                 if(state is CreatePostLoadingState)
-                LinearProgressIndicator(),
+                const LinearProgressIndicator(),
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(
                     20,
@@ -161,59 +184,57 @@ class AddPostScreen extends StatelessWidget {
                   ),
                 ),
                 if (SocialCubit.get(context).postImage != null)
-                Container(
-                  child: Stack(
-                    alignment: AlignmentDirectional.topEnd,
-                    children: [
-                      Align(
-                        alignment: AlignmentDirectional.bottomCenter,
-                        child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.grey.withOpacity(0.4),
-                                  // blurRadius: 9,
-                                  // spreadRadius: 4,
-                                  // offset: Offset(0, 4)
+                Stack(
+                  alignment: AlignmentDirectional.topEnd,
+                  children: [
+                    Align(
+                      alignment: AlignmentDirectional.bottomCenter,
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.grey.withOpacity(0.4),
+                                // blurRadius: 9,
+                                // spreadRadius: 4,
+                                // offset: Offset(0, 4)
+                            ),
+                          ],
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image(
+                              image: FileImage(
+                               cubit.postImage!
                               ),
-                            ],
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image(
-                                image: FileImage(
-                                 cubit.postImage!
-                                ),
-                                fit: BoxFit.contain),
-                          ),
+                              fit: BoxFit.contain),
                         ),
                       ),
-                      IconButton(
-                          onPressed: () {
-                           cubit.removePostImage();
-                          },
-                          icon: Container(
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.grey.withOpacity(0.4),
-                                      blurRadius: 9,
-                                      spreadRadius: 4,
-                                      offset: Offset(0, 4))
-                                ]),
-                            child: CircleAvatar(
-                                backgroundColor: Theme.of(context)
-                                    .scaffoldBackgroundColor,
-                                child: Icon(
-                                  Icons.close_rounded,
-                                  color: Colors.black,
-                                )),
-                          ))
-                    ],
-                  ),
+                    ),
+                    IconButton(
+                        onPressed: () {
+                         cubit.removePostImage();
+                        },
+                        icon: Container(
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey.withOpacity(0.4),
+                                    blurRadius: 9,
+                                    spreadRadius: 4,
+                                    offset: const Offset(0, 4))
+                              ]),
+                          child: CircleAvatar(
+                              backgroundColor: Theme.of(context)
+                                  .scaffoldBackgroundColor,
+                              child: const Icon(
+                                Icons.close_rounded,
+                                color: Colors.black,
+                              )),
+                        ))
+                  ],
                 ),
                 space(0, 50),
               ],

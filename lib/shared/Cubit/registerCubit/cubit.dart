@@ -16,7 +16,7 @@ void userRegister({
   required String password,
   required String phone,
   required String name,
-}) {
+})async {
   debugPrint('Done');
   emit(RegisterLoadingState());
 FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -42,7 +42,7 @@ void userCreate({
   required String name,
   required String uId,
 })
-{
+ async{
   UserModel model = UserModel(
     email: email,
     phone: phone,
@@ -57,9 +57,8 @@ void userCreate({
       .collection('users')
       .doc(uId)
       .set(model.toMap())
-      .then((value)
-  {
-emit(UserCreateSuccessState());
+      .then((value) {
+emit(UserCreateSuccessState(uId));
   }).catchError((error)
   {
     emit(UserCreateErrorState(error));

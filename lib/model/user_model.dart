@@ -6,10 +6,11 @@ class UserModel {
   String? image;
   String? cover;
   String? bio;
-  bool? isEmailVerified = false;
+  bool? isEmailVerified ;
 
   UserModel(
-      { this.uId,
+      {
+       this.uId,
        this.phone,
        this.name,
        this.email,
@@ -26,9 +27,6 @@ class UserModel {
     image = json['image'];
     cover = json['cover'];
     bio = json['bio'];
-
-
-
     isEmailVerified = json['isEmailVerified'];
   }
   Map<String, dynamic> toMap() {

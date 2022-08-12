@@ -1,4 +1,3 @@
-import 'package:f_app/Pages/Login/login_screen.dart';
 import 'package:f_app/Pages/forgetPassword/forgetPasswordScreen.dart';
 import 'package:f_app/Pages/notifications/notifications_screen.dart';
 import 'package:f_app/Pages/profile/My_profile_screen.dart';
@@ -23,7 +22,29 @@ class SettingScreen extends StatelessWidget {
       builder: (context, state) {
         var userModel = SocialCubit.get(context).userModel!;
         var cubit = SocialCubit.get(context);
-        return SingleChildScrollView(
+        return
+          // SocialCubit.get(context).userModel == null
+          //   ? Scaffold(
+          //   backgroundColor:
+          //   cubit.isDark ? Colors.white : const Color(0xff063750),
+          //   body: Column(
+          //     children: [
+          //       Icon(
+          //         IconlyLight.infoSquare,
+          //         size: 100,
+          //         color: Colors.grey,
+          //       ),
+          //       Text(
+          //         'No Posts yet',
+          //         style: GoogleFonts.libreBaskerville(
+          //           fontWeight: FontWeight.w700,
+          //           fontSize: 30,
+          //           color: Colors.grey,
+          //         ),
+          //       ),
+          //     ],
+          //   )) :
+          SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
@@ -403,11 +424,9 @@ class SettingScreen extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
-                      onTap: ()
-                      {
-                        FirebaseAuth.instance.signOut();
-                        navigateAndFinish(context, const LoginScreen());
+                      onTap: () {
                         logOut(context);
+                        FirebaseAuth.instance.signOut();
                       },
                       child: Row(
                         children: [

@@ -30,7 +30,31 @@ class EditProfileScreen extends StatelessWidget {
         nameController.text = userModel.name!;
         phoneController.text = userModel.phone!;
 
-        return SafeArea(
+        return SocialCubit.get(context).userModel == null
+            ? Scaffold(
+            backgroundColor:
+            cubit.isDark ? Colors.white : const Color(0xff063750),
+            body: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(
+                    IconlyLight.infoSquare,
+                    size: 100,
+                    color: Colors.grey,
+                  ),
+                  Text(
+                    'No Posts yet',
+                    style: GoogleFonts.libreBaskerville(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 30,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            )):
+          SafeArea(
           child: Scaffold(
             backgroundColor:
                 cubit.isDark ? Colors.white : const Color(0xff063750),

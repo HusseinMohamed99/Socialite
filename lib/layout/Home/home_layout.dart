@@ -1,4 +1,3 @@
-import 'package:f_app/Pages/Login/login_screen.dart';
 import 'package:f_app/Pages/drawer/drawerItem.dart';
 import 'package:f_app/model/drawerModel.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
@@ -25,7 +24,31 @@ class HomeLayout extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = SocialCubit.get(context);
-        return ZoomDrawer(
+        return SocialCubit.get(context).userModel == null
+            ? Scaffold(
+            backgroundColor:
+            cubit.isDark ? Colors.white : const Color(0xff063750),
+            body: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(
+                    IconlyLight.infoSquare,
+                    size: 100,
+                    color: Colors.grey,
+                  ),
+                  Text(
+                    'No Posts yet',
+                    style: GoogleFonts.libreBaskerville(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 30,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            )):
+          ZoomDrawer(
           controller: drawerController,
           borderRadius: 50.0,
           dragOffset: 10.0,
@@ -42,7 +65,8 @@ class HomeLayout extends StatelessWidget {
           }),
           mainScreen: cubit.mScreen,
           showShadow: true,
-          menuBackgroundColor: Colors.grey[300]!,
+          menuBackgroundColor:
+              cubit.isDark ? const Color(0xff063750) : Colors.white,
           drawerShadowsBackgroundColor: cubit.isDark? Colors.grey.shade400: Colors.blue.shade200,
           reverseDuration: const Duration(milliseconds: 250),
           openCurve: Curves.fastOutSlowIn,
@@ -76,7 +100,6 @@ class MainScreen extends StatelessWidget {
                 statusBarIconBrightness:cubit.isDark ? Brightness.dark : Brightness.light,
                 statusBarBrightness: cubit.isDark ? Brightness.dark : Brightness.light,
               ),
-
               backgroundColor:
                   cubit.isDark ? Colors.white : const Color(0xff063750),
               elevation: 5,
@@ -137,7 +160,31 @@ class MainScreen extends StatelessWidget {
                 ),
               ),
             ),
-            body: cubit.screens[cubit.currentIndex],
+            body: SocialCubit.get(context).userModel == null
+                ? Scaffold(
+                backgroundColor:
+                cubit.isDark ? Colors.white : const Color(0xff063750),
+                body: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        IconlyLight.infoSquare,
+                        size: 100,
+                        color: Colors.grey,
+                      ),
+                      Text(
+                        'No Posts yet',
+                        style: GoogleFonts.libreBaskerville(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 30,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                )):
+            cubit.screens[cubit.currentIndex],
           ),
         );
       },
@@ -164,13 +211,33 @@ class MenuScreen extends StatelessWidget {
       builder: (context, state) {
         var cubit = SocialCubit.get(context);
         var userModel = SocialCubit.get(context).userModel!;
-        return SafeArea(
+        return SocialCubit.get(context).userModel == null
+            ? Scaffold(
+            backgroundColor:
+            cubit.isDark ? Colors.white : const Color(0xff063750),
+            body: Column(
+              children: [
+                const Icon(
+                  IconlyLight.infoSquare,
+                  size: 100,
+                  color: Colors.grey,
+                ),
+                Text(
+                  'No Posts yet',
+                  style: GoogleFonts.libreBaskerville(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 30,
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            )):
+          SafeArea(
           child: Scaffold(
             resizeToAvoidBottomInset: false,
             extendBody: true,
-            backgroundColor: cubit.isDark
-                ? Colors.white.withOpacity(0.4)
-                : const Color(0xff063750),
+            backgroundColor:
+              cubit.isDark ? Colors.white : const Color(0xff063750),
             body: Column(
               children: [
                 SizedBox(
@@ -286,9 +353,9 @@ class MenuScreen extends StatelessWidget {
                 space(0, 10),
                 InkWell(
                   onTap: () {
-                    FirebaseAuth.instance.signOut();
-                    navigateAndFinish(context, const LoginScreen());
                     logOut(context);
+                    FirebaseAuth.instance.signOut();
+
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -325,7 +392,28 @@ class MenuScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           var cubit = SocialCubit.get(context);
-          return Padding(
+          return SocialCubit.get(context).userModel == null
+              ?  Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(
+                      IconlyLight.infoSquare,
+                      size: 100,
+                      color: Colors.grey,
+                    ),
+                    Text(
+                      'No Posts yet',
+                      style: GoogleFonts.libreBaskerville(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 30,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+              : Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: ListTile(
               selected: currentItem == item,

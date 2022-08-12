@@ -98,7 +98,10 @@ ThemeData darkTheme = ThemeData(
   ),
 );
 
+
+
 ThemeData lightTheme = ThemeData(
+  cardColor: Colors.white,
   primarySwatch: dColor,
   scaffoldBackgroundColor: Colors.white,
   appBarTheme: const AppBarTheme(

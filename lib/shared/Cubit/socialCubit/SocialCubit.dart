@@ -54,11 +54,11 @@ class SocialCubit extends Cubit<SocialStates> {
   int currentIndex = 0;
   List<Widget> screens =
   [
-     const FeedScreen(),
-     const ChatScreen(),
-     const UserScreen(),
-     const StoryScreen(),
-     const SettingScreen(),
+      const FeedScreen(),
+      const ChatScreen(),
+      const UserScreen(),
+      const StoryScreen(),
+      const SettingScreen(),
   ];
 ///END : Screens
 
@@ -520,21 +520,20 @@ void removePostImage()
   PostModel? postModel;
   void getPosts()
   {
-    posts.clear();
+    posts=[];
     emit(GetPostsLoadingState());
     FirebaseFirestore.instance
         .collection('posts')
         .orderBy('dateTime',descending: true)
-        .get()
-        .then((value)
+        .snapshots()
+        .listen((event)
     {
-      for (var element in value.docs) {
+      posts=[];
+      for (var element in event.docs) {
+
         posts.add(PostModel.fromJson(element.data()));
       }
       emit(GetPostsSuccessState());
-    }).catchError((error)
-    {
-      emit(GetPostsErrorState(error.toString()));
     });
   }
 
@@ -547,7 +546,7 @@ List <PostModel>? userPosts =[];
   {
    FirebaseFirestore.instance
        .collection('posts')
-       .orderBy('dateTime')
+       .orderBy('dateTime',descending: true)
        .snapshots()
        .listen((event)
    {

@@ -18,3 +18,11 @@ class LoginErrorState extends LoginStates{
 }
 
 class ShowPasswordState extends LoginStates{}
+
+// get user Reload states
+class LoginReloadLoadingState extends LoginStates {}
+class LoginReloadSuccessState extends LoginStates {}
+class LoginReloadErrorState extends LoginStates {
+  final String? errorString ;
+  LoginReloadErrorState(this.errorString);
+}

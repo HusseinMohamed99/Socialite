@@ -9,13 +9,13 @@ class LoginCubit extends Cubit<LoginStates> {
 
   static LoginCubit get(context) => BlocProvider.of(context);
 ///START : Login With E-mail & Password
-  void userLogin({
+  Future<void> userLogin({
     required String email,
     required String password,
   })async {
     debugPrint('Done');
     emit(LoginLoadingState());
-    FirebaseAuth.instance
+  await  FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) {
 
@@ -56,5 +56,21 @@ class LoginCubit extends Cubit<LoginStates> {
   }
 ///END : SignIN With Google
 
+  bool isEmailVerified = false;
+  Future<void> LoginreloadUser() async {
+    emit(LoginReloadLoadingState());
+    await FirebaseAuth.instance.currentUser!.reload()
+        .then((value){
+      if (FirebaseAuth.instance.currentUser!.emailVerified)
+      {
+        isEmailVerified = true;
 
+      }
+
+      emit(LoginReloadSuccessState());
+    })
+        .catchError((error){
+      emit(LoginReloadErrorState(error.toString()));
+    });
+  }
 }

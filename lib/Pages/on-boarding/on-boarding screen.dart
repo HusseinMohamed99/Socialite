@@ -12,7 +12,6 @@ class OnBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Stack(
       children:
       [
@@ -20,7 +19,7 @@ class OnBoard extends StatelessWidget {
           constraints: const BoxConstraints.expand(),
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/images/background.jpg"),
+              image: AssetImage("assets/images/back.jpg"),
               fit: BoxFit.cover,
             ),
           ),
@@ -47,7 +46,7 @@ class OnBoard extends StatelessWidget {
                     height: 1,
                     child: Text(
                       'Snap and Share every moments',
-                      style: GoogleFonts.lobster(
+                      style: GoogleFonts.libreBaskerville(
                         textStyle: const TextStyle(
                           color: Colors.white,
                           fontSize: 40,
@@ -58,7 +57,7 @@ class OnBoard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
-                    height: 200,
+                    height: 230,
                   ),
                   Center(
                     child: Column(
@@ -75,7 +74,7 @@ class OnBoard extends StatelessWidget {
                             child: MaterialButton(
                               onPressed: ()
                               {
-                                navigateAndFinish(context, const LoginScreen());
+                                navigateTo(context,  const LoginScreen());
                               },
                               child: Text(
                                 'Sign in',
@@ -105,7 +104,7 @@ class OnBoard extends StatelessWidget {
                           child: MaterialButton(
                             onPressed: ()
                             {
-                              navigateAndFinish(context, const RegisterScreen());
+                              navigateTo(context, const RegisterScreen());
                             },
                             child: Text(
                               'Sign up',
