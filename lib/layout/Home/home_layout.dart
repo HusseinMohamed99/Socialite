@@ -21,7 +21,10 @@ class HomeLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     final drawerController = ZoomDrawerController();
     return BlocConsumer<SocialCubit, SocialStates>(
-      listener: (context, state) {},
+      listener: (context, state)
+      {
+
+      },
       builder: (context, state) {
         var cubit = SocialCubit.get(context);
         return SocialCubit.get(context).userModel == null
@@ -45,6 +48,31 @@ class HomeLayout extends StatelessWidget {
                       color: Colors.grey,
                     ),
                   ),
+                  space(0, 20),
+                  TextButton.icon(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all
+                          (
+                            cubit.isDark? Colors.blue : Colors.white
+                        )
+                    ),
+                    onPressed: ()
+                    {
+                      SocialCubit.get(context).getUserData();
+                    },
+                    icon: Icon(
+                      IconlyLight.upload,
+                      color: cubit.isDark? Colors.white : Colors.blue,
+                    ),
+                    label:  Text(
+                      'Reload',
+                      style: GoogleFonts.libreBaskerville(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 30,
+                        color: cubit.isDark? Colors.white : Colors.blue,
+                      ),
+                    ),
+                  )
                 ],
               ),
             )):
@@ -181,6 +209,31 @@ class MainScreen extends StatelessWidget {
                           color: Colors.grey,
                         ),
                       ),
+                      space(0, 20),
+                      TextButton.icon(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all
+                              (
+                                cubit.isDark? Colors.blue : Colors.white
+                            )
+                        ),
+                        onPressed: ()
+                        {
+                          SocialCubit.get(context).getUserData();
+                        },
+                        icon: Icon(
+                          IconlyLight.upload,
+                          color: cubit.isDark? Colors.white : Colors.blue,
+                        ),
+                        label:  Text(
+                          'Reload',
+                          style: GoogleFonts.libreBaskerville(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 30,
+                            color: cubit.isDark? Colors.white : Colors.blue,
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 )):

@@ -43,8 +43,7 @@ class LoginScreen extends StatelessWidget {
         builder: (context, state) {
           var cubit = SocialCubit.get(context);
           return Scaffold(
-            backgroundColor:
-                cubit.isDark ? Colors.white : const Color(0xff063750),
+            backgroundColor: cubit.isDark ? Colors.white : const Color(0xff063750),
             appBar: AppBar(
               systemOverlayStyle: SystemUiOverlayStyle(
                 statusBarColor:
@@ -69,7 +68,7 @@ class LoginScreen extends StatelessWidget {
             ),
             body: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Form(
                   key: formKey,
                   child: Column(
@@ -195,9 +194,10 @@ class LoginScreen extends StatelessWidget {
                                                   .then((value) {
                                                 if (LoginCubit.get(context)
                                                     .isEmailVerified) {
+                                                  SocialCubit.get(context)
+                                                      .getUserData();
                                                   navigateAndFinish(context,
                                                       const HomeLayout());
-                                                  SocialCubit()..getUserData()..getPosts();
                                                 } else {
                                                   navigateTo(context,
                                                       const EmailVerificationScreen());
@@ -245,8 +245,8 @@ class LoginScreen extends StatelessWidget {
                                   ),
                                 )
                               : Container(
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 7),
+                                  margin:
+                                      const EdgeInsets.symmetric(horizontal: 4),
                                   decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(40)),

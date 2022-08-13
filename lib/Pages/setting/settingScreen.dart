@@ -18,7 +18,10 @@ class SettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SocialCubit, SocialStates>(
-      listener: (context, state) {},
+      listener: (context, state)
+      {
+
+      },
       builder: (context, state) {
         var userModel = SocialCubit.get(context).userModel!;
         var cubit = SocialCubit.get(context);

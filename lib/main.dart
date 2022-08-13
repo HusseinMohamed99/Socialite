@@ -7,6 +7,7 @@ import 'package:f_app/shared/styles/themes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
 import 'shared/componnetns/constants.dart';
 import 'shared/network/cache_helper.dart';
@@ -74,20 +75,25 @@ class MyApp extends StatelessWidget {
                 ? ThemeMode.dark
                 : ThemeMode.light,
             home: SplashScreenView(
+              duration: 3500,
+              pageRouteTransition: PageRouteTransition.Normal,
               navigateRoute: startWidget,
-              duration: 5000,
               imageSize: 200,
               imageSrc: 'assets/images/s.png',
-              text: 'Social App',
+              text: 'F-APP',
               textType: TextType.ColorizeAnimationText,
-              textStyle: const TextStyle(
-                fontSize: 40.0,
+              textStyle: GoogleFonts.libreBaskerville(
+                fontSize: 50,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 10
               ),
-              colors: const [
-                Colors.red,
-                Colors.deepOrange,
-                Colors.yellow,
+              colors:  [
+                SocialCubit.get(context).isDark
+                    ? Colors.black
+                    : Colors.white ,
+                Colors.deepOrangeAccent,
                 Colors.redAccent,
+                Colors.green,
               ],
               backgroundColor: SocialCubit.get(context).isDark
                   ? Colors.white

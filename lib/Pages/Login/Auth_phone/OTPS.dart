@@ -91,7 +91,6 @@ class OTPScreenState extends State<OTPScreen> {
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Pinput(
-
               length: 6,
               defaultPinTheme: defaultPinTheme,
               controller: _pinPutController,
@@ -133,6 +132,7 @@ class OTPScreenState extends State<OTPScreen> {
               .signInWithCredential(credential)
               .then((value) async {
             if (value.user != null) {
+              SocialCubit.get(context).getUserData();
               navigateAndFinish(context,  const HomeLayout());
             }
           });
