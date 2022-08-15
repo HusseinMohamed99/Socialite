@@ -6,7 +6,6 @@ import 'package:f_app/Pages/Register/register_screen.dart';
 import 'package:f_app/shared/Cubit/loginCubit/state.dart';
 import 'package:f_app/shared/componnetns/components.dart';
 import 'package:f_app/shared/network/cache_helper.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -276,12 +275,8 @@ class LoginScreen extends StatelessWidget {
                           children: [
                             InkWell(
                               borderRadius: BorderRadius.circular(15),
-                              onTap: () async {
-                                UserCredential userCredential =
-                                    await LoginCubit.get(context)
-                                        .signInWithGoogle();
-                                debugPrint(userCredential.toString());
-                                navigateTo(context, const HomeLayout());
+                              onTap: ()  {
+                                LoginCubit.get(context).signINWithGoogle();
                               },
                               child: CircleAvatar(
                                 backgroundImage: const AssetImage(

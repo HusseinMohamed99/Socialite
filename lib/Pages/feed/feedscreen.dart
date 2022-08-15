@@ -1,3 +1,4 @@
+import 'package:f_app/Pages/comment/comment_screen.dart';
 import 'package:f_app/Pages/profile/My_profile_screen.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
 import 'package:f_app/shared/componnetns/components.dart';
@@ -12,6 +13,7 @@ import '../../shared/Cubit/socialCubit/SocialState.dart';
 import '../../shared/componnetns/constants.dart';
 import '../addPost/addPostScreen.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import '../veiw_photo/view_post.dart';
 
 class FeedScreen extends StatelessWidget {
   const FeedScreen({Key? key}) : super(key: key);
@@ -25,105 +27,105 @@ class FeedScreen extends StatelessWidget {
         var cubit = SocialCubit.get(context);
 
         return
-        // SocialCubit.get(context).userModel == null
-        //     ? Scaffold(
-        //         backgroundColor:
-        //             cubit.isDark ? Colors.white : const Color(0xff063750),
-        //         body: Column(
-        //           children: [
-        //             Card(
-        //               color: SocialCubit.get(context).isDark
-        //                   ? Colors.white
-        //                   : const Color(0xff063750),
-        //               clipBehavior: Clip.antiAliasWithSaveLayer,
-        //               elevation: 10,
-        //               margin: const EdgeInsets.all(10),
-        //               child: Padding(
-        //                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        //                 child: Row(
-        //                   children: [
-        //                     InkWell(
-        //                       borderRadius: BorderRadius.circular(20),
-        //                       onTap: () {
-        //                         navigateTo(context, const MyProfileScreen());
-        //                       },
-        //                       child: const CircleAvatar(
-        //                         radius: 20,
-        //                       ),
-        //                     ),
-        //                     Expanded(
-        //                       child: Container(
-        //                         width: 220,
-        //                         height: 50,
-        //                         clipBehavior: Clip.antiAliasWithSaveLayer,
-        //                         margin: const EdgeInsets.all(10),
-        //                         decoration: BoxDecoration(
-        //                           border:
-        //                               Border.all(color: Colors.grey.shade400),
-        //                           borderRadius: BorderRadius.circular(25),
-        //                         ),
-        //                         child: TextButton(
-        //                           clipBehavior: Clip.antiAliasWithSaveLayer,
-        //                           style: ButtonStyle(
-        //                             overlayColor: MaterialStateProperty.all(
-        //                                 Colors.grey[300]),
-        //                           ),
-        //                           child: Text(
-        //                             '\' What\'s on your mind ? \'',
-        //                             style: GoogleFonts.lobster(
-        //                               fontSize: 16,
-        //                               color: SocialCubit.get(context).isDark
-        //                                   ? Colors.black
-        //                                   : Colors.white,
-        //                             ),
-        //                           ),
-        //                           onPressed: () {
-        //                             navigateTo(context, AddPostScreen());
-        //                           },
-        //                         ),
-        //                       ),
-        //                     ),
-        //                     Container(
-        //                       width: 2,
-        //                       height: 50,
-        //                       color: Colors.grey,
-        //                     ),
-        //                     IconButton(
-        //                       onPressed: () {
-        //                         cubit.getPostImage();
-        //                         navigateTo(context, AddPostScreen());
-        //                       },
-        //                       icon: Icon(
-        //                         Icons.photo_library_outlined,
-        //                         size: 30,
-        //                         color: cubit.isDark
-        //                             ? CupertinoColors.activeBlue
-        //                             : Colors.white,
-        //                       ),
-        //                       splashRadius: 20,
-        //                     ),
-        //                   ],
-        //                 ),
-        //               ),
-        //             ),
-        //             const Spacer(),
-        //             const Icon(
-        //               IconlyLight.infoSquare,
-        //               size: 100,
-        //               color: Colors.grey,
-        //             ),
-        //             Text(
-        //               'No Posts yet',
-        //               style: GoogleFonts.libreBaskerville(
-        //                 fontWeight: FontWeight.w700,
-        //                 fontSize: 30,
-        //                 color: Colors.grey,
-        //               ),
-        //             ),
-        //             const Spacer(),
-        //           ],
-        //         )):
-             SocialCubit.get(context).posts.isEmpty
+            // SocialCubit.get(context).userModel == null
+            //     ? Scaffold(
+            //         backgroundColor:
+            //             cubit.isDark ? Colors.white : const Color(0xff063750),
+            //         body: Column(
+            //           children: [
+            //             Card(
+            //               color: SocialCubit.get(context).isDark
+            //                   ? Colors.white
+            //                   : const Color(0xff063750),
+            //               clipBehavior: Clip.antiAliasWithSaveLayer,
+            //               elevation: 10,
+            //               margin: const EdgeInsets.all(10),
+            //               child: Padding(
+            //                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            //                 child: Row(
+            //                   children: [
+            //                     InkWell(
+            //                       borderRadius: BorderRadius.circular(20),
+            //                       onTap: () {
+            //                         navigateTo(context, const MyProfileScreen());
+            //                       },
+            //                       child: const CircleAvatar(
+            //                         radius: 20,
+            //                       ),
+            //                     ),
+            //                     Expanded(
+            //                       child: Container(
+            //                         width: 220,
+            //                         height: 50,
+            //                         clipBehavior: Clip.antiAliasWithSaveLayer,
+            //                         margin: const EdgeInsets.all(10),
+            //                         decoration: BoxDecoration(
+            //                           border:
+            //                               Border.all(color: Colors.grey.shade400),
+            //                           borderRadius: BorderRadius.circular(25),
+            //                         ),
+            //                         child: TextButton(
+            //                           clipBehavior: Clip.antiAliasWithSaveLayer,
+            //                           style: ButtonStyle(
+            //                             overlayColor: MaterialStateProperty.all(
+            //                                 Colors.grey[300]),
+            //                           ),
+            //                           child: Text(
+            //                             '\' What\'s on your mind ? \'',
+            //                             style: GoogleFonts.lobster(
+            //                               fontSize: 16,
+            //                               color: SocialCubit.get(context).isDark
+            //                                   ? Colors.black
+            //                                   : Colors.white,
+            //                             ),
+            //                           ),
+            //                           onPressed: () {
+            //                             navigateTo(context, AddPostScreen());
+            //                           },
+            //                         ),
+            //                       ),
+            //                     ),
+            //                     Container(
+            //                       width: 2,
+            //                       height: 50,
+            //                       color: Colors.grey,
+            //                     ),
+            //                     IconButton(
+            //                       onPressed: () {
+            //                         cubit.getPostImage();
+            //                         navigateTo(context, AddPostScreen());
+            //                       },
+            //                       icon: Icon(
+            //                         Icons.photo_library_outlined,
+            //                         size: 30,
+            //                         color: cubit.isDark
+            //                             ? CupertinoColors.activeBlue
+            //                             : Colors.white,
+            //                       ),
+            //                       splashRadius: 20,
+            //                     ),
+            //                   ],
+            //                 ),
+            //               ),
+            //             ),
+            //             const Spacer(),
+            //             const Icon(
+            //               IconlyLight.infoSquare,
+            //               size: 100,
+            //               color: Colors.grey,
+            //             ),
+            //             Text(
+            //               'No Posts yet',
+            //               style: GoogleFonts.libreBaskerville(
+            //                 fontWeight: FontWeight.w700,
+            //                 fontSize: 30,
+            //                 color: Colors.grey,
+            //               ),
+            //             ),
+            //             const Spacer(),
+            //           ],
+            //         )):
+            SocialCubit.get(context).posts.isEmpty
                 ? Scaffold(
                     backgroundColor:
                         cubit.isDark ? Colors.white : const Color(0xff063750),
@@ -328,8 +330,8 @@ class FeedScreen extends StatelessWidget {
                               itemCount: cubit.posts.length,
                               separatorBuilder: (context, index) =>
                                   space(0, 10),
-                              itemBuilder: (context, index) =>
-                                  (buildPostItem(cubit.posts[index], context)),
+                              itemBuilder: (context, index) => (buildPostItem(
+                                  cubit.posts[index], context, index)),
                             ),
                             space(0, 10),
                           ],
@@ -343,7 +345,7 @@ class FeedScreen extends StatelessWidget {
     );
   }
 
-  Widget buildPostItem(PostModel postModel, context) {
+  Widget buildPostItem(PostModel postModel, context, index) {
     return Card(
       color: SocialCubit.get(context).isDark
           ? Colors.white
@@ -454,58 +456,73 @@ class FeedScreen extends StatelessWidget {
             ),
             space(0, 12),
             if (postModel.postImage != '')
-              Stack(
-                alignment: AlignmentDirectional.topEnd,
-                children: [
-                  Align(
-                    alignment: AlignmentDirectional.bottomCenter,
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.4),
-                            // blurRadius: 0,
-                            // spreadRadius: 0,
-                            // offset: Offset(0, 0)
-                          ),
-                        ],
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: Image(
-                            image: NetworkImage('${postModel.postImage}'),
-                            fit: BoxFit.contain),
+              InkWell(
+                onTap: ()
+                {
+                  navigateTo(context, FullScreen(postModel));
+                },
+                child: Stack(
+                  alignment: AlignmentDirectional.topEnd,
+                  children: [
+                    Align(
+                      alignment: AlignmentDirectional.bottomCenter,
+                      child: Container(
+                        height: 300,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.4),
+                              // blurRadius: 0,
+                              // spreadRadius: 0,
+                              // offset: Offset(0, 0)
+                            ),
+                          ],
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: Image(
+                              image: NetworkImage('${postModel.postImage}'),
+                              fit: BoxFit.cover),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextButton.icon(
-                  onPressed: () {},
+                  onPressed: ()
+                  {
+                    // navigateTo(context, LikesScreen(SocialCubit.get(context).postsId[index],postModel.uId));
+
+                  },
                   icon: const Icon(
                     IconlyLight.heart,
                     color: Colors.red,
                   ),
                   label: Text(
-                    '1200 Like',
+                    '${SocialCubit.get(context).likes[index]}',
                     style: GoogleFonts.lobster(
                       color: Colors.red,
                     ),
                   ),
                 ),
                 TextButton.icon(
-                  onPressed: () {},
+                  onPressed: ()
+                  {
+                    navigateTo(context, CommentsScreen(SocialCubit.get(context).postsId[index],postModel.uId));
+
+                  },
                   icon: const Icon(
                     IconlyLight.chat,
                     color: Colors.orangeAccent,
                   ),
                   label: Text(
-                    '500 Comment',
+                    '${SocialCubit.get(context).commentsNum[index]}',
                     style: GoogleFonts.lobster(
                       color: Colors.orangeAccent,
                     ),
@@ -535,7 +552,10 @@ class FeedScreen extends StatelessWidget {
                 ),
                 space(10, 0),
                 InkWell(
-                  onTap: () {},
+                  onTap: ()
+                  {
+                    navigateTo(context, CommentsScreen(SocialCubit.get(context).postsId[index],postModel.uId));
+                  },
                   child: SizedBox(
                     width: 150,
                     child: Text(
@@ -548,16 +568,32 @@ class FeedScreen extends StatelessWidget {
                   ),
                 ),
                 TextButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(
-                    IconlyLight.heart,
-                    color: Colors.red,
-                  ),
+                  onPressed: () {
+                    if (SocialCubit.get(context).likedByMe[index] == true) {
+                      SocialCubit.get(context)
+                          .disLikePost(SocialCubit.get(context).postsId[index]);
+                      SocialCubit.get(context).likedByMe[index] = false;
+                      SocialCubit.get(context).likes[index]--;
+                    } else {
+                      SocialCubit.get(context)
+                          .likePost(SocialCubit.get(context).postsId[index]);
+                      SocialCubit.get(context).likedByMe[index] = true;
+                      SocialCubit.get(context).likes[index]++;
+                    }
+                  },
                   label: Text(
                     'Like',
                     style: GoogleFonts.lobster(
-                      color: Colors.red,
+                      color: SocialCubit.get(context).likedByMe[index] == true
+                          ? Colors.red
+                          : Colors.grey,
                     ),
+                  ),
+                  icon: Icon(
+                    IconlyLight.heart,
+                    color: SocialCubit.get(context).likedByMe[index] == true
+                        ? Colors.red
+                        : Colors.grey,
                   ),
                 ),
                 TextButton.icon(

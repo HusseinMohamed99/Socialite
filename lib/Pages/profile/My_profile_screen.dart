@@ -19,7 +19,7 @@ class MyProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
       SocialCubit.get(context)
-          .getUserPosts(SocialCubit.get(context).userModel!.uId);
+          .getMyPosts(SocialCubit.get(context).userModel!.uId);
       return BlocConsumer<SocialCubit, SocialStates>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -72,29 +72,22 @@ class MyProfileScreen extends StatelessWidget {
                               child: Stack(
                                 alignment: AlignmentDirectional.bottomCenter,
                                 children: [
-                                  InkWell(
-                                    onTap: () {
-                                      ///view Photo
-                                      // Navigator.push(
-                                      //     context, MaterialPageRoute(builder: (context) => view()));
-                                    },
-                                    child: Align(
-                                      alignment: AlignmentDirectional.topCenter,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: NetworkImage(
-                                                  '${userModel!.cover}'),
-                                            ),
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(8.0),
-                                              topRight: Radius.circular(8.0),
-                                            )),
-                                        width: double.infinity,
-                                        height: 200,
-                                      ),
+                                  Align(
+                                    alignment: AlignmentDirectional.topCenter,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: NetworkImage(
+                                                '${userModel!.cover}'),
+                                          ),
+                                          borderRadius:
+                                              const BorderRadius.only(
+                                            topLeft: Radius.circular(8.0),
+                                            topRight: Radius.circular(8.0),
+                                          )),
+                                      width: double.infinity,
+                                      height: 200,
                                     ),
                                   ),
                                   CircleAvatar(
@@ -395,7 +388,7 @@ class MyProfileScreen extends StatelessWidget {
                               separatorBuilder: (context, index) =>
                                   space(0, 10),
                               itemBuilder: (context, index) =>
-                                  (buildPostItem(userPosts[index], context)),
+                                  (buildPostItem(userPosts[index], context,index)),
                             ),
                             space(0, 10),
                           ],
@@ -660,7 +653,7 @@ Widget buildProfileWithOutPosts () => Builder(
   }
 );
 
-Widget buildPostItem(PostModel postModel, context) {
+Widget buildPostItem(PostModel postModel, context,index) {
   return Card(
     color: SocialCubit.get(context).isDark
         ? Colors.white
@@ -792,12 +785,12 @@ Widget buildPostItem(PostModel postModel, context) {
             children: [
               TextButton.icon(
                 onPressed: () {},
-                icon: const Icon(
+                icon: Icon(
                   IconlyLight.heart,
                   color: Colors.red,
                 ),
                 label: Text(
-                  '1200 Like',
+                  '${SocialCubit.get(context).likes[index]}',
                   style: GoogleFonts.lobster(
                     color: Colors.red,
                   ),
@@ -853,16 +846,32 @@ Widget buildPostItem(PostModel postModel, context) {
                 ),
               ),
               TextButton.icon(
-                onPressed: () {},
-                icon: const Icon(
-                  IconlyLight.heart,
-                  color: Colors.red,
-                ),
+                onPressed: () {
+                  if (SocialCubit.get(context).likedByMe[index] == true) {
+                    SocialCubit.get(context)
+                        .disLikePost(SocialCubit.get(context).postsId[index]);
+                    SocialCubit.get(context).likedByMe[index] = false;
+                    SocialCubit.get(context).likes[index]--;
+                  } else {
+                    SocialCubit.get(context)
+                        .likePost(SocialCubit.get(context).postsId[index]);
+                    SocialCubit.get(context).likedByMe[index] = true;
+                    SocialCubit.get(context).likes[index]++;
+                  }
+                },
                 label: Text(
                   'Like',
                   style: GoogleFonts.lobster(
-                    color: Colors.red,
+                    color: SocialCubit.get(context).likedByMe[index] == true
+                        ? Colors.red
+                        : Colors.grey,
                   ),
+                ),
+                icon: Icon(
+                  IconlyLight.heart,
+                  color: SocialCubit.get(context).likedByMe[index] == true
+                      ? Colors.red
+                      : Colors.grey,
                 ),
               ),
               TextButton.icon(

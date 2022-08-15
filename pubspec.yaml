@@ -36,6 +36,9 @@ dependencies:
   zoom_pinch_overlay: ^1.2.0
   intl: ^0.17.0
   conditional_builder_null_safety: ^0.0.6
+  full_screen_image_null_safe: any
+
+
 
   # firebase
   firebase_core: ^1.20.0

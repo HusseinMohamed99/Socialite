@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:f_app/shared/Cubit/loginCubit/state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import '../../../model/user_model.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
   LoginCubit() : super(LoginInitialState());
@@ -38,24 +41,82 @@ class LoginCubit extends Cubit<LoginStates> {
   }
 ///END : Show Password
 
+  bool userExist = false;
+  Future <void> isUserExist({
+    required String? uId,
+    required String? name,
+    required String? phone,
+    required String? email,
+    required String? image
+
+  }) async {
+    FirebaseFirestore.instance
+        .collection('users')
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        if(element.id == uId)
+          userExist = true;
+      });
+      if(userExist == false) {
+        createGoogleUser(
+            uId: uId,
+            name: name,
+            phone: phone,
+            email: email,
+            image: image
+        );
+      }
+      else
+        emit(LoginGoogleUserSuccessState(uId!));
+    });
+  }
 ///START : SignIN With Google
-  Future<UserCredential> signInWithGoogle() async {
-    // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  void signINWithGoogle() async {
+    emit(LoginGoogleUserLoadingState());
+    GoogleSignIn googleSignIn = GoogleSignIn();
+    GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+    GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount!.authentication;
+    AuthCredential credential = GoogleAuthProvider.credential(
+        idToken: googleSignInAuthentication.idToken,
+        accessToken: googleSignInAuthentication.accessToken);
+    FirebaseAuth.instance.signInWithCredential(credential).then((value) {
+      isUserExist(
+          uId: value.user!.uid,
+          name: value.user!.displayName,
+          phone: value.user!.phoneNumber,
+          email: value.user!.email,
+          image: value.user!.photoURL
+      );
 
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
-    // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+    });
   }
 ///END : SignIN With Google
+  void createGoogleUser({
+    required String? uId,
+    required String? name,
+    required String? phone,
+    required String? email,
+    required String? image
+  }) {
+    UserModel model = UserModel(
+      uId: uId,
+      name: name,
+      phone: phone?? '0000-000-0000',
+      email: email,
+      cover: 'https://media.cdnandroid.com/27/54/bb/52/imagen-cartoon-photo-editor-art-filter-2018-1gal.jpg',
+      image: image ?? 'https://static.toiimg.com/thumb/resizemode-4,msid-76729536,width-1200,height-900/76729536.jpg',
+      bio: 'Write you own bio...',
+    );
+    FirebaseFirestore.instance.collection('users').doc(uId).set(model.toMap())
+        .then((value) {
+      emit(CreateGoogleUserSuccessState(uId!));
+    }).catchError((error) {
+      emit(CreateGoogleUserErrorState());
+    });
+  }
 
+  ///START : isEmailVerified
   bool isEmailVerified = false;
   Future<void> LoginreloadUser() async {
     emit(LoginReloadLoadingState());
@@ -73,4 +134,5 @@ class LoginCubit extends Cubit<LoginStates> {
       emit(LoginReloadErrorState(error.toString()));
     });
   }
+  ///END : isEmailVerified
 }

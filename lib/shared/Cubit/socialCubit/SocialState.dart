@@ -108,4 +108,44 @@ class GetPostsErrorState extends SocialStates {
 
 // ----------------------------------------------------------//
 
+///START : GetUserPosts
 class GetUserPostsSuccessState extends SocialStates {}
+///END : GetUserPosts
+
+// ----------------------------------------------------------//
+
+
+///START : Likes
+class LikesLoadingState extends SocialStates {}
+class LikesSuccessState extends SocialStates {}
+class LikesErrorState extends SocialStates
+
+{
+  final String error ;
+  LikesErrorState (this.error);
+}
+class DisLikesSuccessState extends SocialStates {}
+class DisLikesErrorState extends SocialStates
+{
+  final String error ;
+  DisLikesErrorState (this.error);
+}
+///END : Likes
+
+// ----------------------------------------------------------//
+
+//Get Liked people ------------------------------
+class GetLikedUsersLoadingState extends  SocialStates {}
+class GetLikedUsersSuccessState extends  SocialStates {}
+class GetLikedUsersErrorState extends  SocialStates {}
+
+//Get Comment  ------------------------------
+class SendCommentSuccessState extends  SocialStates {}
+
+class SendCommentErrorState extends  SocialStates {}
+
+class GetCommentsSuccessState extends  SocialStates {}
+class RemoveCommentImageSuccessState extends  SocialStates {}
+
+
+

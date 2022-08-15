@@ -10,6 +10,7 @@ import 'package:f_app/Pages/setting/settingScreen.dart';
 import 'package:f_app/Pages/story/story_screen.dart';
 import 'package:f_app/Pages/user/userScreen.dart';
 import 'package:f_app/layout/Home/home_layout.dart';
+import 'package:f_app/model/CommentModel.dart';
 import 'package:f_app/model/drawerModel.dart';
 import 'package:f_app/model/post_model.dart';
 import 'package:f_app/model/user_model.dart';
@@ -25,6 +26,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import '../../../Pages/forgetPassword/forgetPasswordScreen.dart';
 import '../../../Pages/save_post/save_post_screen.dart';
+import '../../../model/likesModel.dart';
+
 
 
 
@@ -485,12 +488,16 @@ void updateUserData(
       text: text,
       postImage: postImage ?? '',
       dateTime: dateTime,
+      postID: null,
+      // postLikes : [] ,
     );
+
     FirebaseFirestore.instance
         .collection('posts')
         .add(model.toMap())
         .then((value)
     {
+     
       emit(CreatePostSuccessState());
     }).catchError((error)
     {
@@ -509,7 +516,6 @@ void removePostImage()
   postImage = null;
   emit(RemovePostImageSuccessState());
 }
-
 ///END : RemovePostImage
 
 
@@ -517,11 +523,15 @@ void removePostImage()
 
 ///START : GetAllPosts
   List<PostModel> posts = [];
+  List<String> postsId = [];
+  List<int> likes = [];
+  List<bool> likedByMe = [];
+  List<int> commentsNum = [];
   PostModel? postModel;
+  int counter = 0;
+  int commentCounter = 0;
   void getPosts()
   {
-    posts=[];
-    emit(GetPostsLoadingState());
     FirebaseFirestore.instance
         .collection('posts')
         .orderBy('dateTime',descending: true)
@@ -529,10 +539,63 @@ void removePostImage()
         .listen((event)
     {
       posts=[];
-      for (var element in event.docs) {
+      likes = [];
+      postsId = [];
+      likedByMe = [];
+       commentsNum = [];
+      counter = 0;
+      commentCounter = 0;
+     event.docs.forEach((element)
+     {
+       element.reference
+           .collection('likes')
+           .get()
+           .then((value)
+       {
+         emit(GetPostsSuccessState());
+         likes.add(value.docs.length);
+         value.docs.forEach((element)
+         {
+           if(element.id == userModel!.uId)
+           {
+             counter++;
+           }
+         });
+         if (counter > 0)
+         {
+           likedByMe.add(true);
+         }else
+         {
+           likedByMe.add(false);
+         }
+         counter = 0;
 
-        posts.add(PostModel.fromJson(element.data()));
-      }
+       }).catchError((error)
+       {
+         emit(GetPostsErrorState(error.toString()));
+       });
+       element.reference
+           .collection('comments')
+           .get()
+           .then((value) {
+         emit(GetPostsSuccessState());
+         commentsNum.add(value.docs.length);
+         postsId.add(element.id);
+         posts.add(PostModel.fromJson(element.data()));
+         value.docs.forEach((element)
+         {
+           if(element.id == userModel!.uId)
+           {
+             commentCounter++;
+           }else
+           {
+             commentCounter++;
+           }
+           commentCounter = 0;
+         });
+       }).catchError((error) {});
+     }) ;
+
       emit(GetPostsSuccessState());
     });
   }
@@ -540,9 +603,8 @@ void removePostImage()
 ///END : GetAllPosts
 
 // ----------------------------------------------------------//
-
 List <PostModel>? userPosts =[];
-  void getUserPosts(String? userID)
+  void getMyPosts(String? userID)
   {
    FirebaseFirestore.instance
        .collection('posts')
@@ -560,5 +622,107 @@ List <PostModel>? userPosts =[];
      emit(GetUserPostsSuccessState());
    });
   }
+
+// ----------------------------------------------------------//
+
+  void likePost (String postId)
+  {
+    FirebaseFirestore.instance
+        .collection('posts')
+        .doc(postId)
+        .collection('likes')
+        .doc(userModel!.uId)
+        .set({'like': true}).then((value) {
+      emit(LikesSuccessState());
+    }).catchError((error) {
+      emit(LikesErrorState(error.toString()));
+
+    });
+  }
+// ----------------------------------------------------------//
+
+  void disLikePost(String postId) {
+    FirebaseFirestore.instance
+        .collection('posts')
+        .doc(postId)
+        .collection('likes')
+        .doc(userModel!.uId)
+        .delete()
+        .then((value) {
+      emit(DisLikesSuccessState());
+    }).catchError((error) {
+      emit(DisLikesErrorState(error.toString()));
+
+    });
+  }
+
+
+  // get users who Likes this post -------------------------------------
+
+
+  List<LikesModel> peopleReacted = [];
+  void getLikes(String? postId,) {
+    FirebaseFirestore.instance
+        .collection('posts')
+        .doc(postId)
+        .collection('likes')
+        .orderBy('dateTime', descending: false)
+        .snapshots()
+        .listen((value) {
+      peopleReacted = [];
+      value.docs.forEach((element) {
+        peopleReacted.add(LikesModel.fromJson(element.data()));
+      });
+      emit(GetLikedUsersSuccessState());
+    });
+  }
+// ----------------------------------------------------------//
+
+  List<CommentModel> comments = [];
+  void getComments(String? postId,)
+  {
+    FirebaseFirestore.instance
+        .collection('posts')
+        .doc(postId)
+        .collection('comments')
+        .orderBy('dateTime', descending: false)
+        .snapshots()
+        .listen((event) {
+      comments = [];
+      event.docs.forEach((element) {
+        comments.add(CommentModel.fromJson(element.data()));
+      });
+    });
+    emit(GetCommentsSuccessState());
+  }
+
+// ----------------------------------------------------------//
+
+  CommentModel? comment;
+  void sendComment({
+      String? dateTime,
+     String? text,
+     String? postId,
+  }) {
+    CommentModel comment = CommentModel(
+        dateTime: dateTime,
+        uId: userModel!.uId,
+        comment: text,
+        image: userModel!.image,
+        name: userModel!.name);
+
+    FirebaseFirestore.instance
+        .collection('posts')
+        .doc(postId)
+        .collection('comments')
+        .add(comment.toMap())
+        .then((value) {
+      emit(SendCommentSuccessState());
+    }).catchError((error) {
+      emit(SendCommentErrorState());
+      print(error.toString());
+    });
+  }
+// ----------------------------------------------------------//
 
 }

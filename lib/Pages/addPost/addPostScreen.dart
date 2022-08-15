@@ -5,13 +5,16 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../model/post_model.dart';
 import '../../shared/componnetns/components.dart';
 import '../../shared/componnetns/constants.dart';
 
 class AddPostScreen extends StatelessWidget {
   var textController = TextEditingController();
+  PostModel? postModel;
 
   AddPostScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     var cubit = SocialCubit.get(context);

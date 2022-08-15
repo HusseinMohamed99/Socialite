@@ -6,6 +6,9 @@ class PostModel {
   String? dateTime;
   String? postImage;
   String? text;
+  String? postID;
+  // List<String> postLikes = [];
+
 
 
   PostModel(
@@ -15,6 +18,8 @@ class PostModel {
         this.postImage,
         this.image,
         this.text,
+        this.postID,
+        // required this.postLikes,
       });
 
   PostModel.fromJson(Map<String, dynamic> json) {
@@ -24,7 +29,8 @@ class PostModel {
     text = json['text'];
     image = json['image'];
     postImage = json['postImage'];
-
+    postID = json['postID'];
+    // postLikes = (json['postLikes'] != null ? List<String>.from(json['postLikes']) : null)!;
 
 
 
@@ -38,6 +44,8 @@ class PostModel {
       'uId': uId,
       'image': image,
       'postImage': postImage,
+      'postID': postID,
+      // 'postLikes': postLikes.map((e) => e.toString()).toList(),
     };
   }
 }
