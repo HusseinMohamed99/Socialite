@@ -6,6 +6,7 @@ import 'package:f_app/shared/bloc_observer.dart';
 import 'package:f_app/shared/styles/themes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
@@ -67,6 +68,10 @@ class MyApp extends StatelessWidget {
       child: BlocConsumer<SocialCubit, SocialStates>(
         listener: (context, state) {},
         builder: (context, state) {
+          SystemChrome.setPreferredOrientations([
+            DeviceOrientation.portraitUp,
+            DeviceOrientation.portraitDown,
+          ]);
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: lightTheme,

@@ -11,6 +11,9 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../shared/Cubit/socialCubit/SocialCubit.dart';
 import '../../shared/Cubit/socialCubit/SocialState.dart';
+import '../comment/comment_screen.dart';
+import '../veiw_photo/image_view.dart';
+import '../veiw_photo/post_view.dart';
 
 class MyProfileScreen extends StatelessWidget {
   const MyProfileScreen({Key? key}) : super(key: key);
@@ -47,6 +50,7 @@ class MyProfileScreen extends StatelessWidget {
                         color: Colors.grey,
                       ),
                     ),
+                    const CircularProgressIndicator(),
                   ],
                 ),
               )):
@@ -68,36 +72,50 @@ class MyProfileScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             SizedBox(
-                              height: 240,
+                              height: 280,
                               child: Stack(
                                 alignment: AlignmentDirectional.bottomCenter,
                                 children: [
-                                  Align(
-                                    alignment: AlignmentDirectional.topCenter,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: NetworkImage(
-                                                '${userModel!.cover}'),
-                                          ),
-                                          borderRadius:
-                                              const BorderRadius.only(
-                                            topLeft: Radius.circular(8.0),
-                                            topRight: Radius.circular(8.0),
-                                          )),
-                                      width: double.infinity,
-                                      height: 200,
+                                  InkWell(
+                                    onTap: ()
+                                    {
+                                      navigateTo(context, ImageViewScreen(image: cubit.userModel!.cover, body: ''));
+
+                                    },
+                                    child: Align(
+                                      alignment: AlignmentDirectional.topCenter,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: NetworkImage(
+                                                  '${userModel!.cover}'),
+                                            ),
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                              topLeft: Radius.circular(8.0),
+                                              topRight: Radius.circular(8.0),
+                                            )),
+                                        width: double.infinity,
+                                        height: 230,
+                                      ),
                                     ),
                                   ),
-                                  CircleAvatar(
-                                    backgroundColor: Colors.white,
-                                    radius: 65,
+                                  InkWell(
+                                    onTap: ()
+                                    {
+                                      navigateTo(context, ImageViewScreen(image: cubit.userModel!.image, body: ''));
+
+                                    },
                                     child: CircleAvatar(
-                                      backgroundImage: NetworkImage(
-                                        '${userModel.image}',
+                                      backgroundColor: Colors.white,
+                                      radius: 75,
+                                      child: CircleAvatar(
+                                        backgroundImage: NetworkImage(
+                                          '${userModel.image}',
+                                        ),
+                                        radius: 70,
                                       ),
-                                      radius: 60,
                                     ),
                                   ),
                                   Positioned(
@@ -654,6 +672,7 @@ Widget buildProfileWithOutPosts () => Builder(
 );
 
 Widget buildPostItem(PostModel postModel, context,index) {
+
   return Card(
     color: SocialCubit.get(context).isDark
         ? Colors.white
@@ -669,10 +688,7 @@ Widget buildPostItem(PostModel postModel, context,index) {
           Row(
             children: [
               InkWell(
-                onTap: ()
-                {
-
-                },
+                onTap: () {},
                 borderRadius: BorderRadius.circular(25),
                 child: CircleAvatar(
                   radius: 25,
@@ -752,40 +768,48 @@ Widget buildPostItem(PostModel postModel, context,index) {
           ),
           space(0, 12),
           if (postModel.postImage != '')
-            Stack(
-              alignment: AlignmentDirectional.topEnd,
-              children: [
-                Align(
-                  alignment: AlignmentDirectional.bottomCenter,
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.4),
-                          // blurRadius: 0,
-                          // spreadRadius: 0,
-                          // offset: Offset(0, 0)
-                        ),
-                      ],
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
-                      child: Image(
-                          image: NetworkImage('${postModel.postImage}'),
-                          fit: BoxFit.contain),
+            InkWell(
+              onTap: ()
+              {
+                navigateTo(context, FullScreen(postModel));
+
+              },
+              child: Stack(
+                alignment: AlignmentDirectional.topEnd,
+                children: [
+                  Align(
+                    alignment: AlignmentDirectional.bottomCenter,
+                    child: Container(
+                      height: 400,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.4),
+                            // blurRadius: 0,
+                            // spreadRadius: 0,
+                            // offset: Offset(0, 0)
+                          ),
+                        ],
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: Image(
+                            image: NetworkImage('${postModel.postImage}'),
+                            fit: BoxFit.cover),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               TextButton.icon(
                 onPressed: () {},
-                icon: Icon(
+                icon: const Icon(
                   IconlyLight.heart,
                   color: Colors.red,
                 ),
@@ -797,13 +821,17 @@ Widget buildPostItem(PostModel postModel, context,index) {
                 ),
               ),
               TextButton.icon(
-                onPressed: () {},
+                onPressed: ()
+                {
+                  navigateTo(context, CommentsScreen(SocialCubit.get(context).postsId[index],postModel.uId));
+
+                },
                 icon: const Icon(
                   IconlyLight.chat,
                   color: Colors.orangeAccent,
                 ),
                 label: Text(
-                  '500 Comment',
+                  '${SocialCubit.get(context).commentsNum[index]}',
                   style: GoogleFonts.lobster(
                     color: Colors.orangeAccent,
                   ),
@@ -833,7 +861,11 @@ Widget buildPostItem(PostModel postModel, context,index) {
               ),
               space(10, 0),
               InkWell(
-                onTap: () {},
+                onTap: ()
+                {
+                  navigateTo(context, CommentsScreen(SocialCubit.get(context).postsId[index],postModel.uId));
+
+                },
                 child: SizedBox(
                   width: 150,
                   child: Text(
@@ -841,6 +873,7 @@ Widget buildPostItem(PostModel postModel, context,index) {
                     style: GoogleFonts.lobster(
                       textStyle: Theme.of(context).textTheme.caption,
                       fontSize: 15,
+                      color: Colors.grey,
                     ),
                   ),
                 ),

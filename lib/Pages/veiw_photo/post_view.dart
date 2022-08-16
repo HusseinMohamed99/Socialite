@@ -40,28 +40,29 @@ PostModel ? model ;
                                 Navigator.pop(context);
                               },
                               icon: Container(
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                     shape: BoxShape.circle,
                                     boxShadow: [
                                       BoxShadow(
-                                          color: Colors.grey.withOpacity(0.3),
+                                          color: Colors.red,
                                           blurRadius: 9,
                                           spreadRadius: 4,
-                                          offset: Offset(0, 4))
+                                          offset: Offset(0, 1))
                                     ]),
-                                child: CircleAvatar(
-                                    backgroundColor: Theme.of(context)
-                                        .scaffoldBackgroundColor,
+                                child: const CircleAvatar(
+                                    backgroundColor: Colors.white,
                                     child: Icon(
                                       Icons.arrow_back_ios_outlined,
-                                      color: Colors.red,
+                                      color: Colors.black,
                                     )),
-                              )),
+                              ),
+                          ),
                         ]),
                       ),
                     ]),
               ]),
-            ));
+            ),
+        );
       },
     );
   }

@@ -1,6 +1,7 @@
 import 'package:f_app/Pages/Login/login_screen.dart';
 import 'package:f_app/Pages/Register/register_screen.dart';
 import 'package:f_app/shared/componnetns/components.dart';
+import 'package:f_app/shared/componnetns/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -56,9 +57,7 @@ class OnBoard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 230,
-                  ),
+                  space(0, 230),
                   Center(
                     child: Column(
                       children: [
@@ -89,9 +88,7 @@ class OnBoard extends StatelessWidget {
                               ),
                             ),
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
+                      space(0, 20),
                         Container(
                           width: 270,
                           height: 40,
@@ -118,9 +115,7 @@ class OnBoard extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 50,
-                        ),
+                        space(0, 50),
                       ],
                     ),
                   ),

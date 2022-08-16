@@ -2,7 +2,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:f_app/Pages/chat/chatScreen.dart';
-import 'package:f_app/Pages/drawer/drawerItem.dart';
 import 'package:f_app/Pages/feed/feedscreen.dart';
 import 'package:f_app/Pages/notifications/notifications_screen.dart';
 import 'package:f_app/Pages/profile/My_profile_screen.dart';
@@ -26,6 +25,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import '../../../Pages/forgetPassword/forgetPasswordScreen.dart';
 import '../../../Pages/save_post/save_post_screen.dart';
+import '../../../layout/drawer/drawerItem.dart';
 import '../../../model/likesModel.dart';
 
 
@@ -366,8 +366,6 @@ void uploadProfileImage({
     {
       emit(UploadCoverImageErrorState());
     });
-
-
   }
   ///END : UploadProfileAndCoverImage
 
@@ -407,15 +405,10 @@ void updateUserData(
     {
       emit(UpdateUserErrorState());
     });
-
-
 }
 ///END : UpdateUserData
 
 // ----------------------------------------------------------//
-
-
-
   ///START : GetPostImage
   File? postImage;
   Future <void> getPostImage() async {
@@ -433,7 +426,6 @@ void updateUserData(
 
   // ----------------------------------------------------------//
   ///START : uploadPostImage
-
   void uploadPostImage({
     required  String dateTime,
     required  String text,
@@ -471,7 +463,7 @@ void updateUserData(
 
 // ----------------------------------------------------------//
 
-  ///START : CreatePost
+///START : CreatePost
   void createPost(
       {
         required  String dateTime,
@@ -489,7 +481,7 @@ void updateUserData(
       postImage: postImage ?? '',
       dateTime: dateTime,
       postID: null,
-      // postLikes : [] ,
+
     );
 
     FirebaseFirestore.instance
@@ -497,7 +489,7 @@ void updateUserData(
         .add(model.toMap())
         .then((value)
     {
-     
+
       emit(CreatePostSuccessState());
     }).catchError((error)
     {
@@ -545,8 +537,7 @@ void removePostImage()
        commentsNum = [];
       counter = 0;
       commentCounter = 0;
-     event.docs.forEach((element)
-     {
+     for (var element in event.docs) {
        element.reference
            .collection('likes')
            .get()
@@ -554,13 +545,12 @@ void removePostImage()
        {
          emit(GetPostsSuccessState());
          likes.add(value.docs.length);
-         value.docs.forEach((element)
-         {
+         for (var element in value.docs) {
            if(element.id == userModel!.uId)
            {
              counter++;
            }
-         });
+         }
          if (counter > 0)
          {
            likedByMe.add(true);
@@ -582,8 +572,7 @@ void removePostImage()
          commentsNum.add(value.docs.length);
          postsId.add(element.id);
          posts.add(PostModel.fromJson(element.data()));
-         value.docs.forEach((element)
-         {
+         for (var element in value.docs) {
            if(element.id == userModel!.uId)
            {
              commentCounter++;
@@ -592,9 +581,9 @@ void removePostImage()
              commentCounter++;
            }
            commentCounter = 0;
-         });
+         }
        }).catchError((error) {});
-     }) ;
+     }
 
       emit(GetPostsSuccessState());
     });
@@ -603,7 +592,8 @@ void removePostImage()
 ///END : GetAllPosts
 
 // ----------------------------------------------------------//
-List <PostModel>? userPosts =[];
+///START : GetMyPosts
+  List <PostModel>? userPosts =[];
   void getMyPosts(String? userID)
   {
    FirebaseFirestore.instance
@@ -622,9 +612,10 @@ List <PostModel>? userPosts =[];
      emit(GetUserPostsSuccessState());
    });
   }
+///END : GetMyPosts
 
 // ----------------------------------------------------------//
-
+///START : Likes
   void likePost (String postId)
   {
     FirebaseFirestore.instance
@@ -639,8 +630,10 @@ List <PostModel>? userPosts =[];
 
     });
   }
-// ----------------------------------------------------------//
+///END : Likes
 
+// ----------------------------------------------------------//
+///START : DisLikes
   void disLikePost(String postId) {
     FirebaseFirestore.instance
         .collection('posts')
@@ -655,11 +648,10 @@ List <PostModel>? userPosts =[];
 
     });
   }
+///END : DisLikes
 
-
-  // get users who Likes this post -------------------------------------
-
-
+//-----------------------------------------------------------//
+///START : WhoLikes
   List<LikesModel> peopleReacted = [];
   void getLikes(String? postId,) {
     FirebaseFirestore.instance
@@ -670,14 +662,16 @@ List <PostModel>? userPosts =[];
         .snapshots()
         .listen((value) {
       peopleReacted = [];
-      value.docs.forEach((element) {
+      for (var element in value.docs) {
         peopleReacted.add(LikesModel.fromJson(element.data()));
-      });
+      }
       emit(GetLikedUsersSuccessState());
     });
   }
-// ----------------------------------------------------------//
+///END : WhoLikes
 
+// ----------------------------------------------------------//
+///END : GetComments
   List<CommentModel> comments = [];
   void getComments(String? postId,)
   {
@@ -689,15 +683,17 @@ List <PostModel>? userPosts =[];
         .snapshots()
         .listen((event) {
       comments = [];
-      event.docs.forEach((element) {
+      for (var element in event.docs) {
         comments.add(CommentModel.fromJson(element.data()));
-      });
+      }
     });
     emit(GetCommentsSuccessState());
   }
+///END : GetComments
 
 // ----------------------------------------------------------//
 
+///START : SendComment
   CommentModel? comment;
   void sendComment({
       String? dateTime,
@@ -720,9 +716,12 @@ List <PostModel>? userPosts =[];
       emit(SendCommentSuccessState());
     }).catchError((error) {
       emit(SendCommentErrorState());
-      print(error.toString());
+      debugPrint(error.toString());
     });
   }
+///END : SendComment
+
 // ----------------------------------------------------------//
+
 
 }

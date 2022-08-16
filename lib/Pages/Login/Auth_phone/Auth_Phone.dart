@@ -49,7 +49,6 @@ class AuthPhoneState extends State<AuthPhone> {
           ),
         ),
       ),
-
       body: SingleChildScrollView(
         child: Column(
           children: [

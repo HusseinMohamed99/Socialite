@@ -18,36 +18,11 @@ class SettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SocialCubit, SocialStates>(
-      listener: (context, state)
-      {
-
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         var userModel = SocialCubit.get(context).userModel!;
         var cubit = SocialCubit.get(context);
-        return
-          // SocialCubit.get(context).userModel == null
-          //   ? Scaffold(
-          //   backgroundColor:
-          //   cubit.isDark ? Colors.white : const Color(0xff063750),
-          //   body: Column(
-          //     children: [
-          //       Icon(
-          //         IconlyLight.infoSquare,
-          //         size: 100,
-          //         color: Colors.grey,
-          //       ),
-          //       Text(
-          //         'No Posts yet',
-          //         style: GoogleFonts.libreBaskerville(
-          //           fontWeight: FontWeight.w700,
-          //           fontSize: 30,
-          //           color: Colors.grey,
-          //         ),
-          //       ),
-          //     ],
-          //   )) :
-          SingleChildScrollView(
+        return SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(

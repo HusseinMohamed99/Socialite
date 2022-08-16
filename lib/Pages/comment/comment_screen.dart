@@ -8,7 +8,6 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../shared/Cubit/socialCubit/SocialCubit.dart';
 import '../../shared/componnetns/components.dart';
-import '../../shared/styles/icon_broken.dart';
 
 class CommentsScreen extends StatelessWidget {
   final String? postId;
@@ -105,7 +104,7 @@ class CommentsScreen extends StatelessWidget {
                                               ? Colors.white
                                               : const Color(0xff063750),
                                           child: Icon(
-                                            IconBroken.Image,
+                                            IconlyBroken.image,
                                             size: 25,
                                             color: cubit.isDark
                                                 ? Colors.black
@@ -159,7 +158,7 @@ class CommentsScreen extends StatelessWidget {
                                               ? Colors.white
                                               : const Color(0xff063750),
                                           child: Icon(
-                                            IconBroken.Send,
+                                            IconlyBroken.send,
                                             size: 25,
                                             color: cubit.isDark
                                                 ? Colors.black
@@ -220,7 +219,7 @@ class CommentsScreen extends StatelessWidget {
                                               ? Colors.white
                                               : const Color(0xff063750),
                                           child: Icon(
-                                            IconBroken.Image,
+                                            IconlyBroken.image,
                                             size: 25,
                                             color: cubit.isDark
                                                 ? Colors.black
@@ -274,7 +273,7 @@ class CommentsScreen extends StatelessWidget {
                                               ? Colors.white
                                               : const Color(0xff063750),
                                           child: Icon(
-                                            IconBroken.Send,
+                                            IconlyBroken.send,
                                             size: 25,
                                             color: cubit.isDark
                                                 ? Colors.black
@@ -301,7 +300,8 @@ class CommentsScreen extends StatelessWidget {
                           ],
                         ));
               }
-            }));
+            }),
+    );
   }
 
   Widget buildComment(CommentModel comment, context) {
@@ -328,9 +328,9 @@ class CommentsScreen extends StatelessWidget {
                           color: Colors.grey.withOpacity(0.3),
                           blurRadius: 9,
                           spreadRadius: 4,
-                          offset: Offset(0, 4))
+                          offset: const Offset(0, 4))
                     ],
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(20),
                       bottomRight: Radius.circular(20),
                       topRight: Radius.circular(20),

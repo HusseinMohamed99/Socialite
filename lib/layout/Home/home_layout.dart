@@ -1,4 +1,3 @@
-import 'package:f_app/Pages/drawer/drawerItem.dart';
 import 'package:f_app/model/drawerModel.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
@@ -13,6 +12,8 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:flutter_zoom_drawer/config.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../drawer/drawerItem.dart';
 
 class HomeLayout extends StatelessWidget {
   const HomeLayout({Key? key}) : super(key: key);

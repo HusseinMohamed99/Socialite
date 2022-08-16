@@ -13,7 +13,7 @@ import '../../shared/Cubit/socialCubit/SocialState.dart';
 import '../../shared/componnetns/constants.dart';
 import '../addPost/addPostScreen.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import '../veiw_photo/view_post.dart';
+import '../veiw_photo/post_view.dart';
 
 class FeedScreen extends StatelessWidget {
   const FeedScreen({Key? key}) : super(key: key);
@@ -26,106 +26,7 @@ class FeedScreen extends StatelessWidget {
         var userModel = SocialCubit.get(context).userModel;
         var cubit = SocialCubit.get(context);
 
-        return
-            // SocialCubit.get(context).userModel == null
-            //     ? Scaffold(
-            //         backgroundColor:
-            //             cubit.isDark ? Colors.white : const Color(0xff063750),
-            //         body: Column(
-            //           children: [
-            //             Card(
-            //               color: SocialCubit.get(context).isDark
-            //                   ? Colors.white
-            //                   : const Color(0xff063750),
-            //               clipBehavior: Clip.antiAliasWithSaveLayer,
-            //               elevation: 10,
-            //               margin: const EdgeInsets.all(10),
-            //               child: Padding(
-            //                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            //                 child: Row(
-            //                   children: [
-            //                     InkWell(
-            //                       borderRadius: BorderRadius.circular(20),
-            //                       onTap: () {
-            //                         navigateTo(context, const MyProfileScreen());
-            //                       },
-            //                       child: const CircleAvatar(
-            //                         radius: 20,
-            //                       ),
-            //                     ),
-            //                     Expanded(
-            //                       child: Container(
-            //                         width: 220,
-            //                         height: 50,
-            //                         clipBehavior: Clip.antiAliasWithSaveLayer,
-            //                         margin: const EdgeInsets.all(10),
-            //                         decoration: BoxDecoration(
-            //                           border:
-            //                               Border.all(color: Colors.grey.shade400),
-            //                           borderRadius: BorderRadius.circular(25),
-            //                         ),
-            //                         child: TextButton(
-            //                           clipBehavior: Clip.antiAliasWithSaveLayer,
-            //                           style: ButtonStyle(
-            //                             overlayColor: MaterialStateProperty.all(
-            //                                 Colors.grey[300]),
-            //                           ),
-            //                           child: Text(
-            //                             '\' What\'s on your mind ? \'',
-            //                             style: GoogleFonts.lobster(
-            //                               fontSize: 16,
-            //                               color: SocialCubit.get(context).isDark
-            //                                   ? Colors.black
-            //                                   : Colors.white,
-            //                             ),
-            //                           ),
-            //                           onPressed: () {
-            //                             navigateTo(context, AddPostScreen());
-            //                           },
-            //                         ),
-            //                       ),
-            //                     ),
-            //                     Container(
-            //                       width: 2,
-            //                       height: 50,
-            //                       color: Colors.grey,
-            //                     ),
-            //                     IconButton(
-            //                       onPressed: () {
-            //                         cubit.getPostImage();
-            //                         navigateTo(context, AddPostScreen());
-            //                       },
-            //                       icon: Icon(
-            //                         Icons.photo_library_outlined,
-            //                         size: 30,
-            //                         color: cubit.isDark
-            //                             ? CupertinoColors.activeBlue
-            //                             : Colors.white,
-            //                       ),
-            //                       splashRadius: 20,
-            //                     ),
-            //                   ],
-            //                 ),
-            //               ),
-            //             ),
-            //             const Spacer(),
-            //             const Icon(
-            //               IconlyLight.infoSquare,
-            //               size: 100,
-            //               color: Colors.grey,
-            //             ),
-            //             Text(
-            //               'No Posts yet',
-            //               style: GoogleFonts.libreBaskerville(
-            //                 fontWeight: FontWeight.w700,
-            //                 fontSize: 30,
-            //                 color: Colors.grey,
-            //               ),
-            //             ),
-            //             const Spacer(),
-            //           ],
-            //         )):
-            SocialCubit.get(context).posts.isEmpty
+        return SocialCubit.get(context).posts.isEmpty
                 ? Scaffold(
                     backgroundColor:
                         cubit.isDark ? Colors.white : const Color(0xff063750),
@@ -224,6 +125,7 @@ class FeedScreen extends StatelessWidget {
                             color: Colors.grey,
                           ),
                         ),
+                        const CircularProgressIndicator(),
                         const Spacer(),
                       ],
                     ))
@@ -460,6 +362,7 @@ class FeedScreen extends StatelessWidget {
                 onTap: ()
                 {
                   navigateTo(context, FullScreen(postModel));
+
                 },
                 child: Stack(
                   alignment: AlignmentDirectional.topEnd,
@@ -467,7 +370,7 @@ class FeedScreen extends StatelessWidget {
                     Align(
                       alignment: AlignmentDirectional.bottomCenter,
                       child: Container(
-                        height: 300,
+                        height: 320,
                         width: double.infinity,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4),
@@ -563,6 +466,7 @@ class FeedScreen extends StatelessWidget {
                       style: GoogleFonts.lobster(
                         textStyle: Theme.of(context).textTheme.caption,
                         fontSize: 15,
+                        color: Colors.grey,
                       ),
                     ),
                   ),
