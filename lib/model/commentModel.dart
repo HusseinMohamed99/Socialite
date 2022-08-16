@@ -5,7 +5,7 @@ class CommentModel
   String? image;
   String? dateTime;
   String? comment;
-  String? commentImage;
+
 
 
   CommentModel ({
@@ -14,16 +14,16 @@ class CommentModel
     this.image,
     this.dateTime,
     this.comment,
-    this.commentImage,
+
   });
 
-  CommentModel .fromJson(Map<String, dynamic> json){
-    uId = json['uId'];
+  CommentModel .fromJson(Map<String, dynamic>? json){
+    uId = json!['uId'];
     name = json['name'];
     image = json['image'];
     comment = json['comment'];
     dateTime = json['dateTime'];
-    commentImage = json['commentImage'];
+
   }
 
   Map<String, dynamic> toMap (){
@@ -32,7 +32,6 @@ class CommentModel
       'name':name,
       'image':image,
       'dateTime':dateTime,
-      'commentImage':commentImage,
       'comment':comment,
 
     };

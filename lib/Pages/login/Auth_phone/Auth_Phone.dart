@@ -1,4 +1,4 @@
-import 'package:f_app/Pages/Login/Auth_phone/OTPS.dart';
+import 'package:f_app/Pages/login/Auth_phone/Otps.dart';
 import 'package:f_app/shared/componnetns/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

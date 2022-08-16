@@ -58,7 +58,7 @@ class AddPostScreen extends StatelessWidget {
               TextButton(
                 onPressed: () {
                   DateTime now = DateTime.now();
-                  if (cubit.postImage == null) {
+                  if (cubit.postImagePicked == null) {
                     cubit.createPost(
                       dateTime: now.toString(),
                       text: textController.text,
@@ -168,7 +168,7 @@ class AddPostScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    if (SocialCubit.get(context).postImage != null)
+                    if (SocialCubit.get(context).postImagePicked != null)
                       Stack(
                         alignment: AlignmentDirectional.topEnd,
                         children: [
@@ -187,7 +187,7 @@ class AddPostScreen extends StatelessWidget {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image(
-                                    image: FileImage(cubit.postImage!),
+                                    image: FileImage(cubit.postImagePicked!),
                                     fit: BoxFit.contain),
                               ),
                             ),

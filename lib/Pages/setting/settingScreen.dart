@@ -1,4 +1,4 @@
-import 'package:f_app/Pages/forgetPassword/forgetPasswordScreen.dart';
+import 'package:f_app/Pages/password/forget_Password.dart';
 import 'package:f_app/Pages/notifications/notifications_screen.dart';
 import 'package:f_app/Pages/profile/My_profile_screen.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
@@ -11,6 +11,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import '../../shared/Cubit/socialCubit/SocialState.dart';
+import '../password/change_password.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -250,6 +251,49 @@ class SettingScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                       onTap: () {
+                        navigateTo(context, const EditPasswordScreen());
+                      },
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[400],
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(
+                              IconlyBroken.unlock,
+                              size: 50,
+                              color: Colors.black,
+                            ),
+                          ),
+                          space(10, 0),
+                          Text(
+                            'Change Password',
+                            style: GoogleFonts.lobster(
+                              color: cubit.isDark ? Colors.black : Colors.white,
+                              fontSize: 24,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          const Spacer(),
+                          Icon(
+                            IconlyLight.arrowRight2,
+                            color: cubit.isDark ? Colors.blue : Colors.white,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Card(
+                  color:
+                      cubit.isDark ? Colors.grey[300] : const Color(0xff063750),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
+                      onTap: () {
                         Alert(
                           style: AlertStyle(
                             animationType: AnimationType.shrink,
@@ -361,7 +405,77 @@ class SettingScreen extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: ()
+                      {
+                        Alert(
+                          style: AlertStyle(
+                            animationType: AnimationType.shrink,
+                            animationDuration:
+                            const Duration(milliseconds: 2000),
+                            backgroundColor: cubit.isDark
+                                ? const Color(0xff063750)
+                                : Colors.white,
+                            isCloseButton: false,
+                            titleStyle: GoogleFonts.lobster(
+                              color: cubit.isDark ? Colors.white : Colors.black,
+                            ),
+                            descStyle: GoogleFonts.lobster(
+                              color: cubit.isDark ? Colors.white : Colors.black,
+                            ),
+                          ),
+                          padding: EdgeInsets.zero,
+                          image: Stack(
+                            alignment: AlignmentDirectional.topEnd,
+                            children: [
+                              Image(
+                                height: 200,
+                                width: 500,
+                                fit: BoxFit.cover,
+                                image: cubit.isDark
+                                    ? const NetworkImage(
+                                    'https://img.freepik.com/premium-vector/blocked-account-conceptual-design-premium-vector_199064-108.jpg?w=740')
+                                    : const NetworkImage(
+                                    'https://img.freepik.com/premium-vector/blocked-account-conceptual-design-premium-vector_199064-109.jpg?w=740'),
+                              ),
+                              IconButton(
+                                onPressed: () => Navigator.pop(context),
+                                icon: const Icon(
+                                  IconlyBold.closeSquare,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
+                          ),
+                          context: context,
+                          desc: "Do you want Delete Account.",
+                          buttons: [
+                            DialogButton(
+                              onPressed: () => Navigator.pop(context),
+                              color: Colors.red,
+                              child: Text(
+                                "Cancel",
+                                style: GoogleFonts.lobster(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            DialogButton(
+                              onPressed: () {
+                                cubit.deleteAccount(context);
+                                Navigator.pop(context);
+                              },
+                              color: Colors.blue,
+                              child: Text(
+                                "Done",
+                                style: GoogleFonts.lobster(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            )
+                          ],
+                        ).show();
+
+                      },
                       child: Row(
                         children: [
                           Container(

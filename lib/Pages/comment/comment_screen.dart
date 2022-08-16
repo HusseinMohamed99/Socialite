@@ -10,9 +10,12 @@ import '../../shared/Cubit/socialCubit/SocialCubit.dart';
 import '../../shared/componnetns/components.dart';
 
 class CommentsScreen extends StatelessWidget {
-  final String? postId;
+  late String? postId;
   final String? receiverUid;
-  CommentsScreen(this.postId, this.receiverUid, {Key? key}) : super(key: key);
+  late int likesNumber;
+  late int index;
+
+  CommentsScreen(this.postId, this.receiverUid, {Key? key,}) : super(key: key);
   var commentController = TextEditingController();
   var formKey = GlobalKey<FormState>();
 

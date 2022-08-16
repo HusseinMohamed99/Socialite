@@ -771,7 +771,7 @@ Widget buildPostItem(PostModel postModel, context,index) {
             InkWell(
               onTap: ()
               {
-                navigateTo(context, FullScreen(postModel));
+                navigateTo(context, FullScreen(postModel,index: index,));
 
               },
               child: Stack(
@@ -823,7 +823,7 @@ Widget buildPostItem(PostModel postModel, context,index) {
               TextButton.icon(
                 onPressed: ()
                 {
-                  navigateTo(context, CommentsScreen(SocialCubit.get(context).postsId[index],postModel.uId));
+                  navigateTo(context, CommentsScreen(SocialCubit.get(context).postsId[index],postModel.uId,));
 
                 },
                 icon: const Icon(
@@ -863,7 +863,7 @@ Widget buildPostItem(PostModel postModel, context,index) {
               InkWell(
                 onTap: ()
                 {
-                  navigateTo(context, CommentsScreen(SocialCubit.get(context).postsId[index],postModel.uId));
+                  navigateTo(context, CommentsScreen(SocialCubit.get(context).postsId[index],postModel.uId,));
 
                 },
                 child: SizedBox(

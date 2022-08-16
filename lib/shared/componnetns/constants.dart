@@ -15,18 +15,22 @@ Widget space(double width, double height) {
 String daysBetween(DateTime postDate){
   if  ((DateTime.now().difference(postDate).inHours / 24).round() == 0)
   {
-    if(DateTime.now().difference(postDate).inHours == 0 )
-      if(DateTime.now().difference(postDate).inMinutes == 0)
-        return 'now';
-      else
-        return '${DateTime.now().difference(postDate).inMinutes.toString()} minutes';
-    else
-      return '${DateTime.now().difference(postDate).inHours.toString()} hours';
-  }
-  else
-  {
+    if(DateTime.now().difference(postDate).inHours == 0 ) {
+        if(DateTime.now().difference(postDate).inMinutes == 0) {
+          return 'now';
+        }
+        else {
+          return '${DateTime.now().difference(postDate).inMinutes.toString()} minutes';
+        }
+      }
+    else {
+        return '${DateTime.now().difference(postDate).inHours.toString()} hours';
+      }
+  } else {
     return (' ${(DateTime.now().difference(postDate).inHours / 24).round().toString()} days');
   }
+
+
 }
 
 String? uId = '';

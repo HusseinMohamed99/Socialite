@@ -129,7 +129,7 @@ required BuildContext context
       child: Text(text,style: GoogleFonts.libreBaskerville(
         fontWeight: FontWeight.w400,
         color:
-        SocialCubit.get(context).isDark ? Colors.white : Colors.black,
+        SocialCubit.get(context).isDark ? Colors.black : Colors.white,
       ),),
     );
 }

@@ -7,7 +7,13 @@ class PostModel {
   String? postImage;
   String? text;
   String? postID;
-  // List<String> postLikes = [];
+  Map<String, dynamic>? likes;
+  List? likesNum;
+   List<dynamic>? comments = [];
+   List<dynamic>? commentsName = [];
+   List<dynamic>? commentsImage = [];
+  List? commentsNum;
+   bool? myLike;
 
 
 
@@ -19,7 +25,14 @@ class PostModel {
         this.image,
         this.text,
         this.postID,
-        // required this.postLikes,
+        this.commentsImage,
+        this.comments,
+        this.commentsName,
+        this.likes,
+        this.likesNum,
+        this.myLike,
+        this.commentsNum,
+
       });
 
   PostModel.fromJson(Map<String, dynamic> json) {
@@ -29,8 +42,14 @@ class PostModel {
     text = json['text'];
     image = json['image'];
     postImage = json['postImage'];
+    commentsImage = json['commentsImage'];
+    comments = json['comments'];
+    commentsName = json['commentsName'];
+    likes = json['likes'];
+    likesNum = json['likesNum'];
+    myLike = json['myLike'];
+    commentsNum = json['commentsNum'];
     postID = json['postID'];
-    // postLikes = (json['postLikes'] != null ? List<String>.from(json['postLikes']) : null)!;
 
 
 
@@ -45,7 +64,13 @@ class PostModel {
       'image': image,
       'postImage': postImage,
       'postID': postID,
-      // 'postLikes': postLikes.map((e) => e.toString()).toList(),
+      'commentsImage': commentsImage,
+      'comments': comments,
+      'commentsName': commentsName,
+      'likes': likes,
+      'likesNum': likesNum,
+      'myLike': myLike,
+      'commentsNum': commentsNum,
     };
   }
 }

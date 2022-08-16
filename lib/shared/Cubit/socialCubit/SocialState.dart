@@ -43,6 +43,7 @@ class GetCoverImagePickedErrorState extends SocialStates {}
 ///START : UploadProfileImage
 class UploadProfileImageSuccessState extends SocialStates {}
 class UploadProfileImageErrorState extends SocialStates {}
+
 ///END : UploadProfileImage
 
 // ----------------------------------------------------------//
@@ -105,11 +106,14 @@ class LikesErrorState extends SocialStates {
   final String error ;
   LikesErrorState (this.error);
 }
+
 class DisLikesSuccessState extends SocialStates {}
 class DisLikesErrorState extends SocialStates {
   final String error ;
   DisLikesErrorState (this.error);
 }
+
+
 class GetLikedUsersSuccessState extends  SocialStates {}
 ///END : Likes
 
@@ -122,4 +126,31 @@ class RemoveCommentImageSuccessState extends  SocialStates {}
 ///END : Comments
 
 // ----------------------------------------------------------//
+///START : SavedToGallery
+class SavedToGalleryLoadingState extends SocialStates{}
+class SavedToGallerySuccessState extends SocialStates{}
+class SavedToGalleryErrorState extends SocialStates{}
+///END : SavedToGallery
+//------------------------------------------------------------//
+///START : EditPost
+class EditPostLoadingState extends SocialStates {}
+class EditPostSuccessState extends SocialStates {}
+class EditPostErrorState extends SocialStates {}
 
+class DeletePostSuccessState extends SocialStates {}
+///END : EditPost
+
+//------------------------------------------------------------//
+///START : ChangeUserPassword
+class ChangeUserPasswordLoadingState extends SocialStates {}
+class ChangeUserPasswordSuccessState extends SocialStates {}
+class ChangeUserPasswordErrorState extends SocialStates {
+  final String error ;
+  ChangeUserPasswordErrorState(this.error);
+}
+
+class ShowPasswordState extends SocialStates {}
+///END : ChangeUserPassword
+//------------------------------------------------------------//
+class ImageCropperSuccessState extends SocialStates {}
+class ImageCropperErrorState extends SocialStates {}

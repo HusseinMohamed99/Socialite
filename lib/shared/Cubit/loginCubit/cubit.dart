@@ -54,10 +54,11 @@ class LoginCubit extends Cubit<LoginStates> {
         .collection('users')
         .get()
         .then((value) {
-      value.docs.forEach((element) {
-        if(element.id == uId)
+      for (var element in value.docs) {
+        if(element.id == uId) {
           userExist = true;
-      });
+        }
+      }
       if(userExist == false) {
         createGoogleUser(
             uId: uId,
@@ -67,8 +68,9 @@ class LoginCubit extends Cubit<LoginStates> {
             image: image
         );
       }
-      else
+      else {
         emit(LoginGoogleUserSuccessState(uId!));
+      }
     });
   }
 ///START : SignIN With Google
@@ -118,7 +120,7 @@ class LoginCubit extends Cubit<LoginStates> {
 
   ///START : isEmailVerified
   bool isEmailVerified = false;
-  Future<void> LoginreloadUser() async {
+  Future<void> loginReloadUser() async {
     emit(LoginReloadLoadingState());
     await FirebaseAuth.instance.currentUser!.reload()
         .then((value){
