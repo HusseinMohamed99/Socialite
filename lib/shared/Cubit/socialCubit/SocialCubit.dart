@@ -849,6 +849,7 @@ class SocialCubit extends Cubit<SocialStates> {
   ///START : Show Password
   MessageModel? messageModel;
   void sendMessage({
+
     required String receiverId,
     required String dateTime,
     required String text,
@@ -919,4 +920,15 @@ List<MessageModel> message = [];
     });
   }
 ///END : Show Password
+
+//------------------------------------------------------------//
+
+
+//------------------------------------------------------------//
+
+
+//------------------------------------------------------------//
+
+//------------------------------------------------------------//
+
 }

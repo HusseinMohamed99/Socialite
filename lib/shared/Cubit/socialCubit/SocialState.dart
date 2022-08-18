@@ -169,6 +169,10 @@ class SendMessageErrorState extends SocialStates {}
 
 class GetMessageSuccessState extends SocialStates {}
 class GetMessageErrorState extends SocialStates {}
+
+class GetMessageImageSuccessState extends SocialStates {}
+class GetMessageImageErrorState extends SocialStates {}
+
 ///END : Message
 
 //------------------------------------------------------------//

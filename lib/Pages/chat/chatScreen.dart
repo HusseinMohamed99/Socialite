@@ -20,16 +20,20 @@ class ChatScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         SocialCubit cubit = SocialCubit.get(context);
-        return Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: SingleChildScrollView(
-            child: ConditionalBuilder(
-                condition: cubit.users.isNotEmpty,
-                builder: (BuildContext context) => Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                            height: 105.0,
+        return SingleChildScrollView(
+          child: ConditionalBuilder(
+              condition: cubit.users.isNotEmpty,
+              builder: (BuildContext context) => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Card(
+                        color:cubit.isDark? Colors.grey[300] : const Color(0xff063750).withOpacity(0.7),
+                        child: Container(
+                            height: 125.0,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10)
+                            ),
                             child: ListView.separated(
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
@@ -38,20 +42,21 @@ class ChatScreen extends StatelessWidget {
                               separatorBuilder: (context, index) => space(5, 0),
                               itemCount: cubit.users.length,
                             )),
-                        ListView.separated(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) =>
-                              buildUsersItem(cubit.users[index], context),
-                          separatorBuilder: (context, index) =>
-                              myDivider(Colors.grey.withOpacity(0.3)),
-                          itemCount: cubit.users.length,
-                        ),
-                      ],
-                    ),
-                fallback: (BuildContext context) =>
-                    const Center(child: CircularProgressIndicator())),
-          ),
+                      ),
+                      ListView.separated(
+                        padding:  const EdgeInsets.all(20.0),
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) =>
+                            buildUsersItem(cubit.users[index], context),
+                        separatorBuilder: (context, index) =>
+                            myDivider(Colors.grey.withOpacity(0.3)),
+                        itemCount: cubit.users.length,
+                      ),
+                    ],
+                  ),
+              fallback: (BuildContext context) =>
+                  const Center(child: CircularProgressIndicator())),
         );
       },
     );
@@ -116,8 +121,9 @@ class ChatScreen extends StatelessWidget {
         onTap: () {
           navigateTo(context, PrivateChatScreen(users));
         },
-        child: SizedBox(
-            width: 80.0,
+        child: Container(
+          margin: const EdgeInsetsDirectional.all(10),
+            width: 60.0,
             child: Column(
               children: [
                 Stack(
