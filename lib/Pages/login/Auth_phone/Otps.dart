@@ -39,21 +39,21 @@ class OTPScreenState extends State<OTPScreen> {
     var cubit = SocialCubit.get(context);
     return Scaffold(
       backgroundColor:
-      cubit.isDark ? Colors.white : const Color(0xff063750),
+      cubit.isLight ? Colors.white : const Color(0xff063750),
       key: _scaffoldkey,
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: cubit.isDark ?  Colors.white : const Color(0xff063750),
-          statusBarIconBrightness:cubit.isDark ? Brightness.dark : Brightness.light,
-          statusBarBrightness: cubit.isDark ? Brightness.dark : Brightness.light,
+          statusBarColor: cubit.isLight ?  Colors.white : const Color(0xff063750),
+          statusBarIconBrightness:cubit.isLight ? Brightness.dark : Brightness.light,
+          statusBarBrightness: cubit.isLight ? Brightness.dark : Brightness.light,
         ),
         backgroundColor:
-        cubit.isDark ? Colors.white : const Color(0xff063750),
+        cubit.isLight ? Colors.white : const Color(0xff063750),
         elevation: 0,
         title: Text('Verification',style: GoogleFonts.lobster(
           textStyle: TextStyle(
             color:
-            cubit.isDark ? Colors.black : Colors.white,
+            cubit.isLight ? Colors.black : Colors.white,
             fontSize: 20,
             fontWeight: FontWeight.w600,
           ),
@@ -65,7 +65,7 @@ class OTPScreenState extends State<OTPScreen> {
           },
           icon: Icon(
             IconlyLight.arrowLeft2,
-            color:  cubit.isDark ? Colors.black : Colors.white,
+            color:  cubit.isLight ? Colors.black : Colors.white,
 
           ),
         ),
@@ -80,7 +80,7 @@ class OTPScreenState extends State<OTPScreen> {
                 style: GoogleFonts.lobster(
                   textStyle: TextStyle(
                     color:
-                    cubit.isDark ? Colors.black : Colors.white,
+                    cubit.isLight ? Colors.black : Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
                   ),
@@ -107,10 +107,10 @@ class OTPScreenState extends State<OTPScreen> {
                   }).catchError((error)
                   {
                     ScaffoldMessenger.of(context)
-                        .showSnackBar(SnackBar(backgroundColor: cubit.isDark ? Colors.black : Colors.white,content: Text(error.toString(),style: GoogleFonts.lobster(
+                        .showSnackBar(SnackBar(backgroundColor: cubit.isLight ? Colors.black : Colors.white,content: Text(error.toString(),style: GoogleFonts.lobster(
                       textStyle: TextStyle(
                         color:
-                        cubit.isDark ? Colors.black : Colors.white,
+                        cubit.isLight ? Colors.black : Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
                       ),

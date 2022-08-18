@@ -55,6 +55,7 @@ class MyApp extends StatelessWidget {
           create: (context) => SocialCubit()
             ..getUserData()
             ..getPosts()
+            ..getAllUsers()
             ..changeMode(fromShared: isDark,)
 
         ),
@@ -76,7 +77,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
             darkTheme: darkTheme,
-            themeMode: SocialCubit.get(context).isDark
+            themeMode: SocialCubit.get(context).isLight
                 ? ThemeMode.dark
                 : ThemeMode.light,
             home: SplashScreenView(
@@ -93,14 +94,14 @@ class MyApp extends StatelessWidget {
                 letterSpacing: 10
               ),
               colors:  [
-                SocialCubit.get(context).isDark
+                SocialCubit.get(context).isLight
                     ? Colors.black
                     : Colors.white ,
                 Colors.deepOrangeAccent,
                 Colors.redAccent,
                 Colors.green,
               ],
-              backgroundColor: SocialCubit.get(context).isDark
+              backgroundColor: SocialCubit.get(context).isLight
                   ? Colors.white
                   : const Color(0xff063750) ,
             ),

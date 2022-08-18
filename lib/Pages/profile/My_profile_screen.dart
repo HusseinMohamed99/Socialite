@@ -32,7 +32,7 @@ class MyProfileScreen extends StatelessWidget {
           return SocialCubit.get(context).userModel == null
               ? Scaffold(
               backgroundColor:
-              cubit.isDark ? Colors.white : const Color(0xff063750),
+              cubit.isLight ? Colors.white : const Color(0xff063750),
               body: Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -58,7 +58,7 @@ class MyProfileScreen extends StatelessWidget {
               ? SafeArea(
                 child: Scaffold(
                  backgroundColor:
-                 cubit.isDark ? Colors.white : const Color(0xff063750),
+                 cubit.isLight ? Colors.white : const Color(0xff063750),
                     body: buildProfileWithOutPosts(),
                   ),
               )
@@ -67,7 +67,7 @@ class MyProfileScreen extends StatelessWidget {
                   builder: (BuildContext context) => SafeArea(
                     child: Scaffold(
                       backgroundColor:
-                          cubit.isDark ? Colors.white : const Color(0xff063750),
+                          cubit.isLight ? Colors.white : const Color(0xff063750),
                       body: SingleChildScrollView(
                         child: Column(
                           children: [
@@ -144,7 +144,7 @@ class MyProfileScreen extends StatelessWidget {
                               style: GoogleFonts.lobster(
                                 fontSize: 24,
                                 color:
-                                    cubit.isDark ? Colors.blue : Colors.white,
+                                    cubit.isLight ? Colors.blue : Colors.white,
                               ),
                             ),
                             space(0, 5),
@@ -273,7 +273,7 @@ class MyProfileScreen extends StatelessWidget {
                                       style: ButtonStyle(
                                         backgroundColor:
                                             MaterialStateProperty.all(
-                                          cubit.isDark
+                                          cubit.isLight
                                               ? Colors.grey.shade400
                                               : const Color(0xff063750),
                                         ),
@@ -284,14 +284,14 @@ class MyProfileScreen extends StatelessWidget {
                                       },
                                       icon: Icon(
                                         IconlyLight.edit,
-                                        color: cubit.isDark
+                                        color: cubit.isLight
                                             ? Colors.black
                                             : Colors.white,
                                       ),
                                       label: Text(
                                         'Edit profile',
                                         style: GoogleFonts.lobster(
-                                          color: cubit.isDark
+                                          color: cubit.isLight
                                               ? Colors.black
                                               : Colors.white,
                                         ),
@@ -311,7 +311,7 @@ class MyProfileScreen extends StatelessWidget {
                                   'Posts',
                                   style: GoogleFonts.lobster(
                                     fontSize: 24,
-                                    color: cubit.isDark
+                                    color: cubit.isLight
                                         ? Colors.black
                                         : Colors.white,
                                   ),
@@ -320,7 +320,7 @@ class MyProfileScreen extends StatelessWidget {
                             ),
                             space(0, 5),
                             Card(
-                              color: SocialCubit.get(context).isDark
+                              color: SocialCubit.get(context).isLight
                                   ? Colors.white
                                   : const Color(0xff063750),
                               clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -364,7 +364,7 @@ class MyProfileScreen extends StatelessWidget {
                                                   fontSize: 16,
                                                   color:
                                                       SocialCubit.get(context)
-                                                              .isDark
+                                                              .isLight
                                                           ? Colors.black
                                                           : Colors.white,
                                                 ),
@@ -388,7 +388,7 @@ class MyProfileScreen extends StatelessWidget {
                                       icon: Icon(
                                         Icons.photo_library_outlined,
                                         size: 30,
-                                        color: cubit.isDark
+                                        color: cubit.isLight
                                             ? CupertinoColors.activeBlue
                                             : Colors.white,
                                       ),
@@ -495,7 +495,7 @@ Widget buildProfileWithOutPosts () => Builder(
           style: GoogleFonts.lobster(
             fontSize: 24,
             color:
-            cubit.isDark ? Colors.blue : Colors.white,
+            cubit.isLight ? Colors.blue : Colors.white,
           ),
         ),
         space(0, 5),
@@ -624,7 +624,7 @@ Widget buildProfileWithOutPosts () => Builder(
                   style: ButtonStyle(
                     backgroundColor:
                     MaterialStateProperty.all(
-                      cubit.isDark
+                      cubit.isLight
                           ? Colors.grey.shade400
                           : const Color(0xff063750),
                     ),
@@ -635,14 +635,14 @@ Widget buildProfileWithOutPosts () => Builder(
                   },
                   icon: Icon(
                     IconlyLight.edit,
-                    color: cubit.isDark
+                    color: cubit.isLight
                         ? Colors.black
                         : Colors.white,
                   ),
                   label: Text(
                     'Edit profile',
                     style: GoogleFonts.lobster(
-                      color: cubit.isDark
+                      color: cubit.isLight
                           ? Colors.black
                           : Colors.white,
                     ),
@@ -674,7 +674,7 @@ Widget buildProfileWithOutPosts () => Builder(
 Widget buildPostItem(PostModel postModel, context,index) {
 
   return Card(
-    color: SocialCubit.get(context).isDark
+    color: SocialCubit.get(context).isLight
         ? Colors.white
         : const Color(0xff063750),
     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -711,7 +711,7 @@ Widget buildPostItem(PostModel postModel, context,index) {
                             style: GoogleFonts.lobster(
                               fontSize: 20,
                               height: 1.3,
-                              color: SocialCubit.get(context).isDark
+                              color: SocialCubit.get(context).isLight
                                   ? CupertinoColors.activeBlue
                                   : Colors.white,
                             ),
@@ -744,7 +744,7 @@ Widget buildPostItem(PostModel postModel, context,index) {
                 icon: Icon(
                   IconlyLight.moreCircle,
                   size: 25,
-                  color: SocialCubit.get(context).isDark
+                  color: SocialCubit.get(context).isLight
                       ? Colors.black
                       : Colors.white,
                 ),
@@ -763,7 +763,7 @@ Widget buildPostItem(PostModel postModel, context,index) {
             '${postModel.text}',
             style: GoogleFonts.libreBaskerville(
               color:
-                  SocialCubit.get(context).isDark ? Colors.black : Colors.white,
+                  SocialCubit.get(context).isLight ? Colors.black : Colors.white,
             ),
           ),
           space(0, 12),

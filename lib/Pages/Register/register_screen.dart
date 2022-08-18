@@ -44,15 +44,15 @@ class RegisterScreen extends StatelessWidget {
           var cubit = SocialCubit.get(context);
           return Scaffold(
             backgroundColor:
-            cubit.isDark ? Colors.white : const Color(0xff063750),
+            cubit.isLight ? Colors.white : const Color(0xff063750),
             appBar: AppBar(
               systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarColor: cubit.isDark ?  Colors.white : const Color(0xff063750),
-                statusBarIconBrightness:cubit.isDark ? Brightness.dark : Brightness.light,
-                statusBarBrightness: cubit.isDark ? Brightness.dark : Brightness.light,
+                statusBarColor: cubit.isLight ?  Colors.white : const Color(0xff063750),
+                statusBarIconBrightness:cubit.isLight ? Brightness.dark : Brightness.light,
+                statusBarBrightness: cubit.isLight ? Brightness.dark : Brightness.light,
               ),
               backgroundColor:
-              cubit.isDark ? Colors.white : const Color(0xff063750),
+              cubit.isLight ? Colors.white : const Color(0xff063750),
               leading: IconButton(
                 onPressed: () {
                   pop(context);
@@ -60,7 +60,7 @@ class RegisterScreen extends StatelessWidget {
                 icon: Icon(
                   IconlyLight.arrowLeft2,
                   size: 30,
-                  color: cubit.isDark ? Colors.black : Colors.white,
+                  color: cubit.isLight ? Colors.black : Colors.white,
                 ),
               ),
             ),
@@ -77,7 +77,7 @@ class RegisterScreen extends StatelessWidget {
                           'Sign up Now',
                           style: GoogleFonts.lobster(
                             textStyle: TextStyle(
-                              color: cubit.isDark ? Colors.black : Colors.white,
+                              color: cubit.isLight ? Colors.black : Colors.white,
                               fontSize: 40,
                               fontWeight: FontWeight.w600,
                             ),
@@ -235,13 +235,13 @@ class RegisterScreen extends StatelessWidget {
                             style: GoogleFonts.lobster(
                               textStyle:  TextStyle(
                                 color:
-                                cubit.isDark ? Colors.black : Colors.white,
+                                cubit.isLight ? Colors.black : Colors.white,
                                 fontSize: 20,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),
-                          cubit.isDark == true ?
+                          cubit.isLight == true ?
                           TextButton(
                             onPressed: () {
                            navigateTo(context, const LoginScreen());

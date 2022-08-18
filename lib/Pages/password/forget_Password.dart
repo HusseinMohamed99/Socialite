@@ -30,20 +30,20 @@ class RestPasswordScreen extends StatelessWidget {
           return Scaffold(
             extendBodyBehindAppBar: true,
             backgroundColor:
-                cubit.isDark ? Colors.white : const Color(0xff063750),
+                cubit.isLight ? Colors.white : const Color(0xff063750),
             // backgroundColor:
             // cubit.isDark ? Colors.white : Colors.white,
             appBar: AppBar(
               systemOverlayStyle: SystemUiOverlayStyle(
                 statusBarColor:
-                    cubit.isDark ? Colors.white : const Color(0xff063750),
+                    cubit.isLight ? Colors.white : const Color(0xff063750),
                 statusBarIconBrightness:
-                    cubit.isDark ? Brightness.dark : Brightness.light,
+                    cubit.isLight ? Brightness.dark : Brightness.light,
                 statusBarBrightness:
-                    cubit.isDark ? Brightness.dark : Brightness.light,
+                    cubit.isLight ? Brightness.dark : Brightness.light,
               ),
               backgroundColor:
-                  cubit.isDark ? Colors.white : const Color(0xff063750),
+                  cubit.isLight ? Colors.white : const Color(0xff063750),
               elevation: 1,
               leading: IconButton(
                 onPressed: () {
@@ -52,7 +52,7 @@ class RestPasswordScreen extends StatelessWidget {
                 },
                 icon: Icon(
                   Icons.arrow_back,
-                  color: cubit.isDark ? Colors.black : Colors.white,
+                  color: cubit.isLight ? Colors.black : Colors.white,
                 ),
               ),
               titleSpacing: 1,
@@ -60,7 +60,7 @@ class RestPasswordScreen extends StatelessWidget {
                 'Forget Password',
                 style: GoogleFonts.lobster(
                   textStyle: TextStyle(
-                    color: cubit.isDark ? Colors.black : Colors.white,
+                    color: cubit.isLight ? Colors.black : Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
                   ),
@@ -93,7 +93,7 @@ class RestPasswordScreen extends StatelessWidget {
                                 fontSize: 27,
                                 fontWeight: FontWeight.w900,
                                 color:
-                                    cubit.isDark ? Colors.black : Colors.white,
+                                    cubit.isLight ? Colors.black : Colors.white,
                               ),
                             ),
                           ],
@@ -112,7 +112,7 @@ class RestPasswordScreen extends StatelessWidget {
                             boxShadow: [
                               BoxShadow(
                                 blurStyle: BlurStyle.outer,
-                                  color: cubit.isDark
+                                  color: cubit.isLight
                                       ? const Color(0xff063750)
                                       : Colors.white,
                                   blurRadius: 9,
@@ -120,11 +120,11 @@ class RestPasswordScreen extends StatelessWidget {
                                   offset: const Offset(0, 1))
                             ],
                             border: Border.all(
-                              color: cubit.isDark
+                              color: cubit.isLight
                                   ? const Color(0xff063750)
                                   : Colors.white,
                             ),
-                            color: cubit.isDark
+                            color: cubit.isLight
                                 ? Colors.white
                                 : const Color(0xff063750),
                             borderRadius: const BorderRadius.only(
@@ -155,7 +155,7 @@ class RestPasswordScreen extends StatelessWidget {
                                   ? const Center(
                                       child: CircularProgressIndicator())
                                   : Container(
-                                color: cubit.isDark
+                                color: cubit.isLight
                                     ? Colors.blue
                                     : Colors.white,
                                     child: defaultTextButton(

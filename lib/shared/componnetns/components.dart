@@ -25,7 +25,7 @@ Widget defaultTextFormField({
   return TextFormField(
       focusNode: FocusNode(),
       style: GoogleFonts.libreBaskerville(
-        color: SocialCubit.get(context).isDark? Colors.black : Colors.white,
+        color: SocialCubit.get(context).isLight? Colors.black : Colors.white,
       ),
       maxLines: 1,
       minLines: 1,
@@ -41,7 +41,7 @@ Widget defaultTextFormField({
       decoration: InputDecoration(
         prefixIcon: Icon(
           prefix,
-          color: SocialCubit.get(context).isDark? Colors.grey : Colors.white,
+          color: SocialCubit.get(context).isLight? Colors.grey : Colors.white,
         ),
         suffixIcon: suffix != null
             ? IconButton(
@@ -50,7 +50,7 @@ Widget defaultTextFormField({
                 },
                 icon: Icon(
                   suffix,
-                  color: SocialCubit.get(context).isDark? Colors.grey : Colors.white,
+                  color: SocialCubit.get(context).isLight? Colors.grey : Colors.white,
                 ),
               )
             : null,
@@ -59,19 +59,19 @@ Widget defaultTextFormField({
             Radius.circular(10.0),
           ),
           borderSide: BorderSide(
-            color: SocialCubit.get(context).isDark? Colors.black : Colors.white,
+            color: SocialCubit.get(context).isLight? Colors.black : Colors.white,
           ),
         ),
         hintText: hint,
         hintStyle: TextStyle(
-          color: SocialCubit.get(context).isDark? Colors.black : Colors.white,
+          color: SocialCubit.get(context).isLight? Colors.black : Colors.white,
         ),
         enabledBorder:  OutlineInputBorder(
           borderRadius: const BorderRadius.all(
             Radius.circular(10.0),
           ),
           borderSide: BorderSide(
-            color: SocialCubit.get(context).isDark? Colors.black : Colors.white,
+            color: SocialCubit.get(context).isLight? Colors.black : Colors.white,
           ),
         ),
         errorBorder: const OutlineInputBorder(
@@ -129,7 +129,7 @@ required BuildContext context
       child: Text(text,style: GoogleFonts.libreBaskerville(
         fontWeight: FontWeight.w400,
         color:
-        SocialCubit.get(context).isDark ? Colors.black : Colors.white,
+        SocialCubit.get(context).isLight ? Colors.black : Colors.white,
       ),),
     );
 }

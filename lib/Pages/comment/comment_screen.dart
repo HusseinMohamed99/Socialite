@@ -23,17 +23,17 @@ class CommentsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     SocialCubit cubit = SocialCubit.get(context);
     return Scaffold(
-        backgroundColor: cubit.isDark ? Colors.white : const Color(0xff063750),
+        backgroundColor: cubit.isLight ? Colors.white : const Color(0xff063750),
         appBar: AppBar(
           backgroundColor:
-              cubit.isDark ? Colors.white : const Color(0xff063750),
+              cubit.isLight ? Colors.white : const Color(0xff063750),
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor:
-                cubit.isDark ? Colors.white : const Color(0xff063750),
+                cubit.isLight ? Colors.white : const Color(0xff063750),
             statusBarIconBrightness:
-                cubit.isDark ? Brightness.dark : Brightness.light,
+                cubit.isLight ? Brightness.dark : Brightness.light,
             statusBarBrightness:
-                cubit.isDark ? Brightness.dark : Brightness.light,
+                cubit.isLight ? Brightness.dark : Brightness.light,
           ),
           elevation: 1,
           leading: IconButton(
@@ -43,14 +43,14 @@ class CommentsScreen extends StatelessWidget {
             icon: Icon(
               IconlyLight.arrowLeft2,
               size: 30,
-              color: cubit.isDark ? Colors.black : Colors.white,
+              color: cubit.isLight ? Colors.black : Colors.white,
             ),
           ),
           titleSpacing: 1,
           title: Text(
             'Comments',
             style: GoogleFonts.lobster(
-              color: cubit.isDark ? Colors.blue : Colors.white,
+              color: cubit.isLight ? Colors.blue : Colors.white,
               fontSize: 20,
             ),
           ),
@@ -93,7 +93,7 @@ class CommentsScreen extends StatelessWidget {
                               ),
                             ),
                             Container(
-                              color: cubit.isDark
+                              color: cubit.isLight
                                   ? const Color(0xff063750)
                                   : Colors.white,
                               child: Form(
@@ -103,13 +103,13 @@ class CommentsScreen extends StatelessWidget {
                                     IconButton(
                                       icon: CircleAvatar(
                                           radius: 35,
-                                          backgroundColor: cubit.isDark
+                                          backgroundColor: cubit.isLight
                                               ? Colors.white
                                               : const Color(0xff063750),
                                           child: Icon(
                                             IconlyBroken.image,
                                             size: 25,
-                                            color: cubit.isDark
+                                            color: cubit.isLight
                                                 ? Colors.black
                                                 : Colors.white,
                                           )),
@@ -123,7 +123,7 @@ class CommentsScreen extends StatelessWidget {
                                         keyboardType: TextInputType.text,
                                         enableInteractiveSelection: true,
                                         style: TextStyle(
-                                          color: cubit.isDark
+                                          color: cubit.isLight
                                               ? Colors.white
                                               : Colors.black,
                                           fontSize: 18,
@@ -138,7 +138,7 @@ class CommentsScreen extends StatelessWidget {
                                           fillColor: Colors.grey,
                                           hintText: 'comment..',
                                           hintStyle: TextStyle(
-                                            color: cubit.isDark
+                                            color: cubit.isLight
                                                 ? Colors.white
                                                 : Colors.black,
                                           ),
@@ -157,13 +157,13 @@ class CommentsScreen extends StatelessWidget {
                                     IconButton(
                                       icon: CircleAvatar(
                                           radius: 25,
-                                          backgroundColor: cubit.isDark
+                                          backgroundColor: cubit.isLight
                                               ? Colors.white
                                               : const Color(0xff063750),
                                           child: Icon(
                                             IconlyBroken.send,
                                             size: 25,
-                                            color: cubit.isDark
+                                            color: cubit.isLight
                                                 ? Colors.black
                                                 : Colors.white,
                                           )),
@@ -208,7 +208,7 @@ class CommentsScreen extends StatelessWidget {
                                   )),
                                 ])),
                             Container(
-                              color: cubit.isDark
+                              color: cubit.isLight
                                   ? const Color(0xff063750)
                                   : Colors.white,
                               child: Form(
@@ -218,13 +218,13 @@ class CommentsScreen extends StatelessWidget {
                                     IconButton(
                                       icon: CircleAvatar(
                                           radius: 35,
-                                          backgroundColor: cubit.isDark
+                                          backgroundColor: cubit.isLight
                                               ? Colors.white
                                               : const Color(0xff063750),
                                           child: Icon(
                                             IconlyBroken.image,
                                             size: 25,
-                                            color: cubit.isDark
+                                            color: cubit.isLight
                                                 ? Colors.black
                                                 : Colors.white,
                                           )),
@@ -238,7 +238,7 @@ class CommentsScreen extends StatelessWidget {
                                         keyboardType: TextInputType.text,
                                         enableInteractiveSelection: true,
                                         style: TextStyle(
-                                          color: cubit.isDark
+                                          color: cubit.isLight
                                               ? Colors.white
                                               : Colors.black,
                                           fontSize: 18,
@@ -253,7 +253,7 @@ class CommentsScreen extends StatelessWidget {
                                           fillColor: Colors.grey,
                                           hintText: 'comment..',
                                           hintStyle: TextStyle(
-                                            color: cubit.isDark
+                                            color: cubit.isLight
                                                 ? Colors.white
                                                 : Colors.black,
                                           ),
@@ -272,13 +272,13 @@ class CommentsScreen extends StatelessWidget {
                                     IconButton(
                                       icon: CircleAvatar(
                                           radius: 25,
-                                          backgroundColor: cubit.isDark
+                                          backgroundColor: cubit.isLight
                                               ? Colors.white
                                               : const Color(0xff063750),
                                           child: Icon(
                                             IconlyBroken.send,
                                             size: 25,
-                                            color: cubit.isDark
+                                            color: cubit.isLight
                                                 ? Colors.black
                                                 : Colors.white,
                                           )),
@@ -338,7 +338,7 @@ class CommentsScreen extends StatelessWidget {
                       bottomRight: Radius.circular(20),
                       topRight: Radius.circular(20),
                     ),
-                    color: SocialCubit.get(context).isDark
+                    color: SocialCubit.get(context).isLight
                         ? Colors.grey.shade300
                         : const Color(0xff063750),
                   ),
@@ -359,7 +359,7 @@ class CommentsScreen extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.lobster(
-                            color: SocialCubit.get(context).isDark
+                            color: SocialCubit.get(context).isLight
                                 ? Colors.blue
                                 : Colors.white,
                             fontSize: 20,
@@ -369,7 +369,7 @@ class CommentsScreen extends StatelessWidget {
                         Text(
                           '${comment.comment}',
                           style: GoogleFonts.libreBaskerville(
-                            color: SocialCubit.get(context).isDark
+                            color: SocialCubit.get(context).isLight
                                 ? Colors.black
                                 : Colors.white,
                             fontSize: 17,

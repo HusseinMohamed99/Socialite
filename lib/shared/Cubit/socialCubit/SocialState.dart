@@ -170,8 +170,17 @@ class SendMessageErrorState extends SocialStates {}
 class GetMessageSuccessState extends SocialStates {}
 class GetMessageErrorState extends SocialStates {}
 
+class MessageImagePickedSuccessState extends SocialStates {}
+class MessageImagePickedErrorState extends SocialStates {}
+
+class UploadMessageImageLoadingState extends SocialStates {}
+class UploadMessageImageSuccessState extends SocialStates {}
+class UploadMessageImageErrorState extends SocialStates {}
+
 class GetMessageImageSuccessState extends SocialStates {}
 class GetMessageImageErrorState extends SocialStates {}
+
+class DeleteMessageImageSuccessState extends SocialStates {}
 
 ///END : Message
 

@@ -35,19 +35,21 @@ class _ImageViewScreenState extends State<ImageViewScreen> {
               ),
               if (showText == true && widget.body != '')
                 Container(
-                    width: double.infinity,
-                    decoration: const BoxDecoration(
-                      color: Colors.black,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    color: Colors.black,
+                  ),
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        '${widget.body}',
+                        style: const TextStyle(fontSize: 15),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                    child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            '${widget.body}',
-                            style: const TextStyle(fontSize: 15),
-                            textAlign: TextAlign.center,
-                          ),
-                        )))
+                  ),
+                ),
             ],
           ),
         ),

@@ -27,7 +27,7 @@ class ChatScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Card(
-                        color:cubit.isDark? Colors.grey[300] : const Color(0xff063750).withOpacity(0.7),
+                        color:cubit.isLight? Colors.grey[300] : const Color(0xff063750).withOpacity(0.7),
                         child: Container(
                             height: 125.0,
                             width: double.infinity,
@@ -86,7 +86,7 @@ class ChatScreen extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: GoogleFonts.lobster(
                   fontSize: 20,
-                  color: SocialCubit.get(context).isDark
+                  color: SocialCubit.get(context).isLight
                       ? Colors.black
                       : Colors.white,
                 ),
@@ -102,7 +102,7 @@ class ChatScreen extends StatelessWidget {
                 style: GoogleFonts.lobster(
                   fontSize: 15,
                   height: 1.3,
-                  color: SocialCubit.get(context).isDark
+                  color: SocialCubit.get(context).isLight
                       ? CupertinoColors.activeBlue
                       : Colors.white,
                 ),
@@ -153,7 +153,7 @@ class ChatScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: GoogleFonts.lobster(
                     fontSize: 18,
-                    color: SocialCubit.get(context).isDark
+                    color: SocialCubit.get(context).isLight
                         ? Colors.black
                         : Colors.white,
                   ),

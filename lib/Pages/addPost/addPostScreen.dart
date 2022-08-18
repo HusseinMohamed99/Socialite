@@ -23,18 +23,18 @@ class AddPostScreen extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           backgroundColor:
-              cubit.isDark ? Colors.white : const Color(0xff063750),
+              cubit.isLight ? Colors.white : const Color(0xff063750),
           appBar: AppBar(
             systemOverlayStyle: SystemUiOverlayStyle(
               statusBarColor:
-                  cubit.isDark ? Colors.white : const Color(0xff063750),
+                  cubit.isLight ? Colors.white : const Color(0xff063750),
               statusBarIconBrightness:
-                  cubit.isDark ? Brightness.dark : Brightness.light,
+                  cubit.isLight ? Brightness.dark : Brightness.light,
               statusBarBrightness:
-                  cubit.isDark ? Brightness.dark : Brightness.light,
+                  cubit.isLight ? Brightness.dark : Brightness.light,
             ),
             backgroundColor:
-                cubit.isDark ? Colors.white : const Color(0xff063750),
+                cubit.isLight ? Colors.white : const Color(0xff063750),
             leading: IconButton(
               onPressed: () {
                 pop(context);
@@ -43,14 +43,14 @@ class AddPostScreen extends StatelessWidget {
               icon: Icon(
                 IconlyLight.arrowLeft2,
                 size: 30,
-                color: cubit.isDark ? Colors.black : Colors.white,
+                color: cubit.isLight ? Colors.black : Colors.white,
               ),
             ),
             titleSpacing: 1,
             title: Text(
               'Create Post',
               style: GoogleFonts.lobster(
-                color: cubit.isDark ? Colors.blue : Colors.white,
+                color: cubit.isLight ? Colors.blue : Colors.white,
                 fontSize: 20,
               ),
             ),
@@ -73,7 +73,7 @@ class AddPostScreen extends StatelessWidget {
                 child: Text(
                   'Post',
                   style: GoogleFonts.lobster(
-                    color: cubit.isDark ? Colors.blue : Colors.white,
+                    color: cubit.isLight ? Colors.blue : Colors.white,
                     fontSize: 20,
                   ),
                 ),
@@ -111,7 +111,7 @@ class AddPostScreen extends StatelessWidget {
                               Text(
                                 userModel.name!,
                                 style: GoogleFonts.lobster(
-                                  color: cubit.isDark
+                                  color: cubit.isLight
                                       ? Colors.black
                                       : Colors.white,
                                   fontSize: 24,
@@ -123,7 +123,7 @@ class AddPostScreen extends StatelessWidget {
                                 children: [
                                   Icon(
                                     IconlyLight.user2,
-                                    color: cubit.isDark
+                                    color: cubit.isLight
                                         ? Colors.black
                                         : Colors.white,
                                   ),
@@ -155,7 +155,7 @@ class AddPostScreen extends StatelessWidget {
                         minLines: 1,
                         style: GoogleFonts.cairo(
                           height: 1.5,
-                          color: cubit.isDark ? Colors.black : Colors.white,
+                          color: cubit.isLight ? Colors.black : Colors.white,
                           fontWeight: FontWeight.w700,
                         ),
                         controller: textController,
@@ -228,7 +228,7 @@ class AddPostScreen extends StatelessWidget {
                     child: OutlinedButton.icon(
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
-                          cubit.isDark ? Colors.white : const Color(0xff063750),
+                          cubit.isLight ? Colors.white : const Color(0xff063750),
                         ),
                       ),
                       onPressed: () {
@@ -239,11 +239,11 @@ class AddPostScreen extends StatelessWidget {
                         'Add photo'.toUpperCase(),
                         style: GoogleFonts.lobster(
                             fontSize: 20,
-                            color: cubit.isDark ? Colors.blue : Colors.white),
+                            color: cubit.isLight ? Colors.blue : Colors.white),
                       ),
                       icon: Icon(
                         IconlyLight.image,
-                        color: cubit.isDark ? Colors.blue : Colors.white,
+                        color: cubit.isLight ? Colors.blue : Colors.white,
                       ),
                     ),
                   ),

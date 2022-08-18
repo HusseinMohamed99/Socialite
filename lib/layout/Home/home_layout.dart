@@ -31,7 +31,7 @@ class HomeLayout extends StatelessWidget {
         return SocialCubit.get(context).userModel == null
             ? Scaffold(
             backgroundColor:
-            cubit.isDark ? Colors.white : const Color(0xff063750),
+            cubit.isLight ? Colors.white : const Color(0xff063750),
             body: Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -54,7 +54,7 @@ class HomeLayout extends StatelessWidget {
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all
                           (
-                            cubit.isDark? Colors.blue : Colors.white
+                            cubit.isLight? Colors.blue : Colors.white
                         )
                     ),
                     onPressed: ()
@@ -63,14 +63,14 @@ class HomeLayout extends StatelessWidget {
                     },
                     icon: Icon(
                       IconlyLight.upload,
-                      color: cubit.isDark? Colors.white : Colors.blue,
+                      color: cubit.isLight? Colors.white : Colors.blue,
                     ),
                     label:  Text(
                       'Reload',
                       style: GoogleFonts.libreBaskerville(
                         fontWeight: FontWeight.w700,
                         fontSize: 30,
-                        color: cubit.isDark? Colors.white : Colors.blue,
+                        color: cubit.isLight? Colors.white : Colors.blue,
                       ),
                     ),
                   )
@@ -95,8 +95,8 @@ class HomeLayout extends StatelessWidget {
           mainScreen: cubit.mScreen,
           showShadow: true,
           menuBackgroundColor:
-              cubit.isDark ? const Color(0xff063750) : Colors.white,
-          drawerShadowsBackgroundColor: cubit.isDark? Colors.grey.shade400: Colors.blue.shade200,
+              cubit.isLight ? const Color(0xff063750) : Colors.white,
+          drawerShadowsBackgroundColor: cubit.isLight? Colors.grey.shade400: Colors.blue.shade200,
           reverseDuration: const Duration(milliseconds: 250),
           openCurve: Curves.fastOutSlowIn,
           closeCurve: Curves.bounceIn,
@@ -122,15 +122,15 @@ class MainScreen extends StatelessWidget {
           initialIndex: cubit.currentIndex,
           child: Scaffold(
             backgroundColor:
-                cubit.isDark ? Colors.white : const Color(0xff063750),
+                cubit.isLight ? Colors.white : const Color(0xff063750),
             appBar: AppBar(
               systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarColor: cubit.isDark ?  Colors.white : const Color(0xff063750),
-                statusBarIconBrightness:cubit.isDark ? Brightness.dark : Brightness.light,
-                statusBarBrightness: cubit.isDark ? Brightness.dark : Brightness.light,
+                statusBarColor: cubit.isLight ?  Colors.white : const Color(0xff063750),
+                statusBarIconBrightness:cubit.isLight ? Brightness.dark : Brightness.light,
+                statusBarBrightness: cubit.isLight ? Brightness.dark : Brightness.light,
               ),
               backgroundColor:
-                  cubit.isDark ? Colors.white : const Color(0xff063750),
+                  cubit.isLight ? Colors.white : const Color(0xff063750),
               elevation: 5,
               leading: IconButton(
                 onPressed: () {
@@ -138,14 +138,14 @@ class MainScreen extends StatelessWidget {
                 },
                 icon: Icon(
                   Icons.menu,
-                  color: cubit.isDark ? const Color(0xff063750) : Colors.white,
+                  color: cubit.isLight ? const Color(0xff063750) : Colors.white,
                 ),
               ),
               titleSpacing: 0.0,
               title: Text(
                 cubit.titles[cubit.currentIndex],
                 style: GoogleFonts.lobster(
-                  color: cubit.isDark ? Colors.blue : Colors.white,
+                  color: cubit.isLight ? Colors.blue : Colors.white,
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
                 ),
@@ -157,7 +157,7 @@ class MainScreen extends StatelessWidget {
                   splashRadius: 20,
                   icon: Icon(
                     IconlyBroken.search,
-                    color: cubit.isDark ? Colors.black : Colors.white,
+                    color: cubit.isLight ? Colors.black : Colors.white,
                   ),
                 ),
                 IconButton(
@@ -166,7 +166,7 @@ class MainScreen extends StatelessWidget {
                   splashRadius: 20,
                   icon: Icon(
                     IconlyBroken.notification,
-                    color: cubit.isDark ? Colors.black : Colors.white,
+                    color: cubit.isLight ? Colors.black : Colors.white,
                   ),
                 ),
               ],
@@ -181,10 +181,10 @@ class MainScreen extends StatelessWidget {
                   labelPadding: const EdgeInsets.symmetric(horizontal: 25),
                   splashFactory: InkSplash.splashFactory,
                   isScrollable: true,
-                  indicatorColor: cubit.isDark ? Colors.blue : Colors.white,
-                  labelColor: cubit.isDark ? Colors.blue : Colors.white,
+                  indicatorColor: cubit.isLight ? Colors.blue : Colors.white,
+                  labelColor: cubit.isLight ? Colors.blue : Colors.white,
                   unselectedLabelColor:
-                      cubit.isDark ? Colors.black26 : Colors.grey[600],
+                      cubit.isLight ? Colors.black26 : Colors.grey[600],
                   tabs: cubit.tabs,
                 ),
               ),
@@ -192,7 +192,7 @@ class MainScreen extends StatelessWidget {
             body: SocialCubit.get(context).userModel == null
                 ? Scaffold(
                 backgroundColor:
-                cubit.isDark ? Colors.white : const Color(0xff063750),
+                cubit.isLight ? Colors.white : const Color(0xff063750),
                 body: Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -215,7 +215,7 @@ class MainScreen extends StatelessWidget {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all
                               (
-                                cubit.isDark? Colors.blue : Colors.white
+                                cubit.isLight? Colors.blue : Colors.white
                             )
                         ),
                         onPressed: ()
@@ -224,14 +224,14 @@ class MainScreen extends StatelessWidget {
                         },
                         icon: Icon(
                           IconlyLight.upload,
-                          color: cubit.isDark? Colors.white : Colors.blue,
+                          color: cubit.isLight? Colors.white : Colors.blue,
                         ),
                         label:  Text(
                           'Reload',
                           style: GoogleFonts.libreBaskerville(
                             fontWeight: FontWeight.w700,
                             fontSize: 30,
-                            color: cubit.isDark? Colors.white : Colors.blue,
+                            color: cubit.isLight? Colors.white : Colors.blue,
                           ),
                         ),
                       )
@@ -268,7 +268,7 @@ class MenuScreen extends StatelessWidget {
         return SocialCubit.get(context).userModel == null
             ? Scaffold(
             backgroundColor:
-            cubit.isDark ? Colors.white : const Color(0xff063750),
+            cubit.isLight ? Colors.white : const Color(0xff063750),
             body: Column(
               children: [
                 const Icon(
@@ -291,7 +291,7 @@ class MenuScreen extends StatelessWidget {
             resizeToAvoidBottomInset: false,
             extendBody: true,
             backgroundColor:
-              cubit.isDark ? Colors.white : const Color(0xff063750),
+              cubit.isLight ? Colors.white : const Color(0xff063750),
             body: Column(
               children: [
                 SizedBox(
@@ -354,7 +354,7 @@ class MenuScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: GoogleFonts.lobster(
                       fontSize: 30,
-                      color: cubit.isDark ? Colors.black : Colors.white),
+                      color: cubit.isLight ? Colors.black : Colors.white),
                 ),
                 myDivider(Colors.grey),
                 space(0, 15),
@@ -374,7 +374,7 @@ class MenuScreen extends StatelessWidget {
                           width: 120.0,
                           height: 45.0,
                           toggleSize: 40.0,
-                          value: cubit.isDark,
+                          value: cubit.isLight,
                           borderRadius: 30.0,
                           activeToggleColor: Colors.blue,
                           inactiveToggleColor: Colors.grey,
@@ -417,7 +417,7 @@ class MenuScreen extends StatelessWidget {
                       children: [
                         Icon(Icons.power_settings_new_rounded,
                             size: 30,
-                            color: cubit.isDark ? Colors.black : Colors.white),
+                            color: cubit.isLight ? Colors.black : Colors.white),
                         const SizedBox(
                           width: 10,
                         ),
@@ -425,7 +425,7 @@ class MenuScreen extends StatelessWidget {
                           'Logout',
                           style: GoogleFonts.lobster(
                               fontSize: 30,
-                              color: cubit.isDark ? Colors.black : Colors.white),
+                              color: cubit.isLight ? Colors.black : Colors.white),
                         ),
                       ],
                     ),
@@ -471,18 +471,18 @@ class MenuScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: ListTile(
               selected: currentItem == item,
-              selectedTileColor: cubit.isDark ? Colors.white : Colors.black,
+              selectedTileColor: cubit.isLight ? Colors.white : Colors.black,
               minLeadingWidth: 10,
               leading: Icon(
                 item.icon,
-                color: cubit.isDark ? Colors.black : Colors.white,
+                color: cubit.isLight ? Colors.black : Colors.white,
                 size: 26,
               ),
               title: Text(
                 item.title,
                 style: GoogleFonts.lobster(
                   fontSize: 26,
-                  color: cubit.isDark ? Colors.black : Colors.white,
+                  color: cubit.isLight ? Colors.black : Colors.white,
                 ),
               ),
               onTap: () {

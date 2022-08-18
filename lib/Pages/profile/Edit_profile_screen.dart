@@ -32,7 +32,7 @@ class EditProfileScreen extends StatelessWidget {
 
         return SocialCubit.get(context).userModel == null ? Scaffold(
             backgroundColor:
-             cubit.isDark ? Colors.white : const Color(0xff063750),
+             cubit.isLight ? Colors.white : const Color(0xff063750),
             body: Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -56,7 +56,7 @@ class EditProfileScreen extends StatelessWidget {
             : SafeArea(
           child: Scaffold(
             backgroundColor:
-                cubit.isDark ? Colors.white : const Color(0xff063750),
+                cubit.isLight ? Colors.white : const Color(0xff063750),
             body: Column(
               children: [
                 Expanded(
@@ -93,7 +93,7 @@ class EditProfileScreen extends StatelessWidget {
                                       right: 10,
                                       child: CircleAvatar(
                                         radius: 25,
-                                        backgroundColor: cubit.isDark
+                                        backgroundColor: cubit.isLight
                                             ? Colors.grey.shade50
                                             : const Color(0xff063750),
                                         child: IconButton(
@@ -103,7 +103,7 @@ class EditProfileScreen extends StatelessWidget {
                                           },
                                           icon: Icon(
                                             IconlyLight.camera,
-                                            color: cubit.isDark
+                                            color: cubit.isLight
                                                 ? Colors.black
                                                 : Colors.white,
                                             size: 30,
@@ -131,7 +131,7 @@ class EditProfileScreen extends StatelessWidget {
                                     left: 90,
                                     child: CircleAvatar(
                                       radius: 25,
-                                      backgroundColor: cubit.isDark
+                                      backgroundColor: cubit.isLight
                                           ? Colors.grey.shade50
                                           : const Color(0xff063750),
                                       child: IconButton(
@@ -141,7 +141,7 @@ class EditProfileScreen extends StatelessWidget {
                                         },
                                         icon: Icon(
                                           IconlyLight.camera,
-                                          color: cubit.isDark
+                                          color: cubit.isLight
                                               ? Colors.black
                                               : Colors.white,
                                           size: 30,
@@ -247,7 +247,7 @@ class EditProfileScreen extends StatelessWidget {
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty
                                   .all(
-                               cubit.isDark? Colors.white : const Color(0xff063750),
+                               cubit.isLight? Colors.white : const Color(0xff063750),
                               ),
                             ),
                             onPressed: ()
@@ -291,7 +291,7 @@ class EditProfileScreen extends StatelessWidget {
                               'Update'.toUpperCase(),
                               style: GoogleFonts.lobster(
                                   fontSize: 20,
-                                  color: cubit.isDark ? Colors.blue : Colors.white),
+                                  color: cubit.isLight ? Colors.blue : Colors.white),
                             ),
                           ),
                         ),

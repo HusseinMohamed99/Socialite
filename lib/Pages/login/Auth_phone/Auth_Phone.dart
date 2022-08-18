@@ -20,20 +20,20 @@ class AuthPhoneState extends State<AuthPhone> {
     var cubit = SocialCubit.get(context);
     return Scaffold(
       backgroundColor:
-      cubit.isDark ? Colors.white : const Color(0xff063750),
+      cubit.isLight ? Colors.white : const Color(0xff063750),
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: cubit.isDark ?  Colors.white : const Color(0xff063750),
-          statusBarIconBrightness:cubit.isDark ? Brightness.dark : Brightness.light,
-          statusBarBrightness: cubit.isDark ? Brightness.dark : Brightness.light,
+          statusBarColor: cubit.isLight ?  Colors.white : const Color(0xff063750),
+          statusBarIconBrightness:cubit.isLight ? Brightness.dark : Brightness.light,
+          statusBarBrightness: cubit.isLight ? Brightness.dark : Brightness.light,
         ),
         backgroundColor:
-        cubit.isDark ? Colors.white : const Color(0xff063750),
+        cubit.isLight ? Colors.white : const Color(0xff063750),
         elevation: 0,
         title:  Text('Phone Auth',style: GoogleFonts.lobster(
           textStyle: TextStyle(
             color:
-            cubit.isDark ? Colors.black : Colors.white,
+            cubit.isLight ? Colors.black : Colors.white,
             fontSize: 20,
             fontWeight: FontWeight.w600,
           ),
@@ -44,7 +44,7 @@ class AuthPhoneState extends State<AuthPhone> {
           },
           icon:  Icon(
             IconlyLight.arrowLeft2,
-            color:  cubit.isDark ? Colors.black : Colors.white,
+            color:  cubit.isLight ? Colors.black : Colors.white,
 
           ),
         ),
@@ -71,7 +71,7 @@ class AuthPhoneState extends State<AuthPhone> {
                     style: GoogleFonts.lobster(
                       textStyle: TextStyle(
                         color:
-                        cubit.isDark ? Colors.black : Colors.white,
+                        cubit.isLight ? Colors.black : Colors.white,
                         fontSize: 28,
                         fontWeight: FontWeight.w600,
                       ),
@@ -88,7 +88,7 @@ class AuthPhoneState extends State<AuthPhone> {
                         Radius.circular(10.0),
                       ),
                       borderSide:  BorderSide(
-                     color: cubit.isDark ? Colors.black : Colors.white,
+                     color: cubit.isLight ? Colors.black : Colors.white,
                       ),
                     ),
                     enabledBorder:  OutlineInputBorder(
@@ -96,7 +96,7 @@ class AuthPhoneState extends State<AuthPhone> {
                         Radius.circular(10.0),
                       ),
                       borderSide:  BorderSide(
-                        color:  cubit.isDark ? Colors.black : Colors.white,
+                        color:  cubit.isLight ? Colors.black : Colors.white,
                       ),
                     ),
                     errorBorder:  const OutlineInputBorder(
@@ -111,7 +111,7 @@ class AuthPhoneState extends State<AuthPhone> {
                     hintText: 'Phone Number',
                     hintStyle:  GoogleFonts.lobster(textStyle: TextStyle(
                   color:
-                    cubit.isDark ? Colors.black : Colors.white,
+                    cubit.isLight ? Colors.black : Colors.white,
 
                   ),),
                     prefix: const Padding(
@@ -129,7 +129,7 @@ class AuthPhoneState extends State<AuthPhone> {
               margin: const EdgeInsets.all(10),
               width: 200,
               child: MaterialButton(
-                color:   cubit.isDark ? Colors.black : Colors.white,
+                color:   cubit.isLight ? Colors.black : Colors.white,
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => OTPScreen(controller.text)));
@@ -138,7 +138,7 @@ class AuthPhoneState extends State<AuthPhone> {
                   'Next',
                   style: GoogleFonts.lobster(textStyle: TextStyle(
                     color:
-                    cubit.isDark ? Colors.white : Colors.black,
+                    cubit.isLight ? Colors.white : Colors.black,
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
                   ),),

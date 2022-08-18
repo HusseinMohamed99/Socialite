@@ -26,18 +26,18 @@ class EditPasswordScreen extends StatelessWidget {
           builder: (BuildContext context) {
             return Scaffold(
               backgroundColor:
-                  cubit.isDark ? Colors.white : const Color(0xff063750),
+                  cubit.isLight ? Colors.white : const Color(0xff063750),
               appBar: AppBar(
                 systemOverlayStyle: SystemUiOverlayStyle(
                   statusBarColor:
-                      cubit.isDark ? Colors.white : const Color(0xff063750),
+                      cubit.isLight ? Colors.white : const Color(0xff063750),
                   statusBarIconBrightness:
-                      cubit.isDark ? Brightness.dark : Brightness.light,
+                      cubit.isLight ? Brightness.dark : Brightness.light,
                   statusBarBrightness:
-                      cubit.isDark ? Brightness.dark : Brightness.light,
+                      cubit.isLight ? Brightness.dark : Brightness.light,
                 ),
                 backgroundColor:
-                    cubit.isDark ? Colors.white : const Color(0xff063750),
+                    cubit.isLight ? Colors.white : const Color(0xff063750),
                 leading: IconButton(
                   onPressed: () {
                     pop(context);
@@ -45,14 +45,14 @@ class EditPasswordScreen extends StatelessWidget {
                   icon: Icon(
                     IconlyLight.arrowLeft2,
                     size: 30,
-                    color: cubit.isDark ? Colors.black : Colors.white,
+                    color: cubit.isLight ? Colors.black : Colors.white,
                   ),
                 ),
                 titleSpacing: 1,
                 title: Text(
                   'Change Password',
                   style: GoogleFonts.lobster(
-                    color: cubit.isDark ? Colors.blue : Colors.white,
+                    color: cubit.isLight ? Colors.blue : Colors.white,
                     fontSize: 20,
                   ),
                 ),
@@ -69,7 +69,7 @@ class EditPasswordScreen extends StatelessWidget {
                         Text(
                           'You Should Re-login Before\n Change Password',
                           style: GoogleFonts.lobster(
-                            color: cubit.isDark ? Colors.black : Colors.white,
+                            color: cubit.isLight ? Colors.black : Colors.white,
                             fontSize: 20,
                           ),
                         ),
@@ -126,7 +126,7 @@ class EditPasswordScreen extends StatelessWidget {
                               child: OutlinedButton.icon(
                                 style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all(
-                                    cubit.isDark
+                                    cubit.isLight
                                         ? Colors.white
                                         : const Color(0xff063750),
                                   ),
@@ -143,13 +143,13 @@ class EditPasswordScreen extends StatelessWidget {
                                   'Update'.toUpperCase(),
                                   style: GoogleFonts.lobster(
                                       fontSize: 20,
-                                      color: cubit.isDark
+                                      color: cubit.isLight
                                           ? Colors.blue
                                           : Colors.white),
                                 ),
                                 icon: Icon(
                                   IconlyLight.upload,
-                                  color: cubit.isDark
+                                  color: cubit.isLight
                                       ? Colors.blue
                                       : Colors.white,
                                 ),

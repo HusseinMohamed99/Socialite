@@ -183,16 +183,16 @@ class SocialCubit extends Cubit<SocialStates> {
   // ----------------------------------------------------------//
 
   ///START : ChangeMode
-  bool isDark = true;
+  bool isLight = true;
   Color backgroundColor = Colors.white;
   void changeMode({bool? fromShared}) {
     if (fromShared == null) {
-      isDark = !isDark;
+      isLight = !isLight;
     } else {
-      isDark = fromShared;
+      isLight = fromShared;
     }
-    CacheHelper.saveData(key: 'isDark', value: isDark).then((value) {
-      if (isDark) {
+    CacheHelper.saveData(key: 'isLight', value: isLight).then((value) {
+      if (isLight) {
         backgroundColor = Colors.white;
 
         emit(ChangeThemeState());
@@ -849,47 +849,53 @@ class SocialCubit extends Cubit<SocialStates> {
   ///START : Show Password
   MessageModel? messageModel;
   void sendMessage({
-
     required String receiverId,
     required String dateTime,
-    required String text,
+     String? text,
+     String? messageImage,
+
+
   }) {
     MessageModel model = MessageModel(
       receiverId: receiverId,
       dateTime: dateTime,
-      text: text,
+      text: text ?? '',
       senderId: userModel!.uId,
+      messageImage: messageImage ?? '',
     );
 
-    FirebaseFirestore.instance
-    .collection('users')
-    .doc(userModel!.uId)
-    .collection('chat')
-    .doc(receiverId)
-    .collection('message')
-    .add(model.toMap())
-        .then((value)
-    {
-      emit(SendCommentSuccessState());
-    }).catchError((error)
-    {
-      emit(SendCommentErrorState());
-    });
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(userModel!.uId)
+          .collection('chat')
+          .doc(receiverId)
+          .collection('message')
+          .add(model.toMap())
+          .then((value)
+      {
+        emit(SendCommentSuccessState());
+      }).catchError((error)
+      {
+        emit(SendCommentErrorState());
+      });
 
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(receiverId)
-        .collection('chat')
-        .doc(userModel!.uId)
-        .collection('message')
-        .add(model.toMap())
-        .then((value)
-    {
-      emit(SendCommentSuccessState());
-    }).catchError((error)
-    {
-      emit(SendCommentErrorState());
-    });
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(receiverId)
+          .collection('chat')
+          .doc(userModel!.uId)
+          .collection('message')
+          .add(model.toMap())
+          .then((value)
+      {
+        emit(SendCommentSuccessState());
+      }).catchError((error)
+      {
+        emit(SendCommentErrorState());
+      });
+
+
+
   }
 
   ///END : Show Password
@@ -922,7 +928,50 @@ List<MessageModel> message = [];
 ///END : Show Password
 
 //------------------------------------------------------------//
+  bool messageImageSelected = false;
+  File? messageImagePicked;
+  Future<void> getMessageImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
+    if (pickedFile != null) {
+      messageImagePicked = File(pickedFile.path);
+      //  print(pickedFile.path);
+      //  print(' the messsageimage path is  ${messageimage}');
+      emit(MessageImagePickedSuccessState());
+      messageImageSelected = true;
+    } else {
+      print('No image selected.');
+      emit(MessageImagePickedErrorState());
+    }
+  }
+  void removemessageimage() {
+    messageImagePicked = null;
+    emit(DeleteMessageImageSuccessState());
+  }
+  void uploadmessageImage({
+    required String receiverId,
+    required String datetime,
+    required String text,
+  }) {
+    emit(UploadMessageImageLoadingState());
+    firebase_storage.FirebaseStorage.instance
+        .ref()
+        .child('messagesImage/${Uri.file(messageImagePicked!.path).pathSegments.last}')
+        .putFile(messageImagePicked!)
+        .then((value) {
+      value.ref.getDownloadURL().then((value) {
+        sendMessage(
+            dateTime: datetime,
+            text: text,
+            messageImage: value,
+            receiverId: receiverId);
+      }).catchError((error) {
+        emit(UploadMessageImageErrorState());
+      });
+    }).catchError((error) {
+      emit(UploadMessageImageErrorState());
+    });
+  }
 
 //------------------------------------------------------------//
 

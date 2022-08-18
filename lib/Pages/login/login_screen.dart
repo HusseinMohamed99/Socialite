@@ -42,18 +42,18 @@ class LoginScreen extends StatelessWidget {
         builder: (context, state) {
           var cubit = SocialCubit.get(context);
           return Scaffold(
-            backgroundColor: cubit.isDark ? Colors.white : const Color(0xff063750),
+            backgroundColor: cubit.isLight ? Colors.white : const Color(0xff063750),
             appBar: AppBar(
               systemOverlayStyle: SystemUiOverlayStyle(
                 statusBarColor:
-                    cubit.isDark ? Colors.white : const Color(0xff063750),
+                    cubit.isLight ? Colors.white : const Color(0xff063750),
                 statusBarIconBrightness:
-                    cubit.isDark ? Brightness.dark : Brightness.light,
+                    cubit.isLight ? Brightness.dark : Brightness.light,
                 statusBarBrightness:
-                    cubit.isDark ? Brightness.dark : Brightness.light,
+                    cubit.isLight ? Brightness.dark : Brightness.light,
               ),
               backgroundColor:
-                  cubit.isDark ? Colors.white : const Color(0xff063750),
+                  cubit.isLight ? Colors.white : const Color(0xff063750),
               leading: IconButton(
                 onPressed: () {
                   navigateTo(context, const OnBoard());
@@ -61,7 +61,7 @@ class LoginScreen extends StatelessWidget {
                 icon: Icon(
                   IconlyLight.arrowLeft2,
                   size: 30,
-                  color: cubit.isDark ? Colors.black : Colors.white,
+                  color: cubit.isLight ? Colors.black : Colors.white,
                 ),
               ),
             ),
@@ -78,7 +78,7 @@ class LoginScreen extends StatelessWidget {
                           'Sign in Now',
                           style: GoogleFonts.lobster(
                             textStyle: TextStyle(
-                              color: cubit.isDark ? Colors.black : Colors.white,
+                              color: cubit.isLight ? Colors.black : Colors.white,
                               fontSize: 40,
                               fontWeight: FontWeight.w600,
                             ),
@@ -103,7 +103,7 @@ class LoginScreen extends StatelessWidget {
                         'E-mail Address',
                         style: GoogleFonts.lobster(
                           textStyle: TextStyle(
-                            color: cubit.isDark ? Colors.black : Colors.white,
+                            color: cubit.isLight ? Colors.black : Colors.white,
                             fontSize: 20,
                             fontWeight: FontWeight.w600,
                           ),
@@ -219,13 +219,13 @@ class LoginScreen extends StatelessWidget {
                             style: GoogleFonts.lobster(
                               textStyle: TextStyle(
                                 color:
-                                    cubit.isDark ? Colors.black : Colors.white,
+                                    cubit.isLight ? Colors.black : Colors.white,
                                 fontSize: 20,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),
-                          cubit.isDark == true
+                          cubit.isLight == true
                               ? TextButton(
                                   onPressed: () {
                                     navigateTo(context, const RegisterScreen());
@@ -234,7 +234,7 @@ class LoginScreen extends StatelessWidget {
                                     'Register Now!',
                                     style: GoogleFonts.lobster(
                                       textStyle: TextStyle(
-                                        color: cubit.isDark
+                                        color: cubit.isLight
                                             ? Colors.blue
                                             : Colors.black,
                                         fontSize: 20,
@@ -284,7 +284,7 @@ class LoginScreen extends StatelessWidget {
                                 ),
                                 radius: 30,
                                 backgroundColor:
-                                    cubit.isDark ? Colors.black : Colors.white,
+                                    cubit.isLight ? Colors.black : Colors.white,
                               ),
                             ),
                             InkWell(
@@ -298,7 +298,7 @@ class LoginScreen extends StatelessWidget {
                                 ),
                                 radius: 30,
                                 backgroundColor:
-                                    cubit.isDark ? Colors.black : Colors.white,
+                                    cubit.isLight ? Colors.black : Colors.white,
                               ),
                             ),
                           ],

@@ -45,11 +45,11 @@ class FeedScreen extends StatelessWidget {
         return SocialCubit.get(context).posts.isEmpty
             ? Scaffold(
                 backgroundColor:
-                    cubit.isDark ? Colors.white : const Color(0xff063750),
+                    cubit.isLight ? Colors.white : const Color(0xff063750),
                 body: Column(
                   children: [
                     Card(
-                      color: SocialCubit.get(context).isDark
+                      color: SocialCubit.get(context).isLight
                           ? Colors.white
                           : const Color(0xff063750),
                       clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -91,7 +91,7 @@ class FeedScreen extends StatelessWidget {
                                     '\' What\'s on your mind ? \'',
                                     style: GoogleFonts.lobster(
                                       fontSize: 16,
-                                      color: SocialCubit.get(context).isDark
+                                      color: SocialCubit.get(context).isLight
                                           ? Colors.black
                                           : Colors.white,
                                     ),
@@ -115,7 +115,7 @@ class FeedScreen extends StatelessWidget {
                               icon: Icon(
                                 Icons.photo_library_outlined,
                                 size: 30,
-                                color: cubit.isDark
+                                color: cubit.isLight
                                     ? CupertinoColors.activeBlue
                                     : Colors.white,
                               ),
@@ -155,7 +155,7 @@ class FeedScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         Card(
-                          color: SocialCubit.get(context).isDark
+                          color: SocialCubit.get(context).isLight
                               ? Colors.white
                               : const Color(0xff063750),
                           clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -199,7 +199,7 @@ class FeedScreen extends StatelessWidget {
                                         '\' What\'s on your mind ? \'',
                                         style: GoogleFonts.lobster(
                                           fontSize: 16,
-                                          color: SocialCubit.get(context).isDark
+                                          color: SocialCubit.get(context).isLight
                                               ? Colors.black
                                               : Colors.white,
                                         ),
@@ -223,7 +223,7 @@ class FeedScreen extends StatelessWidget {
                                   icon: Icon(
                                     Icons.photo_library_outlined,
                                     size: 30,
-                                    color: cubit.isDark
+                                    color: cubit.isLight
                                         ? CupertinoColors.activeBlue
                                         : Colors.white,
                                   ),
@@ -261,7 +261,7 @@ class FeedScreen extends StatelessWidget {
     var cubit = SocialCubit.get(context);
     postId = SocialCubit.get(context).postsId[index];
     return Card(
-      color: SocialCubit.get(context).isDark
+      color: SocialCubit.get(context).isLight
           ? Colors.white
           : const Color(0xff063750),
       clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -302,7 +302,7 @@ class FeedScreen extends StatelessWidget {
                               style: GoogleFonts.lobster(
                                 fontSize: 20,
                                 height: 1.3,
-                                color: SocialCubit.get(context).isDark
+                                color: SocialCubit.get(context).isLight
                                     ? CupertinoColors.activeBlue
                                     : Colors.white,
                               ),
@@ -519,7 +519,7 @@ class FeedScreen extends StatelessWidget {
                     icon: Icon(
                       IconlyLight.moreCircle,
                       size: 25,
-                      color: SocialCubit.get(context).isDark
+                      color: SocialCubit.get(context).isLight
                           ? Colors.black
                           : Colors.white,
                     ),
@@ -537,7 +537,7 @@ class FeedScreen extends StatelessWidget {
             Text(
               '${postModel.text}',
               style: GoogleFonts.libreBaskerville(
-                color: SocialCubit.get(context).isDark
+                color: SocialCubit.get(context).isLight
                     ? Colors.black
                     : Colors.white,
               ),
