@@ -152,6 +152,7 @@ class AddPostScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: TextFormField(
                         maxLines: 6,
+                        minLines: 1,
                         style: GoogleFonts.cairo(
                           height: 1.5,
                           color: cubit.isDark ? Colors.black : Colors.white,

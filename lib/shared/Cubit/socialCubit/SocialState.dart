@@ -12,6 +12,16 @@ class GetUserDataErrorState extends SocialStates {
 ///END : GetUserData
 
 // ----------------------------------------------------------//
+///START : GetAllUsers
+class GetAllUsersLoadingState extends SocialStates {}
+class GetAllUsersSuccessState extends SocialStates {}
+class GetAllUsersErrorState extends SocialStates {
+  final String error ;
+  GetAllUsersErrorState (this.error);
+}
+///END : GetAllUsers
+
+// ----------------------------------------------------------//
 ///START : ChangeTabBar
 class SocialChangeTabBarState extends SocialStates {}
 ///END : ChangeTabBar
@@ -151,6 +161,14 @@ class ChangeUserPasswordErrorState extends SocialStates {
 
 class ShowPasswordState extends SocialStates {}
 ///END : ChangeUserPassword
+
 //------------------------------------------------------------//
-class ImageCropperSuccessState extends SocialStates {}
-class ImageCropperErrorState extends SocialStates {}
+///START : Message
+class SendMessageSuccessState extends SocialStates {}
+class SendMessageErrorState extends SocialStates {}
+
+class GetMessageSuccessState extends SocialStates {}
+class GetMessageErrorState extends SocialStates {}
+///END : Message
+
+//------------------------------------------------------------//

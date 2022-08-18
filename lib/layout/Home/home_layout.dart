@@ -356,7 +356,7 @@ class MenuScreen extends StatelessWidget {
                       fontSize: 30,
                       color: cubit.isDark ? Colors.black : Colors.white),
                 ),
-                myDivider(),
+                myDivider(Colors.grey),
                 space(0, 15),
                 ...MenuItems.all.map(buildMenuItem).toList(),
                 const Spacer(

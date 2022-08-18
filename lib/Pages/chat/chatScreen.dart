@@ -1,16 +1,158 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:f_app/Pages/chat/private_chat.dart';
+import 'package:f_app/model/user_model.dart';
+import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
+import 'package:f_app/shared/componnetns/components.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../shared/Cubit/socialCubit/SocialCubit.dart';
+import '../../shared/componnetns/constants.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Chat Screen',  style: GoogleFonts.lobster(
-      color: Colors.blue,
-      fontSize: 24,
-      fontWeight: FontWeight.w700,
-    ),));
-
+    return BlocConsumer<SocialCubit, SocialStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        SocialCubit cubit = SocialCubit.get(context);
+        return Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: SingleChildScrollView(
+            child: ConditionalBuilder(
+                condition: cubit.users.isNotEmpty,
+                builder: (BuildContext context) => Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                            height: 105.0,
+                            child: ListView.separated(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) =>
+                                  buildStoryItem(cubit.users[index], context),
+                              separatorBuilder: (context, index) => space(5, 0),
+                              itemCount: cubit.users.length,
+                            )),
+                        ListView.separated(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) =>
+                              buildUsersItem(cubit.users[index], context),
+                          separatorBuilder: (context, index) =>
+                              myDivider(Colors.grey.withOpacity(0.3)),
+                          itemCount: cubit.users.length,
+                        ),
+                      ],
+                    ),
+                fallback: (BuildContext context) =>
+                    const Center(child: CircularProgressIndicator())),
+          ),
+        );
+      },
+    );
   }
+
+  Widget buildUsersItem(UserModel users, context) {
+
+    return InkWell(
+      onTap: () {
+        navigateTo(context, PrivateChatScreen(users));
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20.0),
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: 25,
+              backgroundImage: NetworkImage(
+                '${users.image}',
+              ),
+            ),
+            space(15, 0),
+            Expanded(
+              child: Text(
+                '${users.name}',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.lobster(
+                  fontSize: 20,
+                  color: SocialCubit.get(context).isDark
+                      ? Colors.black
+                      : Colors.white,
+                ),
+              ),
+            ),
+            space(10, 0),
+            OutlinedButton.icon(
+              onPressed: () {
+                navigateTo(context, PrivateChatScreen(users));
+              },
+              label: Text(
+                'Message',
+                style: GoogleFonts.lobster(
+                  fontSize: 15,
+                  height: 1.3,
+                  color: SocialCubit.get(context).isDark
+                      ? CupertinoColors.activeBlue
+                      : Colors.white,
+                ),
+              ),
+              icon: const Icon(
+                IconlyLight.chat,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildStoryItem(UserModel users, context) => InkWell(
+        onTap: () {
+          navigateTo(context, PrivateChatScreen(users));
+        },
+        child: SizedBox(
+            width: 80.0,
+            child: Column(
+              children: [
+                Stack(
+                  alignment: AlignmentDirectional.bottomEnd,
+                  children: [
+                    CircleAvatar(
+                      radius: 26.0,
+                      backgroundImage: NetworkImage(
+                        '${users.image}',
+                      ),
+                    ),
+                    const CircleAvatar(
+                      radius: 8.0,
+                      backgroundColor: Colors.white,
+                      child: CircleAvatar(
+                        radius: 5.0,
+                        backgroundColor: Colors.green,
+                      ),
+                    ),
+                  ],
+                ),
+                space(0, 5),
+                Text(
+                  '${users.name}',
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.lobster(
+                    fontSize: 18,
+                    color: SocialCubit.get(context).isDark
+                        ? Colors.black
+                        : Colors.white,
+                  ),
+                )
+              ],
+            )),
+      );
 }

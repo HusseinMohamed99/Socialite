@@ -10,6 +10,7 @@ import 'package:f_app/Pages/user/userScreen.dart';
 import 'package:f_app/layout/Home/home_layout.dart';
 import 'package:f_app/model/CommentModel.dart';
 import 'package:f_app/model/drawerModel.dart';
+import 'package:f_app/model/messageModel.dart';
 import 'package:f_app/model/post_model.dart';
 import 'package:f_app/model/user_model.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
@@ -50,9 +51,27 @@ class SocialCubit extends Cubit<SocialStates> {
   }
 
   ///END : GetUserData
+// ----------------------------------------------------------//
+  ///START : GetAllUsers
+  List<UserModel> users = [];
+  void getAllUsers() {
+    emit(GetAllUsersLoadingState());
+    FirebaseFirestore.instance.collection('users').get().then((event) {
+      users = [];
+      for (var element in event.docs) {
+        if (element.data()['uId'] != userModel!.uId) {
+          users.add(UserModel.fromJson(element.data()));
+        }
+      }
+      emit(GetAllUsersSuccessState());
+    }).catchError((error) {
+      emit(GetAllUsersErrorState(error.toString()));
+    });
+  }
+
+  ///END : GetAllUsers
 
   // ----------------------------------------------------------//
-
   ///START : Screens
   int currentIndex = 0;
   List<Widget> screens = [
@@ -120,6 +139,9 @@ class SocialCubit extends Cubit<SocialStates> {
 
   ///START : ChangeTabBar
   void changeTabBar(int index, context) {
+    if (index == 1) {
+      getAllUsers();
+    }
     currentIndex = index;
     emit(SocialChangeTabBarState());
   }
@@ -186,7 +208,7 @@ class SocialCubit extends Cubit<SocialStates> {
 
   // ----------------------------------------------------------//
 
-///START : GetProfileImage
+  ///START : GetProfileImage
   var picker = ImagePicker();
   File? profileImage;
 
@@ -200,11 +222,12 @@ class SocialCubit extends Cubit<SocialStates> {
       emit(GetProfileImagePickedErrorState());
     }
   }
-///END : GetProfileImage
+
+  ///END : GetProfileImage
 
   // ----------------------------------------------------------//
 
-///START : GetCoverImage
+  ///START : GetCoverImage
   File? coverImage;
   Future<void> getCoverImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -821,4 +844,79 @@ class SocialCubit extends Cubit<SocialStates> {
   }
 
   ///END : Show Password
+
+//------------------------------------------------------------//
+  ///START : Show Password
+  MessageModel? messageModel;
+  void sendMessage({
+    required String receiverId,
+    required String dateTime,
+    required String text,
+  }) {
+    MessageModel model = MessageModel(
+      receiverId: receiverId,
+      dateTime: dateTime,
+      text: text,
+      senderId: userModel!.uId,
+    );
+
+    FirebaseFirestore.instance
+    .collection('users')
+    .doc(userModel!.uId)
+    .collection('chat')
+    .doc(receiverId)
+    .collection('message')
+    .add(model.toMap())
+        .then((value)
+    {
+      emit(SendCommentSuccessState());
+    }).catchError((error)
+    {
+      emit(SendCommentErrorState());
+    });
+
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(receiverId)
+        .collection('chat')
+        .doc(userModel!.uId)
+        .collection('message')
+        .add(model.toMap())
+        .then((value)
+    {
+      emit(SendCommentSuccessState());
+    }).catchError((error)
+    {
+      emit(SendCommentErrorState());
+    });
+  }
+
+  ///END : Show Password
+
+//------------------------------------------------------------//
+///START : Show Password
+List<MessageModel> message = [];
+  void getMessage({
+    required String receiverId,
+})
+  {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(userModel!.uId)
+        .collection('chat')
+        .doc(receiverId)
+        .collection('message')
+        .orderBy('dateTime')
+        .snapshots()
+        .listen((event)
+    {
+      message = [];
+      event.docs.forEach((element)
+      {
+       message.add(MessageModel.fromJson(element.data()));
+      });
+      emit(GetMessageSuccessState());
+    });
+  }
+///END : Show Password
 }

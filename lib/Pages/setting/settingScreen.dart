@@ -61,36 +61,40 @@ class SettingScreen extends StatelessWidget {
                             ),
                           ),
                           space(10, 0),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                userModel.name!,
-                                style: GoogleFonts.lobster(
-                                  color: cubit.isDark
-                                      ? Colors.black
-                                      : Colors.white,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w700,
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  userModel.name!,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: GoogleFonts.lobster(
+                                    color: cubit.isDark
+                                        ? Colors.black
+                                        : Colors.white,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                'see your profile',
-                                style: GoogleFonts.lobster(
-                                  textStyle: Theme.of(context)
-                                      .textTheme
-                                      .caption!
-                                      .copyWith(
-                                        color: cubit.isDark
-                                            ? Colors.black
-                                            : Colors.white,
-                                        fontSize: 16,
-                                      ),
+                                Text(
+                                  'see your profile',
+                                  style: GoogleFonts.lobster(
+                                    textStyle: Theme.of(context)
+                                        .textTheme
+                                        .caption!
+                                        .copyWith(
+                                          color: cubit.isDark
+                                              ? Colors.black
+                                              : Colors.white,
+                                          fontSize: 16,
+                                        ),
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                          const Spacer(),
+                         
                           Icon(
                             IconlyLight.arrowRight2,
                             color: cubit.isDark ? Colors.blue : Colors.white,

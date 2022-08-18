@@ -134,12 +134,12 @@ required BuildContext context
     );
 }
 
-Widget myDivider() {
+Widget myDivider(Color? color) {
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 8),
       width: double.infinity,
       height: 4.0,
-      color: Colors.grey,
+      color: color,
     );
 }
 
