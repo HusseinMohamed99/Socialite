@@ -255,11 +255,11 @@ Widget baseAlertDialog({
 }){
   return AlertDialog(
     backgroundColor: SocialCubit.get(context).backgroundColor.withOpacity(1),
-    title: Text('$title',style: TextStyle(color: Colors.red),),
-    titlePadding: EdgeInsetsDirectional.only(start:13,top: 15 ),
-    content: Text('$content',style: TextStyle(color: Colors.grey,),),
+    title: Text('$title',style: const TextStyle(color: Colors.red),),
+    titlePadding: const EdgeInsetsDirectional.only(start:13,top: 15 ),
+    content: Text('$content',style: const TextStyle(color: Colors.grey,),),
     elevation: 8,
-    contentPadding: EdgeInsets.all(15),
+    contentPadding: const EdgeInsets.all(15),
     actions: [
       OutlinedButton(
           onPressed: (){
@@ -267,7 +267,7 @@ Widget baseAlertDialog({
           },
           child: Text('$outlinedButtonText')
       ),
-      Container(
+      SizedBox(
         width: 115,
         child: ElevatedButton(
           style:ButtonStyle(backgroundColor:MaterialStateProperty.all(Colors.blueAccent)) ,
@@ -278,8 +278,8 @@ Widget baseAlertDialog({
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(elevatedButtonIcon),
-              SizedBox(width: 5,),
-              Text('$elevatedButtonText',style: TextStyle(color: Colors.white)),
+              const SizedBox(width: 5,),
+              Text('$elevatedButtonText',style: const TextStyle(color: Colors.white)),
             ],
           ),
         ),
@@ -297,12 +297,12 @@ Widget searchBar({
 
 }){
   return Container(
-    padding: EdgeInsets.symmetric(horizontal: 10),
+    padding: const EdgeInsets.symmetric(horizontal: 10),
     height: height,
     width: width,
     child: TextFormField(
       readOnly: readOnly,
-      style: TextStyle(color: Colors.grey),
+      style: const TextStyle(color: Colors.grey),
       // onTap: () => navigateTo(context, SearchScreen()),
       decoration: InputDecoration(
         border: OutlineInputBorder( borderRadius: BorderRadius.circular(15)),
@@ -311,8 +311,8 @@ Widget searchBar({
         disabledBorder: OutlineInputBorder( borderRadius: BorderRadius.circular(15)),
         focusedBorder: OutlineInputBorder( borderRadius: BorderRadius.circular(15)),
         hintText: 'LocaleKeys.search.tr()',
-        hintStyle: TextStyle(fontSize: 15,color: Colors.grey),
-        prefixIcon: Icon(Icons.search,color: Colors.grey,),
+        hintStyle: const TextStyle(fontSize: 15,color: Colors.grey),
+        prefixIcon: const Icon(Icons.search,color: Colors.grey,),
       ),
     ),
   );
@@ -347,10 +347,11 @@ Widget buildPost(
             children: [
               InkWell(
                 onTap: () {
-                  if (postModel.uId != SocialCubit.get(context).userModel!.uId)
+                  if (postModel.uId != SocialCubit.get(context).userModel!.uId) {
                     navigateTo(context, FriendsProfileScreen(postModel.uId));
-                  else
-                    navigateTo(context, MyProfileScreen());
+                  } else {
+                    navigateTo(context, const MyProfileScreen());
+                  }
                 },
                 borderRadius: BorderRadius.circular(25),
                 child: CircleAvatar(
@@ -370,10 +371,11 @@ Widget buildPost(
                         InkWell(
                           onTap: ()
                           {
-                            if (postModel.uId != SocialCubit.get(context).userModel!.uId)
+                            if (postModel.uId != SocialCubit.get(context).userModel!.uId) {
                               navigateTo(context, FriendsProfileScreen(postModel.uId));
-                            else
-                              navigateTo(context, MyProfileScreen());
+                            } else {
+                              navigateTo(context, const MyProfileScreen());
+                            }
                           },
                           child: Text(
                             '${postModel.name}',
@@ -440,13 +442,13 @@ Widget buildPost(
                                     ),
                                     child: Row(
                                       children:  [
-                                        Icon(
+                                        const Icon(
                                           Icons.edit_location_outlined,
                                           color: Colors.red,
                                           size: 30,
                                         ),
                                         space(10, 0),
-                                        Text(
+                                        const Text(
                                           "Edit Post",
                                           style: TextStyle(
                                               color: Colors.black,
@@ -478,13 +480,13 @@ Widget buildPost(
                                   ),
                                   child: Row(
                                     children:  [
-                                      Icon(
+                                      const Icon(
                                         Icons.turned_in_not_sharp,
                                         color: Colors.red,
                                         size: 30,
                                       ),
                                       space(10, 0),
-                                      Text(
+                                      const Text(
                                         "Save Post",
                                         style: TextStyle(
                                             color: Colors.black,
@@ -510,13 +512,13 @@ Widget buildPost(
                                     ),
                                     child: Row(
                                       children:  [
-                                        Icon(
+                                        const Icon(
                                           IconlyLight.download,
                                           color: Colors.red,
                                           size: 30,
                                         ),
                                         space(10, 0),
-                                        Text(
+                                        const Text(
                                           "Save Image",
                                           style: TextStyle(
                                               color: Colors.black,
@@ -539,13 +541,13 @@ Widget buildPost(
                                   ),
                                   child: Row(
                                     children:  [
-                                      Icon(
+                                      const Icon(
                                         Icons.share,
                                         color: Colors.red,
                                         size: 30,
                                       ),
                                       space(10, 0),
-                                      Text(
+                                      const Text(
                                         "Share",
                                         style: TextStyle(
                                             color: Colors.black,
@@ -570,13 +572,13 @@ Widget buildPost(
                                     ),
                                     child: Row(
                                       children:  [
-                                        Icon(
+                                        const Icon(
                                           Icons.delete,
                                           color: Colors.red,
                                           size: 30,
                                         ),
                                         space(10, 0),
-                                        Text(
+                                        const Text(
                                           "Delete Post",
                                           style: TextStyle(
                                               color: Colors.black,

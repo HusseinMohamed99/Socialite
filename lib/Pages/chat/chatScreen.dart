@@ -50,7 +50,7 @@ class ChatScreen extends StatelessWidget {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children :
-              [
+              const [
                 Icon(
                   IconlyLight.chat,
                   size: 70,

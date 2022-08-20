@@ -77,7 +77,7 @@ class SocialCubit extends Cubit<SocialStates> {
   List<Widget> screens = [
     const FeedScreen(),
     const ChatScreen(),
-     UserScreen(),
+     const UserScreen(),
     const StoryScreen(),
     const SettingScreen(),
   ];

@@ -117,7 +117,7 @@ class PrivateChatScreen extends StatelessWidget {
 
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Spacer(),
+                    const Spacer(),
                     Column(
                       children: const [
                         Icon(
@@ -134,7 +134,7 @@ class PrivateChatScreen extends StatelessWidget {
                         )
                       ],
                     ),
-                    Spacer(),
+                    const Spacer(),
                     space(0, 20),
                     if (SocialCubit.get(context).messageImagePicked != null)
                       Stack(

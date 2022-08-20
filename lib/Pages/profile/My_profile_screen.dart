@@ -753,13 +753,13 @@ Widget buildPostItem(PostModel postModel, context,index) {
                                     ),
                                     child: Row(
                                       children:  [
-                                        Icon(
+                                        const Icon(
                                           Icons.edit_location_outlined,
                                           color: Colors.red,
                                           size: 30,
                                         ),
                                         space(10, 0),
-                                        Text(
+                                        const Text(
                                           "Edit Post",
                                           style: TextStyle(
                                               color: Colors.black,
@@ -791,13 +791,13 @@ Widget buildPostItem(PostModel postModel, context,index) {
                                   ),
                                   child: Row(
                                     children:  [
-                                      Icon(
+                                      const Icon(
                                         Icons.turned_in_not_sharp,
                                         color: Colors.red,
                                         size: 30,
                                       ),
                                       space(10, 0),
-                                      Text(
+                                      const Text(
                                         "Save Post",
                                         style: TextStyle(
                                             color: Colors.black,
@@ -823,13 +823,13 @@ Widget buildPostItem(PostModel postModel, context,index) {
                                     ),
                                     child: Row(
                                       children:  [
-                                        Icon(
+                                        const Icon(
                                           IconlyLight.download,
                                           color: Colors.red,
                                           size: 30,
                                         ),
                                         space(10, 0),
-                                        Text(
+                                        const Text(
                                           "Save Image",
                                           style: TextStyle(
                                               color: Colors.black,
@@ -852,13 +852,13 @@ Widget buildPostItem(PostModel postModel, context,index) {
                                   ),
                                   child: Row(
                                     children:  [
-                                      Icon(
+                                      const Icon(
                                         Icons.share,
                                         color: Colors.red,
                                         size: 30,
                                       ),
                                      space(10, 0),
-                                      Text(
+                                      const Text(
                                         "Share",
                                         style: TextStyle(
                                             color: Colors.black,
@@ -883,13 +883,13 @@ Widget buildPostItem(PostModel postModel, context,index) {
                                     ),
                                     child: Row(
                                       children:  [
-                                        Icon(
+                                        const Icon(
                                           Icons.delete,
                                           color: Colors.red,
                                           size: 30,
                                         ),
                                        space(10, 0),
-                                        Text(
+                                        const Text(
                                           "Delete Post",
                                           style: TextStyle(
                                               color: Colors.black,

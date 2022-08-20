@@ -14,7 +14,7 @@ import '../post/edit_post.dart';
 class FullScreen extends StatelessWidget {
   final PostModel model;
   final int index;
-  FullScreen(this.model, {Key? key,required this.index}) : super(key: key);
+  const FullScreen(this.model, {Key? key,required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context,) {

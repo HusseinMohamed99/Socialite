@@ -14,7 +14,7 @@ import '../../shared/componnetns/components.dart';
 class FriendsScreen extends StatelessWidget {
   bool? myFreinds = false;
   List<UserModel>? friends;
-  FriendsScreen(this.friends,{this.myFreinds});
+  FriendsScreen(this.friends,{Key? key, this.myFreinds}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (context){
@@ -124,11 +124,11 @@ class FriendsScreen extends StatelessWidget {
                 ),
               ),
               body: //state is GetFriendLoadingState
-              friends!.length == 0 ?
-              Center(child: CircularProgressIndicator(),) : ListView.separated(
-                physics: BouncingScrollPhysics(),
+              friends!.isEmpty ?
+              const Center(child: CircularProgressIndicator(),) : ListView.separated(
+                physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) => chatBuildItem(context,friends[index],myFreinds ?? false),
-                separatorBuilder:(context,index) =>SizedBox(height: 0,),
+                separatorBuilder:(context,index) =>const SizedBox(height: 0,),
                 itemCount:friends.length,
               )
           );
@@ -143,9 +143,10 @@ Widget chatBuildItem (context,UserModel model,bool myFriends) {
   return InkWell(
     onTap: (){
       if (SocialCubit.get(context).userModel!.uId == model.uId) {
-        navigateTo(context, MyProfileScreen());
-      } else
+        navigateTo(context, const MyProfileScreen());
+      } else {
         navigateTo(context, FriendsProfileScreen(model.uId));
+      }
     },
     child: Padding(
       padding: const EdgeInsets.all(15),
@@ -155,7 +156,7 @@ Widget chatBuildItem (context,UserModel model,bool myFriends) {
             backgroundImage:NetworkImage('${model.image}'),
             radius: 35,
           ),
-          SizedBox(width: 10,),
+          const SizedBox(width: 10,),
           Text('${model.name}',
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
@@ -167,13 +168,14 @@ Widget chatBuildItem (context,UserModel model,bool myFriends) {
               ),
             ),
           ),
-          Spacer(),
+          const Spacer(),
           if(myFriends)
             PopupMenuButton(
               color: cubit.isLight ? Colors.black : Colors.white,
               onSelected: (value){
-                if(value == 'Unfriend')
+                if(value == 'Unfriend') {
                   SocialCubit.get(context).unFriend(model.uId);
+                }
               },
               child: Icon(IconlyLight.moreSquare,color: cubit.isLight ? Colors.black : Colors.white,),
               itemBuilder: (context) => [
@@ -182,7 +184,7 @@ Widget chatBuildItem (context,UserModel model,bool myFriends) {
                     value:'Unfriend',
                     child: Row(children: [
                       Icon(IconlyLight.delete,color: cubit.isLight ? Colors.white : Colors.black),
-                      SizedBox(width: 15,),
+                      const SizedBox(width: 15,),
                       Text('Unfriend',    style: GoogleFonts.libreBaskerville(
                         textStyle: TextStyle(
                           color: cubit.isLight ? Colors.white : Colors.black,

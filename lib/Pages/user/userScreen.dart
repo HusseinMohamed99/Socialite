@@ -12,6 +12,8 @@ import '../chat/private_chat.dart';
 import '../friend/profileScreen.dart';
 
 class UserScreen extends StatefulWidget {
+  const UserScreen({Key? key}) : super(key: key);
+
   @override
   _UserScreenState createState() => _UserScreenState();
 }
@@ -40,7 +42,7 @@ class _UserScreenState extends State<UserScreen> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children :
-                  [
+                  const [
                     Icon(
                       IconlyLight.user3,
                       size: 70,
@@ -85,7 +87,7 @@ class _UserScreenState extends State<UserScreen> {
                       ),
                       //SizedBox(height: 10,),
                       ConditionalBuilder(
-                          condition: friendRequests.length > 0,
+                          condition: friendRequests.isNotEmpty,
                           builder: (context) => ListView.separated(
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),
@@ -159,7 +161,7 @@ class _UserScreenState extends State<UserScreen> {
                         height: 10,
                       ),
                       ConditionalBuilder(
-                        condition: friends.length > 0,
+                        condition: friends.isNotEmpty,
                         builder: (context) => ListView.separated(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
