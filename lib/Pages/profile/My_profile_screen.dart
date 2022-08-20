@@ -1,5 +1,4 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:f_app/Pages/addPost/addPostScreen.dart';
 import 'package:f_app/Pages/profile/Edit_profile_screen.dart';
 import 'package:f_app/model/post_model.dart';
 import 'package:f_app/shared/componnetns/components.dart';
@@ -8,12 +7,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../model/user_model.dart';
 import '../../shared/Cubit/socialCubit/SocialCubit.dart';
 import '../../shared/Cubit/socialCubit/SocialState.dart';
 import '../comment/comment_screen.dart';
-import '../veiw_photo/image_view.dart';
-import '../veiw_photo/post_view.dart';
+import '../friend/friendScreen.dart';
+import '../post/edit_post.dart';
+import '../veiwPhoto/image_view.dart';
+import '../veiwPhoto/post_view.dart';
 
 class MyProfileScreen extends StatelessWidget {
   const MyProfileScreen({Key? key}) : super(key: key);
@@ -23,8 +26,41 @@ class MyProfileScreen extends StatelessWidget {
     return Builder(builder: (context) {
       SocialCubit.get(context)
           .getMyPosts(SocialCubit.get(context).userModel!.uId);
+      List<PostModel>? posts = SocialCubit.get(context).userPosts;
+      List<UserModel>? friends = SocialCubit.get(context).friends;
       return BlocConsumer<SocialCubit, SocialStates>(
-        listener: (context, state) {},
+        listener: (context, state)
+        {
+          if (state is SavedToGalleryLoadingState) {
+            Navigator.pop(context);
+          }
+          if (state is SavedToGallerySuccessState) {
+            Fluttertoast.showToast(
+                msg: "Downloaded to Gallery!",
+                gravity: ToastGravity.BOTTOM,
+                backgroundColor: Colors.green,
+                timeInSecForIosWeb: 5,
+                fontSize: 18);
+          }
+
+          if (state is LikesSuccessState) {
+            Fluttertoast.showToast(
+                msg: "Likes Success!",
+                gravity: ToastGravity.BOTTOM,
+                backgroundColor: Colors.green,
+                timeInSecForIosWeb: 5,
+                fontSize: 18);
+          }
+
+          if (state is DisLikesSuccessState) {
+            Fluttertoast.showToast(
+                msg: "UnLikes Success!",
+                gravity: ToastGravity.BOTTOM,
+                backgroundColor: Colors.red,
+                timeInSecForIosWeb: 5,
+                fontSize: 18);
+          }
+        },
         builder: (context, state) {
           List<PostModel>? userPosts = SocialCubit.get(context).userPosts;
           var userModel = SocialCubit.get(context).userModel;
@@ -161,9 +197,10 @@ class MyProfileScreen extends StatelessWidget {
                               ),
                             ),
                             space(0, 15),
+
                             Card(
                               margin:
-                                  const EdgeInsets.symmetric(horizontal: 10),
+                              const EdgeInsets.symmetric(horizontal: 10),
                               color: Colors.grey[100],
                               child: Row(
                                 children: [
@@ -171,31 +208,7 @@ class MyProfileScreen extends StatelessWidget {
                                     child: Column(
                                       children: [
                                         Text(
-                                          '100',
-                                          style: GoogleFonts.lobster(
-                                            textStyle: Theme.of(context)
-                                                .textTheme
-                                                .caption!
-                                                .copyWith(fontSize: 20),
-                                          ),
-                                        ),
-                                        Text(
-                                          'Friends',
-                                          style: GoogleFonts.lobster(
-                                            textStyle: Theme.of(context)
-                                                .textTheme
-                                                .caption!
-                                                .copyWith(fontSize: 20),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          '100',
+                                          '${posts!.length}',
                                           style: GoogleFonts.lobster(
                                             textStyle: Theme.of(context)
                                                 .textTheme
@@ -209,7 +222,9 @@ class MyProfileScreen extends StatelessWidget {
                                             textStyle: Theme.of(context)
                                                 .textTheme
                                                 .caption!
-                                                .copyWith(fontSize: 20),
+                                                .copyWith(
+                                                fontSize: 20,
+                                                color: Colors.black),
                                           ),
                                         ),
                                       ],
@@ -219,7 +234,7 @@ class MyProfileScreen extends StatelessWidget {
                                     child: Column(
                                       children: [
                                         Text(
-                                          '100',
+                                          '10K',
                                           style: GoogleFonts.lobster(
                                             textStyle: Theme.of(context)
                                                 .textTheme
@@ -228,15 +243,50 @@ class MyProfileScreen extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          'Photos',
+                                          'Followers',
                                           style: GoogleFonts.lobster(
                                             textStyle: Theme.of(context)
                                                 .textTheme
                                                 .caption!
-                                                .copyWith(fontSize: 20),
+                                                .copyWith(
+                                                fontSize: 20,
+                                                color: Colors.black),
                                           ),
                                         ),
                                       ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: InkWell(
+                                      onTap: ()
+                                      {
+                                        navigateTo(context, FriendsScreen(friends,myFreinds: true,));
+
+                                      },
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            '${friends.length}',
+                                            style: GoogleFonts.lobster(
+                                              textStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .caption!
+                                                  .copyWith(fontSize: 20),
+                                            ),
+                                          ),
+                                          Text(
+                                            'Friends',
+                                            style: GoogleFonts.lobster(
+                                              textStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .caption!
+                                                  .copyWith(
+                                                  fontSize: 20,
+                                                  color: Colors.black),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -318,86 +368,7 @@ class MyProfileScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            space(0, 5),
-                            Card(
-                              color: SocialCubit.get(context).isLight
-                                  ? Colors.white
-                                  : const Color(0xff063750),
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              elevation: 10,
-                              margin: const EdgeInsets.all(10),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                child: Row(
-                                  children: [
-                                    InkWell(
-                                      borderRadius: BorderRadius.circular(20),
-                                      onTap: ()
-                                      {
-                                        navigateTo(context, AddPostScreen());
-                                      },
-                                      child: Row(
-                                        children: [
-                                          CircleAvatar(
-                                            radius: 20,
-                                            backgroundImage: NetworkImage(
-                                              '${userModel.image}',
-                                            ),
-                                          ),
-                                          Container(
-                                            width: 200,
-                                            height: 50,
-                                            clipBehavior:
-                                                Clip.antiAliasWithSaveLayer,
-                                            margin: const EdgeInsets.all(10),
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: Colors.grey.shade400),
-                                              borderRadius:
-                                                  BorderRadius.circular(25),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                '\' What\'s on your mind ? \'',
-                                                style: GoogleFonts.lobster(
-                                                  fontSize: 16,
-                                                  color:
-                                                      SocialCubit.get(context)
-                                                              .isLight
-                                                          ? Colors.black
-                                                          : Colors.white,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      width: 2,
-                                      height: 50,
-                                      color: Colors.grey,
-                                    ),
-                                    IconButton(
-                                      onPressed: ()
-                                      {
-                                        cubit.getPostImage();
-                                        navigateTo(context, AddPostScreen());
-                                      },
-                                      icon: Icon(
-                                        Icons.photo_library_outlined,
-                                        size: 30,
-                                        color: cubit.isLight
-                                            ? CupertinoColors.activeBlue
-                                            : Colors.white,
-                                      ),
-                                      splashRadius: 20,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+
                             space(0, 10),
                             ListView.separated(
                               physics: const NeverScrollableScrollPhysics(),
@@ -422,11 +393,14 @@ class MyProfileScreen extends StatelessWidget {
     });
   }
 }
+
 Widget buildProfileWithOutPosts () => Builder(
   builder: (context) {
-
-    var userModel = SocialCubit.get(context).userModel;
     var cubit = SocialCubit.get(context);
+    var userModel = SocialCubit.get(context).userModel;
+    List<PostModel>? posts = SocialCubit.get(context).userPosts;
+    List<UserModel>? friends = SocialCubit.get(context).friends;
+
     return Column(
       children: [
         SizedBox(
@@ -522,31 +496,7 @@ Widget buildProfileWithOutPosts () => Builder(
                 child: Column(
                   children: [
                     Text(
-                      '100',
-                      style: GoogleFonts.lobster(
-                        textStyle: Theme.of(context)
-                            .textTheme
-                            .caption!
-                            .copyWith(fontSize: 20),
-                      ),
-                    ),
-                    Text(
-                      'Friends',
-                      style: GoogleFonts.lobster(
-                        textStyle: Theme.of(context)
-                            .textTheme
-                            .caption!
-                            .copyWith(fontSize: 20),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  children: [
-                    Text(
-                      '100',
+                      '${posts!.length}',
                       style: GoogleFonts.lobster(
                         textStyle: Theme.of(context)
                             .textTheme
@@ -560,7 +510,9 @@ Widget buildProfileWithOutPosts () => Builder(
                         textStyle: Theme.of(context)
                             .textTheme
                             .caption!
-                            .copyWith(fontSize: 20),
+                            .copyWith(
+                            fontSize: 20,
+                            color: Colors.black),
                       ),
                     ),
                   ],
@@ -570,7 +522,7 @@ Widget buildProfileWithOutPosts () => Builder(
                 child: Column(
                   children: [
                     Text(
-                      '100',
+                      '10K',
                       style: GoogleFonts.lobster(
                         textStyle: Theme.of(context)
                             .textTheme
@@ -579,15 +531,50 @@ Widget buildProfileWithOutPosts () => Builder(
                       ),
                     ),
                     Text(
-                      'Photos',
+                      'Followers',
                       style: GoogleFonts.lobster(
                         textStyle: Theme.of(context)
                             .textTheme
                             .caption!
-                            .copyWith(fontSize: 20),
+                            .copyWith(
+                            fontSize: 20,
+                            color: Colors.black),
                       ),
                     ),
                   ],
+                ),
+              ),
+              Expanded(
+                child: InkWell(
+                  onTap: ()
+                  {
+                    navigateTo(context, FriendsScreen(friends,myFreinds: true,));
+
+                  },
+                  child: Column(
+                    children: [
+                      Text(
+                        '${friends.length}',
+                        style: GoogleFonts.lobster(
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .caption!
+                              .copyWith(fontSize: 20),
+                        ),
+                      ),
+                      Text(
+                        'Friends',
+                        style: GoogleFonts.lobster(
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .caption!
+                              .copyWith(
+                              fontSize: 20,
+                              color: Colors.black),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -672,7 +659,9 @@ Widget buildProfileWithOutPosts () => Builder(
 );
 
 Widget buildPostItem(PostModel postModel, context,index) {
-
+  late String postId;
+  var cubit = SocialCubit.get(context);
+  postId = SocialCubit.get(context).postsId[index];
   return Card(
     color: SocialCubit.get(context).isLight
         ? Colors.white
@@ -687,14 +676,10 @@ Widget buildPostItem(PostModel postModel, context,index) {
         children: [
           Row(
             children: [
-              InkWell(
-                onTap: () {},
-                borderRadius: BorderRadius.circular(25),
-                child: CircleAvatar(
-                  radius: 25,
-                  backgroundImage: NetworkImage(
-                    '${postModel.image}',
-                  ),
+              CircleAvatar(
+                radius: 25,
+                backgroundImage: NetworkImage(
+                  '${postModel.image}',
                 ),
               ),
               space(15, 0),
@@ -704,17 +689,14 @@ Widget buildPostItem(PostModel postModel, context,index) {
                   children: [
                     Row(
                       children: [
-                        InkWell(
-                          onTap: () {},
-                          child: Text(
-                            '${postModel.name}',
-                            style: GoogleFonts.lobster(
-                              fontSize: 20,
-                              height: 1.3,
-                              color: SocialCubit.get(context).isLight
-                                  ? CupertinoColors.activeBlue
-                                  : Colors.white,
-                            ),
+                        Text(
+                          '${postModel.name}',
+                          style: GoogleFonts.lobster(
+                            fontSize: 20,
+                            height: 1.3,
+                            color: SocialCubit.get(context).isLight
+                                ? CupertinoColors.activeBlue
+                                : Colors.white,
                           ),
                         ),
                         space(5, 0),
@@ -739,8 +721,190 @@ Widget buildPostItem(PostModel postModel, context,index) {
               ),
               space(15, 0),
               IconButton(
-                splashRadius: 20,
-                onPressed: () {},
+                onPressed: () {
+                  showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(30))),
+                      builder: (context) {
+                        return Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if (postModel.uId == cubit.userModel!.uId)
+                                InkWell(
+                                  onTap: () {
+                                    navigateTo(
+                                        context,
+                                        EditPosts(
+                                          postModel: postModel,
+                                          postId: postId,
+                                        ));
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      left: 8,
+                                      right: 8,
+                                      top: 20,
+                                      bottom: 0,
+                                    ),
+                                    child: Row(
+                                      children:  [
+                                        Icon(
+                                          Icons.edit_location_outlined,
+                                          color: Colors.red,
+                                          size: 30,
+                                        ),
+                                        space(10, 0),
+                                        Text(
+                                          "Edit Post",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 20),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+
+                              InkWell(
+                                onTap: () {
+                                  // cubit.savePost(
+                                  //     postId: postId,
+                                  //     date: DateTime.now(),
+                                  //     userName: model.name,
+                                  //     userId: model.uId,
+                                  //     userImage: model.image,
+                                  //     postText: model.text,
+                                  //     postImage: model.postImage);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                  left: 8,
+                                    right: 8,
+                                    top: 20,
+                                    bottom: 0,
+                                  ),
+                                  child: Row(
+                                    children:  [
+                                      Icon(
+                                        Icons.turned_in_not_sharp,
+                                        color: Colors.red,
+                                        size: 30,
+                                      ),
+                                      space(10, 0),
+                                      Text(
+                                        "Save Post",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 20),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+
+                              if (postModel.postImage != '')
+                                InkWell(
+                                  onTap: () {
+                                    cubit.saveToGallery(postModel.postImage!);
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      left: 8,
+                                      right: 8,
+                                      top: 20,
+                                      bottom: 0,
+                                    ),
+                                    child: Row(
+                                      children:  [
+                                        Icon(
+                                          IconlyLight.download,
+                                          color: Colors.red,
+                                          size: 30,
+                                        ),
+                                        space(10, 0),
+                                        Text(
+                                          "Save Image",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 20),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+
+                              InkWell(
+                                onTap: () {},
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                    left: 8,
+                                    right: 8,
+                                    top: 20,
+                                    bottom: 0,
+                                  ),
+                                  child: Row(
+                                    children:  [
+                                      Icon(
+                                        Icons.share,
+                                        color: Colors.red,
+                                        size: 30,
+                                      ),
+                                     space(10, 0),
+                                      Text(
+                                        "Share",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 20),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              if (postModel.uId == cubit.userModel!.uId)
+                                InkWell(
+                                  onTap: () {
+                                    cubit.deletePost(postId);
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      left: 8,
+                                      right: 8,
+                                      top: 20,
+                                      bottom: 0,
+                                    ),
+                                    child: Row(
+                                      children:  [
+                                        Icon(
+                                          Icons.delete,
+                                          color: Colors.red,
+                                          size: 30,
+                                        ),
+                                       space(10, 0),
+                                        Text(
+                                          "Delete Post",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 20),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
+                        );
+                      });
+                },
                 icon: Icon(
                   IconlyLight.moreCircle,
                   size: 25,
@@ -751,6 +915,7 @@ Widget buildPostItem(PostModel postModel, context,index) {
               ),
             ],
           ),
+
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 15.0),
             child: Container(

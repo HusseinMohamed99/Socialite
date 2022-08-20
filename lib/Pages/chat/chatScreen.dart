@@ -5,6 +5,7 @@ import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
 import 'package:f_app/shared/componnetns/components.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,7 +21,56 @@ class ChatScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         SocialCubit cubit = SocialCubit.get(context);
-        return SingleChildScrollView(
+        return SocialCubit.get(context).users.isEmpty? Scaffold(
+          backgroundColor:
+          cubit.isLight ? Colors.white : const Color(0xff063750),
+          appBar: AppBar(
+            systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarColor:
+              cubit.isLight ? Colors.white : const Color(0xff063750),
+              statusBarIconBrightness:
+              cubit.isLight ? Brightness.dark : Brightness.light,
+              statusBarBrightness:
+              cubit.isLight ? Brightness.dark : Brightness.light,
+            ),
+            backgroundColor:
+            cubit.isLight ? Colors.white : const Color(0xff063750),
+            leading: IconButton(
+              onPressed: () {
+                pop(context);
+              },
+              icon: Icon(
+                IconlyLight.arrowLeft2,
+                size: 30,
+                color: cubit.isLight ? Colors.black : Colors.white,
+              ),
+            ),
+          ),
+          body: Center(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children :
+              [
+                Icon(
+                  IconlyLight.chat,
+                  size: 70,
+                  color: Colors.grey,
+                ),
+                Center(
+                  child: Text(
+                    'No Users Yet,\nPlease Add\nSome Friends ',
+                    style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ]
+            ),
+          ),
+        ):
+
+          SingleChildScrollView(
           child: ConditionalBuilder(
               condition: cubit.users.isNotEmpty,
               builder: (BuildContext context) => Column(
@@ -66,7 +116,7 @@ class ChatScreen extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        navigateTo(context, PrivateChatScreen(users));
+        navigateTo(context, PrivateChatScreen(userModel: users));
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20.0),
@@ -95,7 +145,7 @@ class ChatScreen extends StatelessWidget {
             space(10, 0),
             OutlinedButton.icon(
               onPressed: () {
-                navigateTo(context, PrivateChatScreen(users));
+                navigateTo(context, PrivateChatScreen(userModel: users));
               },
               label: Text(
                 'Message',
@@ -119,7 +169,7 @@ class ChatScreen extends StatelessWidget {
 
   Widget buildStoryItem(UserModel users, context) => InkWell(
         onTap: () {
-          navigateTo(context, PrivateChatScreen(users));
+          navigateTo(context, PrivateChatScreen(userModel: users));
         },
         child: Container(
           margin: const EdgeInsetsDirectional.all(10),

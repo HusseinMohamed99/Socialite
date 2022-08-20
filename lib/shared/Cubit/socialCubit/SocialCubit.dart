@@ -77,7 +77,7 @@ class SocialCubit extends Cubit<SocialStates> {
   List<Widget> screens = [
     const FeedScreen(),
     const ChatScreen(),
-    const UserScreen(),
+     UserScreen(),
     const StoryScreen(),
     const SettingScreen(),
   ];
@@ -141,6 +141,10 @@ class SocialCubit extends Cubit<SocialStates> {
   void changeTabBar(int index, context) {
     if (index == 1) {
       getAllUsers();
+    }
+    if (index == 2)
+    {
+      getFriends(userModel!.uId);
     }
     currentIndex = index;
     emit(SocialChangeTabBarState());
@@ -918,10 +922,9 @@ List<MessageModel> message = [];
         .listen((event)
     {
       message = [];
-      event.docs.forEach((element)
-      {
+      for (var element in event.docs) {
        message.add(MessageModel.fromJson(element.data()));
-      });
+      }
       emit(GetMessageSuccessState());
     });
   }
@@ -935,12 +938,11 @@ List<MessageModel> message = [];
 
     if (pickedFile != null) {
       messageImagePicked = File(pickedFile.path);
-      //  print(pickedFile.path);
-      //  print(' the messsageimage path is  ${messageimage}');
+
       emit(MessageImagePickedSuccessState());
       messageImageSelected = true;
     } else {
-      print('No image selected.');
+      debugPrint('No image selected.');
       emit(MessageImagePickedErrorState());
     }
   }
@@ -974,10 +976,392 @@ List<MessageModel> message = [];
   }
 
 //------------------------------------------------------------//
+//   void sendFCMNotification({
+//     required String? token,
+//     required String? senderName,
+//     String? messageText,
+//     String? messageImage,
+//   }) {
+//     DioHelper.postData(
+//         data: {
+//           "to": "$token",
+//           "notification": {
+//             "title": "$senderName",
+//             "body":
+//             "${messageText != null ? messageText : messageImage != null ? 'Photo' : 'ERROR 404'}",
+//             "sound": "default"
+//           },
+//           "android": {
+//             "Priority": "HIGH",
+//           },
+//           "data": {
+//             "type": "order",
+//             "id": "87",
+//             "click_action": "FLUTTER_NOTIFICATION_CLICK"
+//           }
+//         });
+//     emit(SendMessageSuccessState());
+//   }
+//
+//   void sendInAppNotification({
+//     String? contentKey,
+//     String? contentId,
+//     String? content,
+//     String? receiverName,
+//     String? receiverId,
+//   }){
+//     emit(SendInAppNotificationLoadingState());
+//     NotificationModel notificationModel = NotificationModel(
+//       contentKey:contentKey,
+//       contentId:contentId,
+//       content:content,
+//       senderName: model!.name,
+//       receiverName:receiverName,
+//       senderId:model!.uID,
+//       receiverId:receiverId,
+//       senderProfilePicture:model!.profilePic,
+//       read: false,
+//       dateTime: Timestamp.now(),
+//       serverTimeStamp:FieldValue.serverTimestamp(),
+//     );
+//
+//     FirebaseFirestore.instance
+//         .collection('users')
+//         .doc(receiverId)
+//         .collection('notifications')
+//         .add(notificationModel.toMap()).then((value) async{
+//       await setNotificationId();
+//       emit(SendInAppNotificationLoadingState());
+//     }).catchError((error) {
+//       emit(SendInAppNotificationLoadingState());
+//     });
+//   }
+//
+//   List<NotificationModel> notifications = [];
+//   void getInAppNotification() async{
+//     emit(GetInAppNotificationLoadingState());
+//     FirebaseFirestore.instance
+//         .collection('users')
+//         .doc(model!.uID)
+//         .collection('notifications')
+//         .orderBy('serverTimeStamp',descending: true)
+//         .snapshots()
+//         .listen((event) async {
+//       notifications = [];
+//       event.docs.forEach((element) async {
+//         notifications.add(NotificationModel.fromJson(element.data()));
+//       });
+//       emit(GetInAppNotificationSuccessState());
+//     });
+//   }
+//
+//   int unReadNotificationsCount = 0;
+//   Future<int> getUnReadNotificationsCount() async{
+//     FirebaseFirestore.instance.collection('users')
+//         .doc(model!.uID)
+//         .collection('notifications')
+//         .snapshots()
+//         .listen((event) {
+//       unReadNotificationsCount = 0;
+//       for(int i = 0; i < event.docs.length; i++)
+//       {
+//         if(event.docs[i]['read'] == false)
+//           unReadNotificationsCount++;
+//       }
+//       emit(ReadNotificationSuccessState());
+//       debugPrint("UnRead: " + '$unReadNotificationsCount');
+//     });
+//
+//     return unReadNotificationsCount;
+//   }
+//
+//   Future setNotificationId() async{
+//     await FirebaseFirestore.instance.collection('users').get()
+//         .then((value) {
+//       value.docs.forEach((element) async {
+//         var notifications = await element.reference.collection('notifications').get();
+//         notifications.docs.forEach((notificationsElement) async {
+//           await notificationsElement.reference.update({
+//             'notificationId' : notificationsElement.id
+//           });
+//         });
+//       });
+//       emit(SetNotificationIdSuccessState());
+//     });
+//   }
+//
+//   Future readNotification(String? notificationId) async{
+//     await FirebaseFirestore.instance.collection('users')
+//         .doc(model!.uID)
+//         .collection('notifications')
+//         .doc(notificationId)
+//         .update({'read' : true}).then((value) {
+//       emit(ReadNotificationSuccessState());
+//     });
+//   }
+//
+//   void deleteNotification(String? notificationId) async{
+//     await FirebaseFirestore.instance.collection('users')
+//         .doc(model!.uID)
+//         .collection('notifications')
+//         .doc(notificationId)
+//         .delete().then((value) {
+//       emit(ReadNotificationSuccessState());
+//     });
+//   }
+//
+//   String notificationContent (String? contentKey){
+//     if(contentKey == 'likePost')
+//       return LocaleKeys.likePost.tr();
+//     else if (contentKey == 'commentPost')
+//       return  LocaleKeys.commentPost.tr();
+//     else if (contentKey == 'friendRequestAccepted')
+//       return  LocaleKeys.friendRequestAccepted.tr();
+//     else
+//       return  LocaleKeys.friendRequestNotify.tr();
+//   }
+//
+//   IconData notificationContentIcon (String? contentKey){
+//     if(contentKey == 'likePost')
+//       return IconBroken.Heart;
+//     else if (contentKey == 'commentPost')
+//       return IconBroken.Chat;
+//     else if (contentKey == 'friendRequestAccepted')
+//       return  Icons.person;
+//     else
+//       return  Icons.person;
+//   }
 
 
 //------------------------------------------------------------//
+//   List<UserModel> searchList = [];
+//   Map<String, dynamic>? search;
+//
+//   void searchUser(String? searchText) {
+//     emit(SearchLoadingState());
+//     FirebaseFirestore.instance
+//         .collection('users')
+//         .where('name', isEqualTo: searchText)
+//         .get()
+//         .then((value) {
+//       search = value.docs[0].data();
+//       emit(SearchSuccessState());
+//     }).catchError((error) {
+//       debugPrint(error.toString());
+//       emit(SearchErrorState());
+//     });
+//   }
 
+  UserModel? friendsProfile;
+
+  void getFriendsProfile(String? friendsUID) {
+    emit(GetFriendProfileLoadingState());
+    FirebaseFirestore.instance.collection('users').snapshots().listen((value) {
+      for (var element in value.docs) {
+        if (element.data()['uId'] == friendsUID) {
+          friendsProfile = UserModel.fromJson(element.data());
+        }
+      }
+      emit(GetFriendProfileSuccessState());
+    });
+  }
+
+  void addFriend(
+      {required String? friendsUID,
+        required String? friendName,
+        required String? friendImage}) {
+    emit(AddFriendLoadingState());
+    UserModel myFriendModel = UserModel(
+      uId: friendsUID,
+      name: friendName,
+      image: friendImage,
+    );
+    UserModel myModel = UserModel(
+      uId: userModel!.uId,
+      name: userModel!.name,
+      image: userModel!.image,
+    );
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(userModel!.uId)
+        .collection('friends')
+        .doc(friendsUID)
+        .set(myFriendModel.toMap())
+        .then((value) {
+      emit(AddFriendSuccessState());
+    }).catchError((error) {
+      debugPrint(error.toString());
+      emit(AddFriendErrorState());
+    });
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(friendsUID)
+        .collection('friends')
+        .doc(userModel!.uId)
+        .set(myModel.toMap())
+        .then((value) {
+      emit(AddFriendSuccessState());
+    }).catchError((error) {
+      debugPrint(error.toString());
+      emit(AddFriendErrorState());
+    });
+  }
+
+  List<UserModel> friends = [];
+
+  void getFriends(String? userUID) {
+    emit(GetFriendLoadingState());
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(userUID)
+        .collection('friends')
+        .snapshots()
+        .listen((value) {
+      friends = [];
+      for (var element in value.docs) {
+        friends.add(UserModel.fromJson(element.data()));
+      }
+      emit(GetFriendSuccessState());
+    });
+  }
+
+  bool isFriend = false;
+
+  bool checkFriends(String? friendUID) {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(userModel!.uId)
+        .collection('friends')
+        .snapshots()
+        .listen((value) {
+      isFriend = false;
+      for (var element in value.docs) {
+        if (friendUID == element.id) isFriend = true;
+      }
+      emit(CheckFriendSuccessState());
+    });
+    return isFriend;
+  }
+
+  void unFriend(String? friendsUID) {
+    emit(UnFriendLoadingState());
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(userModel!.uId)
+        .collection('friends')
+        .doc(friendsUID)
+        .delete()
+        .then((value) {
+      emit(UnFriendSuccessState());
+    }).catchError((error) {
+      emit(UnFriendErrorState());
+      debugPrint(error.toString());
+    });
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(friendsUID)
+        .collection('friends')
+        .doc(userModel!.uId)
+        .delete()
+        .then((value) {
+      emit(UnFriendSuccessState());
+    }).catchError((error) {
+      emit(UnFriendErrorState());
+      debugPrint(error.toString());
+    });
+  }
+
+  void sendFriendRequest(
+      {required String? friendsUID,
+        required String? friendName,
+        required String? friendImage}) {
+    emit(FriendRequestLoadingState());
+    UserModel friendRequestModel = UserModel(
+        uId: userModel!.uId,
+        name: userModel!.name,
+        image: userModel!.image,
+        bio: userModel!.bio,
+        dateTime: userModel!.dateTime,);
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(friendsUID)
+        .collection('friendRequests')
+        .doc(userModel!.uId)
+        .set(friendRequestModel.toMap())
+        .then((value) {
+      emit(FriendRequestSuccessState());
+    }).catchError((error) {
+      debugPrint(error.toString());
+      emit(FriendRequestErrorState());
+    });
+  }
+
+  List<UserModel> friendRequests = [];
+  void getFriendRequest() {
+    emit(GetFriendLoadingState());
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(userModel!.uId)
+        .collection('friendRequests')
+        .snapshots()
+        .listen((value) {
+      friendRequests = [];
+      for (var element in value.docs) {
+        friendRequests.add(UserModel.fromJson(element.data()));
+        emit(GetFriendSuccessState());
+      }
+    });
+  }
+
+  bool request = false;
+
+  bool checkFriendRequest(String? friendUID) {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(friendUID)
+        .collection('friendRequests')
+        .get()
+        .then((value) {
+      for (var element in value.docs) {
+        if (element.data()['uId'] == userModel!.uId) {
+          request = true;
+        } else {
+          request = false;
+        }
+      }
+      emit(CheckFriendRequestSuccessState());
+    });
+    return request;
+  }
+
+  void deleteFriendRequest(String? friendsUID) {
+    emit(DeleteFriendRequestLoadingState());
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(userModel!.uId)
+        .collection('friendRequests')
+        .doc(friendsUID)
+        .delete()
+        .then((value) {
+      emit(DeleteFriendRequestSuccessState());
+    }).catchError((error) {
+      emit(DeleteFriendRequestErrorState());
+      debugPrint(error.toString());
+    });
+  }
 //------------------------------------------------------------//
-
+  PostModel? singlePost;
+  void getSinglePost(String? postId){
+    emit(GetPostsLoadingState());
+    FirebaseFirestore.instance
+        .collection('posts')
+        .doc(postId)
+        .get()
+        .then((value) {
+      singlePost = PostModel.fromJson(value.data()!);
+      emit(GetSinglePostSuccessState());
+    }).catchError((error){
+      emit(GetPostsErrorState(error.toString()));
+    });
+  }
 }

@@ -31,8 +31,7 @@ class RestPasswordScreen extends StatelessWidget {
             extendBodyBehindAppBar: true,
             backgroundColor:
                 cubit.isLight ? Colors.white : const Color(0xff063750),
-            // backgroundColor:
-            // cubit.isDark ? Colors.white : Colors.white,
+
             appBar: AppBar(
               systemOverlayStyle: SystemUiOverlayStyle(
                 statusBarColor:
@@ -155,9 +154,9 @@ class RestPasswordScreen extends StatelessWidget {
                                   ? const Center(
                                       child: CircularProgressIndicator())
                                   : Container(
-                                color: cubit.isLight
-                                    ? Colors.blue
-                                    : Colors.white,
+                                color:
+                                     Colors.blue,
+
                                     child: defaultTextButton(
                                            context: context,
                                         text: 'RESET PASSWORD',

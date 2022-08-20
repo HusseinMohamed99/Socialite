@@ -97,10 +97,12 @@ class RemovePostImageSuccessState extends SocialStates {}
 ///START : GetPosts
 class GetPostsLoadingState extends SocialStates {}
 class GetPostsSuccessState extends SocialStates {}
+
 class GetPostsErrorState extends SocialStates {
   final String error ;
   GetPostsErrorState (this.error);
 }
+class GetSinglePostSuccessState extends SocialStates {}
 ///END : GetPosts
 
 // ----------------------------------------------------------//
@@ -182,6 +184,35 @@ class GetMessageImageErrorState extends SocialStates {}
 
 class DeleteMessageImageSuccessState extends SocialStates {}
 
+
 ///END : Message
 
 //------------------------------------------------------------//
+class GetFriendProfileLoadingState extends SocialStates {}
+class GetFriendProfileSuccessState extends SocialStates {}
+
+class AddFriendLoadingState extends SocialStates {}
+
+class AddFriendSuccessState extends SocialStates {}
+
+class AddFriendErrorState extends SocialStates {}
+
+
+class GetFriendLoadingState extends SocialStates {}
+class GetFriendSuccessState extends SocialStates {}
+class GetFriendErrorState extends SocialStates {}
+
+class CheckFriendSuccessState extends SocialStates {}
+
+class UnFriendLoadingState extends SocialStates {}
+class UnFriendSuccessState extends SocialStates {}
+class UnFriendErrorState extends SocialStates {}
+
+class FriendRequestLoadingState extends SocialStates {}
+class FriendRequestSuccessState extends SocialStates {}
+class FriendRequestErrorState extends SocialStates {}
+class CheckFriendRequestSuccessState extends SocialStates {}
+
+class DeleteFriendRequestLoadingState extends SocialStates {}
+class DeleteFriendRequestSuccessState extends SocialStates {}
+class DeleteFriendRequestErrorState extends SocialStates {}

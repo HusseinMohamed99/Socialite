@@ -48,145 +48,147 @@ class EmailVerificationScreen extends StatelessWidget {
                 ),
               ),
             ),
-            body: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  space(0, 35),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: mode.isLight ? Colors.black : Colors.white,
-                        borderRadius: BorderRadius.circular(75.0)),
-                    child: const CircleAvatar(
-                      radius: 80.0,
-                      backgroundImage: AssetImage('assets/images/email.png'),
-                    ),
-                  ),
-                  space(0, 15),
-                  Text('Email Confirmation',
-                      style: TextStyle(
-                        fontSize: 24.0,
-                        color: mode.isLight ? Colors.black : Colors.white,
-                        fontWeight: FontWeight.w800,
-                      )),
-                  space(0, 10),
-                  Text(
-                    'we\'re happy you signed up for    F-App. To start exploring the \nF-App,please confirm your\nE-mail Address.',
-                    style: GoogleFonts.libreBaskerville(
-                      textStyle: TextStyle(
-                        color: mode.isLight ? Colors.black : Colors.white,
-                        fontSize: 20,
-                        overflow: TextOverflow.visible,
-                        fontWeight: FontWeight.w600,
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    space(0, 35),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: mode.isLight ? Colors.black : Colors.white,
+                          borderRadius: BorderRadius.circular(75.0)),
+                      child: const CircleAvatar(
+                        radius: 80.0,
+                        backgroundImage: AssetImage('assets/images/email.png'),
                       ),
                     ),
-                  ),
-                  space(0, 45),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                    child: state is SendVerificationLoadingState
-                        ? const CircularProgressIndicator()
-                        : cubit.isEmailSent
-                            ? Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Card(
-                                    color: mode.isLight
-                                        ? Colors.green
-                                        : Colors.white,
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.check_circle_outline,
-                                          color: mode.isLight
-                                              ? Colors.white
-                                              : Colors.black,
+                    space(0, 15),
+                    Text('Email Confirmation',
+                        style: TextStyle(
+                          fontSize: 24.0,
+                          color: mode.isLight ? Colors.black : Colors.white,
+                          fontWeight: FontWeight.w800,
+                        )),
+                    space(0, 10),
+                    Text(
+                      'we\'re happy you signed up for    F-App. To start exploring the \nF-App,please confirm your\nE-mail Address.',
+                      style: GoogleFonts.libreBaskerville(
+                        textStyle: TextStyle(
+                          color: mode.isLight ? Colors.black : Colors.white,
+                          fontSize: 20,
+                          overflow: TextOverflow.visible,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    space(0, 45),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                      child: state is SendVerificationLoadingState
+                          ? const CircularProgressIndicator()
+                          : cubit.isEmailSent
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Card(
+                                      color: mode.isLight
+                                          ? Colors.green
+                                          : Colors.white,
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.check_circle_outline,
+                                            color: mode.isLight
+                                                ? Colors.white
+                                                : Colors.black,
+                                          ),
+                                          Text(
+                                            'Email Verification Sent',
+                                            style: GoogleFonts.libreBaskerville(
+                                              textStyle: TextStyle(
+                                                color: mode.isLight
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    space(10, 0),
+                                    TextButton(
+                                        style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                            mode.isLight
+                                                ? Colors.red
+                                                : Colors.white,
+                                          ),
                                         ),
-                                        Text(
-                                          'Email Verification Sent',
+                                        onPressed: () {
+                                          cubit.sendEmailVerification();
+                                        },
+                                        child: Text(
+                                          'Send again',
                                           style: GoogleFonts.libreBaskerville(
                                             textStyle: TextStyle(
                                               color: mode.isLight
                                                   ? Colors.white
                                                   : Colors.black,
-                                              fontSize: 20,
+                                              overflow: TextOverflow.visible,
                                               fontWeight: FontWeight.w600,
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
+                                        ))
+                                  ],
+                                )
+                              : Card(
+                                  color:
+                                      mode.isLight ? Colors.blue : Colors.grey,
+                                  child: defaultTextButton(
+                                    context: context,
+                                    function: () {
+                                      cubit.sendEmailVerification();
+                                    },
+                                    text: 'Send Email',
                                   ),
-                                  space(10, 0),
-                                  TextButton(
-                                      style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all(
-                                          mode.isLight
-                                              ? Colors.red
-                                              : Colors.white,
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        cubit.sendEmailVerification();
-                                      },
-                                      child: Text(
-                                        'Send again',
-                                        style: GoogleFonts.libreBaskerville(
-                                          textStyle: TextStyle(
-                                            color: mode.isLight
-                                                ? Colors.white
-                                                : Colors.black,
-                                            overflow: TextOverflow.visible,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ))
-                                ],
-                              )
-                            : Card(
-                                color:
-                                    mode.isLight ? Colors.blue : Colors.white,
-                                child: defaultTextButton(
-                                  context: context,
-                                  function: () {
-                                    cubit.sendEmailVerification();
-                                  },
-                                  text: 'Send Email',
                                 ),
+                    ),
+                    space(0, 15),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                      child: cubit.isEmailSent
+                          ? Card(
+                              color: mode.isLight ? Colors.green : Colors.grey,
+                              child: defaultTextButton(
+                                context: context,
+                                  function: () {
+                                    cubit.reloadUser().then((value) {
+                                      if (cubit.isEmailVerified) {
+                                        SocialCubit()..getUserData()..getPosts();
+                                        navigateAndFinish(
+                                            context, const HomeLayout());
+                                        SocialCubit.get(context).getUserData();
+                                      } else {}
+                                    });
+                                  },
+                                  text: 'Verified, Go Home'),
+                            )
+                          : Card(
+                              color: mode.isLight ? Colors.blue : Colors.grey,
+                              child: defaultTextButton(
+                                context: context,
+                                function: () {},
+                                text: 'Verified, Go Home',
                               ),
-                  ),
-                  space(0, 15),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                    child: cubit.isEmailSent
-                        ? Card(
-                            color: mode.isLight ? Colors.green : Colors.white,
-                            child: defaultTextButton(
-                              context: context,
-                                function: () {
-                                  cubit.reloadUser().then((value) {
-                                    if (cubit.isEmailVerified) {
-                                      SocialCubit()..getUserData()..getPosts();
-                                      navigateAndFinish(
-                                          context, const HomeLayout());
-                                      SocialCubit.get(context).getUserData();
-                                    } else {}
-                                  });
-                                },
-                                text: 'Verified, Go Home'),
-                          )
-                        : Card(
-                            color: mode.isLight ? Colors.blue : Colors.white,
-                            child: defaultTextButton(
-                              context: context,
-                              function: () {},
-                              text: 'Verified, Go Home',
                             ),
-                          ),
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
             ),
           );

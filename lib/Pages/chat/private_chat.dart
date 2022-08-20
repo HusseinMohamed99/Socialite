@@ -14,14 +14,11 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../../shared/Cubit/socialCubit/SocialCubit.dart';
 import '../../shared/componnetns/components.dart';
 import '../../shared/componnetns/constants.dart';
-import '../veiw_photo/image_view.dart';
+import '../veiwPhoto/image_view.dart';
 
 class PrivateChatScreen extends StatelessWidget {
-  UserModel userModel;
-  PrivateChatScreen(
-    this.userModel, {
-    Key? key,
-  }) : super(key: key);
+ final UserModel userModel;
+  PrivateChatScreen({required this.userModel, Key? key,}) : super(key: key);
   var textController = TextEditingController();
   var formKey = GlobalKey<FormState>();
   final ItemScrollController scroll = ItemScrollController();
@@ -61,7 +58,245 @@ class PrivateChatScreen extends StatelessWidget {
         builder: (context, state) {
           var cubit = SocialCubit.get(context);
 
-          return Scaffold(
+          return SocialCubit.get(context).message.isEmpty? Scaffold(
+            backgroundColor:
+            cubit.isLight ? Colors.white : const Color(0xff063750),
+            appBar: AppBar(
+              systemOverlayStyle: SystemUiOverlayStyle(
+                statusBarColor:
+                cubit.isLight ? Colors.white : const Color(0xff063750),
+                statusBarIconBrightness:
+                cubit.isLight ? Brightness.dark : Brightness.light,
+                statusBarBrightness:
+                cubit.isLight ? Brightness.dark : Brightness.light,
+              ),
+              backgroundColor:
+              cubit.isLight ? Colors.white : const Color(0xff063750),
+              leading: IconButton(
+                onPressed: () {
+                  pop(context);
+                },
+                icon: Icon(
+                  IconlyLight.arrowLeft2,
+                  size: 30,
+                  color: cubit.isLight ? Colors.black : Colors.white,
+                ),
+              ),
+              titleSpacing: 0,
+              title: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 25,
+                    backgroundImage: NetworkImage(
+                      '${userModel.image}',
+                    ),
+                  ),
+                  space(15, 0),
+                  Expanded(
+                    child: Text(
+                      '${userModel.name}',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.lobster(
+                        color: cubit.isLight ? Colors.blue : Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                  space(30, 0),
+                ],
+              ),
+              elevation: 1,
+            ),
+            body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Form(
+                key: formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Spacer(),
+                    Column(
+                      children: const [
+                        Icon(
+                          IconlyLight.chat,
+                          size: 70,
+                          color: Colors.grey,
+                        ),
+                        Text(
+                          'Type a Message',
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
+                    Spacer(),
+                    space(0, 20),
+                    if (SocialCubit.get(context).messageImagePicked != null)
+                      Stack(
+                        alignment: AlignmentDirectional.topEnd,
+                        children: [
+                          Container(
+                              width: double.infinity,
+                              height: 200,
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4),
+                                    topRight: Radius.circular(4),
+                                  ),
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: FileImage(SocialCubit.get(context)
+                                        .messageImagePicked!),
+                                  ))),
+                          CircleAvatar(
+                            radius: 20,
+                            backgroundColor: Colors.blue,
+                            child: IconButton(
+                                iconSize: 16,
+                                onPressed: () {
+                                  SocialCubit.get(context)
+                                      .removemessageimage();
+                                },
+                                icon: const Icon(IconlyBroken.closeSquare)),
+                          ),
+                        ],
+                      ),
+                    if (state is UploadMessageImageLoadingState)
+                      const Center(child: LinearProgressIndicator()),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            height: 50,
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                border: Border.all(
+                                    color: Colors.grey.shade300, width: 1.0)),
+                            child: SingleChildScrollView(
+                              child: TextFormField(
+                                style: GoogleFonts.libreBaskerville(
+                                  color: SocialCubit.get(context).isLight
+                                      ? Colors.black
+                                      : Colors.white,
+                                ),
+                                textAlignVertical: TextAlignVertical.center,
+                                maxLines: 3,
+                                minLines: 1,
+                                controller: textController,
+                                keyboardType: TextInputType.multiline,
+                                decoration: InputDecoration(
+                                  counterStyle: const TextStyle(
+                                    height: double.minPositive,
+                                  ),
+                                  isDense: true,
+                                  contentPadding:
+                                  const EdgeInsetsDirectional.all(12),
+                                  hintText: ' \' Type a message \' ',
+                                  hintStyle: GoogleFonts.lobster(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  border: InputBorder.none,
+                                  prefixIcon: IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(
+                                      Octicons.smiley,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  suffixIcon: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {
+                                          SocialCubit.get(context)
+                                              .getMessageImage();
+                                        },
+                                        icon: Icon(
+                                          IconlyLight.camera,
+                                          size: 25,
+                                          color: cubit.isLight
+                                              ? Colors.black
+                                              : Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                validator: (String? value) {
+                                  if (value!.isEmpty) {
+                                    return 'Enter your message';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: cubit.isLight ? Colors.blue : Colors.white,
+                            shape: BoxShape.circle,
+                          ),
+                          child: MaterialButton(
+                            minWidth: 1,
+                            onPressed: () {
+                              if (formKey.currentState!.validate() &&
+                                  SocialCubit.get(context)
+                                      .messageImagePicked ==
+                                      null) {
+                                cubit.sendMessage(
+                                  receiverId: userModel.uId!,
+                                  dateTime: DateTime.now().toString(),
+                                  text: textController.text,
+                                );
+                                textController.clear();
+                                scroll.scrollTo(
+                                    duration: const Duration(milliseconds: 1),
+                                    curve: Curves.linearToEaseOut,
+                                    index: SocialCubit.get(context)
+                                        .message
+                                        .length);
+                              } else {
+                                SocialCubit.get(context).uploadmessageImage(
+                                    receiverId: userModel.uId!,
+                                    datetime: DateTime.now().toString(),
+                                    text: textController.text);
+                                textController.clear();
+                                cubit.removemessageimage();
+                                scroll.scrollTo(
+                                    duration: const Duration(milliseconds: 1),
+                                    curve: Curves.linearToEaseOut,
+                                    index: SocialCubit.get(context)
+                                        .message
+                                        .length);
+                              }
+                            },
+                            child: Icon(
+                              IconlyLight.send,
+                              color:
+                              cubit.isLight ? Colors.white : Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ):
+
+            Scaffold(
             backgroundColor:
                 cubit.isLight ? Colors.white : const Color(0xff063750),
             appBar: AppBar(
@@ -359,7 +594,7 @@ class PrivateChatScreen extends StatelessWidget {
         children: [
           Container(
             width: 300,
-            height: 270,
+            height: 290,
             clipBehavior: Clip.none,
             decoration: const BoxDecoration(
               borderRadius: BorderRadiusDirectional.only(
@@ -402,27 +637,31 @@ class PrivateChatScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Column(
-                    textBaseline: TextBaseline.alphabetic,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        messageModel.text!,
-                        style: GoogleFonts.libreBaskerville(
-                          color: cubit.isLight ? Colors.black : Colors.white,
-                          fontSize: 16,
-                          height: 1.2,
+                  Align(
+                    alignment: AlignmentDirectional.bottomEnd,
+                    child: Column(
+                      textBaseline: TextBaseline.alphabetic,
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          messageModel.text!,
+                          style: GoogleFonts.libreBaskerville(
+                            color: cubit.isLight ? Colors.black : Colors.white,
+                            fontSize: 16,
+                            height: 1.7,
+                          ),
                         ),
-                      ),
-                      Text(
-                        daysBetween(
-                            DateTime.parse(messageModel.dateTime.toString())),
-                        style: Theme.of(context).textTheme.caption!.copyWith(
-                              color: Colors.grey,
-                              height: 0.1,
-                            ),
-                      ),
-                    ],
+                        Text(
+                          daysBetween(
+                              DateTime.parse(messageModel.dateTime.toString())),
+                          style: Theme.of(context).textTheme.caption!.copyWith(
+                                color: Colors.grey,
+                                height: 2.2,
+                              ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

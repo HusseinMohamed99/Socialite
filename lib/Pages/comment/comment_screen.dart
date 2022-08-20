@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../shared/Cubit/socialCubit/SocialCubit.dart';
 import '../../shared/componnetns/components.dart';
 
+
 class CommentsScreen extends StatelessWidget {
   late String? postId;
   final String? receiverUid;
@@ -84,8 +85,7 @@ class CommentsScreen extends StatelessWidget {
                                 physics: const BouncingScrollPhysics(),
                                 reverse: false,
                                 itemBuilder: (context, index) {
-                                  return buildComment(
-                                      cubit.comments[index], context);
+                                  return buildComment(cubit.comments[index], context, );
                                 },
                                 separatorBuilder: (context, index) =>
                                     myDivider2(),
@@ -308,13 +308,14 @@ class CommentsScreen extends StatelessWidget {
   }
 
   Widget buildComment(CommentModel comment, context) {
+
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CircleAvatar(
-            radius: 35,
+            radius: 25,
             backgroundImage: NetworkImage(
               '${comment.image}',
             ),
@@ -353,17 +354,26 @@ class CommentsScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          '${comment.name}',
-                          textAlign: TextAlign.start,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: GoogleFonts.lobster(
-                            color: SocialCubit.get(context).isLight
-                                ? Colors.blue
-                                : Colors.white,
-                            fontSize: 20,
-                          ),
+                        Row(
+                          children: [
+                            Text(
+                              '${comment.name}',
+                              textAlign: TextAlign.start,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.lobster(
+                                color: SocialCubit.get(context).isLight
+                                    ? Colors.blue
+                                    : Colors.white,
+                              ),
+                            ),
+                            space(5, 0),
+                            const Icon(
+                              Icons.check_circle,
+                              color: Colors.blue,
+                              size: 20,
+                            ),
+                          ],
                         ),
                         space(0, 10),
                         Text(

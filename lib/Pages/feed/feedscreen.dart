@@ -15,9 +15,9 @@ import '../../shared/Cubit/socialCubit/SocialState.dart';
 import '../../shared/componnetns/constants.dart';
 import '../addPost/addPostScreen.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import '../friend/profileScreen.dart';
 import '../post/edit_post.dart';
-import '../veiw_photo/post_view.dart';
-
+import '../veiwPhoto/post_view.dart';
 
 class FeedScreen extends StatelessWidget {
   const FeedScreen({Key? key}) : super(key: key);
@@ -25,8 +25,7 @@ class FeedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SocialCubit, SocialStates>(
-      listener: (context, state)
-      {
+      listener: (context, state) {
         if (state is SavedToGalleryLoadingState) {
           Navigator.pop(context);
         }
@@ -38,11 +37,30 @@ class FeedScreen extends StatelessWidget {
               timeInSecForIosWeb: 5,
               fontSize: 18);
         }
+
+        if (state is LikesSuccessState) {
+          Fluttertoast.showToast(
+              msg: "Likes Success!",
+              gravity: ToastGravity.BOTTOM,
+              backgroundColor: Colors.green,
+              timeInSecForIosWeb: 5,
+              fontSize: 18);
+        }
+
+        if (state is DisLikesSuccessState) {
+          Fluttertoast.showToast(
+              msg: "UnLikes Success!",
+              gravity: ToastGravity.BOTTOM,
+              backgroundColor: Colors.red,
+              timeInSecForIosWeb: 5,
+              fontSize: 18);
+        }
       },
       builder: (context, state) {
         var userModel = SocialCubit.get(context).userModel;
         var cubit = SocialCubit.get(context);
-
+        SocialCubit.get(context)
+            .getFriends(SocialCubit.get(context).userModel!.uId);
         return SocialCubit.get(context).posts.isEmpty
             ? Scaffold(
                 backgroundColor:
@@ -200,9 +218,10 @@ class FeedScreen extends StatelessWidget {
                                         '\' What\'s on your mind ? \'',
                                         style: GoogleFonts.lobster(
                                           fontSize: 16,
-                                          color: SocialCubit.get(context).isLight
-                                              ? Colors.black
-                                              : Colors.white,
+                                          color:
+                                              SocialCubit.get(context).isLight
+                                                  ? Colors.black
+                                                  : Colors.white,
                                         ),
                                       ),
                                       onPressed: () {
@@ -255,8 +274,6 @@ class FeedScreen extends StatelessWidget {
     );
   }
 
-
-
   Widget buildPostItem(PostModel postModel, context, index) {
     late String postId;
     var cubit = SocialCubit.get(context);
@@ -277,7 +294,15 @@ class FeedScreen extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    navigateTo(context, const MyProfileScreen());
+
+
+                    if (postModel.uId !=
+                        SocialCubit.get(context).userModel!.uId) {
+                      navigateTo(context, FriendsProfileScreen(postModel.uId));
+                    } else {
+                      navigateTo(context, const MyProfileScreen());
+                    }
+                      
                   },
                   borderRadius: BorderRadius.circular(25),
                   child: CircleAvatar(
@@ -296,7 +321,12 @@ class FeedScreen extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              navigateTo(context, const MyProfileScreen());
+                              if (postModel.uId !=
+                                  SocialCubit.get(context).userModel!.uId) {
+                                navigateTo(context, FriendsProfileScreen(postModel.uId));
+                              } else {
+                                navigateTo(context, const MyProfileScreen());
+                              }
                             },
                             child: Text(
                               '${postModel.name}',
@@ -341,79 +371,46 @@ class FeedScreen extends StatelessWidget {
                 ),
                 space(15, 0),
                 IconButton(
-                    onPressed: () {
-                      showModalBottomSheet(
-                          context: context,
-                          isScrollControlled: true,
-                          shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(30))),
-                          builder: (context) {
-                            return Padding(
-                              padding: const EdgeInsets.all(15.0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  if (postModel.uId == cubit.userModel!.uId)
-                                    InkWell(
-                                      onTap: () {
-                                       navigateTo(context, EditPosts(
-                                         postModel: postModel,
-                                         postId:postId,
-
-                                       ));
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Row(
-                                          children: const [
-                                            Icon(
-                                              Icons.edit_location_outlined,
-                                              color: Colors.red,
-                                              size: 30,
-                                            ),
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text(
-                                              "Edit Post",
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 20),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  const SizedBox(
-                                    height: 15,
-                                  ),
+                  onPressed: () {
+                    showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(30))),
+                        builder: (context) {
+                          return Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                if (postModel.uId == cubit.userModel!.uId)
                                   InkWell(
                                     onTap: () {
-                                      // cubit.savePost(
-                                      //     postId: postId,
-                                      //     date: DateTime.now(),
-                                      //     userName: model.name,
-                                      //     userId: model.uId,
-                                      //     userImage: model.image,
-                                      //     postText: model.text,
-                                      //     postImage: model.postImage);
+                                      navigateTo(
+                                          context,
+                                          EditPosts(
+                                            postModel: postModel,
+                                            postId: postId,
+                                          ));
                                     },
                                     child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.only(
+                                        left: 8,
+                                        right: 8,
+                                        top: 20,
+                                        bottom: 0,
+                                      ),
                                       child: Row(
-                                        children: const [
+                                        children:  [
                                           Icon(
-                                            Icons.turned_in_not_sharp,
+                                            Icons.edit_location_outlined,
                                             color: Colors.red,
                                             size: 30,
                                           ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
+                                          space(10, 0),
                                           Text(
-                                            "Save Post",
+                                            "Edit Post",
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.w600,
@@ -423,57 +420,67 @@ class FeedScreen extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 15,
-                                  ),
-                                  if (postModel.postImage != '')
-                                    InkWell(
-                                      onTap: () {
-                                        cubit.saveToGallery(
-                                            postModel.postImage!);
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Row(
-                                          children: const [
-                                            Icon(
-                                              Icons.save_outlined,
-                                              color: Colors.red,
-                                              size: 30,
-                                            ),
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text(
-                                              "Save Post Image",
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 20),
-                                            )
-                                          ],
+
+                                InkWell(
+                                  onTap: () {
+                                    // cubit.savePost(
+                                    //     postId: postId,
+                                    //     date: DateTime.now(),
+                                    //     userName: model.name,
+                                    //     userId: model.uId,
+                                    //     userImage: model.image,
+                                    //     postText: model.text,
+                                    //     postImage: model.postImage);
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      left: 8,
+                                      right: 8,
+                                      top: 20,
+                                      bottom: 0,
+                                    ),
+                                    child: Row(
+                                      children:  [
+                                        Icon(
+                                          Icons.turned_in_not_sharp,
+                                          color: Colors.red,
+                                          size: 30,
                                         ),
-                                      ),
+                                        space(10, 0),
+                                        Text(
+                                          "Save Post",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 20),
+                                        )
+                                      ],
                                     ),
-                                  const SizedBox(
-                                    height: 15,
                                   ),
+                                ),
+
+                                if (postModel.postImage != '')
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      cubit.saveToGallery(postModel.postImage!);
+                                    },
                                     child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.only(
+                                        left: 8,
+                                        right: 8,
+                                        top: 20,
+                                        bottom: 0,
+                                      ),
                                       child: Row(
-                                        children: const [
+                                        children:  [
                                           Icon(
-                                            Icons.share,
+                                            IconlyLight.download,
                                             color: Colors.red,
                                             size: 30,
                                           ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
+                                          space(10, 0),
                                           Text(
-                                            "Share",
+                                            "Save Image",
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.w600,
@@ -483,24 +490,55 @@ class FeedScreen extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  if (postModel.uId == cubit.userModel!.uId)
+
+                                InkWell(
+                                  onTap: () {},
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      left: 8,
+                                      right: 8,
+                                      top: 20,
+                                      bottom: 0,
+                                    ),
+                                    child: Row(
+                                      children:  [
+                                        Icon(
+                                          Icons.share,
+                                          color: Colors.red,
+                                          size: 30,
+                                        ),
+                                        space(10, 0),
+                                        Text(
+                                          "Share",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 20),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                if (postModel.uId == cubit.userModel!.uId)
                                   InkWell(
-                                    onTap: ()
-                                    {
+                                    onTap: () {
                                       cubit.deletePost(postId);
                                     },
                                     child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.only(
+                                        left: 8,
+                                        right: 8,
+                                        top: 20,
+                                        bottom: 0,
+                                      ),
                                       child: Row(
-                                        children: const [
+                                        children:  [
                                           Icon(
                                             Icons.delete,
                                             color: Colors.red,
                                             size: 30,
                                           ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
+                                          space(10, 0),
                                           Text(
                                             "Delete Post",
                                             style: TextStyle(
@@ -512,18 +550,18 @@ class FeedScreen extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
-                            );
-                          });
-                    },
-                    icon: Icon(
-                      IconlyLight.moreCircle,
-                      size: 25,
-                      color: SocialCubit.get(context).isLight
-                          ? Colors.black
-                          : Colors.white,
-                    ),
+                              ],
+                            ),
+                          );
+                        });
+                  },
+                  icon: Icon(
+                    IconlyLight.moreCircle,
+                    size: 25,
+                    color: SocialCubit.get(context).isLight
+                        ? Colors.black
+                        : Colors.white,
+                  ),
                 ),
               ],
             ),
@@ -547,7 +585,12 @@ class FeedScreen extends StatelessWidget {
             if (postModel.postImage != '')
               InkWell(
                 onTap: () {
-                  navigateTo(context, FullScreen(postModel,index: index,));
+                  navigateTo(
+                      context,
+                      FullScreen(
+                        postModel,
+                        index: index,
+                      ));
                 },
                 child: Stack(
                   alignment: AlignmentDirectional.topEnd,
@@ -601,8 +644,10 @@ class FeedScreen extends StatelessWidget {
                   onPressed: () {
                     navigateTo(
                         context,
-                        CommentsScreen(SocialCubit.get(context).postsId[index],
-                            postModel.uId,));
+                        CommentsScreen(
+                          SocialCubit.get(context).postsId[index],
+                          postModel.uId,
+                        ));
                   },
                   icon: const Icon(
                     IconlyLight.chat,
@@ -642,8 +687,10 @@ class FeedScreen extends StatelessWidget {
                   onTap: () {
                     navigateTo(
                         context,
-                        CommentsScreen(SocialCubit.get(context).postsId[index],
-                            postModel.uId,));
+                        CommentsScreen(
+                          SocialCubit.get(context).postsId[index],
+                          postModel.uId,
+                        ));
                   },
                   child: SizedBox(
                     width: 150,
@@ -706,5 +753,4 @@ class FeedScreen extends StatelessWidget {
       ),
     );
   }
-
 }
