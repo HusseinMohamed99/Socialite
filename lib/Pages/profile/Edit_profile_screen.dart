@@ -247,7 +247,7 @@ class EditProfileScreen extends StatelessWidget {
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty
                                   .all(
-                               cubit.isLight? Colors.white : const Color(0xff063750),
+                               cubit.isLight? Colors.blue : Colors.white,
                               ),
                             ),
                             onPressed: ()
@@ -291,7 +291,7 @@ class EditProfileScreen extends StatelessWidget {
                               'Update'.toUpperCase(),
                               style: GoogleFonts.lobster(
                                   fontSize: 20,
-                                  color: cubit.isLight ? Colors.blue : Colors.white),
+                                  color: cubit.isLight ? Colors.white: Colors.blue ),
                             ),
                           ),
                         ),

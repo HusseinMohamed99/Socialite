@@ -1,5 +1,6 @@
 import 'package:f_app/Pages/password/forget_Password.dart';
 import 'package:f_app/Pages/notifications/notifications_screen.dart';
+import 'package:f_app/Pages/profile/Edit_profile_screen.dart';
 import 'package:f_app/Pages/profile/My_profile_screen.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
 import 'package:f_app/shared/componnetns/components.dart';
@@ -126,7 +127,7 @@ class SettingScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                       onTap: () {
-                        navigateTo(context, const MyProfileScreen());
+                            navigateTo(context,  EditProfileScreen());
                       },
                       child: Row(
                         children: [

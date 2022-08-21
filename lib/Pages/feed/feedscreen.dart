@@ -679,7 +679,7 @@ class FeedScreen extends StatelessWidget {
                   },
                   child: CircleAvatar(
                     radius: 18,
-                    backgroundImage: NetworkImage('${postModel.image}'),
+                    backgroundImage: NetworkImage('${SocialCubit.get(context).userModel!.image}'),
                   ),
                 ),
                 space(10, 0),
