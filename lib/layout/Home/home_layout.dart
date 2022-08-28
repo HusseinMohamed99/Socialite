@@ -1,3 +1,4 @@
+import 'package:f_app/Pages/search/search_screen.dart';
 import 'package:f_app/model/drawerModel.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
@@ -12,7 +13,6 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:flutter_zoom_drawer/config.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../drawer/drawerItem.dart';
 
 class HomeLayout extends StatelessWidget {
@@ -22,10 +22,7 @@ class HomeLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     final drawerController = ZoomDrawerController();
     return BlocConsumer<SocialCubit, SocialStates>(
-      listener: (context, state)
-      {
-
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         var cubit = SocialCubit.get(context);
         return SocialCubit.get(context).userModel == null
@@ -78,11 +75,14 @@ class HomeLayout extends StatelessWidget {
               ),
             )):
           ZoomDrawer(
+          openCurve :   Curves.easeInOut,
+          closeCurve :  Curves.easeOut,
+          mainScreenTapClose : true,
+          menuScreenTapClose : true,
           controller: drawerController,
           borderRadius: 50.0,
           dragOffset: 10.0,
           slideWidth: 290.0,
-          style: DrawerStyle.defaultStyle,
           menuScreen: Builder(builder: (context) {
             return MenuScreen(
               currentItem: cubit.currentItem,
@@ -95,13 +95,11 @@ class HomeLayout extends StatelessWidget {
           mainScreen: cubit.mScreen,
           showShadow: true,
           menuBackgroundColor:
-              cubit.isLight ? const Color(0xff063750) : Colors.white,
+              cubit.isLight ? const Color(0xff063750) : Colors.white.withOpacity(0.7),
           drawerShadowsBackgroundColor: cubit.isLight? Colors.grey.shade400: Colors.blue.shade200,
-          reverseDuration: const Duration(milliseconds: 250),
-          openCurve: Curves.fastOutSlowIn,
-          closeCurve: Curves.bounceIn,
-          angle: -9,
-          duration: const Duration(milliseconds: 250),
+          reverseDuration: const Duration(seconds: 1),
+          angle: -6,
+          duration: const Duration(seconds: 1),
         );
       },
     );
@@ -152,20 +150,14 @@ class MainScreen extends StatelessWidget {
               ),
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: ()
+                  {
+                    navigateTo(context, SearchScreen());
+                  },
                   splashColor: Colors.blue,
                   splashRadius: 20,
                   icon: Icon(
                     IconlyBroken.search,
-                    color: cubit.isLight ? Colors.black : Colors.white,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  splashColor: Colors.blue,
-                  splashRadius: 20,
-                  icon: Icon(
-                    IconlyBroken.notification,
                     color: cubit.isLight ? Colors.black : Colors.white,
                   ),
                 ),
@@ -329,7 +321,7 @@ class MenuScreen extends StatelessWidget {
                       ),
                       Positioned(
                         top: 60,
-                        left: 5,
+                        right: 5,
                         child: IconButton(
                           onPressed: ()
                           {
@@ -338,7 +330,7 @@ class MenuScreen extends StatelessWidget {
                           icon: const CircleAvatar(
                             backgroundColor:  Colors.black,
                             child: Icon(
-                              IconlyLight.arrowLeft2,
+                              IconlyLight.arrowRight2,
                               size: 30,
                               color: Colors.white,
 

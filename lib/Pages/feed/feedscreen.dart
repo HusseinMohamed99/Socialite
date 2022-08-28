@@ -11,12 +11,14 @@ import 'package:fluttericon/linearicons_free_icons.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../model/post_model.dart';
+import '../../model/storyModel.dart';
 import '../../shared/Cubit/socialCubit/SocialState.dart';
 import '../../shared/componnetns/constants.dart';
 import '../addPost/addPostScreen.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import '../friend/profileScreen.dart';
 import '../post/edit_post.dart';
+import '../story/veiw_story.dart';
 import '../veiwPhoto/post_view.dart';
 
 class FeedScreen extends StatelessWidget {
@@ -172,7 +174,105 @@ class FeedScreen extends StatelessWidget {
                   child: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          physics: BouncingScrollPhysics(),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    cubit.getStoryImage(context);
+                                  },
+                                  child: Container(
+                                    width: 110,
+                                    height: 180,
+                                    margin: EdgeInsetsDirectional.only(start: 8),
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey.withOpacity(0.3),
+                                        borderRadius: BorderRadius.circular(17)),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          height: 153,
+                                          child: Stack(
+                                            alignment:
+                                            AlignmentDirectional.bottomCenter,
+                                            children: [
+                                              Align(
+                                                alignment:
+                                                AlignmentDirectional.topCenter,
+                                                child: Container(
+                                                  width: 110,
+                                                  height: 135,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.only(
+                                                        topRight: Radius.circular(17),
+                                                        topLeft: Radius.circular(17),
+                                                        bottomLeft: Radius.circular(10),
+                                                        bottomRight:
+                                                        Radius.circular(10),
+                                                      ),
+                                                      image: DecorationImage(
+                                                          image: NetworkImage(
+                                                              cubit.userModel!.image!),
+                                                          fit: BoxFit.cover)),
+                                                ),
+                                              ),
+                                              CircleAvatar(
+                                                radius: 20,
+                                                backgroundColor:
+                                                Colors.grey.withOpacity(0.3),
+                                                child: CircleAvatar(
+                                                  radius: 18,
+                                                  backgroundColor: Colors.red,
+                                                  child: Icon(
+                                                    Icons.add,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        Spacer(),
+                                        Text(
+                                          "Create Story",
+                                          style: Theme.of(context).textTheme.subtitle2,
+                                        ),
+                                        Spacer(),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Container(
+                                  height: 180,
+                                  child: ListView.separated(
+                                      physics: NeverScrollableScrollPhysics(),
+                                      reverse: true,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (context, index) =>
+                                          StoryItem(context, cubit.Stories[index]),
+                                      separatorBuilder: (context, index) => SizedBox(
+                                        width: 10,
+                                      ),
+                                      itemCount: cubit.Stories.length),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                              ],
+                            ),
+                          ),
+
+                        ),
                         Card(
                           color: SocialCubit.get(context).isLight
                               ? Colors.white
@@ -605,9 +705,6 @@ class FeedScreen extends StatelessWidget {
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.4),
-                              // blurRadius: 0,
-                              // spreadRadius: 0,
-                              // offset: Offset(0, 0)
                             ),
                           ],
                         ),
@@ -753,4 +850,66 @@ class FeedScreen extends StatelessWidget {
       ),
     );
   }
+
+  Widget StoryItem(context, StoryModel model) {
+    var bloc = SocialCubit.get(context).userModel;
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ViewStory(model)));
+      },
+      child: Container(
+        width: 110,
+        height: 180,
+        decoration: BoxDecoration(
+            color: Colors.grey[200], borderRadius: BorderRadius.circular(17)),
+        child: Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(14),
+                  image: DecorationImage(
+                    image: NetworkImage(model.storyImage!),
+                    fit: BoxFit.cover,
+                  )),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    radius: 23,
+                    child: CircleAvatar(
+                      radius: 20,
+                      backgroundImage: model.uId == bloc!.uId
+                          ? NetworkImage(bloc.image!)
+                          : NetworkImage(model.image!),
+                    ),
+                  ),
+                  Spacer(),
+                  Container(
+                    width: 110,
+                    height: 25,
+                    child: Text(
+                      model.uId == bloc.uId ? bloc.name! : model.name!,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+
+
 }

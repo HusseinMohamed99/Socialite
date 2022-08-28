@@ -304,13 +304,16 @@ class MyProfileScreen extends StatelessWidget {
                                           backgroundColor:
                                               MaterialStateProperty.all(
                                                   Colors.blue)),
-                                      onPressed: () {},
+                                      onPressed: ()
+                                      {
+                                        cubit.getStoryImage(context);
+                                      },
                                       icon: const Icon(
                                         IconlyLight.plus,
                                         color: Colors.white,
                                       ),
                                       label: Text(
-                                        'Add to story',
+                                        'Add story',
                                         style: GoogleFonts.lobster(
                                           color: Colors.white,
                                         ),
@@ -592,13 +595,16 @@ Widget buildProfileWithOutPosts () => Builder(
                       backgroundColor:
                       MaterialStateProperty.all(
                           Colors.blue)),
-                  onPressed: () {},
+                  onPressed: ()
+                  {
+                    cubit.getStoryImage(context);
+                  },
                   icon: const Icon(
                     IconlyLight.plus,
                     color: Colors.white,
                   ),
                   label: Text(
-                    'Add to story',
+                    'Add story',
                     style: GoogleFonts.lobster(
                       color: Colors.white,
                     ),

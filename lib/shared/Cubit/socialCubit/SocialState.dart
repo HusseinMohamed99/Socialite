@@ -216,3 +216,26 @@ class CheckFriendRequestSuccessState extends SocialStates {}
 class DeleteFriendRequestLoadingState extends SocialStates {}
 class DeleteFriendRequestSuccessState extends SocialStates {}
 class DeleteFriendRequestErrorState extends SocialStates {}
+
+class GetStoryLoadingState extends SocialStates {}
+class GetStorySuccessState extends SocialStates {}
+class CreateStoryImagePickedSuccessState extends SocialStates {}
+class CreateStoryImagePickedErrorState extends SocialStates {}
+class CreateStoryLoadingState extends SocialStates {}
+class CreateStorySuccessState extends SocialStates {}
+class CreateStoryErrorState extends SocialStates {}
+class RemoveStoryImagePickedSuccessState extends SocialStates {}
+class AddTextSuccessState extends SocialStates {}
+class CloseCreateStoryScreenState extends SocialStates {}
+class GetNotificationsLoadingState extends SocialStates {}
+class GetNotificationsSuccessState extends SocialStates {}
+class GetNotificationsErrorState extends SocialStates {
+  final String error ;
+  GetNotificationsErrorState(this.error);
+}
+class SearchLoadingState extends SocialStates {}
+class SearchSuccessState extends SocialStates {}
+class SearchErrorState extends SocialStates {
+  final String error ;
+  SearchErrorState(this.error);
+}

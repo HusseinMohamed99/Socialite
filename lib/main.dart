@@ -56,6 +56,7 @@ class MyApp extends StatelessWidget {
             ..getUserData()
             ..getPosts()
             ..getAllUsers()
+            ..getStories()
             ..changeMode(fromShared: isDark,)
 
         ),

@@ -33,7 +33,7 @@ class PrivateChatScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is SendMessageSuccessState) {
             if (SocialCubit.get(context).messageImagePicked != null) {
-              SocialCubit.get(context).removemessageimage();
+              SocialCubit.get(context).removeMessageImage();
             }
             scroll.scrollTo(
                 duration: const Duration(seconds: 1),
@@ -160,7 +160,7 @@ class PrivateChatScreen extends StatelessWidget {
                                 iconSize: 16,
                                 onPressed: () {
                                   SocialCubit.get(context)
-                                      .removemessageimage();
+                                      .removeMessageImage();
                                 },
                                 icon: const Icon(IconlyBroken.closeSquare)),
                           ),
@@ -267,12 +267,12 @@ class PrivateChatScreen extends StatelessWidget {
                                         .message
                                         .length);
                               } else {
-                                SocialCubit.get(context).uploadmessageImage(
+                                SocialCubit.get(context).uploadMessageImage(
                                     receiverId: userModel.uId!,
                                     datetime: DateTime.now().toString(),
                                     text: textController.text);
                                 textController.clear();
-                                cubit.removemessageimage();
+                                cubit.removeMessageImage();
                                 scroll.scrollTo(
                                     duration: const Duration(milliseconds: 1),
                                     curve: Curves.linearToEaseOut,
@@ -399,7 +399,7 @@ class PrivateChatScreen extends StatelessWidget {
                                   iconSize: 16,
                                   onPressed: () {
                                     SocialCubit.get(context)
-                                        .removemessageimage();
+                                        .removeMessageImage();
                                   },
                                   icon: const Icon(IconlyBroken.closeSquare)),
                             ),
@@ -506,12 +506,12 @@ class PrivateChatScreen extends StatelessWidget {
                                           .message
                                           .length);
                                 } else {
-                                  SocialCubit.get(context).uploadmessageImage(
+                                  SocialCubit.get(context).uploadMessageImage(
                                       receiverId: userModel.uId!,
                                       datetime: DateTime.now().toString(),
                                       text: textController.text);
                                   textController.clear();
-                                  cubit.removemessageimage();
+                                  cubit.removeMessageImage();
                                   scroll.scrollTo(
                                       duration: const Duration(milliseconds: 1),
                                       curve: Curves.linearToEaseOut,
