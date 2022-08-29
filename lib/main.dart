@@ -89,6 +89,7 @@ class MyApp extends StatelessWidget {
 
 
       ],
+
       child: BlocConsumer<SocialCubit, SocialStates>(
         listener: (context, state) {},
         builder: (context, state) {
