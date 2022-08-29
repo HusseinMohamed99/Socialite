@@ -117,6 +117,10 @@ class SocialCubit extends Cubit<SocialStates> {
 
   ///START : ChangeTabBar
   void changeTabBar(int index, context) {
+    if(index == 0)
+    {
+       getPosts();
+    }
     if (index == 1) {
       getAllUsers();
     }

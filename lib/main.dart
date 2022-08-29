@@ -101,8 +101,8 @@ class MyApp extends StatelessWidget {
             theme: lightTheme,
             darkTheme: darkTheme,
             themeMode: SocialCubit.get(context).isLight
-                ? ThemeMode.dark
-                : ThemeMode.light,
+                ? ThemeMode.light
+                : ThemeMode.dark,
             home: SplashScreenView(
               duration: 3500,
               pageRouteTransition: PageRouteTransition.Normal,
@@ -126,7 +126,7 @@ class MyApp extends StatelessWidget {
               ],
               backgroundColor: SocialCubit.get(context).isLight
                   ? Colors.white
-                  : const Color(0xff063750) ,
+                  : const Color(0xff063750),
             ),
           );
         },
