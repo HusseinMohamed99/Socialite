@@ -29,8 +29,7 @@ class FriendsScreen extends StatelessWidget {
              cubit.isLight ? Colors.white : const Color(0xff063750),
              appBar: AppBar(
                systemOverlayStyle: SystemUiOverlayStyle(
-                 statusBarColor:
-                 cubit.isLight ? Colors.white : const Color(0xff063750),
+                 statusBarColor: Colors.transparent,
                  statusBarIconBrightness:
                  cubit.isLight ? Brightness.dark : Brightness.light,
                  statusBarBrightness:
@@ -88,11 +87,9 @@ class FriendsScreen extends StatelessWidget {
               extendBodyBehindAppBar: true,
               backgroundColor:
               cubit.isLight ? Colors.white : const Color(0xff063750),
-
               appBar: AppBar(
                 systemOverlayStyle: SystemUiOverlayStyle(
-                  statusBarColor:
-                  cubit.isLight ? Colors.white : const Color(0xff063750),
+                  statusBarColor: Colors.transparent,
                   statusBarIconBrightness:
                   cubit.isLight ? Brightness.dark : Brightness.light,
                   statusBarBrightness:
@@ -103,7 +100,6 @@ class FriendsScreen extends StatelessWidget {
                 elevation: 1,
                 leading: IconButton(
                   onPressed: () {
-
                     pop(context);
                   },
                   icon: Icon(
@@ -200,18 +196,3 @@ Widget chatBuildItem (context,UserModel model,bool myFriends) {
     ),
   );
 }
-// Row(
-//   children: [
-//     Expanded(
-//       child: Text('',
-//         maxLines: 1,
-//         overflow: TextOverflow.ellipsis ,),
-//     ),
-//     CircleAvatar(
-//       backgroundColor: Colors.black,
-//       radius: 2.5,
-//     ),
-//     SizedBox(width: 5,),
-//     Text('2:00 PM')
-//   ],
-// ),

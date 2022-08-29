@@ -242,7 +242,7 @@ class _UserScreenState extends State<UserScreen> {
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
                     SocialCubit.get(context).isLight
-                        ? Colors.black
+                        ? Colors.blue
                         : Colors.white,
                   )),
                   onPressed: () => navigateTo(
@@ -250,9 +250,11 @@ class _UserScreenState extends State<UserScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(
+                       Icon(
                         IconlyBroken.chat,
-                        color: Colors.black,
+                        color:SocialCubit.get(context).isLight ?
+                        Colors.white
+                         : Colors.black,
                       ),
                       const SizedBox(
                         width: 5,
@@ -262,7 +264,7 @@ class _UserScreenState extends State<UserScreen> {
                         style: GoogleFonts.lobster(
                           fontSize: 16,
                           color: SocialCubit.get(context).isLight
-                              ? Colors.black
+                              ? Colors.white
                               : Colors.blue,
                         ),
                       ),
@@ -340,18 +342,18 @@ class _UserScreenState extends State<UserScreen> {
                               friendsUID: userModel.uId,
                               friendName: userModel.name,
                               friendImage: userModel.image);
-                          // SocialCubit.get(context).sendInAppNotification(
-                          //     contentKey: 'friendRequest',
-                          //     contentId: userModel.uID,
-                          //     content: 'sent you a friend request, check it out!',
-                          //     receiverId: userModel.uID,
-                          //     receiverName: userModel.name
-                          // );
-                          // SocialCubit.get(context).sendFCMNotification(
-                          //     token: userModel.token,
-                          //     senderName: SocialCubit.get(context).model!.name,
-                          //     messageText: '${SocialCubit.get(context).model!.name}' + 'sent you a friend request, check it out!'
-                          // );
+                          SocialCubit.get(context).sendInAppNotification(
+                              contentKey: 'friendRequest',
+                              contentId: userModel.uId,
+                              content: 'sent you a friend request, check it out!',
+                              receiverId: userModel.uId,
+                              receiverName: userModel.name
+                          );
+                          SocialCubit.get(context).sendFCMNotification(
+                              token: userModel.token,
+                              senderName: SocialCubit.get(context).userModel!.name,
+                              messageText: '${SocialCubit.get(context).userModel!.name}' + 'sent you a friend request, check it out!'
+                          );
                         },
                         child: SocialCubit.get(context).isFriend == false
                             ? SocialCubit.get(context).request
@@ -390,30 +392,20 @@ class _UserScreenState extends State<UserScreen> {
                                 children: const [
                                   Icon(
                                     Icons.person,
-                                    color: Colors.black,
+                                    color: Colors.white,
                                   ),
                                   SizedBox(
                                     width: 5,
                                   ),
                                   Text(
                                     'profileFriends',
-                                    style: TextStyle(color: Colors.black),
+                                    style: TextStyle(color: Colors.white),
                                   ),
                                 ],
                               )
                     ),
 
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [
-                    //     const Icon(Icons.person_add_alt_1_rounded),
-                    //     space( 5,0),
-                    //     Text('addFriend',  style: GoogleFonts.lobster(
-                    //       fontSize: 16,
-                    //       color:  Colors.white,
-                    //     ),),
-                    //   ],
-                    // ),
+
                   ),
                 ],
               ),
@@ -469,18 +461,18 @@ class _UserScreenState extends State<UserScreen> {
                                 friendImage: userModel.image);
                             SocialCubit.get(context)
                                 .deleteFriendRequest(userModel.uId);
-                            // SocialCubit.get(context).sendInAppNotification(
-                            //     contentKey: 'friendRequestAccepted',
-                            //     contentId: SocialCubit.get(context).model!.uID,
-                            //     content: 'accepted your friend request, you are now friends checkout his profile',
-                            //     receiverId: userModel.uID,
-                            //     receiverName: userModel.name
-                            // );
-                            // SocialCubit.get(context).sendFCMNotification(
-                            //     token: userModel.token,
-                            //     senderName: SocialCubit.get(context).model!.name,
-                            //     messageText: '${SocialCubit.get(context).model!.name}' + 'accepted your friend request, you are now friends checkout his profile'
-                            // );
+                            SocialCubit.get(context).sendInAppNotification(
+                                contentKey: 'friendRequestAccepted',
+                                contentId: SocialCubit.get(context).userModel!.uId,
+                                content: 'accepted your friend request, you are now friends checkout his profile',
+                                receiverId: userModel.uId,
+                                receiverName: userModel.name
+                            );
+                            SocialCubit.get(context).sendFCMNotification(
+                                token: userModel.token,
+                                senderName: SocialCubit.get(context).userModel!.name,
+                                messageText: '${SocialCubit.get(context).userModel!.name}' + 'accepted your friend request, you are now friends checkout his profile'
+                            );
                           },
                           child: const Text('Confirm',
                               style: TextStyle(color: Colors.white)),

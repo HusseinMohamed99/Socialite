@@ -178,7 +178,7 @@ class FeedScreen extends StatelessWidget {
                       children: [
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
-                          physics: BouncingScrollPhysics(),
+                          physics: const BouncingScrollPhysics(),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
@@ -189,32 +189,29 @@ class FeedScreen extends StatelessWidget {
                                   },
                                   child: Container(
                                     width: 110,
-                                    height: 180,
-                                    margin: EdgeInsetsDirectional.only(start: 8),
+                                    height: 190,
+                                    margin: const EdgeInsetsDirectional.only(start: 8),
                                     decoration: BoxDecoration(
                                         color: Colors.grey.withOpacity(0.3),
                                         borderRadius: BorderRadius.circular(17)),
                                     child: Column(
                                       children: [
-                                        Container(
+                                        SizedBox(
                                           height: 153,
                                           child: Stack(
-                                            alignment:
-                                            AlignmentDirectional.bottomCenter,
+                                            alignment: AlignmentDirectional.bottomCenter,
                                             children: [
                                               Align(
-                                                alignment:
-                                                AlignmentDirectional.topCenter,
+                                                alignment: AlignmentDirectional.topCenter,
                                                 child: Container(
                                                   width: 110,
                                                   height: 135,
                                                   decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.only(
+                                                      borderRadius: const BorderRadius.only(
                                                         topRight: Radius.circular(17),
                                                         topLeft: Radius.circular(17),
                                                         bottomLeft: Radius.circular(10),
-                                                        bottomRight:
-                                                        Radius.circular(10),
+                                                        bottomRight: Radius.circular(10),
                                                       ),
                                                       image: DecorationImage(
                                                           image: NetworkImage(
@@ -226,9 +223,9 @@ class FeedScreen extends StatelessWidget {
                                                 radius: 20,
                                                 backgroundColor:
                                                 Colors.grey.withOpacity(0.3),
-                                                child: CircleAvatar(
+                                                child: const CircleAvatar(
                                                   radius: 18,
-                                                  backgroundColor: Colors.red,
+                                                  backgroundColor: Colors.blue,
                                                   child: Icon(
                                                     Icons.add,
                                                     color: Colors.white,
@@ -238,34 +235,34 @@ class FeedScreen extends StatelessWidget {
                                             ],
                                           ),
                                         ),
-                                        Spacer(),
+                                        const Spacer(),
                                         Text(
                                           "Create Story",
                                           style: Theme.of(context).textTheme.subtitle2,
                                         ),
-                                        Spacer(),
+                                        const Spacer(),
                                       ],
                                     ),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Container(
                                   height: 180,
                                   child: ListView.separated(
-                                      physics: NeverScrollableScrollPhysics(),
+                                      physics: const NeverScrollableScrollPhysics(),
                                       reverse: true,
                                       shrinkWrap: true,
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index) =>
-                                          StoryItem(context, cubit.Stories[index]),
-                                      separatorBuilder: (context, index) => SizedBox(
+                                          StoryItem(context, cubit.stories[index]),
+                                      separatorBuilder: (context, index) => const SizedBox(
                                         width: 10,
                                       ),
-                                      itemCount: cubit.Stories.length),
+                                      itemCount: cubit.stories.length),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                               ],
@@ -394,7 +391,6 @@ class FeedScreen extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-
 
                     if (postModel.uId !=
                         SocialCubit.get(context).userModel!.uId) {
@@ -887,13 +883,13 @@ class FeedScreen extends StatelessWidget {
                           : NetworkImage(model.image!),
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Container(
                     width: 110,
                     height: 25,
                     child: Text(
                       model.uId == bloc.uId ? bloc.name! : model.name!,
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.white,
                           fontSize: 14,
                           fontWeight: FontWeight.w600),

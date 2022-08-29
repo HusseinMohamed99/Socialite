@@ -56,6 +56,7 @@ class PrivateChatScreen extends StatelessWidget {
           }
         },
         builder: (context, state) {
+          UserModel? user = SocialCubit.get(context).userModel;
           var cubit = SocialCubit.get(context);
 
           return SocialCubit.get(context).message.isEmpty? Scaffold(
@@ -301,8 +302,7 @@ class PrivateChatScreen extends StatelessWidget {
                 cubit.isLight ? Colors.white : const Color(0xff063750),
             appBar: AppBar(
               systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarColor:
-                    cubit.isLight ? Colors.white : const Color(0xff063750),
+                statusBarColor: Colors.transparent,
                 statusBarIconBrightness:
                     cubit.isLight ? Brightness.dark : Brightness.light,
                 statusBarBrightness:
@@ -519,6 +519,12 @@ class PrivateChatScreen extends StatelessWidget {
                                           .message
                                           .length);
                                 }
+                                SocialCubit.get(context).sendFCMNotification(
+                                  token: user!.token,
+                                  senderName: SocialCubit.get(context).userModel!.name,
+                                  messageText: textController.text,
+                                  messageImage: SocialCubit.get(context).imageURL,
+                                );
                               },
                               child: Icon(
                                 IconlyLight.send,

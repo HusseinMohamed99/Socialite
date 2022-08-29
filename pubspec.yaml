@@ -39,7 +39,10 @@ dependencies:
   gallery_saver: ^2.3.2
   bubble: ^1.2.1
   scrollable_positioned_list: ^0.3.2
-
+  badges: ^2.0.3
+  carousel_slider: ^4.1.1
+  timeago: ^3.3.0
+  dio: ^4.0.6
 
   # firebase
   firebase_core: ^1.20.0
@@ -48,9 +51,8 @@ dependencies:
   pinput: ^2.2.11
   google_sign_in: ^5.4.0
   firebase_storage: ^10.3.4
-  carousel_slider: ^4.1.1
-  timeago: ^3.3.0
-  dio: ^4.0.6
+  firebase_messaging: ^13.0.0
+
 
 
 

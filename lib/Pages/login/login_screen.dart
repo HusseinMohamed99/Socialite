@@ -45,8 +45,7 @@ class LoginScreen extends StatelessWidget {
             backgroundColor: cubit.isLight ? Colors.white : const Color(0xff063750),
             appBar: AppBar(
               systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarColor:
-                    cubit.isLight ? Colors.white : const Color(0xff063750),
+                statusBarColor: Colors.transparent,
                 statusBarIconBrightness:
                     cubit.isLight ? Brightness.dark : Brightness.light,
                 statusBarBrightness:
@@ -196,7 +195,7 @@ class LoginScreen extends StatelessWidget {
                                                   SocialCubit.get(context)
                                                       .getUserData();
                                                   navigateAndFinish(context,
-                                                      const HomeLayout());
+                                                       HomeLayout());
                                                 } else {
                                                   navigateTo(context,
                                                       const EmailVerificationScreen());

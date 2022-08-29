@@ -23,6 +23,7 @@ class CommentsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SocialCubit cubit = SocialCubit.get(context);
+
     return Scaffold(
         backgroundColor: cubit.isLight ? Colors.white : const Color(0xff063750),
         appBar: AppBar(

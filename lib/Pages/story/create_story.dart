@@ -1,7 +1,9 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
+import 'package:f_app/shared/componnetns/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../shared/Cubit/socialCubit/SocialState.dart';
 
@@ -37,7 +39,7 @@ class CreateStory extends StatelessWidget {
                 width: double.infinity,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: FileImage(bloc.StoryImage!),
+                        image: FileImage(bloc.storyImage!),
                         fit: BoxFit.contain)),
               ),
               Column(
@@ -53,7 +55,7 @@ class CreateStory extends StatelessWidget {
                             SocialCubit.get(context).userModel!.image!,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 15,
                         ),
                         Expanded(
@@ -61,17 +63,17 @@ class CreateStory extends StatelessWidget {
                             children: [
                               Text(
                                 SocialCubit.get(context).userModel!.name!,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 23,
                                     fontWeight: FontWeight.w600,
                                     color: Colors.white),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
-                              Icon(
+                              const Icon(
                                 Icons.check_circle,
-                                color: Colors.red,
+                                color: Colors.blue,
                                 size: 23,
                               )
                             ],
@@ -80,7 +82,7 @@ class CreateStory extends StatelessWidget {
                         IconButton(
                             onPressed: () {
                               bloc.closeStory();
-                              Navigator.pop(context);
+                              pop(context);
                               bloc.addText = false;
                             },
                             icon: Container(
@@ -91,14 +93,14 @@ class CreateStory extends StatelessWidget {
                                         color: Colors.grey.withOpacity(0.3),
                                         blurRadius: 9,
                                         spreadRadius: 4,
-                                        offset: Offset(0, 4))
+                                        offset: const Offset(0, 4))
                                   ]),
                               child: CircleAvatar(
                                   backgroundColor:
                                   Theme.of(context).scaffoldBackgroundColor,
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.close_rounded,
-                                    color: Colors.red,
+                                    color: Colors.black,
                                   )),
                             ))
                       ],
@@ -111,9 +113,10 @@ class CreateStory extends StatelessWidget {
                         child: TextFormField(
                           controller: story,
                           maxLines: 6,
-                          style: TextStyle(
-                              height: 1.5, color: Colors.white, fontSize: 30),
-                          decoration: InputDecoration(
+                          minLines: 1,
+                          style: const TextStyle(
+                             color: Colors.white, fontSize: 30),
+                          decoration: const InputDecoration(
                               hintText: "What's on your mind ...",
                               hintStyle: TextStyle(
                                 color: Colors.white,
@@ -129,8 +132,7 @@ class CreateStory extends StatelessWidget {
                         Expanded(
                           child: InkWell(
                             onTap: () {
-                              bloc.AddText();
-
+                              bloc.addTextStory();
                             },
                             child: Container(
                               height: 45,
@@ -142,21 +144,21 @@ class CreateStory extends StatelessWidget {
                                         color: Colors.grey.withOpacity(0.3),
                                         blurRadius: 9,
                                         spreadRadius: 4,
-                                        offset: Offset(0, 4))
+                                        offset: const Offset(0, 4))
                                   ]),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     Icons.text_fields,
-                                    color: Colors.red,
+                                    color: Colors.black,
                                   ),
                                   Text(
                                     bloc.addText
                                         ? " add text"
                                         : " remove text",
-                                    style: TextStyle(
-                                        color: Colors.red,
+                                    style: const TextStyle(
+                                        color: Colors.black,
                                         fontWeight: FontWeight.w600,
                                         fontSize: 18),
                                   )
@@ -165,7 +167,7 @@ class CreateStory extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         Expanded(
@@ -174,6 +176,7 @@ class CreateStory extends StatelessWidget {
                               DateTime date = DateTime.now();
                               bloc.createStoryImage(
                                text: story.text, dateTime: date);
+                              pop(context);
                             },
                             child: Container(
                               height: 45,
@@ -185,30 +188,30 @@ class CreateStory extends StatelessWidget {
                                         color: Colors.grey.withOpacity(0.3),
                                         blurRadius: 9,
                                         spreadRadius: 4,
-                                        offset: Offset(0, 4))
+                                        offset: const Offset(0, 4))
                                   ]),
                               child: ConditionalBuilder(
                                 condition: state is! CreateStoryLoadingState,
                                 builder: (context) => Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
+                                  children: const[
                                     Icon(
-                                      Icons.share_outlined,
-                                      color: Colors.red,
+                                      IconlyLight.upload,
+                                      color: Colors.black,
                                     ),
                                     Text(
-                                      " share now",
+                                      " Add Story",
                                       style: TextStyle(
-                                          color: Colors.red,
+                                          color: Colors.black,
                                           fontWeight: FontWeight.w600,
                                           fontSize: 18),
                                     )
                                   ],
                                 ),
-                                fallback: (context) => Center(
+                                fallback: (context) =>const Center(
                                     child: CircularProgressIndicator(
                                       strokeWidth: 2,
-                                      color: Colors.red,
+                                      color: Colors.blue,
                                     )),
                               ),
                             ),

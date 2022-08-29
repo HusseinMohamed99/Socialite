@@ -3,8 +3,10 @@ import 'package:f_app/layout/Home/home_layout.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
 import 'package:f_app/shared/bloc_observer.dart';
+import 'package:f_app/shared/componnetns/components.dart';
 import 'package:f_app/shared/styles/themes.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,9 +15,33 @@ import 'package:splash_screen_view/SplashScreenView.dart';
 import 'shared/componnetns/constants.dart';
 import 'shared/network/cache_helper.dart';
 
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async
+{  showToast(text: 'Messaging Background', state: ToastStates.success);
+  debugPrint('background');
+  debugPrint(message.data.toString());
+
+}
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  //when the app is opened
+  FirebaseMessaging.onMessage.listen((event)
+  {   showToast(text: 'on Message', state: ToastStates.success);
+    debugPrint('when the app is opened');
+    debugPrint(event.data.toString());
+
+  });
+  // when click on notification to open app
+  FirebaseMessaging.onMessageOpenedApp.listen((event)
+  { showToast(text: 'on Message Opened App', state: ToastStates.success);
+    debugPrint('when click on notification to open app');
+    debugPrint(event.data.toString());
+
+  });
+  // background notification
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
+
   BlocOverrides.runZoned(
         () {},
     blocObserver: MyBlocObserver(),
@@ -26,7 +52,7 @@ void main() async {
   uId = CacheHelper.getData(key: 'uId');
 
   if (uId != null) {
-    widget = const HomeLayout();
+    widget =  const HomeLayout();
   } else {
     widget = const OnBoard();
   }
@@ -60,12 +86,8 @@ class MyApp extends StatelessWidget {
             ..changeMode(fromShared: isDark,)
 
         ),
-        // BlocProvider(
-        //   create: (BuildContext context) => ModeCubit()
-        //     ..changeAppMode(
-        //       fromShared: isDark,
-        //     ),
-        // ),
+
+
       ],
       child: BlocConsumer<SocialCubit, SocialStates>(
         listener: (context, state) {},

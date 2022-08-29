@@ -60,7 +60,7 @@ class FriendsProfileScreen extends StatelessWidget {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                              color: SocialCubit.get(context).backgroundColor,
+
                               borderRadius: BorderRadius.circular(15)),
                           clipBehavior: Clip.antiAliasWithSaveLayer,
                           child: Column(
@@ -150,7 +150,7 @@ class FriendsProfileScreen extends StatelessWidget {
                                       child: Column(
                                         children: [
                                           Text(
-                                            '${posts!.length}',
+                                            '${posts.length}',
                                             style: GoogleFonts.lobster(
                                               textStyle: Theme.of(context)
                                                   .textTheme
@@ -262,18 +262,18 @@ class FriendsProfileScreen extends StatelessWidget {
                                                           friendsModel.image);
                                               SocialCubit.get(context)
                                                   .checkFriendRequest(userUID);
-                                              // SocialCubit.get(context).sendInAppNotification(
-                                              //     contentKey: 'friendRequest',
-                                              //     contentId: friendsModel.uID,
-                                              //     content: 'sent you a friend request, check it out!',
-                                              //     receiverId: friendsModel.uID,
-                                              //     receiverName: friendsModel.name
-                                              // );
-                                              // SocialCubit.get(context).sendFCMNotification(
-                                              //     token: friendsModel.token,
-                                              //     senderName: SocialCubit.get(context).model!.name,
-                                              //     messageText: '${SocialCubit.get(context).model!.name}' + 'sent you a friend request, check it out!'
-                                              // );
+                                              SocialCubit.get(context).sendInAppNotification(
+                                                  contentKey: 'friendRequest',
+                                                  contentId: friendsModel.uId,
+                                                  content: 'sent you a friend request, check it out!',
+                                                  receiverId: friendsModel.uId,
+                                                  receiverName: friendsModel.name
+                                              );
+                                              SocialCubit.get(context).sendFCMNotification(
+                                                  token: friendsModel.token,
+                                                  senderName: SocialCubit.get(context).userModel!.name,
+                                                  messageText: '${SocialCubit.get(context).userModel!.name}' + 'sent you a friend request, check it out!'
+                                              );
                                             } else {
                                               showDialog(
                                                 context: context,

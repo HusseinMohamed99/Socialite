@@ -90,7 +90,7 @@ class MyProfileScreen extends StatelessWidget {
                   ],
                 ),
               )):
-            userPosts!.isEmpty
+            userPosts.isEmpty
               ? SafeArea(
                 child: Scaffold(
                  backgroundColor:
@@ -177,8 +177,8 @@ class MyProfileScreen extends StatelessWidget {
                             space(0, 5),
                             Text(
                               '${userModel.name}',
-                              style: GoogleFonts.lobster(
-                                fontSize: 24,
+                              style: GoogleFonts.libreBaskerville(
+                                fontSize: 20,
                                 color:
                                     cubit.isLight ? Colors.blue : Colors.white,
                               ),
@@ -186,7 +186,7 @@ class MyProfileScreen extends StatelessWidget {
                             space(0, 5),
                             Text(
                               '${userModel.bio}',
-                              style: GoogleFonts.lobster(
+                              style: GoogleFonts.libreBaskerville(
                                 textStyle: Theme.of(context)
                                     .textTheme
                                     .caption!
@@ -208,7 +208,7 @@ class MyProfileScreen extends StatelessWidget {
                                     child: Column(
                                       children: [
                                         Text(
-                                          '${posts!.length}',
+                                          '${posts.length}',
                                           style: GoogleFonts.lobster(
                                             textStyle: Theme.of(context)
                                                 .textTheme
@@ -218,12 +218,12 @@ class MyProfileScreen extends StatelessWidget {
                                         ),
                                         Text(
                                           'Posts',
-                                          style: GoogleFonts.lobster(
+                                          style: GoogleFonts.libreBaskerville(
                                             textStyle: Theme.of(context)
                                                 .textTheme
                                                 .caption!
                                                 .copyWith(
-                                                fontSize: 20,
+                                                fontSize: 16,
                                                 color: Colors.black),
                                           ),
                                         ),
@@ -235,7 +235,7 @@ class MyProfileScreen extends StatelessWidget {
                                       children: [
                                         Text(
                                           '10K',
-                                          style: GoogleFonts.lobster(
+                                          style: GoogleFonts.libreBaskerville(
                                             textStyle: Theme.of(context)
                                                 .textTheme
                                                 .caption!
@@ -244,12 +244,12 @@ class MyProfileScreen extends StatelessWidget {
                                         ),
                                         Text(
                                           'Followers',
-                                          style: GoogleFonts.lobster(
+                                          style: GoogleFonts.libreBaskerville(
                                             textStyle: Theme.of(context)
                                                 .textTheme
                                                 .caption!
                                                 .copyWith(
-                                                fontSize: 20,
+                                                fontSize: 16,
                                                 color: Colors.black),
                                           ),
                                         ),
@@ -267,7 +267,7 @@ class MyProfileScreen extends StatelessWidget {
                                         children: [
                                           Text(
                                             '${friends.length}',
-                                            style: GoogleFonts.lobster(
+                                            style: GoogleFonts.libreBaskerville(
                                               textStyle: Theme.of(context)
                                                   .textTheme
                                                   .caption!
@@ -276,12 +276,12 @@ class MyProfileScreen extends StatelessWidget {
                                           ),
                                           Text(
                                             'Friends',
-                                            style: GoogleFonts.lobster(
+                                            style: GoogleFonts.libreBaskerville(
                                               textStyle: Theme.of(context)
                                                   .textTheme
                                                   .caption!
                                                   .copyWith(
-                                                  fontSize: 20,
+                                                  fontSize: 16,
                                                   color: Colors.black),
                                             ),
                                           ),
@@ -314,7 +314,7 @@ class MyProfileScreen extends StatelessWidget {
                                       ),
                                       label: Text(
                                         'Add story',
-                                        style: GoogleFonts.lobster(
+                                        style: GoogleFonts.libreBaskerville(
                                           color: Colors.white,
                                         ),
                                       ),
@@ -343,7 +343,7 @@ class MyProfileScreen extends StatelessWidget {
                                       ),
                                       label: Text(
                                         'Edit profile',
-                                        style: GoogleFonts.lobster(
+                                        style: GoogleFonts.libreBaskerville(
                                           color: cubit.isLight
                                               ? Colors.black
                                               : Colors.white,
@@ -499,7 +499,7 @@ Widget buildProfileWithOutPosts () => Builder(
                 child: Column(
                   children: [
                     Text(
-                      '${posts!.length}',
+                      '${posts.length}',
                       style: GoogleFonts.lobster(
                         textStyle: Theme.of(context)
                             .textTheme

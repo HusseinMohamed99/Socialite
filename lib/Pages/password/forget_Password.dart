@@ -34,8 +34,7 @@ class RestPasswordScreen extends StatelessWidget {
 
             appBar: AppBar(
               systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarColor:
-                    cubit.isLight ? Colors.white : const Color(0xff063750),
+                statusBarColor: Colors.transparent,
                 statusBarIconBrightness:
                     cubit.isLight ? Brightness.dark : Brightness.light,
                 statusBarBrightness:
