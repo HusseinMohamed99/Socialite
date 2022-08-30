@@ -35,7 +35,7 @@ class FeedScreen extends StatelessWidget {
           Fluttertoast.showToast(
               msg: "Downloaded to Gallery!",
               gravity: ToastGravity.BOTTOM,
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.green,
               timeInSecForIosWeb: 5,
               fontSize: 18);
         }
@@ -59,6 +59,7 @@ class FeedScreen extends StatelessWidget {
         }
       },
       builder: (context, state) {
+
         var userModel = SocialCubit.get(context).userModel;
         var cubit = SocialCubit.get(context);
         SocialCubit.get(context)

@@ -561,14 +561,14 @@ class PrivateChatScreen extends StatelessWidget {
                   const EdgeInsets.only(left: 0, right: 8, top: 5, bottom: 5),
               child: Bubble(
                 nip: BubbleNip.rightBottom,
-                color: Colors.black38,
+                color: cubit.isLight ?  Color(0xff063750) : Colors.white ,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
                       messageModel.text!,
                       style: GoogleFonts.libreBaskerville(
-                        color: cubit.isLight ? Colors.black : Colors.white,
+                        color:  cubit.isLight ?  Colors.white : Colors.black ,
                         fontSize: 20,
                       ),
                     ),
@@ -577,7 +577,7 @@ class PrivateChatScreen extends StatelessWidget {
                       daysBetween(
                           DateTime.parse(messageModel.dateTime.toString())),
                       style: GoogleFonts.lobster(
-                        color: Colors.grey,
+                        color: cubit.isLight ?  Colors.grey : Colors.black54 ,
                         textStyle: Theme.of(context).textTheme.caption,
                       ),
                     ),
@@ -594,7 +594,9 @@ class PrivateChatScreen extends StatelessWidget {
           ),
         ],
       );
-    } else if (messageModel.messageImage != '' && messageModel.text != '') {
+    }
+    else if (messageModel.messageImage != '' && messageModel.text != '')
+    {
       return Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -612,7 +614,7 @@ class PrivateChatScreen extends StatelessWidget {
             child: Bubble(
               padding: const BubbleEdges.all(4),
               nip: BubbleNip.rightBottom,
-              color: cubit.isLight ? Colors.white : Colors.black38,
+              color: cubit.isLight ? Color(0xff063750) : Colors.white,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -653,7 +655,7 @@ class PrivateChatScreen extends StatelessWidget {
                         Text(
                           messageModel.text!,
                           style: GoogleFonts.libreBaskerville(
-                            color: cubit.isLight ? Colors.black : Colors.white,
+                            color: cubit.isLight ? Colors.white : Colors.black,
                             fontSize: 16,
                             height: 1.7,
                           ),
@@ -662,7 +664,7 @@ class PrivateChatScreen extends StatelessWidget {
                           daysBetween(
                               DateTime.parse(messageModel.dateTime.toString())),
                           style: Theme.of(context).textTheme.caption!.copyWith(
-                                color: Colors.grey,
+                            color: cubit.isLight ?  Colors.grey : Colors.black54 ,
                                 height: 2.2,
                               ),
                         ),
@@ -675,7 +677,8 @@ class PrivateChatScreen extends StatelessWidget {
           ),
         ],
       );
-    } else {
+    }
+    else {
       return Align(
         alignment: AlignmentDirectional.bottomEnd,
         child: Stack(
@@ -756,7 +759,7 @@ class PrivateChatScreen extends StatelessWidget {
                       daysBetween(
                           DateTime.parse(messageModel.dateTime.toString())),
                       style: GoogleFonts.lobster(
-                        color: Colors.grey,
+                        color: Colors.white70,
                         textStyle: Theme.of(context).textTheme.caption,
                       ),
                     ),
@@ -767,7 +770,9 @@ class PrivateChatScreen extends StatelessWidget {
           ),
         ],
       );
-    } else if (messageModel.messageImage != '' && messageModel.text != '') {
+    }
+    else if (messageModel.messageImage != '' && messageModel.text != '')
+    {
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -847,7 +852,9 @@ class PrivateChatScreen extends StatelessWidget {
           ),
         ],
       );
-    } else {
+    }
+    else
+    {
       return Align(
         alignment: AlignmentDirectional.bottomStart,
         child: Stack(

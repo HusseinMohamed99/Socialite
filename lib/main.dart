@@ -1,5 +1,6 @@
 import 'package:f_app/Pages/on-boarding/on-boarding%20screen.dart';
 import 'package:f_app/layout/Home/home_layout.dart';
+import 'package:f_app/shared/Cubit/modeCubit/cubit.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
 import 'package:f_app/shared/bloc_observer.dart';
@@ -83,7 +84,11 @@ class MyApp extends StatelessWidget {
             ..getPosts()
             ..getAllUsers()
             ..getStories()
-            ..changeMode(fromShared: isDark,)
+
+        ),
+        BlocProvider(
+            create: (context) => ModeCubit()
+              ..changeAppMode(fromShared: isDark,)
 
         ),
 
