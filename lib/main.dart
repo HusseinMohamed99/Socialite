@@ -115,8 +115,8 @@ class MyApp extends StatelessWidget {
               navigateRoute: startWidget,
               imageSize: 200,
               imageSrc: ModeCubit.get(context).isDark
-                  ?'assets/images/sLight.png'
-              :'assets/images/sDark.png',
+                  ?'assets/images/sDark.png'
+              :'assets/images/sLight.png',
               text: 'F-APP',
               textType: TextType.ColorizeAnimationText,
               textStyle: GoogleFonts.libreBaskerville(
