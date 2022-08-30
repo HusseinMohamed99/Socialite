@@ -192,10 +192,15 @@ class LoginScreen extends StatelessWidget {
                                                   .then((value) {
                                                 if (LoginCubit.get(context)
                                                     .isEmailVerified) {
+                                                  SocialCubit.get(context)..getPosts()
+                                                  ..getUserData()
+                                                  ..getAllUsers();
+
                                                   SocialCubit.get(context)
-                                                      .getUserData();
+                                                      .getPosts();
                                                   navigateAndFinish(context,
                                                        HomeLayout());
+
                                                 } else {
                                                   navigateTo(context,
                                                       const EmailVerificationScreen());

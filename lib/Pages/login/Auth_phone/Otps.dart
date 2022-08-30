@@ -133,7 +133,7 @@ class OTPScreenState extends State<OTPScreen> {
               .then((value) async {
             if (value.user != null) {
               SocialCubit.get(context).getUserData();
-              navigateAndFinish(context,   HomeLayout());
+              navigateAndFinish(context,HomeLayout());
             }
           });
         },

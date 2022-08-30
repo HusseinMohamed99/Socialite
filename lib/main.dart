@@ -66,10 +66,10 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-   Widget startWidget;
+  final  Widget startWidget;
   final bool? isDark;
 
-   MyApp({Key? key, this.isDark, required this.startWidget})
+   const MyApp({Key? key, this.isDark, required this.startWidget})
       : super(key: key);
 
   // This widget is the root of your application.
@@ -106,9 +106,9 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
             darkTheme: darkTheme,
-            themeMode: SocialCubit.get(context).isLight
-                ? ThemeMode.light
-                : ThemeMode.dark,
+            themeMode: ModeCubit.get(context).isDark
+                ? ThemeMode.dark
+                : ThemeMode.light,
             home: SplashScreenView(
               duration: 3500,
               pageRouteTransition: PageRouteTransition.Normal,
@@ -123,16 +123,16 @@ class MyApp extends StatelessWidget {
                 letterSpacing: 10
               ),
               colors:  [
-                SocialCubit.get(context).isLight
-                    ? Colors.black
-                    : Colors.white ,
+                ModeCubit.get(context).isDark
+                    ? Colors.white
+                    : Colors.black ,
                 Colors.deepOrangeAccent,
                 Colors.redAccent,
                 Colors.green,
               ],
-              backgroundColor: SocialCubit.get(context).isLight
-                  ? Colors.white
-                  : const Color(0xff063750),
+              backgroundColor: ModeCubit.get(context).isDark
+                  ? const Color(0xff063750)
+                  : Colors.white,
             ),
           );
         },

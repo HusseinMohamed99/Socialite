@@ -47,9 +47,27 @@ class HomeLayout extends StatelessWidget {
                           fontSize: 30,
                           color: Colors.grey,
                         ),
-                      ),
-                      space(0, 50),
-                      const CircularProgressIndicator(),
+                      ),             space(0, 20),
+                      TextButton.icon(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                cubit.isLight ? Colors.blue : Colors.white)),
+                        onPressed: () {
+                          SocialCubit.get(context)..getUserData()..getAllUsers()..getPosts();
+                        },
+                        icon: Icon(
+                          IconlyLight.upload,
+                          color: cubit.isLight ? Colors.white : Colors.blue,
+                        ),
+                        label: Text(
+                          'Reload',
+                          style: GoogleFonts.libreBaskerville(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 30,
+                            color: cubit.isLight ? Colors.white : Colors.blue,
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ))

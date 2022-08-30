@@ -169,7 +169,9 @@ class EmailVerificationScreen extends StatelessWidget {
                                   function: () {
                                     cubit.reloadUser().then((value) {
                                       if (cubit.isEmailVerified) {
-                                        SocialCubit()..getUserData()..getPosts();
+                                        SocialCubit.get(context)..getPosts()
+                                          ..getUserData()
+                                          ..getAllUsers();
                                         navigateAndFinish(
                                             context,  HomeLayout());
                                         SocialCubit.get(context).getUserData();
