@@ -249,7 +249,7 @@ class FeedScreen extends StatelessWidget {
                                 const SizedBox(
                                   width: 10,
                                 ),
-                                Container(
+                                SizedBox(
                                   height: 180,
                                   child: ListView.separated(
                                       physics: const NeverScrollableScrollPhysics(),
@@ -885,7 +885,7 @@ class FeedScreen extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  Container(
+                  SizedBox(
                     width: 110,
                     height: 25,
                     child: Text(

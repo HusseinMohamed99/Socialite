@@ -1,6 +1,5 @@
 import 'package:f_app/Pages/on-boarding/on-boarding%20screen.dart';
 import 'package:f_app/layout/Home/home_layout.dart';
-import 'package:f_app/shared/Cubit/modeCubit/cubit.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
 import 'package:f_app/shared/bloc_observer.dart';
@@ -84,13 +83,10 @@ class MyApp extends StatelessWidget {
             ..getPosts()
             ..getAllUsers()
             ..getStories()
+              ..changeMode(fromShared: isDark,)
 
         ),
-        BlocProvider(
-            create: (context) => ModeCubit()
-              ..changeAppMode(fromShared: isDark,)
 
-        ),
 
 
       ],
@@ -106,17 +102,17 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
             darkTheme: darkTheme,
-            themeMode: ModeCubit.get(context).isDark
-                ? ThemeMode.dark
-                : ThemeMode.light,
+            themeMode: SocialCubit.get(context).isLight
+                ? ThemeMode.light
+                : ThemeMode.dark,
             home: SplashScreenView(
               duration: 3500,
               pageRouteTransition: PageRouteTransition.Normal,
               navigateRoute: startWidget,
               imageSize: 200,
-              imageSrc: ModeCubit.get(context).isDark
-                  ?'assets/images/sDark.png'
-              :'assets/images/sLight.png',
+              imageSrc: SocialCubit.get(context).isLight
+                  ?'assets/images/sLight.png'
+              :'assets/images/sDark.png',
               text: 'F-APP',
               textType: TextType.ColorizeAnimationText,
               textStyle: GoogleFonts.libreBaskerville(
@@ -125,16 +121,16 @@ class MyApp extends StatelessWidget {
                 letterSpacing: 10
               ),
               colors:  [
-                ModeCubit.get(context).isDark
-                    ? Colors.white
-                    : Colors.black ,
+                SocialCubit.get(context).isLight
+                    ? Colors.black
+                    : Colors.white ,
                 Colors.deepOrangeAccent,
                 Colors.redAccent,
                 Colors.green,
               ],
-              backgroundColor: ModeCubit.get(context).isDark
-                  ? const Color(0xff063750)
-                  : Colors.white,
+              backgroundColor: SocialCubit.get(context).isLight
+                  ?  Colors.white
+                  : const Color(0xff063750),
             ),
           );
         },

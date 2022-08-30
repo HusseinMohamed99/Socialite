@@ -174,7 +174,6 @@ class EmailVerificationScreen extends StatelessWidget {
                                           ..getAllUsers();
                                         navigateAndFinish(
                                             context,  HomeLayout());
-                                        SocialCubit.get(context).getUserData();
                                       } else {}
                                     });
                                   },
