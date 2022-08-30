@@ -84,13 +84,8 @@ class MyApp extends StatelessWidget {
             ..getAllUsers()
             ..getStories()
               ..changeMode(fromShared: isDark,)
-
         ),
-
-
-
       ],
-
       child: BlocConsumer<SocialCubit, SocialStates>(
         listener: (context, state) {},
         builder: (context, state) {
