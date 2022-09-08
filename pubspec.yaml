@@ -52,8 +52,13 @@ dependencies:
   google_sign_in: ^5.4.0
   firebase_storage: ^10.3.4
   firebase_messaging: ^13.0.0
+  flutter_launcher_icons: ^0.10.0
 
 
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/s.png"
 
 
 dev_dependencies:
