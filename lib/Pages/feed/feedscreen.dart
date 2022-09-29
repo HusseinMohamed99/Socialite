@@ -620,6 +620,7 @@ class FeedScreen extends StatelessWidget {
                                   InkWell(
                                     onTap: () {
                                       cubit.deletePost(postId);
+                                      cubit.getPosts();
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.only(
