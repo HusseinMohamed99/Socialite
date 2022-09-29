@@ -1,6 +1,6 @@
 class LikesModel
 {
-  String?uId;
+  String? uId;
   String? name;
   String? image;
   String? dateTime;
