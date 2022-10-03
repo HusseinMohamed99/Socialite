@@ -63,11 +63,15 @@ class AddPostScreen extends StatelessWidget {
                       dateTime: now.toString(),
                       text: textController.text,
                     );
+                    pop(context);
+                    cubit.removePostImage();
                   } else {
                     cubit.uploadPostImage(
                       dateTime: now.toString(),
                       text: textController.text,
                     );
+                    pop(context);
+                    cubit.removePostImage();
                   }
                 },
                 child: Text(
