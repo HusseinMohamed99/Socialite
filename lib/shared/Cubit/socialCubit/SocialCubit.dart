@@ -104,11 +104,11 @@ class SocialCubit extends Cubit<SocialStates> {
 
   ///START : Titles
   List<String> titles = [
-    'F-APP',
-    'Chat Screen',
-    'User Screen',
-    'Story',
-    'Setting Screen',
+    'Home 🏠',
+    'Chat 💬',
+    'User 👨🏻‍💻',
+    'Story 😂 ',
+    'Setting ⚙️',
   ];
 
   ///END : Titles
