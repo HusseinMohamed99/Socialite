@@ -352,7 +352,7 @@ class _UserScreenState extends State<UserScreen> {
                           SocialCubit.get(context).sendFCMNotification(
                               token: userModel.token,
                               senderName: SocialCubit.get(context).userModel!.name,
-                              messageText: '${SocialCubit.get(context).userModel!.name}' + 'sent you a friend request, check it out!'
+                              messageText: '${SocialCubit.get(context).userModel!.name}' 'sent you a friend request, check it out!'
                           );
                         },
                         child: SocialCubit.get(context).isFriend == false
@@ -471,7 +471,7 @@ class _UserScreenState extends State<UserScreen> {
                             SocialCubit.get(context).sendFCMNotification(
                                 token: userModel.token,
                                 senderName: SocialCubit.get(context).userModel!.name,
-                                messageText: '${SocialCubit.get(context).userModel!.name}' + 'accepted your friend request, you are now friends checkout his profile'
+                                messageText: '${SocialCubit.get(context).userModel!.name}' 'accepted your friend request, you are now friends checkout his profile'
                             );
                           },
                           child: const Text('Confirm',

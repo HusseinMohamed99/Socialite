@@ -561,7 +561,7 @@ class PrivateChatScreen extends StatelessWidget {
                   const EdgeInsets.only(left: 0, right: 8, top: 5, bottom: 5),
               child: Bubble(
                 nip: BubbleNip.rightBottom,
-                color: cubit.isLight ?  Color(0xff063750) : Colors.white ,
+                color: cubit.isLight ?  const Color(0xff063750) : Colors.white ,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
@@ -614,7 +614,7 @@ class PrivateChatScreen extends StatelessWidget {
             child: Bubble(
               padding: const BubbleEdges.all(4),
               nip: BubbleNip.rightBottom,
-              color: cubit.isLight ? Color(0xff063750) : Colors.white,
+              color: cubit.isLight ? const Color(0xff063750) : Colors.white,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [

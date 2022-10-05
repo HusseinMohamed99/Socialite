@@ -35,7 +35,7 @@ class FriendsProfileScreen extends StatelessWidget {
           List<UserModel>? friends = SocialCubit.get(context).friends;
           var cubit = SocialCubit.get(context);
           return ConditionalBuilder(
-            condition: friendsModel == null || posts == null,
+            condition: friendsModel == null,
             builder: (context) => const Center(
               child: CircularProgressIndicator(),
             ),
@@ -272,7 +272,7 @@ class FriendsProfileScreen extends StatelessWidget {
                                               SocialCubit.get(context).sendFCMNotification(
                                                   token: friendsModel.token,
                                                   senderName: SocialCubit.get(context).userModel!.name,
-                                                  messageText: '${SocialCubit.get(context).userModel!.name}' + 'sent you a friend request, check it out!'
+                                                  messageText: '${SocialCubit.get(context).userModel!.name}' 'sent you a friend request, check it out!'
                                               );
                                             } else {
                                               showDialog(

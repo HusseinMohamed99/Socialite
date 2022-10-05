@@ -10,7 +10,7 @@ import '../friend/profileScreen.dart';
 
 class ViewStory extends StatelessWidget {
   StoryModel? model;
-  ViewStory(this.model);
+  ViewStory(this.model, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SocialCubit, SocialStates>(
@@ -52,12 +52,12 @@ class ViewStory extends StatelessWidget {
                                               color: Colors.grey.withOpacity(0.3),
                                               blurRadius: 9,
                                               spreadRadius: 4,
-                                              offset: Offset(0, 4))
+                                              offset: const Offset(0, 4))
                                         ]),
                                     child: CircleAvatar(
                                         backgroundColor: Theme.of(context)
                                             .scaffoldBackgroundColor,
-                                        child: Icon(
+                                        child: const Icon(
                                           Icons.arrow_back_ios_outlined,
                                           color: Colors.red,
                                         )),
@@ -82,7 +82,7 @@ class ViewStory extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 15,
                               ),
                               Expanded(
@@ -93,22 +93,22 @@ class ViewStory extends StatelessWidget {
                                       children: [
                                         Text(
                                           model!.name!,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 23,
                                               fontWeight: FontWeight.w600,
                                               color: Colors.white),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 5,
                                         ),
-                                        Icon(
+                                        const Icon(
                                           Icons.check_circle,
                                           color: Colors.blue,
                                           size: 23,
                                         )
                                       ],
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 5,
                                     ),
                                     Text(   daysBetween(
@@ -132,7 +132,7 @@ class ViewStory extends StatelessWidget {
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
                                   if (model!.text != "")
@@ -141,7 +141,7 @@ class ViewStory extends StatelessWidget {
                                           model!.text!,
                                           textAlign: TextAlign.center,
                                           style:
-                                          TextStyle(color: Colors.white, fontSize: 25),
+                                          const TextStyle(color: Colors.white, fontSize: 25),
                                         )),
                                   space(0, 35)
 

@@ -102,7 +102,7 @@ class OTPScreenState extends State<OTPScreen> {
                           verificationId: _verificationCode!, smsCode: pin))
                       .then((value) async {
                     if (value.user != null) {
-                     navigateAndFinish(context,   HomeLayout());
+                     navigateAndFinish(context,   const HomeLayout());
                     }
                   }).catchError((error)
                   {
@@ -133,7 +133,7 @@ class OTPScreenState extends State<OTPScreen> {
               .then((value) async {
             if (value.user != null) {
               SocialCubit.get(context).getUserData();
-              navigateAndFinish(context,HomeLayout());
+              navigateAndFinish(context,const HomeLayout());
             }
           });
         },

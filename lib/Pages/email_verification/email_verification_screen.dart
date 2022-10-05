@@ -7,7 +7,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../shared/Cubit/EmailVerification/email_verification_cubit.dart';
 import '../../shared/Cubit/EmailVerification/email_verification_state.dart';
 
@@ -173,7 +172,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                           ..getUserData()
                                           ..getAllUsers();
                                         navigateAndFinish(
-                                            context,  HomeLayout());
+                                            context,  const HomeLayout());
                                       } else {}
                                     });
                                   },

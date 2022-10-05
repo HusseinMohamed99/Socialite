@@ -196,7 +196,7 @@ class LoginScreen extends StatelessWidget {
                                                   ..getUserData()
                                                   ..getAllUsers();
                                                   navigateAndFinish(context,
-                                                       HomeLayout());
+                                                       const HomeLayout());
                                                 } else {
                                                   navigateTo(context,
                                                       const EmailVerificationScreen());
