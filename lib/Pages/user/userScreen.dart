@@ -33,11 +33,7 @@ class _UserScreenState extends State<UserScreen> {
           List<UserModel> friendRequests =
               SocialCubit.get(context).friendRequests;
           List<UserModel> friends = SocialCubit.get(context).friends;
-          var cubit = SocialCubit.get(context);
           return  SocialCubit.get(context).users.isEmpty ? Scaffold(
-            backgroundColor:
-            cubit.isLight ? Colors.white : const Color(0xff063750),
-
             body: Center(
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -63,8 +59,6 @@ class _UserScreenState extends State<UserScreen> {
           ) :
 
             Scaffold(
-            backgroundColor:
-                cubit.isLight ? Colors.white : const Color(0xff063750),
             body: RefreshIndicator(
               onRefresh: onRefresh,
               child: SingleChildScrollView(
@@ -199,11 +193,11 @@ class _UserScreenState extends State<UserScreen> {
 
   Future<void> onRefresh() async {
     await Future.delayed(const Duration(seconds: 1));
-    SocialCubit.get(context).getUserData();
-    SocialCubit.get(context).getFriendRequest();
-    SocialCubit.get(context).getAllUsers();
-    SocialCubit.get(context)
-        .getFriends(SocialCubit.get(context).userModel!.uId);
+    SocialCubit.get(BuildContext).getUserData();
+    SocialCubit.get(BuildContext).getFriendRequest();
+    SocialCubit.get(BuildContext).getAllUsers();
+    SocialCubit.get(BuildContext)
+        .getFriends(SocialCubit.get(BuildContext).userModel!.uId);
   }
 
   Widget friendBuildItem(context, UserModel userModel) {

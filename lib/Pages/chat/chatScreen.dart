@@ -21,8 +21,6 @@ class ChatScreen extends StatelessWidget {
       builder: (context, state) {
         SocialCubit cubit = SocialCubit.get(context);
         return SocialCubit.get(context).users.isEmpty? Scaffold(
-          backgroundColor:
-          cubit.isLight ? Colors.white : const Color(0xff063750),
 
           body: Center(
             child: Column(
@@ -55,7 +53,6 @@ class ChatScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Card(
-                        color:cubit.isLight? Colors.grey[300] : const Color(0xff063750).withOpacity(0.7),
                         child: Container(
                             height: 125.0,
                             width: double.infinity,

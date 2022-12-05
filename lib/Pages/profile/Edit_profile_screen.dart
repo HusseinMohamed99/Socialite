@@ -31,8 +31,6 @@ class EditProfileScreen extends StatelessWidget {
         phoneController.text = userModel.phone!;
 
         return SocialCubit.get(context).userModel == null ? Scaffold(
-            backgroundColor:
-             cubit.isLight ? Colors.white : const Color(0xff063750),
             body: Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -55,8 +53,6 @@ class EditProfileScreen extends StatelessWidget {
             ))
             : SafeArea(
           child: Scaffold(
-            backgroundColor:
-                cubit.isLight ? Colors.white : const Color(0xff063750),
             body: Column(
               children: [
                 Expanded(

@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
 import 'shared/componnetns/constants.dart';
 import 'shared/network/cache_helper.dart';
@@ -47,7 +48,7 @@ void main() async {
     blocObserver: MyBlocObserver(),
   );
   await CacheHelper.init();
-  bool? isDark = CacheHelper.getBoolean(key: 'isDark');
+  bool? isLight = CacheHelper.getBoolean(key: 'isLight');
   Widget widget;
   uId = CacheHelper.getData(key: 'uId');
 
@@ -58,78 +59,94 @@ void main() async {
   }
 
   debugPrint(uId);
-  runApp(MyApp(
-    isDark: isDark,
-    startWidget: widget,
-  ));
-}
-
-class MyApp extends StatelessWidget {
-  final  Widget startWidget;
-  final bool? isDark;
-
-   const MyApp({Key? key, this.isDark, required this.startWidget})
-      : super(key: key);
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
+  runApp(MultiBlocProvider(
+    providers:  [
+      BlocProvider(
           create: (context) => SocialCubit()
             ..getUserData()
             ..getPosts()
             ..getAllUsers()
             ..getStories()
-              ..changeMode(fromShared: isDark,)
-        ),
-      ],
-      child: BlocConsumer<SocialCubit, SocialStates>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          SystemChrome.setPreferredOrientations([
-            DeviceOrientation.portraitUp,
-            DeviceOrientation.portraitDown,
-          ]);
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: lightTheme,
-            darkTheme: darkTheme,
-            themeMode: SocialCubit.get(context).isLight
-                ? ThemeMode.light
-                : ThemeMode.dark,
-            home: SplashScreenView(
-              duration: 3500,
-              pageRouteTransition: PageRouteTransition.Normal,
-              navigateRoute: startWidget,
-              imageSize: 200,
-              imageSrc: SocialCubit.get(context).isLight
-                  ?'assets/images/sLight.png'
-              :'assets/images/sDark.png',
-              text: 'F-APP',
-              textType: TextType.ColorizeAnimationText,
-              textStyle: GoogleFonts.libreBaskerville(
-                fontSize: 50,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 10
-              ),
-              colors:  [
-                SocialCubit.get(context).isLight
-                    ? Colors.black
-                    : Colors.white ,
-                Colors.deepOrangeAccent,
-                Colors.redAccent,
-                Colors.green,
-              ],
-              backgroundColor: SocialCubit.get(context).isLight
-                  ?  Colors.white
-                  : const Color(0xff063750),
-            ),
-          );
-        },
+            ..changeMode(fromShared: isLight,)
       ),
-    );
+    ],
+      child: BlocConsumer<SocialCubit, SocialStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        SystemChrome.setPreferredOrientations([
+          DeviceOrientation.portraitUp,
+          DeviceOrientation.portraitDown,
+        ]);
+        return MyApp(
+          isLight: isLight,
+          startWidget: widget,
+        );
+      },
+
+  )));
+
+}
+
+class MyApp extends StatelessWidget {
+  final  Widget startWidget;
+  final bool? isLight;
+
+   const MyApp({Key? key, this.isLight, required this.startWidget})
+      : super(key: key);
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+        return MaterialApp(
+          builder: (context, child) => ResponsiveWrapper.builder(child,
+              maxWidth: 1200,
+              minWidth: 392,
+              defaultScale: true,
+              breakpoints: const [
+                ResponsiveBreakpoint.resize(392, name: MOBILE),
+                ResponsiveBreakpoint.autoScale(800, name: TABLET),
+                ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+              ],
+              background: Container(color: const Color(0xFFF5F5F5))),
+          debugShowCheckedModeBanner: false,
+          theme: lightTheme,
+          darkTheme: darkTheme,
+          themeMode: SocialCubit.get(context).isLight
+              ? ThemeMode.light
+              : ThemeMode.dark,
+          home: SplashScreenView(
+            duration: 3500,
+            pageRouteTransition: PageRouteTransition.Normal,
+            navigateRoute: startWidget,
+            imageSize: 200,
+            imageSrc: SocialCubit.get(context).isLight
+                ?'assets/images/sLight.png'
+            :'assets/images/sDark.png',
+            text: 'F-APP',
+            textType: TextType.ColorizeAnimationText,
+            textStyle: GoogleFonts.libreBaskerville(
+              fontSize: 50,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 10
+            ),
+            colors:  [
+              SocialCubit.get(context).isLight
+                  ? Colors.black
+                  : Colors.white ,
+              Colors.deepOrangeAccent,
+              Colors.redAccent,
+              Colors.green,
+            ],
+            backgroundColor: SocialCubit.get(context).isLight
+                ?  Colors.white
+                : const Color(0xff404258),
+          ),
+        );
+
+
   }
 }
+
+
+
+

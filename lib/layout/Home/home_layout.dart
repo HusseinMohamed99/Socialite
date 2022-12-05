@@ -29,8 +29,7 @@ class HomeLayout extends StatelessWidget {
         var cubit = SocialCubit.get(context);
         return SocialCubit.get(context).userModel == null
             ? Scaffold(
-                backgroundColor:
-                    cubit.isLight ? Colors.white : const Color(0xff063750),
+
                 body: Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -92,7 +91,7 @@ class HomeLayout extends StatelessWidget {
                 mainScreen: cubit.mScreen,
                 showShadow: true,
                 menuBackgroundColor: cubit.isLight
-                    ? const Color(0xff063750)
+                    ? const Color(0xff404258)
                     : Colors.white.withOpacity(0.7),
                 drawerShadowsBackgroundColor:
                     cubit.isLight ? Colors.grey.shade400 : Colors.blue.shade200,
@@ -142,18 +141,7 @@ class _MainScreenState extends State<MainScreen>
           length: cubit.screens.length,
           initialIndex: cubit.currentIndex,
           child: Scaffold(
-            backgroundColor:
-                cubit.isLight ? Colors.white : const Color(0xff063750),
             appBar: AppBar(
-              systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarColor: Colors.transparent,
-                statusBarIconBrightness:
-                    cubit.isLight ? Brightness.dark : Brightness.light,
-                statusBarBrightness:
-                    cubit.isLight ? Brightness.dark : Brightness.light,
-              ),
-              backgroundColor:
-                  cubit.isLight ? Colors.white : const Color(0xff063750),
               elevation: 5,
               leading: IconButton(
                 onPressed: () {
@@ -161,7 +149,7 @@ class _MainScreenState extends State<MainScreen>
                 },
                 icon: Icon(
                   Icons.menu,
-                  color: cubit.isLight ? const Color(0xff063750) : Colors.white,
+                  color: cubit.isLight ? const Color(0xff404258) : Colors.white,
                 ),
               ),
               titleSpacing: 0.0,
@@ -305,8 +293,6 @@ class MenuScreen extends StatelessWidget {
         var userModel = SocialCubit.get(context).userModel!;
         return SocialCubit.get(context).userModel == null
             ? Scaffold(
-                backgroundColor:
-                    cubit.isLight ? Colors.white : const Color(0xff063750),
                 body: Column(
                   children: [
                     const Icon(
@@ -328,8 +314,6 @@ class MenuScreen extends StatelessWidget {
                 child: Scaffold(
                   resizeToAvoidBottomInset: false,
                   extendBody: true,
-                  backgroundColor:
-                      cubit.isLight ? Colors.white : const Color(0xff063750),
                   body: Column(
                     children: [
                       SizedBox(

@@ -42,8 +42,7 @@ class FriendsProfileScreen extends StatelessWidget {
             fallback: (context) => SafeArea(
               child: Scaffold(
                 key: scaffoldKey,
-                backgroundColor:
-                    cubit.isLight ? Colors.white : const Color(0xff063750),
+
                 body: RefreshIndicator(
                   onRefresh: () async {
                     SocialCubit.get(context).getMyPosts(userUID);

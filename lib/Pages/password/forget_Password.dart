@@ -29,19 +29,7 @@ class RestPasswordScreen extends StatelessWidget {
           var cubit = SocialCubit.get(context);
           return Scaffold(
             extendBodyBehindAppBar: true,
-            backgroundColor:
-                cubit.isLight ? Colors.white : const Color(0xff063750),
-
             appBar: AppBar(
-              systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarColor: Colors.transparent,
-                statusBarIconBrightness:
-                    cubit.isLight ? Brightness.dark : Brightness.light,
-                statusBarBrightness:
-                    cubit.isLight ? Brightness.dark : Brightness.light,
-              ),
-              backgroundColor:
-                  cubit.isLight ? Colors.white : const Color(0xff063750),
               elevation: 1,
               leading: IconButton(
                 onPressed: () {

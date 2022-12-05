@@ -26,10 +26,6 @@ class OnBoard extends StatelessWidget {
           ),
           child: Scaffold(
             appBar: AppBar(
-              systemOverlayStyle: const SystemUiOverlayStyle(
-                  statusBarBrightness: Brightness.light,
-                  statusBarColor: Colors.transparent,
-                  statusBarIconBrightness: Brightness.light),
               backgroundColor: Colors.transparent,
               elevation: 0,
             ),

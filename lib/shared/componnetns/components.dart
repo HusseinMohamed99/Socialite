@@ -332,9 +332,6 @@ Widget buildPost(
   var cubit = SocialCubit.get(context);
   postId = SocialCubit.get(context).postsId[index];
   return Card(
-    color: SocialCubit.get(context).isLight
-        ? Colors.white
-        : const Color(0xff063750),
     clipBehavior: Clip.antiAliasWithSaveLayer,
     elevation: 10,
     margin: const EdgeInsets.symmetric(horizontal: 8),

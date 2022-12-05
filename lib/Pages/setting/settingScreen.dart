@@ -44,8 +44,6 @@ class SettingScreen extends StatelessWidget {
                   color: Colors.grey.shade200,
                 ),
                 Card(
-                  color:
-                      cubit.isLight ? Colors.grey[300] : const Color(0xff063750),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
@@ -120,8 +118,6 @@ class SettingScreen extends StatelessWidget {
                   color: Colors.grey.shade200,
                 ),
                 Card(
-                  color:
-                      cubit.isLight ? Colors.grey[300] : const Color(0xff063750),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
@@ -164,8 +160,6 @@ class SettingScreen extends StatelessWidget {
                 ),
 
                 Card(
-                  color:
-                      cubit.isLight ? Colors.grey[300] : const Color(0xff063750),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
@@ -207,8 +201,6 @@ class SettingScreen extends StatelessWidget {
                   ),
                 ),
                 Card(
-                  color:
-                      cubit.isLight ? Colors.grey[300] : const Color(0xff063750),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
@@ -250,8 +242,6 @@ class SettingScreen extends StatelessWidget {
                   ),
                 ),
                 Card(
-                  color:
-                      cubit.isLight ? Colors.grey[300] : const Color(0xff063750),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
@@ -362,8 +352,6 @@ class SettingScreen extends StatelessWidget {
                   ),
                 ),
                 Card(
-                  color:
-                      cubit.isLight ? Colors.grey[300] : const Color(0xff063750),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
@@ -473,8 +461,6 @@ class SettingScreen extends StatelessWidget {
                   ),
                 ),
                 Card(
-                  color:
-                      cubit.isLight ? Colors.grey[300] : const Color(0xff063750),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(

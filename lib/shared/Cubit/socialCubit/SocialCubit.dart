@@ -70,6 +70,7 @@ class SocialCubit extends Cubit<SocialStates> {
       }
       emit(GetAllUsersSuccessState());
     }).catchError((error) {
+
       emit(GetAllUsersErrorState(error.toString()));
     });
   }

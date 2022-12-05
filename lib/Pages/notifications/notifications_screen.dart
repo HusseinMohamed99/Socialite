@@ -36,16 +36,9 @@ class NotificationScreenState extends State<NotificationScreen>
                 SocialCubit.get(context).notifications;
             return Scaffold(
               key: scaffoldKey,
-              backgroundColor:
-                  cubit.isLight ? Colors.white : const Color(0xff063750),
               appBar: AppBar(
                 centerTitle: false,
-                systemOverlayStyle: const SystemUiOverlayStyle(
-                    statusBarColor: Colors.transparent,
-                    statusBarIconBrightness: Brightness.dark),
                 elevation: 1,
-                backgroundColor:
-                    cubit.isLight ? Colors.white : const Color(0xff063750),
                 leading: IconButton(
                   icon: Icon(
                     IconlyBroken.arrowLeft2,

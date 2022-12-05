@@ -23,19 +23,8 @@ class EmailVerificationScreen extends StatelessWidget {
           var cubit = EmailVerificationCubit.get(context);
           var mode = SocialCubit.get(context);
           return Scaffold(
-            backgroundColor:
-                mode.isLight ? Colors.white : const Color(0xff063750),
+
             appBar: AppBar(
-              systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarColor:
-                    mode.isLight ? Colors.white : const Color(0xff063750),
-                statusBarIconBrightness:
-                    mode.isLight ? Brightness.dark : Brightness.light,
-                statusBarBrightness:
-                    mode.isLight ? Brightness.dark : Brightness.light,
-              ),
-              backgroundColor:
-                  mode.isLight ? Colors.white : const Color(0xff063750),
               leading: IconButton(
                 onPressed: () {
                   pop(context);

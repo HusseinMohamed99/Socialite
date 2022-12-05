@@ -43,19 +43,8 @@ class EditPosts extends StatelessWidget {
           var cubit = SocialCubit.get(context);
           var userModel = SocialCubit.get(context).userModel!;
           return Scaffold(
-            backgroundColor:
-                cubit.isLight ? Colors.white : const Color(0xff063750),
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
-              systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarColor: Colors.transparent,
-                statusBarIconBrightness:
-                    cubit.isLight ? Brightness.dark : Brightness.light,
-                statusBarBrightness:
-                    cubit.isLight ? Brightness.dark : Brightness.light,
-              ),
-              backgroundColor:
-                  cubit.isLight ? Colors.white : const Color(0xff063750),
               leading: IconButton(
                 onPressed: () {
                   pop(context);

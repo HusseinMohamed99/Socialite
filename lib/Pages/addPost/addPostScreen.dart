@@ -22,19 +22,8 @@ class AddPostScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
-          backgroundColor:
-              cubit.isLight ? Colors.white : const Color(0xff063750),
+
           appBar: AppBar(
-            systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarColor:
-                  cubit.isLight ? Colors.white : const Color(0xff063750),
-              statusBarIconBrightness:
-                  cubit.isLight ? Brightness.dark : Brightness.light,
-              statusBarBrightness:
-                  cubit.isLight ? Brightness.dark : Brightness.light,
-            ),
-            backgroundColor:
-                cubit.isLight ? Colors.white : const Color(0xff063750),
             leading: IconButton(
               onPressed: () {
                 pop(context);

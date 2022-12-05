@@ -13,7 +13,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../model/post_model.dart';
 import '../../model/storyModel.dart';
 import '../../shared/Cubit/socialCubit/SocialState.dart';
-import '../../shared/componnetns/constants.dart';
 import '../addPost/addPostScreen.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import '../friend/profileScreen.dart';
@@ -59,112 +58,105 @@ class FeedScreen extends StatelessWidget {
         }
       },
       builder: (context, state) {
-
         var userModel = SocialCubit.get(context).userModel;
         var cubit = SocialCubit.get(context);
         SocialCubit.get(context)
             .getFriends(SocialCubit.get(context).userModel!.uId);
         return SocialCubit.get(context).posts.isEmpty
             ? Scaffold(
-                backgroundColor:
-                    cubit.isLight ? Colors.white : const Color(0xff063750),
                 body: Column(
-                  children: [
-                    Card(
-                      color: SocialCubit.get(context).isLight
-                          ? Colors.white
-                          : const Color(0xff063750),
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      elevation: 10,
-                      margin: const EdgeInsets.all(10),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        child: Row(
-                          children: [
-                            InkWell(
-                              borderRadius: BorderRadius.circular(20),
-                              onTap: () {
-                                navigateTo(context, const MyProfileScreen());
-                              },
-                              child: CircleAvatar(
-                                radius: 20,
-                                backgroundImage:
-                                    NetworkImage('${userModel!.image}'),
-                              ),
+                children: [
+                  Card(
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    elevation: 10,
+                    margin: const EdgeInsets.all(10),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Row(
+                        children: [
+                          InkWell(
+                            borderRadius: BorderRadius.circular(20),
+                            onTap: () {
+                              navigateTo(context, const MyProfileScreen());
+                            },
+                            child: CircleAvatar(
+                              radius: 20,
+                              backgroundImage:
+                                  NetworkImage('${userModel!.image}'),
                             ),
-                            Expanded(
-                              child: Container(
-                                width: 220,
-                                height: 50,
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                margin: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  border:
-                                      Border.all(color: Colors.grey.shade400),
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                                child: TextButton(
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  style: ButtonStyle(
-                                    overlayColor: MaterialStateProperty.all(
-                                        Colors.grey[300]),
-                                  ),
-                                  child: Text(
-                                    '\' What\'s on your mind ? \'',
-                                    style: GoogleFonts.lobster(
-                                      fontSize: 16,
-                                      color: SocialCubit.get(context).isLight
-                                          ? Colors.black
-                                          : Colors.white,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    navigateTo(context, AddPostScreen());
-                                  },
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: 2,
+                          ),
+                          Expanded(
+                            child: Container(
+                              width: 220,
                               height: 50,
-                              color: Colors.grey,
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                cubit.getPostImage();
-                                navigateTo(context, AddPostScreen());
-                              },
-                              icon: Icon(
-                                Icons.photo_library_outlined,
-                                size: 30,
-                                color: cubit.isLight
-                                    ? CupertinoColors.activeBlue
-                                    : Colors.white,
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              margin: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey.shade400),
+                                borderRadius: BorderRadius.circular(25),
                               ),
-                              splashRadius: 20,
+                              child: TextButton(
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                style: ButtonStyle(
+                                  overlayColor: MaterialStateProperty.all(
+                                      Colors.grey[300]),
+                                ),
+                                child: Text(
+                                  '\' What\'s on your mind ? \'',
+                                  style: GoogleFonts.lobster(
+                                    fontSize: 16,
+                                    color: SocialCubit.get(context).isLight
+                                        ? Colors.black
+                                        : Colors.white,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  navigateTo(context, AddPostScreen());
+                                },
+                              ),
                             ),
-                          ],
-                        ),
+                          ),
+                          Container(
+                            width: 2,
+                            height: 50,
+                            color: Colors.grey,
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              cubit.getPostImage();
+                              navigateTo(context, AddPostScreen());
+                            },
+                            icon: Icon(
+                              Icons.photo_library_outlined,
+                              size: 30,
+                              color: cubit.isLight
+                                  ? CupertinoColors.activeBlue
+                                  : Colors.white,
+                            ),
+                            splashRadius: 20,
+                          ),
+                        ],
                       ),
                     ),
-                    const Spacer(),
-                    const Icon(
-                      IconlyLight.infoSquare,
-                      size: 100,
+                  ),
+                  const Spacer(),
+                  const Icon(
+                    IconlyLight.infoSquare,
+                    size: 100,
+                    color: Colors.grey,
+                  ),
+                  Text(
+                    'No Posts yet',
+                    style: GoogleFonts.libreBaskerville(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 30,
                       color: Colors.grey,
                     ),
-                    Text(
-                      'No Posts yet',
-                      style: GoogleFonts.libreBaskerville(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 30,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    const CircularProgressIndicator(),
-                    const Spacer(),
-                  ],
-                ))
+                  ),
+                  const CircularProgressIndicator(),
+                  const Spacer(),
+                ],
+              ))
             : ConditionalBuilder(
                 condition: cubit.posts.isNotEmpty,
                 builder: (BuildContext context) => RefreshIndicator(
@@ -191,39 +183,50 @@ class FeedScreen extends StatelessWidget {
                                   child: Container(
                                     width: 110,
                                     height: 190,
-                                    margin: const EdgeInsetsDirectional.only(start: 8),
+                                    margin: const EdgeInsetsDirectional.only(
+                                        start: 8),
                                     decoration: BoxDecoration(
                                         color: Colors.grey.withOpacity(0.3),
-                                        borderRadius: BorderRadius.circular(17)),
+                                        borderRadius:
+                                            BorderRadius.circular(17)),
                                     child: Column(
                                       children: [
                                         SizedBox(
                                           height: 153,
                                           child: Stack(
-                                            alignment: AlignmentDirectional.bottomCenter,
+                                            alignment: AlignmentDirectional
+                                                .bottomCenter,
                                             children: [
                                               Align(
-                                                alignment: AlignmentDirectional.topCenter,
+                                                alignment: AlignmentDirectional
+                                                    .topCenter,
                                                 child: Container(
                                                   width: 110,
                                                   height: 135,
                                                   decoration: BoxDecoration(
-                                                      borderRadius: const BorderRadius.only(
-                                                        topRight: Radius.circular(17),
-                                                        topLeft: Radius.circular(17),
-                                                        bottomLeft: Radius.circular(10),
-                                                        bottomRight: Radius.circular(10),
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                              .only(
+                                                        topRight:
+                                                            Radius.circular(17),
+                                                        topLeft:
+                                                            Radius.circular(17),
+                                                        bottomLeft:
+                                                            Radius.circular(10),
+                                                        bottomRight:
+                                                            Radius.circular(10),
                                                       ),
                                                       image: DecorationImage(
                                                           image: NetworkImage(
-                                                              cubit.userModel!.image!),
+                                                              cubit.userModel!
+                                                                  .image!),
                                                           fit: BoxFit.cover)),
                                                 ),
                                               ),
                                               CircleAvatar(
                                                 radius: 20,
-                                                backgroundColor:
-                                                Colors.grey.withOpacity(0.3),
+                                                backgroundColor: Colors.grey
+                                                    .withOpacity(0.3),
                                                 child: const CircleAvatar(
                                                   radius: 18,
                                                   backgroundColor: Colors.blue,
@@ -239,7 +242,9 @@ class FeedScreen extends StatelessWidget {
                                         const Spacer(),
                                         Text(
                                           "Create Story",
-                                          style: Theme.of(context).textTheme.subtitle2,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle2,
                                         ),
                                         const Spacer(),
                                       ],
@@ -252,15 +257,18 @@ class FeedScreen extends StatelessWidget {
                                 SizedBox(
                                   height: 180,
                                   child: ListView.separated(
-                                      physics: const NeverScrollableScrollPhysics(),
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
                                       reverse: true,
                                       shrinkWrap: true,
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index) =>
-                                          StoryItem(context, cubit.stories[index]),
-                                      separatorBuilder: (context, index) => const SizedBox(
-                                        width: 10,
-                                      ),
+                                          StoryItem(
+                                              context, cubit.stories[index]),
+                                      separatorBuilder: (context, index) =>
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
                                       itemCount: cubit.stories.length),
                                 ),
                                 const SizedBox(
@@ -269,12 +277,8 @@ class FeedScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-
                         ),
                         Card(
-                          color: SocialCubit.get(context).isLight
-                              ? Colors.white
-                              : const Color(0xff063750),
                           clipBehavior: Clip.antiAliasWithSaveLayer,
                           elevation: 10,
                           margin: const EdgeInsets.all(10),
@@ -353,7 +357,7 @@ class FeedScreen extends StatelessWidget {
                         ),
                         space(0, 10),
                         ListView.separated(
-                          physics: const BouncingScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: cubit.posts.length,
                           separatorBuilder: (context, index) => space(0, 10),
@@ -377,9 +381,6 @@ class FeedScreen extends StatelessWidget {
     var cubit = SocialCubit.get(context);
     postId = SocialCubit.get(context).postsId[index];
     return Card(
-      color: SocialCubit.get(context).isLight
-          ? Colors.white
-          : const Color(0xff063750),
       clipBehavior: Clip.antiAliasWithSaveLayer,
       elevation: 10,
       margin: const EdgeInsets.symmetric(horizontal: 8),
@@ -392,14 +393,12 @@ class FeedScreen extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-
                     if (postModel.uId !=
                         SocialCubit.get(context).userModel!.uId) {
                       navigateTo(context, FriendsProfileScreen(postModel.uId));
                     } else {
                       navigateTo(context, const MyProfileScreen());
                     }
-
                   },
                   borderRadius: BorderRadius.circular(25),
                   child: CircleAvatar(
@@ -420,7 +419,8 @@ class FeedScreen extends StatelessWidget {
                             onTap: () {
                               if (postModel.uId !=
                                   SocialCubit.get(context).userModel!.uId) {
-                                navigateTo(context, FriendsProfileScreen(postModel.uId));
+                                navigateTo(context,
+                                    FriendsProfileScreen(postModel.uId));
                               } else {
                                 navigateTo(context, const MyProfileScreen());
                               }
@@ -499,7 +499,7 @@ class FeedScreen extends StatelessWidget {
                                         bottom: 0,
                                       ),
                                       child: Row(
-                                        children:  [
+                                        children: [
                                           const Icon(
                                             Icons.edit_location_outlined,
                                             color: Colors.red,
@@ -517,7 +517,6 @@ class FeedScreen extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-
                                 InkWell(
                                   onTap: () {
                                     // cubit.savePost(
@@ -537,7 +536,7 @@ class FeedScreen extends StatelessWidget {
                                       bottom: 0,
                                     ),
                                     child: Row(
-                                      children:  [
+                                      children: [
                                         const Icon(
                                           Icons.turned_in_not_sharp,
                                           color: Colors.red,
@@ -555,7 +554,6 @@ class FeedScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-
                                 if (postModel.postImage != '')
                                   InkWell(
                                     onTap: () {
@@ -569,7 +567,7 @@ class FeedScreen extends StatelessWidget {
                                         bottom: 0,
                                       ),
                                       child: Row(
-                                        children:  [
+                                        children: [
                                           const Icon(
                                             IconlyLight.download,
                                             color: Colors.red,
@@ -587,7 +585,6 @@ class FeedScreen extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-
                                 InkWell(
                                   onTap: () {},
                                   child: Padding(
@@ -598,7 +595,7 @@ class FeedScreen extends StatelessWidget {
                                       bottom: 0,
                                     ),
                                     child: Row(
-                                      children:  [
+                                      children: [
                                         const Icon(
                                           Icons.share,
                                           color: Colors.red,
@@ -629,7 +626,7 @@ class FeedScreen extends StatelessWidget {
                                         bottom: 0,
                                       ),
                                       child: Row(
-                                        children:  [
+                                        children: [
                                           const Icon(
                                             Icons.delete,
                                             color: Colors.red,
@@ -773,7 +770,8 @@ class FeedScreen extends StatelessWidget {
                   },
                   child: CircleAvatar(
                     radius: 18,
-                    backgroundImage: NetworkImage('${SocialCubit.get(context).userModel!.image}'),
+                    backgroundImage: NetworkImage(
+                        '${SocialCubit.get(context).userModel!.image}'),
                   ),
                 ),
                 space(10, 0),
@@ -906,7 +904,4 @@ class FeedScreen extends StatelessWidget {
       ),
     );
   }
-
-
-
 }

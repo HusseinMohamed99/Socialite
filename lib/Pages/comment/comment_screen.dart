@@ -25,18 +25,7 @@ class CommentsScreen extends StatelessWidget {
     SocialCubit cubit = SocialCubit.get(context);
 
     return Scaffold(
-        backgroundColor: cubit.isLight ? Colors.white : const Color(0xff063750),
         appBar: AppBar(
-          backgroundColor:
-              cubit.isLight ? Colors.white : const Color(0xff063750),
-          systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor:
-                cubit.isLight ? Colors.white : const Color(0xff063750),
-            statusBarIconBrightness:
-                cubit.isLight ? Brightness.dark : Brightness.light,
-            statusBarBrightness:
-                cubit.isLight ? Brightness.dark : Brightness.light,
-          ),
           elevation: 1,
           leading: IconButton(
             onPressed: () {

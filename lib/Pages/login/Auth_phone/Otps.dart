@@ -38,17 +38,8 @@ class OTPScreenState extends State<OTPScreen> {
   Widget build(BuildContext context) {
     var cubit = SocialCubit.get(context);
     return Scaffold(
-      backgroundColor:
-      cubit.isLight ? Colors.white : const Color(0xff063750),
       key: _scaffoldkey,
       appBar: AppBar(
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: cubit.isLight ?  Colors.white : const Color(0xff063750),
-          statusBarIconBrightness:cubit.isLight ? Brightness.dark : Brightness.light,
-          statusBarBrightness: cubit.isLight ? Brightness.dark : Brightness.light,
-        ),
-        backgroundColor:
-        cubit.isLight ? Colors.white : const Color(0xff063750),
         elevation: 0,
         title: Text('Verification',style: GoogleFonts.lobster(
           textStyle: TextStyle(

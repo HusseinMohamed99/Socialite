@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 ThemeData darkTheme = ThemeData(
-  cardColor: const Color(0xff063750),
-  scaffoldBackgroundColor: const Color(0xff063750),
+  cardColor: const Color(0xff404258),
+  scaffoldBackgroundColor: const Color(0xff404258),
   primarySwatch: dColor,
   appBarTheme: const AppBarTheme(
     titleSpacing: 20.0,
     systemOverlayStyle: SystemUiOverlayStyle(
-      statusBarColor: Color(0xff063750),
+      statusBarColor: Color(0xff404258),
       statusBarIconBrightness: Brightness.light,
       statusBarBrightness: Brightness.dark,
     ),
-    backgroundColor: Color(0xff063750),
+    backgroundColor: Color(0xff404258),
     elevation: 0.0,
     titleTextStyle:  TextStyle(
       color: Colors.white,

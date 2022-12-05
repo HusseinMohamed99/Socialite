@@ -67,8 +67,7 @@ class MyProfileScreen extends StatelessWidget {
           var cubit = SocialCubit.get(context);
           return SocialCubit.get(context).userModel == null
               ? Scaffold(
-              backgroundColor:
-              cubit.isLight ? Colors.white : const Color(0xff063750),
+
               body: Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -93,8 +92,6 @@ class MyProfileScreen extends StatelessWidget {
             userPosts.isEmpty
               ? SafeArea(
                 child: Scaffold(
-                 backgroundColor:
-                 cubit.isLight ? Colors.white : const Color(0xff063750),
                     body: buildProfileWithOutPosts(),
                   ),
               )
@@ -102,8 +99,6 @@ class MyProfileScreen extends StatelessWidget {
                   condition: userPosts.isNotEmpty,
                   builder: (BuildContext context) => SafeArea(
                     child: Scaffold(
-                      backgroundColor:
-                          cubit.isLight ? Colors.white : const Color(0xff063750),
                       body: SingleChildScrollView(
                         child: Column(
                           children: [
@@ -669,9 +664,6 @@ Widget buildPostItem(PostModel postModel, context,index) {
   var cubit = SocialCubit.get(context);
   postId = SocialCubit.get(context).postsId[index];
   return Card(
-    color: SocialCubit.get(context).isLight
-        ? Colors.white
-        : const Color(0xff063750),
     clipBehavior: Clip.antiAliasWithSaveLayer,
     elevation: 10,
     margin: const EdgeInsets.symmetric(horizontal: 8),
