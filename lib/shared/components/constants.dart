@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
@@ -72,3 +74,7 @@ Widget imagePreview(String? image){
 }
 
 
+String getOs()
+{
+  return Platform.operatingSystem;
+}
