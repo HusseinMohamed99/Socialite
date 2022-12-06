@@ -38,249 +38,253 @@ class LoginScreen extends StatelessWidget {
         },
         builder: (context, state) {
           var cubit = SocialCubit.get(context);
-          return Scaffold(
-            appBar: defaultAppBar(),
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Align(
-                        child: Text(
-                          'Sign in Now',
+          return SafeArea(
+
+            child: Scaffold(
+              appBar: defaultAppBar(),
+              body: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        space(0, 100),
+                        Align(
+                          child: Text(
+                            'Sign in Now',
+                            style: GoogleFonts.lobster(
+                              textStyle: TextStyle(
+                                color: cubit.isLight ? Colors.black : Colors.white,
+                                fontSize: 40,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ),
+                        space(0, 10),
+                        Text(
+                          'Please enter your information',
                           style: GoogleFonts.lobster(
-                            textStyle: TextStyle(
-                              color: cubit.isLight ? Colors.black : Colors.white,
-                              fontSize: 40,
+                            textStyle: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 20,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
-                      ),
-                      space(0, 10),
-                      Text(
-                        'Please enter your information',
-                        style: GoogleFonts.lobster(
-                          textStyle: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          'E-mail Address',
+                          style: GoogleFonts.lobster(
+                            textStyle: TextStyle(
+                              color: cubit.isLight ? Colors.black : Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        'E-mail Address',
-                        style: GoogleFonts.lobster(
-                          textStyle: TextStyle(
-                            color: cubit.isLight ? Colors.black : Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        defaultTextFormField(
+                          context: context,
+                          controller: emailController,
+                          keyboardType: TextInputType.emailAddress,
+                          validate: (String? value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter your E-mail';
+                            }
+                            return null;
+                          },
+                          hint: 'E-mail',
+                          prefix: Icons.alternate_email,
+                        ),
+                        space(0, 20),
+                        Text(
+                          'Password',
+                          style: GoogleFonts.lobster(
+                            textStyle: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      defaultTextFormField(
-                        context: context,
-                        controller: emailController,
-                        keyboardType: TextInputType.emailAddress,
-                        validate: (String? value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter your E-mail';
-                          }
-                          return null;
-                        },
-                        hint: 'E-mail',
-                        prefix: Icons.alternate_email,
-                      ),
-                      space(0, 20),
-                      Text(
-                        'Password',
-                        style: GoogleFonts.lobster(
-                          textStyle: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                          ),
+                        space(0, 10),
+                        defaultTextFormField(
+                          context: context,
+                          controller: passController,
+                          keyboardType: TextInputType.visiblePassword,
+                          validate: (String? value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter your password';
+                            }
+                            return null;
+                          },
+                          hint: 'Password',
+                          prefix: Icons.lock_outline_rounded,
+                          suffix: LoginCubit.get(context).suffix,
+                          isPassword: LoginCubit.get(context).isPassword,
+                          suffixPressed: () {
+                            LoginCubit.get(context).showPassword();
+                          },
                         ),
-                      ),
-                      space(0, 10),
-                      defaultTextFormField(
-                        context: context,
-                        controller: passController,
-                        keyboardType: TextInputType.visiblePassword,
-                        validate: (String? value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter your password';
-                          }
-                          return null;
-                        },
-                        hint: 'Password',
-                        prefix: Icons.lock_outline_rounded,
-                        suffix: LoginCubit.get(context).suffix,
-                        isPassword: LoginCubit.get(context).isPassword,
-                        suffixPressed: () {
-                          LoginCubit.get(context).showPassword();
-                        },
-                      ),
-                      space(0, 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              navigateTo(context, RestPasswordScreen());
-                            },
-                            child: Text(
-                              'Forget Password ?',
+                        space(0, 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                navigateTo(context, RestPasswordScreen());
+                              },
+                              child: Text(
+                                'Forget Password ?',
+                                style: GoogleFonts.lobster(
+                                  textStyle: const TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        space(0, 30),
+                        state is! LoginLoadingState
+                            ? Center(
+                                child: defaultMaterialButton(
+                                  function: () {
+                                    if (formKey.currentState!.validate()) {
+                                      LoginCubit.get(context)
+                                          .userLogin(
+                                            email: emailController.text,
+                                            password: passController.text,
+                                          )
+                                          .then((value) => {
+                                                LoginCubit.get(context)
+                                                    .loginReloadUser()
+                                                    .then((value) {
+                                                  if (LoginCubit.get(context)
+                                                      .isEmailVerified) {
+                                                    SocialCubit.get(context)..getPosts()
+                                                    ..getUserData()
+                                                    ..getAllUsers();
+                                                    navigateAndFinish(context,
+                                                         const HomeLayout());
+                                                  } else {
+                                                    navigateTo(context,
+                                                        const EmailVerificationScreen());
+                                                  }
+                                                })
+                                              });
+                                    }
+                                  },
+                                  text: 'Login',
+                                ),
+                              )
+                            : const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                        space(0, 20),
+                        Row(
+                          children: [
+                            Text(
+                              'Don\'t have an account?',
                               style: GoogleFonts.lobster(
-                                textStyle: const TextStyle(
-                                  color: Colors.grey,
+                                textStyle: TextStyle(
+                                  color:
+                                      cubit.isLight ? Colors.black : Colors.white,
                                   fontSize: 20,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      space(0, 30),
-                      state is! LoginLoadingState
-                          ? Center(
-                              child: defaultMaterialButton(
-                                function: () {
-                                  if (formKey.currentState!.validate()) {
-                                    LoginCubit.get(context)
-                                        .userLogin(
-                                          email: emailController.text,
-                                          password: passController.text,
-                                        )
-                                        .then((value) => {
-                                              LoginCubit.get(context)
-                                                  .loginReloadUser()
-                                                  .then((value) {
-                                                if (LoginCubit.get(context)
-                                                    .isEmailVerified) {
-                                                  SocialCubit.get(context)..getPosts()
-                                                  ..getUserData()
-                                                  ..getAllUsers();
-                                                  navigateAndFinish(context,
-                                                       const HomeLayout());
-                                                } else {
-                                                  navigateTo(context,
-                                                      const EmailVerificationScreen());
-                                                }
-                                              })
-                                            });
-                                  }
-                                },
-                                text: 'Login',
-                              ),
-                            )
-                          : const Center(
-                              child: CircularProgressIndicator(),
-                            ),
-                      space(0, 20),
-                      Row(
-                        children: [
-                          Text(
-                            'Don\'t have an account?',
-                            style: GoogleFonts.lobster(
-                              textStyle: TextStyle(
-                                color:
-                                    cubit.isLight ? Colors.black : Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                          cubit.isLight == true
-                              ? TextButton(
-                                  onPressed: () {
-                                    navigateTo(context, const RegisterScreen());
-                                  },
-                                  child: Text(
-                                    'Register Now!',
-                                    style: GoogleFonts.lobster(
-                                      textStyle: TextStyle(
-                                        color: cubit.isLight
-                                            ? Colors.blue
-                                            : Colors.black,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : Container(
-                                  margin:
-                                      const EdgeInsets.symmetric(horizontal: 4),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(40)),
-                                  child: TextButton(
+                            cubit.isLight == true
+                                ? TextButton(
                                     onPressed: () {
-                                      navigateTo(
-                                          context, const RegisterScreen());
+                                      navigateTo(context, const RegisterScreen());
                                     },
                                     child: Text(
                                       'Register Now!',
                                       style: GoogleFonts.lobster(
-                                        textStyle: const TextStyle(
-                                          color: Colors.blue,
+                                        textStyle: TextStyle(
+                                          color: cubit.isLight
+                                              ? Colors.blue
+                                              : Colors.black,
                                           fontSize: 20,
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
                                     ),
-                                  ),
-                                )
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            InkWell(
-                              borderRadius: BorderRadius.circular(15),
-                              onTap: ()  {
-                                LoginCubit.get(context).signINWithGoogle();
-                              },
-                              child: CircleAvatar(
-                                backgroundImage: const AssetImage(
-                                  'assets/images/Google_Logo.png',
-                                ),
-                                radius: 30,
-                                backgroundColor:
-                                    cubit.isLight ? Colors.black : Colors.white,
-                              ),
-                            ),
-                            InkWell(
-                              borderRadius: BorderRadius.circular(15),
-                              onTap: () {
-                                navigateTo(context, const AuthPhone());
-                              },
-                              child: CircleAvatar(
-                                backgroundImage: const AssetImage(
-                                  'assets/images/phone.png',
-                                ),
-                                radius: 30,
-                                backgroundColor:
-                                    cubit.isLight ? Colors.black : Colors.white,
-                              ),
-                            ),
+                                  )
+                                : Container(
+                                    margin:
+                                        const EdgeInsets.symmetric(horizontal: 4),
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(40)),
+                                    child: TextButton(
+                                      onPressed: () {
+                                        navigateTo(
+                                            context, const RegisterScreen());
+                                      },
+                                      child: Text(
+                                        'Register Now!',
+                                        style: GoogleFonts.lobster(
+                                          textStyle: const TextStyle(
+                                            color: Colors.blue,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  )
                           ],
                         ),
-                      ),
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              InkWell(
+                                borderRadius: BorderRadius.circular(15),
+                                onTap: ()  {
+                                  LoginCubit.get(context).signINWithGoogle();
+                                },
+                                child: CircleAvatar(
+                                  backgroundImage: const AssetImage(
+                                    'assets/images/Google_Logo.png',
+                                  ),
+                                  radius: 30,
+                                  backgroundColor:
+                                      cubit.isLight ? Colors.black : Colors.white,
+                                ),
+                              ),
+                              InkWell(
+                                borderRadius: BorderRadius.circular(15),
+                                onTap: () {
+                                  navigateTo(context, const AuthPhone());
+                                },
+                                child: CircleAvatar(
+                                  backgroundImage: const AssetImage(
+                                    'assets/images/phone.png',
+                                  ),
+                                  radius: 30,
+                                  backgroundColor:
+                                      cubit.isLight ? Colors.black : Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
