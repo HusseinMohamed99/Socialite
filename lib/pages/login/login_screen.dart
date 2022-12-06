@@ -1,5 +1,6 @@
 import 'package:f_app/Pages/Login/Auth_phone/Auth_Phone.dart';
 import 'package:f_app/Pages/password/forget_Password.dart';
+import 'package:f_app/adaptive/indicator.dart';
 import 'package:f_app/shared/Cubit/loginCubit/cubit.dart';
 import 'package:f_app/Pages/Register/register_screen.dart';
 import 'package:f_app/shared/Cubit/loginCubit/state.dart';
@@ -39,7 +40,6 @@ class LoginScreen extends StatelessWidget {
         builder: (context, state) {
           var cubit = SocialCubit.get(context);
           return SafeArea(
-
             child: Scaffold(
               appBar: defaultAppBar(),
               body: SingleChildScrollView(
@@ -171,7 +171,8 @@ class LoginScreen extends StatelessWidget {
                                                     .then((value) {
                                                   if (LoginCubit.get(context)
                                                       .isEmailVerified) {
-                                                    SocialCubit.get(context)..getPosts()
+                                                    SocialCubit.get(context)
+                                                      ..getPosts()
                                                     ..getUserData()
                                                     ..getAllUsers();
                                                     navigateAndFinish(context,
@@ -187,8 +188,8 @@ class LoginScreen extends StatelessWidget {
                                   text: 'Login',
                                 ),
                               )
-                            : const Center(
-                                child: CircularProgressIndicator(),
+                            :  Center(
+                                child: AdaptiveIndicator(os: getOs()),
                               ),
                         space(0, 20),
                         Row(

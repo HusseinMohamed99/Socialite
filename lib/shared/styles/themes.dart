@@ -7,15 +7,13 @@ ThemeData darkTheme = ThemeData(
   scaffoldBackgroundColor: const Color(0xff404258),
   primarySwatch: dColor,
   appBarTheme: const AppBarTheme(
-    titleSpacing: 20.0,
+
     backgroundColor: Colors.transparent,
     systemOverlayStyle: SystemUiOverlayStyle(
         statusBarBrightness: Brightness.dark,
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.dark),
-    elevation: 0,
-    scrolledUnderElevation: 0,
-    toolbarHeight: 0,
+
     titleTextStyle:  TextStyle(
       color: Colors.white,
       fontSize: 20.0,

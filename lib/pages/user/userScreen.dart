@@ -289,7 +289,7 @@ class _UserScreenState extends State<UserScreen> {
                 image: NetworkImage('${userModel.image}'),
                 height: 200,
                 width: 230,
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               )),
           space(0, 10),
           Container(
@@ -344,8 +344,8 @@ class _UserScreenState extends State<UserScreen> {
                               receiverName: userModel.name
                           );
                           SocialCubit.get(context).sendFCMNotification(
-                              token: userModel.token,
-                              senderName: SocialCubit.get(context).userModel!.name,
+                              token: userModel.token!,
+                              senderName: SocialCubit.get(context).userModel!.name!,
                               messageText: '${SocialCubit.get(context).userModel!.name}' 'sent you a friend request, check it out!'
                           );
                         },
@@ -463,8 +463,8 @@ class _UserScreenState extends State<UserScreen> {
                                 receiverName: userModel.name
                             );
                             SocialCubit.get(context).sendFCMNotification(
-                                token: userModel.token,
-                                senderName: SocialCubit.get(context).userModel!.name,
+                                token: userModel.token!,
+                                senderName: SocialCubit.get(context).userModel!.name!,
                                 messageText: '${SocialCubit.get(context).userModel!.name}' 'accepted your friend request, you are now friends checkout his profile'
                             );
                           },

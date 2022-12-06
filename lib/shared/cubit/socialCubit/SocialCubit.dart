@@ -862,10 +862,10 @@ class SocialCubit extends Cubit<SocialStates> {
           .add(model.toMap())
           .then((value)
       {
-        emit(SendCommentSuccessState());
+        emit(SendMessageSuccessState());
       }).catchError((error)
       {
-        emit(SendCommentErrorState());
+        emit(SendMessageErrorState());
       });
 
       FirebaseFirestore.instance
@@ -877,10 +877,10 @@ class SocialCubit extends Cubit<SocialStates> {
           .add(model.toMap())
           .then((value)
       {
-        emit(SendCommentSuccessState());
+        emit(SendMessageSuccessState());
       }).catchError((error)
       {
-        emit(SendCommentErrorState());
+        emit(SendMessageErrorState());
       });
   }
 
@@ -942,9 +942,9 @@ List<MessageModel> message = [];
   //------------------------------------------------------------//
   ///START : upload Message Image
   void uploadMessageImage({
-    required String receiverId,
-    required String datetime,
-    required String text,
+    required String? receiverId,
+    required String? datetime,
+    required String? text,
   }) {
     emit(UploadMessageImageLoadingState());
     firebase_storage.FirebaseStorage.instance
@@ -954,10 +954,10 @@ List<MessageModel> message = [];
         .then((value) {
       value.ref.getDownloadURL().then((value) {
         sendMessage(
-            dateTime: datetime,
+            dateTime: datetime!,
             text: text,
             messageImage: value,
-            receiverId: receiverId);
+            receiverId: receiverId!);
       }).catchError((error) {
         emit(UploadMessageImageErrorState());
       });
@@ -1361,16 +1361,16 @@ List<MessageModel> message = [];
   ///START : sendFCMNotification
   String? imageURL;
   void sendFCMNotification({
-    required String? token,
-    required String? senderName,
+    required String token,
+    required String senderName,
     String? messageText,
     String? messageImage,
   }) {
     DioHelper.postData(
         data: {
-          "to": "$token",
+          "to": token,
           "notification": {
-            "title": "$senderName",
+            "title": senderName,
             "body":
             messageText ?? (messageImage != null ? 'Photo' : 'ERROR 404'),
             "sound": "default"

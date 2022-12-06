@@ -269,7 +269,7 @@ class SettingScreen extends StatelessWidget {
                               Image(
                                 height: 200,
                                 width: 500,
-                                fit: BoxFit.cover,
+                                fit: BoxFit.fill,
                                 image: cubit.isLight
                                     ? const NetworkImage(
                                         'https://img.freepik.com/free-photo/sunset-sea-with-boat_1048-4663.jpg?w=1380&t=st=1659993560~exp=1659994160~hmac=d0f989119865cff1b42bd569abad29f8bf6c4fb8e96d39bad12c7e0395e956de')
@@ -380,7 +380,7 @@ class SettingScreen extends StatelessWidget {
                               Image(
                                 height: 200,
                                 width: 500,
-                                fit: BoxFit.cover,
+                                fit: BoxFit.fill,
                                 image: cubit.isLight
                                     ? const NetworkImage(
                                     'https://img.freepik.com/premium-vector/blocked-account-conceptual-design-premium-vector_199064-108.jpg?w=740')

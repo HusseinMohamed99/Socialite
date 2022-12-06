@@ -1,5 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:f_app/Pages/chat/private_chat.dart';
+import 'package:f_app/adaptive/indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -20,24 +21,25 @@ class FriendsProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Builder(builder: (context) {
-      SocialCubit.get(context).getMyPosts(userUID);
-      SocialCubit.get(context).getFriendsProfile(userUID);
-      SocialCubit.get(context).getFriends(userUID);
-      SocialCubit.get(context).checkFriends(userUID);
-      SocialCubit.get(context).checkFriendRequest(userUID);
-
       return BlocConsumer<SocialCubit, SocialStates>(
-        listener: (context, state) {},
+        listener: (context, state)
+        {
+
+        },
         builder: (context, state) {
+          SocialCubit.get(context).getMyPosts(userUID);
+          SocialCubit.get(context).getFriendsProfile(userUID);
+          SocialCubit.get(context).getFriends(userUID);
+          SocialCubit.get(context).checkFriends(userUID);
+          SocialCubit.get(context).checkFriendRequest(userUID);
           UserModel? friendsModel = SocialCubit.get(context).friendsProfile;
           List<PostModel>? posts = SocialCubit.get(context).userPosts;
           List<UserModel>? friends = SocialCubit.get(context).friends;
           var cubit = SocialCubit.get(context);
           return ConditionalBuilder(
             condition: friendsModel == null,
-            builder: (context) => const Center(
-              child: CircularProgressIndicator(),
+            builder: (context) =>  Center(
+              child: AdaptiveIndicator(os: getOs()),
             ),
             fallback: (context) => SafeArea(
               child: Scaffold(
@@ -59,7 +61,6 @@ class FriendsProfileScreen extends StatelessWidget {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-
                               borderRadius: BorderRadius.circular(15)),
                           clipBehavior: Clip.antiAliasWithSaveLayer,
                           child: Column(
@@ -269,8 +270,8 @@ class FriendsProfileScreen extends StatelessWidget {
                                                   receiverName: friendsModel.name
                                               );
                                               SocialCubit.get(context).sendFCMNotification(
-                                                  token: friendsModel.token,
-                                                  senderName: SocialCubit.get(context).userModel!.name,
+                                                  token: friendsModel.token!,
+                                                  senderName: SocialCubit.get(context).userModel!.name!,
                                                   messageText: '${SocialCubit.get(context).userModel!.name}' 'sent you a friend request, check it out!'
                                               );
                                             } else {
@@ -483,6 +484,5 @@ class FriendsProfileScreen extends StatelessWidget {
           );
         },
       );
-    });
-  }
+    }
 }

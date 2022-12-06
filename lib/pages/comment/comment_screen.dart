@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:f_app/adaptive/indicator.dart';
 import 'package:f_app/model/CommentModel.dart';
 import 'package:f_app/shared/components/constants.dart';
 import 'package:flutter/material.dart';
@@ -54,11 +55,9 @@ class CommentsScreen extends StatelessWidget {
                 .snapshots(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (!snapshot.hasData) {
-                return const Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.red,
-                  ),
-                );
+                return  Center(
+                  child: AdaptiveIndicator(os:getOs(),
+                  ), );
               } else {
                 cubit.comments = [];
                 snapshot.data.docs.forEach((element) {

@@ -1,4 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:f_app/adaptive/indicator.dart';
 import 'package:f_app/shared/components/components.dart';
 import 'package:f_app/shared/components/constants.dart';
 import 'package:flutter/material.dart';
@@ -152,8 +153,8 @@ class EditPasswordScreen extends StatelessWidget {
             );
           },
           fallback: (BuildContext context) =>
-              const Center(child: CircularProgressIndicator()),
-        );
+               Center(child: AdaptiveIndicator(os:getOs(),),),);
+
       },
     );
   }

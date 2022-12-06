@@ -1,6 +1,8 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:f_app/adaptive/indicator.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
 import 'package:f_app/shared/components/components.dart';
+import 'package:f_app/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -40,7 +42,7 @@ class CreateStory extends StatelessWidget {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: FileImage(bloc.storyImage!),
-                        fit: BoxFit.contain)),
+                      fit: BoxFit.fill,),),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -208,13 +210,10 @@ class CreateStory extends StatelessWidget {
                                     )
                                   ],
                                 ),
-                                fallback: (context) =>const Center(
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                      color: Colors.blue,
-                                    )),
-                              ),
-                            ),
+                                fallback: (context) =>
+                                Center(child:AdaptiveIndicator(os:getOs(),),),),),
+
+
                           ),
                         )
                       ],

@@ -1,10 +1,10 @@
 import 'package:bubble/bubble.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:f_app/adaptive/indicator.dart';
 import 'package:f_app/model/messageModel.dart';
 import 'package:f_app/model/user_model.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:fluttericon/octicons_icons.dart';
@@ -17,7 +17,7 @@ import '../../shared/components/constants.dart';
 import '../veiwPhoto/image_view.dart';
 
 class PrivateChatScreen extends StatelessWidget {
- final UserModel userModel;
+  UserModel userModel;
   PrivateChatScreen({required this.userModel, Key? key,}) : super(key: key);
   var textController = TextEditingController();
   var formKey = GlobalKey<FormState>();
@@ -138,7 +138,7 @@ class PrivateChatScreen extends StatelessWidget {
                                     topRight: Radius.circular(4),
                                   ),
                                   image: DecorationImage(
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.fill,
                                     image: FileImage(SocialCubit.get(context)
                                         .messageImagePicked!),
                                   ))),
@@ -365,7 +365,7 @@ class PrivateChatScreen extends StatelessWidget {
                                       topRight: Radius.circular(4),
                                     ),
                                     image: DecorationImage(
-                                      fit: BoxFit.cover,
+                                      fit: BoxFit.fill,
                                       image: FileImage(SocialCubit.get(context)
                                           .messageImagePicked!),
                                     ))),
@@ -470,7 +470,7 @@ class PrivateChatScreen extends StatelessWidget {
                                   cubit.sendMessage(
                                     receiverId: userModel.uId!,
                                     dateTime: DateTime.now().toString(),
-                                    text: textController.text.trim(),
+                                    text: textController.text,
                                   );
                                 }
                                 textController.clear();
@@ -482,12 +482,12 @@ class PrivateChatScreen extends StatelessWidget {
                                         .length);
                                 if (formKey.currentState!.validate() &&
                                     SocialCubit.get(context)
-                                            .messageImagePicked ==
-                                        null) {
+                                            .messageImagePicked == null) {
+
                                   cubit.sendMessage(
                                     receiverId: userModel.uId!,
                                     dateTime: DateTime.now().toString(),
-                                    text: textController.text.trim(),
+                                    text: textController.text,
                                   );
                                   textController.clear();
                                   scroll.scrollTo(
@@ -500,7 +500,7 @@ class PrivateChatScreen extends StatelessWidget {
                                   SocialCubit.get(context).uploadMessageImage(
                                       receiverId: userModel.uId!,
                                       datetime: DateTime.now().toString(),
-                                      text: textController.text.trim());
+                                      text: textController.text);
                                   textController.clear();
                                   cubit.removeMessageImage();
                                   scroll.scrollTo(
@@ -511,9 +511,9 @@ class PrivateChatScreen extends StatelessWidget {
                                           .length);
                                 }
                                 SocialCubit.get(context).sendFCMNotification(
-                                  token: user!.token,
-                                  senderName: SocialCubit.get(context).userModel!.name,
-                                  messageText: textController.text.trim(),
+                                  token: user!.token!,
+                                  senderName: SocialCubit.get(context).userModel!.name!,
+                                  messageText: textController.text,
                                   messageImage: SocialCubit.get(context).imageURL,
                                 );
                               },
@@ -531,9 +531,8 @@ class PrivateChatScreen extends StatelessWidget {
                 ),
               ),
               fallback: (context) =>
-                  const Center(child: CircularProgressIndicator()),
-            ),
-          );
+                   Center(child:AdaptiveIndicator(os:getOs(),),),),);
+
         },
       );
     });
@@ -557,7 +556,7 @@ class PrivateChatScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      messageModel.text!.trim(),
+                      messageModel.text!,
                       style: GoogleFonts.libreBaskerville(
                         color:  cubit.isLight ?  Colors.white : Colors.black ,
                         fontSize: 20,
@@ -586,7 +585,7 @@ class PrivateChatScreen extends StatelessWidget {
         ],
       );
     }
-    else if (messageModel.messageImage != '' && messageModel.text != ''.trim())
+    else if (messageModel.messageImage != '' && messageModel.text != '')
     {
       return Row(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -632,7 +631,7 @@ class PrivateChatScreen extends StatelessWidget {
                         image: NetworkImage(
                           '${messageModel.messageImage}',
                         ),
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fill,
                       ),
                     ),
                   ),
@@ -644,7 +643,7 @@ class PrivateChatScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          messageModel.text!.trim(),
+                          messageModel.text!,
                           style: GoogleFonts.libreBaskerville(
                             color: cubit.isLight ? Colors.white : Colors.black,
                             fontSize: 16,
@@ -695,7 +694,7 @@ class PrivateChatScreen extends StatelessWidget {
                       topStart: Radius.circular(20),
                     ),
                     image: DecorationImage(
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fill,
                         image: NetworkImage('${messageModel.messageImage}')),
                   )),
             ),
@@ -716,7 +715,7 @@ class PrivateChatScreen extends StatelessWidget {
 
   Widget buildMessageItem(MessageModel messageModel, context) {
     SocialCubit cubit = SocialCubit.get(context);
-    if (messageModel.messageImage == ''.trim()) {
+    if (messageModel.messageImage == '') {
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -739,7 +738,7 @@ class PrivateChatScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      messageModel.text!.trim(),
+                      messageModel.text!,
                       style: GoogleFonts.libreBaskerville(
                         color: Colors.white,
                         fontSize: 20,
@@ -762,7 +761,7 @@ class PrivateChatScreen extends StatelessWidget {
         ],
       );
     }
-    else if (messageModel.messageImage != '' && messageModel.text != ''.trim())
+    else if (messageModel.messageImage != '' && messageModel.text != '')
     {
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -808,7 +807,7 @@ class PrivateChatScreen extends StatelessWidget {
                         image: NetworkImage(
                           '${messageModel.messageImage}',
                         ),
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fill,
                       ),
                     ),
                   ),
@@ -819,7 +818,7 @@ class PrivateChatScreen extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Text(
-                          messageModel.text!.trim(),
+                          messageModel.text!,
                           style: GoogleFonts.libreBaskerville(
                             color: Colors.white,
                             fontSize: 16,
@@ -871,7 +870,7 @@ class PrivateChatScreen extends StatelessWidget {
                       topStart: Radius.circular(20),
                     ),
                     image: DecorationImage(
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fill,
                         image: NetworkImage('${messageModel.messageImage}')),
                   )),
             ),

@@ -21,7 +21,6 @@ class AddPostScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
-
           appBar: AppBar(
             leading: IconButton(
               onPressed: () {
@@ -181,7 +180,7 @@ class AddPostScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image(
                                     image: FileImage(cubit.postImagePicked!),
-                                    fit: BoxFit.contain),
+                                    fit: BoxFit.fill),
                               ),
                             ),
                           ),

@@ -1,4 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:f_app/adaptive/indicator.dart';
 import 'package:f_app/pages/Login/login_screen.dart';
 import 'package:f_app/shared/Cubit/registerCubit/cubit.dart';
 import 'package:f_app/shared/Cubit/registerCubit/state.dart';
@@ -215,7 +216,7 @@ class RegisterScreen extends StatelessWidget {
                                 },
                                 text: 'Register',
                               ), fallback: (BuildContext context) =>
-                            const Center(child:  CircularProgressIndicator()),
+                            Center(child:AdaptiveIndicator(os:getOs(),),),
                         ),
                       ),
                       Row(

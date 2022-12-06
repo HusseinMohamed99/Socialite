@@ -1,4 +1,5 @@
 import 'package:f_app/Pages/Login/login_screen.dart';
+import 'package:f_app/adaptive/indicator.dart';
 import 'package:f_app/shared/Cubit/restPasswordCubit/rest_password_cubit.dart';
 import 'package:f_app/shared/Cubit/restPasswordCubit/rest_password_state.dart';
 import 'package:f_app/shared/components/components.dart';
@@ -137,8 +138,7 @@ class RestPasswordScreen extends StatelessWidget {
                               ),
                              const Spacer(),
                               state is ResetPasswordLoadingState
-                                  ? const Center(
-                                      child: CircularProgressIndicator())
+                                  ?  Center(child:AdaptiveIndicator(os:getOs(),),)
                                   : Container(
                                 color:
                                      Colors.blue,

@@ -29,7 +29,7 @@ class ViewStory extends StatelessWidget {
                           decoration: BoxDecoration(
                               image: DecorationImage(
                                   image: NetworkImage(model!.storyImage!),
-                                  fit: BoxFit.contain)),
+                                  fit: BoxFit.fill)),
                         ),
                       ),
                     ),
@@ -69,7 +69,7 @@ class ViewStory extends StatelessWidget {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => FriendsProfileScreen(uId)));
+                                            builder: (context) => FriendsProfileScreen(model!.uId)));
                                   } else {
                                     bloc.changeTabBar(3, context);
                                     Navigator.pop(context);

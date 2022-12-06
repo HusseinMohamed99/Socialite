@@ -31,10 +31,8 @@
 //                 .snapshots(),
 //             builder: (BuildContext context, AsyncSnapshot snapshot) {
 //               if (!snapshot.hasData) {
-//                 return const Center(
-//                   child: CircularProgressIndicator(
-//                     color: Colors.red,
-//                   ),
+//                 return  Center(
+//                   child: AdaptiveIndicator(os:getOs())
 //                 );
 //               } else {
 //                 cubit.peopleReacted = [];
@@ -64,7 +62,7 @@
 //                     ],
 //                   ),
 //                   fallback: (BuildContext context) =>
-//                       CircularProgressIndicator(),
+//                      AdaptiveIndicator(os:getOs())
 //                 );
 //               }
 //             }));

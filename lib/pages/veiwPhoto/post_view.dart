@@ -20,7 +20,6 @@ class FullScreen extends StatelessWidget {
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {},
       builder: (context, state) {
-
         return Scaffold(
           backgroundColor: Colors.black,
           body: SafeArea(
@@ -193,7 +192,7 @@ class FullScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           image: NetworkImage('${model.postImage}'),
-                          fit: BoxFit.contain)),
+                          fit: BoxFit.fill)),
                 ),
               ),
             ),

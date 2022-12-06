@@ -1,5 +1,6 @@
 import 'package:f_app/Pages/comment/comment_screen.dart';
 import 'package:f_app/Pages/profile/My_profile_screen.dart';
+import 'package:f_app/adaptive/indicator.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
 import 'package:f_app/shared/components/components.dart';
 import 'package:f_app/shared/components/constants.dart';
@@ -58,319 +59,332 @@ class FeedScreen extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        var userModel = SocialCubit.get(context).userModel;
+
+        var userModel = SocialCubit
+            .get(context)
+            .userModel;
         var cubit = SocialCubit.get(context);
-        return SocialCubit.get(context).posts.isEmpty
+        return SocialCubit
+            .get(context)
+            .posts
+            .isEmpty
             ? Scaffold(
-                body: Column(
-                children: [
-                  Card(
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    elevation: 10,
-                    margin: const EdgeInsets.all(10),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Row(
-                        children: [
-                          InkWell(
-                            borderRadius: BorderRadius.circular(20),
-                            onTap: () {
-                              navigateTo(context, const MyProfileScreen());
-                            },
-                            child: CircleAvatar(
-                              radius: 20,
-                              backgroundImage:
-                                  NetworkImage('${userModel!.image}'),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              width: 220,
-                              height: 50,
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              margin: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey.shade400),
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                              child: TextButton(
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                style: ButtonStyle(
-                                  overlayColor: MaterialStateProperty.all(
-                                      Colors.grey[300]),
-                                ),
-                                child: Text(
-                                  '\' What\'s on your mind ? \'',
-                                  style: GoogleFonts.lobster(
-                                    fontSize: 16,
-                                    color: SocialCubit.get(context).isLight
-                                        ? Colors.black
-                                        : Colors.white,
-                                  ),
-                                ),
-                                onPressed: () {
-                                  navigateTo(context, AddPostScreen());
-                                },
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 2,
-                            height: 50,
-                            color: Colors.grey,
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              cubit.getPostImage();
-                              navigateTo(context, AddPostScreen());
-                            },
-                            icon: Icon(
-                              Icons.photo_library_outlined,
-                              size: 30,
-                              color: cubit.isLight
-                                  ? CupertinoColors.activeBlue
-                                  : Colors.white,
-                            ),
-                            splashRadius: 20,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const Spacer(),
-                  const Icon(
-                    IconlyLight.infoSquare,
-                    size: 100,
-                    color: Colors.grey,
-                  ),
-                  Text(
-                    'No Posts yet',
-                    style: GoogleFonts.libreBaskerville(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 30,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  const CircularProgressIndicator(),
-                  const Spacer(),
-                ],
-              ))
-            : ConditionalBuilder(
-                condition: cubit.posts.isNotEmpty,
-                builder: (BuildContext context) => RefreshIndicator(
-                  onRefresh: () async {
-                    cubit.getPosts();
-                    return cubit.getUserData();
-                  },
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+            body: Column(
+              children: [
+                Card(
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  elevation: 10,
+                  margin: const EdgeInsets.all(10),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Row(
                       children: [
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          physics: const BouncingScrollPhysics(),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    cubit.getStoryImage(context);
-                                  },
-                                  child: Container(
-                                    width: 110,
-                                    height: 190,
-                                    margin: const EdgeInsetsDirectional.only(
-                                        start: 8),
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey.withOpacity(0.3),
-                                        borderRadius:
-                                            BorderRadius.circular(17)),
-                                    child: Column(
-                                      children: [
-                                        SizedBox(
-                                          height: 153,
-                                          child: Stack(
-                                            alignment: AlignmentDirectional
-                                                .bottomCenter,
-                                            children: [
-                                              Align(
-                                                alignment: AlignmentDirectional
-                                                    .topCenter,
-                                                child: Container(
-                                                  width: 110,
-                                                  height: 135,
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                              .only(
-                                                        topRight:
-                                                            Radius.circular(17),
-                                                        topLeft:
-                                                            Radius.circular(17),
-                                                        bottomLeft:
-                                                            Radius.circular(10),
-                                                        bottomRight:
-                                                            Radius.circular(10),
-                                                      ),
-                                                      image: DecorationImage(
-                                                          image: NetworkImage(
-                                                              cubit.userModel!
-                                                                  .image!),
-                                                          fit: BoxFit.cover)),
-                                                ),
-                                              ),
-                                              CircleAvatar(
-                                                radius: 20,
-                                                backgroundColor: Colors.grey
-                                                    .withOpacity(0.3),
-                                                child: const CircleAvatar(
-                                                  radius: 18,
-                                                  backgroundColor: Colors.blue,
-                                                  child: Icon(
-                                                    Icons.add,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        const Spacer(),
-                                        Text(
-                                          "Create Story",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .subtitle2,
-                                        ),
-                                        const Spacer(),
-                                      ],
-                                    ),
-                                  ),
+                        InkWell(
+                          borderRadius: BorderRadius.circular(20),
+                          onTap: () {
+                            navigateTo(context, const MyProfileScreen());
+                          },
+                          child: CircleAvatar(
+                            radius: 20,
+                            backgroundImage:
+                            NetworkImage('${userModel!.image}'),
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            width: 220,
+                            height: 50,
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            margin: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey.shade400),
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            child: TextButton(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              style: ButtonStyle(
+                                overlayColor: MaterialStateProperty.all(
+                                    Colors.grey[300]),
+                              ),
+                              child: Text(
+                                '\' What\'s on your mind ? \'',
+                                style: GoogleFonts.lobster(
+                                  fontSize: 16,
+                                  color: SocialCubit
+                                      .get(context)
+                                      .isLight
+                                      ? Colors.black
+                                      : Colors.white,
                                 ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                SizedBox(
-                                  height: 180,
-                                  child: ListView.separated(
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      reverse: true,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.horizontal,
-                                      itemBuilder: (context, index) =>
-                                          storyItem(
-                                              context, cubit.stories[index]),
-                                      separatorBuilder: (context, index) =>
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                      itemCount: cubit.stories.length),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                              ],
+                              ),
+                              onPressed: () {
+                                navigateTo(context, AddPostScreen());
+                              },
                             ),
                           ),
                         ),
-                        Card(
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          elevation: 10,
-                          margin: const EdgeInsets.all(10),
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 20.0),
-                            child: Row(
-                              children: [
-                                InkWell(
-                                  borderRadius: BorderRadius.circular(20),
-                                  onTap: () {
-                                    navigateTo(
-                                        context, const MyProfileScreen());
-                                  },
-                                  child: CircleAvatar(
-                                    radius: 20,
-                                    backgroundImage:
-                                        NetworkImage('${userModel!.image}'),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    width: 220,
-                                    height: 50,
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    margin: const EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: Colors.grey.shade400),
-                                      borderRadius: BorderRadius.circular(25),
-                                    ),
-                                    child: TextButton(
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      style: ButtonStyle(
-                                        overlayColor: MaterialStateProperty.all(
-                                            Colors.grey[300]),
-                                      ),
-                                      child: Text(
-                                        '\' What\'s on your mind ? \'',
-                                        style: GoogleFonts.lobster(
-                                          fontSize: 16,
-                                          color:
-                                              SocialCubit.get(context).isLight
-                                                  ? Colors.black
-                                                  : Colors.white,
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        navigateTo(context, AddPostScreen());
-                                      },
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  width: 2,
-                                  height: 50,
-                                  color: Colors.grey,
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    cubit.getPostImage();
-                                    navigateTo(context, AddPostScreen());
-                                  },
-                                  icon: Icon(
-                                    Icons.photo_library_outlined,
-                                    size: 30,
-                                    color: cubit.isLight
-                                        ? CupertinoColors.activeBlue
-                                        : Colors.white,
-                                  ),
-                                  splashRadius: 20,
-                                ),
-                              ],
-                            ),
+                        Container(
+                          width: 2,
+                          height: 50,
+                          color: Colors.grey,
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            cubit.getPostImage();
+                            navigateTo(context, AddPostScreen());
+                          },
+                          icon: Icon(
+                            Icons.photo_library_outlined,
+                            size: 30,
+                            color: cubit.isLight
+                                ? CupertinoColors.activeBlue
+                                : Colors.white,
                           ),
+                          splashRadius: 20,
                         ),
-                        space(0, 10),
-                        ListView.separated(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: cubit.posts.length,
-                          separatorBuilder: (context, index) => space(0, 10),
-                          itemBuilder: (context, index) => (buildPostItem(
-                              cubit.posts[index], context, index)),
-                        ),
-                        space(0, 10),
                       ],
                     ),
                   ),
                 ),
-                fallback: (context) =>
-                    const Center(child: CircularProgressIndicator()),
-              );
+                const Spacer(),
+                const Icon(
+                  IconlyLight.infoSquare,
+                  size: 100,
+                  color: Colors.grey,
+                ),
+                Text(
+                  'No Posts yet',
+                  style: GoogleFonts.libreBaskerville(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 30,
+                    color: Colors.grey,
+                  ),
+                ),
+                Center(child: AdaptiveIndicator(os: getOs())),
+                const Spacer(),
+              ],
+            ))
+            : ConditionalBuilder(
+          condition: cubit.posts.isNotEmpty,
+          builder: (BuildContext context) =>
+              RefreshIndicator(
+                onRefresh: () async {
+                  cubit.getUserData();
+                  return cubit.getPosts();
+                },
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        physics: const BouncingScrollPhysics(),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  cubit.getStoryImage(context);
+                                },
+                                child: Container(
+                                  width: 110,
+                                  height: 190,
+                                  margin: const EdgeInsetsDirectional.only(
+                                      start: 8),
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      borderRadius:
+                                      BorderRadius.circular(17)),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 153,
+                                        child: Stack(
+                                          alignment: AlignmentDirectional
+                                              .bottomCenter,
+                                          children: [
+                                            Align(
+                                              alignment: AlignmentDirectional
+                                                  .topCenter,
+                                              child: Container(
+                                                width: 110,
+                                                height: 135,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                  const BorderRadius
+                                                      .only(
+                                                    topRight:
+                                                    Radius.circular(17),
+                                                    topLeft:
+                                                    Radius.circular(17),
+                                                    bottomLeft:
+                                                    Radius.circular(10),
+                                                    bottomRight:
+                                                    Radius.circular(10),
+                                                  ),
+                                                  image: DecorationImage(
+                                                    image: NetworkImage(
+                                                        cubit.userModel!
+                                                            .image!),
+                                                    fit: BoxFit.fill,),),
+                                              ),
+                                            ),
+                                            CircleAvatar(
+                                              radius: 20,
+                                              backgroundColor: Colors.grey
+                                                  .withOpacity(0.3),
+                                              child: const CircleAvatar(
+                                                radius: 18,
+                                                backgroundColor: Colors.blue,
+                                                child: Icon(
+                                                  Icons.add,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      Text(
+                                        "Create Story",
+                                        style: Theme
+                                            .of(context)
+                                            .textTheme
+                                            .subtitle2,
+                                      ),
+                                      const Spacer(),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              SizedBox(
+                                height: 180,
+                                child: ListView.separated(
+                                    physics:
+                                    const NeverScrollableScrollPhysics(),
+                                    reverse: true,
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context, index) =>
+                                        storyItem(
+                                            context, cubit.stories[index]),
+                                    separatorBuilder: (context, index) =>
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    itemCount: cubit.stories.length),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Card(
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        elevation: 10,
+                        margin: const EdgeInsets.all(10),
+                        child: Padding(
+                          padding:
+                          const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: Row(
+                            children: [
+                              InkWell(
+                                borderRadius: BorderRadius.circular(20),
+                                onTap: () {
+                                  navigateTo(
+                                      context, const MyProfileScreen());
+                                },
+                                child: CircleAvatar(
+                                  radius: 20,
+                                  backgroundImage:
+                                  NetworkImage('${userModel!.image}'),
+                                ),
+                              ),
+                              Expanded(
+                                child: Container(
+                                  width: 220,
+                                  height: 50,
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  margin: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Colors.grey.shade400),
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                  child: TextButton(
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    style: ButtonStyle(
+                                      overlayColor: MaterialStateProperty.all(
+                                          Colors.grey[300]),
+                                    ),
+                                    child: Text(
+                                      '\' What\'s on your mind ? \'',
+                                      style: GoogleFonts.lobster(
+                                        fontSize: 16,
+                                        color:
+                                        SocialCubit
+                                            .get(context)
+                                            .isLight
+                                            ? Colors.black
+                                            : Colors.white,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      navigateTo(context, AddPostScreen());
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: 2,
+                                height: 50,
+                                color: Colors.grey,
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  cubit.getPostImage();
+                                  navigateTo(context, AddPostScreen());
+                                },
+                                icon: Icon(
+                                  Icons.photo_library_outlined,
+                                  size: 30,
+                                  color: cubit.isLight
+                                      ? CupertinoColors.activeBlue
+                                      : Colors.white,
+                                ),
+                                splashRadius: 20,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      space(0, 10),
+                      ListView.separated(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: cubit.posts.length,
+                        separatorBuilder: (context, index) => space(0, 10),
+                        itemBuilder: (context, index) =>
+                        (buildPostItem(
+                            cubit.posts[index], context, index)),
+                      ),
+                      space(0, 10),
+                    ],
+                  ),
+                ),
+              ),
+          fallback: (BuildContext context) =>
+              Center(child: AdaptiveIndicator(os: getOs(),),),);
       },
+
     );
   }
 
@@ -704,7 +718,7 @@ class FeedScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15),
                           child: Image(
                               image: NetworkImage('${postModel.postImage}'),
-                              fit: BoxFit.cover),
+                            fit: BoxFit.fill,),
                         ),
                       ),
                     ),
@@ -863,7 +877,7 @@ class FeedScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(14),
                   image: DecorationImage(
                     image: NetworkImage(model.storyImage!),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                   )),
             ),
             Padding(

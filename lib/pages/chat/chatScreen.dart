@@ -1,5 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:f_app/Pages/chat/private_chat.dart';
+import 'package:f_app/adaptive/indicator.dart';
 import 'package:f_app/model/user_model.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
 import 'package:f_app/shared/components/components.dart';
@@ -81,7 +82,7 @@ class ChatScreen extends StatelessWidget {
                     ],
                   ),
               fallback: (BuildContext context) =>
-                  const Center(child: CircularProgressIndicator())),
+                   Center(child: AdaptiveIndicator(os:getOs(),),),),
         );
       },
     );

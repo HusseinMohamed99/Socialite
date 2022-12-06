@@ -71,7 +71,7 @@ class EditProfileScreen extends StatelessWidget {
                                     Container(
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
-                                          fit: BoxFit.cover,
+                                          fit: BoxFit.fill,
                                           image: coverImage == null
                                               ? NetworkImage(userModel.cover!)
                                               : FileImage(coverImage) as ImageProvider,

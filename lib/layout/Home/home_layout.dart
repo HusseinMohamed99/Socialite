@@ -142,7 +142,7 @@ class _MainScreenState extends State<MainScreen>
           initialIndex: cubit.currentIndex,
           child: Scaffold(
             appBar: AppBar(
-              elevation: 5,
+              elevation: 20,
               leading: IconButton(
                 onPressed: () {
                   ZoomDrawer.of(context)!.toggle();
@@ -192,7 +192,7 @@ class _MainScreenState extends State<MainScreen>
                 ),
               ],
               bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(40.0),
+                preferredSize: const Size.fromHeight(50.0),
                 child: TabBar(
                   controller: tabController,
                   onTap: (index) {
@@ -326,7 +326,7 @@ class MenuScreen extends StatelessWidget {
                               child: Container(
                                 decoration: BoxDecoration(
                                     image: DecorationImage(
-                                      fit: BoxFit.cover,
+                                      fit: BoxFit.fill,
                                       image: NetworkImage('${userModel.cover}'),
                                     ),
                                     borderRadius: const BorderRadius.only(

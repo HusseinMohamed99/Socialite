@@ -204,14 +204,14 @@ class EditPosts extends StatelessWidget {
                                         child: Image(
                                             image: FileImage(
                                                 cubit.postImagePicked!),
-                                            fit: BoxFit.contain),
+                                          fit: BoxFit.fill,),
                                       )
                                     : ClipRRect(
                                         borderRadius: BorderRadius.circular(10),
                                         child: Image(
                                             image: NetworkImage(
                                                 postModel.postImage!),
-                                            fit: BoxFit.contain),
+                                          fit: BoxFit.fill,),
                                       ),
                               ),
                             ),

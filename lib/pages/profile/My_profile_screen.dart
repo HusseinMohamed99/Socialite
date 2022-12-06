@@ -1,5 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:f_app/Pages/profile/Edit_profile_screen.dart';
+import 'package:f_app/adaptive/indicator.dart';
 import 'package:f_app/model/post_model.dart';
 import 'package:f_app/shared/components/components.dart';
 import 'package:f_app/shared/components/constants.dart';
@@ -118,7 +119,7 @@ class MyProfileScreen extends StatelessWidget {
                                       child: Container(
                                         decoration: BoxDecoration(
                                             image: DecorationImage(
-                                              fit: BoxFit.cover,
+                                              fit: BoxFit.fill,
                                               image: NetworkImage(
                                                   '${userModel!.cover}'),
                                             ),
@@ -384,8 +385,9 @@ class MyProfileScreen extends StatelessWidget {
                     ),
                   ),
                   fallback: (BuildContext context) =>
-                      const CircularProgressIndicator(),
-                );
+                      Center(child:AdaptiveIndicator(os:getOs(),),),);
+
+
         },
       );
     });
@@ -417,7 +419,7 @@ Widget buildProfileWithOutPosts () => Builder(
                   child: Container(
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fill,
                           image: NetworkImage(
                               '${userModel!.cover}'),
                         ),
@@ -960,7 +962,7 @@ Widget buildPostItem(PostModel postModel, context,index) {
                         borderRadius: BorderRadius.circular(15),
                         child: Image(
                             image: NetworkImage('${postModel.postImage}'),
-                            fit: BoxFit.cover),
+                          fit: BoxFit.fill,),
                       ),
                     ),
                   ),
