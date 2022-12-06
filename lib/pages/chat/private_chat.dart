@@ -17,7 +17,7 @@ import '../../shared/components/constants.dart';
 import '../veiwPhoto/image_view.dart';
 
 class PrivateChatScreen extends StatelessWidget {
-  UserModel userModel;
+ final UserModel userModel;
   PrivateChatScreen({required this.userModel, Key? key,}) : super(key: key);
   var textController = TextEditingController();
   var formKey = GlobalKey<FormState>();
