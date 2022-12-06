@@ -4,11 +4,10 @@ import 'package:f_app/Pages/search/search_screen.dart';
 import 'package:f_app/model/drawerModel.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
-import 'package:f_app/shared/componnetns/components.dart';
-import 'package:f_app/shared/componnetns/constants.dart';
+import 'package:f_app/shared/components/components.dart';
+import 'package:f_app/shared/components/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_switch/flutter_switch.dart';
@@ -105,8 +104,9 @@ class HomeLayout extends StatelessWidget {
 }
 
 class MainScreen extends StatefulWidget {
-  int initialIndex = 0;
   MainScreen(this.initialIndex, {Key? key}) : super(key: key);
+  int initialIndex = 0;
+
 
   @override
   State<MainScreen> createState() => _MainScreenState();

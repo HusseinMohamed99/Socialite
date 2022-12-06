@@ -1,19 +1,20 @@
 import 'package:f_app/Pages/on-boarding/on-boarding%20screen.dart';
+import 'package:f_app/desktop/desktop_screen.dart';
 import 'package:f_app/layout/Home/home_layout.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
 import 'package:f_app/shared/bloc_observer.dart';
-import 'package:f_app/shared/componnetns/components.dart';
+import 'package:f_app/shared/components/components.dart';
 import 'package:f_app/shared/styles/themes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
-import 'shared/componnetns/constants.dart';
+import 'shared/components/constants.dart';
 import 'shared/network/cache_helper.dart';
 
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async
@@ -43,10 +44,8 @@ void main() async {
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
 
-  BlocOverrides.runZoned(
-        () {},
-    blocObserver: MyBlocObserver(),
-  );
+  Bloc.observer = MyBlocObserver();
+
   await CacheHelper.init();
   bool? isLight = CacheHelper.getBoolean(key: 'isLight');
   Widget widget;
@@ -58,7 +57,7 @@ void main() async {
     widget = const OnBoard();
   }
 
-  debugPrint(uId);
+  debugPrint('*** User ID == $uId ***');
   runApp(MultiBlocProvider(
     providers:  [
       BlocProvider(
@@ -83,7 +82,7 @@ void main() async {
         );
       },
 
-  )));
+  ),),);
 
 }
 
@@ -98,49 +97,57 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
         return MaterialApp(
-          builder: (context, child) => ResponsiveWrapper.builder(child,
-              maxWidth: 1200,
-              minWidth: 392,
-              defaultScale: true,
-              breakpoints: const [
-                ResponsiveBreakpoint.resize(392, name: MOBILE),
-                ResponsiveBreakpoint.autoScale(800, name: TABLET),
-                ResponsiveBreakpoint.resize(1000, name: DESKTOP),
-              ],
-              background: Container(color: const Color(0xFFF5F5F5))),
           debugShowCheckedModeBanner: false,
           theme: lightTheme,
           darkTheme: darkTheme,
           themeMode: SocialCubit.get(context).isLight
               ? ThemeMode.light
               : ThemeMode.dark,
-          home: SplashScreenView(
-            duration: 3500,
-            pageRouteTransition: PageRouteTransition.Normal,
-            navigateRoute: startWidget,
-            imageSize: 200,
-            imageSrc: SocialCubit.get(context).isLight
-                ?'assets/images/sLight.png'
-            :'assets/images/sDark.png',
-            text: 'F-APP',
-            textType: TextType.ColorizeAnimationText,
-            textStyle: GoogleFonts.libreBaskerville(
-              fontSize: 50,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 10
-            ),
-            colors:  [
-              SocialCubit.get(context).isLight
-                  ? Colors.black
-                  : Colors.white ,
-              Colors.deepOrangeAccent,
-              Colors.redAccent,
-              Colors.green,
-            ],
-            backgroundColor: SocialCubit.get(context).isLight
-                ?  Colors.white
-                : const Color(0xff404258),
+          home: LayoutBuilder(
+              builder: (BuildContext context,BoxConstraints constraints)
+              {
+                if (kDebugMode) {
+                  print(constraints.minWidth.toInt());
+                }
+                if (constraints.minWidth.toInt() <=560) {
+                  return  SplashScreenView(
+                    duration: 3500,
+                    pageRouteTransition: PageRouteTransition.Normal,
+                    navigateRoute: startWidget,
+                    imageSize: 200,
+                    imageSrc: SocialCubit.get(context).isLight
+                        ?'assets/images/sLight.png'
+                        :'assets/images/sDark.png',
+                    text: 'F-APP',
+                    textType: TextType.ColorizeAnimationText,
+                    textStyle: GoogleFonts.libreBaskerville(
+                        fontSize: 50,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 10
+                    ),
+                    colors:  [
+                      SocialCubit.get(context).isLight
+                          ? Colors.black
+                          : Colors.white ,
+                      Colors.deepOrangeAccent,
+                      Colors.redAccent,
+                      Colors.green,
+                    ],
+                    backgroundColor: SocialCubit.get(context).isLight
+                        ?  Colors.white
+                        : const Color(0xff404258),
+                  );
+                }
+                return const DesktopScreen();
+
+
+              }
+
+
           ),
+
+
+
         );
 
 
