@@ -5,7 +5,6 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:f_app/Pages/on-boarding/on-boarding%20screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -16,7 +15,7 @@ void main() {
     // Build our app and trigger a frame.
     await tester.pumpWidget(  const MyApp(
 
-      startWidget: OnBoard(),
+      // startWidget: OnBoard(),
     ));
 
     // Verify that our counter starts at 0.

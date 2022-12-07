@@ -29,15 +29,13 @@ class OnBoard extends StatelessWidget {
               const Spacer(
                 flex: 1,
               ),
-              SizedBox(
-                width: 220,
-                height: 1,
+              Expanded(
                 child: Text(
-                  'Snap and Share every moments',
-                  style: GoogleFonts.libreBaskerville(
+                  'Snap\nand\nShare\nevery\nmoments',
+                  style: GoogleFonts.roboto(
                     textStyle: const TextStyle(
                       color: Colors.white,
-                      fontSize: 50,
+                      fontSize: 60,
                       overflow: TextOverflow.visible,
                       fontWeight: FontWeight.w600,
                     ),

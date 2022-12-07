@@ -191,7 +191,7 @@ class LoginScreen extends StatelessWidget {
                             :  Center(
                                 child: AdaptiveIndicator(os: getOs()),
                               ),
-                        space(0, 20),
+                        space(0, 15),
                         Row(
                           children: [
                             Text(
