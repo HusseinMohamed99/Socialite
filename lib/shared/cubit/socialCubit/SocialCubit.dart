@@ -144,7 +144,7 @@ class SocialCubit extends Cubit<SocialStates> {
   // ----------------------------------------------------------//
 
   ///START : ChangeItem(Drawer)
-  Items currentItem = MenuItems.profile;
+  Items currentItem = MenuItems.profile as Items;
   void changeItem(Items item, context) {
     currentItem = item;
     getScreen(context);
