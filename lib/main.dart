@@ -110,7 +110,7 @@ class MyApp extends StatelessWidget {
         if (kDebugMode) {
           print(constraints.minWidth.toInt());
         }
-        if (constraints.minWidth.toInt() <= 560) {
+        if (constraints.minWidth.toInt() <= 480) {
           return const SplashScreen();
         }
         return const DesktopScreen();
