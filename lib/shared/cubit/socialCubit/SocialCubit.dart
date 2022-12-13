@@ -93,12 +93,12 @@ class SocialCubit extends Cubit<SocialStates> {
   // ----------------------------------------------------------//
   ///START : Screens
   int currentIndex = 0;
-  List<Widget> screens = [
-    const FeedScreen(),
-    const ChatScreen(),
-     const UserScreen(),
-    const StoryScreen(),
-    const SettingScreen(),
+  List <Widget> screens = const[
+     FeedScreen(),
+     ChatScreen(),
+      UserScreen(),
+     StoryScreen(),
+     SettingScreen(),
   ];
 
   ///END : Screens
@@ -119,7 +119,7 @@ class SocialCubit extends Cubit<SocialStates> {
   // ----------------------------------------------------------//
 
   ///START : ChangeTabBar
-  void changeTabBar(int index, context) {
+  void changeTabBar(int index,BuildContext context) {
     if(index == 0)
     {
        getPosts();
@@ -144,8 +144,8 @@ class SocialCubit extends Cubit<SocialStates> {
   // ----------------------------------------------------------//
 
   ///START : ChangeItem(Drawer)
-  Items currentItem = MenuItems.profile as Items;
-  void changeItem(Items item, context) {
+  ItemsModel currentItem = MenuItems.profile;
+  void changeItem(ItemsModel item, context) {
     currentItem = item;
     getScreen(context);
     emit(ChangeMenuItemState());

@@ -1,4 +1,13 @@
+
+
 import 'package:f_app/Pages/Login/login_screen.dart';
+import 'package:f_app/Pages/comment/comment_screen.dart';
+import 'package:f_app/Pages/friend/profileScreen.dart';
+import 'package:f_app/Pages/post/edit_post.dart';
+import 'package:f_app/Pages/profile/My_profile_screen.dart';
+import 'package:f_app/Pages/veiwPhoto/post_view.dart';
+import 'package:f_app/model/post_model.dart';
+import 'package:f_app/model/user_model.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
 import 'package:f_app/shared/components/constants.dart';
 import 'package:f_app/shared/network/cache_helper.dart';
@@ -8,15 +17,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hexcolor/hexcolor.dart';
-
-import '../../Pages/comment/comment_screen.dart';
-import '../../Pages/friend/profileScreen.dart';
-import '../../Pages/post/edit_post.dart';
-import '../../Pages/profile/My_profile_screen.dart';
-import '../../Pages/veiwPhoto/post_view.dart';
-import '../../model/post_model.dart';
-import '../../model/user_model.dart';
 
 Widget defaultTextFormField({
  required BuildContext context,
@@ -113,7 +113,7 @@ Widget defaultMaterialButton({
         borderRadius: BorderRadius.circular(
           radius,
         ),
-        color: HexColor('#4e67dd'),
+        color:Color (0xff4e67dd),
         //  color: background,
       ),
       child: MaterialButton(

@@ -39,7 +39,7 @@ class EditPasswordScreen extends StatelessWidget {
                 titleSpacing: 1,
                 title: Text(
                   'Change Password',
-                  style: GoogleFonts.lobster(
+                  style: GoogleFonts.roboto(
                     color: cubit.isLight ? Colors.blue : Colors.white,
                     fontSize: 20,
                   ),
@@ -56,7 +56,7 @@ class EditPasswordScreen extends StatelessWidget {
                       children: [
                         Text(
                           'You Should Re-login Before\n Change Password',
-                          style: GoogleFonts.lobster(
+                          style: GoogleFonts.roboto(
                             color: cubit.isLight ? Colors.black : Colors.white,
                             fontSize: 20,
                           ),
@@ -129,7 +129,7 @@ class EditPasswordScreen extends StatelessWidget {
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
                                 label: Text(
                                   'Update'.toUpperCase(),
-                                  style: GoogleFonts.lobster(
+                                  style: GoogleFonts.roboto(
                                       fontSize: 20,
                                       color: cubit.isLight
                                           ? Colors.blue

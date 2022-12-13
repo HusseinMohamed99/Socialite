@@ -58,7 +58,7 @@ class EditPosts extends StatelessWidget {
               titleSpacing: 1,
               title: Text(
                 'Edit Your Post',
-                style: GoogleFonts.lobster(
+                style: GoogleFonts.roboto(
                   color: cubit.isLight ? Colors.blue : Colors.white,
                   fontSize: 20,
                 ),
@@ -85,7 +85,7 @@ class EditPosts extends StatelessWidget {
                   },
                   child: Text(
                     'Update',
-                    style: GoogleFonts.lobster(
+                    style: GoogleFonts.roboto(
                       color: cubit.isLight ? Colors.blue : Colors.white,
                       fontSize: 20,
                     ),
@@ -123,7 +123,7 @@ class EditPosts extends StatelessWidget {
                               children: [
                                 Text(
                                   userModel.name!,
-                                  style: GoogleFonts.lobster(
+                                  style: GoogleFonts.roboto(
                                     color: cubit.isLight
                                         ? Colors.black
                                         : Colors.white,
@@ -143,7 +143,7 @@ class EditPosts extends StatelessWidget {
                                     space(5, 0),
                                     Text(
                                       'public',
-                                      style: GoogleFonts.lobster(
+                                      style: GoogleFonts.roboto(
                                         textStyle: Theme.of(context)
                                             .textTheme
                                             .caption!
@@ -173,7 +173,7 @@ class EditPosts extends StatelessWidget {
                           controller: post,
                           decoration: InputDecoration(
                             hintText: ' \' What\'s on your mind ? \' ',
-                            hintStyle: GoogleFonts.lobster(
+                            hintStyle: GoogleFonts.roboto(
                               color: Colors.grey,
                               fontWeight: FontWeight.w700,
                             ),
@@ -262,7 +262,7 @@ class EditPosts extends StatelessWidget {
                         clipBehavior: Clip.antiAliasWithSaveLayer,
                         label: Text(
                           'Add photo'.toUpperCase(),
-                          style: GoogleFonts.lobster(
+                          style: GoogleFonts.roboto(
                               fontSize: 20,
                               color: cubit.isLight ? Colors.blue : Colors.white),
                         ),

@@ -1,17 +1,19 @@
+
+
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:f_app/Pages/chat/private_chat.dart';
+import 'package:f_app/Pages/friend/friendScreen.dart';
 import 'package:f_app/adaptive/indicator.dart';
+import 'package:f_app/model/post_model.dart';
+import 'package:f_app/model/user_model.dart';
+import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
+import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
+import 'package:f_app/shared/components/components.dart';
+import 'package:f_app/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../model/post_model.dart';
-import '../../model/user_model.dart';
-import '../../shared/Cubit/socialCubit/SocialCubit.dart';
-import '../../shared/Cubit/socialCubit/SocialState.dart';
-import '../../shared/components/components.dart';
-import '../../shared/components/constants.dart';
-import 'friendScreen.dart';
 
 class FriendsProfileScreen extends StatelessWidget {
   String? userUID;
@@ -119,7 +121,7 @@ class FriendsProfileScreen extends StatelessWidget {
                               space(0, 5),
                               Text(
                                 '${friendsModel.name}',
-                                style: GoogleFonts.lobster(
+                                style: GoogleFonts.roboto(
                                   fontSize: 24,
                                   color: cubit.isLight
                                       ? Colors.blue
@@ -129,7 +131,7 @@ class FriendsProfileScreen extends StatelessWidget {
                               space(0, 5),
                               Text(
                                 '${friendsModel.bio}',
-                                style: GoogleFonts.lobster(
+                                style: GoogleFonts.roboto(
                                   textStyle: Theme.of(context)
                                       .textTheme
                                       .caption!
@@ -151,7 +153,7 @@ class FriendsProfileScreen extends StatelessWidget {
                                         children: [
                                           Text(
                                             '${posts.length}',
-                                            style: GoogleFonts.lobster(
+                                            style: GoogleFonts.roboto(
                                               textStyle: Theme.of(context)
                                                   .textTheme
                                                   .caption!
@@ -160,7 +162,7 @@ class FriendsProfileScreen extends StatelessWidget {
                                           ),
                                           Text(
                                             'Posts',
-                                            style: GoogleFonts.lobster(
+                                            style: GoogleFonts.roboto(
                                               textStyle: Theme.of(context)
                                                   .textTheme
                                                   .caption!
@@ -177,7 +179,7 @@ class FriendsProfileScreen extends StatelessWidget {
                                         children: [
                                           Text(
                                             '10K',
-                                            style: GoogleFonts.lobster(
+                                            style: GoogleFonts.roboto(
                                               textStyle: Theme.of(context)
                                                   .textTheme
                                                   .caption!
@@ -186,7 +188,7 @@ class FriendsProfileScreen extends StatelessWidget {
                                           ),
                                           Text(
                                             'Followers',
-                                            style: GoogleFonts.lobster(
+                                            style: GoogleFonts.roboto(
                                               textStyle: Theme.of(context)
                                                   .textTheme
                                                   .caption!
@@ -209,7 +211,7 @@ class FriendsProfileScreen extends StatelessWidget {
                                           children: [
                                             Text(
                                               '${friends.length}',
-                                              style: GoogleFonts.lobster(
+                                              style: GoogleFonts.roboto(
                                                 textStyle: Theme.of(context)
                                                     .textTheme
                                                     .caption!
@@ -218,7 +220,7 @@ class FriendsProfileScreen extends StatelessWidget {
                                             ),
                                             Text(
                                               'Friends',
-                                              style: GoogleFonts.lobster(
+                                              style: GoogleFonts.roboto(
                                                 textStyle: Theme.of(context)
                                                     .textTheme
                                                     .caption!
@@ -424,7 +426,7 @@ class FriendsProfileScreen extends StatelessWidget {
                             alignment: AlignmentDirectional.topStart,
                             child: Text(
                               'Posts',
-                              style: GoogleFonts.lobster(
+                              style: GoogleFonts.roboto(
                                 fontSize: 24,
                                 color:
                                     cubit.isLight ? Colors.black : Colors.white,

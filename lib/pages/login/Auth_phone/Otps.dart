@@ -41,7 +41,7 @@ class OTPScreenState extends State<OTPScreen> {
       key: _scaffoldkey,
       appBar: AppBar(
         elevation: 0,
-        title: Text('Verification',style: GoogleFonts.lobster(
+        title: Text('Verification',style: GoogleFonts.roboto(
           textStyle: TextStyle(
             color:
             cubit.isLight ? Colors.black : Colors.white,
@@ -68,7 +68,7 @@ class OTPScreenState extends State<OTPScreen> {
             child: Center(
               child: Text(
                 'Verify +2${widget.phone}',
-                style: GoogleFonts.lobster(
+                style: GoogleFonts.roboto(
                   textStyle: TextStyle(
                     color:
                     cubit.isLight ? Colors.black : Colors.white,
@@ -98,7 +98,7 @@ class OTPScreenState extends State<OTPScreen> {
                   }).catchError((error)
                   {
                     ScaffoldMessenger.of(context)
-                        .showSnackBar(SnackBar(backgroundColor: cubit.isLight ? Colors.black : Colors.white,content: Text(error.toString(),style: GoogleFonts.lobster(
+                        .showSnackBar(SnackBar(backgroundColor: cubit.isLight ? Colors.black : Colors.white,content: Text(error.toString(),style: GoogleFonts.roboto(
                       textStyle: TextStyle(
                         color:
                         cubit.isLight ? Colors.black : Colors.white,

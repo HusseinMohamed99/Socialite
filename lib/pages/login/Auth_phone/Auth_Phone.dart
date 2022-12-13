@@ -20,7 +20,7 @@ class AuthPhoneState extends State<AuthPhone> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title:  Text('Phone Auth',style: GoogleFonts.lobster(
+        title:  Text('Phone Auth',style: GoogleFonts.roboto(
           textStyle: TextStyle(
             color:
             cubit.isLight ? Colors.black : Colors.white,
@@ -58,7 +58,7 @@ class AuthPhoneState extends State<AuthPhone> {
                 child:  Center(
                   child: Text(
                     'Phone Authentication',
-                    style: GoogleFonts.lobster(
+                    style: GoogleFonts.roboto(
                       textStyle: TextStyle(
                         color:
                         cubit.isLight ? Colors.black : Colors.white,
@@ -99,7 +99,7 @@ class AuthPhoneState extends State<AuthPhone> {
                     ),
                     border: const OutlineInputBorder(),
                     hintText: 'Phone Number',
-                    hintStyle:  GoogleFonts.lobster(textStyle: TextStyle(
+                    hintStyle:  GoogleFonts.roboto(textStyle: TextStyle(
                   color:
                     cubit.isLight ? Colors.black : Colors.white,
 
@@ -126,7 +126,7 @@ class AuthPhoneState extends State<AuthPhone> {
                 },
                 child:  Text(
                   'Next',
-                  style: GoogleFonts.lobster(textStyle: TextStyle(
+                  style: GoogleFonts.roboto(textStyle: TextStyle(
                     color:
                     cubit.isLight ? Colors.white : Colors.black,
                     fontSize: 20,

@@ -113,7 +113,7 @@ class ViewStory extends StatelessWidget {
                                     ),
                                     Text(   daysBetween(
                                         DateTime.parse(model!.dateTime.toString())),
-                                      style: GoogleFonts.lobster(
+                                      style: GoogleFonts.roboto(
                                           fontSize: 15,
                                           color: Colors.grey,
                                           textStyle: Theme.of(context).textTheme.caption,

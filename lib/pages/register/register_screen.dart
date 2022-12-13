@@ -66,7 +66,7 @@ class RegisterScreen extends StatelessWidget {
                       Align(
                         child: Text(
                           'Sign up Now',
-                          style: GoogleFonts.lobster(
+                          style: GoogleFonts.roboto(
                             textStyle: TextStyle(
                               color: cubit.isLight ? Colors.black : Colors.white,
                               fontSize: 40,
@@ -78,7 +78,7 @@ class RegisterScreen extends StatelessWidget {
                       space(0, 10),
                       Text(
                         'Please enter your information',
-                        style: GoogleFonts.lobster(
+                        style: GoogleFonts.roboto(
                           textStyle: const TextStyle(
                             color: Colors.grey,
                             fontSize: 20,
@@ -89,7 +89,7 @@ class RegisterScreen extends StatelessWidget {
                       space(0, 20),
                       Text(
                         'Full Name',
-                        style: GoogleFonts.lobster(
+                        style: GoogleFonts.roboto(
                           textStyle: const TextStyle(
                             color: Colors.grey,
                             fontSize: 20,
@@ -114,7 +114,7 @@ class RegisterScreen extends StatelessWidget {
                       space(0, 10),
                       Text(
                         'Phone',
-                        style: GoogleFonts.lobster(
+                        style: GoogleFonts.roboto(
                           textStyle: const TextStyle(
                             color: Colors.grey,
                             fontSize: 20,
@@ -139,7 +139,7 @@ class RegisterScreen extends StatelessWidget {
                       space(0, 10),
                       Text(
                         'E-mail Address',
-                        style: GoogleFonts.lobster(
+                        style: GoogleFonts.roboto(
                           textStyle: const TextStyle(
                             color: Colors.grey,
                             fontSize: 20,
@@ -164,7 +164,7 @@ class RegisterScreen extends StatelessWidget {
                       space(0, 10),
                       Text(
                         'Password',
-                        style: GoogleFonts.lobster(
+                        style: GoogleFonts.roboto(
                           textStyle: const TextStyle(
                             color: Colors.grey,
                             fontSize: 20,
@@ -223,7 +223,7 @@ class RegisterScreen extends StatelessWidget {
                         children: [
                           Text(
                             'Already have an account?',
-                            style: GoogleFonts.lobster(
+                            style: GoogleFonts.roboto(
                               textStyle:  TextStyle(
                                 color:
                                 cubit.isLight ? Colors.black : Colors.white,
@@ -239,7 +239,7 @@ class RegisterScreen extends StatelessWidget {
                             },
                             child: Text(
                               'Login',
-                              style: GoogleFonts.lobster(
+                              style: GoogleFonts.roboto(
                                 textStyle: const TextStyle(
                                   color: Colors.blue,
                                   fontSize: 20,
@@ -260,7 +260,7 @@ class RegisterScreen extends StatelessWidget {
                             },
                             child: Text(
                                 'Login',
-                                style: GoogleFonts.lobster(
+                                style: GoogleFonts.roboto(
                                   textStyle: const TextStyle(
                                     color: Colors.blue,
                                     fontSize: 25,

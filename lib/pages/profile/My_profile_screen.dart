@@ -205,7 +205,7 @@ class MyProfileScreen extends StatelessWidget {
                                       children: [
                                         Text(
                                           '${posts.length}',
-                                          style: GoogleFonts.lobster(
+                                          style: GoogleFonts.roboto(
                                             textStyle: Theme.of(context)
                                                 .textTheme
                                                 .caption!
@@ -358,7 +358,7 @@ class MyProfileScreen extends StatelessWidget {
                                 alignment: AlignmentDirectional.topStart,
                                 child: Text(
                                   'Posts',
-                                  style: GoogleFonts.lobster(
+                                  style: GoogleFonts.roboto(
                                     fontSize: 24,
                                     color: cubit.isLight
                                         ? Colors.black
@@ -466,7 +466,7 @@ Widget buildProfileWithOutPosts () => Builder(
         space(0, 5),
         Text(
           '${userModel.name}',
-          style: GoogleFonts.lobster(
+          style: GoogleFonts.roboto(
             fontSize: 24,
             color:
             cubit.isLight ? Colors.blue : Colors.white,
@@ -475,7 +475,7 @@ Widget buildProfileWithOutPosts () => Builder(
         space(0, 5),
         Text(
           '${userModel.bio}',
-          style: GoogleFonts.lobster(
+          style: GoogleFonts.roboto(
             textStyle: Theme.of(context)
                 .textTheme
                 .caption!
@@ -497,7 +497,7 @@ Widget buildProfileWithOutPosts () => Builder(
                   children: [
                     Text(
                       '${posts.length}',
-                      style: GoogleFonts.lobster(
+                      style: GoogleFonts.roboto(
                         textStyle: Theme.of(context)
                             .textTheme
                             .caption!
@@ -506,7 +506,7 @@ Widget buildProfileWithOutPosts () => Builder(
                     ),
                     Text(
                       'Posts',
-                      style: GoogleFonts.lobster(
+                      style: GoogleFonts.roboto(
                         textStyle: Theme.of(context)
                             .textTheme
                             .caption!
@@ -523,7 +523,7 @@ Widget buildProfileWithOutPosts () => Builder(
                   children: [
                     Text(
                       '10K',
-                      style: GoogleFonts.lobster(
+                      style: GoogleFonts.roboto(
                         textStyle: Theme.of(context)
                             .textTheme
                             .caption!
@@ -532,7 +532,7 @@ Widget buildProfileWithOutPosts () => Builder(
                     ),
                     Text(
                       'Followers',
-                      style: GoogleFonts.lobster(
+                      style: GoogleFonts.roboto(
                         textStyle: Theme.of(context)
                             .textTheme
                             .caption!
@@ -555,7 +555,7 @@ Widget buildProfileWithOutPosts () => Builder(
                     children: [
                       Text(
                         '${friends.length}',
-                        style: GoogleFonts.lobster(
+                        style: GoogleFonts.roboto(
                           textStyle: Theme.of(context)
                               .textTheme
                               .caption!
@@ -564,7 +564,7 @@ Widget buildProfileWithOutPosts () => Builder(
                       ),
                       Text(
                         'Friends',
-                        style: GoogleFonts.lobster(
+                        style: GoogleFonts.roboto(
                           textStyle: Theme.of(context)
                               .textTheme
                               .caption!
@@ -602,7 +602,7 @@ Widget buildProfileWithOutPosts () => Builder(
                   ),
                   label: Text(
                     'Add story',
-                    style: GoogleFonts.lobster(
+                    style: GoogleFonts.roboto(
                       color: Colors.white,
                     ),
                   ),
@@ -631,7 +631,7 @@ Widget buildProfileWithOutPosts () => Builder(
                   ),
                   label: Text(
                     'Edit profile',
-                    style: GoogleFonts.lobster(
+                    style: GoogleFonts.roboto(
                       color: cubit.isLight
                           ? Colors.black
                           : Colors.white,
@@ -691,7 +691,7 @@ Widget buildPostItem(PostModel postModel, context,index) {
                       children: [
                         Text(
                           '${postModel.name}',
-                          style: GoogleFonts.lobster(
+                          style: GoogleFonts.roboto(
                             fontSize: 20,
                             height: 1.3,
                             color: SocialCubit.get(context).isLight
@@ -710,7 +710,7 @@ Widget buildPostItem(PostModel postModel, context,index) {
                     Text(
                       daysBetween(
                           DateTime.parse(postModel.dateTime.toString())),
-                      style: GoogleFonts.lobster(
+                      style: GoogleFonts.roboto(
                           fontSize: 15,
                           color: Colors.grey,
                           textStyle: Theme.of(context).textTheme.caption,
@@ -980,7 +980,7 @@ Widget buildPostItem(PostModel postModel, context,index) {
                 ),
                 label: Text(
                   '${SocialCubit.get(context).likes[index]}',
-                  style: GoogleFonts.lobster(
+                  style: GoogleFonts.roboto(
                     color: Colors.red,
                   ),
                 ),
@@ -997,7 +997,7 @@ Widget buildPostItem(PostModel postModel, context,index) {
                 ),
                 label: Text(
                   '${SocialCubit.get(context).commentsNum[index]}',
-                  style: GoogleFonts.lobster(
+                  style: GoogleFonts.roboto(
                     color: Colors.orangeAccent,
                   ),
                 ),
@@ -1035,7 +1035,7 @@ Widget buildPostItem(PostModel postModel, context,index) {
                   width: 150,
                   child: Text(
                     'Write a comment ...',
-                    style: GoogleFonts.lobster(
+                    style: GoogleFonts.roboto(
                       textStyle: Theme.of(context).textTheme.caption,
                       fontSize: 15,
                       color: Colors.grey,
@@ -1059,7 +1059,7 @@ Widget buildPostItem(PostModel postModel, context,index) {
                 },
                 label: Text(
                   'Like',
-                  style: GoogleFonts.lobster(
+                  style: GoogleFonts.roboto(
                     color: SocialCubit.get(context).likedByMe[index] == true
                         ? Colors.red
                         : Colors.grey,
@@ -1080,7 +1080,7 @@ Widget buildPostItem(PostModel postModel, context,index) {
                 ),
                 label: Text(
                   'Share',
-                  style: GoogleFonts.lobster(
+                  style: GoogleFonts.roboto(
                     color: Colors.green,
                   ),
                 ),

@@ -155,7 +155,7 @@ class _MainScreenState extends State<MainScreen>
               titleSpacing: 0.0,
               title: Text(
                 cubit.titles[cubit.currentIndex],
-                style: GoogleFonts.lobster(
+                style: GoogleFonts.roboto(
                   color: cubit.isLight ? Colors.blue : Colors.white,
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
@@ -277,8 +277,8 @@ class _MainScreenState extends State<MainScreen>
 }
 
 class MenuScreen extends StatelessWidget {
-  final Items currentItem;
-  final ValueChanged<Items> onSelectedItem;
+  final ItemsModel currentItem;
+  final ValueChanged<ItemsModel> onSelectedItem;
 
   const MenuScreen(
       {Key? key, required this.currentItem, required this.onSelectedItem})
@@ -370,7 +370,7 @@ class MenuScreen extends StatelessWidget {
                       Text(
                         '${userModel.name}',
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.lobster(
+                        style: GoogleFonts.roboto(
                             fontSize: 30,
                             color: cubit.isLight ? Colors.black : Colors.white),
                       ),
@@ -442,7 +442,7 @@ class MenuScreen extends StatelessWidget {
                               ),
                               Text(
                                 'Logout',
-                                style: GoogleFonts.lobster(
+                                style: GoogleFonts.roboto(
                                     fontSize: 30,
                                     color: cubit.isLight
                                         ? Colors.black
@@ -463,7 +463,7 @@ class MenuScreen extends StatelessWidget {
     );
   }
 
-  Widget buildMenuItem(Items item) => BlocConsumer<SocialCubit, SocialStates>(
+  Widget buildMenuItem(ItemsModel item) => BlocConsumer<SocialCubit, SocialStates>(
         listener: (context, state) {},
         builder: (context, state) {
           var cubit = SocialCubit.get(context);
@@ -502,7 +502,7 @@ class MenuScreen extends StatelessWidget {
                     ),
                     title: Text(
                       item.title,
-                      style: GoogleFonts.lobster(
+                      style: GoogleFonts.roboto(
                         fontSize: 26,
                         color: cubit.isLight ? Colors.black : Colors.white,
                       ),

@@ -54,7 +54,7 @@ class LoginScreen extends StatelessWidget {
                         Align(
                           child: Text(
                             'Sign in Now',
-                            style: GoogleFonts.lobster(
+                            style: GoogleFonts.roboto(
                               textStyle: TextStyle(
                                 color: cubit.isLight ? Colors.black : Colors.white,
                                 fontSize: 40,
@@ -66,7 +66,7 @@ class LoginScreen extends StatelessWidget {
                         space(0, 10),
                         Text(
                           'Please enter your information',
-                          style: GoogleFonts.lobster(
+                          style: GoogleFonts.roboto(
                             textStyle: const TextStyle(
                               color: Colors.grey,
                               fontSize: 20,
@@ -79,9 +79,9 @@ class LoginScreen extends StatelessWidget {
                         ),
                         Text(
                           'E-mail Address',
-                          style: GoogleFonts.lobster(
+                          style: GoogleFonts.roboto(
                             textStyle: TextStyle(
-                              color: cubit.isLight ? Colors.black : Colors.white,
+                              color: Colors.grey,
                               fontSize: 20,
                               fontWeight: FontWeight.w600,
                             ),
@@ -106,7 +106,7 @@ class LoginScreen extends StatelessWidget {
                         space(0, 20),
                         Text(
                           'Password',
-                          style: GoogleFonts.lobster(
+                          style: GoogleFonts.roboto(
                             textStyle: const TextStyle(
                               color: Colors.grey,
                               fontSize: 20,
@@ -143,7 +143,7 @@ class LoginScreen extends StatelessWidget {
                               },
                               child: Text(
                                 'Forget Password ?',
-                                style: GoogleFonts.lobster(
+                                style: GoogleFonts.roboto(
                                   textStyle: const TextStyle(
                                     color: Colors.grey,
                                     fontSize: 20,
@@ -196,7 +196,7 @@ class LoginScreen extends StatelessWidget {
                           children: [
                             Text(
                               'Don\'t have an account?',
-                              style: GoogleFonts.lobster(
+                              style: GoogleFonts.roboto(
                                 textStyle: TextStyle(
                                   color:
                                       cubit.isLight ? Colors.black : Colors.white,
@@ -212,7 +212,7 @@ class LoginScreen extends StatelessWidget {
                                     },
                                     child: Text(
                                       'Register Now!',
-                                      style: GoogleFonts.lobster(
+                                      style: GoogleFonts.roboto(
                                         textStyle: TextStyle(
                                           color: cubit.isLight
                                               ? Colors.blue
@@ -236,7 +236,7 @@ class LoginScreen extends StatelessWidget {
                                       },
                                       child: Text(
                                         'Register Now!',
-                                        style: GoogleFonts.lobster(
+                                        style: GoogleFonts.roboto(
                                           textStyle: const TextStyle(
                                             color: Colors.blue,
                                             fontSize: 20,
@@ -258,13 +258,12 @@ class LoginScreen extends StatelessWidget {
                                 onTap: ()  {
                                   LoginCubit.get(context).signINWithGoogle();
                                 },
-                                child: CircleAvatar(
-                                  backgroundImage: const AssetImage(
+                                child: const CircleAvatar(
+                                  backgroundImage: AssetImage(
                                     'assets/images/Google_Logo.png',
                                   ),
                                   radius: 30,
-                                  backgroundColor:
-                                      cubit.isLight ? Colors.black : Colors.white,
+                                  backgroundColor: Colors.white,
                                 ),
                               ),
                               InkWell(
@@ -272,13 +271,13 @@ class LoginScreen extends StatelessWidget {
                                 onTap: () {
                                   navigateTo(context, const AuthPhone());
                                 },
-                                child: CircleAvatar(
-                                  backgroundImage: const AssetImage(
+                                child: const CircleAvatar(
+                                  backgroundImage: AssetImage(
                                     'assets/images/phone.png',
                                   ),
-                                  radius: 30,
+                                  radius: 50,
                                   backgroundColor:
-                                      cubit.isLight ? Colors.black : Colors.white,
+                               Colors.white,
                                 ),
                               ),
                             ],

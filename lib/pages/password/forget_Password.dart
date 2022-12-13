@@ -44,7 +44,7 @@ class RestPasswordScreen extends StatelessWidget {
               titleSpacing: 1,
               title: Text(
                 'Forget Password',
-                style: GoogleFonts.lobster(
+                style: GoogleFonts.roboto(
                   textStyle: TextStyle(
                     color: cubit.isLight ? Colors.black : Colors.white,
                     fontSize: 20,

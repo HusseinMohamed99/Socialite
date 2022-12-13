@@ -86,7 +86,7 @@ class PrivateChatScreen extends StatelessWidget {
                       '${userModel.name}',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.lobster(
+                      style: GoogleFonts.roboto(
                         color: cubit.isLight ? Colors.blue : Colors.white,
                         fontSize: 20,
                       ),
@@ -188,7 +188,7 @@ class PrivateChatScreen extends StatelessWidget {
                                   contentPadding:
                                   const EdgeInsetsDirectional.all(12),
                                   hintText: ' \' Type a message \' ',
-                                  hintStyle: GoogleFonts.lobster(
+                                  hintStyle: GoogleFonts.roboto(
                                     color: Colors.grey,
                                     fontWeight: FontWeight.w700,
                                   ),
@@ -312,7 +312,7 @@ class PrivateChatScreen extends StatelessWidget {
                       '${userModel.name}',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.lobster(
+                      style: GoogleFonts.roboto(
                         color: cubit.isLight ? Colors.blue : Colors.white,
                         fontSize: 20,
                       ),
@@ -415,7 +415,7 @@ class PrivateChatScreen extends StatelessWidget {
                                     contentPadding:
                                         const EdgeInsetsDirectional.all(12),
                                     hintText: ' \' Type a message \' ',
-                                    hintStyle: GoogleFonts.lobster(
+                                    hintStyle: GoogleFonts.roboto(
                                       color: Colors.grey,
                                       fontWeight: FontWeight.w700,
                                     ),
@@ -566,7 +566,7 @@ class PrivateChatScreen extends StatelessWidget {
                     Text(
                       daysBetween(
                           DateTime.parse(messageModel.dateTime.toString())),
-                      style: GoogleFonts.lobster(
+                      style: GoogleFonts.roboto(
                         color: cubit.isLight ?  Colors.grey : Colors.black54 ,
                         textStyle: Theme.of(context).textTheme.caption,
                       ),
@@ -748,7 +748,7 @@ class PrivateChatScreen extends StatelessWidget {
                     Text(
                       daysBetween(
                           DateTime.parse(messageModel.dateTime.toString())),
-                      style: GoogleFonts.lobster(
+                      style: GoogleFonts.roboto(
                         color: Colors.white70,
                         textStyle: Theme.of(context).textTheme.caption,
                       ),

@@ -110,7 +110,7 @@ class ChatScreen extends StatelessWidget {
                 '${users.name}',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: GoogleFonts.lobster(
+                style: GoogleFonts.roboto(
                   fontSize: 20,
                   color: SocialCubit.get(context).isLight
                       ? Colors.black
@@ -125,7 +125,7 @@ class ChatScreen extends StatelessWidget {
               },
               label: Text(
                 'Message',
-                style: GoogleFonts.lobster(
+                style: GoogleFonts.roboto(
                   fontSize: 15,
                   height: 1.3,
                   color: SocialCubit.get(context).isLight
@@ -177,7 +177,7 @@ class ChatScreen extends StatelessWidget {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.lobster(
+                  style: GoogleFonts.roboto(
                     fontSize: 18,
                     color: SocialCubit.get(context).isLight
                         ? Colors.black

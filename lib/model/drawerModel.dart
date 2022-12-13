@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class Items {
+class ItemsModel {
   final String title;
   final IconData icon;
 
-  Items({required this.title, required this.icon});
+  ItemsModel({required this.title, required this.icon});
 }

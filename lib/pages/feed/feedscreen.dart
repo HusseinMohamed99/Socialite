@@ -1,7 +1,18 @@
+
+
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:f_app/Pages/addPost/addPostScreen.dart';
 import 'package:f_app/Pages/comment/comment_screen.dart';
+import 'package:f_app/Pages/friend/profileScreen.dart';
+import 'package:f_app/Pages/post/edit_post.dart';
 import 'package:f_app/Pages/profile/My_profile_screen.dart';
+import 'package:f_app/Pages/story/veiw_story.dart';
 import 'package:f_app/adaptive/indicator.dart';
+import 'package:f_app/model/post_model.dart';
+import 'package:f_app/model/storyModel.dart';
+import 'package:f_app/pages/veiwPhoto/post_view.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
+import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
 import 'package:f_app/shared/components/components.dart';
 import 'package:f_app/shared/components/constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,15 +22,6 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:fluttericon/linearicons_free_icons.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../model/post_model.dart';
-import '../../model/storyModel.dart';
-import '../../shared/Cubit/socialCubit/SocialState.dart';
-import '../addPost/addPostScreen.dart';
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import '../friend/profileScreen.dart';
-import '../post/edit_post.dart';
-import '../story/veiw_story.dart';
-import '../veiwPhoto/post_view.dart';
 
 class FeedScreen extends StatelessWidget {
   const FeedScreen({Key? key}) : super(key: key);
@@ -59,332 +61,322 @@ class FeedScreen extends StatelessWidget {
         }
       },
       builder: (context, state) {
-
-        var userModel = SocialCubit
-            .get(context)
-            .userModel;
+        var userModel = SocialCubit.get(context).userModel;
         var cubit = SocialCubit.get(context);
-        return SocialCubit
-            .get(context)
-            .posts
-            .isEmpty
+        return SocialCubit.get(context).posts.isEmpty
             ? Scaffold(
-            body: Column(
-              children: [
-                Card(
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  elevation: 10,
-                  margin: const EdgeInsets.all(10),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Row(
-                      children: [
-                        InkWell(
-                          borderRadius: BorderRadius.circular(20),
-                          onTap: () {
-                            navigateTo(context, const MyProfileScreen());
-                          },
-                          child: CircleAvatar(
-                            radius: 20,
-                            backgroundImage:
-                            NetworkImage('${userModel!.image}'),
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            width: 220,
-                            height: 50,
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            margin: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey.shade400),
-                              borderRadius: BorderRadius.circular(25),
+                body: Column(
+                children: [
+                  Card(
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    elevation: 10,
+                    margin: const EdgeInsets.all(10),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Row(
+                        children: [
+                          InkWell(
+                            borderRadius: BorderRadius.circular(20),
+                            onTap: () {
+                              navigateTo(context, const MyProfileScreen());
+                            },
+                            child: CircleAvatar(
+                              radius: 20,
+                              backgroundImage:
+                                  NetworkImage('${userModel!.image}'),
                             ),
-                            child: TextButton(
+                          ),
+                          Expanded(
+                            child: Container(
+                              width: 220,
+                              height: 50,
                               clipBehavior: Clip.antiAliasWithSaveLayer,
-                              style: ButtonStyle(
-                                overlayColor: MaterialStateProperty.all(
-                                    Colors.grey[300]),
+                              margin: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey.shade400),
+                                borderRadius: BorderRadius.circular(25),
                               ),
-                              child: Text(
-                                '\' What\'s on your mind ? \'',
-                                style: GoogleFonts.lobster(
-                                  fontSize: 16,
-                                  color: SocialCubit
-                                      .get(context)
-                                      .isLight
-                                      ? Colors.black
-                                      : Colors.white,
+                              child: TextButton(
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                style: ButtonStyle(
+                                  overlayColor: MaterialStateProperty.all(
+                                      Colors.grey[300]),
                                 ),
+                                child: Text(
+                                  '\' What\'s on your mind ? \'',
+                                  style: GoogleFonts.roboto(
+                                    fontSize: 16,
+                                    color: SocialCubit.get(context).isLight
+                                        ? Colors.black
+                                        : Colors.white,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  navigateTo(context, AddPostScreen());
+                                },
                               ),
-                              onPressed: () {
-                                navigateTo(context, AddPostScreen());
-                              },
+                            ),
+                          ),
+                          Container(
+                            width: 2,
+                            height: 50,
+                            color: Colors.grey,
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              cubit.getPostImage();
+                              navigateTo(context, AddPostScreen());
+                            },
+                            icon: Icon(
+                              Icons.photo_library_outlined,
+                              size: 30,
+                              color: cubit.isLight
+                                  ? CupertinoColors.activeBlue
+                                  : Colors.white,
+                            ),
+                            splashRadius: 20,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const Spacer(),
+                  const Icon(
+                    IconlyLight.infoSquare,
+                    size: 100,
+                    color: Colors.grey,
+                  ),
+                  Text(
+                    'No Posts yet',
+                    style: GoogleFonts.libreBaskerville(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 30,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Center(child: AdaptiveIndicator(os: getOs())),
+                  const Spacer(),
+                ],
+              ))
+            : ConditionalBuilder(
+                condition: cubit.posts.isNotEmpty,
+                builder: (BuildContext context) => RefreshIndicator(
+                  onRefresh: () async {
+                    cubit.getUserData();
+                    return cubit.getUserData();
+                  },
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          physics: const BouncingScrollPhysics(),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    cubit.getStoryImage(context);
+                                  },
+                                  child: Container(
+                                    width: 110,
+                                    height: 190,
+                                    margin: const EdgeInsetsDirectional.only(
+                                        start: 8),
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey.withOpacity(0.3),
+                                        borderRadius:
+                                            BorderRadius.circular(17)),
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 153,
+                                          child: Stack(
+                                            alignment: AlignmentDirectional
+                                                .bottomCenter,
+                                            children: [
+                                              Align(
+                                                alignment: AlignmentDirectional
+                                                    .topCenter,
+                                                child: Container(
+                                                  width: 110,
+                                                  height: 135,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        const BorderRadius.only(
+                                                      topRight:
+                                                          Radius.circular(17),
+                                                      topLeft:
+                                                          Radius.circular(17),
+                                                      bottomLeft:
+                                                          Radius.circular(10),
+                                                      bottomRight:
+                                                          Radius.circular(10),
+                                                    ),
+                                                    image: DecorationImage(
+                                                      image: NetworkImage(cubit
+                                                          .userModel!.image!),
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              CircleAvatar(
+                                                radius: 20,
+                                                backgroundColor: Colors.grey
+                                                    .withOpacity(0.3),
+                                                child: const CircleAvatar(
+                                                  radius: 18,
+                                                  backgroundColor: Colors.blue,
+                                                  child: Icon(
+                                                    Icons.add,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        const Spacer(),
+                                        Text(
+                                          "Create Story",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle2,
+                                        ),
+                                        const Spacer(),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                SizedBox(
+                                  height: 180,
+                                  child: ListView.separated(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      reverse: true,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (context, index) =>
+                                          storyItem(
+                                              context, cubit.stories[index]),
+                                      separatorBuilder: (context, index) =>
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                      itemCount: cubit.stories.length),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                        Container(
-                          width: 2,
-                          height: 50,
-                          color: Colors.grey,
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            cubit.getPostImage();
-                            navigateTo(context, AddPostScreen());
-                          },
-                          icon: Icon(
-                            Icons.photo_library_outlined,
-                            size: 30,
-                            color: cubit.isLight
-                                ? CupertinoColors.activeBlue
-                                : Colors.white,
+                        Card(
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          elevation: 10,
+                          margin: const EdgeInsets.all(10),
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 20.0),
+                            child: Row(
+                              children: [
+                                InkWell(
+                                  borderRadius: BorderRadius.circular(20),
+                                  onTap: () {
+                                    navigateTo(
+                                        context, const MyProfileScreen());
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 20,
+                                    backgroundImage:
+                                        NetworkImage('${userModel!.image}'),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Container(
+                                    width: 220,
+                                    height: 50,
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    margin: const EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Colors.grey.shade400),
+                                      borderRadius: BorderRadius.circular(25),
+                                    ),
+                                    child: TextButton(
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      style: ButtonStyle(
+                                        overlayColor: MaterialStateProperty.all(
+                                            Colors.grey[300]),
+                                      ),
+                                      child: Text(
+                                        '\' What\'s on your mind ? \'',
+                                        style: GoogleFonts.roboto(
+                                          fontSize: 16,
+                                          color:
+                                              SocialCubit.get(context).isLight
+                                                  ? Colors.black
+                                                  : Colors.white,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        navigateTo(context, AddPostScreen());
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  width: 2,
+                                  height: 50,
+                                  color: Colors.grey,
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    cubit.getPostImage();
+                                    navigateTo(context, AddPostScreen());
+                                  },
+                                  icon: Icon(
+                                    Icons.photo_library_outlined,
+                                    size: 30,
+                                    color: cubit.isLight
+                                        ? CupertinoColors.activeBlue
+                                        : Colors.white,
+                                  ),
+                                  splashRadius: 20,
+                                ),
+                              ],
+                            ),
                           ),
-                          splashRadius: 20,
                         ),
+                        space(0, 10),
+                        ListView.separated(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: cubit.posts.length,
+                          separatorBuilder: (context, index) => space(0, 10),
+                          itemBuilder: (context, index) => (buildPostItem(
+                              cubit.posts[index], context, index)),
+                        ),
+                        space(0, 10),
                       ],
                     ),
                   ),
                 ),
-                const Spacer(),
-                const Icon(
-                  IconlyLight.infoSquare,
-                  size: 100,
-                  color: Colors.grey,
-                ),
-                Text(
-                  'No Posts yet',
-                  style: GoogleFonts.libreBaskerville(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 30,
-                    color: Colors.grey,
+                fallback: (BuildContext context) => Center(
+                  child: AdaptiveIndicator(
+                    os: getOs(),
                   ),
                 ),
-                Center(child: AdaptiveIndicator(os: getOs())),
-                const Spacer(),
-              ],
-            ))
-            : ConditionalBuilder(
-          condition: cubit.posts.isNotEmpty,
-          builder: (BuildContext context) =>
-              RefreshIndicator(
-                onRefresh: () async {
-                  cubit.getUserData();
-                  return cubit.getPosts();
-                },
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        physics: const BouncingScrollPhysics(),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  cubit.getStoryImage(context);
-                                },
-                                child: Container(
-                                  width: 110,
-                                  height: 190,
-                                  margin: const EdgeInsetsDirectional.only(
-                                      start: 8),
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey.withOpacity(0.3),
-                                      borderRadius:
-                                      BorderRadius.circular(17)),
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 153,
-                                        child: Stack(
-                                          alignment: AlignmentDirectional
-                                              .bottomCenter,
-                                          children: [
-                                            Align(
-                                              alignment: AlignmentDirectional
-                                                  .topCenter,
-                                              child: Container(
-                                                width: 110,
-                                                height: 135,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                  const BorderRadius
-                                                      .only(
-                                                    topRight:
-                                                    Radius.circular(17),
-                                                    topLeft:
-                                                    Radius.circular(17),
-                                                    bottomLeft:
-                                                    Radius.circular(10),
-                                                    bottomRight:
-                                                    Radius.circular(10),
-                                                  ),
-                                                  image: DecorationImage(
-                                                    image: NetworkImage(
-                                                        cubit.userModel!
-                                                            .image!),
-                                                    fit: BoxFit.fill,),),
-                                              ),
-                                            ),
-                                            CircleAvatar(
-                                              radius: 20,
-                                              backgroundColor: Colors.grey
-                                                  .withOpacity(0.3),
-                                              child: const CircleAvatar(
-                                                radius: 18,
-                                                backgroundColor: Colors.blue,
-                                                child: Icon(
-                                                  Icons.add,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      const Spacer(),
-                                      Text(
-                                        "Create Story",
-                                        style: Theme
-                                            .of(context)
-                                            .textTheme
-                                            .subtitle2,
-                                      ),
-                                      const Spacer(),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              SizedBox(
-                                height: 180,
-                                child: ListView.separated(
-                                    physics:
-                                    const NeverScrollableScrollPhysics(),
-                                    reverse: true,
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (context, index) =>
-                                        storyItem(
-                                            context, cubit.stories[index]),
-                                    separatorBuilder: (context, index) =>
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    itemCount: cubit.stories.length),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Card(
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        elevation: 10,
-                        margin: const EdgeInsets.all(10),
-                        child: Padding(
-                          padding:
-                          const EdgeInsets.symmetric(horizontal: 20.0),
-                          child: Row(
-                            children: [
-                              InkWell(
-                                borderRadius: BorderRadius.circular(20),
-                                onTap: () {
-                                  navigateTo(
-                                      context, const MyProfileScreen());
-                                },
-                                child: CircleAvatar(
-                                  radius: 20,
-                                  backgroundImage:
-                                  NetworkImage('${userModel!.image}'),
-                                ),
-                              ),
-                              Expanded(
-                                child: Container(
-                                  width: 220,
-                                  height: 50,
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  margin: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Colors.grey.shade400),
-                                    borderRadius: BorderRadius.circular(25),
-                                  ),
-                                  child: TextButton(
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    style: ButtonStyle(
-                                      overlayColor: MaterialStateProperty.all(
-                                          Colors.grey[300]),
-                                    ),
-                                    child: Text(
-                                      '\' What\'s on your mind ? \'',
-                                      style: GoogleFonts.lobster(
-                                        fontSize: 16,
-                                        color:
-                                        SocialCubit
-                                            .get(context)
-                                            .isLight
-                                            ? Colors.black
-                                            : Colors.white,
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      navigateTo(context, AddPostScreen());
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: 2,
-                                height: 50,
-                                color: Colors.grey,
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  cubit.getPostImage();
-                                  navigateTo(context, AddPostScreen());
-                                },
-                                icon: Icon(
-                                  Icons.photo_library_outlined,
-                                  size: 30,
-                                  color: cubit.isLight
-                                      ? CupertinoColors.activeBlue
-                                      : Colors.white,
-                                ),
-                                splashRadius: 20,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      space(0, 10),
-                      ListView.separated(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: cubit.posts.length,
-                        separatorBuilder: (context, index) => space(0, 10),
-                        itemBuilder: (context, index) =>
-                        (buildPostItem(
-                            cubit.posts[index], context, index)),
-                      ),
-                      space(0, 10),
-                    ],
-                  ),
-                ),
-              ),
-          fallback: (BuildContext context) =>
-              Center(child: AdaptiveIndicator(os: getOs(),),),);
+              );
       },
-
     );
   }
 
@@ -439,7 +431,7 @@ class FeedScreen extends StatelessWidget {
                             },
                             child: Text(
                               '${postModel.name}',
-                              style: GoogleFonts.lobster(
+                              style: GoogleFonts.roboto(
                                 fontSize: 20,
                                 height: 1.3,
                                 color: SocialCubit.get(context).isLight
@@ -467,7 +459,7 @@ class FeedScreen extends StatelessWidget {
                           Text(
                             daysBetween(
                                 DateTime.parse(postModel.dateTime.toString())),
-                            style: GoogleFonts.lobster(
+                            style: GoogleFonts.roboto(
                                 fontSize: 15,
                                 color: Colors.grey,
                                 textStyle: Theme.of(context).textTheme.caption,
@@ -717,8 +709,9 @@ class FeedScreen extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(15),
                           child: Image(
-                              image: NetworkImage('${postModel.postImage}'),
-                            fit: BoxFit.fill,),
+                            image: NetworkImage('${postModel.postImage}'),
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ),
                     ),
@@ -738,7 +731,7 @@ class FeedScreen extends StatelessWidget {
                   ),
                   label: Text(
                     '${SocialCubit.get(context).likes[index]}',
-                    style: GoogleFonts.lobster(
+                    style: GoogleFonts.roboto(
                       color: Colors.red,
                     ),
                   ),
@@ -758,7 +751,7 @@ class FeedScreen extends StatelessWidget {
                   ),
                   label: Text(
                     '${SocialCubit.get(context).commentsNum[index]}',
-                    style: GoogleFonts.lobster(
+                    style: GoogleFonts.roboto(
                       color: Colors.orangeAccent,
                     ),
                   ),
@@ -800,7 +793,7 @@ class FeedScreen extends StatelessWidget {
                     width: 150,
                     child: Text(
                       'Write a comment ...',
-                      style: GoogleFonts.lobster(
+                      style: GoogleFonts.roboto(
                         textStyle: Theme.of(context).textTheme.caption,
                         fontSize: 15,
                         color: Colors.grey,
@@ -824,7 +817,7 @@ class FeedScreen extends StatelessWidget {
                   },
                   label: Text(
                     'Like',
-                    style: GoogleFonts.lobster(
+                    style: GoogleFonts.roboto(
                       color: SocialCubit.get(context).likedByMe[index] == true
                           ? Colors.red
                           : Colors.grey,
@@ -845,7 +838,7 @@ class FeedScreen extends StatelessWidget {
                   ),
                   label: Text(
                     'Share',
-                    style: GoogleFonts.lobster(
+                    style: GoogleFonts.roboto(
                       color: Colors.green,
                     ),
                   ),

@@ -40,7 +40,7 @@ class CommentsScreen extends StatelessWidget {
           titleSpacing: 1,
           title: Text(
             'Comments',
-            style: GoogleFonts.lobster(
+            style: GoogleFonts.roboto(
               color: cubit.isLight ? Colors.blue : Colors.white,
               fontSize: 20,
             ),
@@ -349,7 +349,7 @@ class CommentsScreen extends StatelessWidget {
                               textAlign: TextAlign.start,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: GoogleFonts.lobster(
+                              style: GoogleFonts.roboto(
                                 color: SocialCubit.get(context).isLight
                                     ? Colors.blue
                                     : Colors.white,
@@ -379,7 +379,7 @@ class CommentsScreen extends StatelessWidget {
                 ),
                 Text(
                   daysBetween(DateTime.parse(comment.dateTime.toString())),
-                  style: GoogleFonts.lobster(
+                  style: GoogleFonts.roboto(
                       fontSize: 15,
                       color: Colors.grey,
                       textStyle: Theme.of(context).textTheme.caption,
