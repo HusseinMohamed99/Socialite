@@ -12,8 +12,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'shared/components/constants.dart';
 import 'shared/network/cache_helper.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async
 {  showToast(text: 'Messaging Background', state: ToastStates.success);
@@ -90,6 +92,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
         return MaterialApp(
+          localizationsDelegates: [
+            AppLocalizations.delegate, // Add this line
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: AppLocalizations.supportedLocales,
+
           debugShowCheckedModeBanner: false,
           theme: lightTheme,
           darkTheme: darkTheme,
