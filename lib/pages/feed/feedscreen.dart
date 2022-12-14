@@ -358,14 +358,13 @@ class FeedScreen extends StatelessWidget {
                         ),
                         space(0, 10),
                         ListView.separated(
-                          physics: const NeverScrollableScrollPhysics(),
+                         physics: const BouncingScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: cubit.posts.length + 1,
-                          separatorBuilder: (context, index) => space(0, 10),
+                          itemCount: cubit.posts.length,
+                          separatorBuilder: (context, index) => space(0, 0),
                           itemBuilder: (context, index) => (buildPostItem(
                               cubit.posts[index], context, index)),
                         ),
-                        space(0, 10),
                       ],
                     ),
                   ),
