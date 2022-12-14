@@ -71,7 +71,7 @@ class EditProfileScreen extends StatelessWidget {
                                     Container(
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
-                                          fit: BoxFit.fill,
+                                          fit: BoxFit.cover,
                                           image: coverImage == null
                                               ? NetworkImage(userModel.cover!)
                                               : FileImage(coverImage) as ImageProvider,
@@ -91,7 +91,7 @@ class EditProfileScreen extends StatelessWidget {
                                         radius: 25,
                                         backgroundColor: cubit.isLight
                                             ? Colors.grey.shade50
-                                            : const Color(0xff063750),
+                                            : const Color(0xff404258),
                                         child: IconButton(
                                           splashRadius: 1,
                                           onPressed: () {
@@ -129,7 +129,7 @@ class EditProfileScreen extends StatelessWidget {
                                       radius: 25,
                                       backgroundColor: cubit.isLight
                                           ? Colors.grey.shade50
-                                          : const Color(0xff063750),
+                                          : const Color(0xff404258),
                                       child: IconButton(
                                         splashRadius: 1,
                                         onPressed: () {

@@ -180,7 +180,7 @@ class AddPostScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image(
                                     image: FileImage(cubit.postImagePicked!),
-                                    fit: BoxFit.fill),
+                                    fit: BoxFit.cover),
                               ),
                             ),
                           ),
@@ -219,7 +219,7 @@ class AddPostScreen extends StatelessWidget {
                     child: OutlinedButton.icon(
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
-                          cubit.isLight ? Colors.white : const Color(0xff063750),
+                          cubit.isLight ? Colors.white : const Color(0xff404258),
                         ),
                       ),
                       onPressed: () {

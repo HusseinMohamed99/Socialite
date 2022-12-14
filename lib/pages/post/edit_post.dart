@@ -204,14 +204,14 @@ class EditPosts extends StatelessWidget {
                                         child: Image(
                                             image: FileImage(
                                                 cubit.postImagePicked!),
-                                          fit: BoxFit.fill,),
+                                          fit: BoxFit.cover,),
                                       )
                                     : ClipRRect(
                                         borderRadius: BorderRadius.circular(10),
                                         child: Image(
                                             image: NetworkImage(
                                                 postModel.postImage!),
-                                          fit: BoxFit.fill,),
+                                          fit: BoxFit.cover,),
                                       ),
                               ),
                             ),
@@ -253,7 +253,7 @@ class EditPosts extends StatelessWidget {
                           backgroundColor: MaterialStateProperty.all(
                             cubit.isLight
                                 ? Colors.white
-                                : const Color(0xff063750),
+                                : const Color(0xff404258),
                           ),
                         ),
                         onPressed: () {

@@ -117,6 +117,7 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
   void goToNextView() {
     Widget widget;
     Future.delayed(const Duration(seconds: 2), () {
+
       if (uId != null) {
         widget = const HomeLayout();
       } else {

@@ -29,7 +29,7 @@ class ViewStory extends StatelessWidget {
                           decoration: BoxDecoration(
                               image: DecorationImage(
                                   image: NetworkImage(model!.storyImage!),
-                                  fit: BoxFit.fill)),
+                                  fit: BoxFit.cover,)),
                         ),
                       ),
                     ),

@@ -51,31 +51,9 @@ void main() async {
   debugPrint('*** User ID == $uId ***');
 
   runApp(
-    MultiBlocProvider(
-      providers: [
-        BlocProvider(
-            create: (context) => SocialCubit()
-              ..getUserData()
-              ..getPosts()
-              ..getAllUsers()
-              ..getStories()
-              ..changeMode(
-                fromShared: isLight,
-              )),
-      ],
-      child: BlocConsumer<SocialCubit, SocialStates>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          SystemChrome.setPreferredOrientations([
-            DeviceOrientation.portraitUp,
-            DeviceOrientation.portraitDown,
-          ]);
-          return MyApp(
-            isLight: isLight,
-            // startWidget: widget,
-          );
-        },
-      ),
+    MyApp(
+      isLight: isLight,
+      // startWidget: widget
     ),
   );
 }
@@ -92,29 +70,54 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: const [
-        AppLocalizations.delegate, // Add this line
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+            create: (context) => SocialCubit()
+              ..getUserData()
+              ..getPosts()
+              ..getAllUsers()
+              ..getStories()
+              ..changeMode(
+                fromShared: isLight,
+              )),
       ],
-      supportedLocales: AppLocalizations.supportedLocales,
-      debugShowCheckedModeBanner: false,
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      themeMode:
-          SocialCubit.get(context).isLight ? ThemeMode.light : ThemeMode.dark,
-      home: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-        if (kDebugMode) {
-          print(constraints.minWidth.toInt());
-        }
-        if (constraints.minWidth.toInt() <= 480) {
-          return const SplashScreen();
-        }
-        return const DesktopScreen();
-      }),
+      child: BlocConsumer<SocialCubit, SocialStates>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            SystemChrome.setPreferredOrientations([
+              DeviceOrientation.portraitUp,
+              DeviceOrientation.portraitDown,
+            ]);
+
+            return MaterialApp(
+              localizationsDelegates: const [
+                AppLocalizations.delegate, // Add this line
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: AppLocalizations.supportedLocales,
+              debugShowCheckedModeBanner: false,
+              theme: lightTheme,
+              darkTheme: darkTheme,
+              themeMode: SocialCubit.get(context).isLight
+                  ? ThemeMode.light
+                  : ThemeMode.dark,
+              home: LayoutBuilder(
+                  builder: (BuildContext context, BoxConstraints constraints) {
+                if (kDebugMode) {
+                  print(constraints.minWidth.toInt());
+                  print(constraints.minHeight.toInt());
+                }
+                if (constraints.minWidth.toInt() <= 500 &&
+                    constraints.minHeight.toInt() <= 900) {
+                  return const SplashScreen();
+                }
+                return const DesktopScreen();
+              }),
+            );
+          }),
     );
   }
 }

@@ -39,7 +39,7 @@ class StoryScreen extends StatelessWidget {
                               decoration: BoxDecoration(
                                   image: DecorationImage(
                                       image: NetworkImage(e.storyImage!),
-                                      fit: BoxFit.fill),
+                                      fit: BoxFit.cover),
                                   borderRadius: const BorderRadius.only(
                                       topRight: Radius.circular(10),
                                       topLeft: Radius.circular(10),
@@ -171,7 +171,7 @@ class StoryScreen extends StatelessWidget {
                                           image: DecorationImage(
                                               image: NetworkImage(
                                                   cubit.userModel!.image!),
-                                              fit: BoxFit.fill)),
+                                              fit: BoxFit.cover)),
                                     ),
                                   ),
                                   CircleAvatar(
@@ -276,7 +276,7 @@ class StoryScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(14),
                   image: DecorationImage(
                     image: NetworkImage(model.storyImage!),
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                   )),
             ),
             Padding(
@@ -332,7 +332,7 @@ class StoryScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(14),
                   image: DecorationImage(
                     image: NetworkImage(model.storyImage!),
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                   )),
             ),
             Padding(

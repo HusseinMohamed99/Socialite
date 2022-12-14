@@ -57,7 +57,7 @@ class _SearchScreenState extends State<SearchScreen> {
               leading: IconButton(
                 icon: Icon(
                   IconlyBroken.arrowLeft2,
-                  color: cubit.isLight ? const Color(0xff063750) : Colors.white,
+                  color: cubit.isLight ? const Color(0xff404258) : Colors.white,
                 ),
                 onPressed: () {
                   Navigator.pop(context);

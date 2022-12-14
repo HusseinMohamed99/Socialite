@@ -31,7 +31,6 @@ class _ImageViewScreenState extends State<ImageViewScreen> {
                 "${widget.image}",
                 height: double.infinity,
                 width: double.infinity,
-                fit: BoxFit.fill,
                 alignment: Alignment.center,
               ),
               if (showText == true && widget.body != '')

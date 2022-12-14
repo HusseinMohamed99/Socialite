@@ -119,7 +119,7 @@ class MyProfileScreen extends StatelessWidget {
                                       child: Container(
                                         decoration: BoxDecoration(
                                             image: DecorationImage(
-                                              fit: BoxFit.fill,
+                                              fit: BoxFit.cover,
                                               image: NetworkImage(
                                                   '${userModel!.cover}'),
                                             ),
@@ -324,7 +324,7 @@ class MyProfileScreen extends StatelessWidget {
                                             MaterialStateProperty.all(
                                           cubit.isLight
                                               ? Colors.grey.shade400
-                                              : const Color(0xff063750),
+                                              : const Color(0xff404258),
                                         ),
                                       ),
                                       onPressed: () {
@@ -419,7 +419,7 @@ Widget buildProfileWithOutPosts () => Builder(
                   child: Container(
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                          fit: BoxFit.fill,
+                          fit: BoxFit.cover,
                           image: NetworkImage(
                               '${userModel!.cover}'),
                         ),
@@ -616,7 +616,7 @@ Widget buildProfileWithOutPosts () => Builder(
                     MaterialStateProperty.all(
                       cubit.isLight
                           ? Colors.grey.shade400
-                          : const Color(0xff063750),
+                          : const Color(0xff404258),
                     ),
                   ),
                   onPressed: () {
@@ -962,7 +962,7 @@ Widget buildPostItem(PostModel postModel, context,index) {
                         borderRadius: BorderRadius.circular(15),
                         child: Image(
                             image: NetworkImage('${postModel.postImage}'),
-                          fit: BoxFit.fill,),
+                          fit: BoxFit.cover,),
                       ),
                     ),
                   ),

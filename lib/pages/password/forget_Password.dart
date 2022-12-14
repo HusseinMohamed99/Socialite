@@ -99,7 +99,7 @@ class RestPasswordScreen extends StatelessWidget {
                               BoxShadow(
                                 blurStyle: BlurStyle.outer,
                                   color: cubit.isLight
-                                      ? const Color(0xff063750)
+                                      ? const Color(0xff404258)
                                       : Colors.white,
                                   blurRadius: 9,
                                   spreadRadius: 10,
@@ -107,12 +107,12 @@ class RestPasswordScreen extends StatelessWidget {
                             ],
                             border: Border.all(
                               color: cubit.isLight
-                                  ? const Color(0xff063750)
+                                  ? const Color(0xff404258)
                                   : Colors.white,
                             ),
                             color: cubit.isLight
                                 ? Colors.white
-                                : const Color(0xff063750),
+                                : const Color(0xff404258),
                             borderRadius: const BorderRadius.only(
                               topRight: Radius.circular(50.0),
                               topLeft: Radius.circular(50.0),

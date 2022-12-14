@@ -289,7 +289,7 @@ class _UserScreenState extends State<UserScreen> {
                 image: NetworkImage('${userModel.image}'),
                 height: 200,
                 width: 230,
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
               )),
           space(0, 10),
           Container(

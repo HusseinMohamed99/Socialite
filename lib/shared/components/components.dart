@@ -649,7 +649,7 @@ Widget buildPost(
                         borderRadius: BorderRadius.circular(15),
                         child: Image(
                             image: NetworkImage('${postModel.postImage}'),
-                          fit: BoxFit.fill,),
+                          fit: BoxFit.cover,),
                       ),
                     ),
                   ),

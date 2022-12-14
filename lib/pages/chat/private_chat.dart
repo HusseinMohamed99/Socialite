@@ -47,7 +47,7 @@ class PrivateChatScreen extends StatelessWidget {
                 gravity: ToastGravity.BOTTOM,
                 backgroundColor: SocialCubit.get(context).isLight
                     ? Colors.white
-                    : const Color(0xff063750),
+                    : const Color(0xff404258),
                 timeInSecForIosWeb: 5,
                 textColor: SocialCubit.get(context).isLight
                     ? Colors.black
@@ -138,7 +138,7 @@ class PrivateChatScreen extends StatelessWidget {
                                     topRight: Radius.circular(4),
                                   ),
                                   image: DecorationImage(
-                                    fit: BoxFit.fill,
+                                    fit: BoxFit.cover,
                                     image: FileImage(SocialCubit.get(context)
                                         .messageImagePicked!),
                                   ))),
@@ -365,7 +365,7 @@ class PrivateChatScreen extends StatelessWidget {
                                       topRight: Radius.circular(4),
                                     ),
                                     image: DecorationImage(
-                                      fit: BoxFit.fill,
+                                      fit: BoxFit.cover,
                                       image: FileImage(SocialCubit.get(context)
                                           .messageImagePicked!),
                                     ))),
@@ -551,7 +551,7 @@ class PrivateChatScreen extends StatelessWidget {
                   const EdgeInsets.only(left: 0, right: 8, top: 5, bottom: 5),
               child: Bubble(
                 nip: BubbleNip.rightBottom,
-                color: cubit.isLight ?  const Color(0xff063750) : Colors.white ,
+                color: cubit.isLight ?  const Color(0xff404258) : Colors.white ,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
@@ -604,7 +604,7 @@ class PrivateChatScreen extends StatelessWidget {
             child: Bubble(
               padding: const BubbleEdges.all(4),
               nip: BubbleNip.rightBottom,
-              color: cubit.isLight ? const Color(0xff063750) : Colors.white,
+              color: cubit.isLight ? const Color(0xff404258) : Colors.white,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -631,7 +631,7 @@ class PrivateChatScreen extends StatelessWidget {
                         image: NetworkImage(
                           '${messageModel.messageImage}',
                         ),
-                        fit: BoxFit.fill,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
@@ -694,7 +694,7 @@ class PrivateChatScreen extends StatelessWidget {
                       topStart: Radius.circular(20),
                     ),
                     image: DecorationImage(
-                        fit: BoxFit.fill,
+                        fit: BoxFit.cover,
                         image: NetworkImage('${messageModel.messageImage}')),
                   )),
             ),
@@ -807,7 +807,7 @@ class PrivateChatScreen extends StatelessWidget {
                         image: NetworkImage(
                           '${messageModel.messageImage}',
                         ),
-                        fit: BoxFit.fill,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
@@ -870,7 +870,7 @@ class PrivateChatScreen extends StatelessWidget {
                       topStart: Radius.circular(20),
                     ),
                     image: DecorationImage(
-                        fit: BoxFit.fill,
+                        fit: BoxFit.cover,
                         image: NetworkImage('${messageModel.messageImage}')),
                   )),
             ),

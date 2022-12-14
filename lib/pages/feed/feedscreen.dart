@@ -219,7 +219,7 @@ class FeedScreen extends StatelessWidget {
                                                     image: DecorationImage(
                                                       image: NetworkImage(cubit
                                                           .userModel!.image!),
-                                                      fit: BoxFit.fill,
+                                                      fit: BoxFit.cover,
                                                     ),
                                                   ),
                                                 ),
@@ -710,7 +710,7 @@ class FeedScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15),
                           child: Image(
                             image: NetworkImage('${postModel.postImage}'),
-                            fit: BoxFit.fill,
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
@@ -870,7 +870,7 @@ class FeedScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(14),
                   image: DecorationImage(
                     image: NetworkImage(model.storyImage!),
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                   )),
             ),
             Padding(

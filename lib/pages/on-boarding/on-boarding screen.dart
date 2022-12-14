@@ -16,7 +16,7 @@ class OnBoard extends StatelessWidget {
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage("assets/images/back.jpg"),
-          fit: BoxFit.fill,
+          fit: BoxFit.cover,
         ),
       ),
       child: Scaffold(
@@ -26,9 +26,6 @@ class OnBoard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Spacer(
-                flex: 1,
-              ),
               Expanded(
                 child: Text(
                   'Snap\nand\nShare\nevery\nmoments',

@@ -42,7 +42,7 @@ class CreateStory extends StatelessWidget {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: FileImage(bloc.storyImage!),
-                      fit: BoxFit.fill,),),
+                      fit: BoxFit.cover,),),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

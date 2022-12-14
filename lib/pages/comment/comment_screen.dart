@@ -82,7 +82,7 @@ class CommentsScreen extends StatelessWidget {
                             ),
                             Container(
                               color: cubit.isLight
-                                  ? const Color(0xff063750)
+                                  ? const Color(0xff404258)
                                   : Colors.white,
                               child: Form(
                                 key: formKey,
@@ -93,7 +93,7 @@ class CommentsScreen extends StatelessWidget {
                                           radius: 35,
                                           backgroundColor: cubit.isLight
                                               ? Colors.white
-                                              : const Color(0xff063750),
+                                              : const Color(0xff404258),
                                           child: Icon(
                                             IconlyBroken.image,
                                             size: 25,
@@ -147,7 +147,7 @@ class CommentsScreen extends StatelessWidget {
                                           radius: 25,
                                           backgroundColor: cubit.isLight
                                               ? Colors.white
-                                              : const Color(0xff063750),
+                                              : const Color(0xff404258),
                                           child: Icon(
                                             IconlyBroken.send,
                                             size: 25,
@@ -197,7 +197,7 @@ class CommentsScreen extends StatelessWidget {
                                 ])),
                             Container(
                               color: cubit.isLight
-                                  ? const Color(0xff063750)
+                                  ? const Color(0xff404258)
                                   : Colors.white,
                               child: Form(
                                 key: formKey,
@@ -208,7 +208,7 @@ class CommentsScreen extends StatelessWidget {
                                           radius: 35,
                                           backgroundColor: cubit.isLight
                                               ? Colors.white
-                                              : const Color(0xff063750),
+                                              : const Color(0xff404258),
                                           child: Icon(
                                             IconlyBroken.image,
                                             size: 25,
@@ -262,7 +262,7 @@ class CommentsScreen extends StatelessWidget {
                                           radius: 25,
                                           backgroundColor: cubit.isLight
                                               ? Colors.white
-                                              : const Color(0xff063750),
+                                              : const Color(0xff404258),
                                           child: Icon(
                                             IconlyBroken.send,
                                             size: 25,
@@ -329,7 +329,7 @@ class CommentsScreen extends StatelessWidget {
                     ),
                     color: SocialCubit.get(context).isLight
                         ? Colors.grey.shade300
-                        : const Color(0xff063750),
+                        : const Color(0xff404258),
                   ),
                   child: Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(

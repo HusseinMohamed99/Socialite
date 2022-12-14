@@ -116,7 +116,7 @@ class EditPasswordScreen extends StatelessWidget {
                                   backgroundColor: MaterialStateProperty.all(
                                     cubit.isLight
                                         ? Colors.white
-                                        : const Color(0xff063750),
+                                        : const Color(0xff404258),
                                   ),
                                 ),
                                 onPressed: () {

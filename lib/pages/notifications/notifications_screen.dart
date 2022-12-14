@@ -42,7 +42,7 @@ class NotificationScreenState extends State<NotificationScreen>
                   icon: Icon(
                     IconlyBroken.arrowLeft2,
                     color:
-                        cubit.isLight ? const Color(0xff063750) : Colors.white,
+                        cubit.isLight ? const Color(0xff404258) : Colors.white,
                   ),
                   onPressed: () {
                     Navigator.pop(context);
@@ -129,7 +129,7 @@ class NotificationScreenState extends State<NotificationScreen>
         }
       },
       child: Container(
-        color:cubit.isLight ? Colors.white : const Color(0xff063750),
+        color:cubit.isLight ? Colors.white : const Color(0xff404258),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Row(
