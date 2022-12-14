@@ -57,7 +57,8 @@ class LoginScreen extends StatelessWidget {
                             'Sign in Now',
                             style: GoogleFonts.roboto(
                               textStyle: TextStyle(
-                                color: cubit.isLight ? Colors.black : Colors.white,
+                                color:
+                                    cubit.isLight ? Colors.black : Colors.white,
                                 fontSize: 40,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -172,8 +173,12 @@ class LoginScreen extends StatelessWidget {
                                                     .then((value) {
                                                   if (LoginCubit.get(context)
                                                       .isEmailVerified) {
+                                                    SocialCubit.get(context)
+                                                      ..getUserData()
+                                                      ..getPosts()
+                                                      ..getAllUsers();
                                                     navigateAndFinish(context,
-                                                         const HomeLayout());
+                                                        const HomeLayout());
                                                   } else {
                                                     navigateTo(context,
                                                         const EmailVerificationScreen());
@@ -185,7 +190,7 @@ class LoginScreen extends StatelessWidget {
                                   text: 'Login',
                                 ),
                               )
-                            :  Center(
+                            : Center(
                                 child: AdaptiveIndicator(os: getOs()),
                               ),
                         space(0, 15),
@@ -195,8 +200,9 @@ class LoginScreen extends StatelessWidget {
                               'Don\'t have an account?',
                               style: GoogleFonts.roboto(
                                 textStyle: TextStyle(
-                                  color:
-                                      cubit.isLight ? Colors.black : Colors.white,
+                                  color: cubit.isLight
+                                      ? Colors.black
+                                      : Colors.white,
                                   fontSize: 20,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -205,7 +211,8 @@ class LoginScreen extends StatelessWidget {
                             cubit.isLight == true
                                 ? TextButton(
                                     onPressed: () {
-                                      navigateTo(context, const RegisterScreen());
+                                      navigateTo(
+                                          context, const RegisterScreen());
                                     },
                                     child: Text(
                                       'Register Now!',
@@ -221,11 +228,12 @@ class LoginScreen extends StatelessWidget {
                                     ),
                                   )
                                 : Container(
-                                    margin:
-                                        const EdgeInsets.symmetric(horizontal: 4),
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 4),
                                     decoration: BoxDecoration(
                                         color: Colors.white,
-                                        borderRadius: BorderRadius.circular(40)),
+                                        borderRadius:
+                                            BorderRadius.circular(40)),
                                     child: TextButton(
                                       onPressed: () {
                                         navigateTo(
@@ -252,7 +260,7 @@ class LoginScreen extends StatelessWidget {
                             children: [
                               InkWell(
                                 borderRadius: BorderRadius.circular(15),
-                                onTap: ()  {
+                                onTap: () {
                                   LoginCubit.get(context).signINWithGoogle();
                                 },
                                 child: const CircleAvatar(
