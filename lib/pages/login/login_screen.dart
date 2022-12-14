@@ -1,14 +1,15 @@
 import 'package:f_app/Pages/Login/Auth_phone/Auth_Phone.dart';
+import 'package:f_app/Pages/Register/register_screen.dart';
 import 'package:f_app/Pages/password/forget_Password.dart';
 import 'package:f_app/adaptive/indicator.dart';
 import 'package:f_app/shared/Cubit/loginCubit/cubit.dart';
-import 'package:f_app/Pages/Register/register_screen.dart';
 import 'package:f_app/shared/Cubit/loginCubit/state.dart';
 import 'package:f_app/shared/components/components.dart';
 import 'package:f_app/shared/network/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../../layout/Home/home_layout.dart';
 import '../../shared/Cubit/socialCubit/SocialCubit.dart';
 import '../../shared/components/constants.dart';
@@ -80,7 +81,7 @@ class LoginScreen extends StatelessWidget {
                         Text(
                           'E-mail Address',
                           style: GoogleFonts.roboto(
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                               color: Colors.grey,
                               fontSize: 20,
                               fontWeight: FontWeight.w600,
@@ -275,9 +276,8 @@ class LoginScreen extends StatelessWidget {
                                   backgroundImage: AssetImage(
                                     'assets/images/phone.png',
                                   ),
-                                  radius: 50,
-                                  backgroundColor:
-                               Colors.white,
+                                  radius: 30,
+                                  backgroundColor: Colors.white,
                                 ),
                               ),
                             ],

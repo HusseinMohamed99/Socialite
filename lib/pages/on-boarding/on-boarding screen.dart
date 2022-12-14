@@ -23,27 +23,29 @@ class OnBoard extends StatelessWidget {
         backgroundColor: Colors.transparent,
         body: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Text(
-                  'Snap\nand\nShare\nevery\nmoments',
-                  style: GoogleFonts.roboto(
-                    textStyle: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 60,
-                      overflow: TextOverflow.visible,
-                      fontWeight: FontWeight.w600,
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                space(0, 270),
+                Expanded(
+                  child: Text(
+                    'Snap\nand\nShare\nevery\nmoments',
+                    style: GoogleFonts.roboto(
+                      textStyle: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 60,
+                        overflow: TextOverflow.visible,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              space(0, 230),
-              Center(
-                child: Column(
-                  children: [
-                    Container(
+                space(0, 89),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Container(
                         width: 270,
                         height: 40,
                         decoration: BoxDecoration(
@@ -53,9 +55,8 @@ class OnBoard extends StatelessWidget {
                           ),
                         ),
                         child: MaterialButton(
-                          onPressed: ()
-                          {
-                            navigateAndFinish(context,  const LoginScreen());
+                          onPressed: () {
+                            navigateAndFinish(context, const LoginScreen());
                           },
                           child: Text(
                             'Sign in',
@@ -64,44 +65,43 @@ class OnBoard extends StatelessWidget {
                                 color: Colors.black,
                                 fontSize: 20,
                                 fontWeight: FontWeight.w600,
-
                               ),
                             ),
                           ),
                         ),
-                    ),
-                  space(0, 20),
-                    Container(
-                      width: 270,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.yellow.shade700,
-                        borderRadius: BorderRadius.circular(
-                          10.0,
-                        ),
                       ),
-                      child: MaterialButton(
-                        onPressed: ()
-                        {
-                          navigateTo(context, const RegisterScreen());
-                        },
-                        child: Text(
-                          'Sign up',
-                          style: GoogleFonts.robotoCondensed(
-                            textStyle: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
+                      space(0, 20),
+                      Container(
+                        width: 270,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: Colors.yellow.shade700,
+                          borderRadius: BorderRadius.circular(
+                            10.0,
+                          ),
+                        ),
+                        child: MaterialButton(
+                          onPressed: () {
+                            navigateTo(context, const RegisterScreen());
+                          },
+                          child: Text(
+                            'Sign up',
+                            style: GoogleFonts.robotoCondensed(
+                              textStyle: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    space(0, 50),
-                  ],
+                      space(0, 50),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
