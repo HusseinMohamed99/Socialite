@@ -24,12 +24,13 @@ class OnBoard extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Spacer(),
               Expanded(
                 child: Text(
                   'Snap\nand\nShare\nevery\nmoments',
+                  textAlign: TextAlign.center,
                   style: GoogleFonts.roboto(
                     textStyle: const TextStyle(
                       color: Colors.white,
