@@ -374,7 +374,7 @@ class FeedScreen extends StatelessWidget {
                             children: [
                               AdaptiveIndicator(os: getOs()),
                               space(20, 0),
-                              Text('Reload'),
+                              const Text('Reload'),
                             ],
                           ),
                         )
