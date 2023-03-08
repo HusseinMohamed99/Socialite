@@ -1,7 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:f_app/Pages/notifications/notifications_screen.dart';
 import 'package:f_app/Pages/search/search_screen.dart';
-import 'package:f_app/model/drawerModel.dart';
+import 'package:f_app/model/drawer_model.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
 import 'package:f_app/shared/components/components.dart';
@@ -14,7 +14,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:flutter_zoom_drawer/config.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../drawer/drawerItem.dart';
+import '../drawer/drawer_item.dart';
 
 class HomeLayout extends StatelessWidget {
   const HomeLayout({Key? key}) : super(key: key);
@@ -113,7 +113,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen>
-    with SingleTickerProviderStateMixin {
+        with SingleTickerProviderStateMixin {
   static late TabController tabController;
   late int initialIndex;
 

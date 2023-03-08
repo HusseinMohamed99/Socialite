@@ -2,12 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:f_app/adaptive/indicator.dart';
 import 'package:f_app/model/CommentModel.dart';
+import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
+
+import 'package:f_app/shared/components/components.dart';
 import 'package:f_app/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../shared/Cubit/socialCubit/SocialCubit.dart';
-import '../../shared/components/components.dart';
 
 
 class CommentsScreen extends StatelessWidget {
@@ -17,8 +18,8 @@ class CommentsScreen extends StatelessWidget {
   late int index;
 
   CommentsScreen(this.postId, this.receiverUid, {Key? key,}) : super(key: key);
-  var commentController = TextEditingController();
-  var formKey = GlobalKey<FormState>();
+  final commentController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {

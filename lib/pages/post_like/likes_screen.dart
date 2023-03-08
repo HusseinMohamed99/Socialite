@@ -3,7 +3,7 @@
 // import 'package:f_app/shared/components/constants.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
-// import '../../model/likesModel.dart';
+// import '../../model/.dart';
 // import '../../shared/Cubit/socialCubit/SocialCubit.dart';
 // import '../../shared/Cubit/socialCubit/SocialState.dart';
 // import '../../shared/components/constants.dart';

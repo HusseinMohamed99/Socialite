@@ -1,7 +1,7 @@
 import 'package:bubble/bubble.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:f_app/adaptive/indicator.dart';
-import 'package:f_app/model/messageModel.dart';
+import 'package:f_app/model/message_model.dart';
 import 'package:f_app/model/user_model.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +19,8 @@ import '../veiwPhoto/image_view.dart';
 class PrivateChatScreen extends StatelessWidget {
  final UserModel userModel;
   PrivateChatScreen({required this.userModel, Key? key,}) : super(key: key);
-  var textController = TextEditingController();
-  var formKey = GlobalKey<FormState>();
+  final textController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
   final ItemScrollController scroll = ItemScrollController();
   @override
   Widget build(BuildContext context) {

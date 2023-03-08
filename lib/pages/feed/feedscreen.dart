@@ -1,7 +1,7 @@
 
 
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:f_app/Pages/addPost/addPostScreen.dart';
+import 'package:f_app/Pages/addPost/add_post_screen.dart';
 import 'package:f_app/Pages/comment/comment_screen.dart';
 import 'package:f_app/Pages/friend/profileScreen.dart';
 import 'package:f_app/Pages/post/edit_post.dart';
@@ -9,7 +9,7 @@ import 'package:f_app/Pages/profile/My_profile_screen.dart';
 import 'package:f_app/Pages/story/veiw_story.dart';
 import 'package:f_app/adaptive/indicator.dart';
 import 'package:f_app/model/post_model.dart';
-import 'package:f_app/model/storyModel.dart';
+import 'package:f_app/model/story_model.dart';
 import 'package:f_app/pages/veiwPhoto/post_view.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';

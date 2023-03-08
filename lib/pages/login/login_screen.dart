@@ -212,7 +212,7 @@ class LoginScreen extends StatelessWidget {
                                 ? TextButton(
                                     onPressed: () {
                                       navigateTo(
-                                          context, const RegisterScreen());
+                                          context, const RegisterScreen(),);
                                     },
                                     child: Text(
                                       'Register Now!',
@@ -227,30 +227,22 @@ class LoginScreen extends StatelessWidget {
                                       ),
                                     ),
                                   )
-                                : Container(
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: 4),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius:
-                                            BorderRadius.circular(40)),
-                                    child: TextButton(
-                                      onPressed: () {
-                                        navigateTo(
-                                            context, const RegisterScreen());
-                                      },
-                                      child: Text(
-                                        'Register Now!',
-                                        style: GoogleFonts.roboto(
-                                          textStyle: const TextStyle(
-                                            color: Colors.blue,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
+                                : TextButton(
+                                  onPressed: () {
+                                    navigateTo(
+                                        context, const RegisterScreen(),);
+                                  },
+                                  child: Text(
+                                    'Register Now!',
+                                    style: GoogleFonts.roboto(
+                                      textStyle: const TextStyle(
+                                        color: Colors.blue,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
                                       ),
                                     ),
-                                  )
+                                  ),
+                                )
                           ],
                         ),
                         Padding(

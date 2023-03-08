@@ -1,6 +1,6 @@
 
 
-import 'package:f_app/model/drawerModel.dart';
+import 'package:f_app/model/drawer_model.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
 class MenuItems {

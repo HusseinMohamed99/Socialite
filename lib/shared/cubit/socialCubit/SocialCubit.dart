@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:f_app/Pages/chat/chatScreen.dart';
+import 'package:f_app/Pages/chat/chat_screen.dart';
 import 'package:f_app/Pages/feed/feedscreen.dart';
 import 'package:f_app/Pages/notifications/notifications_screen.dart';
 import 'package:f_app/Pages/profile/My_profile_screen.dart';
@@ -8,9 +8,9 @@ import 'package:f_app/Pages/setting/settingScreen.dart';
 import 'package:f_app/Pages/story/story_screen.dart';
 import 'package:f_app/Pages/user/userScreen.dart';
 import 'package:f_app/layout/Home/home_layout.dart';
-import 'package:f_app/model/CommentModel.dart';
-import 'package:f_app/model/drawerModel.dart';
-import 'package:f_app/model/messageModel.dart';
+import 'package:f_app/model/comment_model.dart';
+import 'package:f_app/model/drawer_model.dart';
+import 'package:f_app/model/message_model.dart';
 import 'package:f_app/model/post_model.dart';
 import 'package:f_app/model/user_model.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
@@ -30,10 +30,10 @@ import 'package:f_app/Pages/password/forget_Password.dart';
 import '../../../Pages/on-boarding/on-boarding screen.dart';
 import '../../../Pages/post/save_post_screen.dart';
 import '../../../Pages/story/create_story.dart';
-import '../../../layout/drawer/drawerItem.dart';
-import '../../../model/likesModel.dart';
-import '../../../model/notificationsModel.dart';
-import '../../../model/storyModel.dart';
+import '../../../layout/drawer/drawer_item.dart';
+import '../../../model/likes_model.dart';
+import '../../../model/notifications_model.dart';
+import '../../../model/story_model.dart';
 import '../../network/dio_helper.dart';
 
 

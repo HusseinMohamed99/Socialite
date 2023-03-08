@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../model/notificationsModel.dart';
+import '../../model/notifications_model.dart';
 import '../../shared/Cubit/socialCubit/SocialCubit.dart';
 import '../../shared/Cubit/socialCubit/SocialState.dart';
 import '../../shared/components/components.dart';
@@ -31,7 +31,7 @@ class NotificationScreenState extends State<NotificationScreen>
         return BlocConsumer<SocialCubit, SocialStates>(
           listener: (context, state) {},
           builder: (context, state) {
-            List<NotificationModel> notifications =
+            List notifications =
                 SocialCubit.get(context).notifications;
             return Scaffold(
               key: scaffoldKey,
