@@ -5,8 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../model/story_model.dart';
 import '../../shared/Cubit/socialCubit/SocialState.dart';
-import '../friend/profileScreen.dart';
-
+import '../friend/profile_screen.dart';
 
 class ViewStory extends StatelessWidget {
   StoryModel? model;

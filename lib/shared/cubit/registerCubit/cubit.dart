@@ -45,14 +45,16 @@ void userCreate({
  async{
   UserModel model = UserModel(
     email: email,
-    phone: phone,
-    name: name,
-    uId: uId,
-    image: 'https://img.freepik.com/free-vector/personal-account-positive-feedback-user-review-loyalty-stars-dating-site-website-ranking-woman-evaluating-web-page-cartoon-character_335657-2335.jpg?w=740&t=st=1659975069~exp=1659975669~hmac=57980aa3751376b0cd6408e00c740ba344870a71d3c327b302f1f884ce483661',
-    cover: 'https://img.freepik.com/free-vector/happy-man-online-dating-via-laptop_74855-7495.jpg?w=740&t=st=1659974983~exp=1659975583~hmac=510a0521f3caaf3687914a8b5fa8cda52f57e7df66e5aa3fca1efd4ec284fafb',
-    bio: 'Write a bio...',
-    isEmailVerified : false,
-  );
+      phone: phone,
+      name: name,
+      uId: uId,
+      image:
+          'https://cdn-icons-png.flaticon.com/512/149/149071.png?w=740&t=st=1678640338~exp=1678640938~hmac=e46c26cecdbc9dea7a4a6d4ad5a8577aff6029704aa4d890caaebf20053dd65d',
+      cover:
+          'https://img.freepik.com/free-photo/social-media-concept-with-smartphone_52683-100042.jpg?w=996&t=st=1678640460~exp=1678641060~hmac=e1b04894098c1fcab71edce47d62db90e08400fd0be4825f2f064df4fa80387c',
+      bio: 'Write a bio...',
+      isEmailVerified: false,
+    );
   FirebaseFirestore.instance
       .collection('users')
       .doc(uId)

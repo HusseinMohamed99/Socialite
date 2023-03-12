@@ -6,8 +6,8 @@ import 'package:f_app/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 
 class AddPostScreen extends StatelessWidget {
   AddPostScreen({Key? key, this.postModel}) : super(key: key);
@@ -31,7 +31,7 @@ final  PostModel? postModel;
               },
               icon: Icon(
                 IconlyLight.arrowLeft2,
-                size: 30,
+                size: 30.sp,
                 color: cubit.isLight ? Colors.black : Colors.white,
               ),
             ),
@@ -40,7 +40,7 @@ final  PostModel? postModel;
               'Create Post',
               style: GoogleFonts.roboto(
                 color: cubit.isLight ? Colors.blue : Colors.white,
-                fontSize: 20,
+                fontSize: 20.sp,
               ),
             ),
             actions: [
@@ -70,7 +70,7 @@ final  PostModel? postModel;
                   'Post',
                   style: GoogleFonts.roboto(
                     color: cubit.isLight ? Colors.blue : Colors.white,
-                    fontSize: 20,
+                    fontSize: 20.sp,
                   ),
                 ),
               ),
@@ -88,21 +88,21 @@ final  PostModel? postModel;
                       if (state is CreatePostLoadingState)
                         const LinearProgressIndicator(),
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                          20,
-                          20,
-                          20,
-                          0,
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                          20.r,
+                          20.r,
+                          20.r,
+                          0.r,
                         ),
                         child: Row(
                           children: [
                             CircleAvatar(
-                              radius: 35,
+                              radius: 35.r,
                               backgroundImage: NetworkImage(
                                 userModel.image!,
                               ),
                             ),
-                            space(10, 0),
+                            space(10.w, 0),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -112,11 +112,11 @@ final  PostModel? postModel;
                                     color: cubit.isLight
                                         ? Colors.black
                                         : Colors.white,
-                                    fontSize: 24,
+                                    fontSize: 24.sp,
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                                space(0, 8),
+                                space(0, 8.h),
                                 Row(
                                   children: [
                                     Icon(
@@ -125,7 +125,7 @@ final  PostModel? postModel;
                                           ? Colors.black
                                           : Colors.white,
                                     ),
-                                    space(5, 0),
+                                    space(5.w, 0),
                                     Text(
                                       'public',
                                       style: GoogleFonts.roboto(
@@ -134,7 +134,7 @@ final  PostModel? postModel;
                                             .caption!
                                             .copyWith(
                                               color: Colors.grey,
-                                              fontSize: 16,
+                                              fontSize: 16.sp,
                                             ),
                                       ),
                                     ),
@@ -145,14 +145,14 @@ final  PostModel? postModel;
                           ],
                         ),
                       ),
-                      space(0, 10),
+                      space(0, 10.h),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0).r,
                         child: TextFormField(
                           maxLines: 6,
                           minLines: 1,
                           style: GoogleFonts.cairo(
-                            height: 1.5,
+                            height: 1.5.h,
                             color: cubit.isLight ? Colors.black : Colors.white,
                             fontWeight: FontWeight.w700,
                           ),
@@ -176,7 +176,7 @@ final  PostModel? postModel;
                               child: Container(
                                 width: double.infinity,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(10).r,
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.grey.withOpacity(0.4),
@@ -186,8 +186,9 @@ final  PostModel? postModel;
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
                                   child: Image(
-                                      image: FileImage(cubit.postImagePicked!),
-                                      fit: BoxFit.cover),
+                                    image: FileImage(cubit.postImagePicked!),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -200,23 +201,25 @@ final  PostModel? postModel;
                                     shape: BoxShape.circle,
                                     boxShadow: [
                                       BoxShadow(
-                                          color: Colors.grey.withOpacity(0.4),
-                                          blurRadius: 9,
-                                          spreadRadius: 4,
-                                          offset: const Offset(0, 4))
+                                        color: Colors.grey.withOpacity(0.4),
+                                        blurRadius: 9.r,
+                                        spreadRadius: 4.r,
+                                        offset: const Offset(0, 4),
+                                      )
                                     ]),
-                                child: const CircleAvatar(
+                                child: CircleAvatar(
                                   backgroundColor: Colors.black,
                                   child: Icon(
                                     Icons.close_rounded,
                                     color: Colors.white,
+                                    size: 24.sp,
                                   ),
                                 ),
                               ),
                             )
                           ],
                         ),
-                      space(0, 50),
+                      space(0, 50.h),
                     ],
                   ),
                 ),
@@ -239,12 +242,14 @@ final  PostModel? postModel;
                       label: Text(
                         'Add photo'.toUpperCase(),
                         style: GoogleFonts.roboto(
-                            fontSize: 20,
-                            color: cubit.isLight ? Colors.blue : Colors.white),
+                          fontSize: 20.sp,
+                          color: cubit.isLight ? Colors.blue : Colors.white,
+                        ),
                       ),
                       icon: Icon(
                         IconlyLight.image,
                         color: cubit.isLight ? Colors.blue : Colors.white,
+                        size: 24.sp,
                       ),
                     ),
                   ),

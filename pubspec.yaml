@@ -55,6 +55,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.17.0
+  flutter_screenutil: ^5.7.0
 
 
 

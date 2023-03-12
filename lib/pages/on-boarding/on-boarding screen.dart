@@ -3,8 +3,8 @@ import 'package:f_app/Pages/Register/register_screen.dart';
 import 'package:f_app/shared/components/components.dart';
 import 'package:f_app/shared/components/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 
 class OnBoard extends StatelessWidget {
   const OnBoard({Key? key}) : super(key: key);
@@ -22,39 +22,39 @@ class OnBoard extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0).r,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Spacer(),
+              const Spacer(),
               Expanded(
                 child: Text(
                   'Snap\nand\nShare\nevery\nmoments',
                   textAlign: TextAlign.start,
                   style: GoogleFonts.roboto(
-                    textStyle: const TextStyle(
+                    textStyle: TextStyle(
                       color: Colors.white,
-                      fontSize: 60,
+                      fontSize: 60.sp,
                       overflow: TextOverflow.visible,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               Expanded(
                 child: Center(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        width: 270,
-                        height: 40,
+                        width: 270.w,
+                        height: 40.h,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(
                             10.0,
-                          ),
+                          ).r,
                         ),
                         child: MaterialButton(
                           onPressed: () {
@@ -63,24 +63,24 @@ class OnBoard extends StatelessWidget {
                           child: Text(
                             'Sign in',
                             style: GoogleFonts.robotoCondensed(
-                              textStyle: const TextStyle(
+                              textStyle: TextStyle(
                                 color: Colors.black,
-                                fontSize: 20,
+                                fontSize: 20.sp,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),
                         ),
                       ),
-                      space(0, 20),
+                      space(0, 20.h),
                       Container(
-                        width: 270,
-                        height: 40,
+                        width: 270.w,
+                        height: 40.h,
                         decoration: BoxDecoration(
                           color: Colors.yellow.shade700,
                           borderRadius: BorderRadius.circular(
                             10.0,
-                          ),
+                          ).r,
                         ),
                         child: MaterialButton(
                           onPressed: () {
@@ -89,16 +89,16 @@ class OnBoard extends StatelessWidget {
                           child: Text(
                             'Sign up',
                             style: GoogleFonts.robotoCondensed(
-                              textStyle: const TextStyle(
+                              textStyle: TextStyle(
                                 color: Colors.black,
-                                fontSize: 20,
+                                fontSize: 20.sp,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),
                         ),
                       ),
-                      space(0, 50),
+                      space(0, 50.h),
                     ],
                   ),
                 ),

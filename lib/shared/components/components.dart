@@ -2,10 +2,10 @@
 
 import 'package:f_app/Pages/Login/login_screen.dart';
 import 'package:f_app/Pages/comment/comment_screen.dart';
-import 'package:f_app/Pages/friend/profileScreen.dart';
+import 'package:f_app/Pages/friend/profile_screen.dart';
 import 'package:f_app/Pages/post/edit_post.dart';
 import 'package:f_app/Pages/profile/My_profile_screen.dart';
-import 'package:f_app/Pages/veiwPhoto/post_view.dart';
+import 'package:f_app/Pages/viewPhoto/post_view.dart';
 import 'package:f_app/model/post_model.dart';
 import 'package:f_app/model/user_model.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
@@ -140,8 +140,7 @@ required BuildContext context
       },
       child: Text(text,style: GoogleFonts.libreBaskerville(
         fontWeight: FontWeight.w400,
-        color:
-        SocialCubit.get(context).isLight ? Colors.black : Colors.white,
+        color: Colors.white,
       ),),
     );
 }

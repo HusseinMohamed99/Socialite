@@ -1107,11 +1107,11 @@ List<MessageModel> message = [];
         required String? friendImage}) {
     emit(FriendRequestLoadingState());
     UserModel friendRequestModel = UserModel(
-        uId: userModel!.uId,
-        name: userModel!.name,
-        image: userModel!.image,
-        bio: userModel!.bio,
-        dateTime: userModel!.dateTime,);
+      uId: userModel!.uId,
+      name: userModel!.name,
+      image: userModel!.image,
+      bio: userModel!.bio,
+    );
     FirebaseFirestore.instance
         .collection('users')
         .doc(friendsUID)

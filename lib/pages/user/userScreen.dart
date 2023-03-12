@@ -9,7 +9,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../shared/components/components.dart';
 import '../chat/private_chat.dart';
-import '../friend/profileScreen.dart';
+import '../friend/profile_screen.dart';
 
 class UserScreen extends StatefulWidget {
   const UserScreen({Key? key}) : super(key: key);
@@ -29,163 +29,166 @@ class _UserScreenState extends State<UserScreen> {
       return BlocConsumer<SocialCubit, SocialStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          List<UserModel> peopleYouMayKnow = SocialCubit.get(context).users.cast<UserModel>();
+          List<UserModel> peopleYouMayKnow =
+              SocialCubit.get(context).users.cast<UserModel>();
           List<UserModel> friendRequests =
               SocialCubit.get(context).friendRequests.cast<UserModel>();
-          List<UserModel> friends = SocialCubit.get(context).friends.cast<UserModel>();
-          return  SocialCubit.get(context).users.isEmpty ? Scaffold(
-            body: Center(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children :
-                  const [
-                    Icon(
-                      IconlyLight.user3,
-                      size: 70,
-                      color: Colors.grey,
-                    ),
-                    Center(
-                      child: Text(
-                        'No Users Yet',
-                        style: TextStyle(
+          List<UserModel> friends =
+              SocialCubit.get(context).friends.cast<UserModel>();
+          return SocialCubit.get(context).users.isEmpty
+              ? Scaffold(
+                  body: Center(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(
+                            IconlyLight.user3,
+                            size: 70,
                             color: Colors.grey,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ]
-              ),
-            ),
-          ) :
-
-            Scaffold(
-            body: RefreshIndicator(
-              onRefresh: onRefresh,
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Text(
-                        'friendRequest',
-                        style: GoogleFonts.lobster(
-                          fontSize: 16,
-                          color: SocialCubit.get(context).isLight
-                              ? Colors.black
-                              : Colors.white,
-                        ),
-                      ),
-                      //SizedBox(height: 10,),
-                      ConditionalBuilder(
-                          condition: friendRequests.isNotEmpty,
-                          builder: (context) => ListView.separated(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) =>
-                                    friendRequestBuildItem(
-                                        context, friendRequests[index]),
-                                separatorBuilder: (context, index) =>
-                                    const SizedBox(width: 10),
-                                itemCount: friendRequests.length,
-                              ),
-                          fallback: (context) => Container(
-                                padding: const EdgeInsetsDirectional.only(
-                                    top: 15, bottom: 5),
-                                alignment: AlignmentDirectional.center,
-                                child: Text(
-                                  'NoFriendRequest',
-                                  style: GoogleFonts.lobster(
-                                    fontSize: 16,
-                                    color: SocialCubit.get(context).isLight
-                                        ? Colors.black
-                                        : Colors.white,
-                                  ),
-                                ),
-                              )),
-                      const SizedBox(
-                        height: 10,
-                      ),
-
-                        Text(
-                          'peopleMayKnow',
-                          style: GoogleFonts.lobster(
-                            fontSize: 16,
-                            color: SocialCubit.get(context).isLight
-                                ? Colors.black
-                                : Colors.white,
                           ),
-                        ),
-                    const SizedBox(
-                          height: 10,
-                        ),
-
-                        Container(
-                          height: 330,
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: ListView.separated(
-                            physics: const BouncingScrollPhysics(),
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return peopleMayKnow(
-                                  context, peopleYouMayKnow[index], index);
-                            },
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(width: 10),
-                            itemCount: peopleYouMayKnow.length,
-                          ),
-                        ),
-
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        'friends',
-                        style: GoogleFonts.lobster(
-                          fontSize: 16,
-                          color: SocialCubit.get(context).isLight
-                              ? Colors.black
-                              : Colors.white,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      ConditionalBuilder(
-                        condition: friends.isNotEmpty,
-                        builder: (context) => ListView.separated(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) =>
-                              friendBuildItem(context, friends[index]),
-                          separatorBuilder: (context, index) => const SizedBox(
-                            height: 10,
-                          ),
-                          itemCount: friends.length,
-                        ),
-                        fallback: (context) => Container(
-                            padding: const EdgeInsetsDirectional.only(
-                                top: 15, bottom: 5),
-                            alignment: AlignmentDirectional.center,
+                          Center(
                             child: Text(
-                              'No Friends',
+                              'No Users Yet',
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ]),
+                  ),
+                )
+              : Scaffold(
+                  body: RefreshIndicator(
+                    onRefresh: onRefresh,
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Text(
+                              'friendRequest',
                               style: GoogleFonts.lobster(
                                 fontSize: 16,
                                 color: SocialCubit.get(context).isLight
                                     ? Colors.black
                                     : Colors.white,
                               ),
-                            )),
+                            ),
+                            //SizedBox(height: 10,),
+                            ConditionalBuilder(
+                                condition: friendRequests.isNotEmpty,
+                                builder: (context) => ListView.separated(
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      itemBuilder: (context, index) =>
+                                          friendRequestBuildItem(
+                                              context, friendRequests[index]),
+                                      separatorBuilder: (context, index) =>
+                                          const SizedBox(width: 10),
+                                      itemCount: friendRequests.length,
+                                    ),
+                                fallback: (context) => Container(
+                                      padding: const EdgeInsetsDirectional.only(
+                                          top: 15, bottom: 5),
+                                      alignment: AlignmentDirectional.center,
+                                      child: Text(
+                                        'NoFriendRequest',
+                                        style: GoogleFonts.lobster(
+                                          fontSize: 16,
+                                          color:
+                                              SocialCubit.get(context).isLight
+                                                  ? Colors.black
+                                                  : Colors.white,
+                                        ),
+                                      ),
+                                    )),
+                            const SizedBox(
+                              height: 10,
+                            ),
+
+                            Text(
+                              'peopleMayKnow',
+                              style: GoogleFonts.lobster(
+                                fontSize: 16,
+                                color: SocialCubit.get(context).isLight
+                                    ? Colors.black
+                                    : Colors.white,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+
+                            Container(
+                              height: 330,
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: ListView.separated(
+                                physics: const BouncingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  return peopleMayKnow(
+                                      context, peopleYouMayKnow[index], index);
+                                },
+                                separatorBuilder: (context, index) =>
+                                    const SizedBox(width: 10),
+                                itemCount: peopleYouMayKnow.length,
+                              ),
+                            ),
+
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              'friends',
+                              style: GoogleFonts.lobster(
+                                fontSize: 16,
+                                color: SocialCubit.get(context).isLight
+                                    ? Colors.black
+                                    : Colors.white,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            ConditionalBuilder(
+                              condition: friends.isNotEmpty,
+                              builder: (context) => ListView.separated(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) =>
+                                    friendBuildItem(context, friends[index]),
+                                separatorBuilder: (context, index) =>
+                                    const SizedBox(
+                                  height: 10,
+                                ),
+                                itemCount: friends.length,
+                              ),
+                              fallback: (context) => Container(
+                                  padding: const EdgeInsetsDirectional.only(
+                                      top: 15, bottom: 5),
+                                  alignment: AlignmentDirectional.center,
+                                  child: Text(
+                                    'No Friends',
+                                    style: GoogleFonts.lobster(
+                                      fontSize: 16,
+                                      color: SocialCubit.get(context).isLight
+                                          ? Colors.black
+                                          : Colors.white,
+                                    ),
+                                  )),
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            ),
-          );
+                );
         },
       );
     });
@@ -244,11 +247,11 @@ class _UserScreenState extends State<UserScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                       Icon(
+                      Icon(
                         IconlyBroken.chat,
-                        color:SocialCubit.get(context).isLight ?
-                        Colors.white
-                         : Colors.black,
+                        color: SocialCubit.get(context).isLight
+                            ? Colors.white
+                            : Colors.black,
                       ),
                       const SizedBox(
                         width: 5,
@@ -339,15 +342,17 @@ class _UserScreenState extends State<UserScreen> {
                           SocialCubit.get(context).sendInAppNotification(
                               contentKey: 'friendRequest',
                               contentId: userModel.uId,
-                              content: 'sent you a friend request, check it out!',
+                              content:
+                                  'sent you a friend request, check it out!',
                               receiverId: userModel.uId,
-                              receiverName: userModel.name
-                          );
+                              receiverName: userModel.name);
                           SocialCubit.get(context).sendFCMNotification(
-                              token: userModel.token!,
-                              senderName: SocialCubit.get(context).userModel!.name!,
-                              messageText: '${SocialCubit.get(context).userModel!.name}' 'sent you a friend request, check it out!'
-                          );
+                              token: userModel.uId!,
+                              senderName:
+                                  SocialCubit.get(context).userModel!.name!,
+                              messageText:
+                                  '${SocialCubit.get(context).userModel!.name}'
+                                  'sent you a friend request, check it out!');
                         },
                         child: SocialCubit.get(context).isFriend == false
                             ? SocialCubit.get(context).request
@@ -396,10 +401,7 @@ class _UserScreenState extends State<UserScreen> {
                                     style: TextStyle(color: Colors.white),
                                   ),
                                 ],
-                              )
-                    ),
-
-
+                              )),
                   ),
                 ],
               ),
@@ -457,16 +459,19 @@ class _UserScreenState extends State<UserScreen> {
                                 .deleteFriendRequest(userModel.uId);
                             SocialCubit.get(context).sendInAppNotification(
                                 contentKey: 'friendRequestAccepted',
-                                contentId: SocialCubit.get(context).userModel!.uId,
-                                content: 'accepted your friend request, you are now friends checkout his profile',
+                                contentId:
+                                    SocialCubit.get(context).userModel!.uId,
+                                content:
+                                    'accepted your friend request, you are now friends checkout his profile',
                                 receiverId: userModel.uId,
-                                receiverName: userModel.name
-                            );
+                                receiverName: userModel.name);
                             SocialCubit.get(context).sendFCMNotification(
-                                token: userModel.token!,
-                                senderName: SocialCubit.get(context).userModel!.name!,
-                                messageText: '${SocialCubit.get(context).userModel!.name}' 'accepted your friend request, you are now friends checkout his profile'
-                            );
+                                token: userModel.uId!,
+                                senderName:
+                                    SocialCubit.get(context).userModel!.name!,
+                                messageText:
+                                    '${SocialCubit.get(context).userModel!.name}'
+                                    'accepted your friend request, you are now friends checkout his profile');
                           },
                           child: const Text('Confirm',
                               style: TextStyle(color: Colors.white)),

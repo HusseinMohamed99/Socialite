@@ -14,10 +14,10 @@ import '../../model/user_model.dart';
 import '../../shared/Cubit/socialCubit/SocialCubit.dart';
 import '../../shared/Cubit/socialCubit/SocialState.dart';
 import '../comment/comment_screen.dart';
-import '../friend/friendScreen.dart';
+import '../friend/friend_screen.dart';
 import '../post/edit_post.dart';
-import '../veiwPhoto/image_view.dart';
-import '../veiwPhoto/post_view.dart';
+import '../viewPhoto/image_view.dart';
+import '../viewPhoto/post_view.dart';
 
 class MyProfileScreen extends StatelessWidget {
   const MyProfileScreen({Key? key}) : super(key: key);
@@ -256,9 +256,13 @@ class MyProfileScreen extends StatelessWidget {
                                     child: InkWell(
                                       onTap: ()
                                       {
-                                        navigateTo(context, FriendsScreen(friends,myFreinds: true,));
-
-                                      },
+                                        navigateTo(
+                                                context,
+                                                FriendsScreen(
+                                                  friends,
+                                                  myFriends: true,
+                                                ));
+                                          },
                                       child: Column(
                                         children: [
                                           Text(
@@ -548,9 +552,13 @@ Widget buildProfileWithOutPosts () => Builder(
                 child: InkWell(
                   onTap: ()
                   {
-                    navigateTo(context, FriendsScreen(friends,myFreinds: true,));
-
-                  },
+                    navigateTo(
+                          context,
+                          FriendsScreen(
+                            friends,
+                            myFriends: true,
+                          ));
+                    },
                   child: Column(
                     children: [
                       Text(

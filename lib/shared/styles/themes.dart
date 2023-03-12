@@ -7,24 +7,22 @@ ThemeData darkTheme = ThemeData(
   scaffoldBackgroundColor: const Color(0xff404258),
   primarySwatch: dColor,
   appBarTheme: const AppBarTheme(
-
+    elevation: 0,
     backgroundColor: Colors.transparent,
     systemOverlayStyle: SystemUiOverlayStyle(
         statusBarBrightness: Brightness.dark,
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.dark),
-
-    titleTextStyle:  TextStyle(
+    titleTextStyle: TextStyle(
       color: Colors.white,
       fontSize: 20.0,
       fontWeight: FontWeight.bold,
     ),
-    actionsIconTheme:  IconThemeData(
+    actionsIconTheme: IconThemeData(
       color: Colors.white,
     ),
   ),
 );
-
 
 ThemeData lightTheme = ThemeData(
   cardColor: Colors.white,

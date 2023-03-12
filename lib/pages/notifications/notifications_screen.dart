@@ -8,7 +8,7 @@ import '../../model/notifications_model.dart';
 import '../../shared/Cubit/socialCubit/SocialCubit.dart';
 import '../../shared/Cubit/socialCubit/SocialState.dart';
 import '../../shared/components/components.dart';
-import '../friend/profileScreen.dart';
+import '../friend/profile_screen.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);

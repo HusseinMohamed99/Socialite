@@ -2,19 +2,20 @@ import 'package:f_app/Pages/Login/login_screen.dart';
 import 'package:f_app/adaptive/indicator.dart';
 import 'package:f_app/shared/Cubit/restPasswordCubit/rest_password_cubit.dart';
 import 'package:f_app/shared/Cubit/restPasswordCubit/rest_password_state.dart';
+import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
 import 'package:f_app/shared/components/components.dart';
 import 'package:f_app/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../shared/Cubit/socialCubit/SocialCubit.dart';
-
 class RestPasswordScreen extends StatelessWidget {
-  var loginFormKey = GlobalKey<FormState>();
-  var emailController = TextEditingController();
+  final loginFormKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
 
   RestPasswordScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -47,7 +48,7 @@ class RestPasswordScreen extends StatelessWidget {
                 style: GoogleFonts.roboto(
                   textStyle: TextStyle(
                     color: cubit.isLight ? Colors.black : Colors.white,
-                    fontSize: 20,
+                    fontSize: 20.sp,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -68,7 +69,7 @@ class RestPasswordScreen extends StatelessWidget {
                     children: [
                       Container(
                         width: double.infinity,
-                        padding: const EdgeInsets.all(20),
+                        padding: const EdgeInsets.all(20).r,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,7 +77,7 @@ class RestPasswordScreen extends StatelessWidget {
                             Text(
                               'Enter the E-mail address associated with your account',
                               style: GoogleFonts.libreBaskerville(
-                                fontSize: 27,
+                                fontSize: 27.sp,
                                 fontWeight: FontWeight.w900,
                                 color:
                                     cubit.isLight ? Colors.black : Colors.white,
@@ -86,65 +87,69 @@ class RestPasswordScreen extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        height: 200,
+                        height: 150.h,
                         width: double.infinity,
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                          20,
-                          25,
-                          20,
-                          0,
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                          15.r,
+                          20.r,
+                          15.r,
+                          0.r,
                         ),
                         decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                blurStyle: BlurStyle.outer,
-                                  color: cubit.isLight
-                                      ? const Color(0xff404258)
-                                      : Colors.white,
-                                  blurRadius: 9,
-                                  spreadRadius: 10,
-                                  offset: const Offset(0, 1))
-                            ],
-                            border: Border.all(
+                          boxShadow: [
+                            BoxShadow(
+                              blurStyle: BlurStyle.outer,
                               color: cubit.isLight
                                   ? const Color(0xff404258)
                                   : Colors.white,
-                            ),
+                              blurRadius: 9,
+                              spreadRadius: 10.r,
+                              offset: const Offset(0, 1),
+                            )
+                          ],
+                          border: Border.all(
                             color: cubit.isLight
-                                ? Colors.white
-                                : const Color(0xff404258),
-                            borderRadius: const BorderRadius.only(
-                              topRight: Radius.circular(50.0),
-                              topLeft: Radius.circular(50.0),
-                            )),
+                                ? const Color(0xff404258)
+                                : Colors.white,
+                          ),
+                          color: cubit.isLight
+                              ? Colors.white
+                              : const Color(0xff404258),
+                          borderRadius: const BorderRadius.only(
+                            topRight: Radius.circular(50.0),
+                            topLeft: Radius.circular(50.0),
+                          ).r,
+                        ),
                         child: Form(
                           key: loginFormKey,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                             space(0, 10),
+                              space(0, 10.h),
                               defaultTextFormField(
                                 context: context,
                                 controller: emailController,
                                 keyboardType: TextInputType.emailAddress,
                                 prefix: Icons.email,
                                 validate: (value) {
-                                  if (value!.isEmpty) {
+                                  if (value!.trim().isEmpty) {
                                     return 'Enter Your E-mail';
                                   }
                                   return null;
                                 },
                                 hint: 'E-mail Address',
                               ),
-                             const Spacer(),
+                              const Spacer(),
                               state is ResetPasswordLoadingState
-                                  ?  Center(child:AdaptiveIndicator(os:getOs(),),)
+                                  ? Center(
+                                      child: AdaptiveIndicator(
+                                        os: getOs(),
+                                      ),
+                                    )
                                   : Container(
-                                color:
-                                     Colors.blue,
-
-                                    child: defaultTextButton(
-                                           context: context,
+                                      color: Colors.blue,
+                                      child: defaultTextButton(
+                                        context: context,
                                         text: 'RESET PASSWORD',
                                         function: () {
                                           if (loginFormKey.currentState!
@@ -156,7 +161,7 @@ class RestPasswordScreen extends StatelessWidget {
                                           }
                                         },
                                       ),
-                                  ),
+                                    ),
                             ],
                           ),
                         ),

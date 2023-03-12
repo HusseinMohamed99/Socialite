@@ -8,7 +8,7 @@ import '../../shared/Cubit/socialCubit/SocialCubit.dart';
 import '../../shared/Cubit/socialCubit/SocialState.dart';
 import '../../shared/components/components.dart';
 import '../../shared/components/constants.dart';
-import '../friend/profileScreen.dart';
+import '../friend/profile_screen.dart';
 import '../profile/My_profile_screen.dart';
 
 class SearchScreen extends StatefulWidget {

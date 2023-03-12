@@ -1,4 +1,3 @@
-import 'package:f_app/desktop/desktop_screen.dart';
 import 'package:f_app/firebase_options.dart';
 import 'package:f_app/pages/splash/splash_screen.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
@@ -8,11 +7,11 @@ import 'package:f_app/shared/components/components.dart';
 import 'package:f_app/shared/styles/themes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'shared/components/constants.dart';
 import 'shared/network/cache_helper.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -25,6 +24,7 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  ScreenUtil.ensureScreenSize();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -53,13 +53,11 @@ void main() async {
   runApp(
     MyApp(
       isLight: isLight,
-      // startWidget: widget
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-//  final  Widget startWidget;
   final bool? isLight;
 
   const MyApp({
@@ -73,51 +71,48 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (context) => SocialCubit()
-              ..getUserData()
-              ..getPosts()
-              ..getAllUsers()
-              ..getStories()
-              ..changeMode(
-                fromShared: isLight,
-              )),
+          create: (context) => SocialCubit()
+            ..getUserData()
+            ..getPosts()
+            ..getAllUsers()
+            ..getStories()
+            ..changeMode(
+              fromShared: isLight,
+            ),
+        ),
       ],
       child: BlocConsumer<SocialCubit, SocialStates>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            SystemChrome.setPreferredOrientations([
-              DeviceOrientation.portraitUp,
-              DeviceOrientation.portraitDown,
-            ]);
-
-            return MaterialApp(
-              localizationsDelegates: const [
-                AppLocalizations.delegate, // Add this line
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              supportedLocales: AppLocalizations.supportedLocales,
-              debugShowCheckedModeBanner: false,
-              theme: lightTheme,
-              darkTheme: darkTheme,
-              themeMode: SocialCubit.get(context).isLight
-                  ? ThemeMode.light
-                  : ThemeMode.dark,
-              home: LayoutBuilder(
-                  builder: (BuildContext context, BoxConstraints constraints) {
-                if (kDebugMode) {
-                  print(constraints.minWidth.toInt());
-                  print(constraints.minHeight.toInt());
-                }
-                if (constraints.minWidth.toInt() <= 500 &&
-                    constraints.minHeight.toInt() <= 900) {
-                  return const SplashScreen();
-                }
-                return const DesktopScreen();
-              }),
-            );
-          }),
+        listener: (context, state) {},
+        builder: (context, state) {
+          SystemChrome.setPreferredOrientations([
+            DeviceOrientation.portraitUp,
+            DeviceOrientation.portraitDown,
+          ]);
+          return ScreenUtilInit(
+            designSize: const Size(360, 690),
+            minTextAdapt: true,
+            splitScreenMode: true,
+            builder: (context, child) {
+              return MaterialApp(
+                localizationsDelegates: const [
+                  AppLocalizations.delegate, // Add this line
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                supportedLocales: AppLocalizations.supportedLocales,
+                debugShowCheckedModeBanner: false,
+                theme: lightTheme,
+                darkTheme: darkTheme,
+                themeMode: SocialCubit.get(context).isLight
+                    ? ThemeMode.light
+                    : ThemeMode.dark,
+                home: const SplashScreen(),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

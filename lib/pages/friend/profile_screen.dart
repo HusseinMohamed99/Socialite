@@ -1,10 +1,10 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:f_app/Pages/chat/private_chat.dart';
-import 'package:f_app/Pages/friend/friendScreen.dart';
+import 'package:f_app/Pages/friend/friend_screen.dart';
 import 'package:f_app/adaptive/indicator.dart';
 import 'package:f_app/model/post_model.dart';
 import 'package:f_app/model/user_model.dart';
-import 'package:f_app/pages/veiwPhoto/image_view.dart';
+import 'package:f_app/pages/viewPhoto/image_view.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
 import 'package:f_app/shared/components/components.dart';
@@ -194,7 +194,7 @@ class FriendsProfileScreen extends StatelessWidget {
                                         context,
                                         FriendsScreen(
                                           friends,
-                                          myFreinds: true,
+                                          myFriends: true,
                                         ));
                                   },
                                   child: Column(
@@ -262,7 +262,7 @@ class FriendsProfileScreen extends StatelessWidget {
                                                     friendsModel.name);
                                         SocialCubit.get(context)
                                             .sendFCMNotification(
-                                                token: friendsModel.token!,
+                                            token: friendsModel.uId!,
                                                 senderName:
                                                     SocialCubit.get(context)
                                                         .userModel!
