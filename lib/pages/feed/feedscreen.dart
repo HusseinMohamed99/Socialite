@@ -3,7 +3,7 @@ import 'package:f_app/Pages/addPost/add_post_screen.dart';
 import 'package:f_app/Pages/comment/comment_screen.dart';
 import 'package:f_app/Pages/friend/profile_screen.dart';
 import 'package:f_app/Pages/post/edit_post.dart';
-import 'package:f_app/Pages/profile/My_profile_screen.dart';
+import 'package:f_app/Pages/profile/my_profile_screen.dart';
 import 'package:f_app/Pages/story/veiw_story.dart';
 import 'package:f_app/adaptive/indicator.dart';
 import 'package:f_app/model/post_model.dart';

@@ -1,15 +1,15 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
 class DioHelper {
   static late Dio dio;
 
   static init() {
-    print('dioHelper Initialized');
-    dio = Dio(
-        BaseOptions(
-          baseUrl: 'https://student.valuxapps.com/api/',
-          receiveDataWhenStatusError: true,
-        ));
+    debugPrint('dioHelper Initialized');
+    dio = Dio(BaseOptions(
+      baseUrl: 'https://student.valuxapps.com/api/',
+      receiveDataWhenStatusError: true,
+    ));
   }
 
   static Future<Response> postData({

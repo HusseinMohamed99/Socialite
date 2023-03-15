@@ -1,14 +1,13 @@
+import 'package:f_app/model/post_model.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
+import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
+import 'package:f_app/shared/components/components.dart';
+import 'package:f_app/shared/components/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../model/post_model.dart';
-import '../../shared/Cubit/socialCubit/SocialState.dart';
-import '../../shared/components/components.dart';
-import '../../shared/components/constants.dart';
 
 class EditPosts extends StatelessWidget {
   PostModel postModel;
@@ -148,9 +147,9 @@ class EditPosts extends StatelessWidget {
                                             .textTheme
                                             .caption!
                                             .copyWith(
-                                              color: Colors.grey,
-                                              fontSize: 16,
-                                            ),
+                                          color: Colors.grey,
+                                          fontSize: 16,
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -200,19 +199,19 @@ class EditPosts extends StatelessWidget {
                                 ),
                                 child: cubit.postImagePicked != null
                                     ? ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Image(
-                                            image: FileImage(
-                                                cubit.postImagePicked!),
-                                          fit: BoxFit.cover,),
-                                      )
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image(
+                                    image: FileImage(
+                                        cubit.postImagePicked!),
+                                    fit: BoxFit.cover,),
+                                )
                                     : ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Image(
-                                            image: NetworkImage(
-                                                postModel.postImage!),
-                                          fit: BoxFit.cover,),
-                                      ),
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image(
+                                    image: NetworkImage(
+                                        postModel.postImage!),
+                                    fit: BoxFit.cover,),
+                                ),
                               ),
                             ),
                             IconButton(
@@ -244,36 +243,36 @@ class EditPosts extends StatelessWidget {
                     ],
                   ),
                 ),
-          if (cubit.postImagePicked == null && postModel.postImage == '')
-                Row(
-                  children: [
-                    Expanded(
-                      child: OutlinedButton.icon(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                            cubit.isLight
-                                ? Colors.white
-                                : const Color(0xff404258),
+                if (cubit.postImagePicked == null && postModel.postImage == '')
+                  Row(
+                    children: [
+                      Expanded(
+                        child: OutlinedButton.icon(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                              cubit.isLight
+                                  ? Colors.white
+                                  : const Color(0xff404258),
+                            ),
+                          ),
+                          onPressed: () {
+                            cubit.getPostImage();
+                          },
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          label: Text(
+                            'Add photo'.toUpperCase(),
+                            style: GoogleFonts.roboto(
+                                fontSize: 20,
+                                color: cubit.isLight ? Colors.blue : Colors.white),
+                          ),
+                          icon: Icon(
+                            IconlyLight.image,
+                            color: cubit.isLight ? Colors.blue : Colors.white,
                           ),
                         ),
-                        onPressed: () {
-                          cubit.getPostImage();
-                        },
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        label: Text(
-                          'Add photo'.toUpperCase(),
-                          style: GoogleFonts.roboto(
-                              fontSize: 20,
-                              color: cubit.isLight ? Colors.blue : Colors.white),
-                        ),
-                        icon: Icon(
-                          IconlyLight.image,
-                          color: cubit.isLight ? Colors.blue : Colors.white,
-                        ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
               ],
             ),
           );

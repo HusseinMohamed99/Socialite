@@ -2,7 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:f_app/Pages/comment/comment_screen.dart';
 import 'package:f_app/Pages/friend/friend_screen.dart';
 import 'package:f_app/Pages/post/edit_post.dart';
-import 'package:f_app/Pages/profile/Edit_profile_screen.dart';
+import 'package:f_app/Pages/profile/edit_profile_screen.dart';
 import 'package:f_app/Pages/viewPhoto/image_view.dart';
 import 'package:f_app/Pages/viewPhoto/post_view.dart';
 import 'package:f_app/adaptive/indicator.dart';

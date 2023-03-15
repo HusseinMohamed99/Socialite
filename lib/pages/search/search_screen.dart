@@ -1,15 +1,15 @@
+import 'package:f_app/model/user_model.dart';
+import 'package:f_app/pages/friend/profile_screen.dart';
+import 'package:f_app/pages/profile/my_profile_screen.dart';
+import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
+import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
+import 'package:f_app/shared/components/components.dart';
+import 'package:f_app/shared/components/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../model/user_model.dart';
-import '../../shared/Cubit/socialCubit/SocialCubit.dart';
-import '../../shared/Cubit/socialCubit/SocialState.dart';
-import '../../shared/components/components.dart';
-import '../../shared/components/constants.dart';
-import '../friend/profile_screen.dart';
-import '../profile/My_profile_screen.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -21,6 +21,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   // This list holds the data for the list view
   List<UserModel> foundUsers = [];
+
   @override
   initState() {
     // at the beginning, all users are shown
@@ -36,7 +37,7 @@ class _SearchScreenState extends State<SearchScreen> {
       results = SocialCubit.get(context)
           .users
           .where((user) =>
-              user.name!.toLowerCase().contains(enteredKeyword.toLowerCase()))
+          user.name!.toLowerCase().contains(enteredKeyword.toLowerCase()))
           .toList();
     }
 
@@ -101,37 +102,37 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             body: foundUsers.isNotEmpty
                 ? ListView.separated(
-                    itemBuilder: (context, index) =>
-                        singleUserBuilder(foundUsers[index], context),
-                    separatorBuilder: (context, index) => space(0, 0),
-                    itemCount: foundUsers.length)
+                itemBuilder: (context, index) =>
+                    singleUserBuilder(foundUsers[index], context),
+                separatorBuilder: (context, index) => space(0, 0),
+                itemCount: foundUsers.length)
                 : Center(
-                    child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        IconlyLight.search,
-                        color: Colors.grey,
-                        size: 60,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      IconlyLight.search,
+                      color: Colors.grey,
+                      size: 60,
+                    ),
+                    space(0, 15),
+                    Text(
+                      'No result is found !',
+                      style: GoogleFonts.libreBaskerville(
+                        color: SocialCubit.get(context).isLight
+                            ? Colors.black
+                            : Colors.white,
                       ),
-                      space(0, 15),
-                      Text(
-                        'No result is found !',
-                        style: GoogleFonts.libreBaskerville(
-                          color: SocialCubit.get(context).isLight
-                              ? Colors.black
-                              : Colors.white,
-                        ),
-                      ),
-                    ],
-                  )),
+                    ),
+                  ],
+                )),
           );
         },
         listener: (context, state) {});
   }
 
   Widget singleUserBuilder(UserModel user, BuildContext context) => Padding(
-        padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
+    padding: const EdgeInsets.only(top: 12, left: 12, right: 12).r,
         child: InkWell(
           onTap: () {
             if (user.uId != SocialCubit.get(context).userModel!.uId) {
@@ -143,57 +144,57 @@ class _SearchScreenState extends State<SearchScreen> {
             } else {
               navigateTo(
                 context,
-                const MyProfileScreen(),
-              );
-            }
-          },
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                radius: 30,
-                backgroundImage: NetworkImage(
-                  '${user.image}',
-                ),
-              ),
-              space(10, 0),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '${user.name}',
-                      textAlign: TextAlign.start,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.libreBaskerville(
-                        color: SocialCubit.get(context).isLight
-                            ? Colors.black
-                            : Colors.white,
-                      ),
-                    ),
-                    space(0, 5),
-                    Text(
-                      '${SocialCubit.get(context).users.length - 1} mutual friends',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontSize: 9,
-                          color: Colors.grey,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ],
-                ),
-              ),
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    IconlyBroken.user2,
-                    color: Colors.grey,
-                  ))
-            ],
+            const MyProfileScreen(),
+          );
+        }
+      },
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CircleAvatar(
+            radius: 30,
+            backgroundImage: NetworkImage(
+              '${user.image}',
+            ),
           ),
-        ),
-      );
+          space(10, 0),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '${user.name}',
+                  textAlign: TextAlign.start,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.libreBaskerville(
+                    color: SocialCubit.get(context).isLight
+                        ? Colors.black
+                        : Colors.white,
+                  ),
+                ),
+                space(0, 5),
+                Text(
+                  '${SocialCubit.get(context).users.length - 1} mutual friends',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                      fontSize: 9,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w500),
+                ),
+              ],
+            ),
+          ),
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                IconlyBroken.user2,
+                color: Colors.grey,
+              ))
+        ],
+      ),
+    ),
+  );
 }

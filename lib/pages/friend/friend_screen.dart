@@ -1,15 +1,15 @@
 import 'package:f_app/Pages/friend/profile_screen.dart';
-import 'package:f_app/Pages/profile/My_profile_screen.dart';
+import 'package:f_app/Pages/profile/my_profile_screen.dart';
+import 'package:f_app/model/user_model.dart';
+import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
+import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
+import 'package:f_app/shared/components/components.dart';
 import 'package:f_app/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../model/user_model.dart';
-import '../../shared/Cubit/socialCubit/SocialCubit.dart';
-import '../../shared/Cubit/socialCubit/SocialState.dart';
-import '../../shared/components/components.dart';
 
 class FriendsScreen extends StatelessWidget {
   bool? myFriends = false;

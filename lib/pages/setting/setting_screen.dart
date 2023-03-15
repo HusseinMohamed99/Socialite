@@ -1,7 +1,9 @@
-import 'package:f_app/Pages/password/forget_Password.dart';
-import 'package:f_app/Pages/profile/Edit_profile_screen.dart';
-import 'package:f_app/Pages/profile/My_profile_screen.dart';
+import 'package:f_app/Pages/password/forget_password.dart';
+import 'package:f_app/Pages/profile/edit_profile_screen.dart';
+import 'package:f_app/Pages/profile/my_profile_screen.dart';
+import 'package:f_app/pages/password/change_password.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
+import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
 import 'package:f_app/shared/components/components.dart';
 import 'package:f_app/shared/components/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,8 +12,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import '../../shared/Cubit/socialCubit/SocialState.dart';
-import '../password/change_password.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({Key? key}) : super(key: key);

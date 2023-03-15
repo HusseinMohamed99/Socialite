@@ -1,15 +1,15 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:f_app/model/user_model.dart';
+import 'package:f_app/pages/chat/private_chat.dart';
+import 'package:f_app/pages/friend/profile_screen.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
+import 'package:f_app/shared/components/components.dart';
 import 'package:f_app/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../shared/components/components.dart';
-import '../chat/private_chat.dart';
-import '../friend/profile_screen.dart';
 
 class UserScreen extends StatefulWidget {
   const UserScreen({Key? key}) : super(key: key);

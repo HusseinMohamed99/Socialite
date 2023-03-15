@@ -1,6 +1,6 @@
 import 'package:f_app/Pages/Login/Auth_phone/auth_phone.dart';
 import 'package:f_app/Pages/Register/register_screen.dart';
-import 'package:f_app/Pages/password/forget_Password.dart';
+import 'package:f_app/Pages/password/forget_password.dart';
 import 'package:f_app/adaptive/indicator.dart';
 import 'package:f_app/shared/Cubit/loginCubit/cubit.dart';
 import 'package:f_app/shared/Cubit/loginCubit/state.dart';

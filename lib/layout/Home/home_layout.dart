@@ -1,7 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:f_app/Pages/notifications/notifications_screen.dart';
 import 'package:f_app/Pages/password/change_password.dart';
-import 'package:f_app/Pages/profile/My_profile_screen.dart';
+import 'package:f_app/Pages/profile/my_profile_screen.dart';
 import 'package:f_app/Pages/search/search_screen.dart';
 import 'package:f_app/pages/post/save_post_screen.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';

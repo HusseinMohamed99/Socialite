@@ -4,7 +4,7 @@ import 'package:f_app/Pages/Login/login_screen.dart';
 import 'package:f_app/Pages/comment/comment_screen.dart';
 import 'package:f_app/Pages/friend/profile_screen.dart';
 import 'package:f_app/Pages/post/edit_post.dart';
-import 'package:f_app/Pages/profile/My_profile_screen.dart';
+import 'package:f_app/Pages/profile/my_profile_screen.dart';
 import 'package:f_app/Pages/viewPhoto/post_view.dart';
 import 'package:f_app/model/post_model.dart';
 import 'package:f_app/model/user_model.dart';
@@ -114,7 +114,7 @@ Widget defaultMaterialButton({
         borderRadius: BorderRadius.circular(
           radius,
         ),
-        color:Color (0xff4e67dd),
+        color: const Color(0xff4e67dd),
         //  color: background,
       ),
       child: MaterialButton(

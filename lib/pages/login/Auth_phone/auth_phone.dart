@@ -1,4 +1,4 @@
-import 'package:f_app/Pages/login/Auth_phone/Otps.dart';
+import 'package:f_app/Pages/login/Auth_phone/otps.dart';
 import 'package:f_app/shared/components/components.dart';
 import 'package:f_app/shared/cubit/socialCubit/SocialCubit.dart';
 import 'package:flutter/material.dart';
