@@ -12,6 +12,7 @@ import 'package:f_app/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FriendsProfileScreen extends StatelessWidget {
@@ -22,23 +23,26 @@ class FriendsProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SocialCubit.get(context).getMyPosts(userUID);
 
-    SocialCubit.get(context).getFriends(userUID);
-    SocialCubit.get(context).checkFriends(userUID);
-    SocialCubit.get(context).checkFriendRequest(userUID);
-    UserModel? friendsModel = SocialCubit.get(context).friendsProfile;
-    List<PostModel>? posts = SocialCubit.get(context).userPosts;
-    List<UserModel>? friends = SocialCubit.get(context).friends;
-    var cubit = SocialCubit.get(context);
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        SocialCubit.get(context).getFriendsProfile(userUID);
+        SocialCubit.get(context).getMyPosts(userUID);
+        SocialCubit.get(context).getFriends(userUID);
+        SocialCubit.get(context).checkFriends(userUID);
+        SocialCubit.get(context).checkFriendRequest(userUID);
+        var friendsModel = SocialCubit.get(context).friendsProfile;
+        List<PostModel>? posts = SocialCubit.get(context).userPosts;
+        List<UserModel>? friends = SocialCubit.get(context).friends;
+        var cubit = SocialCubit.get(context);
         return ConditionalBuilder(
           condition: friendsModel == null,
-          builder: (context) => Center(
-            child: AdaptiveIndicator(os: getOs()),
+          builder: (context) => Scaffold(
+            body: Center(
+              child: AdaptiveIndicator(
+                os: getOs(),
+              ),
+            ),
           ),
           fallback: (context) => Scaffold(
             key: scaffoldKey,
@@ -48,60 +52,62 @@ class FriendsProfileScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(15)),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15).r,
+                    ),
                     clipBehavior: Clip.antiAliasWithSaveLayer,
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 280,
+                          height: 280.h,
                           child: Stack(
                             alignment: AlignmentDirectional.bottomCenter,
                             children: [
                               Align(
                                 alignment: AlignmentDirectional.topCenter,
                                 child: Container(
-                                  decoration: const BoxDecoration(
-                                      borderRadius: BorderRadius.only(
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(8.0),
                                     topRight: Radius.circular(8.0),
-                                  )),
+                                  ).r),
                                   width: double.infinity,
-                                  height: 230,
+                                  height: 230.h,
                                   child: ImageViewScreen(
-                                      image: friendsModel!.cover, body: ''),
+                                      image: friendsModel?.cover, body: ''),
                                 ),
                               ),
                               InkWell(
                                 onTap: () {
                                   navigateTo(
-                                      context,
-                                      ImageViewScreen(
-                                          image: friendsModel.image, body: ''));
+                                    context,
+                                    ImageViewScreen(
+                                        image: friendsModel.image, body: ''),
+                                  );
                                 },
                                 child: CircleAvatar(
                                   backgroundColor: Colors.white,
                                   radius: 75,
                                   child: CircleAvatar(
                                     backgroundImage: NetworkImage(
-                                      '${friendsModel.image}',
+                                      '${friendsModel!.image}',
                                     ),
-                                    radius: 70,
+                                    radius: 70.r,
                                   ),
                                 ),
                               ),
                               Positioned(
-                                top: 60,
-                                left: 5,
+                                top: 60.h,
+                                left: 5.w,
                                 child: IconButton(
                                   onPressed: () {
                                     pop(context);
                                   },
-                                  icon: const CircleAvatar(
+                                  icon: CircleAvatar(
                                     backgroundColor: Colors.black,
                                     child: Icon(
                                       IconlyLight.arrowLeft2,
-                                      size: 30,
+                                      size: 30.sp,
                                       color: Colors.white,
                                     ),
                                   ),
@@ -110,28 +116,28 @@ class FriendsProfileScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        space(0, 5),
+                        space(0, 5.h),
                         Text(
                           '${friendsModel.name}',
                           style: GoogleFonts.roboto(
-                            fontSize: 24,
+                            fontSize: 24.sp,
                             color: cubit.isLight ? Colors.blue : Colors.white,
                           ),
                         ),
-                        space(0, 5),
+                        space(0, 5.h),
                         Text(
                           '${friendsModel.bio}',
                           style: GoogleFonts.roboto(
                             textStyle:
                                 Theme.of(context).textTheme.caption!.copyWith(
-                                      fontSize: 16,
+                                      fontSize: 16.sp,
                                       color: Colors.grey,
                                     ),
                           ),
                         ),
-                        space(0, 15),
+                        space(0, 15.h),
                         Card(
-                          margin: const EdgeInsets.symmetric(horizontal: 10),
+                          margin: const EdgeInsets.symmetric(horizontal: 10).r,
                           color: Colors.grey[100],
                           child: Row(
                             children: [
@@ -144,7 +150,9 @@ class FriendsProfileScreen extends StatelessWidget {
                                         textStyle: Theme.of(context)
                                             .textTheme
                                             .caption!
-                                            .copyWith(fontSize: 20),
+                                            .copyWith(
+                                              fontSize: 20.sp,
+                                            ),
                                       ),
                                     ),
                                     Text(
@@ -154,8 +162,9 @@ class FriendsProfileScreen extends StatelessWidget {
                                             .textTheme
                                             .caption!
                                             .copyWith(
-                                                fontSize: 20,
-                                                color: Colors.black),
+                                              fontSize: 20.sp,
+                                              color: Colors.black,
+                                            ),
                                       ),
                                     ),
                                   ],
@@ -170,7 +179,9 @@ class FriendsProfileScreen extends StatelessWidget {
                                         textStyle: Theme.of(context)
                                             .textTheme
                                             .caption!
-                                            .copyWith(fontSize: 20),
+                                            .copyWith(
+                                              fontSize: 20.sp,
+                                            ),
                                       ),
                                     ),
                                     Text(
@@ -180,8 +191,9 @@ class FriendsProfileScreen extends StatelessWidget {
                                             .textTheme
                                             .caption!
                                             .copyWith(
-                                                fontSize: 20,
-                                                color: Colors.black),
+                                              fontSize: 20.sp,
+                                              color: Colors.black,
+                                            ),
                                       ),
                                     ),
                                   ],
@@ -191,11 +203,12 @@ class FriendsProfileScreen extends StatelessWidget {
                                 child: InkWell(
                                   onTap: () {
                                     navigateTo(
-                                        context,
-                                        FriendsScreen(
-                                          friends,
-                                          myFriends: true,
-                                        ));
+                                      context,
+                                      FriendsScreen(
+                                        friends,
+                                        myFriends: true,
+                                      ),
+                                    );
                                   },
                                   child: Column(
                                     children: [
@@ -205,7 +218,7 @@ class FriendsProfileScreen extends StatelessWidget {
                                           textStyle: Theme.of(context)
                                               .textTheme
                                               .caption!
-                                              .copyWith(fontSize: 20),
+                                              .copyWith(fontSize: 20.sp),
                                         ),
                                       ),
                                       Text(
@@ -215,8 +228,9 @@ class FriendsProfileScreen extends StatelessWidget {
                                               .textTheme
                                               .caption!
                                               .copyWith(
-                                                  fontSize: 20,
-                                                  color: Colors.black),
+                                                fontSize: 20.sp,
+                                                color: Colors.black,
+                                              ),
                                         ),
                                       ),
                                     ],
@@ -230,7 +244,7 @@ class FriendsProfileScreen extends StatelessWidget {
                           children: [
                             Expanded(
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(8.0).r,
                                 child: ElevatedButton(
                                     style: ButtonStyle(
                                         backgroundColor:
@@ -293,52 +307,62 @@ class FriendsProfileScreen extends StatelessWidget {
                                             ? Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
-                                                children: const [
+                                      children: [
                                                   Icon(
                                                     Icons
                                                         .person_add_alt_1_rounded,
                                                     color: Colors.white,
+                                                    size: 24.sp,
                                                   ),
                                                   SizedBox(
-                                                    width: 5,
+                                                    width: 5.w,
                                                   ),
-                                                  Text('requestSent',
-                                                      style: TextStyle(
-                                                          color: Colors.white)),
+                                                  const Text(
+                                                    'requestSent',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
                                                 ],
                                               )
                                             : Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
-                                                children: const [
+                                      children: [
                                                   Icon(
+                                                    size: 24.sp,
                                                     Icons
                                                         .person_add_alt_1_rounded,
                                                     color: Colors.white,
                                                   ),
                                                   SizedBox(
-                                                    width: 5,
+                                                    width: 5.w,
                                                   ),
-                                                  Text('addFriend',
-                                                      style: TextStyle(
-                                                          color: Colors.white)),
+                                                  const Text(
+                                                    'addFriend',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
                                                 ],
                                               )
                                         : Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
-                                            children: const [
+                                      children: [
                                               Icon(
                                                 Icons.person,
                                                 color: Colors.black,
+                                                size: 24.sp,
                                               ),
                                               SizedBox(
-                                                width: 5,
+                                                width: 5.w,
                                               ),
-                                              Text(
+                                              const Text(
                                                 'profileFriends',
                                                 style: TextStyle(
-                                                    color: Colors.black),
+                                                  color: Colors.black,
+                                                ),
                                               ),
                                             ],
                                           )),
@@ -346,56 +370,65 @@ class FriendsProfileScreen extends StatelessWidget {
                             ),
                             Expanded(
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(8.0).r,
                                 child: ElevatedButton(
                                     style: ButtonStyle(
-                                        backgroundColor:
-                                            SocialCubit.get(context).isFriend ==
-                                                    false
-                                                ? MaterialStateProperty.all(
-                                                    Colors.grey[300])
-                                                : MaterialStateProperty.all(
-                                                    Colors.blueAccent)),
+                                      backgroundColor:
+                                          SocialCubit.get(context).isFriend ==
+                                                  false
+                                              ? MaterialStateProperty.all(
+                                                  Colors.grey[300])
+                                              : MaterialStateProperty.all(
+                                                  Colors.blueAccent,
+                                                ),
+                                    ),
                                     onPressed: () {
                                       navigateTo(
-                                          context,
-                                          PrivateChatScreen(
-                                            userModel: friendsModel,
-                                          ));
+                                        context,
+                                        PrivateChatScreen(
+                                          userModel: friendsModel,
+                                        ),
+                                      );
                                     },
                                     child: SocialCubit.get(context).isFriend !=
                                             false
                                         ? Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
-                                            children: const [
+                                      children: [
                                               Icon(
+                                                size: 24.sp,
                                                 IconlyBroken.chat,
                                                 color: Colors.white,
                                               ),
                                               SizedBox(
-                                                width: 5,
+                                                width: 5.w,
                                               ),
-                                              Text('message',
-                                                  style: TextStyle(
-                                                      color: Colors.white)),
+                                              const Text(
+                                                'message',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                ),
+                                              ),
                                             ],
                                           )
                                         : Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
-                                            children: const [
+                                      children: [
                                               Icon(
                                                 IconlyBroken.chat,
                                                 color: Colors.black,
+                                                size: 24.sp,
                                               ),
                                               SizedBox(
-                                                width: 5,
+                                                width: 5.w,
                                               ),
-                                              Text(
+                                              const Text(
                                                 'message',
                                                 style: TextStyle(
-                                                    color: Colors.black),
+                                                  color: Colors.black,
+                                                ),
                                               ),
                                             ],
                                           )),
@@ -408,23 +441,24 @@ class FriendsProfileScreen extends StatelessWidget {
                   ),
                   myDivider2(),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 4.0, vertical: 0)
+                            .r,
                     child: Align(
                       alignment: AlignmentDirectional.topStart,
                       child: Text(
                         'Posts',
                         style: GoogleFonts.roboto(
-                          fontSize: 24,
+                          fontSize: 24.sp,
                           color: cubit.isLight ? Colors.black : Colors.white,
                         ),
                       ),
                     ),
                   ),
-                  space(0, 5),
                   ConditionalBuilder(
                       condition: posts.isNotEmpty,
                       builder: (context) => ListView.separated(
-                            shrinkWrap: true,
+                        shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) => buildPost(
                                 index,
@@ -434,31 +468,31 @@ class FriendsProfileScreen extends StatelessWidget {
                                 friendsModel,
                                 scaffoldKey,
                                 isSingle: false),
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(
-                              height: 10,
+                            separatorBuilder: (context, index) => SizedBox(
+                              height: 10.h,
                             ),
                             itemCount: posts.length,
                           ),
                       fallback: (context) => Padding(
-                            padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0).r,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
+                              children: [
                                 SizedBox(
-                                  height: 70,
+                                  height: 70.h,
                                 ),
                                 Icon(
                                   Icons.article_outlined,
-                                  size: 70,
+                                  size: 70.sp,
                                   color: Colors.grey,
                                 ),
                                 Text(
                                   'No Posts',
                                   style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
+                                    color: Colors.grey,
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 )
                               ],
                             ),

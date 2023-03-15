@@ -75,7 +75,7 @@ class FriendsScreen extends StatelessWidget {
                   ),
                 )
               : Scaffold(
-                  extendBodyBehindAppBar: true,
+              extendBodyBehindAppBar: true,
                   appBar: AppBar(
                     elevation: 1,
                     leading: IconButton(

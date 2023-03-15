@@ -75,7 +75,7 @@ final  PostModel? postModel;
                 ),
               ),
             ],
-            elevation: 5,
+            elevation: 0,
           ),
           body: Stack(
             alignment: AlignmentDirectional.bottomCenter,

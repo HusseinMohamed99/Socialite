@@ -29,6 +29,7 @@ class _ImageViewScreenState extends State<ImageViewScreen> {
             children: [
               Image.network(
                 "${widget.image}",
+                fit: BoxFit.cover,
                 height: double.infinity,
                 width: double.infinity,
                 alignment: Alignment.center,

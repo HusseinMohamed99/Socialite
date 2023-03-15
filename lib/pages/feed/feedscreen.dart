@@ -232,7 +232,7 @@ class FeedScreen extends StatelessWidget {
                                                       image: NetworkImage(
                                                         cubit.userModel!.image!,
                                                       ),
-                                                      fit: BoxFit.fill,
+                                                      fit: BoxFit.cover,
                                                     ),
                                                   ),
                                                 ),
@@ -381,21 +381,21 @@ class FeedScreen extends StatelessWidget {
                           itemBuilder: (context, index) => (buildPostItem(
                               cubit.posts[index], context, index)),
                         ),
-                        TextButton(
-                          onPressed: () {
-                            cubit.getPosts();
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              AdaptiveIndicator(
-                                os: getOs(),
-                              ),
-                              space(20.w, 0),
-                              const Text('Reload'),
-                            ],
-                          ),
-                        )
+                        // TextButton(
+                        //   onPressed: () {
+                        //     cubit.getPosts();
+                        //   },
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.center,
+                        //     children: [
+                        //       AdaptiveIndicator(
+                        //         os: getOs(),
+                        //       ),
+                        //       space(20.w, 0),
+                        //       const Text('Reload'),
+                        //     ],
+                        //   ),
+                        // )
                       ],
                     ),
                   ),
@@ -429,7 +429,11 @@ class FeedScreen extends StatelessWidget {
                   onTap: () {
                     if (postModel.uId !=
                         SocialCubit.get(context).userModel!.uId) {
-                      navigateTo(context, FriendsProfileScreen(postModel.uId));
+                      navigateTo(
+                        context,
+                        FriendsProfileScreen(postModel.uId),
+                      );
+                      SocialCubit.get(context).getFriendsProfile(postModel.uId);
                     } else {
                       navigateTo(
                         context,
@@ -824,7 +828,7 @@ class FeedScreen extends StatelessWidget {
                         '${SocialCubit.get(context).userModel!.image}'),
                   ),
                 ),
-                space(10.w, 0),
+                space(8.w, 0),
                 InkWell(
                   onTap: () {
                     navigateTo(
@@ -836,12 +840,12 @@ class FeedScreen extends StatelessWidget {
                     );
                   },
                   child: SizedBox(
-                    width: 138.w,
+                    width: 120.w,
                     child: Text(
                       'Write a comment ...',
                       style: GoogleFonts.roboto(
                         textStyle: Theme.of(context).textTheme.caption,
-                        fontSize: 15.sp,
+                        fontSize: 12.sp,
                         color: Colors.grey,
                       ),
                     ),

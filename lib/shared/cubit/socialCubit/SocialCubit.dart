@@ -36,12 +36,9 @@ import '../../../model/notifications_model.dart';
 import '../../../model/story_model.dart';
 import '../../network/dio_helper.dart';
 
-
 class SocialCubit extends Cubit<SocialStates> {
   SocialCubit() : super(SocialInitialState());
   static SocialCubit get(context) => BlocProvider.of(context);
-
-
 
   // ----------------------------------------------------------//
   ///START : GetUserData
@@ -56,6 +53,7 @@ class SocialCubit extends Cubit<SocialStates> {
       emit(GetUserDataErrorState(error.toString()));
     });
   }
+
   ///END : GetUserData
 
 // ----------------------------------------------------------//
@@ -72,33 +70,36 @@ class SocialCubit extends Cubit<SocialStates> {
       }
       emit(GetAllUsersSuccessState());
     }).catchError((error) {
-
       emit(GetAllUsersErrorState(error.toString()));
     });
   }
+
   ///END : GetAllUsers
 
   // ----------------------------------------------------------//
   ///START : setUserToken
-  void setUserToken() async{
+  void setUserToken() async {
     emit(SetUSerTokenLoadingState());
     String? token = await FirebaseMessaging.instance.getToken();
     debugPrint(' token $token');
-    await FirebaseFirestore.instance.collection('users').doc(userModel!.uId)
-        .update({'token': token})
-        .then((value) => emit(SetUSerTokenSuccessState()));
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userModel!.uId)
+        .update({'token': token}).then(
+            (value) => emit(SetUSerTokenSuccessState()));
   }
+
   ///END : setUserToken
 
   // ----------------------------------------------------------//
   ///START : Screens
   int currentIndex = 0;
-  List <Widget> screens = const[
-     FeedScreen(),
-     ChatScreen(),
-      UserScreen(),
-     StoryScreen(),
-     SettingScreen(),
+  List<Widget> screens = const [
+    FeedScreen(),
+    ChatScreen(),
+    UserScreen(),
+    StoryScreen(),
+    SettingScreen(),
   ];
 
   ///END : Screens
@@ -119,20 +120,17 @@ class SocialCubit extends Cubit<SocialStates> {
   // ----------------------------------------------------------//
 
   ///START : ChangeTabBar
-  void changeTabBar(int index,BuildContext context) {
-    if(index == 0)
-    {
-       getPosts();
+  void changeTabBar(int index, BuildContext context) {
+    if (index == 0) {
+      getPosts();
     }
     if (index == 1) {
       getAllUsers();
     }
-    if (index == 2)
-    {
+    if (index == 2) {
       getFriends(userModel!.uId);
     }
-    if (index == 3)
-    {
+    if (index == 3) {
       getPersonalStory(userModel!.uId);
     }
     currentIndex = index;
@@ -145,28 +143,30 @@ class SocialCubit extends Cubit<SocialStates> {
 
   ///START : ChangeItem(Drawer)
   ItemsModel currentItem = MenuItems.profile;
+
   void changeItem(ItemsModel item, context) {
     currentItem = item;
     getScreen(context);
     emit(ChangeMenuItemState());
   }
 
-  Widget mScreen =  MainScreen(0);
+  Widget mScreen = MainScreen(0);
+
   void getScreen(context) {
     if (currentItem == MenuItems.profile) {
       navigateTo(context, const MyProfileScreen());
-      mScreen =  MainScreen(0);
+      mScreen = MainScreen(0);
     } else if (currentItem == MenuItems.notifications) {
-      navigateTo(context,  const NotificationScreen());
-      mScreen =  MainScreen(0);
+      navigateTo(context, const NotificationScreen());
+      mScreen = MainScreen(0);
     } else if (currentItem == MenuItems.savedPost) {
       navigateTo(context, const SavePostScreen());
-      mScreen =  MainScreen(0);
+      mScreen = MainScreen(0);
     } else if (currentItem == MenuItems.restPassword) {
       navigateTo(context, RestPasswordScreen());
-      mScreen =  MainScreen(0);
+      mScreen = MainScreen(0);
     } else {
-      mScreen =  MainScreen(0);
+      mScreen = MainScreen(0);
     }
     emit(ChangeMenuScreenState());
   }
@@ -260,7 +260,6 @@ class SocialCubit extends Cubit<SocialStates> {
           bio: bio,
           image: value,
         );
-
       }).catchError((error) {
         emit(UploadProfileImageErrorState());
       });
@@ -295,7 +294,6 @@ class SocialCubit extends Cubit<SocialStates> {
           bio: bio,
           cover: value,
         );
-
       }).catchError((error) {
         emit(UploadCoverImageErrorState());
       });
@@ -331,7 +329,6 @@ class SocialCubit extends Cubit<SocialStates> {
           bio: bio,
           image: value,
         );
-
       }).catchError((error) {
         emit(UploadProfileImageErrorState());
       });
@@ -352,7 +349,6 @@ class SocialCubit extends Cubit<SocialStates> {
           bio: bio,
           cover: value,
         );
-
       }).catchError((error) {
         emit(UploadCoverImageErrorState());
       });
@@ -461,7 +457,6 @@ class SocialCubit extends Cubit<SocialStates> {
       text: text,
       postImage: postImage ?? '',
       dateTime: dateTime,
-      postID: null,
     );
 
     FirebaseFirestore.instance
@@ -710,13 +705,6 @@ class SocialCubit extends Cubit<SocialStates> {
         name: postModel.name,
         image: postModel.image,
         dateTime: postModel.dateTime,
-        likes: postModel.likes,
-        myLike: postModel.myLike,
-        likesNum: postModel.likesNum,
-        comments: postModel.comments,
-        commentsNum: postModel.commentsNum,
-        commentsName: postModel.commentsName,
-        commentsImage: postModel.commentsImage,
         text: text,
         postImage: postImage ?? postModel.postImage);
     FirebaseFirestore.instance
@@ -840,10 +828,8 @@ class SocialCubit extends Cubit<SocialStates> {
   void sendMessage({
     required String receiverId,
     required String dateTime,
-     String? text,
-     String? messageImage,
-
-
+    String? text,
+    String? messageImage,
   }) {
     MessageModel model = MessageModel(
       receiverId: receiverId,
@@ -853,46 +839,42 @@ class SocialCubit extends Cubit<SocialStates> {
       messageImage: messageImage ?? '',
     );
 
-      FirebaseFirestore.instance
-          .collection('users')
-          .doc(userModel!.uId)
-          .collection('chat')
-          .doc(receiverId)
-          .collection('message')
-          .add(model.toMap())
-          .then((value)
-      {
-        emit(SendMessageSuccessState());
-      }).catchError((error)
-      {
-        emit(SendMessageErrorState());
-      });
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(userModel!.uId)
+        .collection('chat')
+        .doc(receiverId)
+        .collection('message')
+        .add(model.toMap())
+        .then((value) {
+      emit(SendMessageSuccessState());
+    }).catchError((error) {
+      emit(SendMessageErrorState());
+    });
 
-      FirebaseFirestore.instance
-          .collection('users')
-          .doc(receiverId)
-          .collection('chat')
-          .doc(userModel!.uId)
-          .collection('message')
-          .add(model.toMap())
-          .then((value)
-      {
-        emit(SendMessageSuccessState());
-      }).catchError((error)
-      {
-        emit(SendMessageErrorState());
-      });
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(receiverId)
+        .collection('chat')
+        .doc(userModel!.uId)
+        .collection('message')
+        .add(model.toMap())
+        .then((value) {
+      emit(SendMessageSuccessState());
+    }).catchError((error) {
+      emit(SendMessageErrorState());
+    });
   }
 
   ///END : sendMessage
 
 //------------------------------------------------------------//
-///START : getMessage
-List<MessageModel> message = [];
+  ///START : getMessage
+  List<MessageModel> message = [];
+
   void getMessage({
     required String receiverId,
-})
-  {
+  }) {
     FirebaseFirestore.instance
         .collection('users')
         .doc(userModel!.uId)
@@ -901,21 +883,22 @@ List<MessageModel> message = [];
         .collection('message')
         .orderBy('dateTime')
         .snapshots()
-        .listen((event)
-    {
+        .listen((event) {
       message = [];
       for (var element in event.docs) {
-       message.add(MessageModel.fromJson(element.data()));
+        message.add(MessageModel.fromJson(element.data()));
       }
       emit(GetMessageSuccessState());
     });
   }
-///END : getMessage
+
+  ///END : getMessage
 
 //------------------------------------------------------------//
   ///START : get Message Image
   bool messageImageSelected = false;
   File? messageImagePicked;
+
   Future<void> getMessageImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
@@ -929,6 +912,7 @@ List<MessageModel> message = [];
       emit(MessageImagePickedErrorState());
     }
   }
+
   ///END : get Message Image
 
   //------------------------------------------------------------//
@@ -937,6 +921,7 @@ List<MessageModel> message = [];
     messageImagePicked = null;
     emit(DeleteMessageImageSuccessState());
   }
+
   ///END : remove Message Image
 
   //------------------------------------------------------------//
@@ -949,7 +934,8 @@ List<MessageModel> message = [];
     emit(UploadMessageImageLoadingState());
     firebase_storage.FirebaseStorage.instance
         .ref()
-        .child('messagesImage/${Uri.file(messageImagePicked!.path).pathSegments.last}')
+        .child(
+            'messagesImage/${Uri.file(messageImagePicked!.path).pathSegments.last}')
         .putFile(messageImagePicked!)
         .then((value) {
       value.ref.getDownloadURL().then((value) {
@@ -965,6 +951,7 @@ List<MessageModel> message = [];
       emit(UploadMessageImageErrorState());
     });
   }
+
   ///END : upload Message Image
 
 //------------------------------------------------------------//
@@ -973,7 +960,10 @@ List<MessageModel> message = [];
 
   void getFriendsProfile(String? friendsUID) {
     emit(GetFriendProfileLoadingState());
-    FirebaseFirestore.instance.collection('users').snapshots().listen((value) {
+    FirebaseFirestore.instance
+        .collectionGroup('friends')
+        .snapshots()
+        .listen((value) {
       for (var element in value.docs) {
         if (element.data()['uId'] == friendsUID) {
           friendsProfile = UserModel.fromJson(element.data());
@@ -982,14 +972,15 @@ List<MessageModel> message = [];
       emit(GetFriendProfileSuccessState());
     });
   }
+
   ///END : getFriendsProfile
 
   //------------------------------------------------------------//
   ///START : addFriend
   void addFriend(
       {required String? friendsUID,
-        required String? friendName,
-        required String? friendImage}) {
+      required String? friendName,
+      required String? friendImage}) {
     emit(AddFriendLoadingState());
     UserModel myFriendModel = UserModel(
       uId: friendsUID,
@@ -1000,6 +991,8 @@ List<MessageModel> message = [];
       uId: userModel!.uId,
       name: userModel!.name,
       image: userModel!.image,
+      cover: userModel!.cover,
+      bio: userModel!.bio,
     );
     FirebaseFirestore.instance
         .collection('users')
@@ -1026,6 +1019,7 @@ List<MessageModel> message = [];
       emit(AddFriendErrorState());
     });
   }
+
   ///END : addFriend
 
   //------------------------------------------------------------//
@@ -1046,6 +1040,7 @@ List<MessageModel> message = [];
       emit(GetFriendSuccessState());
     });
   }
+
   ///END : getFriends
 
   //------------------------------------------------------------//
@@ -1066,6 +1061,7 @@ List<MessageModel> message = [];
     });
     return isFriend;
   }
+
   ///END : checkFriends
 
   //------------------------------------------------------------//
@@ -1097,14 +1093,15 @@ List<MessageModel> message = [];
       debugPrint(error.toString());
     });
   }
+
   ///END : unFriend
 
   //------------------------------------------------------------//
   ///START : sendFriendRequest
   void sendFriendRequest(
       {required String? friendsUID,
-        required String? friendName,
-        required String? friendImage}) {
+      required String? friendName,
+      required String? friendImage}) {
     emit(FriendRequestLoadingState());
     UserModel friendRequestModel = UserModel(
       uId: userModel!.uId,
@@ -1125,6 +1122,7 @@ List<MessageModel> message = [];
       emit(FriendRequestErrorState());
     });
   }
+
   ///END : sendFriendRequest
 
   //------------------------------------------------------------//
@@ -1145,6 +1143,7 @@ List<MessageModel> message = [];
       }
     });
   }
+
   ///END : getFriendRequest
 
   //------------------------------------------------------------//
@@ -1168,6 +1167,7 @@ List<MessageModel> message = [];
     });
     return request;
   }
+
   ///END : checkFriendRequest
 
   //------------------------------------------------------------//
@@ -1187,12 +1187,14 @@ List<MessageModel> message = [];
       debugPrint(error.toString());
     });
   }
+
   ///END : deleteFriendRequest
 
 //------------------------------------------------------------//
   ///START : getSinglePost
   PostModel? singlePost;
-  void getSinglePost(String? postId){
+
+  void getSinglePost(String? postId) {
     emit(GetPostsLoadingState());
     FirebaseFirestore.instance
         .collection('posts')
@@ -1201,10 +1203,11 @@ List<MessageModel> message = [];
         .then((value) {
       singlePost = PostModel.fromJson(value.data()!);
       emit(GetSinglePostSuccessState());
-    }).catchError((error){
+    }).catchError((error) {
       emit(GetPostsErrorState(error.toString()));
     });
   }
+
   ///END : getSinglePost
 
   //------------------------------------------------------------//
@@ -1224,6 +1227,7 @@ List<MessageModel> message = [];
     });
     emit(GetStorySuccessState());
   }
+
   ///END : getStories
 
   //------------------------------------------------------------//
@@ -1243,6 +1247,7 @@ List<MessageModel> message = [];
       emit(CreateStoryImagePickedErrorState());
     }
   }
+
   ///END : getStoryImage
 
   //------------------------------------------------------------//
@@ -1270,6 +1275,7 @@ List<MessageModel> message = [];
       debugPrint(error.toString());
     });
   }
+
   ///END : getStoryImage
 
   //------------------------------------------------------------//
@@ -1298,6 +1304,7 @@ List<MessageModel> message = [];
       emit(CreateStoryErrorState());
     });
   }
+
   ///END : uploadStory
 
   //------------------------------------------------------------//
@@ -1306,6 +1313,7 @@ List<MessageModel> message = [];
     storyImage = null;
     emit(RemoveStoryImagePickedSuccessState());
   }
+
   ///START : removeStoryImage
 
   //------------------------------------------------------------//
@@ -1315,6 +1323,7 @@ List<MessageModel> message = [];
     addText = !addText;
     emit(AddTextSuccessState());
   }
+
   ///END : AddText
 
   //------------------------------------------------------------//
@@ -1322,6 +1331,7 @@ List<MessageModel> message = [];
   void closeStory() {
     emit(CloseCreateStoryScreenState());
   }
+
   ///END : closeStory
 
   //------------------------------------------------------------//
@@ -1335,6 +1345,7 @@ List<MessageModel> message = [];
     }
     emit(GetStorySuccessState());
   }
+
   ///END : getPersonalStory
 
   //------------------------------------------------------------//
@@ -1355,6 +1366,7 @@ List<MessageModel> message = [];
       emit(SearchErrorState(error.toString()));
     });
   }
+
   ///END : searchUser
 
   //------------------------------------------------------------//
@@ -1366,26 +1378,25 @@ List<MessageModel> message = [];
     String? messageText,
     String? messageImage,
   }) {
-    DioHelper.postData(
-        data: {
-          "to": token,
-          "notification": {
-            "title": senderName,
-            "body":
-            messageText ?? (messageImage != null ? 'Photo' : 'ERROR 404'),
-            "sound": "default"
-          },
-          "android": {
-            "Priority": "HIGH",
-          },
-          "data": {
-            "type": "order",
-            "id": "87",
-            "click_action": "FLUTTER_NOTIFICATION_CLICK"
-          }
-        });
+    DioHelper.postData(data: {
+      "to": token,
+      "notification": {
+        "title": senderName,
+        "body": messageText ?? (messageImage != null ? 'Photo' : 'ERROR 404'),
+        "sound": "default"
+      },
+      "android": {
+        "Priority": "HIGH",
+      },
+      "data": {
+        "type": "order",
+        "id": "87",
+        "click_action": "FLUTTER_NOTIFICATION_CLICK"
+      }
+    });
     emit(SendMessageSuccessState());
   }
+
   ///END : sendFCMNotification
 
   //------------------------------------------------------------//
@@ -1396,69 +1407,74 @@ List<MessageModel> message = [];
     String? content,
     String? receiverName,
     String? receiverId,
-  }){
+  }) {
     emit(SendInAppNotificationLoadingState());
     NotificationModel notificationModel = NotificationModel(
-      contentKey:contentKey,
-      contentId:contentId,
-      content:content,
+      contentKey: contentKey,
+      contentId: contentId,
+      content: content,
       senderName: userModel!.name,
-      receiverName:receiverName,
-      senderId:userModel!.uId,
-      receiverId:receiverId,
-      senderImage:userModel!.image,
+      receiverName: receiverName,
+      senderId: userModel!.uId,
+      receiverId: receiverId,
+      senderImage: userModel!.image,
       read: false,
       dateTime: Timestamp.now(),
-      serverTimeStamp:FieldValue.serverTimestamp(),
+      serverTimeStamp: FieldValue.serverTimestamp(),
     );
 
     FirebaseFirestore.instance
         .collection('users')
         .doc(receiverId)
         .collection('notifications')
-        .add(notificationModel.toMap()).then((value) async{
+        .add(notificationModel.toMap())
+        .then((value) async {
       await setNotificationId();
       emit(SendInAppNotificationLoadingState());
     }).catchError((error) {
       emit(SendInAppNotificationLoadingState());
     });
   }
+
   ///END : sendInAppNotification
 
   //------------------------------------------------------------//
   ///START : getInAppNotification
   List<NotificationModel> notifications = [];
-  void getInAppNotification() async{
+
+  void getInAppNotification() async {
     emit(GetInAppNotificationLoadingState());
     FirebaseFirestore.instance
         .collection('users')
         .doc(userModel!.uId)
         .collection('notifications')
-        .orderBy('serverTimeStamp',descending: true)
+        .orderBy('serverTimeStamp', descending: true)
         .snapshots()
         .listen((event) async {
       notifications = [];
-      for (var element in event.docs)  {
+      for (var element in event.docs) {
         notifications.add(NotificationModel.fromJson(element.data()));
       }
       emit(GetInAppNotificationSuccessState());
     });
   }
+
   ///END : getInAppNotification
 
   //------------------------------------------------------------//
   ///START : getUnReadNotificationsCount
   int unReadNotificationsCount = 0;
-  Future<int> getUnReadNotificationsCount() async{
-    FirebaseFirestore.instance.collection('users')
+
+  Future<int> getUnReadNotificationsCount() async {
+    FirebaseFirestore.instance
+        .collection('users')
         .doc(userModel!.uId)
         .collection('notifications')
         .snapshots()
         .listen((event) {
       unReadNotificationsCount = 0;
-      for(int i = 0; i < event.docs.length; i++)
-      {
-        if(event.docs[i]['read'] == false) {
+      for (int i = 0; i < event.docs.length; i++) {
+        if (event.docs[i]['read'] == false) {
           unReadNotificationsCount++;
         }
       }
@@ -1468,76 +1484,83 @@ List<MessageModel> message = [];
 
     return unReadNotificationsCount;
   }
+
   ///END : getUnReadNotificationsCount
 
   //------------------------------------------------------------//
   ///START : getUnReadNotificationsCount
-  Future setNotificationId() async{
-    await FirebaseFirestore.instance.collection('users').get()
-        .then((value) {
+  Future setNotificationId() async {
+    await FirebaseFirestore.instance.collection('users').get().then((value) {
       value.docs.forEach((element) async {
-        var notifications = await element.reference.collection('notifications').get();
+        var notifications =
+            await element.reference.collection('notifications').get();
         notifications.docs.forEach((notificationsElement) async {
-          await notificationsElement.reference.update({
-            'notificationId' : notificationsElement.id
-          });
+          await notificationsElement.reference
+              .update({'notificationId': notificationsElement.id});
         });
       });
       emit(SetNotificationIdSuccessState());
     });
   }
+
   ///END : getUnReadNotificationsCount
 
   //------------------------------------------------------------//
   ///START : readNotification
-  Future readNotification(String? notificationId) async{
-    await FirebaseFirestore.instance.collection('users')
+  Future readNotification(String? notificationId) async {
+    await FirebaseFirestore.instance
+        .collection('users')
         .doc(userModel!.uId)
         .collection('notifications')
         .doc(notificationId)
-        .update({'read' : true}).then((value) {
+        .update({'read': true}).then((value) {
       emit(ReadNotificationSuccessState());
     });
   }
+
   ///END : readNotification
 
   //------------------------------------------------------------//
   ///START : deleteNotification
-  void deleteNotification(String? notificationId) async{
-    await FirebaseFirestore.instance.collection('users')
+  void deleteNotification(String? notificationId) async {
+    await FirebaseFirestore.instance
+        .collection('users')
         .doc(userModel!.uId)
         .collection('notifications')
         .doc(notificationId)
-        .delete().then((value) {
+        .delete()
+        .then((value) {
       emit(ReadNotificationSuccessState());
     });
   }
+
   ///END : deleteNotification
 
   //------------------------------------------------------------//
   ///START : notificationContent
-  String notificationContent (String? contentKey){
-    if(contentKey == 'likePost') {
+  String notificationContent(String? contentKey) {
+    if (contentKey == 'likePost') {
       return 'like Post';
     } else if (contentKey == 'commentPost') {
-      return  'comment Post';
+      return 'comment Post';
     } else if (contentKey == 'friendRequestAccepted') {
-      return  'friend Request Accepted';
+      return 'friend Request Accepted';
     } else {
       return ' friend Request';
     }
   }
 
-  IconData notificationContentIcon (String? contentKey){
-    if(contentKey == 'likePost') {
+  IconData notificationContentIcon(String? contentKey) {
+    if (contentKey == 'likePost') {
       return IconlyBroken.heart;
     } else if (contentKey == 'commentPost') {
       return IconlyBroken.chat;
     } else if (contentKey == 'friendRequestAccepted') {
-      return  Icons.person;
+      return Icons.person;
     } else {
-      return  Icons.person;
+      return Icons.person;
     }
   }
-///END : notificationContent
+
+  ///END : notificationContent
 }

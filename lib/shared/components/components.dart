@@ -15,6 +15,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -336,7 +337,7 @@ Widget buildPost(
     elevation: 10,
     margin: const EdgeInsets.symmetric(horizontal: 8),
     child: Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(10.0).r,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -344,7 +345,8 @@ Widget buildPost(
             children: [
               InkWell(
                 onTap: () {
-                  if (postModel.uId != SocialCubit.get(context).userModel!.uId) {
+                  if (postModel.uId !=
+                      SocialCubit.get(context).userModel!.uId) {
                     navigateTo(context, FriendsProfileScreen(postModel.uId));
                   } else {
                     navigateTo(context, const MyProfileScreen());

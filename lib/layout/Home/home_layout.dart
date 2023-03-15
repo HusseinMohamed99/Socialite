@@ -142,7 +142,7 @@ class _MainScreenState extends State<MainScreen>
           initialIndex: cubit.currentIndex,
           child: Scaffold(
             appBar: AppBar(
-              elevation: 20,
+              elevation: 0,
               leading: IconButton(
                 onPressed: () {
                   ZoomDrawer.of(context)!.toggle();

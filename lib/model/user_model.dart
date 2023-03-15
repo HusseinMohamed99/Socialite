@@ -3,11 +3,9 @@ class UserModel {
   String? phone;
   String? name;
   String? uId;
-
   String? image;
   String? cover;
   String? bio;
-
   bool? isEmailVerified ;
 
   UserModel(

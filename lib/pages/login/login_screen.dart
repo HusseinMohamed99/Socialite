@@ -50,7 +50,7 @@ class LoginScreen extends StatelessWidget {
               appBar: defaultAppBar(),
               body: SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0).r,
+                  padding: const EdgeInsets.all(8.0).r,
                   child: Form(
                     key: formKey,
                     child: Column(
@@ -215,7 +215,7 @@ class LoginScreen extends StatelessWidget {
                                   color: cubit.isLight
                                       ? Colors.black
                                       : Colors.white,
-                                  fontSize: 20.sp,
+                                  fontSize: 15.sp,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
@@ -232,7 +232,7 @@ class LoginScreen extends StatelessWidget {
                                 style: GoogleFonts.roboto(
                                   textStyle: TextStyle(
                                     color: Colors.blue,
-                                    fontSize: 20.sp,
+                                    fontSize: 15.sp,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),

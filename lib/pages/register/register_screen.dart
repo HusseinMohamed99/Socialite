@@ -54,7 +54,7 @@ class RegisterScreen extends StatelessWidget {
             ),
             body: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(20.0).r,
+                padding: const EdgeInsets.all(8.0).r,
                 child: Form(
                   key: formKey,
                   child: Column(
@@ -221,7 +221,7 @@ class RegisterScreen extends StatelessWidget {
                               textStyle: TextStyle(
                                 color:
                                     cubit.isLight ? Colors.black : Colors.white,
-                                fontSize: 20.sp,
+                                fontSize: 15.sp,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -238,7 +238,7 @@ class RegisterScreen extends StatelessWidget {
                               style: GoogleFonts.roboto(
                                 textStyle: TextStyle(
                                   color: Colors.blue,
-                                  fontSize: 25.sp,
+                                  fontSize: 15.sp,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
