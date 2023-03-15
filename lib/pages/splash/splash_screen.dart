@@ -3,6 +3,7 @@ import 'package:f_app/layout/Home/home_layout.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
 import 'package:f_app/shared/components/components.dart';
 import 'package:f_app/shared/components/constants.dart';
+import 'package:f_app/shared/styles/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -56,7 +57,7 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
     return Scaffold(
       backgroundColor: SocialCubit.get(context).isLight
           ? Colors.transparent
-          : const Color(0xff404258),
+          : ThemeApp.darkPrimary,
       appBar: defaultAppBar(),
       body: FadeTransition(
         opacity: fadingAnimation!,

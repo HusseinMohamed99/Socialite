@@ -99,34 +99,6 @@ class SocialCubit extends Cubit<SocialStates> {
 
   // ----------------------------------------------------------//
 
-  List<BottomNavigationBarItem> bottomItems = [
-    const BottomNavigationBarItem(
-        icon: Icon(
-          Icons.home_outlined,
-        ),
-        label: 'Home'),
-    const BottomNavigationBarItem(
-        icon: Icon(
-          Icons.message,
-        ),
-        label: 'Chat'),
-    const BottomNavigationBarItem(
-        icon: Icon(
-          Icons.supervised_user_circle_sharp,
-        ),
-        label: 'Friend'),
-    const BottomNavigationBarItem(
-        icon: Icon(
-          Icons.location_history_outlined,
-        ),
-        label: 'Story'),
-    const BottomNavigationBarItem(
-        icon: Icon(
-          Icons.settings,
-        ),
-        label: 'Settings'),
-  ];
-
   ///START : Titles
   List<String> titles = [
     'Home 🏠',
@@ -160,41 +132,9 @@ class SocialCubit extends Cubit<SocialStates> {
     emit(SocialChangeTabBarState());
   }
 
-  ///END : ChangeTabBar
 
-  // ----------------------------------------------------------//
 
-  // ///START : ChangeItem(Drawer)
-  // ItemsModel currentItem = MenuItems.profile;
-  //
-  // void changeItem(ItemsModel item, context) {
-  //   currentItem = item;
-  //   getScreen(context);
-  //   emit(ChangeMenuItemState());
-  // }
 
-  // Widget mScreen = MainScreen(0);
-  //
-  // void getScreen(context) {
-  //   if (currentItem == MenuItems.profile) {
-  //     navigateTo(context, const MyProfileScreen());
-  //     mScreen = MainScreen(0);
-  //   } else if (currentItem == MenuItems.notifications) {
-  //     navigateTo(context, const NotificationScreen());
-  //     mScreen = MainScreen(0);
-  //   } else if (currentItem == MenuItems.savedPost) {
-  //     navigateTo(context, const SavePostScreen());
-  //     mScreen = MainScreen(0);
-  //   } else if (currentItem == MenuItems.restPassword) {
-  //     navigateTo(context, RestPasswordScreen());
-  //     mScreen = MainScreen(0);
-  //   } else {
-  //     mScreen = MainScreen(0);
-  //   }
-  //   emit(ChangeMenuScreenState());
-  // }
-
-  ///END : ChangeItem(Drawer)
 
   // ----------------------------------------------------------//
 

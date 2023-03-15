@@ -1,7 +1,15 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:f_app/Pages/comment/comment_screen.dart';
+import 'package:f_app/Pages/friend/friend_screen.dart';
+import 'package:f_app/Pages/post/edit_post.dart';
 import 'package:f_app/Pages/profile/Edit_profile_screen.dart';
+import 'package:f_app/Pages/viewPhoto/image_view.dart';
+import 'package:f_app/Pages/viewPhoto/post_view.dart';
 import 'package:f_app/adaptive/indicator.dart';
 import 'package:f_app/model/post_model.dart';
+import 'package:f_app/model/user_model.dart';
+import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
+import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
 import 'package:f_app/shared/components/components.dart';
 import 'package:f_app/shared/components/constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,25 +18,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../model/user_model.dart';
-import '../../shared/Cubit/socialCubit/SocialCubit.dart';
-import '../../shared/Cubit/socialCubit/SocialState.dart';
-import '../comment/comment_screen.dart';
-import '../friend/friend_screen.dart';
-import '../post/edit_post.dart';
-import '../viewPhoto/image_view.dart';
-import '../viewPhoto/post_view.dart';
 
 class MyProfileScreen extends StatelessWidget {
   const MyProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Builder(builder: (context) {
-      SocialCubit.get(context)
-          .getMyPosts(SocialCubit.get(context).userModel!.uId);
-      List<PostModel>? posts = SocialCubit.get(context).userPosts;
-      List<UserModel>? friends = SocialCubit.get(context).friends;
       return BlocConsumer<SocialCubit, SocialStates>(
         listener: (context, state)
         {
@@ -63,12 +58,10 @@ class MyProfileScreen extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          List<PostModel>? userPosts = SocialCubit.get(context).userPosts;
           var userModel = SocialCubit.get(context).userModel;
           var cubit = SocialCubit.get(context);
           return SocialCubit.get(context).userModel == null
               ? Scaffold(
-
               body: Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -90,25 +83,25 @@ class MyProfileScreen extends StatelessWidget {
                   ],
                 ),
               )):
-            userPosts.isEmpty
-              ? SafeArea(
+          cubit.userPosts.isEmpty
+                ? SafeArea(
                 child: Scaffold(
                     body: buildProfileWithOutPosts(),
                   ),
               )
               : ConditionalBuilder(
-                  condition: userPosts.isNotEmpty,
-                  builder: (BuildContext context) => SafeArea(
-                    child: Scaffold(
-                      body: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 280,
-                              child: Stack(
-                                alignment: AlignmentDirectional.bottomCenter,
-                                children: [
-                                  InkWell(
+            condition: cubit.userPosts.isNotEmpty,
+                    builder: (BuildContext context) => SafeArea(
+                      child: Scaffold(
+                        body: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 280,
+                                child: Stack(
+                                  alignment: AlignmentDirectional.bottomCenter,
+                                  children: [
+                                    InkWell(
                                     onTap: ()
                                     {
                                       navigateTo(context, ImageViewScreen(image: cubit.userModel!.cover, body: ''));
@@ -204,14 +197,14 @@ class MyProfileScreen extends StatelessWidget {
                                     child: Column(
                                       children: [
                                         Text(
-                                          '${posts.length}',
-                                          style: GoogleFonts.roboto(
-                                            textStyle: Theme.of(context)
-                                                .textTheme
-                                                .caption!
-                                                .copyWith(fontSize: 20),
+                                          '${cubit.posts.length}',
+                                            style: GoogleFonts.roboto(
+                                              textStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .caption!
+                                                  .copyWith(fontSize: 20),
+                                            ),
                                           ),
-                                        ),
                                         Text(
                                           'Posts',
                                           style: GoogleFonts.libreBaskerville(
@@ -259,21 +252,22 @@ class MyProfileScreen extends StatelessWidget {
                                         navigateTo(
                                                 context,
                                                 FriendsScreen(
-                                                  friends,
-                                                  myFriends: true,
-                                                ));
+                                                  cubit.friends,
+                                                myFriends: true,
+                                              ));
                                           },
                                       child: Column(
                                         children: [
                                           Text(
-                                            '${friends.length}',
-                                            style: GoogleFonts.libreBaskerville(
-                                              textStyle: Theme.of(context)
-                                                  .textTheme
-                                                  .caption!
-                                                  .copyWith(fontSize: 20),
+                                            '${cubit.friends.length}',
+                                              style:
+                                                  GoogleFonts.libreBaskerville(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .caption!
+                                                    .copyWith(fontSize: 20),
+                                              ),
                                             ),
-                                          ),
                                           Text(
                                             'Friends',
                                             style: GoogleFonts.libreBaskerville(
@@ -375,13 +369,13 @@ class MyProfileScreen extends StatelessWidget {
                             space(0, 10),
                             ListView.separated(
                               physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: userPosts.length,
-                              separatorBuilder: (context, index) =>
-                                  space(0, 10),
-                              itemBuilder: (context, index) =>
-                                  (buildPostItem(userPosts[index], context,index)),
-                            ),
+                                shrinkWrap: true,
+                                itemCount: cubit.userPosts.length,
+                                separatorBuilder: (context, index) =>
+                                    space(0, 10),
+                                itemBuilder: (context, index) => (buildPostItem(
+                                    cubit.userPosts[index], context, index)),
+                              ),
                             space(0, 10),
                           ],
                         ),
@@ -394,7 +388,6 @@ class MyProfileScreen extends StatelessWidget {
 
         },
       );
-    });
   }
 }
 
@@ -1036,8 +1029,13 @@ Widget buildPostItem(PostModel postModel, context,index) {
               InkWell(
                 onTap: ()
                 {
-                  navigateTo(context, CommentsScreen(SocialCubit.get(context).postsId[index],postModel.uId,));
-
+                  navigateTo(
+                    context,
+                    CommentsScreen(
+                      SocialCubit.get(context).postsId[index],
+                      postModel.uId,
+                    ),
+                  );
                 },
                 child: SizedBox(
                   width: 150,

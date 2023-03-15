@@ -134,15 +134,17 @@ class _SearchScreenState extends State<SearchScreen> {
         padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
         child: InkWell(
           onTap: () {
-            if (user.uId == uId) {
-              navigateTo(context, const MyProfileScreen());
-            } else {
-              SocialCubit.get(context).getFriends(user.uId);
+            if (user.uId != SocialCubit.get(context).userModel!.uId) {
               navigateTo(
-                  context,
-                  FriendsProfileScreen(
-                    user.uId,
-                  ));
+                context,
+                FriendsProfileScreen(user.uId),
+              );
+              SocialCubit.get(context).getFriendsProfile(user.uId);
+            } else {
+              navigateTo(
+                context,
+                const MyProfileScreen(),
+              );
             }
           },
           child: Row(

@@ -13,6 +13,7 @@ import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
 import 'package:f_app/shared/components/components.dart';
 import 'package:f_app/shared/components/constants.dart';
+import 'package:f_app/shared/styles/themes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -381,21 +382,6 @@ class FeedScreen extends StatelessWidget {
                           itemBuilder: (context, index) => (buildPostItem(
                               cubit.posts[index], context, index)),
                         ),
-                        // TextButton(
-                        //   onPressed: () {
-                        //     cubit.getPosts();
-                        //   },
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.center,
-                        //     children: [
-                        //       AdaptiveIndicator(
-                        //         os: getOs(),
-                        //       ),
-                        //       space(20.w, 0),
-                        //       const Text('Reload'),
-                        //     ],
-                        //   ),
-                        // )
                       ],
                     ),
                   ),
@@ -550,14 +536,18 @@ class FeedScreen extends StatelessWidget {
                                         children: [
                                           Icon(
                                             Icons.edit_location_outlined,
-                                            color: Colors.red,
+                                            color: cubit.isLight
+                                                ? Colors.black
+                                                : ThemeApp.white,
                                             size: 30.sp,
                                           ),
                                           space(10.w, 0),
                                           Text(
                                             "Edit Post",
                                             style: TextStyle(
-                                                color: Colors.black,
+                                                color: cubit.isLight
+                                                    ? Colors.black
+                                                    : ThemeApp.white,
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 20.sp),
                                           )
@@ -587,14 +577,18 @@ class FeedScreen extends StatelessWidget {
                                       children: [
                                         Icon(
                                           Icons.turned_in_not_sharp,
-                                          color: Colors.red,
+                                          color: cubit.isLight
+                                              ? Colors.black
+                                              : ThemeApp.white,
                                           size: 30.sp,
                                         ),
                                         space(10.w, 0),
                                         Text(
                                           "Save Post",
                                           style: TextStyle(
-                                            color: Colors.black,
+                                            color: cubit.isLight
+                                                ? Colors.black
+                                                : ThemeApp.white,
                                             fontWeight: FontWeight.w600,
                                             fontSize: 20.sp,
                                           ),
@@ -619,14 +613,18 @@ class FeedScreen extends StatelessWidget {
                                         children: [
                                           Icon(
                                             IconlyLight.download,
-                                            color: Colors.red,
+                                            color: cubit.isLight
+                                                ? Colors.black
+                                                : ThemeApp.white,
                                             size: 30.sp,
                                           ),
                                           space(10.w, 0),
                                           Text(
                                             "Save Image",
                                             style: TextStyle(
-                                              color: Colors.black,
+                                              color: cubit.isLight
+                                                  ? Colors.black
+                                                  : ThemeApp.white,
                                               fontWeight: FontWeight.w600,
                                               fontSize: 20.sp,
                                             ),
@@ -648,14 +646,18 @@ class FeedScreen extends StatelessWidget {
                                       children: [
                                         Icon(
                                           Icons.share,
-                                          color: Colors.red,
+                                          color: cubit.isLight
+                                              ? Colors.black
+                                              : ThemeApp.white,
                                           size: 30.sp,
                                         ),
                                         space(10.w, 0),
                                         Text(
                                           "Share",
                                           style: TextStyle(
-                                            color: Colors.black,
+                                            color: cubit.isLight
+                                                ? Colors.black
+                                                : ThemeApp.white,
                                             fontWeight: FontWeight.w600,
                                             fontSize: 20.sp,
                                           ),
@@ -680,14 +682,18 @@ class FeedScreen extends StatelessWidget {
                                         children: [
                                           Icon(
                                             Icons.delete,
-                                            color: Colors.red,
+                                            color: cubit.isLight
+                                                ? Colors.black
+                                                : ThemeApp.white,
                                             size: 30.sp,
                                           ),
                                           space(10.w, 0),
                                           Text(
                                             "Delete Post",
                                             style: TextStyle(
-                                              color: Colors.black,
+                                              color: cubit.isLight
+                                                  ? Colors.black
+                                                  : ThemeApp.white,
                                               fontWeight: FontWeight.w600,
                                               fontSize: 20.sp,
                                             ),

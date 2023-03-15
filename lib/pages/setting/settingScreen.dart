@@ -48,6 +48,8 @@ class SettingScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                       onTap: () {
+                        SocialCubit.get(context).getMyPosts(uId);
+                        SocialCubit.get(context).getFriends(uId);
                         navigateTo(context, const MyProfileScreen());
                       },
                       child: Row(

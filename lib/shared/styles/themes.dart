@@ -1,17 +1,19 @@
-import 'package:f_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ThemeApp {
-  static const Color lightPrimary = Color(0xffB7935F);
   static const Color darkPrimary = Color(0xff141A2E);
   static const Color yellow = Color(0xffFACC1D);
+  static const Color white = Color(0xffffffff);
 
   static final ThemeData darkTheme = ThemeData(
-    cardColor: const Color(0xff404258),
-    scaffoldBackgroundColor: const Color(0xff404258),
-    primarySwatch: dColor,
+    bottomSheetTheme: const BottomSheetThemeData(
+      backgroundColor: darkPrimary,
+    ),
+    cardColor: darkPrimary,
+    scaffoldBackgroundColor: darkPrimary,
+    primarySwatch: Colors.blue,
     appBarTheme: AppBarTheme(
       elevation: 0,
       backgroundColor: Colors.transparent,
@@ -30,6 +32,7 @@ class ThemeApp {
       ),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: Colors.transparent,
       showSelectedLabels: true,
       showUnselectedLabels: false,
       selectedIconTheme: IconThemeData(
@@ -38,7 +41,7 @@ class ThemeApp {
       ),
       unselectedIconTheme: IconThemeData(
         size: 30.sp,
-        color: Colors.white,
+        color: Colors.grey,
       ),
       selectedLabelStyle: const TextStyle(
         color: yellow,
@@ -49,7 +52,7 @@ class ThemeApp {
 
   static final ThemeData lightTheme = ThemeData(
     cardColor: Colors.white,
-    primarySwatch: dColor,
+    primarySwatch: Colors.blue,
     scaffoldBackgroundColor: Colors.white,
     appBarTheme: AppBarTheme(
       titleSpacing: 20.0.sp,
@@ -73,20 +76,21 @@ class ThemeApp {
       ),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: Colors.transparent,
       showSelectedLabels: true,
       showUnselectedLabels: false,
       selectedIconTheme: IconThemeData(
         size: 36.sp,
-        color: Colors.black,
+        color: Colors.blueAccent,
       ),
       unselectedIconTheme: IconThemeData(
         size: 30.sp,
         color: Colors.grey,
       ),
       selectedLabelStyle: const TextStyle(
-        color: Colors.black,
+        color: Colors.blue,
       ),
-      selectedItemColor: Colors.blue,
+      selectedItemColor: Colors.blueAccent,
     ),
   );
 }
