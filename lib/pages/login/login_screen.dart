@@ -251,7 +251,7 @@ class LoginScreen extends StatelessWidget {
                                   LoginCubit.get(context).signINWithGoogle();
                                 },
                                 child: CircleAvatar(
-                                  backgroundImage: AssetImage(
+                                  backgroundImage: const AssetImage(
                                     'assets/images/Google_Logo.png',
                                   ),
                                   radius: 25.r,

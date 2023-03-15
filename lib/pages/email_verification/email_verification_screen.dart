@@ -49,7 +49,8 @@ class EmailVerificationScreen extends StatelessWidget {
                       ),
                       child: CircleAvatar(
                         radius: 80.0.r,
-                        backgroundImage: AssetImage('assets/images/email.png'),
+                        backgroundImage:
+                            const AssetImage('assets/images/email.png'),
                       ),
                     ),
                     space(0, 15.h),

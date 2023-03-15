@@ -102,8 +102,8 @@ class MyApp extends StatelessWidget {
                 ],
                 supportedLocales: AppLocalizations.supportedLocales,
                 debugShowCheckedModeBanner: false,
-                theme: lightTheme,
-                darkTheme: darkTheme,
+                theme: ThemeApp.lightTheme,
+                darkTheme: ThemeApp.darkTheme,
                 themeMode: SocialCubit.get(context).isLight
                     ? ThemeMode.light
                     : ThemeMode.dark,

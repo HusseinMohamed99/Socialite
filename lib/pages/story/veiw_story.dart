@@ -70,8 +70,8 @@ class ViewStory extends StatelessWidget {
                                         MaterialPageRoute(
                                             builder: (context) => FriendsProfileScreen(model!.uId)));
                                   } else {
-                                    bloc.changeTabBar(3, context);
-                                    Navigator.pop(context);
+                                   // bloc.changeTabBar(3, context);
+                                Navigator.pop(context);
                                   }
                                 },
                                 child: CircleAvatar(

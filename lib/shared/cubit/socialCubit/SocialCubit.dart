@@ -2,14 +2,10 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:f_app/Pages/chat/chat_screen.dart';
 import 'package:f_app/Pages/feed/feedscreen.dart';
-import 'package:f_app/Pages/notifications/notifications_screen.dart';
-import 'package:f_app/Pages/profile/My_profile_screen.dart';
 import 'package:f_app/Pages/setting/settingScreen.dart';
 import 'package:f_app/Pages/story/story_screen.dart';
 import 'package:f_app/Pages/user/userScreen.dart';
-import 'package:f_app/layout/Home/home_layout.dart';
 import 'package:f_app/model/comment_model.dart';
-import 'package:f_app/model/drawer_model.dart';
 import 'package:f_app/model/message_model.dart';
 import 'package:f_app/model/post_model.dart';
 import 'package:f_app/model/user_model.dart';
@@ -26,11 +22,8 @@ import 'package:gallery_saver/gallery_saver.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:f_app/Pages/password/forget_Password.dart';
 import '../../../Pages/on-boarding/on-boarding screen.dart';
-import '../../../Pages/post/save_post_screen.dart';
 import '../../../Pages/story/create_story.dart';
-import '../../../layout/drawer/drawer_item.dart';
 import '../../../model/likes_model.dart';
 import '../../../model/notifications_model.dart';
 import '../../../model/story_model.dart';
@@ -106,6 +99,34 @@ class SocialCubit extends Cubit<SocialStates> {
 
   // ----------------------------------------------------------//
 
+  List<BottomNavigationBarItem> bottomItems = [
+    const BottomNavigationBarItem(
+        icon: Icon(
+          Icons.home_outlined,
+        ),
+        label: 'Home'),
+    const BottomNavigationBarItem(
+        icon: Icon(
+          Icons.message,
+        ),
+        label: 'Chat'),
+    const BottomNavigationBarItem(
+        icon: Icon(
+          Icons.supervised_user_circle_sharp,
+        ),
+        label: 'Friend'),
+    const BottomNavigationBarItem(
+        icon: Icon(
+          Icons.location_history_outlined,
+        ),
+        label: 'Story'),
+    const BottomNavigationBarItem(
+        icon: Icon(
+          Icons.settings,
+        ),
+        label: 'Settings'),
+  ];
+
   ///START : Titles
   List<String> titles = [
     'Home 🏠',
@@ -120,7 +141,9 @@ class SocialCubit extends Cubit<SocialStates> {
   // ----------------------------------------------------------//
 
   ///START : ChangeTabBar
-  void changeTabBar(int index, BuildContext context) {
+  void changeTabBar(
+    int index,
+  ) {
     if (index == 0) {
       getPosts();
     }
@@ -141,35 +164,35 @@ class SocialCubit extends Cubit<SocialStates> {
 
   // ----------------------------------------------------------//
 
-  ///START : ChangeItem(Drawer)
-  ItemsModel currentItem = MenuItems.profile;
+  // ///START : ChangeItem(Drawer)
+  // ItemsModel currentItem = MenuItems.profile;
+  //
+  // void changeItem(ItemsModel item, context) {
+  //   currentItem = item;
+  //   getScreen(context);
+  //   emit(ChangeMenuItemState());
+  // }
 
-  void changeItem(ItemsModel item, context) {
-    currentItem = item;
-    getScreen(context);
-    emit(ChangeMenuItemState());
-  }
-
-  Widget mScreen = MainScreen(0);
-
-  void getScreen(context) {
-    if (currentItem == MenuItems.profile) {
-      navigateTo(context, const MyProfileScreen());
-      mScreen = MainScreen(0);
-    } else if (currentItem == MenuItems.notifications) {
-      navigateTo(context, const NotificationScreen());
-      mScreen = MainScreen(0);
-    } else if (currentItem == MenuItems.savedPost) {
-      navigateTo(context, const SavePostScreen());
-      mScreen = MainScreen(0);
-    } else if (currentItem == MenuItems.restPassword) {
-      navigateTo(context, RestPasswordScreen());
-      mScreen = MainScreen(0);
-    } else {
-      mScreen = MainScreen(0);
-    }
-    emit(ChangeMenuScreenState());
-  }
+  // Widget mScreen = MainScreen(0);
+  //
+  // void getScreen(context) {
+  //   if (currentItem == MenuItems.profile) {
+  //     navigateTo(context, const MyProfileScreen());
+  //     mScreen = MainScreen(0);
+  //   } else if (currentItem == MenuItems.notifications) {
+  //     navigateTo(context, const NotificationScreen());
+  //     mScreen = MainScreen(0);
+  //   } else if (currentItem == MenuItems.savedPost) {
+  //     navigateTo(context, const SavePostScreen());
+  //     mScreen = MainScreen(0);
+  //   } else if (currentItem == MenuItems.restPassword) {
+  //     navigateTo(context, RestPasswordScreen());
+  //     mScreen = MainScreen(0);
+  //   } else {
+  //     mScreen = MainScreen(0);
+  //   }
+  //   emit(ChangeMenuScreenState());
+  // }
 
   ///END : ChangeItem(Drawer)
 
@@ -178,6 +201,7 @@ class SocialCubit extends Cubit<SocialStates> {
   ///START : ChangeMode
   bool isLight = true;
   Color backgroundColor = Colors.white;
+
   void changeMode({bool? fromShared}) {
     if (fromShared == null) {
       isLight = !isLight;
