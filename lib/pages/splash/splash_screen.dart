@@ -1,5 +1,5 @@
-import 'package:f_app/Pages/on-boarding/on-boarding%20screen.dart';
 import 'package:f_app/layout/Home/home_layout.dart';
+import 'package:f_app/pages/on-boarding/on_boarding_screen.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
 import 'package:f_app/shared/components/components.dart';
 import 'package:f_app/shared/components/constants.dart';
