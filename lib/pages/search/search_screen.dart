@@ -37,7 +37,7 @@ class _SearchScreenState extends State<SearchScreen> {
       results = SocialCubit.get(context)
           .users
           .where((user) =>
-          user.name!.toLowerCase().contains(enteredKeyword.toLowerCase()))
+              user.name.toLowerCase().contains(enteredKeyword.toLowerCase()))
           .toList();
     }
 

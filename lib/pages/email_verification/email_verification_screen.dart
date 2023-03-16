@@ -165,6 +165,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                           ..getPosts()
                                           ..getUserData()
                                           ..getAllUsers();
+                                        SocialCubit.get(context).getUserData();
                                         navigateAndFinish(
                                           context,
                                           const HomeLayout(),

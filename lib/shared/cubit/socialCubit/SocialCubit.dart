@@ -113,10 +113,10 @@ class SocialCubit extends Cubit<SocialStates> {
   // ----------------------------------------------------------//
 
   ///START : ChangeTabBar
-  void changeTabBar(
-    int index,
-  ) {
+  void changeNavBar(int index) {
+    currentIndex = index;
     if (index == 0) {
+      getUserData();
       getPosts();
     }
     if (index == 1) {
@@ -128,15 +128,11 @@ class SocialCubit extends Cubit<SocialStates> {
     if (index == 3) {
       getPersonalStory(userModel!.uId);
     }
-    currentIndex = index;
+    if (index == 4) {
+      getUserData();
+    }
     emit(SocialChangeTabBarState());
   }
-
-
-
-
-
-  // ----------------------------------------------------------//
 
   ///START : ChangeMode
   bool isLight = true;
@@ -163,8 +159,6 @@ class SocialCubit extends Cubit<SocialStates> {
 
   ///END : ChaneMode
 
-  // ----------------------------------------------------------//
-
   ///START : GetProfileImage
   var picker = ImagePicker();
   File? profileImage;
@@ -182,8 +176,6 @@ class SocialCubit extends Cubit<SocialStates> {
 
   ///END : GetProfileImage
 
-  // ----------------------------------------------------------//
-
   ///START : GetCoverImage
   File? coverImage;
   Future<void> getCoverImage() async {
@@ -198,8 +190,6 @@ class SocialCubit extends Cubit<SocialStates> {
   }
 
   ///END : GetCoverImage
-
-  // ----------------------------------------------------------//
 
   ///START : UploadProfileImage
 
@@ -234,8 +224,6 @@ class SocialCubit extends Cubit<SocialStates> {
 
   ///END : UploadProfileImage
 
-// ----------------------------------------------------------//
-
   ///START : UploadCoverImage
 
   void uploadCoverImage({
@@ -267,8 +255,6 @@ class SocialCubit extends Cubit<SocialStates> {
   }
 
   ///END : UploadCoverImage
-
-  // ----------------------------------------------------------//
 
   ///START : UploadProfileAndCoverImage
 
@@ -942,14 +928,18 @@ class SocialCubit extends Cubit<SocialStates> {
   //------------------------------------------------------------//
   ///START : addFriend
   void addFriend(
-      {required String? friendsUID,
-      required String? friendName,
-      required String? friendImage}) {
+      {required String friendsUID,
+      required String friendName,
+      required String friendImage}) {
     emit(AddFriendLoadingState());
     UserModel myFriendModel = UserModel(
       uId: friendsUID,
       name: friendName,
       image: friendImage,
+      phone: '',
+      email: '',
+      cover: '',
+      bio: '',
     );
     UserModel myModel = UserModel(
       uId: userModel!.uId,
@@ -957,6 +947,8 @@ class SocialCubit extends Cubit<SocialStates> {
       image: userModel!.image,
       cover: userModel!.cover,
       bio: userModel!.bio,
+      phone: userModel!.phone,
+      email: userModel!.email,
     );
     FirebaseFirestore.instance
         .collection('users')
@@ -1072,6 +1064,9 @@ class SocialCubit extends Cubit<SocialStates> {
       name: userModel!.name,
       image: userModel!.image,
       bio: userModel!.bio,
+      phone: userModel!.phone,
+      email: userModel!.email,
+      cover: '',
     );
     FirebaseFirestore.instance
         .collection('users')

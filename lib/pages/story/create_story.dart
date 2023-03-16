@@ -54,7 +54,7 @@ class CreateStory extends StatelessWidget {
                         CircleAvatar(
                           radius: 30,
                           backgroundImage: NetworkImage(
-                            SocialCubit.get(context).userModel!.image!,
+                            SocialCubit.get(context).userModel!.image,
                           ),
                         ),
                         const SizedBox(
@@ -64,7 +64,7 @@ class CreateStory extends StatelessWidget {
                           child: Row(
                             children: [
                               Text(
-                                SocialCubit.get(context).userModel!.name!,
+                                SocialCubit.get(context).userModel!.name,
                                 style: const TextStyle(
                                     fontSize: 23,
                                     fontWeight: FontWeight.w600,

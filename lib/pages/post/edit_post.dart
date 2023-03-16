@@ -113,7 +113,7 @@ class EditPosts extends StatelessWidget {
                             CircleAvatar(
                               radius: 35,
                               backgroundImage: NetworkImage(
-                                userModel.image!,
+                                userModel.image,
                               ),
                             ),
                             space(10, 0),
@@ -121,7 +121,7 @@ class EditPosts extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  userModel.name!,
+                                  userModel.name,
                                   style: GoogleFonts.roboto(
                                     color: cubit.isLight
                                         ? Colors.black

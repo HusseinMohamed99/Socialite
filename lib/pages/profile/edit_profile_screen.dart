@@ -25,43 +25,44 @@ class EditProfileScreen extends StatelessWidget {
         File? profileImage = SocialCubit.get(context).profileImage;
         File? coverImage = SocialCubit.get(context).coverImage;
         var cubit = SocialCubit.get(context);
-        emailController.text = userModel!.email!;
-        bioController.text = userModel.bio!;
-        nameController.text = userModel.name!;
-        phoneController.text = userModel.phone!;
+        emailController.text = userModel!.email;
+        bioController.text = userModel.bio;
+        nameController.text = userModel.name;
+        phoneController.text = userModel.phone;
 
-        return SocialCubit.get(context).userModel == null ? Scaffold(
-            body: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(
-                    IconlyLight.infoSquare,
-                    size: 100,
-                    color: Colors.grey,
-                  ),
-                  Text(
-                    'No Posts yet',
-                    style: GoogleFonts.libreBaskerville(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 30,
+        return SocialCubit.get(context).userModel == null
+            ? Scaffold(
+                body: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(
+                      IconlyLight.infoSquare,
+                      size: 100,
                       color: Colors.grey,
                     ),
-                  ),
-                ],
-              ),
-            ))
+                    Text(
+                      'No Posts yet',
+                      style: GoogleFonts.libreBaskerville(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 30,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+              ))
             : SafeArea(
-          child: Scaffold(
-            body: Column(
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 240,
-                          child: Stack(
+                child: Scaffold(
+                  body: Column(
+                    children: [
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 240,
+                                child: Stack(
                             alignment: AlignmentDirectional.bottomCenter,
                             children: [
                               Align(
@@ -72,10 +73,12 @@ class EditProfileScreen extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
                                           fit: BoxFit.cover,
-                                          image: coverImage == null
-                                              ? NetworkImage(userModel.cover!)
-                                              : FileImage(coverImage) as ImageProvider,
-                                        ),
+                                                image: coverImage == null
+                                                    ? NetworkImage(
+                                                        userModel.cover)
+                                                    : FileImage(coverImage)
+                                                        as ImageProvider,
+                                              ),
                                         borderRadius: const BorderRadius.only(
                                           topLeft: Radius.circular(8.0),
                                           topRight: Radius.circular(8.0),
@@ -116,11 +119,13 @@ class EditProfileScreen extends StatelessWidget {
                                     backgroundColor: Colors.white,
                                     radius: 65,
                                     child: CircleAvatar(
-                                      backgroundImage: profileImage == null
-                                          ? NetworkImage(userModel.image!)
-                                          : FileImage(profileImage) as ImageProvider,
-                                      radius: 60,
-                                    ),
+                                            backgroundImage: profileImage ==
+                                                    null
+                                                ? NetworkImage(userModel.image)
+                                                : FileImage(profileImage)
+                                                    as ImageProvider,
+                                            radius: 60,
+                                          ),
                                   ),
                                   Positioned(
                                     top: 90,

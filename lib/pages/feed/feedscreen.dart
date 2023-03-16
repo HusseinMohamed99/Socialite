@@ -231,7 +231,7 @@ class FeedScreen extends StatelessWidget {
                                                     ).r,
                                                     image: DecorationImage(
                                                       image: NetworkImage(
-                                                        cubit.userModel!.image!,
+                                                        cubit.userModel!.image,
                                                       ),
                                                       fit: BoxFit.cover,
                                                     ),
@@ -947,7 +947,7 @@ class FeedScreen extends StatelessWidget {
                     child: CircleAvatar(
                       radius: 20.r,
                       backgroundImage: model.uId == bloc!.uId
-                          ? NetworkImage(bloc.image!)
+                          ? NetworkImage(bloc.image)
                           : NetworkImage(model.image!),
                     ),
                   ),
@@ -956,7 +956,7 @@ class FeedScreen extends StatelessWidget {
                     width: 110.w,
                     height: 25.h,
                     child: Text(
-                      model.uId == bloc.uId ? bloc.name! : model.name!,
+                      model.uId == bloc.uId ? bloc.name : model.name!,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 14.sp,

@@ -170,7 +170,7 @@ class StoryScreen extends StatelessWidget {
                                           ),
                                           image: DecorationImage(
                                               image: NetworkImage(
-                                                  cubit.userModel!.image!),
+                                                  cubit.userModel!.image),
                                               fit: BoxFit.cover)),
                                     ),
                                   ),
@@ -288,14 +288,14 @@ class StoryScreen extends StatelessWidget {
                     radius: 23,
                     child: CircleAvatar(
                       radius: 20,
-                      backgroundImage: NetworkImage(bloc.userModel!.image!),
+                      backgroundImage: NetworkImage(bloc.userModel!.image),
                     ),
                   ),
                   const Spacer(),
                   SizedBox(
                     width: 110,
                     child: Text(
-                      bloc.userModel!.name!,
+                      bloc.userModel!.name,
                       style: const TextStyle(
                           color: Colors.white,
                           fontSize: 18,
@@ -345,7 +345,7 @@ class StoryScreen extends StatelessWidget {
                     child: CircleAvatar(
                       radius: 20,
                       backgroundImage: model.uId == bloc!.uId
-                          ? NetworkImage(bloc.image!)
+                          ? NetworkImage(bloc.image)
                           : NetworkImage(model.image!),
                     ),
                   ),
@@ -354,7 +354,7 @@ class StoryScreen extends StatelessWidget {
                     width: 110,
                     height: 25,
                     child: Text(
-                      model.uId == bloc.uId ? bloc.name! : model.name!,
+                      model.uId == bloc.uId ? bloc.name : model.name!,
                       style: const TextStyle(
                           color: Colors.white,
                           fontSize: 14,

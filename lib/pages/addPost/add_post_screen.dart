@@ -99,7 +99,7 @@ final  PostModel? postModel;
                             CircleAvatar(
                               radius: 35.r,
                               backgroundImage: NetworkImage(
-                                userModel.image!,
+                                userModel.image,
                               ),
                             ),
                             space(10.w, 0),
@@ -107,7 +107,7 @@ final  PostModel? postModel;
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  userModel.name!,
+                                  userModel.name,
                                   style: GoogleFonts.roboto(
                                     color: cubit.isLight
                                         ? Colors.black

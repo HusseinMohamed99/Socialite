@@ -222,7 +222,7 @@ class _UserScreenState extends State<UserScreen> {
             ),
             Expanded(
               child: Text(
-                '${userModel.name}',
+                userModel.name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: GoogleFonts.lobster(
@@ -301,7 +301,7 @@ class _UserScreenState extends State<UserScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${userModel.name}',
+                  userModel.name,
                   style: GoogleFonts.lobster(
                     fontSize: 16,
                     color: SocialCubit.get(context).isLight
@@ -347,9 +347,9 @@ class _UserScreenState extends State<UserScreen> {
                               receiverId: userModel.uId,
                               receiverName: userModel.name);
                           SocialCubit.get(context).sendFCMNotification(
-                              token: userModel.uId!,
+                              token: userModel.uId,
                               senderName:
-                                  SocialCubit.get(context).userModel!.name!,
+                                  SocialCubit.get(context).userModel!.name,
                               messageText:
                                   '${SocialCubit.get(context).userModel!.name}'
                                   'sent you a friend request, check it out!');
@@ -430,7 +430,7 @@ class _UserScreenState extends State<UserScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('${userModel.name}',
+                  Text(userModel.name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle()),
@@ -466,9 +466,9 @@ class _UserScreenState extends State<UserScreen> {
                                 receiverId: userModel.uId,
                                 receiverName: userModel.name);
                             SocialCubit.get(context).sendFCMNotification(
-                                token: userModel.uId!,
+                                token: userModel.uId,
                                 senderName:
-                                    SocialCubit.get(context).userModel!.name!,
+                                    SocialCubit.get(context).userModel!.name,
                                 messageText:
                                     '${SocialCubit.get(context).userModel!.name}'
                                     'accepted your friend request, you are now friends checkout his profile');

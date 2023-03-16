@@ -1,8 +1,10 @@
 import 'package:badges/badges.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:f_app/Pages/notifications/notifications_screen.dart';
 import 'package:f_app/Pages/password/change_password.dart';
 import 'package:f_app/Pages/profile/my_profile_screen.dart';
 import 'package:f_app/Pages/search/search_screen.dart';
+import 'package:f_app/adaptive/indicator.dart';
 import 'package:f_app/pages/post/save_post_screen.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
 import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
@@ -25,7 +27,6 @@ class HomeLayout extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = SocialCubit.get(context);
-        var userModel = SocialCubit.get(context).userModel!;
         return Scaffold(
             appBar: AppBar(
               elevation: 0,
@@ -80,236 +81,333 @@ class HomeLayout extends StatelessWidget {
             drawer: Drawer(
               backgroundColor:
                   cubit.isLight ? ThemeApp.white : ThemeApp.darkPrimary,
-              child: Column(
-                children: [
-                  Stack(
-                    alignment: AlignmentDirectional.bottomCenter,
-                    children: [
-                      Align(
-                        alignment: AlignmentDirectional.bottomCenter,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: NetworkImage('${userModel.cover}'),
+              child: cubit.userModel != null
+                  ? Stack(
+                      children: [
+                        Column(
+                          children: [
+                            Stack(
+                              alignment: AlignmentDirectional.bottomCenter,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(8.0),
+                                      topRight: Radius.circular(8.0),
+                                    ).r,
+                                  ),
+                                  width: double.infinity,
+                                  height: 200.h,
+                                  child: CachedNetworkImage(
+                                    imageUrl: cubit.userModel!.cover,
+                                    fit: BoxFit.fill,
+                                    height: 200.h,
+                                    width: double.infinity,
+                                    progressIndicatorBuilder:
+                                        (context, url, downloadProgress) =>
+                                            Center(
+                                      child: AdaptiveIndicator(
+                                        os: getOs(),
+                                      ),
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        Center(
+                                      child: AdaptiveIndicator(
+                                        os: getOs(),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                // CircleAvatar(
+                                //   backgroundColor: Colors.blueAccent,
+                                //   radius: 42.r,
+                                //   child: CircleAvatar(
+                                //     radius: 40.r,
+                                //     child: ClipRRect(
+                                //       borderRadius: BorderRadius.circular(65).r,
+                                //       child: CachedNetworkImage(
+                                //         imageUrl: cubit.userModel!.image,
+                                //         fit: BoxFit.fill,
+                                //         height: 200.h,
+                                //         width: double.infinity,
+                                //         progressIndicatorBuilder:
+                                //             (context, url, downloadProgress) =>
+                                //             Center(
+                                //               child: AdaptiveIndicator(
+                                //                 os: getOs(),
+                                //               ),
+                                //             ),
+                                //         errorWidget: (context, url, error) =>
+                                //             Center(
+                                //               child: AdaptiveIndicator(
+                                //                 os: getOs(),
+                                //               ),
+                                //             ),
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ),
+                              ],
                             ),
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(8.0),
-                              topRight: Radius.circular(8.0),
-                            ).r,
-                          ),
-                          width: double.infinity,
-                          height: 200.h,
+                            space(0, 35.h),
+                            SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  Text(
+                                    cubit.userModel!.name.toUpperCase(),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.roboto(
+                                        fontSize: 30.sp,
+                                        color: cubit.isLight
+                                            ? Colors.black
+                                            : Colors.white),
+                                  ),
+                                  myDivider(Colors.cyan),
+                                  InkWell(
+                                    onTap: () {
+                                      SocialCubit.get(context).getMyPosts(uId);
+                                      SocialCubit.get(context).getFriends(uId);
+                                      navigateTo(
+                                          context, const MyProfileScreen());
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                              horizontal: 10.0, vertical: 20)
+                                          .r,
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            IconlyBroken.user2,
+                                            size: 30.sp,
+                                            color: cubit.isLight
+                                                ? Colors.black
+                                                : Colors.white,
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            'Profile',
+                                            style: GoogleFonts.roboto(
+                                                fontSize: 30,
+                                                color: cubit.isLight
+                                                    ? Colors.black
+                                                    : Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      navigateTo(
+                                          context, const NotificationScreen());
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                              horizontal: 10.0, vertical: 20)
+                                          .r,
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            IconlyBroken.notification,
+                                            size: 30.sp,
+                                            color: cubit.isLight
+                                                ? Colors.black
+                                                : Colors.white,
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            'Notifications',
+                                            style: GoogleFonts.roboto(
+                                                fontSize: 30,
+                                                color: cubit.isLight
+                                                    ? Colors.black
+                                                    : Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      navigateTo(
+                                          context, const SavePostScreen());
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                              horizontal: 10.0, vertical: 20)
+                                          .r,
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            IconlyBroken.bookmark,
+                                            size: 30.sp,
+                                            color: cubit.isLight
+                                                ? Colors.black
+                                                : Colors.white,
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            'Saved Post',
+                                            style: GoogleFonts.roboto(
+                                                fontSize: 30,
+                                                color: cubit.isLight
+                                                    ? Colors.black
+                                                    : Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      navigateTo(
+                                          context, const EditPasswordScreen());
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                              horizontal: 10.0, vertical: 20)
+                                          .r,
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            IconlyBroken.password,
+                                            size: 30.sp,
+                                            color: cubit.isLight
+                                                ? Colors.black
+                                                : Colors.white,
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            'Rest Password',
+                                            style: GoogleFonts.roboto(
+                                                fontSize: 30,
+                                                color: cubit.isLight
+                                                    ? Colors.black
+                                                    : Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      cubit.changeMode();
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                              horizontal: 10.0, vertical: 20)
+                                          .r,
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.dark_mode,
+                                            size: 30.sp,
+                                            color: cubit.isLight
+                                                ? Colors.black
+                                                : Colors.white,
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            'Theme Mode',
+                                            style: GoogleFonts.roboto(
+                                                fontSize: 30,
+                                                color: cubit.isLight
+                                                    ? Colors.black
+                                                    : Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      logOut(context);
+                                      FirebaseAuth.instance.signOut();
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                              horizontal: 10.0, vertical: 20)
+                                          .r,
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.power_settings_new_rounded,
+                                            size: 30.sp,
+                                            color: cubit.isLight
+                                                ? Colors.black
+                                                : Colors.white,
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            'Logout',
+                                            style: GoogleFonts.roboto(
+                                              fontSize: 30.sp,
+                                              color: cubit.isLight
+                                                  ? Colors.black
+                                                  : Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      CircleAvatar(
-                        backgroundColor: Colors.blueAccent,
-                        radius: 65.r,
-                        child: CircleAvatar(
-                          backgroundImage: NetworkImage(
-                            '${userModel.image}',
-                          ),
-                          radius: 62.r,
-                        ),
-                      ),
-                    ],
-                  ),
-                  space(0, 15.h),
-                  Text(
-                    '${userModel.name}'.toUpperCase(),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.roboto(
-                        fontSize: 30.sp,
-                        color: cubit.isLight ? Colors.black : Colors.white),
-                  ),
-                  myDivider(Colors.cyan),
-                  InkWell(
-                    onTap: () {
-                      SocialCubit.get(context).getMyPosts(uId);
-                      SocialCubit.get(context).getFriends(uId);
-                      navigateTo(context, const MyProfileScreen());
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                              horizontal: 10.0, vertical: 20)
-                          .r,
-                      child: Row(
-                        children: [
-                          Icon(
-                            IconlyBroken.user2,
-                            size: 30.sp,
-                            color: cubit.isLight ? Colors.black : Colors.white,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'Profile',
-                            style: GoogleFonts.roboto(
-                                fontSize: 30,
-                                color: cubit.isLight
-                                    ? Colors.black
-                                    : Colors.white),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      navigateTo(context, const NotificationScreen());
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                              horizontal: 10.0, vertical: 20)
-                          .r,
-                      child: Row(
-                        children: [
-                          Icon(
-                            IconlyBroken.notification,
-                            size: 30.sp,
-                            color: cubit.isLight ? Colors.black : Colors.white,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'Notifications',
-                            style: GoogleFonts.roboto(
-                                fontSize: 30,
-                                color: cubit.isLight
-                                    ? Colors.black
-                                    : Colors.white),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      navigateTo(context, const SavePostScreen());
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                              horizontal: 10.0, vertical: 20)
-                          .r,
-                      child: Row(
-                        children: [
-                          Icon(
-                            IconlyBroken.bookmark,
-                            size: 30.sp,
-                            color: cubit.isLight ? Colors.black : Colors.white,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'Saved Post',
-                            style: GoogleFonts.roboto(
-                                fontSize: 30,
-                                color: cubit.isLight
-                                    ? Colors.black
-                                    : Colors.white),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      navigateTo(context, const EditPasswordScreen());
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                              horizontal: 10.0, vertical: 20)
-                          .r,
-                      child: Row(
-                        children: [
-                          Icon(
-                            IconlyBroken.password,
-                            size: 30.sp,
-                            color: cubit.isLight ? Colors.black : Colors.white,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'Rest Password',
-                            style: GoogleFonts.roboto(
-                                fontSize: 30,
-                                color: cubit.isLight
-                                    ? Colors.black
-                                    : Colors.white),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      cubit.changeMode();
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                              horizontal: 10.0, vertical: 20)
-                          .r,
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.dark_mode,
-                            size: 30.sp,
-                            color: cubit.isLight ? Colors.black : Colors.white,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'Theme Mode',
-                            style: GoogleFonts.roboto(
-                                fontSize: 30,
-                                color: cubit.isLight
-                                    ? Colors.black
-                                    : Colors.white),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      logOut(context);
-                      FirebaseAuth.instance.signOut();
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                              horizontal: 10.0, vertical: 20)
-                          .r,
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.power_settings_new_rounded,
-                            size: 30.sp,
-                            color: cubit.isLight ? Colors.black : Colors.white,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'Logout',
-                            style: GoogleFonts.roboto(
-                              fontSize: 30.sp,
-                              color:
-                                  cubit.isLight ? Colors.black : Colors.white,
+                        Positioned(
+                          top: 180.r,
+                          left: 40.r,
+                          right: 40.r,
+                          child: CircleAvatar(
+                            backgroundColor: Colors.blueAccent,
+                            radius: 42.r,
+                            child: CircleAvatar(
+                              radius: 40.r,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(65).r,
+                                child: CachedNetworkImage(
+                                  imageUrl: cubit.userModel!.image,
+                                  fit: BoxFit.fill,
+                                  height: 200.h,
+                                  width: double.infinity,
+                                  progressIndicatorBuilder:
+                                      (context, url, downloadProgress) =>
+                                          Center(
+                                    child: AdaptiveIndicator(
+                                      os: getOs(),
+                                    ),
+                                  ),
+                                  errorWidget: (context, url, error) => Center(
+                                    child: AdaptiveIndicator(
+                                      os: getOs(),
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
+                    )
+                  : AdaptiveIndicator(
+                      os: getOs(),
                     ),
-                  ),
-                ],
-              ),
             ),
             bottomNavigationBar: BottomNavigationBar(
               backgroundColor:
@@ -353,7 +451,7 @@ class HomeLayout extends StatelessWidget {
               ],
               currentIndex: cubit.currentIndex,
               onTap: (index) {
-                cubit.changeTabBar(index);
+                cubit.changeNavBar(index);
               },
             ),
             body: cubit.screens[cubit.currentIndex]);

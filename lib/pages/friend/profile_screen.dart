@@ -276,11 +276,11 @@ class FriendsProfileScreen extends StatelessWidget {
                                                     friendsModel.name);
                                         SocialCubit.get(context)
                                             .sendFCMNotification(
-                                            token: friendsModel.uId!,
+                                            token: friendsModel.uId,
                                                 senderName:
                                                     SocialCubit.get(context)
                                                         .userModel!
-                                                        .name!,
+                                                        .name,
                                                 messageText:
                                                     '${SocialCubit.get(context).userModel!.name}'
                                                     'sent you a friend request, check it out!');

@@ -57,7 +57,7 @@ class SettingScreen extends StatelessWidget {
                           CircleAvatar(
                             radius: 25,
                             backgroundImage: NetworkImage(
-                              userModel.image!,
+                              userModel.image,
                             ),
                           ),
                           space(10, 0),
@@ -66,7 +66,7 @@ class SettingScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  userModel.name!,
+                                  userModel.name,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: GoogleFonts.lobster(

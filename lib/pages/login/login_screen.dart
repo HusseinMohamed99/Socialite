@@ -29,6 +29,7 @@ class LoginScreen extends StatelessWidget {
       child: BlocConsumer<LoginCubit, LoginStates>(
         listener: (context, state) {
           if (state is LoginSuccessState) {
+            SocialCubit.get(context).getUserData();
             CacheHelper.saveData(value: state.uid, key: 'uId').then((value) {
               uId = state.uid;
               showToast(
@@ -177,14 +178,13 @@ class LoginScreen extends StatelessWidget {
                                                     .then((value) {
                                                   if (LoginCubit.get(context)
                                                       .isEmailVerified) {
-                                                    SocialCubit.get(context)
-                                                      ..getUserData()
-                                                      ..getPosts()
-                                                      ..getAllUsers();
                                                     navigateAndFinish(
                                                       context,
                                                       const HomeLayout(),
                                                     );
+                                                    cubit.getUserData();
+                                                    cubit.getPosts();
+                                                    cubit.getAllUsers();
                                                   } else {
                                                     navigateTo(
                                                       context,

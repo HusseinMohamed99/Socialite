@@ -113,7 +113,7 @@ class ChatScreen extends StatelessWidget {
             space(15.w, 0),
             Expanded(
               child: Text(
-                '${users.name}',
+                users.name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: GoogleFonts.roboto(
@@ -186,7 +186,7 @@ class ChatScreen extends StatelessWidget {
               ),
               space(0, 5.h),
               Text(
-                '${users.name}',
+                users.name,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,

@@ -32,44 +32,36 @@ class LoginCubit extends Cubit<LoginStates> {
 ///START : Show Password
   IconData suffix = Icons.visibility_outlined;
   bool isPassword = true;
+
   void showPassword() {
     isPassword = !isPassword;
     suffix =
-    isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
+        isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
 
     emit(ShowPasswordState());
   }
-///END : Show Password
+
+  ///END : Show Password
 
   bool userExist = false;
-  Future <void> isUserExist({
-    required String? uId,
-    required String? name,
-    required String? phone,
-    required String? email,
-    required String? image
 
-  }) async {
-    FirebaseFirestore.instance
-        .collection('users')
-        .get()
-        .then((value) {
+  Future<void> isUserExist(
+      {required String uId,
+      required String name,
+      required String phone,
+      required String email,
+      required String image}) async {
+    FirebaseFirestore.instance.collection('users').get().then((value) {
       for (var element in value.docs) {
-        if(element.id == uId) {
+        if (element.id == uId) {
           userExist = true;
         }
       }
-      if(userExist == false) {
+      if (userExist == false) {
         createGoogleUser(
-            uId: uId,
-            name: name,
-            phone: phone,
-            email: email,
-            image: image
-        );
-      }
-      else {
-        emit(LoginGoogleUserSuccessState(uId!));
+            uId: uId, name: name, phone: phone, email: email, image: image);
+      } else {
+        emit(LoginGoogleUserSuccessState(uId));
       }
     });
   }
@@ -84,35 +76,35 @@ class LoginCubit extends Cubit<LoginStates> {
         accessToken: googleSignInAuthentication.accessToken);
     FirebaseAuth.instance.signInWithCredential(credential).then((value) {
       isUserExist(
-          uId: value.user!.uid,
-          name: value.user!.displayName,
-          phone: value.user!.phoneNumber,
-          email: value.user!.email,
-          image: value.user!.photoURL
+        uId: value.user!.uid,
+        name: value.user!.displayName!,
+        phone: value.user!.phoneNumber!,
+        email: value.user!.email!,
+        image: value.user!.photoURL!,
       );
-
     });
   }
-///END : SignIN With Google
-  void createGoogleUser({
-    required String? uId,
-    required String? name,
-    required String? phone,
-    required String? email,
-    required String? image
-  }) {
+
+  ///END : SignIN With Google
+  void createGoogleUser(
+      {required String uId,
+      required String name,
+      required String phone,
+      required String email,
+      required String image}) {
     UserModel model = UserModel(
       uId: uId,
       name: name,
-      phone: phone?? '0000-000-0000',
+      phone: phone,
       email: email,
-      cover: 'https://media.cdnandroid.com/27/54/bb/52/imagen-cartoon-photo-editor-art-filter-2018-1gal.jpg',
-      image: image ?? 'https://static.toiimg.com/thumb/resizemode-4,msid-76729536,width-1200,height-900/76729536.jpg',
+      cover:
+          'https://media.cdnandroid.com/27/54/bb/52/imagen-cartoon-photo-editor-art-filter-2018-1gal.jpg',
+      image: image,
       bio: 'Write you own bio...',
     );
     FirebaseFirestore.instance.collection('users').doc(uId).set(model.toMap())
         .then((value) {
-      emit(CreateGoogleUserSuccessState(uId!));
+      emit(CreateGoogleUserSuccessState(uId));
     }).catchError((error) {
       emit(CreateGoogleUserErrorState());
     });

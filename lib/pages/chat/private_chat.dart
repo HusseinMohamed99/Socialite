@@ -32,7 +32,7 @@ class PrivateChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
       SocialCubit.get(context).getMessage(
-        receiverId: userModel.uId!,
+        receiverId: userModel.uId,
       );
 
       return BlocConsumer<SocialCubit, SocialStates>(
@@ -90,7 +90,7 @@ class PrivateChatScreen extends StatelessWidget {
                         space(15.w, 0),
                         Expanded(
                           child: Text(
-                            '${userModel.name}',
+                            userModel.name,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.roboto(
@@ -267,7 +267,7 @@ class PrivateChatScreen extends StatelessWidget {
                                                 .messageImagePicked ==
                                             null) {
                                       cubit.sendMessage(
-                                        receiverId: userModel.uId!,
+                                        receiverId: userModel.uId,
                                         dateTime: DateTime.now().toString(),
                                         text: textController.text,
                                       );
@@ -282,7 +282,7 @@ class PrivateChatScreen extends StatelessWidget {
                                     } else {
                                       SocialCubit.get(context)
                                           .uploadMessageImage(
-                                              receiverId: userModel.uId!,
+                                          receiverId: userModel.uId,
                                               datetime:
                                                   DateTime.now().toString(),
                                               text: textController.text);
@@ -338,7 +338,7 @@ class PrivateChatScreen extends StatelessWidget {
                         space(15, 0),
                         Expanded(
                           child: Text(
-                            '${userModel.name}',
+                            userModel.name,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.roboto(
@@ -509,7 +509,7 @@ class PrivateChatScreen extends StatelessWidget {
                                     onPressed: () {
                                       if (formKey.currentState!.validate()) {
                                         cubit.sendMessage(
-                                          receiverId: userModel.uId!,
+                                          receiverId: userModel.uId,
                                           dateTime: DateTime.now().toString(),
                                           text: textController.text,
                                         );
@@ -527,7 +527,7 @@ class PrivateChatScreen extends StatelessWidget {
                                                   .messageImagePicked ==
                                               null) {
                                         cubit.sendMessage(
-                                          receiverId: userModel.uId!,
+                                          receiverId: userModel.uId,
                                           dateTime: DateTime.now().toString(),
                                           text: textController.text,
                                         );
@@ -542,7 +542,7 @@ class PrivateChatScreen extends StatelessWidget {
                                       } else {
                                         SocialCubit.get(context)
                                             .uploadMessageImage(
-                                                receiverId: userModel.uId!,
+                                            receiverId: userModel.uId,
                                                 datetime:
                                                     DateTime.now().toString(),
                                                 text: textController.text);
@@ -560,11 +560,11 @@ class PrivateChatScreen extends StatelessWidget {
                                           .sendFCMNotification(
                                         senderName: SocialCubit.get(context)
                                             .userModel!
-                                            .name!,
+                                            .name,
                                         messageText: textController.text,
                                         messageImage:
                                             SocialCubit.get(context).imageURL,
-                                        token: userModel.uId!,
+                                        token: userModel.uId,
                                       );
                                     },
                                     child: Icon(
