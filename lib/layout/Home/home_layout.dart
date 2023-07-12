@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:f_app/Pages/notifications/notifications_screen.dart';
 import 'package:f_app/Pages/password/change_password.dart';
@@ -460,9 +460,8 @@ class HomeLayout extends StatelessWidget {
   }
 
   Widget tabBarBadge({required IconData icon, required int count}) {
-    return Badge(
+    return badges.Badge(
       badgeContent: Text('$count'),
-      animationType: BadgeAnimationType.scale,
       child: Icon(icon),
     );
   }
