@@ -85,8 +85,7 @@ class FeedScreen extends StatelessWidget {
                             },
                             child: CircleAvatar(
                               radius: 20.r,
-                              backgroundImage:
-                                  NetworkImage('${userModel!.image}'),
+                              backgroundImage: NetworkImage(userModel!.image),
                             ),
                           ),
                           Expanded(
@@ -260,7 +259,7 @@ class FeedScreen extends StatelessWidget {
                                           "Create Story",
                                           style: Theme.of(context)
                                               .textTheme
-                                              .subtitle2,
+                                              .titleSmall,
                                         ),
                                         const Spacer(),
                                       ],
@@ -307,7 +306,7 @@ class FeedScreen extends StatelessWidget {
                                   child: CircleAvatar(
                                     radius: 20.r,
                                     backgroundImage:
-                                        NetworkImage('${userModel!.image}'),
+                                        NetworkImage(userModel!.image),
                                   ),
                                 ),
                                 Expanded(
@@ -488,7 +487,7 @@ class FeedScreen extends StatelessWidget {
                             style: GoogleFonts.roboto(
                               fontSize: 15.sp,
                               color: Colors.grey,
-                              textStyle: Theme.of(context).textTheme.caption,
+                              textStyle: Theme.of(context).textTheme.bodySmall,
                               height: 1.3.h,
                             ),
                           ),
@@ -830,8 +829,8 @@ class FeedScreen extends StatelessWidget {
                   },
                   child: CircleAvatar(
                     radius: 17.r,
-                    backgroundImage: NetworkImage(
-                        '${SocialCubit.get(context).userModel!.image}'),
+                    backgroundImage:
+                        NetworkImage(SocialCubit.get(context).userModel!.image),
                   ),
                 ),
                 space(8.w, 0),
@@ -850,7 +849,7 @@ class FeedScreen extends StatelessWidget {
                     child: Text(
                       'Write a comment ...',
                       style: GoogleFonts.roboto(
-                        textStyle: Theme.of(context).textTheme.caption,
+                        textStyle: Theme.of(context).textTheme.bodySmall,
                         fontSize: 12.sp,
                         color: Colors.grey,
                       ),

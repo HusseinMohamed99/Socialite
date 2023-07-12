@@ -11,8 +11,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AddPostScreen extends StatelessWidget {
   AddPostScreen({Key? key, this.postModel}) : super(key: key);
- final TextEditingController textController = TextEditingController();
-final  PostModel? postModel;
+  final TextEditingController textController = TextEditingController();
+  final PostModel? postModel;
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -131,7 +131,7 @@ final  PostModel? postModel;
                                       style: GoogleFonts.roboto(
                                         textStyle: Theme.of(context)
                                             .textTheme
-                                            .caption!
+                                            .bodySmall!
                                             .copyWith(
                                               color: Colors.grey,
                                               fontSize: 16.sp,

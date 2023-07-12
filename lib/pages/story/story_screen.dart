@@ -1,11 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:timeago/timeago.dart' as timeago;
+
 import '../../model/story_model.dart';
 import '../../shared/Cubit/socialCubit/SocialCubit.dart';
 import '../../shared/Cubit/socialCubit/SocialState.dart';
 import 'veiw_story.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 class StoryScreen extends StatelessWidget {
   const StoryScreen({Key? key}) : super(key: key);
@@ -22,93 +23,97 @@ class StoryScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CarouselSlider(
-                  items: cubit.stories.map((e) => InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ViewStory(e)));
-                        },
-                        child: Stack(
-                          alignment: AlignmentDirectional.bottomStart,
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              height: 230,
-                              margin: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: NetworkImage(e.storyImage!),
-                                      fit: BoxFit.cover),
-                                  borderRadius: const BorderRadius.only(
-                                      topRight: Radius.circular(10),
-                                      topLeft: Radius.circular(10),
-                                      bottomRight: Radius.circular(50),
-                                      bottomLeft: Radius.circular(50)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Theme.of(context)
-                                            .shadowColor
-                                            .withOpacity(0.3),
-                                        spreadRadius: 3,
-                                        blurRadius: 9,
-                                        offset: const Offset(3, 3)),
-                                    BoxShadow(
-                                        color: Theme.of(context)
-                                            .shadowColor
-                                            .withOpacity(0.4),
-                                        spreadRadius: 3,
-                                        blurRadius: 9,
-                                        offset: const Offset(-1, -1))
-                                  ]),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(30.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
+                  items: cubit.stories
+                      .map((e) => InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ViewStory(e)));
+                            },
+                            child: Stack(
+                              alignment: AlignmentDirectional.bottomStart,
+                              children: [
+                                Container(
+                                  width: double.infinity,
+                                  height: 230,
+                                  margin: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: NetworkImage(e.storyImage!),
+                                          fit: BoxFit.cover),
+                                      borderRadius: const BorderRadius.only(
+                                          topRight: Radius.circular(10),
+                                          topLeft: Radius.circular(10),
+                                          bottomRight: Radius.circular(50),
+                                          bottomLeft: Radius.circular(50)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Theme.of(context)
+                                                .shadowColor
+                                                .withOpacity(0.3),
+                                            spreadRadius: 3,
+                                            blurRadius: 9,
+                                            offset: const Offset(3, 3)),
+                                        BoxShadow(
+                                            color: Theme.of(context)
+                                                .shadowColor
+                                                .withOpacity(0.4),
+                                            spreadRadius: 3,
+                                            blurRadius: 9,
+                                            offset: const Offset(-1, -1))
+                                      ]),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(30.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      Text(
-                                        e.name!,
-                                        style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      Text(
-                                        timeago.format(e.dateTime!),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .caption!
-                                            .copyWith(
-                                                color: Colors.grey,
-                                                fontSize: 14,
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            e.name!,
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 18,
                                                 fontWeight: FontWeight.w600),
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          Text(
+                                            timeago.format(e.dateTime!),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall!
+                                                .copyWith(
+                                                    color: Colors.grey,
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                          ),
+                                        ],
                                       ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      CircleAvatar(
+                                        radius: 31,
+                                        child: CircleAvatar(
+                                          radius: 29,
+                                          backgroundImage:
+                                              NetworkImage(e.image!),
+                                        ),
+                                      )
                                     ],
                                   ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  CircleAvatar(
-                                    radius: 31,
-                                    child: CircleAvatar(
-                                      radius: 29,
-                                      backgroundImage: NetworkImage(e.image!),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      )).toList(),
+                                )
+                              ],
+                            ),
+                          ))
+                      .toList(),
                   options: CarouselOptions(
                     reverse: false,
                     scrollDirection: Axis.horizontal,
@@ -193,7 +198,7 @@ class StoryScreen extends StatelessWidget {
                             const Spacer(),
                             Text(
                               "Create Story",
-                              style: Theme.of(context).textTheme.subtitle2,
+                              style: Theme.of(context).textTheme.titleSmall,
                             ),
                             const Spacer(),
                           ],

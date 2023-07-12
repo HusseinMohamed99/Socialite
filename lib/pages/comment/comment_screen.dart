@@ -11,12 +11,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CommentsScreen extends StatelessWidget {
-  late String? postId;
+  final String? postId;
   final String? receiverUid;
-  late int likesNumber;
-  late int index;
+  final int likesNumber;
+  final int index;
 
-  CommentsScreen(this.postId, this.receiverUid, {Key? key,}) : super(key: key);
+  CommentsScreen(
+    this.postId,
+    this.receiverUid, {
+    Key? key,
+    required this.likesNumber,
+    required this.index,
+  }) : super(key: key);
   final commentController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
@@ -25,72 +31,77 @@ class CommentsScreen extends StatelessWidget {
     SocialCubit cubit = SocialCubit.get(context);
 
     return Scaffold(
-        appBar: AppBar(
-          elevation: 1,
-          leading: IconButton(
-            onPressed: () {
-              pop(context);
-            },
-            icon: Icon(
-              IconlyLight.arrowLeft2,
+      appBar: AppBar(
+        elevation: 1,
+        leading: IconButton(
+          onPressed: () {
+            pop(context);
+          },
+          icon: Icon(
+            IconlyLight.arrowLeft2,
             size: 30.sp,
             color: cubit.isLight ? Colors.black : Colors.white,
           ),
-          ),
-          titleSpacing: 1,
-          title: Text(
-            'Comments',
-            style: GoogleFonts.roboto(
-              color: cubit.isLight ? Colors.blue : Colors.white,
+        ),
+        titleSpacing: 1,
+        title: Text(
+          'Comments',
+          style: GoogleFonts.roboto(
+            color: cubit.isLight ? Colors.blue : Colors.white,
             fontSize: 20.sp,
           ),
-          ),
         ),
-        body: StreamBuilder(
-            stream: FirebaseFirestore.instance
-                .collection('posts')
-                .doc(postId)
-                .collection('comments')
-                .orderBy('dateTime', descending: true)
-                .snapshots(),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (!snapshot.hasData) {
-                return  Center(
-                  child: AdaptiveIndicator(os:getOs(),
-                  ), );
-              } else {
-                cubit.comments = [];
-                snapshot.data.docs.forEach((element) {
-                  cubit.comments.add(CommentModel.fromJson(element.data()));
-                });
-                return ConditionalBuilder(
-                    condition: snapshot.hasData == true &&
-                        cubit.comments.isNotEmpty == true,
-                    builder: (BuildContext context) => Column(
-                          children: [
-                            Expanded(
-                              child: ListView.separated(
-                                physics: const BouncingScrollPhysics(),
-                                reverse: false,
-                                itemBuilder: (context, index) {
-                                  return buildComment(cubit.comments[index], context, );
-                                },
-                                separatorBuilder: (context, index) =>
-                                    myDivider2(),
-                                itemCount: cubit.comments.length,
-                              ),
+      ),
+      body: StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection('posts')
+              .doc(postId)
+              .collection('comments')
+              .orderBy('dateTime', descending: true)
+              .snapshots(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: AdaptiveIndicator(
+                  os: getOs(),
+                ),
+              );
+            } else {
+              cubit.comments = [];
+              snapshot.data.docs.forEach((element) {
+                cubit.comments.add(CommentModel.fromJson(element.data()));
+              });
+              return ConditionalBuilder(
+                  condition: snapshot.hasData == true &&
+                      cubit.comments.isNotEmpty == true,
+                  builder: (BuildContext context) => Column(
+                        children: [
+                          Expanded(
+                            child: ListView.separated(
+                              physics: const BouncingScrollPhysics(),
+                              reverse: false,
+                              itemBuilder: (context, index) {
+                                return buildComment(
+                                  cubit.comments[index],
+                                  context,
+                                );
+                              },
+                              separatorBuilder: (context, index) =>
+                                  myDivider2(),
+                              itemCount: cubit.comments.length,
                             ),
-                            Container(
-                              color: cubit.isLight
-                                  ? const Color(0xff404258)
-                                  : Colors.white,
-                              child: Form(
-                                key: formKey,
-                                child: Row(
-                                  children: [
-                                    IconButton(
-                                      icon: CircleAvatar(
-                                          radius: 35.r,
+                          ),
+                          Container(
+                            color: cubit.isLight
+                                ? const Color(0xff404258)
+                                : Colors.white,
+                            child: Form(
+                              key: formKey,
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                    icon: CircleAvatar(
+                                        radius: 35.r,
                                         backgroundColor: cubit.isLight
                                             ? Colors.white
                                             : const Color(0xff404258),
@@ -101,49 +112,49 @@ class CommentsScreen extends StatelessWidget {
                                               ? Colors.black
                                               : Colors.white,
                                         )),
-                                      onPressed: () {
-                                        debugPrint('add image');
-                                      },
-                                    ),
-                                    Expanded(
-                                      child: TextFormField(
-                                        autofocus: false,
-                                        keyboardType: TextInputType.text,
-                                        enableInteractiveSelection: true,
-                                        style: TextStyle(
-                                          color: cubit.isLight
+                                    onPressed: () {
+                                      debugPrint('add image');
+                                    },
+                                  ),
+                                  Expanded(
+                                    child: TextFormField(
+                                      autofocus: false,
+                                      keyboardType: TextInputType.text,
+                                      enableInteractiveSelection: true,
+                                      style: TextStyle(
+                                        color: cubit.isLight
                                             ? Colors.white
                                             : Colors.black,
                                         fontSize: 18.sp,
                                       ),
-                                        enableSuggestions: true,
-                                        scrollPhysics:
-                                            const BouncingScrollPhysics(),
-                                        decoration: InputDecoration(
-                                          focusedBorder: InputBorder.none,
-                                          disabledBorder: InputBorder.none,
-                                          border: InputBorder.none,
-                                          fillColor: Colors.grey,
-                                          hintText: 'comment..',
-                                          hintStyle: TextStyle(
-                                            color: cubit.isLight
-                                                ? Colors.white
-                                                : Colors.black,
-                                          ),
+                                      enableSuggestions: true,
+                                      scrollPhysics:
+                                          const BouncingScrollPhysics(),
+                                      decoration: InputDecoration(
+                                        focusedBorder: InputBorder.none,
+                                        disabledBorder: InputBorder.none,
+                                        border: InputBorder.none,
+                                        fillColor: Colors.grey,
+                                        hintText: 'comment..',
+                                        hintStyle: TextStyle(
+                                          color: cubit.isLight
+                                              ? Colors.white
+                                              : Colors.black,
                                         ),
-                                        autocorrect: true,
-                                        controller: commentController,
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return 'The comment can\'t be empty';
-                                          }
-                                          return null;
-                                        },
-                                        onFieldSubmitted: (value) {},
                                       ),
+                                      autocorrect: true,
+                                      controller: commentController,
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'The comment can\'t be empty';
+                                        }
+                                        return null;
+                                      },
+                                      onFieldSubmitted: (value) {},
                                     ),
-                                    IconButton(
-                                      icon: CircleAvatar(
+                                  ),
+                                  IconButton(
+                                    icon: CircleAvatar(
                                       radius: 25.r,
                                       backgroundColor: cubit.isLight
                                           ? Colors.white
@@ -166,22 +177,22 @@ class CommentsScreen extends StatelessWidget {
                                             postId: postId);
                                         commentController.text = '';
                                         SocialCubit.get(context).getPosts();
-                                        }
-                                      },
-                                    ),
-                                  ],
-                                ),
+                                      }
+                                    },
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
-                    fallback: (BuildContext context) => Column(
-                          children: [
-                            Expanded(
-                                child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
+                          ),
+                        ],
+                      ),
+                  fallback: (BuildContext context) => Column(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
                                   IconlyLight.chat,
                                   size: 100.sp,
                                   color: Colors.grey,
@@ -219,50 +230,50 @@ class CommentsScreen extends StatelessWidget {
                                               ? Colors.black
                                               : Colors.white,
                                         )),
-                                      onPressed: () {
-                                        debugPrint('add image');
-                                      },
-                                    ),
-                                    Expanded(
-                                      child: TextFormField(
-                                        autofocus: false,
-                                        keyboardType: TextInputType.text,
-                                        enableInteractiveSelection: true,
-                                        style: TextStyle(
-                                          color: cubit.isLight
+                                    onPressed: () {
+                                      debugPrint('add image');
+                                    },
+                                  ),
+                                  Expanded(
+                                    child: TextFormField(
+                                      autofocus: false,
+                                      keyboardType: TextInputType.text,
+                                      enableInteractiveSelection: true,
+                                      style: TextStyle(
+                                        color: cubit.isLight
                                             ? Colors.white
                                             : Colors.black,
                                         fontSize: 18.sp,
                                       ),
-                                        enableSuggestions: true,
-                                        scrollPhysics:
-                                            const BouncingScrollPhysics(),
-                                        decoration: InputDecoration(
-                                          focusedBorder: InputBorder.none,
-                                          disabledBorder: InputBorder.none,
-                                          border: InputBorder.none,
-                                          fillColor: Colors.grey,
-                                          hintText: 'comment..',
-                                          hintStyle: TextStyle(
-                                            color: cubit.isLight
-                                                ? Colors.white
-                                                : Colors.black,
-                                          ),
+                                      enableSuggestions: true,
+                                      scrollPhysics:
+                                          const BouncingScrollPhysics(),
+                                      decoration: InputDecoration(
+                                        focusedBorder: InputBorder.none,
+                                        disabledBorder: InputBorder.none,
+                                        border: InputBorder.none,
+                                        fillColor: Colors.grey,
+                                        hintText: 'comment..',
+                                        hintStyle: TextStyle(
+                                          color: cubit.isLight
+                                              ? Colors.white
+                                              : Colors.black,
                                         ),
-                                        autocorrect: true,
-                                        controller: commentController,
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return 'The comment can\'t be empty';
-                                          }
-                                          return null;
-                                        },
-                                        onFieldSubmitted: (value) {},
                                       ),
+                                      autocorrect: true,
+                                      controller: commentController,
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'The comment can\'t be empty';
+                                        }
+                                        return null;
+                                      },
+                                      onFieldSubmitted: (value) {},
                                     ),
-                                    IconButton(
-                                      icon: CircleAvatar(
-                                          radius: 25.r,
+                                  ),
+                                  IconButton(
+                                    icon: CircleAvatar(
+                                        radius: 25.r,
                                         backgroundColor: cubit.isLight
                                             ? Colors.white
                                             : const Color(0xff404258),
@@ -273,33 +284,31 @@ class CommentsScreen extends StatelessWidget {
                                               ? Colors.black
                                               : Colors.white,
                                         )),
-                                      onPressed: () {
-                                        if (formKey.currentState!.validate() ==
-                                            true) {
-                                          debugPrint('comment');
-                                          SocialCubit.get(context).sendComment(
-                                              dateTime:
-                                                  DateTime.now().toString(),
-                                              text: commentController.text,
-                                              postId: postId);
-                                          commentController.text = '';
-                                          SocialCubit.get(context).getPosts();
-                                        }
-                                      },
-                                    ),
-                                  ],
-                                ),
+                                    onPressed: () {
+                                      if (formKey.currentState!.validate() ==
+                                          true) {
+                                        debugPrint('comment');
+                                        SocialCubit.get(context).sendComment(
+                                            dateTime: DateTime.now().toString(),
+                                            text: commentController.text,
+                                            postId: postId);
+                                        commentController.text = '';
+                                        SocialCubit.get(context).getPosts();
+                                      }
+                                    },
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ));
-              }
-            }),
+                          ),
+                        ],
+                      ));
+            }
+          }),
     );
   }
 
   Widget buildComment(CommentModel comment, context) {
-
     return Padding(
       padding: const EdgeInsets.all(12.0).r,
       child: Row(
@@ -390,7 +399,7 @@ class CommentsScreen extends StatelessWidget {
                   style: GoogleFonts.roboto(
                     fontSize: 15.sp,
                     color: Colors.grey,
-                    textStyle: Theme.of(context).textTheme.caption,
+                    textStyle: Theme.of(context).textTheme.bodySmall,
                     height: 1.3.h,
                   ),
                 ),

@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../../shared/Cubit/socialCubit/SocialState.dart';
 
+import '../../shared/Cubit/socialCubit/SocialState.dart';
 
 class CreateStory extends StatelessWidget {
   CreateStory({
@@ -20,7 +20,8 @@ class CreateStory extends StatelessWidget {
     return BlocConsumer<SocialCubit, SocialStates>(listener: (context, state) {
       if (state is CreateStorySuccessState) {
         Navigator.pop(context);
-        SocialCubit.get(context).getPersonalStory(SocialCubit.get(context).userModel!.uId);
+        SocialCubit.get(context)
+            .getPersonalStory(SocialCubit.get(context).userModel!.uId);
         Fluttertoast.showToast(
             msg: "Your story is created successfully",
             fontSize: 16,
@@ -40,9 +41,11 @@ class CreateStory extends StatelessWidget {
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: FileImage(bloc.storyImage!),
-                      fit: BoxFit.cover,),),
+                  image: DecorationImage(
+                    image: FileImage(bloc.storyImage!),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -99,7 +102,7 @@ class CreateStory extends StatelessWidget {
                                   ]),
                               child: CircleAvatar(
                                   backgroundColor:
-                                  Theme.of(context).scaffoldBackgroundColor,
+                                      Theme.of(context).scaffoldBackgroundColor,
                                   child: const Icon(
                                     Icons.close_rounded,
                                     color: Colors.black,
@@ -117,7 +120,7 @@ class CreateStory extends StatelessWidget {
                           maxLines: 6,
                           minLines: 1,
                           style: const TextStyle(
-                             color: Colors.white, fontSize: 30),
+                              color: Colors.white, fontSize: 30),
                           decoration: const InputDecoration(
                               hintText: "What's on your mind ...",
                               hintStyle: TextStyle(
@@ -156,9 +159,7 @@ class CreateStory extends StatelessWidget {
                                     color: Colors.black,
                                   ),
                                   Text(
-                                    bloc.addText
-                                        ? " add text"
-                                        : " remove text",
+                                    bloc.addText ? " add text" : " remove text",
                                     style: const TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w600,
@@ -177,7 +178,7 @@ class CreateStory extends StatelessWidget {
                             onTap: () {
                               DateTime date = DateTime.now();
                               bloc.createStoryImage(
-                               text: story.text, dateTime: date);
+                                  text: story.text, dateTime: date);
                               pop(context);
                             },
                             child: Container(
@@ -194,9 +195,9 @@ class CreateStory extends StatelessWidget {
                                   ]),
                               child: ConditionalBuilder(
                                 condition: state is! CreateStoryLoadingState,
-                                builder: (context) => Row(
+                                builder: (context) => const Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const[
+                                  children: [
                                     Icon(
                                       IconlyLight.upload,
                                       color: Colors.black,
@@ -210,10 +211,13 @@ class CreateStory extends StatelessWidget {
                                     )
                                   ],
                                 ),
-                                fallback: (context) =>
-                                Center(child:AdaptiveIndicator(os:getOs(),),),),),
-
-
+                                fallback: (context) => Center(
+                                  child: AdaptiveIndicator(
+                                    os: getOs(),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
                         )
                       ],

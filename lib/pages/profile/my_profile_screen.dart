@@ -24,45 +24,44 @@ class MyProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      return BlocConsumer<SocialCubit, SocialStates>(
-        listener: (context, state)
-        {
-          if (state is SavedToGalleryLoadingState) {
-            Navigator.pop(context);
-          }
-          if (state is SavedToGallerySuccessState) {
-            Fluttertoast.showToast(
-                msg: "Downloaded to Gallery!",
-                gravity: ToastGravity.BOTTOM,
-                backgroundColor: Colors.green,
-                timeInSecForIosWeb: 5,
-                fontSize: 18);
-          }
+    return BlocConsumer<SocialCubit, SocialStates>(
+      listener: (context, state) {
+        if (state is SavedToGalleryLoadingState) {
+          Navigator.pop(context);
+        }
+        if (state is SavedToGallerySuccessState) {
+          Fluttertoast.showToast(
+              msg: "Downloaded to Gallery!",
+              gravity: ToastGravity.BOTTOM,
+              backgroundColor: Colors.green,
+              timeInSecForIosWeb: 5,
+              fontSize: 18);
+        }
 
-          if (state is LikesSuccessState) {
-            Fluttertoast.showToast(
-                msg: "Likes Success!",
-                gravity: ToastGravity.BOTTOM,
-                backgroundColor: Colors.green,
-                timeInSecForIosWeb: 5,
-                fontSize: 18);
-          }
+        if (state is LikesSuccessState) {
+          Fluttertoast.showToast(
+              msg: "Likes Success!",
+              gravity: ToastGravity.BOTTOM,
+              backgroundColor: Colors.green,
+              timeInSecForIosWeb: 5,
+              fontSize: 18);
+        }
 
-          if (state is DisLikesSuccessState) {
-            Fluttertoast.showToast(
-                msg: "UnLikes Success!",
-                gravity: ToastGravity.BOTTOM,
-                backgroundColor: Colors.red,
-                timeInSecForIosWeb: 5,
-                fontSize: 18);
-          }
-        },
-        builder: (context, state) {
-          var userModel = SocialCubit.get(context).userModel;
-          var cubit = SocialCubit.get(context);
-          return SocialCubit.get(context).userModel == null
-              ? Scaffold(
-              body: Center(
+        if (state is DisLikesSuccessState) {
+          Fluttertoast.showToast(
+              msg: "UnLikes Success!",
+              gravity: ToastGravity.BOTTOM,
+              backgroundColor: Colors.red,
+              timeInSecForIosWeb: 5,
+              fontSize: 18);
+        }
+      },
+      builder: (context, state) {
+        var userModel = SocialCubit.get(context).userModel;
+        var cubit = SocialCubit.get(context);
+        return SocialCubit.get(context).userModel == null
+            ? Scaffold(
+                body: Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -82,15 +81,15 @@ class MyProfileScreen extends StatelessWidget {
                     const CircularProgressIndicator(),
                   ],
                 ),
-              )):
-          cubit.userPosts.isEmpty
+              ))
+            : cubit.userPosts.isEmpty
                 ? SafeArea(
-                child: Scaffold(
-                    body: buildProfileWithOutPosts(),
-                  ),
-              )
-              : ConditionalBuilder(
-            condition: cubit.userPosts.isNotEmpty,
+                    child: Scaffold(
+                      body: buildProfileWithOutPosts(),
+                    ),
+                  )
+                : ConditionalBuilder(
+                    condition: cubit.userPosts.isNotEmpty,
                     builder: (BuildContext context) => SafeArea(
                       child: Scaffold(
                         body: SingleChildScrollView(
@@ -102,273 +101,276 @@ class MyProfileScreen extends StatelessWidget {
                                   alignment: AlignmentDirectional.bottomCenter,
                                   children: [
                                     InkWell(
-                                    onTap: ()
-                                    {
-                                      navigateTo(context, ImageViewScreen(image: cubit.userModel!.cover, body: ''));
-
-                                    },
-                                    child: Align(
-                                      alignment: AlignmentDirectional.topCenter,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: NetworkImage(
-                                                  '${userModel!.cover}'),
-                                            ),
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(8.0),
-                                              topRight: Radius.circular(8.0),
-                                            )),
-                                        width: double.infinity,
-                                        height: 230,
-                                      ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: ()
-                                    {
-                                      navigateTo(context, ImageViewScreen(image: cubit.userModel!.image, body: ''));
-
-                                    },
-                                    child: CircleAvatar(
-                                      backgroundColor: Colors.white,
-                                      radius: 75,
-                                      child: CircleAvatar(
-                                        backgroundImage: NetworkImage(
-                                          '${userModel.image}',
-                                        ),
-                                        radius: 70,
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 60,
-                                    left: 5,
-                                    child: IconButton(
-                                      onPressed: () {
-                                        pop(context);
-                                      },
-                                      icon: const CircleAvatar(
-                                        backgroundColor: Colors.black,
-                                        child: Icon(
-                                          IconlyLight.arrowLeft2,
-                                          size: 30,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            space(0, 5),
-                            Text(
-                              '${userModel.name}',
-                              style: GoogleFonts.libreBaskerville(
-                                fontSize: 20,
-                                color:
-                                    cubit.isLight ? Colors.blue : Colors.white,
-                              ),
-                            ),
-                            space(0, 5),
-                            Text(
-                              '${userModel.bio}',
-                              style: GoogleFonts.libreBaskerville(
-                                textStyle: Theme.of(context)
-                                    .textTheme
-                                    .caption!
-                                    .copyWith(
-                                      fontSize: 16,
-                                      color: Colors.grey,
-                                    ),
-                              ),
-                            ),
-                            space(0, 15),
-
-                            Card(
-                              margin:
-                              const EdgeInsets.symmetric(horizontal: 10),
-                              color: Colors.grey[100],
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          '${cubit.posts.length}',
-                                            style: GoogleFonts.roboto(
-                                              textStyle: Theme.of(context)
-                                                  .textTheme
-                                                  .caption!
-                                                  .copyWith(fontSize: 20),
-                                            ),
-                                          ),
-                                        Text(
-                                          'Posts',
-                                          style: GoogleFonts.libreBaskerville(
-                                            textStyle: Theme.of(context)
-                                                .textTheme
-                                                .caption!
-                                                .copyWith(
-                                                fontSize: 16,
-                                                color: Colors.black),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          '10K',
-                                          style: GoogleFonts.libreBaskerville(
-                                            textStyle: Theme.of(context)
-                                                .textTheme
-                                                .caption!
-                                                .copyWith(fontSize: 20),
-                                          ),
-                                        ),
-                                        Text(
-                                          'Followers',
-                                          style: GoogleFonts.libreBaskerville(
-                                            textStyle: Theme.of(context)
-                                                .textTheme
-                                                .caption!
-                                                .copyWith(
-                                                fontSize: 16,
-                                                color: Colors.black),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: InkWell(
-                                      onTap: ()
-                                      {
+                                      onTap: () {
                                         navigateTo(
-                                                context,
-                                                FriendsScreen(
-                                                  cubit.friends,
-                                                myFriends: true,
-                                              ));
-                                          },
+                                            context,
+                                            ImageViewScreen(
+                                                image: cubit.userModel!.cover,
+                                                body: ''));
+                                      },
+                                      child: Align(
+                                        alignment:
+                                            AlignmentDirectional.topCenter,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                fit: BoxFit.cover,
+                                                image: NetworkImage(
+                                                    userModel!.cover),
+                                              ),
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topLeft: Radius.circular(8.0),
+                                                topRight: Radius.circular(8.0),
+                                              )),
+                                          width: double.infinity,
+                                          height: 230,
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        navigateTo(
+                                            context,
+                                            ImageViewScreen(
+                                                image: cubit.userModel!.image,
+                                                body: ''));
+                                      },
+                                      child: CircleAvatar(
+                                        backgroundColor: Colors.white,
+                                        radius: 75,
+                                        child: CircleAvatar(
+                                          backgroundImage: NetworkImage(
+                                            userModel.image,
+                                          ),
+                                          radius: 70,
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      top: 60,
+                                      left: 5,
+                                      child: IconButton(
+                                        onPressed: () {
+                                          pop(context);
+                                        },
+                                        icon: const CircleAvatar(
+                                          backgroundColor: Colors.black,
+                                          child: Icon(
+                                            IconlyLight.arrowLeft2,
+                                            size: 30,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              space(0, 5),
+                              Text(
+                                userModel.name,
+                                style: GoogleFonts.libreBaskerville(
+                                  fontSize: 20,
+                                  color: cubit.isLight
+                                      ? Colors.blue
+                                      : Colors.white,
+                                ),
+                              ),
+                              space(0, 5),
+                              Text(
+                                userModel.bio,
+                                style: GoogleFonts.libreBaskerville(
+                                  textStyle: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                        fontSize: 16,
+                                        color: Colors.grey,
+                                      ),
+                                ),
+                              ),
+                              space(0, 15),
+                              Card(
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                color: Colors.grey[100],
+                                child: Row(
+                                  children: [
+                                    Expanded(
                                       child: Column(
                                         children: [
                                           Text(
-                                            '${cubit.friends.length}',
-                                              style:
-                                                  GoogleFonts.libreBaskerville(
-                                                textStyle: Theme.of(context)
-                                                    .textTheme
-                                                    .caption!
-                                                    .copyWith(fontSize: 20),
-                                              ),
+                                            '${cubit.posts.length}',
+                                            style: GoogleFonts.roboto(
+                                              textStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall!
+                                                  .copyWith(fontSize: 20),
                                             ),
+                                          ),
                                           Text(
-                                            'Friends',
+                                            'Posts',
                                             style: GoogleFonts.libreBaskerville(
                                               textStyle: Theme.of(context)
                                                   .textTheme
-                                                  .caption!
+                                                  .bodySmall!
                                                   .copyWith(
-                                                  fontSize: 16,
-                                                  color: Colors.black),
+                                                      fontSize: 16,
+                                                      color: Colors.black),
                                             ),
                                           ),
                                         ],
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            space(0, 15),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 12.0),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: TextButton.icon(
-                                      style: ButtonStyle(
-                                          backgroundColor:
-                                              MaterialStateProperty.all(
-                                                  Colors.blue)),
-                                      onPressed: ()
-                                      {
-                                        cubit.getStoryImage(context);
-                                      },
-                                      icon: const Icon(
-                                        IconlyLight.plus,
-                                        color: Colors.white,
+                                    Expanded(
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            '10K',
+                                            style: GoogleFonts.libreBaskerville(
+                                              textStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall!
+                                                  .copyWith(fontSize: 20),
+                                            ),
+                                          ),
+                                          Text(
+                                            'Followers',
+                                            style: GoogleFonts.libreBaskerville(
+                                              textStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall!
+                                                  .copyWith(
+                                                      fontSize: 16,
+                                                      color: Colors.black),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      label: Text(
-                                        'Add story',
-                                        style: GoogleFonts.libreBaskerville(
-                                          color: Colors.white,
+                                    ),
+                                    Expanded(
+                                      child: InkWell(
+                                        onTap: () {
+                                          navigateTo(
+                                              context,
+                                              FriendsScreen(
+                                                cubit.friends,
+                                                myFriends: true,
+                                              ));
+                                        },
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              '${cubit.friends.length}',
+                                              style:
+                                                  GoogleFonts.libreBaskerville(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .bodySmall!
+                                                    .copyWith(fontSize: 20),
+                                              ),
+                                            ),
+                                            Text(
+                                              'Friends',
+                                              style:
+                                                  GoogleFonts.libreBaskerville(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .bodySmall!
+                                                    .copyWith(
+                                                        fontSize: 16,
+                                                        color: Colors.black),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  space(20, 0),
-                                  Expanded(
-                                    child: TextButton.icon(
-                                      style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all(
-                                          cubit.isLight
-                                              ? Colors.grey.shade400
-                                              : const Color(0xff404258),
+                                  ],
+                                ),
+                              ),
+                              space(0, 15),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: TextButton.icon(
+                                        style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.blue)),
+                                        onPressed: () {
+                                          cubit.getStoryImage(context);
+                                        },
+                                        icon: const Icon(
+                                          IconlyLight.plus,
+                                          color: Colors.white,
+                                        ),
+                                        label: Text(
+                                          'Add story',
+                                          style: GoogleFonts.libreBaskerville(
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
-                                      onPressed: () {
-                                        navigateTo(
-                                            context, EditProfileScreen());
-                                      },
-                                      icon: Icon(
-                                        IconlyLight.edit,
-                                        color: cubit.isLight
-                                            ? Colors.black
-                                            : Colors.white,
-                                      ),
-                                      label: Text(
-                                        'Edit profile',
-                                        style: GoogleFonts.libreBaskerville(
+                                    ),
+                                    space(20, 0),
+                                    Expanded(
+                                      child: TextButton.icon(
+                                        style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                            cubit.isLight
+                                                ? Colors.grey.shade400
+                                                : const Color(0xff404258),
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          navigateTo(
+                                              context, EditProfileScreen());
+                                        },
+                                        icon: Icon(
+                                          IconlyLight.edit,
                                           color: cubit.isLight
                                               ? Colors.black
                                               : Colors.white,
                                         ),
+                                        label: Text(
+                                          'Edit profile',
+                                          style: GoogleFonts.libreBaskerville(
+                                            color: cubit.isLight
+                                                ? Colors.black
+                                                : Colors.white,
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                            myDivider2(),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10.0),
-                              child: Align(
-                                alignment: AlignmentDirectional.topStart,
-                                child: Text(
-                                  'Posts',
-                                  style: GoogleFonts.roboto(
-                                    fontSize: 24,
-                                    color: cubit.isLight
-                                        ? Colors.black
-                                        : Colors.white,
+                              myDivider2(),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10.0),
+                                child: Align(
+                                  alignment: AlignmentDirectional.topStart,
+                                  child: Text(
+                                    'Posts',
+                                    style: GoogleFonts.roboto(
+                                      fontSize: 24,
+                                      color: cubit.isLight
+                                          ? Colors.black
+                                          : Colors.white,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-
-                            space(0, 10),
-                            ListView.separated(
-                              physics: const NeverScrollableScrollPhysics(),
+                              space(0, 10),
+                              ListView.separated(
+                                physics: const NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: cubit.userPosts.length,
                                 separatorBuilder: (context, index) =>
@@ -376,293 +378,272 @@ class MyProfileScreen extends StatelessWidget {
                                 itemBuilder: (context, index) => (buildPostItem(
                                     cubit.userPosts[index], context, index)),
                               ),
-                            space(0, 10),
-                          ],
+                              space(0, 10),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  fallback: (BuildContext context) =>
-                      Center(child:AdaptiveIndicator(os:getOs(),),),);
-
-
-        },
-      );
+                    fallback: (BuildContext context) => Center(
+                      child: AdaptiveIndicator(
+                        os: getOs(),
+                      ),
+                    ),
+                  );
+      },
+    );
   }
 }
 
-Widget buildProfileWithOutPosts () => Builder(
-  builder: (context) {
-    var cubit = SocialCubit.get(context);
-    var userModel = SocialCubit.get(context).userModel;
-    List<PostModel>? posts = SocialCubit.get(context).userPosts;
-    List<UserModel>? friends = SocialCubit.get(context).friends;
+Widget buildProfileWithOutPosts() => Builder(builder: (context) {
+      var cubit = SocialCubit.get(context);
+      var userModel = SocialCubit.get(context).userModel;
+      List<PostModel>? posts = SocialCubit.get(context).userPosts;
+      List<UserModel>? friends = SocialCubit.get(context).friends;
 
-    return Column(
-      children: [
-        SizedBox(
-          height: 240,
-          child: Stack(
-            alignment: AlignmentDirectional.bottomCenter,
-            children: [
-              InkWell(
-                onTap: () {
-                  ///view Photo
-                  // Navigator.push(
-                  //     context, MaterialPageRoute(builder: (context) => view()));
-                },
-                child: Align(
-                  alignment: AlignmentDirectional.topCenter,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(
-                              '${userModel!.cover}'),
-                        ),
-                        borderRadius:
-                        const BorderRadius.only(
-                          topLeft: Radius.circular(8.0),
-                          topRight: Radius.circular(8.0),
-                        )),
-                    width: double.infinity,
-                    height: 200,
-                  ),
-                ),
-              ),
-              CircleAvatar(
-                backgroundColor: Colors.white,
-                radius: 65,
-                child: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                    '${userModel.image}',
-                  ),
-                  radius: 60,
-                ),
-              ),
-              Positioned(
-                top: 60,
-                left: 5,
-                child: IconButton(
-                  onPressed: () {
-                    pop(context);
+      return Column(
+        children: [
+          SizedBox(
+            height: 240,
+            child: Stack(
+              alignment: AlignmentDirectional.bottomCenter,
+              children: [
+                InkWell(
+                  onTap: () {
+                    ///view Photo
+                    // Navigator.push(
+                    //     context, MaterialPageRoute(builder: (context) => view()));
                   },
-                  icon: const CircleAvatar(
-                    backgroundColor: Colors.black,
-                    child: Icon(
-                      IconlyLight.arrowLeft2,
-                      size: 30,
-                      color: Colors.white,
+                  child: Align(
+                    alignment: AlignmentDirectional.topCenter,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(userModel!.cover),
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(8.0),
+                            topRight: Radius.circular(8.0),
+                          )),
+                      width: double.infinity,
+                      height: 200,
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        ),
-        space(0, 5),
-        Text(
-          '${userModel.name}',
-          style: GoogleFonts.roboto(
-            fontSize: 24,
-            color:
-            cubit.isLight ? Colors.blue : Colors.white,
-          ),
-        ),
-        space(0, 5),
-        Text(
-          '${userModel.bio}',
-          style: GoogleFonts.roboto(
-            textStyle: Theme.of(context)
-                .textTheme
-                .caption!
-                .copyWith(
-              fontSize: 16,
-              color: Colors.grey,
+                CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 65,
+                  child: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                      userModel.image,
+                    ),
+                    radius: 60,
+                  ),
+                ),
+                Positioned(
+                  top: 60,
+                  left: 5,
+                  child: IconButton(
+                    onPressed: () {
+                      pop(context);
+                    },
+                    icon: const CircleAvatar(
+                      backgroundColor: Colors.black,
+                      child: Icon(
+                        IconlyLight.arrowLeft2,
+                        size: 30,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-        ),
-        space(0, 15),
-        Card(
-          margin:
-          const EdgeInsets.symmetric(horizontal: 10),
-          color: Colors.grey[100],
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    Text(
-                      '${posts.length}',
-                      style: GoogleFonts.roboto(
-                        textStyle: Theme.of(context)
-                            .textTheme
-                            .caption!
-                            .copyWith(fontSize: 20),
+          space(0, 5),
+          Text(
+            userModel.name,
+            style: GoogleFonts.roboto(
+              fontSize: 24,
+              color: cubit.isLight ? Colors.blue : Colors.white,
+            ),
+          ),
+          space(0, 5),
+          Text(
+            userModel.bio,
+            style: GoogleFonts.roboto(
+              textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontSize: 16,
+                    color: Colors.grey,
+                  ),
+            ),
+          ),
+          space(0, 15),
+          Card(
+            margin: const EdgeInsets.symmetric(horizontal: 10),
+            color: Colors.grey[100],
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    children: [
+                      Text(
+                        '${posts.length}',
+                        style: GoogleFonts.roboto(
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(fontSize: 20),
+                        ),
                       ),
-                    ),
-                    Text(
-                      'Posts',
-                      style: GoogleFonts.roboto(
-                        textStyle: Theme.of(context)
-                            .textTheme
-                            .caption!
-                            .copyWith(
-                            fontSize: 20,
-                            color: Colors.black),
+                      Text(
+                        'Posts',
+                        style: GoogleFonts.roboto(
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(fontSize: 20, color: Colors.black),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              Expanded(
-                child: Column(
-                  children: [
-                    Text(
-                      '10K',
-                      style: GoogleFonts.roboto(
-                        textStyle: Theme.of(context)
-                            .textTheme
-                            .caption!
-                            .copyWith(fontSize: 20),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Text(
+                        '10K',
+                        style: GoogleFonts.roboto(
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(fontSize: 20),
+                        ),
                       ),
-                    ),
-                    Text(
-                      'Followers',
-                      style: GoogleFonts.roboto(
-                        textStyle: Theme.of(context)
-                            .textTheme
-                            .caption!
-                            .copyWith(
-                            fontSize: 20,
-                            color: Colors.black),
+                      Text(
+                        'Followers',
+                        style: GoogleFonts.roboto(
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(fontSize: 20, color: Colors.black),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              Expanded(
-                child: InkWell(
-                  onTap: ()
-                  {
-                    navigateTo(
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      navigateTo(
                           context,
                           FriendsScreen(
                             friends,
                             myFriends: true,
                           ));
                     },
-                  child: Column(
-                    children: [
-                      Text(
-                        '${friends.length}',
-                        style: GoogleFonts.roboto(
-                          textStyle: Theme.of(context)
-                              .textTheme
-                              .caption!
-                              .copyWith(fontSize: 20),
+                    child: Column(
+                      children: [
+                        Text(
+                          '${friends.length}',
+                          style: GoogleFonts.roboto(
+                            textStyle: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(fontSize: 20),
+                          ),
                         ),
-                      ),
-                      Text(
-                        'Friends',
-                        style: GoogleFonts.roboto(
-                          textStyle: Theme.of(context)
-                              .textTheme
-                              .caption!
-                              .copyWith(
-                              fontSize: 20,
-                              color: Colors.black),
+                        Text(
+                          'Friends',
+                          style: GoogleFonts.roboto(
+                            textStyle: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(fontSize: 20, color: Colors.black),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        space(0, 15),
-        Padding(
-          padding:
-          const EdgeInsets.symmetric(horizontal: 12.0),
-          child: Row(
-            children: [
-              Expanded(
-                child: TextButton.icon(
-                  style: ButtonStyle(
-                      backgroundColor:
-                      MaterialStateProperty.all(
-                          Colors.blue)),
-                  onPressed: ()
-                  {
-                    cubit.getStoryImage(context);
-                  },
-                  icon: const Icon(
-                    IconlyLight.plus,
-                    color: Colors.white,
-                  ),
-                  label: Text(
-                    'Add story',
-                    style: GoogleFonts.roboto(
+          space(0, 15),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextButton.icon(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.blue)),
+                    onPressed: () {
+                      cubit.getStoryImage(context);
+                    },
+                    icon: const Icon(
+                      IconlyLight.plus,
                       color: Colors.white,
                     ),
-                  ),
-                ),
-              ),
-              space(20, 0),
-              Expanded(
-                child: TextButton.icon(
-                  style: ButtonStyle(
-                    backgroundColor:
-                    MaterialStateProperty.all(
-                      cubit.isLight
-                          ? Colors.grey.shade400
-                          : const Color(0xff404258),
-                    ),
-                  ),
-                  onPressed: () {
-                    navigateTo(
-                        context, EditProfileScreen());
-                  },
-                  icon: Icon(
-                    IconlyLight.edit,
-                    color: cubit.isLight
-                        ? Colors.black
-                        : Colors.white,
-                  ),
-                  label: Text(
-                    'Edit profile',
-                    style: GoogleFonts.roboto(
-                      color: cubit.isLight
-                          ? Colors.black
-                          : Colors.white,
+                    label: Text(
+                      'Add story',
+                      style: GoogleFonts.roboto(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+                space(20, 0),
+                Expanded(
+                  child: TextButton.icon(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                        cubit.isLight
+                            ? Colors.grey.shade400
+                            : const Color(0xff404258),
+                      ),
+                    ),
+                    onPressed: () {
+                      navigateTo(context, EditProfileScreen());
+                    },
+                    icon: Icon(
+                      IconlyLight.edit,
+                      color: cubit.isLight ? Colors.black : Colors.white,
+                    ),
+                    label: Text(
+                      'Edit profile',
+                      style: GoogleFonts.roboto(
+                        color: cubit.isLight ? Colors.black : Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-        myDivider2(),
-        const Spacer(),
-        const Icon(
-          IconlyLight.infoSquare,
-          size: 100,
-          color: Colors.grey,
-        ),
-        Text(
-          'No Posts yet', style: GoogleFonts.libreBaskerville(
-          fontWeight: FontWeight.w700,
-          fontSize: 30,
-          color:  Colors.grey,
-        ),),
-        const Spacer(),
-      ],
-    );
-  }
-);
+          myDivider2(),
+          const Spacer(),
+          const Icon(
+            IconlyLight.infoSquare,
+            size: 100,
+            color: Colors.grey,
+          ),
+          Text(
+            'No Posts yet',
+            style: GoogleFonts.libreBaskerville(
+              fontWeight: FontWeight.w700,
+              fontSize: 30,
+              color: Colors.grey,
+            ),
+          ),
+          const Spacer(),
+        ],
+      );
+    });
 
-Widget buildPostItem(PostModel postModel, context,index) {
+Widget buildPostItem(PostModel postModel, context, index) {
   late String postId;
   var cubit = SocialCubit.get(context);
   postId = SocialCubit.get(context).postsId[index];
@@ -714,7 +695,7 @@ Widget buildPostItem(PostModel postModel, context,index) {
                       style: GoogleFonts.roboto(
                           fontSize: 15,
                           color: Colors.grey,
-                          textStyle: Theme.of(context).textTheme.caption,
+                          textStyle: Theme.of(context).textTheme.bodySmall,
                           height: 1.3),
                     ),
                   ],
@@ -727,8 +708,8 @@ Widget buildPostItem(PostModel postModel, context,index) {
                       context: context,
                       isScrollControlled: true,
                       shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(30))),
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(30))),
                       builder: (context) {
                         return Padding(
                           padding: const EdgeInsets.all(15.0),
@@ -753,7 +734,7 @@ Widget buildPostItem(PostModel postModel, context,index) {
                                       bottom: 0,
                                     ),
                                     child: Row(
-                                      children:  [
+                                      children: [
                                         const Icon(
                                           Icons.edit_location_outlined,
                                           color: Colors.red,
@@ -771,7 +752,6 @@ Widget buildPostItem(PostModel postModel, context,index) {
                                     ),
                                   ),
                                 ),
-
                               InkWell(
                                 onTap: () {
                                   // cubit.savePost(
@@ -785,13 +765,13 @@ Widget buildPostItem(PostModel postModel, context,index) {
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.only(
-                                  left: 8,
+                                    left: 8,
                                     right: 8,
                                     top: 20,
                                     bottom: 0,
                                   ),
                                   child: Row(
-                                    children:  [
+                                    children: [
                                       const Icon(
                                         Icons.turned_in_not_sharp,
                                         color: Colors.red,
@@ -809,7 +789,6 @@ Widget buildPostItem(PostModel postModel, context,index) {
                                   ),
                                 ),
                               ),
-
                               if (postModel.postImage != '')
                                 InkWell(
                                   onTap: () {
@@ -823,7 +802,7 @@ Widget buildPostItem(PostModel postModel, context,index) {
                                       bottom: 0,
                                     ),
                                     child: Row(
-                                      children:  [
+                                      children: [
                                         const Icon(
                                           IconlyLight.download,
                                           color: Colors.red,
@@ -841,7 +820,6 @@ Widget buildPostItem(PostModel postModel, context,index) {
                                     ),
                                   ),
                                 ),
-
                               InkWell(
                                 onTap: () {},
                                 child: Padding(
@@ -852,13 +830,13 @@ Widget buildPostItem(PostModel postModel, context,index) {
                                     bottom: 0,
                                   ),
                                   child: Row(
-                                    children:  [
+                                    children: [
                                       const Icon(
                                         Icons.share,
                                         color: Colors.red,
                                         size: 30,
                                       ),
-                                     space(10, 0),
+                                      space(10, 0),
                                       const Text(
                                         "Share",
                                         style: TextStyle(
@@ -883,13 +861,13 @@ Widget buildPostItem(PostModel postModel, context,index) {
                                       bottom: 0,
                                     ),
                                     child: Row(
-                                      children:  [
+                                      children: [
                                         const Icon(
                                           Icons.delete,
                                           color: Colors.red,
                                           size: 30,
                                         ),
-                                       space(10, 0),
+                                        space(10, 0),
                                         const Text(
                                           "Delete Post",
                                           style: TextStyle(
@@ -916,7 +894,6 @@ Widget buildPostItem(PostModel postModel, context,index) {
               ),
             ],
           ),
-
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 15.0),
             child: Container(
@@ -928,17 +905,21 @@ Widget buildPostItem(PostModel postModel, context,index) {
           Text(
             '${postModel.text}',
             style: GoogleFonts.libreBaskerville(
-              color:
-                  SocialCubit.get(context).isLight ? Colors.black : Colors.white,
+              color: SocialCubit.get(context).isLight
+                  ? Colors.black
+                  : Colors.white,
             ),
           ),
           space(0, 12),
           if (postModel.postImage != '')
             InkWell(
-              onTap: ()
-              {
-                navigateTo(context, FullScreen(postModel,index: index,));
-
+              onTap: () {
+                navigateTo(
+                    context,
+                    FullScreen(
+                      postModel,
+                      index: index,
+                    ));
               },
               child: Stack(
                 alignment: AlignmentDirectional.topEnd,
@@ -962,8 +943,9 @@ Widget buildPostItem(PostModel postModel, context,index) {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(15),
                         child: Image(
-                            image: NetworkImage('${postModel.postImage}'),
-                          fit: BoxFit.cover,),
+                          image: NetworkImage('${postModel.postImage}'),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
@@ -987,10 +969,13 @@ Widget buildPostItem(PostModel postModel, context,index) {
                 ),
               ),
               TextButton.icon(
-                onPressed: ()
-                {
-                  navigateTo(context, CommentsScreen(SocialCubit.get(context).postsId[index],postModel.uId,));
-
+                onPressed: () {
+                  navigateTo(
+                      context,
+                      CommentsScreen(
+                        SocialCubit.get(context).postsId[index],
+                        postModel.uId,
+                      ));
                 },
                 icon: const Icon(
                   IconlyLight.chat,
@@ -1027,8 +1012,7 @@ Widget buildPostItem(PostModel postModel, context,index) {
               ),
               space(10, 0),
               InkWell(
-                onTap: ()
-                {
+                onTap: () {
                   navigateTo(
                     context,
                     CommentsScreen(
@@ -1042,7 +1026,7 @@ Widget buildPostItem(PostModel postModel, context,index) {
                   child: Text(
                     'Write a comment ...',
                     style: GoogleFonts.roboto(
-                      textStyle: Theme.of(context).textTheme.caption,
+                      textStyle: Theme.of(context).textTheme.bodySmall,
                       fontSize: 15,
                       color: Colors.grey,
                     ),
@@ -1098,4 +1082,3 @@ Widget buildPostItem(PostModel postModel, context,index) {
     ),
   );
 }
-

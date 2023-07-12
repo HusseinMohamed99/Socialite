@@ -145,11 +145,11 @@ class EditPosts extends StatelessWidget {
                                       style: GoogleFonts.roboto(
                                         textStyle: Theme.of(context)
                                             .textTheme
-                                            .caption!
+                                            .bodySmall!
                                             .copyWith(
-                                          color: Colors.grey,
-                                          fontSize: 16,
-                                        ),
+                                              color: Colors.grey,
+                                              fontSize: 16,
+                                            ),
                                       ),
                                     ),
                                   ],
@@ -199,19 +199,21 @@ class EditPosts extends StatelessWidget {
                                 ),
                                 child: cubit.postImagePicked != null
                                     ? ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image(
-                                    image: FileImage(
-                                        cubit.postImagePicked!),
-                                    fit: BoxFit.cover,),
-                                )
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image(
+                                          image:
+                                              FileImage(cubit.postImagePicked!),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      )
                                     : ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image(
-                                    image: NetworkImage(
-                                        postModel.postImage!),
-                                    fit: BoxFit.cover,),
-                                ),
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image(
+                                          image: NetworkImage(
+                                              postModel.postImage!),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
                               ),
                             ),
                             IconButton(
@@ -263,7 +265,8 @@ class EditPosts extends StatelessWidget {
                             'Add photo'.toUpperCase(),
                             style: GoogleFonts.roboto(
                                 fontSize: 20,
-                                color: cubit.isLight ? Colors.blue : Colors.white),
+                                color:
+                                    cubit.isLight ? Colors.blue : Colors.white),
                           ),
                           icon: Icon(
                             IconlyLight.image,

@@ -107,7 +107,7 @@ class ChatScreen extends StatelessWidget {
             CircleAvatar(
               radius: 25.r,
               backgroundImage: NetworkImage(
-                '${users.image}',
+                users.image,
               ),
             ),
             space(15.w, 0),
@@ -154,7 +154,7 @@ class ChatScreen extends StatelessWidget {
   }
 
   Widget buildStoryItem(UserModel users, context) => InkWell(
-    onTap: () {
+        onTap: () {
           navigateTo(
             context,
             PrivateChatScreen(userModel: users),
@@ -171,7 +171,7 @@ class ChatScreen extends StatelessWidget {
                   CircleAvatar(
                     radius: 26.0.r,
                     backgroundImage: NetworkImage(
-                      '${users.image}',
+                      users.image,
                     ),
                   ),
                   CircleAvatar(

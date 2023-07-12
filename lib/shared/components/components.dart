@@ -1,5 +1,3 @@
-
-
 import 'package:f_app/Pages/Login/login_screen.dart';
 import 'package:f_app/Pages/comment/comment_screen.dart';
 import 'package:f_app/Pages/friend/profile_screen.dart';
@@ -20,7 +18,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 Widget defaultTextFormField({
- required BuildContext context,
+  required BuildContext context,
   FocusNode? focusNode,
   required TextEditingController controller,
   required TextInputType keyboardType,
@@ -34,69 +32,73 @@ Widget defaultTextFormField({
   InputDecoration? decoration,
   IconData? suffix,
   IconData? prefix,
-  Function? suffixPressed,  TextStyle? style,}) {
+  Function? suffixPressed,
+  TextStyle? style,
+}) {
   return TextFormField(
-      focusNode: FocusNode(),
-      style: GoogleFonts.libreBaskerville(
-        color: SocialCubit.get(context).isLight? Colors.black : Colors.white,
+    focusNode: FocusNode(),
+    style: GoogleFonts.libreBaskerville(
+      color: SocialCubit.get(context).isLight ? Colors.black : Colors.white,
+    ),
+    maxLines: 1,
+    minLines: 1,
+    controller: controller,
+    validator: validate,
+    enabled: isClickable,
+    onTap: onTap,
+    onFieldSubmitted: onFieldSubmitted,
+    onChanged: onChanged,
+    obscureText: isPassword,
+    keyboardType: keyboardType,
+    autofocus: false,
+    decoration: InputDecoration(
+      prefixIcon: Icon(
+        prefix,
+        color: SocialCubit.get(context).isLight ? Colors.grey : Colors.white,
       ),
-      maxLines: 1,
-      minLines: 1,
-      controller: controller,
-      validator: validate,
-      enabled: isClickable,
-      onTap: onTap,
-      onFieldSubmitted: onFieldSubmitted,
-      onChanged: onChanged,
-      obscureText: isPassword,
-      keyboardType: keyboardType,
-      autofocus: false,
-      decoration: InputDecoration(
-        prefixIcon: Icon(
-          prefix,
-          color: SocialCubit.get(context).isLight? Colors.grey : Colors.white,
+      suffixIcon: suffix != null
+          ? IconButton(
+              onPressed: () {
+                suffixPressed!();
+              },
+              icon: Icon(
+                suffix,
+                color: SocialCubit.get(context).isLight
+                    ? Colors.grey
+                    : Colors.white,
+              ),
+            )
+          : null,
+      focusedBorder: OutlineInputBorder(
+        borderRadius: const BorderRadius.all(
+          Radius.circular(10.0),
         ),
-        suffixIcon: suffix != null
-            ? IconButton(
-                onPressed: () {
-                  suffixPressed!();
-                },
-                icon: Icon(
-                  suffix,
-                  color: SocialCubit.get(context).isLight? Colors.grey : Colors.white,
-                ),
-              )
-            : null,
-        focusedBorder:  OutlineInputBorder(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(10.0),
-          ),
-          borderSide: BorderSide(
-            color: SocialCubit.get(context).isLight? Colors.black : Colors.white,
-          ),
-        ),
-        hintText: hint,
-        hintStyle: TextStyle(
-          color: SocialCubit.get(context).isLight? Colors.black : Colors.white,
-        ),
-        enabledBorder:  OutlineInputBorder(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(10.0),
-          ),
-          borderSide: BorderSide(
-            color: SocialCubit.get(context).isLight? Colors.black : Colors.white,
-          ),
-        ),
-        errorBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10.0),
-          ),
-          borderSide: BorderSide(
-            color: Colors.red,
-          ),
+        borderSide: BorderSide(
+          color: SocialCubit.get(context).isLight ? Colors.black : Colors.white,
         ),
       ),
-    );
+      hintText: hint,
+      hintStyle: TextStyle(
+        color: SocialCubit.get(context).isLight ? Colors.black : Colors.white,
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: const BorderRadius.all(
+          Radius.circular(10.0),
+        ),
+        borderSide: BorderSide(
+          color: SocialCubit.get(context).isLight ? Colors.black : Colors.white,
+        ),
+      ),
+      errorBorder: const OutlineInputBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(10.0),
+        ),
+        borderSide: BorderSide(
+          color: Colors.red,
+        ),
+      ),
+    ),
+  );
 }
 
 Widget defaultMaterialButton({
@@ -106,8 +108,9 @@ Widget defaultMaterialButton({
   double height = 45.0,
   double radius = 10.0,
   bool isUpperCase = true,
-  Function? onTap,}) =>
-   Container(
+  Function? onTap,
+}) =>
+    Container(
       width: width,
       height: height,
       decoration: BoxDecoration(
@@ -129,57 +132,60 @@ Widget defaultMaterialButton({
       ),
     );
 
-
-Widget defaultTextButton({
-  required Function function,
-  required String text,
-required BuildContext context
-}) {
+Widget defaultTextButton(
+    {required Function function,
+    required String text,
+    required BuildContext context}) {
   return TextButton(
-      onPressed: () {
-        function();
-      },
-      child: Text(text,style: GoogleFonts.libreBaskerville(
+    onPressed: () {
+      function();
+    },
+    child: Text(
+      text,
+      style: GoogleFonts.libreBaskerville(
         fontWeight: FontWeight.w400,
         color: Colors.white,
-      ),),
-    );
+      ),
+    ),
+  );
 }
 
 Widget myDivider(Color? color) {
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 8),
-      width: double.infinity,
-      height: 4.0,
-      color: color,
-    );
+    width: double.infinity,
+    height: 4.0,
+    color: color,
+  );
 }
 
 Widget myDivider2() {
   return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      width: double.infinity,
-      height: 4.0,
-      color: Colors.grey.shade200,
-    );
+    margin: const EdgeInsets.symmetric(vertical: 10),
+    width: double.infinity,
+    height: 4.0,
+    color: Colors.grey.shade200,
+  );
 }
 
 void showToast({
   required String text,
-  required ToastStates state,}) {
+  required ToastStates state,
+}) {
   Fluttertoast.showToast(
-      msg: text,
-      toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 10,
-      backgroundColor: chooseToastColor(state),
-      textColor: Colors.white,
-      fontSize: 16.0,
-    );
+    msg: text,
+    toastLength: Toast.LENGTH_LONG,
+    gravity: ToastGravity.BOTTOM,
+    timeInSecForIosWeb: 10,
+    backgroundColor: chooseToastColor(state),
+    textColor: Colors.white,
+    fontSize: 16.0,
+  );
 }
 
 // enum  كذا اختيار من حاجة
 enum ToastStates { success, error, waring }
+
 Color chooseToastColor(ToastStates state) {
   Color color;
   switch (state) {
@@ -200,21 +206,21 @@ Color chooseToastColor(ToastStates state) {
 
 void navigateTo(context, widget) {
   Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => widget,
-      ),
-    );
+    context,
+    MaterialPageRoute(
+      builder: (context) => widget,
+    ),
+  );
 }
 
 void navigateAndFinish(context, widget) {
   Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => widget,
-        ), (route) {
-      return false;
-    });
+      context,
+      MaterialPageRoute(
+        builder: (context) => widget,
+      ), (route) {
+    return false;
+  });
 }
 
 void logOut(context) {
@@ -222,7 +228,7 @@ void logOut(context) {
     key: 'uId',
   ).then((value) {
     if (value) {
-      navigateAndFinish(context,  const LoginScreen());
+      navigateAndFinish(context, const LoginScreen());
     }
   });
 }
@@ -230,7 +236,6 @@ void logOut(context) {
 void pop(context) {
   Navigator.pop(context);
 }
-
 
 // Widget imagePreview(){
 //   return FullScreenWidget(
@@ -245,7 +250,6 @@ void pop(context) {
 //   );
 // }
 
-
 Widget baseAlertDialog({
   required context,
   String? title,
@@ -253,40 +257,50 @@ Widget baseAlertDialog({
   String? outlinedButtonText,
   String? elevatedButtonText,
   IconData? elevatedButtonIcon,
-}){
+}) {
   return AlertDialog(
     backgroundColor: SocialCubit.get(context).backgroundColor.withOpacity(1),
-    title: Text('$title',style: const TextStyle(color: Colors.red),),
-    titlePadding: const EdgeInsetsDirectional.only(start:13,top: 15 ),
-    content: Text('$content',style: const TextStyle(color: Colors.grey,),),
+    title: Text(
+      '$title',
+      style: const TextStyle(color: Colors.red),
+    ),
+    titlePadding: const EdgeInsetsDirectional.only(start: 13, top: 15),
+    content: Text(
+      '$content',
+      style: const TextStyle(
+        color: Colors.grey,
+      ),
+    ),
     elevation: 8,
     contentPadding: const EdgeInsets.all(15),
     actions: [
       OutlinedButton(
-          onPressed: (){
+          onPressed: () {
             Navigator.of(context).pop(false);
           },
-          child: Text('$outlinedButtonText')
-      ),
+          child: Text('$outlinedButtonText')),
       SizedBox(
         width: 115,
         child: ElevatedButton(
-          style:ButtonStyle(backgroundColor:MaterialStateProperty.all(Colors.blueAccent)) ,
-          onPressed: (){
+          style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Colors.blueAccent)),
+          onPressed: () {
             Navigator.of(context).pop(true);
           },
-          child:Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(elevatedButtonIcon),
-              const SizedBox(width: 5,),
-              Text('$elevatedButtonText',style: const TextStyle(color: Colors.white)),
+              const SizedBox(
+                width: 5,
+              ),
+              Text('$elevatedButtonText',
+                  style: const TextStyle(color: Colors.white)),
             ],
           ),
         ),
       ),
     ],
-
   );
 }
 
@@ -295,8 +309,7 @@ Widget searchBar({
   bool readOnly = true,
   double height = 40,
   double width = double.infinity,
-
-}){
+}) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10),
     height: height,
@@ -306,29 +319,27 @@ Widget searchBar({
       style: const TextStyle(color: Colors.grey),
       // onTap: () => navigateTo(context, SearchScreen()),
       decoration: InputDecoration(
-        border: OutlineInputBorder( borderRadius: BorderRadius.circular(15)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
         filled: true,
         // fillColor: SocialCubit.get(context).unreadMessage,
-        disabledBorder: OutlineInputBorder( borderRadius: BorderRadius.circular(15)),
-        focusedBorder: OutlineInputBorder( borderRadius: BorderRadius.circular(15)),
+        disabledBorder:
+            OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+        focusedBorder:
+            OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
         hintText: 'LocaleKeys.search.tr()',
-        hintStyle: const TextStyle(fontSize: 15,color: Colors.grey),
-        prefixIcon: const Icon(Icons.search,color: Colors.grey,),
+        hintStyle: const TextStyle(fontSize: 15, color: Colors.grey),
+        prefixIcon: const Icon(
+          Icons.search,
+          color: Colors.grey,
+        ),
       ),
     ),
   );
 }
 
-Widget buildPost(
-    index,
-    context,
-    state,
-    PostModel postModel,
-    UserModel? model,
+Widget buildPost(index, context, state, PostModel postModel, UserModel? model,
     GlobalKey<ScaffoldState> scaffoldKey,
-    {required bool isSingle}
-    )
-{
+    {required bool isSingle}) {
   late String postId;
   var cubit = SocialCubit.get(context);
   postId = SocialCubit.get(context).postsId[index];
@@ -368,10 +379,11 @@ Widget buildPost(
                     Row(
                       children: [
                         InkWell(
-                          onTap: ()
-                          {
-                            if (postModel.uId != SocialCubit.get(context).userModel!.uId) {
-                              navigateTo(context, FriendsProfileScreen(postModel.uId));
+                          onTap: () {
+                            if (postModel.uId !=
+                                SocialCubit.get(context).userModel!.uId) {
+                              navigateTo(
+                                  context, FriendsProfileScreen(postModel.uId));
                             } else {
                               navigateTo(context, const MyProfileScreen());
                             }
@@ -401,7 +413,7 @@ Widget buildPost(
                       style: GoogleFonts.lobster(
                           fontSize: 15,
                           color: Colors.grey,
-                          textStyle: Theme.of(context).textTheme.caption,
+                          textStyle: Theme.of(context).textTheme.bodySmall,
                           height: 1.3),
                     ),
                   ],
@@ -414,8 +426,8 @@ Widget buildPost(
                       context: context,
                       isScrollControlled: true,
                       shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(30))),
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(30))),
                       builder: (context) {
                         return Padding(
                           padding: const EdgeInsets.all(15.0),
@@ -440,7 +452,7 @@ Widget buildPost(
                                       bottom: 0,
                                     ),
                                     child: Row(
-                                      children:  [
+                                      children: [
                                         const Icon(
                                           Icons.edit_location_outlined,
                                           color: Colors.red,
@@ -458,7 +470,6 @@ Widget buildPost(
                                     ),
                                   ),
                                 ),
-
                               InkWell(
                                 onTap: () {
                                   // cubit.savePost(
@@ -478,7 +489,7 @@ Widget buildPost(
                                     bottom: 0,
                                   ),
                                   child: Row(
-                                    children:  [
+                                    children: [
                                       const Icon(
                                         Icons.turned_in_not_sharp,
                                         color: Colors.red,
@@ -496,7 +507,6 @@ Widget buildPost(
                                   ),
                                 ),
                               ),
-
                               if (postModel.postImage != '')
                                 InkWell(
                                   onTap: () {
@@ -510,7 +520,7 @@ Widget buildPost(
                                       bottom: 0,
                                     ),
                                     child: Row(
-                                      children:  [
+                                      children: [
                                         const Icon(
                                           IconlyLight.download,
                                           color: Colors.red,
@@ -528,7 +538,6 @@ Widget buildPost(
                                     ),
                                   ),
                                 ),
-
                               InkWell(
                                 onTap: () {},
                                 child: Padding(
@@ -539,7 +548,7 @@ Widget buildPost(
                                     bottom: 0,
                                   ),
                                   child: Row(
-                                    children:  [
+                                    children: [
                                       const Icon(
                                         Icons.share,
                                         color: Colors.red,
@@ -570,7 +579,7 @@ Widget buildPost(
                                       bottom: 0,
                                     ),
                                     child: Row(
-                                      children:  [
+                                      children: [
                                         const Icon(
                                           Icons.delete,
                                           color: Colors.red,
@@ -601,7 +610,6 @@ Widget buildPost(
                       : Colors.white,
                 ),
               ),
-
             ],
           ),
           Padding(
@@ -615,17 +623,21 @@ Widget buildPost(
           Text(
             '${postModel.text}',
             style: GoogleFonts.libreBaskerville(
-              color:
-              SocialCubit.get(context).isLight ? Colors.black : Colors.white,
+              color: SocialCubit.get(context).isLight
+                  ? Colors.black
+                  : Colors.white,
             ),
           ),
           space(0, 12),
           if (postModel.postImage != '')
             InkWell(
-              onTap: ()
-              {
-                navigateTo(context, FullScreen(postModel,index: index,));
-
+              onTap: () {
+                navigateTo(
+                    context,
+                    FullScreen(
+                      postModel,
+                      index: index,
+                    ));
               },
               child: Stack(
                 alignment: AlignmentDirectional.topEnd,
@@ -649,8 +661,9 @@ Widget buildPost(
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(15),
                         child: Image(
-                            image: NetworkImage('${postModel.postImage}'),
-                          fit: BoxFit.cover,),
+                          image: NetworkImage('${postModel.postImage}'),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
@@ -674,10 +687,13 @@ Widget buildPost(
                 ),
               ),
               TextButton.icon(
-                onPressed: ()
-                {
-                  navigateTo(context, CommentsScreen(SocialCubit.get(context).postsId[index],postModel.uId,));
-
+                onPressed: () {
+                  navigateTo(
+                      context,
+                      CommentsScreen(
+                        SocialCubit.get(context).postsId[index],
+                        postModel.uId,
+                      ));
                 },
                 icon: const Icon(
                   IconlyLight.chat,
@@ -714,17 +730,20 @@ Widget buildPost(
               ),
               space(10, 0),
               InkWell(
-                onTap: ()
-                {
-                  navigateTo(context, CommentsScreen(SocialCubit.get(context).postsId[index],postModel.uId,));
-
+                onTap: () {
+                  navigateTo(
+                      context,
+                      CommentsScreen(
+                        SocialCubit.get(context).postsId[index],
+                        postModel.uId,
+                      ));
                 },
                 child: SizedBox(
                   width: 150,
                   child: Text(
                     'Write a comment ...',
                     style: GoogleFonts.lobster(
-                      textStyle: Theme.of(context).textTheme.caption,
+                      textStyle: Theme.of(context).textTheme.bodySmall,
                       fontSize: 15,
                       color: Colors.grey,
                     ),
@@ -775,7 +794,6 @@ Widget buildPost(
               ),
             ],
           ),
-
         ],
       ),
     ),
@@ -783,22 +801,22 @@ Widget buildPost(
 }
 
 PreferredSizeWidget defaultAppBar() => AppBar(
-  backgroundColor: Colors.transparent,
-  systemOverlayStyle: const SystemUiOverlayStyle(
-      statusBarBrightness: Brightness.light,
-      statusBarIconBrightness: Brightness.light),
-  elevation: 0,
-  scrolledUnderElevation: 0,
-  toolbarHeight: 0,
-);
+      backgroundColor: Colors.transparent,
+      systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarBrightness: Brightness.light,
+          statusBarIconBrightness: Brightness.light),
+      elevation: 0,
+      scrolledUnderElevation: 0,
+      toolbarHeight: 0,
+    );
 
 PreferredSizeWidget secondAppBar() => AppBar(
-  backgroundColor: Colors.transparent,
-  systemOverlayStyle: const SystemUiOverlayStyle(
-      statusBarBrightness: Brightness.dark,
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark),
-  elevation: 0,
-  scrolledUnderElevation: 0,
-  toolbarHeight: 0,
-);
+      backgroundColor: Colors.transparent,
+      systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarBrightness: Brightness.dark,
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark),
+      elevation: 0,
+      scrolledUnderElevation: 0,
+      toolbarHeight: 0,
+    );

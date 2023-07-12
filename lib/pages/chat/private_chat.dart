@@ -84,7 +84,7 @@ class PrivateChatScreen extends StatelessWidget {
                         CircleAvatar(
                           radius: 20.r,
                           backgroundImage: NetworkImage(
-                            '${userModel.image}',
+                            userModel.image,
                           ),
                         ),
                         space(15.w, 0),
@@ -282,7 +282,7 @@ class PrivateChatScreen extends StatelessWidget {
                                     } else {
                                       SocialCubit.get(context)
                                           .uploadMessageImage(
-                                          receiverId: userModel.uId,
+                                              receiverId: userModel.uId,
                                               datetime:
                                                   DateTime.now().toString(),
                                               text: textController.text);
@@ -332,7 +332,7 @@ class PrivateChatScreen extends StatelessWidget {
                         CircleAvatar(
                           radius: 25,
                           backgroundImage: NetworkImage(
-                            '${userModel.image}',
+                            userModel.image,
                           ),
                         ),
                         space(15, 0),
@@ -542,7 +542,7 @@ class PrivateChatScreen extends StatelessWidget {
                                       } else {
                                         SocialCubit.get(context)
                                             .uploadMessageImage(
-                                            receiverId: userModel.uId,
+                                                receiverId: userModel.uId,
                                                 datetime:
                                                     DateTime.now().toString(),
                                                 text: textController.text);
@@ -623,7 +623,7 @@ class PrivateChatScreen extends StatelessWidget {
                           DateTime.parse(messageModel.dateTime.toString())),
                       style: GoogleFonts.roboto(
                         color: cubit.isLight ? Colors.grey : Colors.black54,
-                        textStyle: Theme.of(context).textTheme.caption,
+                        textStyle: Theme.of(context).textTheme.bodySmall,
                       ),
                     ),
                   ],
@@ -634,7 +634,7 @@ class PrivateChatScreen extends StatelessWidget {
           CircleAvatar(
             radius: 12,
             backgroundImage: NetworkImage(
-              '${SocialCubit.get(context).userModel!.image}',
+              SocialCubit.get(context).userModel!.image,
             ),
           ),
         ],
@@ -706,12 +706,13 @@ class PrivateChatScreen extends StatelessWidget {
                         Text(
                           daysBetween(
                               DateTime.parse(messageModel.dateTime.toString())),
-                          style: Theme.of(context).textTheme.caption!.copyWith(
-                                color: cubit.isLight
-                                    ? Colors.grey
-                                    : Colors.black54,
-                                height: 2.2,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    color: cubit.isLight
+                                        ? Colors.grey
+                                        : Colors.black54,
+                                    height: 2.2,
+                                  ),
                         ),
                       ],
                     ),
@@ -756,7 +757,7 @@ class PrivateChatScreen extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 daysBetween(DateTime.parse(messageModel.dateTime.toString())),
-                style: Theme.of(context).textTheme.caption!.copyWith(
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
                       color: Colors.white,
                     ),
               ),
@@ -777,7 +778,7 @@ class PrivateChatScreen extends StatelessWidget {
           CircleAvatar(
             radius: 12,
             backgroundImage: NetworkImage(
-              '${userModel.image}',
+              userModel.image,
             ),
           ),
           Flexible(
@@ -804,7 +805,7 @@ class PrivateChatScreen extends StatelessWidget {
                           DateTime.parse(messageModel.dateTime.toString())),
                       style: GoogleFonts.roboto(
                         color: Colors.white70,
-                        textStyle: Theme.of(context).textTheme.caption,
+                        textStyle: Theme.of(context).textTheme.bodySmall,
                       ),
                     ),
                   ],
@@ -880,10 +881,11 @@ class PrivateChatScreen extends StatelessWidget {
                         Text(
                           daysBetween(
                               DateTime.parse(messageModel.dateTime.toString())),
-                          style: Theme.of(context).textTheme.caption!.copyWith(
-                                color: Colors.grey,
-                                height: 2.2,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    color: Colors.grey,
+                                    height: 2.2,
+                                  ),
                         ),
                       ],
                     ),
@@ -928,7 +930,7 @@ class PrivateChatScreen extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 daysBetween(DateTime.parse(messageModel.dateTime.toString())),
-                style: Theme.of(context).textTheme.caption!.copyWith(
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
                       color: Colors.white,
                     ),
               ),

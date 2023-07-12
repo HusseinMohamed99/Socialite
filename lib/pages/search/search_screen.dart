@@ -102,37 +102,37 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             body: foundUsers.isNotEmpty
                 ? ListView.separated(
-                itemBuilder: (context, index) =>
-                    singleUserBuilder(foundUsers[index], context),
-                separatorBuilder: (context, index) => space(0, 0),
-                itemCount: foundUsers.length)
+                    itemBuilder: (context, index) =>
+                        singleUserBuilder(foundUsers[index], context),
+                    separatorBuilder: (context, index) => space(0, 0),
+                    itemCount: foundUsers.length)
                 : Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      IconlyLight.search,
-                      color: Colors.grey,
-                      size: 60,
-                    ),
-                    space(0, 15),
-                    Text(
-                      'No result is found !',
-                      style: GoogleFonts.libreBaskerville(
-                        color: SocialCubit.get(context).isLight
-                            ? Colors.black
-                            : Colors.white,
+                    child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        IconlyLight.search,
+                        color: Colors.grey,
+                        size: 60,
                       ),
-                    ),
-                  ],
-                )),
+                      space(0, 15),
+                      Text(
+                        'No result is found !',
+                        style: GoogleFonts.libreBaskerville(
+                          color: SocialCubit.get(context).isLight
+                              ? Colors.black
+                              : Colors.white,
+                        ),
+                      ),
+                    ],
+                  )),
           );
         },
         listener: (context, state) {});
   }
 
   Widget singleUserBuilder(UserModel user, BuildContext context) => Padding(
-    padding: const EdgeInsets.only(top: 12, left: 12, right: 12).r,
+        padding: const EdgeInsets.only(top: 12, left: 12, right: 12).r,
         child: InkWell(
           onTap: () {
             if (user.uId != SocialCubit.get(context).userModel!.uId) {
@@ -144,57 +144,57 @@ class _SearchScreenState extends State<SearchScreen> {
             } else {
               navigateTo(
                 context,
-            const MyProfileScreen(),
-          );
-        }
-      },
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          CircleAvatar(
-            radius: 30,
-            backgroundImage: NetworkImage(
-              '${user.image}',
-            ),
-          ),
-          space(10, 0),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '${user.name}',
-                  textAlign: TextAlign.start,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: GoogleFonts.libreBaskerville(
-                    color: SocialCubit.get(context).isLight
-                        ? Colors.black
-                        : Colors.white,
-                  ),
+                const MyProfileScreen(),
+              );
+            }
+          },
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 30,
+                backgroundImage: NetworkImage(
+                  user.image,
                 ),
-                space(0, 5),
-                Text(
-                  '${SocialCubit.get(context).users.length - 1} mutual friends',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                      fontSize: 9,
-                      color: Colors.grey,
-                      fontWeight: FontWeight.w500),
+              ),
+              space(10, 0),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      user.name,
+                      textAlign: TextAlign.start,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.libreBaskerville(
+                        color: SocialCubit.get(context).isLight
+                            ? Colors.black
+                            : Colors.white,
+                      ),
+                    ),
+                    space(0, 5),
+                    Text(
+                      '${SocialCubit.get(context).users.length - 1} mutual friends',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontSize: 9,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    IconlyBroken.user2,
+                    color: Colors.grey,
+                  ))
+            ],
           ),
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                IconlyBroken.user2,
-                color: Colors.grey,
-              ))
-        ],
-      ),
-    ),
-  );
+        ),
+      );
 }

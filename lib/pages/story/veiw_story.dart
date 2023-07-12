@@ -3,13 +3,16 @@ import 'package:f_app/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../../model/story_model.dart';
 import '../../shared/Cubit/socialCubit/SocialState.dart';
 import '../friend/profile_screen.dart';
 
 class ViewStory extends StatelessWidget {
-  StoryModel? model;
-  ViewStory(this.model, {Key? key}) : super(key: key);
+  final StoryModel? model;
+
+  const ViewStory(this.model, {Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SocialCubit, SocialStates>(
@@ -120,7 +123,7 @@ class ViewStory extends StatelessWidget {
                                       fontSize: 15,
                                       color: Colors.grey,
                                       textStyle:
-                                          Theme.of(context).textTheme.caption,
+                                          Theme.of(context).textTheme.bodySmall,
                                       height: 1.3),
                                 )
                               ],

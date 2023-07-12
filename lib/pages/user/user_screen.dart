@@ -36,11 +36,11 @@ class _UserScreenState extends State<UserScreen> {
           List<UserModel> friends =
               SocialCubit.get(context).friends.cast<UserModel>();
           return SocialCubit.get(context).users.isEmpty
-              ? Scaffold(
+              ? const Scaffold(
                   body: Center(
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
+                        children: [
                           Icon(
                             IconlyLight.user3,
                             size: 70,
@@ -214,7 +214,7 @@ class _UserScreenState extends State<UserScreen> {
         child: Row(
           children: [
             CircleAvatar(
-              backgroundImage: NetworkImage('${userModel.image}'),
+              backgroundImage: NetworkImage(userModel.image),
               radius: 27,
             ),
             const SizedBox(
@@ -289,7 +289,7 @@ class _UserScreenState extends State<UserScreen> {
               onTap: () =>
                   navigateTo(context, FriendsProfileScreen(userModel.uId)),
               child: Image(
-                image: NetworkImage('${userModel.image}'),
+                image: NetworkImage(userModel.image),
                 height: 200,
                 width: 230,
                 fit: BoxFit.cover,
@@ -311,7 +311,7 @@ class _UserScreenState extends State<UserScreen> {
                 ),
                 space(0, 5),
                 Text(
-                  '${userModel.bio}',
+                  userModel.bio,
                   style: GoogleFonts.lobster(
                     fontSize: 16,
                     color: Colors.grey,
@@ -356,9 +356,9 @@ class _UserScreenState extends State<UserScreen> {
                         },
                         child: SocialCubit.get(context).isFriend == false
                             ? SocialCubit.get(context).request
-                                ? Row(
+                                ? const Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
+                                    children: [
                                       Icon(
                                         Icons.person_add_alt_1_rounded,
                                         color: Colors.white,
@@ -371,9 +371,9 @@ class _UserScreenState extends State<UserScreen> {
                                               TextStyle(color: Colors.white)),
                                     ],
                                   )
-                                : Row(
+                                : const Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
+                                    children: [
                                       Icon(
                                         Icons.person_add_alt_1_rounded,
                                         color: Colors.white,
@@ -386,9 +386,9 @@ class _UserScreenState extends State<UserScreen> {
                                               TextStyle(color: Colors.white)),
                                     ],
                                   )
-                            : Row(
+                            : const Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
+                                children: [
                                   Icon(
                                     Icons.person,
                                     color: Colors.white,
@@ -420,7 +420,7 @@ class _UserScreenState extends State<UserScreen> {
         child: Row(
           children: [
             CircleAvatar(
-              backgroundImage: NetworkImage('${userModel.image}'),
+              backgroundImage: NetworkImage(userModel.image),
               radius: 45,
             ),
             const SizedBox(
@@ -435,7 +435,7 @@ class _UserScreenState extends State<UserScreen> {
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle()),
                   Text(
-                    '${userModel.bio}',
+                    userModel.bio,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(fontSize: 15, color: Colors.grey[600]),

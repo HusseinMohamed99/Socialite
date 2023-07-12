@@ -12,10 +12,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FriendsScreen extends StatelessWidget {
-  bool? myFriends = false;
-  List<UserModel>? friends;
+  final bool? myFriends;
+  final List<UserModel>? friends;
 
-  FriendsScreen(this.friends, {Key? key, this.myFriends}) : super(key: key);
+  const FriendsScreen(this.friends, {Key? key, this.myFriends = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +76,7 @@ class FriendsScreen extends StatelessWidget {
                   ),
                 )
               : Scaffold(
-              extendBodyBehindAppBar: true,
+                  extendBodyBehindAppBar: true,
                   appBar: AppBar(
                     elevation: 1,
                     leading: IconButton(
@@ -142,12 +143,12 @@ Widget chatBuildItem(context, UserModel model, bool myFriends) {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundImage: NetworkImage('${model.image}'),
+            backgroundImage: NetworkImage(model.image),
             radius: 35.r,
           ),
           space(10.w, 0),
           Text(
-            '${model.name}',
+            model.name,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.libreBaskerville(

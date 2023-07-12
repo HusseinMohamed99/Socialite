@@ -67,10 +67,10 @@ class FullScreen extends StatelessWidget {
                                       postId: postId,
                                     ));
                               },
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                              child: const Padding(
+                                padding: EdgeInsets.all(8.0),
                                 child: Row(
-                                  children: const [
+                                  children: [
                                     Icon(
                                       Icons.edit_location_outlined,
                                       color: Colors.red,
@@ -104,10 +104,10 @@ class FullScreen extends StatelessWidget {
                               //     postText: model.text,
                               //     postImage: model.postImage);
                             },
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
                               child: Row(
-                                children: const [
+                                children: [
                                   Icon(
                                     Icons.turned_in_not_sharp,
                                     color: Colors.red,
@@ -135,10 +135,10 @@ class FullScreen extends StatelessWidget {
                               onTap: () {
                                 cubit.saveToGallery(model.postImage!);
                               },
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                              child: const Padding(
+                                padding: EdgeInsets.all(8.0),
                                 child: Row(
-                                  children: const [
+                                  children: [
                                     Icon(
                                       Icons.save_outlined,
                                       color: Colors.red,
@@ -163,10 +163,10 @@ class FullScreen extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {},
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
                               child: Row(
-                                children: const [
+                                children: [
                                   Icon(
                                     Icons.share,
                                     color: Colors.red,
@@ -263,7 +263,7 @@ class FullScreen extends StatelessWidget {
                   style: GoogleFonts.lobster(
                       fontSize: 15,
                       color: Colors.grey,
-                      textStyle: Theme.of(context).textTheme.caption,
+                      textStyle: Theme.of(context).textTheme.bodySmall,
                       height: 1.3),
                 ),
                 const SizedBox(

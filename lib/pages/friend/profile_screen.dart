@@ -16,14 +16,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FriendsProfileScreen extends StatelessWidget {
-  String? userUID;
   FriendsProfileScreen(this.userUID, {Key? key}) : super(key: key);
-
+  final String? userUID;
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -90,7 +88,7 @@ class FriendsProfileScreen extends StatelessWidget {
                                   radius: 75,
                                   child: CircleAvatar(
                                     backgroundImage: NetworkImage(
-                                      '${friendsModel!.image}',
+                                      friendsModel!.image,
                                     ),
                                     radius: 70.r,
                                   ),
@@ -118,7 +116,7 @@ class FriendsProfileScreen extends StatelessWidget {
                         ),
                         space(0, 5.h),
                         Text(
-                          '${friendsModel.name}',
+                          friendsModel.name,
                           style: GoogleFonts.roboto(
                             fontSize: 24.sp,
                             color: cubit.isLight ? Colors.blue : Colors.white,
@@ -126,10 +124,10 @@ class FriendsProfileScreen extends StatelessWidget {
                         ),
                         space(0, 5.h),
                         Text(
-                          '${friendsModel.bio}',
+                          friendsModel.bio,
                           style: GoogleFonts.roboto(
                             textStyle:
-                                Theme.of(context).textTheme.caption!.copyWith(
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
                                       fontSize: 16.sp,
                                       color: Colors.grey,
                                     ),
@@ -149,7 +147,7 @@ class FriendsProfileScreen extends StatelessWidget {
                                       style: GoogleFonts.roboto(
                                         textStyle: Theme.of(context)
                                             .textTheme
-                                            .caption!
+                                            .bodySmall!
                                             .copyWith(
                                               fontSize: 20.sp,
                                             ),
@@ -160,7 +158,7 @@ class FriendsProfileScreen extends StatelessWidget {
                                       style: GoogleFonts.roboto(
                                         textStyle: Theme.of(context)
                                             .textTheme
-                                            .caption!
+                                            .bodySmall!
                                             .copyWith(
                                               fontSize: 20.sp,
                                               color: Colors.black,
@@ -178,7 +176,7 @@ class FriendsProfileScreen extends StatelessWidget {
                                       style: GoogleFonts.roboto(
                                         textStyle: Theme.of(context)
                                             .textTheme
-                                            .caption!
+                                            .bodySmall!
                                             .copyWith(
                                               fontSize: 20.sp,
                                             ),
@@ -189,7 +187,7 @@ class FriendsProfileScreen extends StatelessWidget {
                                       style: GoogleFonts.roboto(
                                         textStyle: Theme.of(context)
                                             .textTheme
-                                            .caption!
+                                            .bodySmall!
                                             .copyWith(
                                               fontSize: 20.sp,
                                               color: Colors.black,
@@ -217,7 +215,7 @@ class FriendsProfileScreen extends StatelessWidget {
                                         style: GoogleFonts.roboto(
                                           textStyle: Theme.of(context)
                                               .textTheme
-                                              .caption!
+                                              .bodySmall!
                                               .copyWith(fontSize: 20.sp),
                                         ),
                                       ),
@@ -226,7 +224,7 @@ class FriendsProfileScreen extends StatelessWidget {
                                         style: GoogleFonts.roboto(
                                           textStyle: Theme.of(context)
                                               .textTheme
-                                              .caption!
+                                              .bodySmall!
                                               .copyWith(
                                                 fontSize: 20.sp,
                                                 color: Colors.black,
@@ -276,7 +274,7 @@ class FriendsProfileScreen extends StatelessWidget {
                                                     friendsModel.name);
                                         SocialCubit.get(context)
                                             .sendFCMNotification(
-                                            token: friendsModel.uId,
+                                                token: friendsModel.uId,
                                                 senderName:
                                                     SocialCubit.get(context)
                                                         .userModel!
@@ -307,7 +305,7 @@ class FriendsProfileScreen extends StatelessWidget {
                                             ? Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
-                                      children: [
+                                                children: [
                                                   Icon(
                                                     Icons
                                                         .person_add_alt_1_rounded,
@@ -328,7 +326,7 @@ class FriendsProfileScreen extends StatelessWidget {
                                             : Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
-                                      children: [
+                                                children: [
                                                   Icon(
                                                     size: 24.sp,
                                                     Icons
@@ -349,7 +347,7 @@ class FriendsProfileScreen extends StatelessWidget {
                                         : Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
-                                      children: [
+                                            children: [
                                               Icon(
                                                 Icons.person,
                                                 color: Colors.black,
@@ -395,7 +393,7 @@ class FriendsProfileScreen extends StatelessWidget {
                                         ? Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
-                                      children: [
+                                            children: [
                                               Icon(
                                                 size: 24.sp,
                                                 IconlyBroken.chat,
@@ -415,7 +413,7 @@ class FriendsProfileScreen extends StatelessWidget {
                                         : Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
-                                      children: [
+                                            children: [
                                               Icon(
                                                 IconlyBroken.chat,
                                                 color: Colors.black,
@@ -458,7 +456,7 @@ class FriendsProfileScreen extends StatelessWidget {
                   ConditionalBuilder(
                       condition: posts.isNotEmpty,
                       builder: (context) => ListView.separated(
-                        shrinkWrap: true,
+                            shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) => buildPost(
                                 index,
@@ -474,7 +472,7 @@ class FriendsProfileScreen extends StatelessWidget {
                             itemCount: posts.length,
                           ),
                       fallback: (context) => Padding(
-                        padding: const EdgeInsets.all(8.0).r,
+                            padding: const EdgeInsets.all(8.0).r,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
