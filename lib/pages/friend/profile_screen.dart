@@ -25,10 +25,7 @@ class FriendsProfileScreen extends StatelessWidget {
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        SocialCubit.get(context).getMyPosts(userUID);
-        SocialCubit.get(context).getFriends(userUID);
-        SocialCubit.get(context).checkFriends(userUID);
-        SocialCubit.get(context).checkFriendRequest(userUID);
+
         var friendsModel = SocialCubit.get(context).friendsProfile;
         List<PostModel>? posts = SocialCubit.get(context).userPosts;
         List<UserModel>? friends = SocialCubit.get(context).friends;

@@ -54,7 +54,7 @@ class ChatScreen extends StatelessWidget {
                     children: [
                       Card(
                         child: Container(
-                            height: 100.0.h,
+                            height: 110.0.h,
                             width: double.infinity,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10).r),
@@ -184,14 +184,13 @@ class ChatScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              space(0, 5.h),
               Text(
                 users.name,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
                 style: GoogleFonts.roboto(
-                  fontSize: 18.sp,
+                  fontSize: 16.sp,
                   color: SocialCubit.get(context).isLight
                       ? Colors.black
                       : Colors.white,

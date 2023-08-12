@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../layout/Home/home_layout.dart';
 import '../../shared/Cubit/socialCubit/social_cubit.dart';
 import '../../shared/components/constants.dart';
@@ -28,16 +27,18 @@ class LoginScreen extends StatelessWidget {
       child: BlocConsumer<LoginCubit, LoginStates>(
         listener: (context, state) {
           if (state is LoginSuccessState) {
+            SocialCubit.get(context).getUserData();
             CacheHelper.saveData(value: state.uid, key: 'uId').then((value) {
               uId = state.uid;
+              SocialCubit.get(context).getUserData();
+              SocialCubit.get(context).getPosts();
+              SocialCubit.get(context).getAllUsers();
               showToast(
                 text: 'Login is successfully',
                 state: ToastStates.success,
               );
             });
-           SocialCubit.get(context).getUserData();
-           SocialCubit.get(context).getPosts();
-           SocialCubit.get(context).getAllUsers();
+
           } else if (state is LoginErrorState) {
             showToast(
               text: state.error,

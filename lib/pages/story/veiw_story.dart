@@ -68,7 +68,7 @@ class ViewStory extends StatelessWidget {
                           InkWell(
                             onTap: () {
                               if (model!.uId != bloc.userModel!.uId) {
-                                bloc.getFriends(model!.uId);
+                                bloc.getFriends(model!.uId!);
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(

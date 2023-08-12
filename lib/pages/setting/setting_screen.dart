@@ -49,7 +49,7 @@ class SettingScreen extends StatelessWidget {
                     child: InkWell(
                       onTap: () {
                         SocialCubit.get(context).getMyPosts(uId);
-                        SocialCubit.get(context).getFriends(uId);
+                        SocialCubit.get(context).getFriends(uId!);
                         navigateTo(context, const MyProfileScreen());
                       },
                       child: Row(

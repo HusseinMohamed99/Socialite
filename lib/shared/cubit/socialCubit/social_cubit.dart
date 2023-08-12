@@ -40,6 +40,7 @@ class SocialCubit extends Cubit<SocialStates> {
     emit(GetUserDataLoadingState());
     FirebaseFirestore.instance.collection('users').doc(uId).get().then((value) {
       userModel = UserModel.fromJson(value.data()!);
+      print(userModel!.uId);
       emit(GetUserDataSuccessState());
     }).catchError((error) {
       debugPrint(error.toString());
@@ -930,16 +931,21 @@ class SocialCubit extends Cubit<SocialStates> {
   void addFriend(
       {required String friendsUID,
       required String friendName,
-      required String friendImage}) {
+      required String friendImage,
+      required String friendPhone,
+      required String friendEmail,
+      required String friendCover,
+      required String friendBio,
+      }) {
     emit(AddFriendLoadingState());
     UserModel myFriendModel = UserModel(
       uId: friendsUID,
       name: friendName,
       image: friendImage,
-      phone: '',
-      email: '',
-      cover: '',
-      bio: '',
+      phone: friendPhone,
+      email: friendEmail,
+      cover: friendCover,
+      bio: friendBio,
     );
     UserModel myModel = UserModel(
       uId: userModel!.uId,
