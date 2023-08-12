@@ -777,7 +777,7 @@ class FeedScreen extends StatelessWidget {
               children: [
                 TextButton.icon(
                   onPressed: () {
-                    // navigateTo(context, LikesScreen(SocialCubit.get(context).postsId[index],postModel.uId));
+                    //navigateTo(context, LikesScreen(SocialCubit.get(context).postsId[index],postModel.uId));
                   },
                   icon: Icon(
                     IconlyLight.heart,
@@ -785,7 +785,9 @@ class FeedScreen extends StatelessWidget {
                     size: 24.sp,
                   ),
                   label: Text(
-                    '${SocialCubit.get(context).likes[index]}',
+                    SocialCubit.get(context).likes.isEmpty
+                        ? ''
+                        : '${SocialCubit.get(context).likes[index]}',
                     style: GoogleFonts.roboto(
                       color: Colors.red,
                     ),
@@ -807,7 +809,9 @@ class FeedScreen extends StatelessWidget {
                     size: 24.sp,
                   ),
                   label: Text(
-                    '${SocialCubit.get(context).commentsNum[index]}',
+                    SocialCubit.get(context).commentsNum.isEmpty
+                        ? ''
+                        : '${SocialCubit.get(context).commentsNum[index]}',
                     style: GoogleFonts.roboto(
                       color: Colors.orangeAccent,
                     ),
