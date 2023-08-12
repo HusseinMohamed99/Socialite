@@ -4,7 +4,7 @@ import 'package:f_app/pages/Login/login_screen.dart';
 import 'package:f_app/pages/email_verification/email_verification_screen.dart';
 import 'package:f_app/shared/Cubit/registerCubit/cubit.dart';
 import 'package:f_app/shared/Cubit/registerCubit/state.dart';
-import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
+import 'package:f_app/shared/Cubit/socialCubit/social_cubit.dart';
 import 'package:f_app/shared/components/components.dart';
 import 'package:f_app/shared/components/constants.dart';
 import 'package:f_app/shared/network/cache_helper.dart';
@@ -35,6 +35,9 @@ class RegisterScreen extends StatelessWidget {
                 const EmailVerificationScreen(),
               );
             });
+            SocialCubit.get(context).getUserData();
+            SocialCubit.get(context).getPosts();
+            SocialCubit.get(context).getAllUsers();
           }
         },
         builder: (context, state) {

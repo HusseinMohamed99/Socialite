@@ -9,7 +9,7 @@ import 'package:f_app/model/comment_model.dart';
 import 'package:f_app/model/message_model.dart';
 import 'package:f_app/model/post_model.dart';
 import 'package:f_app/model/user_model.dart';
-import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
+import 'package:f_app/shared/Cubit/socialCubit/social_state.dart';
 import 'package:f_app/shared/components/components.dart';
 import 'package:f_app/shared/components/constants.dart';
 import 'package:f_app/shared/network/cache_helper.dart';

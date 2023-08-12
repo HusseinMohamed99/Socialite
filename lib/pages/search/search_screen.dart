@@ -1,8 +1,8 @@
 import 'package:f_app/model/user_model.dart';
 import 'package:f_app/pages/friend/profile_screen.dart';
 import 'package:f_app/pages/profile/my_profile_screen.dart';
-import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
-import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
+import 'package:f_app/shared/Cubit/socialCubit/social_cubit.dart';
+import 'package:f_app/shared/Cubit/socialCubit/social_state.dart';
 import 'package:f_app/shared/components/components.dart';
 import 'package:f_app/shared/components/constants.dart';
 import 'package:flutter/material.dart';
@@ -12,14 +12,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({Key? key}) : super(key: key);
+   const SearchScreen({Key? key}) : super(key: key);
 
   @override
-  _SearchScreenState createState() => _SearchScreenState();
+  State<SearchScreen> createState() => _SearchScreenState();
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  // This list holds the data for the list view
   List<UserModel> foundUsers = [];
 
   @override

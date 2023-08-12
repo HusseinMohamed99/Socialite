@@ -1,7 +1,7 @@
 import 'package:f_app/firebase_options.dart';
 import 'package:f_app/pages/splash/splash_screen.dart';
-import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
-import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
+import 'package:f_app/shared/Cubit/socialCubit/social_cubit.dart';
+import 'package:f_app/shared/Cubit/socialCubit/social_state.dart';
 import 'package:f_app/shared/bloc_observer.dart';
 import 'package:f_app/shared/components/components.dart';
 import 'package:f_app/shared/styles/themes.dart';
@@ -16,11 +16,7 @@ import 'shared/components/constants.dart';
 import 'shared/network/cache_helper.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  showToast(text: 'Messaging Background', state: ToastStates.success);
-  debugPrint('background');
-  debugPrint(message.data.toString());
-}
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,8 +36,7 @@ void main() async {
     debugPrint('when click on notification to open app');
     debugPrint(event.data.toString());
   });
-  // background notification
-  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
 
   Bloc.observer = MyBlocObserver();
 

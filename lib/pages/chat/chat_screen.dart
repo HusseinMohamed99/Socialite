@@ -2,8 +2,8 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:f_app/Pages/chat/private_chat.dart';
 import 'package:f_app/adaptive/indicator.dart';
 import 'package:f_app/model/user_model.dart';
-import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
-import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
+import 'package:f_app/shared/Cubit/socialCubit/social_cubit.dart';
+import 'package:f_app/shared/Cubit/socialCubit/social_state.dart';
 import 'package:f_app/shared/components/components.dart';
 import 'package:f_app/shared/components/constants.dart';
 import 'package:flutter/cupertino.dart';

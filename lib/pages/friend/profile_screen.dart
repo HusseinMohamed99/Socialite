@@ -5,8 +5,8 @@ import 'package:f_app/adaptive/indicator.dart';
 import 'package:f_app/model/post_model.dart';
 import 'package:f_app/model/user_model.dart';
 import 'package:f_app/pages/viewPhoto/image_view.dart';
-import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
-import 'package:f_app/shared/Cubit/socialCubit/SocialState.dart';
+import 'package:f_app/shared/Cubit/socialCubit/social_cubit.dart';
+import 'package:f_app/shared/Cubit/socialCubit/social_state.dart';
 import 'package:f_app/shared/components/components.dart';
 import 'package:f_app/shared/components/constants.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +18,7 @@ import 'package:google_fonts/google_fonts.dart';
 class FriendsProfileScreen extends StatelessWidget {
   FriendsProfileScreen(this.userUID, {Key? key}) : super(key: key);
   final String? userUID;
-  var scaffoldKey = GlobalKey<ScaffoldState>();
+ final  scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {

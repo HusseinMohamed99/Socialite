@@ -6,7 +6,7 @@ import 'package:f_app/Pages/profile/my_profile_screen.dart';
 import 'package:f_app/Pages/viewPhoto/post_view.dart';
 import 'package:f_app/model/post_model.dart';
 import 'package:f_app/model/user_model.dart';
-import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
+import 'package:f_app/shared/Cubit/socialCubit/social_cubit.dart';
 import 'package:f_app/shared/components/constants.dart';
 import 'package:f_app/shared/network/cache_helper.dart';
 import 'package:flutter/cupertino.dart';

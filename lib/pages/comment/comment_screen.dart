@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:f_app/adaptive/indicator.dart';
 import 'package:f_app/model/comment_model.dart';
-import 'package:f_app/shared/Cubit/socialCubit/SocialCubit.dart';
+import 'package:f_app/shared/Cubit/socialCubit/social_cubit.dart';
 import 'package:f_app/shared/components/components.dart';
 import 'package:f_app/shared/components/constants.dart';
 import 'package:flutter/material.dart';
@@ -13,15 +13,11 @@ import 'package:google_fonts/google_fonts.dart';
 class CommentsScreen extends StatelessWidget {
   final String? postId;
   final String? receiverUid;
-  final int likesNumber;
-  final int index;
 
   CommentsScreen(
     this.postId,
     this.receiverUid, {
     Key? key,
-    required this.likesNumber,
-    required this.index,
   }) : super(key: key);
   final commentController = TextEditingController();
   final formKey = GlobalKey<FormState>();

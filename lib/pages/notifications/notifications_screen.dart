@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../model/notifications_model.dart';
-import '../../shared/Cubit/socialCubit/SocialCubit.dart';
-import '../../shared/Cubit/socialCubit/SocialState.dart';
+import '../../shared/Cubit/socialCubit/social_cubit.dart';
+import '../../shared/Cubit/socialCubit/social_state.dart';
 import '../../shared/components/components.dart';
 import '../friend/profile_screen.dart';
 

@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../shared/Cubit/socialCubit/SocialCubit.dart';
-import '../../shared/Cubit/socialCubit/SocialState.dart';
+import '../../shared/Cubit/socialCubit/social_cubit.dart';
+import '../../shared/Cubit/socialCubit/social_state.dart';
 
 class EditPasswordScreen extends StatelessWidget {
   const EditPasswordScreen({Key? key}) : super(key: key);

@@ -1,4 +1,3 @@
-import 'package:f_app/Pages/Login/Auth_phone/auth_phone.dart';
 import 'package:f_app/Pages/Register/register_screen.dart';
 import 'package:f_app/Pages/password/forget_password.dart';
 import 'package:f_app/adaptive/indicator.dart';
@@ -12,7 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../layout/Home/home_layout.dart';
-import '../../shared/Cubit/socialCubit/SocialCubit.dart';
+import '../../shared/Cubit/socialCubit/social_cubit.dart';
 import '../../shared/components/constants.dart';
 import '../email_verification/email_verification_screen.dart';
 
@@ -29,7 +28,6 @@ class LoginScreen extends StatelessWidget {
       child: BlocConsumer<LoginCubit, LoginStates>(
         listener: (context, state) {
           if (state is LoginSuccessState) {
-            SocialCubit.get(context).getUserData();
             CacheHelper.saveData(value: state.uid, key: 'uId').then((value) {
               uId = state.uid;
               showToast(
@@ -37,6 +35,9 @@ class LoginScreen extends StatelessWidget {
                 state: ToastStates.success,
               );
             });
+           SocialCubit.get(context).getUserData();
+           SocialCubit.get(context).getPosts();
+           SocialCubit.get(context).getAllUsers();
           } else if (state is LoginErrorState) {
             showToast(
               text: state.error,
@@ -182,9 +183,6 @@ class LoginScreen extends StatelessWidget {
                                                       context,
                                                       const HomeLayout(),
                                                     );
-                                                    cubit.getUserData();
-                                                    cubit.getPosts();
-                                                    cubit.getAllUsers();
                                                   } else {
                                                     navigateTo(
                                                       context,
@@ -239,43 +237,6 @@ class LoginScreen extends StatelessWidget {
                               ),
                             )
                           ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(20.0).r,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              InkWell(
-                                borderRadius: BorderRadius.circular(15).r,
-                                onTap: () {
-                                  LoginCubit.get(context).signINWithGoogle();
-                                },
-                                child: CircleAvatar(
-                                  backgroundImage: const AssetImage(
-                                    'assets/images/Google_Logo.png',
-                                  ),
-                                  radius: 25.r,
-                                  backgroundColor: Colors.transparent,
-                                ),
-                              ),
-                              InkWell(
-                                borderRadius: BorderRadius.circular(15).r,
-                                onTap: () {
-                                  navigateTo(
-                                    context,
-                                    const AuthPhone(),
-                                  );
-                                },
-                                child: CircleAvatar(
-                                  backgroundImage: const AssetImage(
-                                    'assets/images/phone.png',
-                                  ),
-                                  radius: 45.r,
-                                  backgroundColor: Colors.transparent,
-                                ),
-                              ),
-                            ],
-                          ),
                         ),
                       ],
                     ),

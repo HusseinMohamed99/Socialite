@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../../model/story_model.dart';
-import '../../shared/Cubit/socialCubit/SocialCubit.dart';
-import '../../shared/Cubit/socialCubit/SocialState.dart';
+import '../../shared/Cubit/socialCubit/social_cubit.dart';
+import '../../shared/Cubit/socialCubit/social_state.dart';
 import 'veiw_story.dart';
 
 class StoryScreen extends StatelessWidget {

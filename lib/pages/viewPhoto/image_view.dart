@@ -8,11 +8,12 @@ class ImageViewScreen extends StatefulWidget {
       : super(key: key);
 
   @override
-  _ImageViewScreenState createState() => _ImageViewScreenState();
+  State<ImageViewScreen> createState() => _ImageViewScreenState();
 }
 
 class _ImageViewScreenState extends State<ImageViewScreen> {
   bool showText = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +30,7 @@ class _ImageViewScreenState extends State<ImageViewScreen> {
             children: [
               Image.network(
                 "${widget.image}",
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
                 height: double.infinity,
                 width: double.infinity,
                 alignment: Alignment.center,
