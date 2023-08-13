@@ -2,7 +2,7 @@ import 'package:sociality/layout/Home/home_layout.dart';
 import 'package:sociality/shared/Cubit/EmailVerification/email_verification_cubit.dart';
 import 'package:sociality/shared/Cubit/EmailVerification/email_verification_state.dart';
 import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/components/components.dart';
+import 'package:sociality/shared/components/buttons.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

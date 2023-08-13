@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="84" height="146.38" viewBox="0 0 84 146.38">
+  <g id="Group_1320" data-name="Group 1320" transform="translate(-289 -88.236)">
+    <text id="Title1" transform="translate(331 194.616)" fill="#fff" font-size="24" font-family="SegoeUI, Segoe UI"><tspan x="-18.574" y="0">Get</tspan><tspan x="-41.15" y="34">Started!</tspan></text>
+    <g id="Group_1274" data-name="Group 1274" transform="translate(252)">
+      <path id="bubble" d="M43.894,13.616c2.666,0,4.221-1.428,6.094-4.316L55.415.793h8c9.712,0,15.647-6,15.647-15.615V-40.149c0-9.617-5.935-15.615-15.647-15.615h-39.7c-9.68,0-15.615,5.967-15.615,15.615v25.327C8.093-5.173,14.028.793,23.708.793h8.6L37.8,9.331C39.609,12.156,41.228,13.616,43.894,13.616Z" transform="translate(36 144)" fill="#fff"/>
+      <text id="Title1-2" data-name="Title1" transform="translate(52 124)" fill="#4718ad" font-size="24" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">Hello</tspan></text>
+    </g>
+  </g>
+</svg>

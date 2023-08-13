@@ -5,7 +5,7 @@ import 'package:sociality/pages/email_verification/email_verification_screen.dar
 import 'package:sociality/shared/Cubit/registerCubit/cubit.dart';
 import 'package:sociality/shared/Cubit/registerCubit/state.dart';
 import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/components/components.dart';
+import 'package:sociality/shared/components/buttons.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:sociality/shared/components/navigator.dart';
 import 'package:sociality/shared/components/text_form_field.dart';
@@ -206,6 +206,7 @@ class RegisterScreen extends StatelessWidget {
                               }
                             },
                             text: 'Register',
+                            context: context,
                           ),
                           fallback: (BuildContext context) => Center(
                             child: AdaptiveIndicator(

@@ -7,7 +7,7 @@ import 'package:sociality/shared/styles/color.dart';
 
 final getThemeData = {
   AppTheme.lightTheme: ThemeData(
-    scaffoldBackgroundColor: AppMainColors.whiteColor,
+    scaffoldBackgroundColor: AppColorsLight.primaryColor,
     appBarTheme: AppBarTheme(
       titleSpacing: 20.0,
       systemOverlayStyle: const SystemUiOverlayStyle(

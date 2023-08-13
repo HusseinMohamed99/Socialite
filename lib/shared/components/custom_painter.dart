@@ -1,32 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:sociality/shared/styles/color.dart';
 
-class RPSCustomPainter extends CustomPainter {
+class CustomClipPath extends CustomClipper<Path> {
   @override
-  void paint(Canvas canvas, Size size) {
-    Path path_0 = Path();
-    path_0.moveTo(0, size.height * 0.1737757);
-    path_0.arcToPoint(Offset(size.width * 0.1438880, size.height * 0.08846761),
-        radius:
-            Radius.elliptical(size.width * 0.1439040, size.height * 0.08525118),
-        rotation: 0,
-        largeArc: false,
-        clockwise: true);
-    path_0.lineTo(size.width * 0.7346667, size.height * 0.08846761);
-    path_0.cubicTo(
-        size.width, size.height * 0.08846761, size.width, 0, size.width, 0);
-    path_0.lineTo(size.width, size.height);
-    path_0.lineTo(0, size.height);
-    path_0.close();
-
-    Paint paint0Fill = Paint()..style = PaintingStyle.fill;
-    // paint0Fill.color = Color(0xff07635d).withOpacity(1.0);
-    paint0Fill.color = AppMainColors.mainColor;
-    canvas.drawPath(path_0, paint0Fill);
+  Path getClip(Size size) {
+    double w = size.width;
+    double h = size.height;
+    final path = Path();
+// (0,0) 1. Point
+    path.lineTo(0, h); //2. Point
+    path.quadraticBezierTo(w * 0.5, h - 100, w, h); //4. Point
+    path.lineTo(w, 0); //5. Point
+    path.close();
+    return path;
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return false;
   }
 }

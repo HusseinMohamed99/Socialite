@@ -16,55 +16,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Widget defaultMaterialButton({
-  required Function() function,
-  required String text,
-  double width = 300,
-  double height = 45.0,
-  double radius = 10.0,
-  bool isUpperCase = true,
-  Function? onTap,
-}) =>
-    Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(
-          radius,
-        ),
-        color: const Color(0xff4e67dd),
-        //  color: background,
-      ),
-      child: MaterialButton(
-        onPressed: function,
-        child: Text(
-          isUpperCase ? text.toUpperCase() : text,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 20.0,
-          ),
-        ),
-      ),
-    );
-
-Widget defaultTextButton(
-    {required Function function,
-    required String text,
-    required BuildContext context}) {
-  return TextButton(
-    onPressed: () {
-      function();
-    },
-    child: Text(
-      text,
-      style: GoogleFonts.libreBaskerville(
-        fontWeight: FontWeight.w400,
-        color: Colors.white,
-      ),
-    ),
-  );
-}
-
 void showToast({
   required String text,
   required ToastStates state,
