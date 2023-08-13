@@ -3,7 +3,6 @@ import 'package:sociality/pages/on-boarding/on_boarding_screen.dart';
 import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/constants.dart';
-import 'package:sociality/shared/styles/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -55,9 +54,6 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: SocialCubit.get(context).isLight
-          ? Colors.transparent
-          : ThemeApp.darkPrimary,
       appBar: defaultAppBar(),
       body: FadeTransition(
         opacity: fadingAnimation!,
@@ -118,7 +114,6 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
   void goToNextView() {
     Widget widget;
     Future.delayed(const Duration(seconds: 2), () {
-
       if (uId != null) {
         widget = const HomeLayout();
       } else {

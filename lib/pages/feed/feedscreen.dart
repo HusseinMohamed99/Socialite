@@ -13,7 +13,6 @@ import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/Cubit/socialCubit/social_state.dart';
 import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/constants.dart';
-import 'package:sociality/shared/styles/themes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -77,7 +76,8 @@ class FeedScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             CircleAvatar(
-                              backgroundImage: NetworkImage(cubit.userModel!.image),
+                              backgroundImage:
+                                  NetworkImage(cubit.userModel!.image),
                             ),
                             Expanded(
                               child: Container(
@@ -528,7 +528,7 @@ class FeedScreen extends StatelessWidget {
                                             Icons.edit_location_outlined,
                                             color: cubit.isLight
                                                 ? Colors.black
-                                                : ThemeApp.white,
+                                                : Colors.white,
                                             size: 30.sp,
                                           ),
                                           space(10.w, 0),
@@ -537,7 +537,7 @@ class FeedScreen extends StatelessWidget {
                                             style: TextStyle(
                                                 color: cubit.isLight
                                                     ? Colors.black
-                                                    : ThemeApp.white,
+                                                    : Colors.white,
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 20.sp),
                                           )
@@ -569,7 +569,7 @@ class FeedScreen extends StatelessWidget {
                                           Icons.turned_in_not_sharp,
                                           color: cubit.isLight
                                               ? Colors.black
-                                              : ThemeApp.white,
+                                              : Colors.white,
                                           size: 30.sp,
                                         ),
                                         space(10.w, 0),
@@ -578,7 +578,7 @@ class FeedScreen extends StatelessWidget {
                                           style: TextStyle(
                                             color: cubit.isLight
                                                 ? Colors.black
-                                                : ThemeApp.white,
+                                                : Colors.white,
                                             fontWeight: FontWeight.w600,
                                             fontSize: 20.sp,
                                           ),
@@ -605,7 +605,7 @@ class FeedScreen extends StatelessWidget {
                                             IconlyLight.download,
                                             color: cubit.isLight
                                                 ? Colors.black
-                                                : ThemeApp.white,
+                                                : Colors.white,
                                             size: 30.sp,
                                           ),
                                           space(10.w, 0),
@@ -614,7 +614,7 @@ class FeedScreen extends StatelessWidget {
                                             style: TextStyle(
                                               color: cubit.isLight
                                                   ? Colors.black
-                                                  : ThemeApp.white,
+                                                  : Colors.white,
                                               fontWeight: FontWeight.w600,
                                               fontSize: 20.sp,
                                             ),
@@ -638,7 +638,7 @@ class FeedScreen extends StatelessWidget {
                                           Icons.share,
                                           color: cubit.isLight
                                               ? Colors.black
-                                              : ThemeApp.white,
+                                              : Colors.white,
                                           size: 30.sp,
                                         ),
                                         space(10.w, 0),
@@ -647,7 +647,7 @@ class FeedScreen extends StatelessWidget {
                                           style: TextStyle(
                                             color: cubit.isLight
                                                 ? Colors.black
-                                                : ThemeApp.white,
+                                                : Colors.white,
                                             fontWeight: FontWeight.w600,
                                             fontSize: 20.sp,
                                           ),
@@ -674,7 +674,7 @@ class FeedScreen extends StatelessWidget {
                                             Icons.delete,
                                             color: cubit.isLight
                                                 ? Colors.black
-                                                : ThemeApp.white,
+                                                : Colors.white,
                                             size: 30.sp,
                                           ),
                                           space(10.w, 0),
@@ -683,7 +683,7 @@ class FeedScreen extends StatelessWidget {
                                             style: TextStyle(
                                               color: cubit.isLight
                                                   ? Colors.black
-                                                  : ThemeApp.white,
+                                                  : Colors.white,
                                               fontWeight: FontWeight.w600,
                                               fontSize: 20.sp,
                                             ),

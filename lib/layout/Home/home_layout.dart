@@ -10,7 +10,6 @@ import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/Cubit/socialCubit/social_state.dart';
 import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/constants.dart';
-import 'package:sociality/shared/styles/themes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -79,8 +78,7 @@ class HomeLayout extends StatelessWidget {
               ],
             ),
             drawer: Drawer(
-              backgroundColor:
-                  cubit.isLight ? ThemeApp.white : ThemeApp.darkPrimary,
+              backgroundColor: cubit.isLight ? Colors.white : Colors.deepOrange,
               child: cubit.userModel != null
                   ? Stack(
                       children: [
@@ -410,40 +408,39 @@ class HomeLayout extends StatelessWidget {
                     ),
             ),
             bottomNavigationBar: BottomNavigationBar(
-              backgroundColor:
-                  cubit.isLight ? ThemeApp.white : ThemeApp.darkPrimary,
+              backgroundColor: cubit.isLight ? Colors.white : Colors.deepOrange,
               items: [
                 BottomNavigationBarItem(
                     backgroundColor:
-                        cubit.isLight ? ThemeApp.white : ThemeApp.darkPrimary,
+                        cubit.isLight ? Colors.white : Colors.deepOrange,
                     icon: const Icon(
                       Icons.home_outlined,
                     ),
                     label: 'Home'),
                 BottomNavigationBarItem(
                     backgroundColor:
-                        cubit.isLight ? ThemeApp.white : ThemeApp.darkPrimary,
+                        cubit.isLight ? Colors.white : Colors.deepOrange,
                     icon: const Icon(
                       Icons.message,
                     ),
                     label: 'Chat'),
                 BottomNavigationBarItem(
                     backgroundColor:
-                        cubit.isLight ? ThemeApp.white : ThemeApp.darkPrimary,
+                        cubit.isLight ? Colors.white : Colors.deepOrange,
                     icon: const Icon(
                       Icons.supervised_user_circle_sharp,
                     ),
                     label: 'Friend'),
                 BottomNavigationBarItem(
                     backgroundColor:
-                        cubit.isLight ? ThemeApp.white : ThemeApp.darkPrimary,
+                        cubit.isLight ? Colors.white : Colors.deepOrange,
                     icon: const Icon(
                       Icons.location_history_outlined,
                     ),
                     label: 'Story'),
                 BottomNavigationBarItem(
                     backgroundColor:
-                        cubit.isLight ? ThemeApp.white : ThemeApp.darkPrimary,
+                        cubit.isLight ? Colors.white : Colors.deepOrange,
                     icon: const Icon(
                       Icons.settings,
                     ),

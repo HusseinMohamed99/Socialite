@@ -1,35 +1,37 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:sociality/shared/Cubit/loginCubit/state.dart';
+import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
-import '../../../model/user_model.dart';
+import 'package:sociality/model/user_model.dart';
+import 'package:sociality/shared/cubit/loginCubit/state.dart';
+import 'package:sociality/shared/network/cache_helper.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
   LoginCubit() : super(LoginInitialState());
 
   static LoginCubit get(context) => BlocProvider.of(context);
-///START : Login With E-mail & Password
+
+  ///START : Login With E-mail & Password
   Future<void> userLogin({
     required String email,
     required String password,
-  })async {
+  }) async {
     debugPrint('Done');
     emit(LoginLoadingState());
-  await  FirebaseAuth.instance
+    await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) {
-
       emit(LoginSuccessState(value.user!.uid));
     }).catchError((error) {
       emit(LoginErrorState(error.toString()));
     });
   }
-///END : Login With E-mail & Password
 
-///START : Show Password
+  ///END : Login With E-mail & Password
+
+  ///START : Show Password
   IconData suffix = Icons.visibility_outlined;
   bool isPassword = true;
 
@@ -65,12 +67,14 @@ class LoginCubit extends Cubit<LoginStates> {
       }
     });
   }
-///START : SignIN With Google
+
+  ///START : SignIN With Google
   void signINWithGoogle() async {
     emit(LoginGoogleUserLoadingState());
     GoogleSignIn googleSignIn = GoogleSignIn();
     GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
-    GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount!.authentication;
+    GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount!.authentication;
     AuthCredential credential = GoogleAuthProvider.credential(
         idToken: googleSignInAuthentication.idToken,
         accessToken: googleSignInAuthentication.accessToken);
@@ -102,7 +106,10 @@ class LoginCubit extends Cubit<LoginStates> {
       image: image,
       bio: 'Write you own bio...',
     );
-    FirebaseFirestore.instance.collection('users').doc(uId).set(model.toMap())
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uId)
+        .set(model.toMap())
         .then((value) {
       emit(CreateGoogleUserSuccessState(uId));
     }).catchError((error) {
@@ -114,19 +121,32 @@ class LoginCubit extends Cubit<LoginStates> {
   bool isEmailVerified = false;
   Future<void> loginReloadUser() async {
     emit(LoginReloadLoadingState());
-    await FirebaseAuth.instance.currentUser!.reload()
-        .then((value){
-      if (FirebaseAuth.instance.currentUser!.emailVerified)
-      {
+    await FirebaseAuth.instance.currentUser!.reload().then((value) {
+      if (FirebaseAuth.instance.currentUser!.emailVerified) {
         isEmailVerified = true;
-
       }
 
       emit(LoginReloadSuccessState());
-    })
-        .catchError((error){
+    }).catchError((error) {
       emit(LoginReloadErrorState(error.toString()));
     });
   }
+
   ///END : isEmailVerified
+
+  bool isCheck = false;
+
+  void boxCheck(bool newCheck) async {
+    emit(ChangeValueLoadingState());
+    if (isCheck == newCheck) return;
+    isCheck = newCheck;
+    CacheHelper.saveData(key: 'check', value: isCheck).then((value) {
+      emit(ChangeValueSuccessState());
+      if (kDebugMode) {
+        print('isCheck === $isCheck');
+      }
+    }).catchError((error) {
+      emit(ChangeValueErrorState());
+    });
+  }
 }
