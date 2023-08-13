@@ -40,14 +40,14 @@ class AddPostScreen extends StatelessWidget {
               icon: Icon(
                 IconlyLight.arrowLeft2,
                 size: 30.sp,
-                color: cubit.isLight ? Colors.black : Colors.white,
+                color: cubit.isDark ? Colors.black : Colors.white,
               ),
             ),
             titleSpacing: 1,
             title: Text(
               'Create Post',
               style: GoogleFonts.roboto(
-                color: cubit.isLight ? Colors.blue : Colors.white,
+                color: cubit.isDark ? Colors.blue : Colors.white,
                 fontSize: 20.sp,
               ),
             ),
@@ -77,7 +77,7 @@ class AddPostScreen extends StatelessWidget {
                 child: Text(
                   'Post',
                   style: GoogleFonts.roboto(
-                    color: cubit.isLight ? Colors.blue : Colors.white,
+                    color: cubit.isDark ? Colors.blue : Colors.white,
                     fontSize: 20.sp,
                   ),
                 ),
@@ -117,7 +117,7 @@ class AddPostScreen extends StatelessWidget {
                                 Text(
                                   userModel.name,
                                   style: GoogleFonts.roboto(
-                                    color: cubit.isLight
+                                    color: cubit.isDark
                                         ? Colors.black
                                         : Colors.white,
                                     fontSize: 24.sp,
@@ -129,7 +129,7 @@ class AddPostScreen extends StatelessWidget {
                                   children: [
                                     Icon(
                                       IconlyLight.user2,
-                                      color: cubit.isLight
+                                      color: cubit.isDark
                                           ? Colors.black
                                           : Colors.white,
                                     ),
@@ -161,7 +161,7 @@ class AddPostScreen extends StatelessWidget {
                           minLines: 1,
                           style: GoogleFonts.cairo(
                             height: 1.5.h,
-                            color: cubit.isLight ? Colors.black : Colors.white,
+                            color: cubit.isDark ? Colors.black : Colors.white,
                             fontWeight: FontWeight.w700,
                           ),
                           controller: textController,
@@ -238,9 +238,7 @@ class AddPostScreen extends StatelessWidget {
                     child: OutlinedButton.icon(
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
-                          cubit.isLight
-                              ? Colors.white
-                              : const Color(0xff404258),
+                          cubit.isDark ? Colors.white : const Color(0xff404258),
                         ),
                       ),
                       onPressed: () {
@@ -251,12 +249,12 @@ class AddPostScreen extends StatelessWidget {
                         'Add photo'.toUpperCase(),
                         style: GoogleFonts.roboto(
                           fontSize: 20.sp,
-                          color: cubit.isLight ? Colors.blue : Colors.white,
+                          color: cubit.isDark ? Colors.blue : Colors.white,
                         ),
                       ),
                       icon: Icon(
                         IconlyLight.image,
-                        color: cubit.isLight ? Colors.blue : Colors.white,
+                        color: cubit.isDark ? Colors.blue : Colors.white,
                         size: 24.sp,
                       ),
                     ),
