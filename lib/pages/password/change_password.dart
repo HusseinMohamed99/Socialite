@@ -34,14 +34,14 @@ class EditPasswordScreen extends StatelessWidget {
                   icon: Icon(
                     IconlyLight.arrowLeft2,
                     size: 30,
-                    color: cubit.isLight ? Colors.black : Colors.white,
+                    color: cubit.isDark ? Colors.black : Colors.white,
                   ),
                 ),
                 titleSpacing: 1,
                 title: Text(
                   'Change Password',
                   style: GoogleFonts.roboto(
-                    color: cubit.isLight ? Colors.blue : Colors.white,
+                    color: cubit.isDark ? Colors.blue : Colors.white,
                     fontSize: 20,
                   ),
                 ),
@@ -58,7 +58,7 @@ class EditPasswordScreen extends StatelessWidget {
                         Text(
                           'You Should Re-login Before\n Change Password',
                           style: GoogleFonts.roboto(
-                            color: cubit.isLight ? Colors.black : Colors.white,
+                            color: cubit.isDark ? Colors.black : Colors.white,
                             fontSize: 20,
                           ),
                         ),
@@ -113,7 +113,7 @@ class EditPasswordScreen extends StatelessWidget {
                               child: OutlinedButton.icon(
                                 style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all(
-                                    cubit.isLight
+                                    cubit.isDark
                                         ? Colors.white
                                         : const Color(0xff404258),
                                   ),
@@ -130,15 +130,14 @@ class EditPasswordScreen extends StatelessWidget {
                                   'Update'.toUpperCase(),
                                   style: GoogleFonts.roboto(
                                       fontSize: 20,
-                                      color: cubit.isLight
+                                      color: cubit.isDark
                                           ? Colors.blue
                                           : Colors.white),
                                 ),
                                 icon: Icon(
                                   IconlyLight.upload,
-                                  color: cubit.isLight
-                                      ? Colors.blue
-                                      : Colors.white,
+                                  color:
+                                      cubit.isDark ? Colors.blue : Colors.white,
                                 ),
                               ),
                             ),

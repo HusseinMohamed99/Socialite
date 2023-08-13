@@ -173,9 +173,8 @@ class MyProfileScreen extends StatelessWidget {
                                 userModel.name,
                                 style: GoogleFonts.libreBaskerville(
                                   fontSize: 20,
-                                  color: cubit.isLight
-                                      ? Colors.blue
-                                      : Colors.white,
+                                  color:
+                                      cubit.isDark ? Colors.blue : Colors.white,
                                 ),
                               ),
                               space(0, 5),
@@ -324,7 +323,7 @@ class MyProfileScreen extends StatelessWidget {
                                         style: ButtonStyle(
                                           backgroundColor:
                                               MaterialStateProperty.all(
-                                            cubit.isLight
+                                            cubit.isDark
                                                 ? Colors.grey.shade400
                                                 : const Color(0xff404258),
                                           ),
@@ -335,14 +334,14 @@ class MyProfileScreen extends StatelessWidget {
                                         },
                                         icon: Icon(
                                           IconlyLight.edit,
-                                          color: cubit.isLight
+                                          color: cubit.isDark
                                               ? Colors.black
                                               : Colors.white,
                                         ),
                                         label: Text(
                                           'Edit profile',
                                           style: GoogleFonts.libreBaskerville(
-                                            color: cubit.isLight
+                                            color: cubit.isDark
                                                 ? Colors.black
                                                 : Colors.white,
                                           ),
@@ -362,7 +361,7 @@ class MyProfileScreen extends StatelessWidget {
                                     'Posts',
                                     style: GoogleFonts.roboto(
                                       fontSize: 24,
-                                      color: cubit.isLight
+                                      color: cubit.isDark
                                           ? Colors.black
                                           : Colors.white,
                                     ),
@@ -467,7 +466,7 @@ Widget buildProfileWithOutPosts() => Builder(builder: (context) {
             userModel.name,
             style: GoogleFonts.roboto(
               fontSize: 24,
-              color: cubit.isLight ? Colors.blue : Colors.white,
+              color: cubit.isDark ? Colors.blue : Colors.white,
             ),
           ),
           space(0, 5),
@@ -601,7 +600,7 @@ Widget buildProfileWithOutPosts() => Builder(builder: (context) {
                   child: TextButton.icon(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                        cubit.isLight
+                        cubit.isDark
                             ? Colors.grey.shade400
                             : const Color(0xff404258),
                       ),
@@ -611,12 +610,12 @@ Widget buildProfileWithOutPosts() => Builder(builder: (context) {
                     },
                     icon: Icon(
                       IconlyLight.edit,
-                      color: cubit.isLight ? Colors.black : Colors.white,
+                      color: cubit.isDark ? Colors.black : Colors.white,
                     ),
                     label: Text(
                       'Edit profile',
                       style: GoogleFonts.roboto(
-                        color: cubit.isLight ? Colors.black : Colors.white,
+                        color: cubit.isDark ? Colors.black : Colors.white,
                       ),
                     ),
                   ),
@@ -677,7 +676,7 @@ Widget buildPostItem(PostModel postModel, context, index) {
                           style: GoogleFonts.roboto(
                             fontSize: 20,
                             height: 1.3,
-                            color: SocialCubit.get(context).isLight
+                            color: SocialCubit.get(context).isDark
                                 ? CupertinoColors.activeBlue
                                 : Colors.white,
                           ),
@@ -888,7 +887,7 @@ Widget buildPostItem(PostModel postModel, context, index) {
                 icon: Icon(
                   IconlyLight.moreCircle,
                   size: 25,
-                  color: SocialCubit.get(context).isLight
+                  color: SocialCubit.get(context).isDark
                       ? Colors.black
                       : Colors.white,
                 ),
@@ -906,9 +905,8 @@ Widget buildPostItem(PostModel postModel, context, index) {
           Text(
             '${postModel.text}',
             style: GoogleFonts.libreBaskerville(
-              color: SocialCubit.get(context).isLight
-                  ? Colors.black
-                  : Colors.white,
+              color:
+                  SocialCubit.get(context).isDark ? Colors.black : Colors.white,
             ),
           ),
           space(0, 12),

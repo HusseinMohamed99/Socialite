@@ -13,9 +13,8 @@ class SelectPhotoOptions extends StatelessWidget {
   Widget build(BuildContext context) {
     SocialCubit cubit = SocialCubit.get(context);
     return Container(
-      color: cubit.isLight
-          ? AppMainColors.whiteColor
-          : AppColorsLight.primaryColor,
+      color:
+          cubit.isDark ? AppMainColors.whiteColor : AppColorsLight.primaryColor,
       padding: const EdgeInsets.all(20).r,
       child: Stack(
         alignment: AlignmentDirectional.topCenter,
@@ -28,7 +27,7 @@ class SelectPhotoOptions extends StatelessWidget {
               height: 6.h,
               margin: const EdgeInsets.only(bottom: 20).r,
               decoration: BoxDecoration(
-                color: cubit.isLight
+                color: cubit.isDark
                     ? AppColorsLight.primaryColor
                     : AppMainColors.whiteColor,
                 borderRadius: BorderRadius.circular(2.5).r,
@@ -87,7 +86,7 @@ class SelectPhoto extends StatelessWidget {
       onPressed: onTap,
       style: ElevatedButton.styleFrom(
         elevation: 10,
-        backgroundColor: cubit.isLight
+        backgroundColor: cubit.isDark
             ? AppColorsLight.primaryColor
             : AppMainColors.whiteColor,
         shape: const StadiumBorder(),

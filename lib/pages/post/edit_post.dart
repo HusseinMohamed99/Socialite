@@ -51,14 +51,14 @@ class EditPosts extends StatelessWidget {
                 icon: Icon(
                   IconlyLight.arrowLeft2,
                   size: 30,
-                  color: cubit.isLight ? Colors.black : Colors.white,
+                  color: cubit.isDark ? Colors.black : Colors.white,
                 ),
               ),
               titleSpacing: 1,
               title: Text(
                 'Edit Your Post',
                 style: GoogleFonts.roboto(
-                  color: cubit.isLight ? Colors.blue : Colors.white,
+                  color: cubit.isDark ? Colors.blue : Colors.white,
                   fontSize: 20,
                 ),
               ),
@@ -85,7 +85,7 @@ class EditPosts extends StatelessWidget {
                   child: Text(
                     'Update',
                     style: GoogleFonts.roboto(
-                      color: cubit.isLight ? Colors.blue : Colors.white,
+                      color: cubit.isDark ? Colors.blue : Colors.white,
                       fontSize: 20,
                     ),
                   ),
@@ -123,7 +123,7 @@ class EditPosts extends StatelessWidget {
                                 Text(
                                   userModel.name,
                                   style: GoogleFonts.roboto(
-                                    color: cubit.isLight
+                                    color: cubit.isDark
                                         ? Colors.black
                                         : Colors.white,
                                     fontSize: 24,
@@ -135,7 +135,7 @@ class EditPosts extends StatelessWidget {
                                   children: [
                                     Icon(
                                       IconlyLight.user2,
-                                      color: cubit.isLight
+                                      color: cubit.isDark
                                           ? Colors.black
                                           : Colors.white,
                                     ),
@@ -166,7 +166,7 @@ class EditPosts extends StatelessWidget {
                           maxLines: 6,
                           style: GoogleFonts.cairo(
                             height: 1.5,
-                            color: cubit.isLight ? Colors.black : Colors.white,
+                            color: cubit.isDark ? Colors.black : Colors.white,
                             fontWeight: FontWeight.w700,
                           ),
                           controller: post,
@@ -252,7 +252,7 @@ class EditPosts extends StatelessWidget {
                         child: OutlinedButton.icon(
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
-                              cubit.isLight
+                              cubit.isDark
                                   ? Colors.white
                                   : const Color(0xff404258),
                             ),
@@ -266,11 +266,11 @@ class EditPosts extends StatelessWidget {
                             style: GoogleFonts.roboto(
                                 fontSize: 20,
                                 color:
-                                    cubit.isLight ? Colors.blue : Colors.white),
+                                    cubit.isDark ? Colors.blue : Colors.white),
                           ),
                           icon: Icon(
                             IconlyLight.image,
-                            color: cubit.isLight ? Colors.blue : Colors.white,
+                            color: cubit.isDark ? Colors.blue : Colors.white,
                           ),
                         ),
                       ),

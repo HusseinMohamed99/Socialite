@@ -75,7 +75,7 @@ class _UserScreenState extends State<UserScreen> {
                               'friend Request',
                               style: GoogleFonts.lobster(
                                 fontSize: 16,
-                                color: SocialCubit.get(context).isLight
+                                color: SocialCubit.get(context).isDark
                                     ? Colors.black
                                     : Colors.white,
                               ),
@@ -101,10 +101,9 @@ class _UserScreenState extends State<UserScreen> {
                                         'NoFriendRequest',
                                         style: GoogleFonts.lobster(
                                           fontSize: 16,
-                                          color:
-                                              SocialCubit.get(context).isLight
-                                                  ? Colors.black
-                                                  : Colors.white,
+                                          color: SocialCubit.get(context).isDark
+                                              ? Colors.black
+                                              : Colors.white,
                                         ),
                                       ),
                                     )),
@@ -115,7 +114,7 @@ class _UserScreenState extends State<UserScreen> {
                               'peopleMayKnow',
                               style: GoogleFonts.lobster(
                                 fontSize: 16,
-                                color: SocialCubit.get(context).isLight
+                                color: SocialCubit.get(context).isDark
                                     ? Colors.black
                                     : Colors.white,
                               ),
@@ -145,7 +144,7 @@ class _UserScreenState extends State<UserScreen> {
                               'friends',
                               style: GoogleFonts.lobster(
                                 fontSize: 16,
-                                color: SocialCubit.get(context).isLight
+                                color: SocialCubit.get(context).isDark
                                     ? Colors.black
                                     : Colors.white,
                               ),
@@ -174,7 +173,7 @@ class _UserScreenState extends State<UserScreen> {
                                     'No Friends',
                                     style: GoogleFonts.lobster(
                                       fontSize: 16,
-                                      color: SocialCubit.get(context).isLight
+                                      color: SocialCubit.get(context).isDark
                                           ? Colors.black
                                           : Colors.white,
                                     ),
@@ -224,7 +223,7 @@ class _UserScreenState extends State<UserScreen> {
                 overflow: TextOverflow.ellipsis,
                 style: GoogleFonts.lobster(
                   fontSize: 16,
-                  color: SocialCubit.get(context).isLight
+                  color: SocialCubit.get(context).isDark
                       ? Colors.black
                       : Colors.white,
                 ),
@@ -235,7 +234,7 @@ class _UserScreenState extends State<UserScreen> {
                 child: ElevatedButton(
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                    SocialCubit.get(context).isLight
+                    SocialCubit.get(context).isDark
                         ? Colors.blue
                         : Colors.white,
                   )),
@@ -246,7 +245,7 @@ class _UserScreenState extends State<UserScreen> {
                     children: [
                       Icon(
                         IconlyBroken.chat,
-                        color: SocialCubit.get(context).isLight
+                        color: SocialCubit.get(context).isDark
                             ? Colors.white
                             : Colors.black,
                       ),
@@ -257,7 +256,7 @@ class _UserScreenState extends State<UserScreen> {
                         'message',
                         style: GoogleFonts.lobster(
                           fontSize: 16,
-                          color: SocialCubit.get(context).isLight
+                          color: SocialCubit.get(context).isDark
                               ? Colors.white
                               : Colors.blue,
                         ),
@@ -305,7 +304,7 @@ class _UserScreenState extends State<UserScreen> {
                   userModel.name,
                   style: GoogleFonts.lobster(
                     fontSize: 16,
-                    color: SocialCubit.get(context).isLight
+                    color: SocialCubit.get(context).isDark
                         ? Colors.black
                         : Colors.white,
                   ),

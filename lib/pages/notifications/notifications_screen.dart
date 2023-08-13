@@ -41,7 +41,7 @@ class NotificationScreenState extends State<NotificationScreen>
                   icon: Icon(
                     IconlyBroken.arrowLeft2,
                     color:
-                        cubit.isLight ? const Color(0xff404258) : Colors.white,
+                        cubit.isDark ? const Color(0xff404258) : Colors.white,
                   ),
                   onPressed: () {
                     Navigator.pop(context);
@@ -50,7 +50,7 @@ class NotificationScreenState extends State<NotificationScreen>
                 title: Text(
                   'Notifications',
                   style: GoogleFonts.libreBaskerville(
-                    color: SocialCubit.get(context).isLight
+                    color: SocialCubit.get(context).isDark
                         ? Colors.black
                         : Colors.white,
                   ),
@@ -90,7 +90,7 @@ class NotificationScreenState extends State<NotificationScreen>
                                     Text(
                                       'No Notifications',
                                       style: TextStyle(
-                                          color: cubit.isLight
+                                          color: cubit.isDark
                                               ? Colors.red
                                               : Colors.white,
                                           fontWeight: FontWeight.bold,
@@ -128,7 +128,7 @@ class NotificationScreenState extends State<NotificationScreen>
         }
       },
       child: Container(
-        color: cubit.isLight ? Colors.white : const Color(0xff404258),
+        color: cubit.isDark ? Colors.white : const Color(0xff404258),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Row(
@@ -158,7 +158,7 @@ class NotificationScreenState extends State<NotificationScreen>
                   children: [
                     Text('${notifications.senderName} ',
                         style: TextStyle(
-                            color: cubit.isLight ? Colors.black : Colors.white,
+                            color: cubit.isDark ? Colors.black : Colors.white,
                             fontSize: 17,
                             fontWeight: FontWeight.bold)),
                     Text(

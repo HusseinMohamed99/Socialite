@@ -37,7 +37,7 @@ class FriendsScreen extends StatelessWidget {
                       },
                       icon: Icon(
                         Icons.arrow_back,
-                        color: cubit.isLight ? Colors.black : Colors.white,
+                        color: cubit.isDark ? Colors.black : Colors.white,
                         size: 24.sp,
                       ),
                     ),
@@ -46,7 +46,7 @@ class FriendsScreen extends StatelessWidget {
                       'Friends',
                       style: GoogleFonts.roboto(
                         textStyle: TextStyle(
-                          color: cubit.isLight ? Colors.black : Colors.white,
+                          color: cubit.isDark ? Colors.black : Colors.white,
                           fontSize: 20.sp,
                           fontWeight: FontWeight.w600,
                         ),
@@ -85,7 +85,7 @@ class FriendsScreen extends StatelessWidget {
                       },
                       icon: Icon(
                         Icons.arrow_back,
-                        color: cubit.isLight ? Colors.black : Colors.white,
+                        color: cubit.isDark ? Colors.black : Colors.white,
                         size: 24.sp,
                       ),
                     ),
@@ -94,7 +94,7 @@ class FriendsScreen extends StatelessWidget {
                       'Friends',
                       style: GoogleFonts.roboto(
                         textStyle: TextStyle(
-                          color: cubit.isLight ? Colors.black : Colors.white,
+                          color: cubit.isDark ? Colors.black : Colors.white,
                           fontSize: 20.sp,
                           fontWeight: FontWeight.w600,
                         ),
@@ -153,7 +153,7 @@ Widget chatBuildItem(context, UserModel model, bool myFriends) {
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.libreBaskerville(
               textStyle: TextStyle(
-                color: cubit.isLight ? Colors.black : Colors.white,
+                color: cubit.isDark ? Colors.black : Colors.white,
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w600,
               ),
@@ -162,7 +162,7 @@ Widget chatBuildItem(context, UserModel model, bool myFriends) {
           const Spacer(),
           if (myFriends)
             PopupMenuButton(
-              color: cubit.isLight ? Colors.black : Colors.white,
+              color: cubit.isDark ? Colors.black : Colors.white,
               onSelected: (value) {
                 if (value == 'Unfriend') {
                   SocialCubit.get(context).unFriend(model.uId);
@@ -170,7 +170,7 @@ Widget chatBuildItem(context, UserModel model, bool myFriends) {
               },
               child: Icon(
                 IconlyLight.moreSquare,
-                color: cubit.isLight ? Colors.black : Colors.white,
+                color: cubit.isDark ? Colors.black : Colors.white,
                 size: 24.sp,
               ),
               itemBuilder: (context) => [
@@ -181,7 +181,7 @@ Widget chatBuildItem(context, UserModel model, bool myFriends) {
                     children: [
                       Icon(
                         IconlyLight.delete,
-                        color: cubit.isLight ? Colors.white : Colors.black,
+                        color: cubit.isDark ? Colors.white : Colors.black,
                         size: 24.sp,
                       ),
                       space(15.w, 0),
@@ -189,7 +189,7 @@ Widget chatBuildItem(context, UserModel model, bool myFriends) {
                         'Unfriend',
                         style: GoogleFonts.libreBaskerville(
                           textStyle: TextStyle(
-                            color: cubit.isLight ? Colors.white : Colors.black,
+                            color: cubit.isDark ? Colors.white : Colors.black,
                             fontSize: 20.sp,
                             fontWeight: FontWeight.w600,
                           ),

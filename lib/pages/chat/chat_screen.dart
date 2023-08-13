@@ -119,7 +119,7 @@ class ChatScreen extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: GoogleFonts.roboto(
                   fontSize: 20.sp,
-                  color: SocialCubit.get(context).isLight
+                  color: SocialCubit.get(context).isDark
                       ? Colors.black
                       : Colors.white,
                 ),
@@ -138,7 +138,7 @@ class ChatScreen extends StatelessWidget {
                 style: GoogleFonts.roboto(
                   fontSize: 15.sp,
                   height: 1.3.h,
-                  color: SocialCubit.get(context).isLight
+                  color: SocialCubit.get(context).isDark
                       ? CupertinoColors.activeBlue
                       : Colors.white,
                 ),
@@ -192,7 +192,7 @@ class ChatScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: GoogleFonts.roboto(
                   fontSize: 16.sp,
-                  color: SocialCubit.get(context).isLight
+                  color: SocialCubit.get(context).isDark
                       ? Colors.black
                       : Colors.white,
                 ),

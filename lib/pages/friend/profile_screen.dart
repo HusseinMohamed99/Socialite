@@ -117,7 +117,7 @@ class FriendsProfileScreen extends StatelessWidget {
                           friendsModel.name,
                           style: GoogleFonts.roboto(
                             fontSize: 24.sp,
-                            color: cubit.isLight ? Colors.blue : Colors.white,
+                            color: cubit.isDark ? Colors.blue : Colors.white,
                           ),
                         ),
                         space(0, 5.h),
@@ -446,7 +446,7 @@ class FriendsProfileScreen extends StatelessWidget {
                         'Posts',
                         style: GoogleFonts.roboto(
                           fontSize: 24.sp,
-                          color: cubit.isLight ? Colors.black : Colors.white,
+                          color: cubit.isDark ? Colors.black : Colors.white,
                         ),
                       ),
                     ),

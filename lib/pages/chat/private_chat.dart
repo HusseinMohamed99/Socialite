@@ -51,11 +51,11 @@ class PrivateChatScreen extends StatelessWidget {
             Fluttertoast.showToast(
                 msg: "Downloaded to Gallery!",
                 gravity: ToastGravity.BOTTOM,
-                backgroundColor: SocialCubit.get(context).isLight
+                backgroundColor: SocialCubit.get(context).isDark
                     ? Colors.white
                     : const Color(0xff404258),
                 timeInSecForIosWeb: 5,
-                textColor: SocialCubit.get(context).isLight
+                textColor: SocialCubit.get(context).isDark
                     ? Colors.black
                     : Colors.white,
                 fontSize: 18);
@@ -75,7 +75,7 @@ class PrivateChatScreen extends StatelessWidget {
                       icon: Icon(
                         IconlyLight.arrowLeft2,
                         size: 30.sp,
-                        color: cubit.isLight ? Colors.black : Colors.white,
+                        color: cubit.isDark ? Colors.black : Colors.white,
                       ),
                     ),
                     titleSpacing: 0,
@@ -94,7 +94,7 @@ class PrivateChatScreen extends StatelessWidget {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.roboto(
-                              color: cubit.isLight ? Colors.blue : Colors.white,
+                              color: cubit.isDark ? Colors.blue : Colors.white,
                               fontSize: 20.sp,
                             ),
                           ),
@@ -189,7 +189,7 @@ class PrivateChatScreen extends StatelessWidget {
                                   child: SingleChildScrollView(
                                     child: TextFormField(
                                       style: GoogleFonts.libreBaskerville(
-                                        color: SocialCubit.get(context).isLight
+                                        color: SocialCubit.get(context).isDark
                                             ? Colors.black
                                             : Colors.white,
                                       ),
@@ -233,7 +233,7 @@ class PrivateChatScreen extends StatelessWidget {
                                               icon: Icon(
                                                 IconlyLight.camera,
                                                 size: 25.sp,
-                                                color: cubit.isLight
+                                                color: cubit.isDark
                                                     ? Colors.black
                                                     : Colors.white,
                                               ),
@@ -254,9 +254,8 @@ class PrivateChatScreen extends StatelessWidget {
                               Container(
                                 height: 40.h,
                                 decoration: BoxDecoration(
-                                  color: cubit.isLight
-                                      ? Colors.blue
-                                      : Colors.white,
+                                  color:
+                                      cubit.isDark ? Colors.blue : Colors.white,
                                   shape: BoxShape.circle,
                                 ),
                                 child: MaterialButton(
@@ -300,7 +299,7 @@ class PrivateChatScreen extends StatelessWidget {
                                   },
                                   child: Icon(
                                     IconlyLight.send,
-                                    color: cubit.isLight
+                                    color: cubit.isDark
                                         ? Colors.white
                                         : Colors.black,
                                     size: 24.sp,
@@ -323,7 +322,7 @@ class PrivateChatScreen extends StatelessWidget {
                       icon: Icon(
                         IconlyLight.arrowLeft2,
                         size: 30,
-                        color: cubit.isLight ? Colors.black : Colors.white,
+                        color: cubit.isDark ? Colors.black : Colors.white,
                       ),
                     ),
                     titleSpacing: 0,
@@ -342,7 +341,7 @@ class PrivateChatScreen extends StatelessWidget {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.roboto(
-                              color: cubit.isLight ? Colors.blue : Colors.white,
+                              color: cubit.isDark ? Colors.blue : Colors.white,
                               fontSize: 20,
                             ),
                           ),
@@ -433,10 +432,9 @@ class PrivateChatScreen extends StatelessWidget {
                                     child: SingleChildScrollView(
                                       child: TextFormField(
                                         style: GoogleFonts.libreBaskerville(
-                                          color:
-                                              SocialCubit.get(context).isLight
-                                                  ? Colors.black
-                                                  : Colors.white,
+                                          color: SocialCubit.get(context).isDark
+                                              ? Colors.black
+                                              : Colors.white,
                                         ),
                                         textAlignVertical:
                                             TextAlignVertical.center,
@@ -478,7 +476,7 @@ class PrivateChatScreen extends StatelessWidget {
                                                 icon: Icon(
                                                   IconlyLight.camera,
                                                   size: 25,
-                                                  color: cubit.isLight
+                                                  color: cubit.isDark
                                                       ? Colors.black
                                                       : Colors.white,
                                                 ),
@@ -499,7 +497,7 @@ class PrivateChatScreen extends StatelessWidget {
                                 Container(
                                   height: 50,
                                   decoration: BoxDecoration(
-                                    color: cubit.isLight
+                                    color: cubit.isDark
                                         ? Colors.blue
                                         : Colors.white,
                                     shape: BoxShape.circle,
@@ -569,7 +567,7 @@ class PrivateChatScreen extends StatelessWidget {
                                     },
                                     child: Icon(
                                       IconlyLight.send,
-                                      color: cubit.isLight
+                                      color: cubit.isDark
                                           ? Colors.white
                                           : Colors.black,
                                     ),
@@ -606,14 +604,14 @@ class PrivateChatScreen extends StatelessWidget {
                   const EdgeInsets.only(left: 0, right: 8, top: 5, bottom: 5),
               child: Bubble(
                 nip: BubbleNip.rightBottom,
-                color: cubit.isLight ? const Color(0xff404258) : Colors.white,
+                color: cubit.isDark ? const Color(0xff404258) : Colors.white,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
                       messageModel.text!,
                       style: GoogleFonts.libreBaskerville(
-                        color: cubit.isLight ? Colors.white : Colors.black,
+                        color: cubit.isDark ? Colors.white : Colors.black,
                         fontSize: 20,
                       ),
                     ),
@@ -622,7 +620,7 @@ class PrivateChatScreen extends StatelessWidget {
                       daysBetween(
                           DateTime.parse(messageModel.dateTime.toString())),
                       style: GoogleFonts.roboto(
-                        color: cubit.isLight ? Colors.grey : Colors.black54,
+                        color: cubit.isDark ? Colors.grey : Colors.black54,
                         textStyle: Theme.of(context).textTheme.bodySmall,
                       ),
                     ),
@@ -657,7 +655,7 @@ class PrivateChatScreen extends StatelessWidget {
             child: Bubble(
               padding: const BubbleEdges.all(4),
               nip: BubbleNip.rightBottom,
-              color: cubit.isLight ? const Color(0xff404258) : Colors.white,
+              color: cubit.isDark ? const Color(0xff404258) : Colors.white,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -698,7 +696,7 @@ class PrivateChatScreen extends StatelessWidget {
                         Text(
                           messageModel.text!,
                           style: GoogleFonts.libreBaskerville(
-                            color: cubit.isLight ? Colors.white : Colors.black,
+                            color: cubit.isDark ? Colors.white : Colors.black,
                             fontSize: 16,
                             height: 1.7,
                           ),
@@ -706,13 +704,14 @@ class PrivateChatScreen extends StatelessWidget {
                         Text(
                           daysBetween(
                               DateTime.parse(messageModel.dateTime.toString())),
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    color: cubit.isLight
-                                        ? Colors.grey
-                                        : Colors.black54,
-                                    height: 2.2,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(
+                                color:
+                                    cubit.isDark ? Colors.grey : Colors.black54,
+                                height: 2.2,
+                              ),
                         ),
                       ],
                     ),
@@ -788,7 +787,7 @@ class PrivateChatScreen extends StatelessWidget {
               child: Bubble(
                 nip: BubbleNip.leftTop,
                 color:
-                    cubit.isLight ? Colors.blue : Colors.blue.withOpacity(0.4),
+                    cubit.isDark ? Colors.blue : Colors.blue.withOpacity(0.4),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
@@ -833,7 +832,7 @@ class PrivateChatScreen extends StatelessWidget {
             child: Bubble(
               padding: const BubbleEdges.all(4),
               nip: BubbleNip.leftTop,
-              color: cubit.isLight ? Colors.blue : Colors.blue.withOpacity(0.3),
+              color: cubit.isDark ? Colors.blue : Colors.blue.withOpacity(0.3),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [

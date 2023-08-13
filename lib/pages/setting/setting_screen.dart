@@ -33,7 +33,7 @@ class SettingScreen extends StatelessWidget {
                 Text(
                   'Setting ',
                   style: GoogleFonts.lobster(
-                    color: cubit.isLight ? Colors.blue : Colors.white,
+                    color: cubit.isDark ? Colors.blue : Colors.white,
                     fontSize: 24,
                     fontWeight: FontWeight.w700,
                   ),
@@ -71,7 +71,7 @@ class SettingScreen extends StatelessWidget {
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: GoogleFonts.lobster(
-                                    color: cubit.isLight
+                                    color: cubit.isDark
                                         ? Colors.black
                                         : Colors.white,
                                     fontSize: 24,
@@ -85,7 +85,7 @@ class SettingScreen extends StatelessWidget {
                                         .textTheme
                                         .bodySmall!
                                         .copyWith(
-                                          color: cubit.isLight
+                                          color: cubit.isDark
                                               ? Colors.black
                                               : Colors.white,
                                           fontSize: 16,
@@ -97,7 +97,7 @@ class SettingScreen extends StatelessWidget {
                           ),
                           Icon(
                             IconlyLight.arrowRight2,
-                            color: cubit.isLight ? Colors.blue : Colors.white,
+                            color: cubit.isDark ? Colors.blue : Colors.white,
                           )
                         ],
                       ),
@@ -108,7 +108,7 @@ class SettingScreen extends StatelessWidget {
                 Text(
                   'Account',
                   style: GoogleFonts.lobster(
-                    color: cubit.isLight ? Colors.blue : Colors.white,
+                    color: cubit.isDark ? Colors.blue : Colors.white,
                     fontSize: 24,
                     fontWeight: FontWeight.w700,
                   ),
@@ -145,8 +145,7 @@ class SettingScreen extends StatelessWidget {
                           Text(
                             'Your Personal info',
                             style: GoogleFonts.lobster(
-                              color:
-                                  cubit.isLight ? Colors.black : Colors.white,
+                              color: cubit.isDark ? Colors.black : Colors.white,
                               fontSize: 24,
                               fontWeight: FontWeight.w700,
                             ),
@@ -154,7 +153,7 @@ class SettingScreen extends StatelessWidget {
                           const Spacer(),
                           Icon(
                             IconlyLight.arrowRight2,
-                            color: cubit.isLight ? Colors.blue : Colors.white,
+                            color: cubit.isDark ? Colors.blue : Colors.white,
                           )
                         ],
                       ),
@@ -187,8 +186,7 @@ class SettingScreen extends StatelessWidget {
                           Text(
                             'Rest Password',
                             style: GoogleFonts.lobster(
-                              color:
-                                  cubit.isLight ? Colors.black : Colors.white,
+                              color: cubit.isDark ? Colors.black : Colors.white,
                               fontSize: 24,
                               fontWeight: FontWeight.w700,
                             ),
@@ -196,7 +194,7 @@ class SettingScreen extends StatelessWidget {
                           const Spacer(),
                           Icon(
                             IconlyLight.arrowRight2,
-                            color: cubit.isLight ? Colors.blue : Colors.white,
+                            color: cubit.isDark ? Colors.blue : Colors.white,
                           )
                         ],
                       ),
@@ -229,8 +227,7 @@ class SettingScreen extends StatelessWidget {
                           Text(
                             'Change Password',
                             style: GoogleFonts.lobster(
-                              color:
-                                  cubit.isLight ? Colors.black : Colors.white,
+                              color: cubit.isDark ? Colors.black : Colors.white,
                               fontSize: 24,
                               fontWeight: FontWeight.w700,
                             ),
@@ -238,7 +235,7 @@ class SettingScreen extends StatelessWidget {
                           const Spacer(),
                           Icon(
                             IconlyLight.arrowRight2,
-                            color: cubit.isLight ? Colors.blue : Colors.white,
+                            color: cubit.isDark ? Colors.blue : Colors.white,
                           )
                         ],
                       ),
@@ -255,17 +252,15 @@ class SettingScreen extends StatelessWidget {
                             animationType: AnimationType.shrink,
                             animationDuration:
                                 const Duration(milliseconds: 2000),
-                            backgroundColor: cubit.isLight
+                            backgroundColor: cubit.isDark
                                 ? const Color(0xff404258)
                                 : Colors.white,
                             isCloseButton: false,
                             titleStyle: GoogleFonts.lobster(
-                              color:
-                                  cubit.isLight ? Colors.white : Colors.black,
+                              color: cubit.isDark ? Colors.white : Colors.black,
                             ),
                             descStyle: GoogleFonts.lobster(
-                              color:
-                                  cubit.isLight ? Colors.white : Colors.black,
+                              color: cubit.isDark ? Colors.white : Colors.black,
                             ),
                           ),
                           padding: EdgeInsets.zero,
@@ -276,7 +271,7 @@ class SettingScreen extends StatelessWidget {
                                 height: 200,
                                 width: 500,
                                 fit: BoxFit.cover,
-                                image: cubit.isLight
+                                image: cubit.isDark
                                     ? const NetworkImage(
                                         'https://img.freepik.com/free-photo/sunset-sea-with-boat_1048-4663.jpg?w=1380&t=st=1659993560~exp=1659994160~hmac=d0f989119865cff1b42bd569abad29f8bf6c4fb8e96d39bad12c7e0395e956de')
                                     : const NetworkImage(
@@ -307,7 +302,7 @@ class SettingScreen extends StatelessWidget {
                             ),
                             DialogButton(
                               onPressed: () {
-                                cubit.changeMode();
+                                cubit.changeAppMode();
                                 Navigator.pop(context);
                               },
                               color: Colors.blue,
@@ -331,7 +326,7 @@ class SettingScreen extends StatelessWidget {
                               shape: BoxShape.circle,
                             ),
                             child: Icon(
-                              cubit.isLight
+                              cubit.isDark
                                   ? Icons.nightlight_outlined
                                   : Icons.wb_sunny,
                               size: 50,
@@ -342,8 +337,7 @@ class SettingScreen extends StatelessWidget {
                           Text(
                             'Theme Mode',
                             style: GoogleFonts.lobster(
-                              color:
-                                  cubit.isLight ? Colors.black : Colors.white,
+                              color: cubit.isDark ? Colors.black : Colors.white,
                               fontSize: 24,
                               fontWeight: FontWeight.w700,
                             ),
@@ -351,7 +345,7 @@ class SettingScreen extends StatelessWidget {
                           const Spacer(),
                           Icon(
                             IconlyLight.arrowRight2,
-                            color: cubit.isLight ? Colors.blue : Colors.white,
+                            color: cubit.isDark ? Colors.blue : Colors.white,
                           )
                         ],
                       ),
@@ -368,17 +362,15 @@ class SettingScreen extends StatelessWidget {
                             animationType: AnimationType.shrink,
                             animationDuration:
                                 const Duration(milliseconds: 2000),
-                            backgroundColor: cubit.isLight
+                            backgroundColor: cubit.isDark
                                 ? const Color(0xff404258)
                                 : Colors.white,
                             isCloseButton: false,
                             titleStyle: GoogleFonts.lobster(
-                              color:
-                                  cubit.isLight ? Colors.white : Colors.black,
+                              color: cubit.isDark ? Colors.white : Colors.black,
                             ),
                             descStyle: GoogleFonts.lobster(
-                              color:
-                                  cubit.isLight ? Colors.white : Colors.black,
+                              color: cubit.isDark ? Colors.white : Colors.black,
                             ),
                           ),
                           padding: EdgeInsets.zero,
@@ -389,7 +381,7 @@ class SettingScreen extends StatelessWidget {
                                 height: 200,
                                 width: 500,
                                 fit: BoxFit.cover,
-                                image: cubit.isLight
+                                image: cubit.isDark
                                     ? const NetworkImage(
                                         'https://img.freepik.com/premium-vector/blocked-account-conceptual-design-premium-vector_199064-108.jpg?w=740')
                                     : const NetworkImage(
@@ -452,8 +444,7 @@ class SettingScreen extends StatelessWidget {
                           Text(
                             'Delete your Account',
                             style: GoogleFonts.lobster(
-                              color:
-                                  cubit.isLight ? Colors.black : Colors.white,
+                              color: cubit.isDark ? Colors.black : Colors.white,
                               fontSize: 24,
                               fontWeight: FontWeight.w700,
                             ),
@@ -461,7 +452,7 @@ class SettingScreen extends StatelessWidget {
                           const Spacer(),
                           Icon(
                             IconlyLight.arrowRight2,
-                            color: cubit.isLight ? Colors.blue : Colors.white,
+                            color: cubit.isDark ? Colors.blue : Colors.white,
                           )
                         ],
                       ),
@@ -495,8 +486,7 @@ class SettingScreen extends StatelessWidget {
                           Text(
                             'LogOut',
                             style: GoogleFonts.lobster(
-                              color:
-                                  cubit.isLight ? Colors.black : Colors.white,
+                              color: cubit.isDark ? Colors.black : Colors.white,
                               fontSize: 24,
                               fontWeight: FontWeight.w700,
                             ),
@@ -504,7 +494,7 @@ class SettingScreen extends StatelessWidget {
                           const Spacer(),
                           Icon(
                             IconlyLight.arrowRight2,
-                            color: cubit.isLight ? Colors.blue : Colors.white,
+                            color: cubit.isDark ? Colors.blue : Colors.white,
                           )
                         ],
                       ),

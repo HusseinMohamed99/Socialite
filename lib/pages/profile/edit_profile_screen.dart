@@ -94,7 +94,7 @@ class EditProfileScreen extends StatelessWidget {
                                             right: 10,
                                             child: CircleAvatar(
                                               radius: 25,
-                                              backgroundColor: cubit.isLight
+                                              backgroundColor: cubit.isDark
                                                   ? Colors.grey.shade50
                                                   : const Color(0xff404258),
                                               child: IconButton(
@@ -104,7 +104,7 @@ class EditProfileScreen extends StatelessWidget {
                                                 },
                                                 icon: Icon(
                                                   IconlyLight.camera,
-                                                  color: cubit.isLight
+                                                  color: cubit.isDark
                                                       ? Colors.black
                                                       : Colors.white,
                                                   size: 30,
@@ -134,7 +134,7 @@ class EditProfileScreen extends StatelessWidget {
                                           left: 90,
                                           child: CircleAvatar(
                                             radius: 25,
-                                            backgroundColor: cubit.isLight
+                                            backgroundColor: cubit.isDark
                                                 ? Colors.grey.shade50
                                                 : const Color(0xff404258),
                                             child: IconButton(
@@ -144,7 +144,7 @@ class EditProfileScreen extends StatelessWidget {
                                               },
                                               icon: Icon(
                                                 IconlyLight.camera,
-                                                color: cubit.isLight
+                                                color: cubit.isDark
                                                     ? Colors.black
                                                     : Colors.white,
                                                 size: 30,
@@ -244,9 +244,7 @@ class EditProfileScreen extends StatelessWidget {
                                 child: OutlinedButton(
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty.all(
-                                      cubit.isLight
-                                          ? Colors.blue
-                                          : Colors.white,
+                                      cubit.isDark ? Colors.blue : Colors.white,
                                     ),
                                   ),
                                   onPressed: () {
@@ -289,7 +287,7 @@ class EditProfileScreen extends StatelessWidget {
                                     'Update'.toUpperCase(),
                                     style: GoogleFonts.lobster(
                                         fontSize: 20,
-                                        color: cubit.isLight
+                                        color: cubit.isDark
                                             ? Colors.white
                                             : Colors.blue),
                                   ),

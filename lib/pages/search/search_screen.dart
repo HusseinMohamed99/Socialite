@@ -57,7 +57,7 @@ class _SearchScreenState extends State<SearchScreen> {
               leading: IconButton(
                 icon: Icon(
                   IconlyBroken.arrowLeft2,
-                  color: cubit.isLight ? const Color(0xff404258) : Colors.white,
+                  color: cubit.isDark ? const Color(0xff404258) : Colors.white,
                 ),
                 onPressed: () {
                   Navigator.pop(context);
@@ -69,7 +69,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 keyboardType: TextInputType.text,
                 enableInteractiveSelection: true,
                 style: GoogleFonts.libreBaskerville(
-                  color: SocialCubit.get(context).isLight
+                  color: SocialCubit.get(context).isDark
                       ? Colors.black
                       : Colors.white,
                 ),
@@ -81,7 +81,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   border: InputBorder.none,
                   hintText: 'Search',
                   hintStyle: GoogleFonts.libreBaskerville(
-                    color: SocialCubit.get(context).isLight
+                    color: SocialCubit.get(context).isDark
                         ? Colors.black
                         : Colors.white,
                   ),
@@ -118,7 +118,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       Text(
                         'No result is found !',
                         style: GoogleFonts.libreBaskerville(
-                          color: SocialCubit.get(context).isLight
+                          color: SocialCubit.get(context).isDark
                               ? Colors.black
                               : Colors.white,
                         ),
@@ -168,7 +168,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.libreBaskerville(
-                        color: SocialCubit.get(context).isLight
+                        color: SocialCubit.get(context).isDark
                             ? Colors.black
                             : Colors.white,
                       ),

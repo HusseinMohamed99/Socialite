@@ -132,7 +132,7 @@ class StoryScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
-                    color: SocialCubit.get(context).isLight
+                    color: SocialCubit.get(context).isDark
                         ? Colors.black
                         : Colors.white,
                   ),
@@ -235,7 +235,7 @@ class StoryScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
-                    color: SocialCubit.get(context).isLight
+                    color: SocialCubit.get(context).isDark
                         ? Colors.black
                         : Colors.white,
                   ),

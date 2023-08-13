@@ -102,7 +102,7 @@ class FeedScreen extends StatelessWidget {
                                     '\' What\'s on your mind ? \'',
                                     style: GoogleFonts.roboto(
                                       fontSize: 16.sp,
-                                      color: SocialCubit.get(context).isLight
+                                      color: SocialCubit.get(context).isDark
                                           ? Colors.black
                                           : Colors.white,
                                     ),
@@ -129,7 +129,7 @@ class FeedScreen extends StatelessWidget {
                               icon: Icon(
                                 Icons.photo_library_outlined,
                                 size: 30.sp,
-                                color: cubit.isLight
+                                color: cubit.isDark
                                     ? CupertinoColors.activeBlue
                                     : Colors.white,
                               ),
@@ -322,10 +322,9 @@ class FeedScreen extends StatelessWidget {
                                         '\' What\'s on your mind ? \'',
                                         style: GoogleFonts.roboto(
                                           fontSize: 16.sp,
-                                          color:
-                                              SocialCubit.get(context).isLight
-                                                  ? Colors.black
-                                                  : Colors.white,
+                                          color: SocialCubit.get(context).isDark
+                                              ? Colors.black
+                                              : Colors.white,
                                         ),
                                       ),
                                       onPressed: () {
@@ -353,7 +352,7 @@ class FeedScreen extends StatelessWidget {
                                   icon: Icon(
                                     Icons.photo_library_outlined,
                                     size: 30.sp,
-                                    color: cubit.isLight
+                                    color: cubit.isDark
                                         ? CupertinoColors.activeBlue
                                         : Colors.white,
                                   ),
@@ -450,7 +449,7 @@ class FeedScreen extends StatelessWidget {
                               style: GoogleFonts.roboto(
                                 fontSize: 20.sp,
                                 height: 1.3.h,
-                                color: SocialCubit.get(context).isLight
+                                color: SocialCubit.get(context).isDark
                                     ? CupertinoColors.activeBlue
                                     : Colors.white,
                               ),
@@ -526,7 +525,7 @@ class FeedScreen extends StatelessWidget {
                                         children: [
                                           Icon(
                                             Icons.edit_location_outlined,
-                                            color: cubit.isLight
+                                            color: cubit.isDark
                                                 ? Colors.black
                                                 : Colors.white,
                                             size: 30.sp,
@@ -535,7 +534,7 @@ class FeedScreen extends StatelessWidget {
                                           Text(
                                             "Edit Post",
                                             style: TextStyle(
-                                                color: cubit.isLight
+                                                color: cubit.isDark
                                                     ? Colors.black
                                                     : Colors.white,
                                                 fontWeight: FontWeight.w600,
@@ -567,7 +566,7 @@ class FeedScreen extends StatelessWidget {
                                       children: [
                                         Icon(
                                           Icons.turned_in_not_sharp,
-                                          color: cubit.isLight
+                                          color: cubit.isDark
                                               ? Colors.black
                                               : Colors.white,
                                           size: 30.sp,
@@ -576,7 +575,7 @@ class FeedScreen extends StatelessWidget {
                                         Text(
                                           "Save Post",
                                           style: TextStyle(
-                                            color: cubit.isLight
+                                            color: cubit.isDark
                                                 ? Colors.black
                                                 : Colors.white,
                                             fontWeight: FontWeight.w600,
@@ -603,7 +602,7 @@ class FeedScreen extends StatelessWidget {
                                         children: [
                                           Icon(
                                             IconlyLight.download,
-                                            color: cubit.isLight
+                                            color: cubit.isDark
                                                 ? Colors.black
                                                 : Colors.white,
                                             size: 30.sp,
@@ -612,7 +611,7 @@ class FeedScreen extends StatelessWidget {
                                           Text(
                                             "Save Image",
                                             style: TextStyle(
-                                              color: cubit.isLight
+                                              color: cubit.isDark
                                                   ? Colors.black
                                                   : Colors.white,
                                               fontWeight: FontWeight.w600,
@@ -636,7 +635,7 @@ class FeedScreen extends StatelessWidget {
                                       children: [
                                         Icon(
                                           Icons.share,
-                                          color: cubit.isLight
+                                          color: cubit.isDark
                                               ? Colors.black
                                               : Colors.white,
                                           size: 30.sp,
@@ -645,7 +644,7 @@ class FeedScreen extends StatelessWidget {
                                         Text(
                                           "Share",
                                           style: TextStyle(
-                                            color: cubit.isLight
+                                            color: cubit.isDark
                                                 ? Colors.black
                                                 : Colors.white,
                                             fontWeight: FontWeight.w600,
@@ -672,7 +671,7 @@ class FeedScreen extends StatelessWidget {
                                         children: [
                                           Icon(
                                             Icons.delete,
-                                            color: cubit.isLight
+                                            color: cubit.isDark
                                                 ? Colors.black
                                                 : Colors.white,
                                             size: 30.sp,
@@ -681,7 +680,7 @@ class FeedScreen extends StatelessWidget {
                                           Text(
                                             "Delete Post",
                                             style: TextStyle(
-                                              color: cubit.isLight
+                                              color: cubit.isDark
                                                   ? Colors.black
                                                   : Colors.white,
                                               fontWeight: FontWeight.w600,
@@ -700,7 +699,7 @@ class FeedScreen extends StatelessWidget {
                   icon: Icon(
                     IconlyLight.moreCircle,
                     size: 25.sp,
-                    color: SocialCubit.get(context).isLight
+                    color: SocialCubit.get(context).isDark
                         ? Colors.black
                         : Colors.white,
                   ),
@@ -718,7 +717,7 @@ class FeedScreen extends StatelessWidget {
             Text(
               '${postModel.text}',
               style: GoogleFonts.libreBaskerville(
-                color: SocialCubit.get(context).isLight
+                color: SocialCubit.get(context).isDark
                     ? Colors.black
                     : Colors.white,
               ),
