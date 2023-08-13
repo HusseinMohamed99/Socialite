@@ -4,18 +4,17 @@ import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/Cubit/socialCubit/social_state.dart';
 import 'package:sociality/shared/bloc_observer.dart';
 import 'package:sociality/shared/components/components.dart';
-import 'package:sociality/shared/styles/themes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sociality/shared/enum/enum.dart';
+import 'package:sociality/shared/styles/themes.dart';
 import 'package:wakelock/wakelock.dart';
 import 'shared/components/constants.dart';
 import 'shared/network/cache_helper.dart';
-
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,7 +35,6 @@ void main() async {
     debugPrint('when click on notification to open app');
     debugPrint(event.data.toString());
   });
-
 
   Bloc.observer = MyBlocObserver();
 
@@ -89,12 +87,15 @@ class MyApp extends StatelessWidget {
             splitScreenMode: true,
             builder: (context, child) {
               return MaterialApp(
+                title: 'Sociality',
+                theme: getThemeData[AppTheme.lightTheme],
+                darkTheme: getThemeData[AppTheme.darkTheme],
+                themeMode: uId == null
+                    ? ThemeMode.system
+                    : SocialCubit.get(context).isLight
+                        ? ThemeMode.light
+                        : ThemeMode.dark,
                 debugShowCheckedModeBanner: false,
-                theme: ThemeApp.lightTheme,
-                darkTheme: ThemeApp.darkTheme,
-                themeMode: SocialCubit.get(context).isLight
-                    ? ThemeMode.light
-                    : ThemeMode.dark,
                 home: const SplashScreen(),
               );
             },
