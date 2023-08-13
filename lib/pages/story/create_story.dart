@@ -1,6 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:sociality/adaptive/indicator.dart';
-import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
+import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
@@ -8,13 +8,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../../shared/Cubit/socialCubit/social_state.dart';
+import '../../shared/cubit/socialCubit/social_state.dart';
 
 class CreateStory extends StatelessWidget {
   CreateStory({
     Key? key,
   }) : super(key: key);
- final TextEditingController story = TextEditingController();
+  final TextEditingController story = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SocialCubit, SocialStates>(listener: (context, state) {

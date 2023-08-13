@@ -1,6 +1,6 @@
 import 'package:sociality/model/post_model.dart';
-import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/Cubit/socialCubit/social_state.dart';
+import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
 import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
@@ -20,13 +20,12 @@ class AddPostScreen extends StatelessWidget {
     var cubit = SocialCubit.get(context);
     var userModel = SocialCubit.get(context).userModel!;
     return BlocConsumer<SocialCubit, SocialStates>(
-      listener: (context, state)
-      {
-        if(state is CreatePostSuccessState)
-        {
+      listener: (context, state) {
+        if (state is CreatePostSuccessState) {
           cubit.getPosts();
           pop(context);
-          showToast(text: 'Create Post Successfully', state: ToastStates.success);
+          showToast(
+              text: 'Create Post Successfully', state: ToastStates.success);
         }
       },
       builder: (context, state) {

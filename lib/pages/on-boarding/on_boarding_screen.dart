@@ -9,14 +9,13 @@ import 'package:google_fonts/google_fonts.dart';
 class OnBoard extends StatelessWidget {
   const OnBoard({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage("assets/images/back.jpg"),
-          fit: BoxFit.cover,
+          fit: BoxFit.fill,
         ),
       ),
       child: Scaffold(

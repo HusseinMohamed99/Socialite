@@ -7,12 +7,17 @@ import 'package:sociality/Pages/setting/setting_screen.dart';
 import 'package:sociality/Pages/story/story_screen.dart';
 import 'package:sociality/Pages/user/user_screen.dart';
 import 'package:sociality/model/comment_model.dart';
+import 'package:sociality/model/likes_model.dart';
 import 'package:sociality/model/message_model.dart';
+import 'package:sociality/model/notifications_model.dart';
 import 'package:sociality/model/post_model.dart';
+import 'package:sociality/model/story_model.dart';
 import 'package:sociality/model/user_model.dart';
-import 'package:sociality/shared/Cubit/socialCubit/social_state.dart';
+import 'package:sociality/pages/on-boarding/on_boarding_screen.dart';
+import 'package:sociality/pages/story/create_story.dart';
 import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/constants.dart';
+import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
 import 'package:sociality/shared/network/cache_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -23,12 +28,7 @@ import 'package:gallery_saver/gallery_saver.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import '../../../Pages/on-boarding/on_boarding_screen.dart';
-import '../../../Pages/story/create_story.dart';
-import '../../../model/likes_model.dart';
-import '../../../model/notifications_model.dart';
-import '../../../model/story_model.dart';
-import '../../network/dio_helper.dart';
+import 'package:sociality/shared/network/dio_helper.dart';
 
 class SocialCubit extends Cubit<SocialStates> {
   SocialCubit() : super(SocialInitialState());
@@ -930,15 +930,15 @@ class SocialCubit extends Cubit<SocialStates> {
 
   //------------------------------------------------------------//
   ///START : addFriend
-  void addFriend(
-      {required String friendsUID,
-      required String friendName,
-      required String friendImage,
-      required String friendPhone,
-      required String friendEmail,
-      required String friendCover,
-      required String friendBio,
-      }) {
+  void addFriend({
+    required String friendsUID,
+    required String friendName,
+    required String friendImage,
+    required String friendPhone,
+    required String friendEmail,
+    required String friendCover,
+    required String friendBio,
+  }) {
     emit(AddFriendLoadingState());
     UserModel myFriendModel = UserModel(
       uId: friendsUID,

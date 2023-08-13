@@ -1,7 +1,7 @@
 import 'package:sociality/firebase_options.dart';
 import 'package:sociality/pages/splash/splash_screen.dart';
-import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/Cubit/socialCubit/social_state.dart';
+import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
 import 'package:sociality/shared/bloc_observer.dart';
 import 'package:sociality/shared/components/components.dart';
 import 'package:firebase_core/firebase_core.dart';

@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../model/notifications_model.dart';
-import '../../shared/Cubit/socialCubit/social_cubit.dart';
-import '../../shared/Cubit/socialCubit/social_state.dart';
+import '../../shared/cubit/socialCubit/social_cubit.dart';
+import '../../shared/cubit/socialCubit/social_state.dart';
 import '../../shared/components/components.dart';
 import '../friend/profile_screen.dart';
 
@@ -31,8 +31,7 @@ class NotificationScreenState extends State<NotificationScreen>
         return BlocConsumer<SocialCubit, SocialStates>(
           listener: (context, state) {},
           builder: (context, state) {
-            List notifications =
-                SocialCubit.get(context).notifications;
+            List notifications = SocialCubit.get(context).notifications;
             return Scaffold(
               key: scaffoldKey,
               appBar: AppBar(
@@ -129,7 +128,7 @@ class NotificationScreenState extends State<NotificationScreen>
         }
       },
       child: Container(
-        color:cubit.isLight ? Colors.white : const Color(0xff404258),
+        color: cubit.isLight ? Colors.white : const Color(0xff404258),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Row(
@@ -157,19 +156,18 @@ class NotificationScreenState extends State<NotificationScreen>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                        '${notifications.senderName} ',
-                        style:  TextStyle(
+                    Text('${notifications.senderName} ',
+                        style: TextStyle(
                             color: cubit.isLight ? Colors.black : Colors.white,
                             fontSize: 17,
                             fontWeight: FontWeight.bold)),
                     Text(
-                         SocialCubit.get(context)
+                        SocialCubit.get(context)
                             .notificationContent(notifications.contentKey),
-                        style: const TextStyle(
-                            color: Colors.grey, fontSize: 15)),
+                        style:
+                            const TextStyle(color: Colors.grey, fontSize: 15)),
                     Text(
-                     getNowDateTime(notifications.dateTime),
+                      getNowDateTime(notifications.dateTime),
                       style: TextStyle(fontSize: 15, color: Colors.grey[500]),
                     ),
                   ],
@@ -219,7 +217,7 @@ class NotificationScreenState extends State<NotificationScreen>
                                               notifications.notificationId);
                                     },
                                     child: Row(
-                                      children:  [
+                                      children: [
                                         const CircleAvatar(
                                           child: Icon(
                                               Icons.delete_outline_outlined),

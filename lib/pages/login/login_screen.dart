@@ -1,18 +1,18 @@
 import 'package:sociality/Pages/Register/register_screen.dart';
 import 'package:sociality/Pages/password/forget_password.dart';
 import 'package:sociality/adaptive/indicator.dart';
-import 'package:sociality/shared/Cubit/loginCubit/cubit.dart';
-import 'package:sociality/shared/Cubit/loginCubit/state.dart';
+import 'package:sociality/layout/Home/home_layout.dart';
+import 'package:sociality/pages/email_verification/email_verification_screen.dart';
+import 'package:sociality/shared/cubit/loginCubit/state.dart';
 import 'package:sociality/shared/components/components.dart';
+import 'package:sociality/shared/components/constants.dart';
+import 'package:sociality/shared/cubit/loginCubit/cubit.dart';
+import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/network/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../layout/Home/home_layout.dart';
-import '../../shared/Cubit/socialCubit/social_cubit.dart';
-import '../../shared/components/constants.dart';
-import '../email_verification/email_verification_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);

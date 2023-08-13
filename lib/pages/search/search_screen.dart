@@ -1,8 +1,8 @@
 import 'package:sociality/model/user_model.dart';
 import 'package:sociality/pages/friend/profile_screen.dart';
 import 'package:sociality/pages/profile/my_profile_screen.dart';
-import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/Cubit/socialCubit/social_state.dart';
+import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
 import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SearchScreen extends StatefulWidget {
-   const SearchScreen({Key? key}) : super(key: key);
+  const SearchScreen({Key? key}) : super(key: key);
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();

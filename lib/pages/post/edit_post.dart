@@ -1,6 +1,6 @@
 import 'package:sociality/model/post_model.dart';
-import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/Cubit/socialCubit/social_state.dart';
+import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
 import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +10,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EditPosts extends StatelessWidget {
- final PostModel postModel;
+  final PostModel postModel;
   final String postId;
 
- final TextEditingController post = TextEditingController();
+  final TextEditingController post = TextEditingController();
 
   EditPosts({Key? key, required this.postModel, required this.postId})
       : super(key: key);

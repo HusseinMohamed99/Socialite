@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../shared/Cubit/socialCubit/social_cubit.dart';
-import '../../shared/Cubit/socialCubit/social_state.dart';
+import '../../shared/cubit/socialCubit/social_cubit.dart';
+import '../../shared/cubit/socialCubit/social_state.dart';
 
 class EditPasswordScreen extends StatelessWidget {
   const EditPasswordScreen({Key? key}) : super(key: key);
@@ -152,9 +152,12 @@ class EditPasswordScreen extends StatelessWidget {
               ),
             );
           },
-          fallback: (BuildContext context) =>
-               Center(child: AdaptiveIndicator(os:getOs(),),),);
-
+          fallback: (BuildContext context) => Center(
+            child: AdaptiveIndicator(
+              os: getOs(),
+            ),
+          ),
+        );
       },
     );
   }

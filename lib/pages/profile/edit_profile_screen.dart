@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/Cubit/socialCubit/social_state.dart';
+import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
 import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
@@ -63,62 +63,63 @@ class EditProfileScreen extends StatelessWidget {
                               SizedBox(
                                 height: 240,
                                 child: Stack(
-                            alignment: AlignmentDirectional.bottomCenter,
-                            children: [
-                              Align(
-                                alignment: AlignmentDirectional.topCenter,
-                                child: Stack(
+                                  alignment: AlignmentDirectional.bottomCenter,
                                   children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          fit: BoxFit.cover,
+                                    Align(
+                                      alignment: AlignmentDirectional.topCenter,
+                                      child: Stack(
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                fit: BoxFit.cover,
                                                 image: coverImage == null
                                                     ? NetworkImage(
                                                         userModel.cover)
                                                     : FileImage(coverImage)
                                                         as ImageProvider,
                                               ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(8.0),
-                                          topRight: Radius.circular(8.0),
-                                        ),
-                                      ),
-                                      width: double.infinity,
-                                      height: 200,
-                                    ),
-                                    Positioned(
-                                      bottom: 10,
-                                      right: 10,
-                                      child: CircleAvatar(
-                                        radius: 25,
-                                        backgroundColor: cubit.isLight
-                                            ? Colors.grey.shade50
-                                            : const Color(0xff404258),
-                                        child: IconButton(
-                                          splashRadius: 1,
-                                          onPressed: () {
-                                            cubit.getCoverImage();
-                                          },
-                                          icon: Icon(
-                                            IconlyLight.camera,
-                                            color: cubit.isLight
-                                                ? Colors.black
-                                                : Colors.white,
-                                            size: 30,
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topLeft: Radius.circular(8.0),
+                                                topRight: Radius.circular(8.0),
+                                              ),
+                                            ),
+                                            width: double.infinity,
+                                            height: 200,
                                           ),
-                                        ),
+                                          Positioned(
+                                            bottom: 10,
+                                            right: 10,
+                                            child: CircleAvatar(
+                                              radius: 25,
+                                              backgroundColor: cubit.isLight
+                                                  ? Colors.grey.shade50
+                                                  : const Color(0xff404258),
+                                              child: IconButton(
+                                                splashRadius: 1,
+                                                onPressed: () {
+                                                  cubit.getCoverImage();
+                                                },
+                                                icon: Icon(
+                                                  IconlyLight.camera,
+                                                  color: cubit.isLight
+                                                      ? Colors.black
+                                                      : Colors.white,
+                                                  size: 30,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                              Stack(
-                                children: [
-                                  CircleAvatar(
-                                    backgroundColor: Colors.white,
-                                    radius: 65,
-                                    child: CircleAvatar(
+                                    Stack(
+                                      children: [
+                                        CircleAvatar(
+                                          backgroundColor: Colors.white,
+                                          radius: 65,
+                                          child: CircleAvatar(
                                             backgroundImage: profileImage ==
                                                     null
                                                 ? NetworkImage(userModel.image)
@@ -126,188 +127,188 @@ class EditProfileScreen extends StatelessWidget {
                                                     as ImageProvider,
                                             radius: 60,
                                           ),
-                                  ),
-                                  Positioned(
-                                    top: 90,
-                                    left: 90,
-                                    child: CircleAvatar(
-                                      radius: 25,
-                                      backgroundColor: cubit.isLight
-                                          ? Colors.grey.shade50
-                                          : const Color(0xff404258),
+                                        ),
+                                        Positioned(
+                                          top: 90,
+                                          left: 90,
+                                          child: CircleAvatar(
+                                            radius: 25,
+                                            backgroundColor: cubit.isLight
+                                                ? Colors.grey.shade50
+                                                : const Color(0xff404258),
+                                            child: IconButton(
+                                              splashRadius: 1,
+                                              onPressed: () {
+                                                cubit.getProfileImage();
+                                              },
+                                              icon: Icon(
+                                                IconlyLight.camera,
+                                                color: cubit.isLight
+                                                    ? Colors.black
+                                                    : Colors.white,
+                                                size: 30,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Positioned(
+                                      top: 60,
+                                      left: 5,
                                       child: IconButton(
-                                        splashRadius: 1,
                                         onPressed: () {
-                                          cubit.getProfileImage();
+                                          pop(context);
                                         },
-                                        icon: Icon(
-                                          IconlyLight.camera,
-                                          color: cubit.isLight
-                                              ? Colors.black
-                                              : Colors.white,
-                                          size: 30,
+                                        icon: const CircleAvatar(
+                                          backgroundColor: Colors.black,
+                                          child: Icon(
+                                            IconlyLight.arrowLeft2,
+                                            size: 30,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                              Positioned(
-                                top: 60,
-                                left: 5,
-                                child: IconButton(
-                                  onPressed: () {
-                                    pop(context);
-                                  },
-                                  icon: const CircleAvatar(
-                                    backgroundColor: Colors.black,
-                                    child: Icon(
-                                      IconlyLight.arrowLeft2,
-                                      size: 30,
-                                      color: Colors.white,
+                              space(0, 15),
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  children: [
+                                    defaultTextFormField(
+                                        context: context,
+                                        controller: nameController,
+                                        keyboardType: TextInputType.name,
+                                        validate: (String? value) {
+                                          if (value!.isEmpty) {
+                                            return 'Please enter your name';
+                                          }
+                                          return null;
+                                        },
+                                        hint: 'Name',
+                                        prefix: IconlyLight.user3),
+                                    space(0, 15),
+                                    defaultTextFormField(
+                                      context: context,
+                                      controller: bioController,
+                                      keyboardType: TextInputType.text,
+                                      validate: (String? value) {
+                                        if (value!.isEmpty) {
+                                          return 'Please enter your bio';
+                                        }
+                                        return null;
+                                      },
+                                      hint: 'Bio ...',
+                                      prefix: IconlyLight.infoSquare,
                                     ),
-                                  ),
+                                    space(0, 15),
+                                    defaultTextFormField(
+                                      context: context,
+                                      controller: emailController,
+                                      keyboardType: TextInputType.emailAddress,
+                                      validate: (String? value) {
+                                        if (value!.isEmpty) {
+                                          return 'Please enter your email';
+                                        }
+                                        return null;
+                                      },
+                                      hint: 'E-mail Address',
+                                      prefix: IconlyLight.message,
+                                    ),
+                                    space(0, 15),
+                                    defaultTextFormField(
+                                      context: context,
+                                      controller: phoneController,
+                                      keyboardType: TextInputType.phone,
+                                      validate: (String? value) {
+                                        if (value!.isEmpty) {
+                                          return 'Please enter your phone';
+                                        }
+                                        return null;
+                                      },
+                                      hint: 'Phone',
+                                      prefix: IconlyLight.calling,
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
                         ),
-                        space(0, 15),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Column(
+                      ),
+                      Column(
+                        children: [
+                          Row(
                             children: [
-                              defaultTextFormField(
-                                  context: context,
-                                  controller: nameController,
-                                  keyboardType: TextInputType.name,
-                                  validate: (String? value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please enter your name';
+                              Expanded(
+                                child: OutlinedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                      cubit.isLight
+                                          ? Colors.blue
+                                          : Colors.white,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    if (cubit.coverImage != null &&
+                                        cubit.profileImage == null) {
+                                      cubit.uploadCoverImage(
+                                        email: emailController.text,
+                                        phone: phoneController.text,
+                                        name: nameController.text,
+                                        bio: bioController.text,
+                                      );
+                                    } else if (cubit.profileImage != null &&
+                                        cubit.coverImage == null) {
+                                      cubit.uploadProfileImage(
+                                        email: emailController.text,
+                                        phone: phoneController.text,
+                                        name: nameController.text,
+                                        bio: bioController.text,
+                                      );
+                                    } else if (cubit.profileImage == null &&
+                                        cubit.coverImage == null) {
+                                      cubit.updateUserData(
+                                        email: emailController.text,
+                                        phone: phoneController.text,
+                                        name: nameController.text,
+                                        bio: bioController.text,
+                                      );
+                                    } else if (cubit.coverImage != null &&
+                                        cubit.profileImage != null) {
+                                      cubit.uploadProfileAndCoverImage(
+                                        email: emailController.text,
+                                        phone: phoneController.text,
+                                        name: nameController.text,
+                                        bio: bioController.text,
+                                      );
                                     }
-                                    return null;
                                   },
-                                  hint: 'Name',
-                                  prefix: IconlyLight.user3),
-                              space(0, 15),
-                              defaultTextFormField(
-                                context: context,
-                                controller: bioController,
-                                keyboardType: TextInputType.text,
-                                validate: (String? value) {
-                                  if (value!.isEmpty) {
-                                    return 'Please enter your bio';
-                                  }
-                                  return null;
-                                },
-                                hint: 'Bio ...',
-                                prefix: IconlyLight.infoSquare,
-                              ),
-                              space(0, 15),
-                              defaultTextFormField(
-                                context: context,
-                                controller: emailController,
-                                keyboardType: TextInputType.emailAddress,
-                                validate: (String? value) {
-                                  if (value!.isEmpty) {
-                                    return 'Please enter your email';
-                                  }
-                                  return null;
-                                },
-                                hint: 'E-mail Address',
-                                prefix: IconlyLight.message,
-                              ),
-                              space(0, 15),
-                              defaultTextFormField(
-                                context: context,
-                                controller: phoneController,
-                                keyboardType: TextInputType.phone,
-                                validate: (String? value) {
-                                  if (value!.isEmpty) {
-                                    return 'Please enter your phone';
-                                  }
-                                  return null;
-                                },
-                                hint: 'Phone',
-                                prefix: IconlyLight.calling,
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  child: Text(
+                                    'Update'.toUpperCase(),
+                                    style: GoogleFonts.lobster(
+                                        fontSize: 20,
+                                        color: cubit.isLight
+                                            ? Colors.white
+                                            : Colors.blue),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
+                      if (state is UpdateUserLoadingState)
+                        const LinearProgressIndicator(),
+                      space(0, 5),
+                    ],
                   ),
                 ),
-
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: OutlinedButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty
-                                  .all(
-                               cubit.isLight? Colors.blue : Colors.white,
-                              ),
-                            ),
-                            onPressed: ()
-                            {
-                              if(cubit.coverImage !=null && cubit.profileImage == null)
-                              {
-                                cubit.uploadCoverImage(
-                                  email: emailController.text,
-                                  phone: phoneController.text,
-                                  name: nameController.text,
-                                  bio: bioController.text,
-                                );
-                              }else if (cubit.profileImage != null && cubit.coverImage ==null)
-                              {
-                                cubit.uploadProfileImage(
-                                  email: emailController.text,
-                                  phone: phoneController.text,
-                                  name: nameController.text,
-                                  bio: bioController.text,);
-                              }else if(cubit.profileImage == null && cubit.coverImage == null)
-                              {
-                                cubit.updateUserData(
-                                  email: emailController.text,
-                                  phone: phoneController.text,
-                                  name: nameController.text,
-                                  bio: bioController.text,
-                                );
-                              }else if (cubit.coverImage !=null && cubit.profileImage != null)
-                              {
-                                cubit.uploadProfileAndCoverImage(
-                                  email: emailController.text,
-                                  phone: phoneController.text,
-                                  name: nameController.text,
-                                  bio: bioController.text,
-                                );
-                              }
-
-                            },
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            child: Text(
-                              'Update'.toUpperCase(),
-                              style: GoogleFonts.lobster(
-                                  fontSize: 20,
-                                  color: cubit.isLight ? Colors.white: Colors.blue ),
-                            ),
-                          ),
-                        ),
-
-                      ],
-                    ),
-                  ],
-                ),
-                if (state is UpdateUserLoadingState)
-                const LinearProgressIndicator(),
-                space(0, 5),
-              ],
-            ),
-          ),
-        );
+              );
       },
     );
   }

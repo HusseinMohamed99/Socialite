@@ -5,8 +5,8 @@ import 'package:sociality/adaptive/indicator.dart';
 import 'package:sociality/model/post_model.dart';
 import 'package:sociality/model/user_model.dart';
 import 'package:sociality/pages/viewPhoto/image_view.dart';
-import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/Cubit/socialCubit/social_state.dart';
+import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
 import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
@@ -18,14 +18,13 @@ import 'package:google_fonts/google_fonts.dart';
 class FriendsProfileScreen extends StatelessWidget {
   FriendsProfileScreen(this.userUID, {Key? key}) : super(key: key);
   final String? userUID;
- final  scaffoldKey = GlobalKey<ScaffoldState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {},
       builder: (context, state) {
-
         var friendsModel = SocialCubit.get(context).friendsProfile;
         List<PostModel>? posts = SocialCubit.get(context).userPosts;
         List<UserModel>? friends = SocialCubit.get(context).friends;
