@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sociality/image_assets.dart';
 import 'package:sociality/layout/Home/home_layout.dart';
 import 'package:sociality/pages/email_verification/email_verification_screen.dart';
+import 'package:sociality/pages/password/forget_password.dart';
 import 'package:sociality/pages/register/register_screen.dart';
 import 'package:sociality/shared/components/buttons.dart';
 import 'package:sociality/shared/components/check_box.dart';
@@ -143,7 +144,9 @@ class LoginScreen extends StatelessWidget {
                             Align(
                               alignment: Alignment.bottomRight,
                               child: defaultTextButton(
-                                function: () {},
+                                function: () {
+                                  navigateTo(context, RestPasswordScreen());
+                                },
                                 text: "Forgot Password ?",
                                 context: context,
                                 color: AppMainColors.greyDarkColor,
