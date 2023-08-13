@@ -1,20 +1,21 @@
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:sociality/adaptive/indicator.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sociality/image_assets.dart';
 import 'package:sociality/pages/Login/login_screen.dart';
 import 'package:sociality/pages/email_verification/email_verification_screen.dart';
-import 'package:sociality/shared/Cubit/registerCubit/cubit.dart';
-import 'package:sociality/shared/Cubit/registerCubit/state.dart';
-import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/components/buttons.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:sociality/shared/components/navigator.dart';
 import 'package:sociality/shared/components/text_form_field.dart';
+import 'package:sociality/shared/cubit/registerCubit/cubit.dart';
+import 'package:sociality/shared/cubit/registerCubit/state.dart';
+import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/network/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sociality/shared/styles/color.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var formKey = GlobalKey<FormState>();
     var emailController = TextEditingController();
-    var passController = TextEditingController();
+    var passwordController = TextEditingController();
     var nameController = TextEditingController();
     var phoneController = TextEditingController();
     return BlocProvider(
@@ -43,7 +44,6 @@ class RegisterScreen extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          var cubit = SocialCubit.get(context);
           return Scaffold(
             appBar: AppBar(
               leading: IconButton(
@@ -53,208 +53,235 @@ class RegisterScreen extends StatelessWidget {
                 icon: Icon(
                   IconlyLight.arrowLeft2,
                   size: 30.sp,
-                  color: cubit.isDark ? Colors.black : Colors.white,
                 ),
               ),
             ),
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0).r,
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Align(
-                        child: Text(
-                          'Sign up Now',
-                          style: GoogleFonts.roboto(
-                            textStyle: TextStyle(
-                              color: cubit.isDark ? Colors.black : Colors.white,
-                              fontSize: 40.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
+            body: Form(
+              key: formKey,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: SvgPicture.asset(Assets.imagesGroup1320),
                         ),
-                      ),
-                      space(0, 10.h),
-                      Text(
-                        'Please enter your information',
-                        style: GoogleFonts.roboto(
-                          textStyle: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
+                        Expanded(
+                          flex: 2,
+                          child: SvgPicture.asset(
+                              Assets.imagesAchievementMonochromatic),
                         ),
-                      ),
-                      space(0, 20.h),
-                      Text(
-                        'Full Name',
-                        style: GoogleFonts.roboto(
-                          textStyle: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                      space(0, 5.h),
-                      DefaultTextFormField(
-                        controller: nameController,
-                        keyboardType: TextInputType.name,
-                        validate: (String? value) {
-                          if (value!.trim().isEmpty) {
-                            return 'Please enter your phone';
-                          }
-                          return null;
-                        },
-                        label: 'Name',
-                        prefix: Icons.person_outline_rounded,
-                      ),
-                      space(0, 10.h),
-                      Text(
-                        'Phone',
-                        style: GoogleFonts.roboto(
-                          textStyle: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                      space(0, 5.h),
-                      DefaultTextFormField(
-                        controller: phoneController,
-                        keyboardType: TextInputType.phone,
-                        validate: (String? value) {
-                          if (value!.trim().isEmpty) {
-                            return 'Please enter your phone';
-                          }
-                          return null;
-                        },
-                        label: 'Phone',
-                        prefix: Icons.phone,
-                      ),
-                      space(0, 10.h),
-                      Text(
-                        'E-mail Address',
-                        style: GoogleFonts.roboto(
-                          textStyle: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                      space(0, 5.h),
-                      DefaultTextFormField(
-                        controller: emailController,
-                        keyboardType: TextInputType.emailAddress,
-                        validate: (String? value) {
-                          if (value!.trim().isEmpty) {
-                            return 'Please enter your E-mail';
-                          }
-                          return null;
-                        },
-                        label: 'E-mail',
-                        prefix: Icons.alternate_email,
-                      ),
-                      space(0, 10.h),
-                      Text(
-                        'Password',
-                        style: GoogleFonts.roboto(
-                          textStyle: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                      space(0, 5.h),
-                      DefaultTextFormField(
-                        controller: passController,
-                        keyboardType: TextInputType.visiblePassword,
-                        validate: (String? value) {
-                          if (value!.trim().isEmpty) {
-                            return 'Please enter your password';
-                          }
-                          return null;
-                        },
-                        label: 'Password',
-                        prefix: Icons.lock_outline_rounded,
-                        suffix: RegisterCubit.get(context).suffix,
-                        isPassword: RegisterCubit.get(context).isPassword,
-                        suffixPressed: () {
-                          RegisterCubit.get(context).changePassword();
-                        },
-                      ),
-                      space(0, 20.h),
-                      Center(
-                        child: ConditionalBuilder(
-                          condition: state is! RegisterLoadingState,
-                          builder: (context) => defaultMaterialButton(
-                            function: () {
-                              if (formKey.currentState!.validate()) {
-                                RegisterCubit.get(context).userRegister(
-                                  email: emailController.text,
-                                  password: passController.text,
-                                  phone: phoneController.text,
-                                  name: nameController.text,
-                                );
-                              }
-                            },
-                            text: 'Register',
-                            context: context,
-                          ),
-                          fallback: (BuildContext context) => Center(
-                            child: AdaptiveIndicator(
-                              os: getOs(),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            'Already have an account?',
-                            style: GoogleFonts.roboto(
-                              textStyle: TextStyle(
-                                color:
-                                    cubit.isDark ? Colors.black : Colors.white,
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              navigateTo(
-                                context,
-                                const LoginScreen(),
-                              );
-                            },
-                            child: Text(
-                              'Login !'.toUpperCase(),
-                              style: GoogleFonts.roboto(
-                                textStyle: TextStyle(
-                                  color: Colors.blue,
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.w600,
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    flex: 4,
+                    child: Container(
+                      padding: const EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                          color: AppMainColors.whiteColor,
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(25),
+                            topRight: Radius.circular(25),
+                          ).r),
+                      alignment: Alignment.topCenter,
+                      child: SingleChildScrollView(
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Sign Up Now',
+                                style: GoogleFonts.roboto(
+                                  textStyle: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 40.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                        ],
+                              SizedBox(height: 10.h),
+                              Text(
+                                'Please enter your information',
+                                style: GoogleFonts.roboto(
+                                  textStyle: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                              space(0, 20.h),
+                              DefaultTextFormField(
+                                controller: nameController,
+                                keyboardType: TextInputType.name,
+                                prefix: Icons.person,
+                                validate: (String? value) {
+                                  if (value!.isEmpty) {
+                                    return 'Please enter name';
+                                  }
+                                  return null;
+                                },
+                                label: 'Name',
+                              ),
+                              SizedBox(height: 15.h),
+                              DefaultTextFormField(
+                                controller: emailController,
+                                keyboardType: TextInputType.emailAddress,
+                                prefix: Icons.email,
+                                validate: (String? value) {
+                                  if (value!.isEmpty) {
+                                    return 'Please enter email';
+                                  }
+                                  return null;
+                                },
+                                label: 'Email',
+                              ),
+                              SizedBox(height: 15.h),
+                              DefaultTextFormField(
+                                controller: phoneController,
+                                keyboardType: TextInputType.phone,
+                                prefix: Icons.phone,
+                                validate: (String? value) {
+                                  if (value!.isEmpty) {
+                                    return 'Please enter phone';
+                                  }
+                                  return null;
+                                },
+                                label: 'Phone',
+                              ),
+                              SizedBox(height: 15.h),
+                              DefaultTextFormField(
+                                controller: passwordController,
+                                keyboardType: TextInputType.visiblePassword,
+                                prefix: Icons.key,
+                                suffix: RegisterCubit.get(context).suffix,
+                                isPassword:
+                                    RegisterCubit.get(context).isPassword,
+                                suffixPressed: () {
+                                  RegisterCubit.get(context).changePassword();
+                                },
+                                validate: (String? value) {
+                                  if (value!.isEmpty) {
+                                    return 'Please enter password';
+                                  }
+                                  return null;
+                                },
+                                label: 'Password',
+                              ),
+                              SizedBox(
+                                height: 15.h,
+                              ),
+                              RegisterCubit.get(context).isCheck
+                                  ? defaultMaterialButton(
+                                      function: () {},
+                                      text: 'Sign In',
+                                      textColor: AppMainColors.whiteColor,
+                                      radius: 15,
+                                      context: context,
+                                    )
+                                  : Container(
+                                      alignment: Alignment.center,
+                                      width: double.infinity,
+                                      height: 48.h,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(15).r,
+                                        color: AppMainColors.mainColor
+                                            .withOpacity(0.4),
+                                      ),
+                                      child: Text(
+                                        'Sign In'.toUpperCase(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineSmall!
+                                            .copyWith(
+                                                color:
+                                                    AppMainColors.whiteColor),
+                                      ),
+                                    ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      checkBox(
+                                        context,
+                                        AppMainColors.greyColor,
+                                      ),
+                                      Text(
+                                        'By creating an account, you agree to our',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge!
+                                            .copyWith(
+                                                color:
+                                                    AppMainColors.blackColor),
+                                      ),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.only(left: 45.0).r,
+                                    child: Text(
+                                      'Term and Conditions',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge!
+                                          .copyWith(
+                                            height: 0.2,
+                                            color: AppMainColors.greenColor,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 15.h),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Have an account ?',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge!
+                                        .copyWith(
+                                            color: AppMainColors.blackColor),
+                                  ),
+                                  defaultTextButton(
+                                    function: () {
+                                      navigateTo(context, const LoginScreen());
+                                    },
+                                    text: 'Sign In'.toUpperCase(),
+                                    color: AppMainColors.mainColor,
+                                    context: context,
+                                  ),
+                                ],
+                              ),
+                            ]),
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
           );
         },
       ),
+    );
+  }
+
+  Widget checkBox(BuildContext context, Color? color) {
+    var cubit = RegisterCubit.get(context);
+    return Checkbox.adaptive(
+      side: BorderSide(
+        color: color ?? AppMainColors.whiteColor,
+      ),
+      activeColor: AppMainColors.mainColor,
+      value: cubit.isCheck,
+      onChanged: (e) {
+        cubit.boxCheck(e!);
+      },
     );
   }
 }
