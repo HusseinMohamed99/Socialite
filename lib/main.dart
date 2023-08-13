@@ -1,5 +1,5 @@
 import 'package:sociality/firebase_options.dart';
-import 'package:sociality/pages/splash/splash_screen.dart';
+import 'package:sociality/pages/on-boarding/on_boarding_screen.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
 import 'package:sociality/shared/bloc_observer.dart';
@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sociality/shared/enum/enum.dart';
+import 'package:sociality/shared/network/dio_helper.dart';
 import 'package:sociality/shared/styles/themes.dart';
 import 'package:wakelock/wakelock.dart';
 import 'shared/components/constants.dart';
@@ -23,6 +24,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  Bloc.observer = MyBlocObserver();
+  await CacheHelper.init();
+  DioHelper.init();
   //when the app is opened
   FirebaseMessaging.onMessage.listen((event) {
     showToast(text: 'on Message', state: ToastStates.success);
@@ -36,9 +40,6 @@ void main() async {
     debugPrint(event.data.toString());
   });
 
-  Bloc.observer = MyBlocObserver();
-
-  await CacheHelper.init();
   bool? isLight = CacheHelper.getBoolean(key: 'isLight');
   uId = CacheHelper.getData(key: 'uId');
   debugPrint('*** User ID == $uId ***');
@@ -96,7 +97,7 @@ class MyApp extends StatelessWidget {
                         ? ThemeMode.light
                         : ThemeMode.dark,
                 debugShowCheckedModeBanner: false,
-                home: const SplashScreen(),
+                home: const OnBoard(),
               );
             },
           );
