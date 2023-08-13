@@ -5,6 +5,7 @@ import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sociality/shared/components/navigator.dart';
 
 class SplashScreen extends StatelessWidget {
   static const String routeName = 'splash_screen';

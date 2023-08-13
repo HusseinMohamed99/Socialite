@@ -8,9 +8,10 @@ import 'package:sociality/Pages/viewPhoto/post_view.dart';
 import 'package:sociality/adaptive/indicator.dart';
 import 'package:sociality/model/post_model.dart';
 import 'package:sociality/model/user_model.dart';
+import 'package:sociality/shared/components/my_divider.dart';
+import 'package:sociality/shared/components/navigator.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
-import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -351,7 +352,7 @@ class MyProfileScreen extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              myDivider2(),
+                              const MyDivider(),
                               Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 10.0),
@@ -623,7 +624,7 @@ Widget buildProfileWithOutPosts() => Builder(builder: (context) {
               ],
             ),
           ),
-          myDivider2(),
+          const MyDivider(),
           const Spacer(),
           const Icon(
             IconlyLight.infoSquare,

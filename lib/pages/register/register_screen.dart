@@ -7,6 +7,7 @@ import 'package:sociality/shared/Cubit/registerCubit/state.dart';
 import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/constants.dart';
+import 'package:sociality/shared/components/navigator.dart';
 import 'package:sociality/shared/network/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

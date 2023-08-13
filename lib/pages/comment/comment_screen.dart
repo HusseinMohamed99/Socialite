@@ -3,12 +3,13 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:sociality/adaptive/indicator.dart';
 import 'package:sociality/model/comment_model.dart';
 import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sociality/shared/components/my_divider.dart';
+import 'package:sociality/shared/components/navigator.dart';
 
 class CommentsScreen extends StatelessWidget {
   final String? postId;
@@ -83,7 +84,7 @@ class CommentsScreen extends StatelessWidget {
                                 );
                               },
                               separatorBuilder: (context, index) =>
-                                  myDivider2(),
+                                  const MyDivider(),
                               itemCount: cubit.comments.length,
                             ),
                           ),

@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sociality/shared/styles/color.dart';
 
 class MyDivider extends StatelessWidget {
-  const MyDivider({super.key, required this.color});
+  const MyDivider({super.key, this.color});
   final Color? color;
 
   @override

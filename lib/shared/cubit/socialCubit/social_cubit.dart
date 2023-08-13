@@ -17,6 +17,7 @@ import 'package:sociality/pages/on-boarding/on_boarding_screen.dart';
 import 'package:sociality/pages/story/create_story.dart';
 import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/constants.dart';
+import 'package:sociality/shared/components/navigator.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
 import 'package:sociality/shared/network/cache_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';

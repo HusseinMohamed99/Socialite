@@ -5,6 +5,8 @@ import 'package:sociality/adaptive/indicator.dart';
 import 'package:sociality/model/post_model.dart';
 import 'package:sociality/model/user_model.dart';
 import 'package:sociality/pages/viewPhoto/image_view.dart';
+import 'package:sociality/shared/components/my_divider.dart';
+import 'package:sociality/shared/components/navigator.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
 import 'package:sociality/shared/components/components.dart';
@@ -433,7 +435,7 @@ class FriendsProfileScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  myDivider2(),
+                  const MyDivider(),
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 4.0, vertical: 0)
