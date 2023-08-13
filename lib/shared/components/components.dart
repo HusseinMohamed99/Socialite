@@ -183,7 +183,6 @@ void showToast({
   );
 }
 
-// enum  كذا اختيار من حاجة
 enum ToastStates { success, error, waring }
 
 Color chooseToastColor(ToastStates state) {
