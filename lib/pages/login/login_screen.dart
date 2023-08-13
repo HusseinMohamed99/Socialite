@@ -57,210 +57,221 @@ class LoginScreen extends StatelessWidget {
               key: formKey,
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      Expanded(child: SvgPicture.asset(Assets.imagesGroup1318)),
-                      Expanded(
-                          flex: 2,
-                          child: SvgPicture.asset(
-                              Assets.imagesWorldwidewebMonochromatic)),
-                    ],
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: SvgPicture.asset(Assets.imagesGroup1318)),
+                        Expanded(
+                            flex: 2,
+                            child: SvgPicture.asset(
+                                Assets.imagesWorldwidewebMonochromatic)),
+                      ],
+                    ),
                   ),
                   Expanded(
+                    flex: 2,
                     child: Container(
                       padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
-                          color: SocialCubit.get(context).isDark
-                              ? AppMainColors.whiteColor
-                              : AppColorsDark.primaryDarkColor,
+                          color: AppMainColors.whiteColor,
                           borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(25),
                             topRight: Radius.circular(25),
                           ).r),
-                      alignment: Alignment.bottomCenter,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Sign in Now',
-                            style: GoogleFonts.roboto(
-                              textStyle: TextStyle(
-                                color: Colors.black,
-                                fontSize: 40.sp,
-                                fontWeight: FontWeight.w600,
+                      alignment: Alignment.topCenter,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Sign in Now',
+                              style: GoogleFonts.roboto(
+                                textStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 40.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
-                          ),
-                          const SizedBox(height: 20),
-                          Text(
-                            'Please enter your information',
-                            style: GoogleFonts.roboto(
-                              textStyle: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.w600,
+                            SizedBox(height: 10.h),
+                            Text(
+                              'Please enter your information',
+                              style: GoogleFonts.roboto(
+                                textStyle: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
-                          ),
-                          space(0, 20.h),
-                          DefaultTextFormField(
-                            color: AppMainColors.greyColor,
-                            controller: emailController,
-                            keyboardType: TextInputType.emailAddress,
-                            prefix: Icons.email,
-                            validate: (String? value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter email';
-                              }
-                              return null;
-                            },
-                            label: 'Email',
-                          ),
-                          SizedBox(
-                            height: 15.h,
-                          ),
-                          DefaultTextFormField(
-                            color: AppMainColors.greyColor,
-                            controller: passwordController,
-                            keyboardType: TextInputType.visiblePassword,
-                            prefix: Icons.key,
-                            suffix: LoginCubit.get(context).suffix,
-                            isPassword: LoginCubit.get(context).isPassword,
-                            suffixPressed: () {
-                              LoginCubit.get(context).changePassword();
-                            },
-                            validate: (String? value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter password';
-                              }
-                              return null;
-                            },
-                            label: 'Password',
-                          ),
-                          Align(
-                            alignment: Alignment.bottomRight,
-                            child: defaultTextButton(
-                              function: () {},
-                              text: "Forgot Password ?",
-                              context: context,
-                              color: AppMainColors.greyDarkColor,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14.sp,
+                            space(0, 20.h),
+                            DefaultTextFormField(
+                              color: AppMainColors.greyColor,
+                              controller: emailController,
+                              keyboardType: TextInputType.emailAddress,
+                              prefix: Icons.email,
+                              validate: (String? value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter email';
+                                }
+                                return null;
+                              },
+                              label: 'Email',
                             ),
-                          ),
-                          SizedBox(
-                            height: 15.h,
-                          ),
-                          LoginCubit.get(context).isCheck
-                              ? defaultMaterialButton(
-                                  function: () {
-                                    if (formKey.currentState!.validate()) {
-                                      LoginCubit.get(context)
-                                          .userLogin(
-                                            email: emailController.text,
-                                            password: passwordController.text,
-                                          )
-                                          .then(
-                                            (value) => {
-                                              LoginCubit.get(context)
-                                                  .loginReloadUser()
-                                                  .then(
-                                                (value) {
-                                                  if (LoginCubit.get(context)
-                                                      .isEmailVerified) {
-                                                    navigateAndFinish(
-                                                      context,
-                                                      const HomeLayout(),
-                                                    );
-                                                    cubit.getUserData();
-                                                    cubit.getPosts();
-                                                    cubit.getAllUsers();
-                                                  } else {
-                                                    navigateTo(
-                                                      context,
-                                                      const EmailVerificationScreen(),
-                                                    );
-                                                  }
-                                                },
-                                              )
-                                            },
-                                          );
-                                    }
-                                  },
-                                  text: 'Sign In',
-                                  textColor: AppMainColors.whiteColor,
-                                  radius: 15,
-                                  context: context,
-                                )
-                              : Container(
-                                  alignment: Alignment.center,
-                                  width: double.infinity,
-                                  height: 48.h,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15).r,
-                                    color: AppMainColors.mainColor
-                                        .withOpacity(0.4),
+                            SizedBox(
+                              height: 15.h,
+                            ),
+                            DefaultTextFormField(
+                              color: AppMainColors.greyColor,
+                              controller: passwordController,
+                              keyboardType: TextInputType.visiblePassword,
+                              prefix: Icons.key,
+                              suffix: LoginCubit.get(context).suffix,
+                              isPassword: LoginCubit.get(context).isPassword,
+                              suffixPressed: () {
+                                LoginCubit.get(context).changePassword();
+                              },
+                              validate: (String? value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter password';
+                                }
+                                return null;
+                              },
+                              label: 'Password',
+                            ),
+                            Align(
+                              alignment: Alignment.bottomRight,
+                              child: defaultTextButton(
+                                function: () {},
+                                text: "Forgot Password ?",
+                                context: context,
+                                color: AppMainColors.greyDarkColor,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14.sp,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 15.h,
+                            ),
+                            LoginCubit.get(context).isCheck
+                                ? defaultMaterialButton(
+                                    function: () {
+                                      if (formKey.currentState!.validate()) {
+                                        LoginCubit.get(context)
+                                            .userLogin(
+                                              email: emailController.text,
+                                              password: passwordController.text,
+                                            )
+                                            .then(
+                                              (value) => {
+                                                LoginCubit.get(context)
+                                                    .loginReloadUser()
+                                                    .then(
+                                                  (value) {
+                                                    if (LoginCubit.get(context)
+                                                        .isEmailVerified) {
+                                                      navigateAndFinish(
+                                                        context,
+                                                        const HomeLayout(),
+                                                      );
+                                                      cubit.getUserData();
+                                                      cubit.getPosts();
+                                                      cubit.getAllUsers();
+                                                    } else {
+                                                      navigateTo(
+                                                        context,
+                                                        const EmailVerificationScreen(),
+                                                      );
+                                                    }
+                                                  },
+                                                )
+                                              },
+                                            );
+                                      }
+                                    },
+                                    text: 'Sign In',
+                                    textColor: AppMainColors.whiteColor,
+                                    radius: 15,
+                                    context: context,
+                                  )
+                                : Container(
+                                    alignment: Alignment.center,
+                                    width: double.infinity,
+                                    height: 48.h,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15).r,
+                                      color: AppMainColors.mainColor
+                                          .withOpacity(0.4),
+                                    ),
+                                    child: Text(
+                                      'Sign In'.toUpperCase(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall!
+                                          .copyWith(
+                                              color: AppMainColors.whiteColor),
+                                    ),
                                   ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    checkBox(
+                                      context,
+                                      color: AppMainColors.greyColor,
+                                    ),
+                                    Text(
+                                      'By creating an account, you agree to our',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge!
+                                          .copyWith(
+                                              color: AppMainColors.blackColor),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 45.0).r,
                                   child: Text(
-                                    'Sign In'.toUpperCase(),
+                                    'Term and Conditions',
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headlineSmall!
+                                        .labelLarge!
                                         .copyWith(
-                                            color: AppMainColors.whiteColor),
+                                          height: 0.2,
+                                          color: AppMainColors.greenColor,
+                                          fontWeight: FontWeight.w700,
+                                        ),
                                   ),
                                 ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  checkBox(
-                                    context,
-                                    color: AppMainColors.greyColor,
-                                  ),
-                                  Text(
-                                    'By creating an account, you agree to our',
-                                    style:
-                                        Theme.of(context).textTheme.labelLarge,
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 45.0).r,
-                                child: Text(
-                                  'Term and Conditions',
+                              ],
+                            ),
+                            SizedBox(height: 60.h),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Don\'t have an account ?',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .labelLarge!
+                                      .titleLarge!
                                       .copyWith(
-                                        height: 0.2,
-                                        color: AppMainColors.greenColor,
-                                        fontWeight: FontWeight.w700,
-                                      ),
+                                          color: AppMainColors.blackColor),
                                 ),
-                              ),
-                            ],
-                          ),
-                          const Spacer(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Don\'t have an account ?',
-                                style: Theme.of(context).textTheme.titleLarge,
-                              ),
-                              defaultTextButton(
-                                function: () {
-                                  navigateTo(context, const RegisterScreen());
-                                },
-                                text: 'Sign Up'.toUpperCase(),
-                                color: AppColorsLight.primaryColor,
-                                context: context,
-                              ),
-                            ],
-                          ),
-                        ],
+                                defaultTextButton(
+                                  function: () {
+                                    navigateTo(context, const RegisterScreen());
+                                  },
+                                  text: 'Sign Up'.toUpperCase(),
+                                  color: AppColorsLight.primaryColor,
+                                  context: context,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
