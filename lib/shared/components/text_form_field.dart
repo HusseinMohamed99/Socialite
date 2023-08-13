@@ -66,59 +66,55 @@ class DefaultTextFormField extends StatelessWidget {
       obscureText: isPassword,
       keyboardType: keyboardType,
       decoration: InputDecoration(
-        prefixIcon: IconButton(
-          icon: Icon(
-            prefix,
-            color: Colors.grey,
-            size: 24.sp,
-          ),
-          onPressed: () {},
+        prefixIcon: Icon(
+          prefix,
+
         ),
-        suffixIcon: suffix != null
-            ? IconButton(
-                onPressed: () {
-                  suffixPressed!();
-                },
-                icon: Icon(
-                  suffix,
-                  color: Colors.grey,
-                  size: 24.sp,
-                ),
-              )
-            : null,
-        focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: AppMainColors.blueColor,
-          ),
-        ),
-        labelText: label,
-        labelStyle: GoogleFonts.roboto(
-          color: color ?? AppMainColors.greyColor,
-          fontSize: 18.sp,
-          fontWeight: FontWeight.w400,
-        ),
-        hintText: hint,
-        disabledBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: AppMainColors.greyColor,
-          ),
-        ),
-        enabledBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: AppMainColors.greyColor,
-          ),
-        ),
-        errorBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.red,
-          ),
-        ),
-        focusedErrorBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.red,
-          ),
+          suffixIcon: suffix != null
+              ? IconButton(
+                  onPressed: () {
+                    suffixPressed!();
+                  },
+                  icon: Icon(
+                    suffix,
+                    color: Colors.grey,
+                    size: 24.sp,
+                  ),
+                )
+              : null,
+      focusedBorder: const OutlineInputBorder(
+        borderSide: BorderSide(
+          color: AppMainColors.blueColor,
         ),
       ),
+      labelText: label,
+      labelStyle: GoogleFonts.roboto(
+        color: color ?? AppMainColors.greyColor,
+        fontSize: 18.sp,
+        fontWeight: FontWeight.w400,
+      ),
+      hintText: hint,
+      disabledBorder: const OutlineInputBorder(
+        borderSide: BorderSide(
+          color: AppMainColors.greyColor,
+        ),
+      ),
+      enabledBorder: const OutlineInputBorder(
+        borderSide: BorderSide(
+          color: AppMainColors.greyColor,
+        ),
+      ),
+      errorBorder: const OutlineInputBorder(
+        borderSide: BorderSide(
+          color: Colors.red,
+        ),
+      ),
+      focusedErrorBorder: const OutlineInputBorder(
+        borderSide: BorderSide(
+          color: Colors.red,
+        ),
+      ),
+    ),
     );
   }
 }

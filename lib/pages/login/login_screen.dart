@@ -4,6 +4,7 @@ import 'package:sociality/adaptive/indicator.dart';
 import 'package:sociality/layout/Home/home_layout.dart';
 import 'package:sociality/pages/email_verification/email_verification_screen.dart';
 import 'package:sociality/shared/components/navigator.dart';
+import 'package:sociality/shared/components/text_form_field.dart';
 import 'package:sociality/shared/cubit/loginCubit/state.dart';
 import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/constants.dart';
@@ -92,8 +93,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     space(0, 10.h),
-                    defaultTextFormField(
-                      context: context,
+                    DefaultTextFormField(
                       controller: emailController,
                       keyboardType: TextInputType.emailAddress,
                       validate: (String? value) {
@@ -102,7 +102,7 @@ class LoginScreen extends StatelessWidget {
                         }
                         return null;
                       },
-                      hint: 'E-mail',
+                      label: 'E-mail',
                       prefix: Icons.alternate_email,
                     ),
                     space(0, 20.h),
@@ -117,8 +117,8 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     space(0, 10.h),
-                    defaultTextFormField(
-                      context: context,
+                    DefaultTextFormField(
+
                       controller: passController,
                       keyboardType: TextInputType.visiblePassword,
                       validate: (String? value) {
@@ -127,13 +127,12 @@ class LoginScreen extends StatelessWidget {
                         }
                         return null;
                       },
-                      hint: 'Password',
                       prefix: Icons.lock_outline_rounded,
                       suffix: LoginCubit.get(context).suffix,
                       isPassword: LoginCubit.get(context).isPassword,
                       suffixPressed: () {
                         LoginCubit.get(context).showPassword();
-                      },
+                      }, label: 'Password',
                     ),
                     space(0, 10.h),
                     Row(
