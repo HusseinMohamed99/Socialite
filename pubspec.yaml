@@ -72,3 +72,8 @@ flutter:
          - asset: assets/icon/icons.ttf
 
 
+flutter_assets:
+  assets_path: assets/images/
+  output_path: lib/
+  filename: image_assets.dart
+  field_prefix:

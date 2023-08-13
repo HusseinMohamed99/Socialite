@@ -35,7 +35,7 @@ class HomeLayout extends StatelessWidget {
               title: Text(
                 cubit.titles[cubit.currentIndex],
                 style: GoogleFonts.roboto(
-                  color: cubit.isLight ? Colors.blue : Colors.white,
+                  color: cubit.isDark ? Colors.blue : Colors.white,
                   fontSize: 24.sp,
                   fontWeight: FontWeight.w700,
                 ),
@@ -52,7 +52,7 @@ class HomeLayout extends StatelessWidget {
                   splashRadius: 20.r,
                   icon: Icon(
                     IconlyBroken.search,
-                    color: cubit.isLight ? Colors.black : Colors.white,
+                    color: cubit.isDark ? Colors.black : Colors.white,
                     size: 24.sp,
                   ),
                 ),
@@ -73,14 +73,14 @@ class HomeLayout extends StatelessWidget {
                               SocialCubit.get(context).unReadNotificationsCount)
                       : Icon(
                           IconlyBroken.notification,
-                          color: cubit.isLight ? Colors.black : Colors.white,
+                          color: cubit.isDark ? Colors.black : Colors.white,
                           size: 24.sp,
                         ),
                 ),
               ],
             ),
             drawer: Drawer(
-              backgroundColor: cubit.isLight ? Colors.white : Colors.deepOrange,
+              backgroundColor: cubit.isDark ? Colors.white : Colors.deepOrange,
               child: cubit.userModel != null
                   ? Stack(
                       children: [
@@ -160,7 +160,7 @@ class HomeLayout extends StatelessWidget {
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.roboto(
                                         fontSize: 30.sp,
-                                        color: cubit.isLight
+                                        color: cubit.isDark
                                             ? Colors.black
                                             : Colors.white),
                                   ),
@@ -181,7 +181,7 @@ class HomeLayout extends StatelessWidget {
                                           Icon(
                                             IconlyBroken.user2,
                                             size: 30.sp,
-                                            color: cubit.isLight
+                                            color: cubit.isDark
                                                 ? Colors.black
                                                 : Colors.white,
                                           ),
@@ -192,7 +192,7 @@ class HomeLayout extends StatelessWidget {
                                             'Profile',
                                             style: GoogleFonts.roboto(
                                                 fontSize: 30,
-                                                color: cubit.isLight
+                                                color: cubit.isDark
                                                     ? Colors.black
                                                     : Colors.white),
                                           ),
@@ -214,7 +214,7 @@ class HomeLayout extends StatelessWidget {
                                           Icon(
                                             IconlyBroken.notification,
                                             size: 30.sp,
-                                            color: cubit.isLight
+                                            color: cubit.isDark
                                                 ? Colors.black
                                                 : Colors.white,
                                           ),
@@ -225,7 +225,7 @@ class HomeLayout extends StatelessWidget {
                                             'Notifications',
                                             style: GoogleFonts.roboto(
                                                 fontSize: 30,
-                                                color: cubit.isLight
+                                                color: cubit.isDark
                                                     ? Colors.black
                                                     : Colors.white),
                                           ),
@@ -247,7 +247,7 @@ class HomeLayout extends StatelessWidget {
                                           Icon(
                                             IconlyBroken.bookmark,
                                             size: 30.sp,
-                                            color: cubit.isLight
+                                            color: cubit.isDark
                                                 ? Colors.black
                                                 : Colors.white,
                                           ),
@@ -258,7 +258,7 @@ class HomeLayout extends StatelessWidget {
                                             'Saved Post',
                                             style: GoogleFonts.roboto(
                                                 fontSize: 30,
-                                                color: cubit.isLight
+                                                color: cubit.isDark
                                                     ? Colors.black
                                                     : Colors.white),
                                           ),
@@ -280,7 +280,7 @@ class HomeLayout extends StatelessWidget {
                                           Icon(
                                             IconlyBroken.password,
                                             size: 30.sp,
-                                            color: cubit.isLight
+                                            color: cubit.isDark
                                                 ? Colors.black
                                                 : Colors.white,
                                           ),
@@ -291,7 +291,7 @@ class HomeLayout extends StatelessWidget {
                                             'Rest Password',
                                             style: GoogleFonts.roboto(
                                                 fontSize: 30,
-                                                color: cubit.isLight
+                                                color: cubit.isDark
                                                     ? Colors.black
                                                     : Colors.white),
                                           ),
@@ -301,7 +301,7 @@ class HomeLayout extends StatelessWidget {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      cubit.changeMode();
+                                      cubit.changeAppMode();
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
@@ -312,7 +312,7 @@ class HomeLayout extends StatelessWidget {
                                           Icon(
                                             Icons.dark_mode,
                                             size: 30.sp,
-                                            color: cubit.isLight
+                                            color: cubit.isDark
                                                 ? Colors.black
                                                 : Colors.white,
                                           ),
@@ -323,7 +323,7 @@ class HomeLayout extends StatelessWidget {
                                             'Theme Mode',
                                             style: GoogleFonts.roboto(
                                                 fontSize: 30,
-                                                color: cubit.isLight
+                                                color: cubit.isDark
                                                     ? Colors.black
                                                     : Colors.white),
                                           ),
@@ -345,7 +345,7 @@ class HomeLayout extends StatelessWidget {
                                           Icon(
                                             Icons.power_settings_new_rounded,
                                             size: 30.sp,
-                                            color: cubit.isLight
+                                            color: cubit.isDark
                                                 ? Colors.black
                                                 : Colors.white,
                                           ),
@@ -356,7 +356,7 @@ class HomeLayout extends StatelessWidget {
                                             'Logout',
                                             style: GoogleFonts.roboto(
                                               fontSize: 30.sp,
-                                              color: cubit.isLight
+                                              color: cubit.isDark
                                                   ? Colors.black
                                                   : Colors.white,
                                             ),
@@ -410,39 +410,39 @@ class HomeLayout extends StatelessWidget {
                     ),
             ),
             bottomNavigationBar: BottomNavigationBar(
-              backgroundColor: cubit.isLight ? Colors.white : Colors.deepOrange,
+              backgroundColor: cubit.isDark ? Colors.white : Colors.deepOrange,
               items: [
                 BottomNavigationBarItem(
                     backgroundColor:
-                        cubit.isLight ? Colors.white : Colors.deepOrange,
+                        cubit.isDark ? Colors.white : Colors.deepOrange,
                     icon: const Icon(
                       Icons.home_outlined,
                     ),
                     label: 'Home'),
                 BottomNavigationBarItem(
                     backgroundColor:
-                        cubit.isLight ? Colors.white : Colors.deepOrange,
+                        cubit.isDark ? Colors.white : Colors.deepOrange,
                     icon: const Icon(
                       Icons.message,
                     ),
                     label: 'Chat'),
                 BottomNavigationBarItem(
                     backgroundColor:
-                        cubit.isLight ? Colors.white : Colors.deepOrange,
+                        cubit.isDark ? Colors.white : Colors.deepOrange,
                     icon: const Icon(
                       Icons.supervised_user_circle_sharp,
                     ),
                     label: 'Friend'),
                 BottomNavigationBarItem(
                     backgroundColor:
-                        cubit.isLight ? Colors.white : Colors.deepOrange,
+                        cubit.isDark ? Colors.white : Colors.deepOrange,
                     icon: const Icon(
                       Icons.location_history_outlined,
                     ),
                     label: 'Story'),
                 BottomNavigationBarItem(
                     backgroundColor:
-                        cubit.isLight ? Colors.white : Colors.deepOrange,
+                        cubit.isDark ? Colors.white : Colors.deepOrange,
                     icon: const Icon(
                       Icons.settings,
                     ),

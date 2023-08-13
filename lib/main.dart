@@ -40,23 +40,23 @@ void main() async {
     debugPrint(event.data.toString());
   });
 
-  bool? isLight = CacheHelper.getBoolean(key: 'isLight');
+  bool? isDark = CacheHelper.getBoolean(key: 'isDark');
   uId = CacheHelper.getData(key: 'uId');
   debugPrint('*** User ID == $uId ***');
 
   runApp(
     MyApp(
-      isLight: isLight,
+      isDark: isDark,
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  final bool? isLight;
+  final bool? isDark;
 
   const MyApp({
     Key? key,
-    this.isLight,
+    this.isDark,
   }) : super(key: key);
 
   // This widget is the root of your application.
@@ -70,8 +70,8 @@ class MyApp extends StatelessWidget {
             ..getPosts()
             ..getAllUsers()
             ..getStories()
-            ..changeMode(
-              fromShared: isLight,
+            ..changeAppMode(
+              fromShared: isDark,
             ),
         ),
       ],
@@ -93,7 +93,7 @@ class MyApp extends StatelessWidget {
                 darkTheme: getThemeData[AppTheme.darkTheme],
                 themeMode: uId == null
                     ? ThemeMode.system
-                    : SocialCubit.get(context).isLight
+                    : SocialCubit.get(context).isDark
                         ? ThemeMode.light
                         : ThemeMode.dark,
                 debugShowCheckedModeBanner: false,
