@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:sociality/shared/components/navigator.dart';
+import 'package:sociality/shared/components/text_form_field.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
-import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -179,8 +179,7 @@ class EditProfileScreen extends StatelessWidget {
                                 padding: const EdgeInsets.all(10.0),
                                 child: Column(
                                   children: [
-                                    defaultTextFormField(
-                                        context: context,
+                                    DefaultTextFormField(
                                         controller: nameController,
                                         keyboardType: TextInputType.name,
                                         validate: (String? value) {
@@ -189,11 +188,10 @@ class EditProfileScreen extends StatelessWidget {
                                           }
                                           return null;
                                         },
-                                        hint: 'Name',
+                                        label: 'Name',
                                         prefix: IconlyLight.user3),
                                     space(0, 15),
-                                    defaultTextFormField(
-                                      context: context,
+                                    DefaultTextFormField(
                                       controller: bioController,
                                       keyboardType: TextInputType.text,
                                       validate: (String? value) {
@@ -202,12 +200,11 @@ class EditProfileScreen extends StatelessWidget {
                                         }
                                         return null;
                                       },
-                                      hint: 'Bio ...',
+                                      label: 'Bio ...',
                                       prefix: IconlyLight.infoSquare,
                                     ),
                                     space(0, 15),
-                                    defaultTextFormField(
-                                      context: context,
+                                    DefaultTextFormField(
                                       controller: emailController,
                                       keyboardType: TextInputType.emailAddress,
                                       validate: (String? value) {
@@ -216,12 +213,11 @@ class EditProfileScreen extends StatelessWidget {
                                         }
                                         return null;
                                       },
-                                      hint: 'E-mail Address',
+                                      label: 'E-mail Address',
                                       prefix: IconlyLight.message,
                                     ),
                                     space(0, 15),
-                                    defaultTextFormField(
-                                      context: context,
+                                    DefaultTextFormField(
                                       controller: phoneController,
                                       keyboardType: TextInputType.phone,
                                       validate: (String? value) {
@@ -230,7 +226,7 @@ class EditProfileScreen extends StatelessWidget {
                                         }
                                         return null;
                                       },
-                                      hint: 'Phone',
+                                      label: 'Phone',
                                       prefix: IconlyLight.calling,
                                     ),
                                   ],

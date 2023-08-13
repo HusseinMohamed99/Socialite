@@ -8,6 +8,7 @@ import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:sociality/shared/components/navigator.dart';
+import 'package:sociality/shared/components/text_form_field.dart';
 import 'package:sociality/shared/network/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -100,8 +101,7 @@ class RegisterScreen extends StatelessWidget {
                         ),
                       ),
                       space(0, 5.h),
-                      defaultTextFormField(
-                        context: context,
+                      DefaultTextFormField(
                         controller: nameController,
                         keyboardType: TextInputType.name,
                         validate: (String? value) {
@@ -110,7 +110,7 @@ class RegisterScreen extends StatelessWidget {
                           }
                           return null;
                         },
-                        hint: 'Name',
+                        label: 'Name',
                         prefix: Icons.person_outline_rounded,
                       ),
                       space(0, 10.h),
@@ -125,8 +125,7 @@ class RegisterScreen extends StatelessWidget {
                         ),
                       ),
                       space(0, 5.h),
-                      defaultTextFormField(
-                        context: context,
+                      DefaultTextFormField(
                         controller: phoneController,
                         keyboardType: TextInputType.phone,
                         validate: (String? value) {
@@ -135,7 +134,7 @@ class RegisterScreen extends StatelessWidget {
                           }
                           return null;
                         },
-                        hint: 'Phone',
+                        label: 'Phone',
                         prefix: Icons.phone,
                       ),
                       space(0, 10.h),
@@ -150,8 +149,7 @@ class RegisterScreen extends StatelessWidget {
                         ),
                       ),
                       space(0, 5.h),
-                      defaultTextFormField(
-                        context: context,
+                      DefaultTextFormField(
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
                         validate: (String? value) {
@@ -160,7 +158,7 @@ class RegisterScreen extends StatelessWidget {
                           }
                           return null;
                         },
-                        hint: 'E-mail',
+                        label: 'E-mail',
                         prefix: Icons.alternate_email,
                       ),
                       space(0, 10.h),
@@ -175,8 +173,7 @@ class RegisterScreen extends StatelessWidget {
                         ),
                       ),
                       space(0, 5.h),
-                      defaultTextFormField(
-                        context: context,
+                      DefaultTextFormField(
                         controller: passController,
                         keyboardType: TextInputType.visiblePassword,
                         validate: (String? value) {
@@ -185,7 +182,7 @@ class RegisterScreen extends StatelessWidget {
                           }
                           return null;
                         },
-                        hint: 'Password',
+                        label: 'Password',
                         prefix: Icons.lock_outline_rounded,
                         suffix: RegisterCubit.get(context).suffix,
                         isPassword: RegisterCubit.get(context).isPassword,

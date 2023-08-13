@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sociality/shared/components/navigator.dart';
+import 'package:sociality/shared/components/text_form_field.dart';
 
 class RestPasswordScreen extends StatelessWidget {
   final loginFormKey = GlobalKey<FormState>();
@@ -127,8 +128,7 @@ class RestPasswordScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               space(0, 10.h),
-                              defaultTextFormField(
-                                context: context,
+                              DefaultTextFormField(
                                 controller: emailController,
                                 keyboardType: TextInputType.emailAddress,
                                 prefix: Icons.email,
@@ -138,7 +138,7 @@ class RestPasswordScreen extends StatelessWidget {
                                   }
                                   return null;
                                 },
-                                hint: 'E-mail Address',
+                                label: 'E-mail Address',
                               ),
                               const Spacer(),
                               state is ResetPasswordLoadingState
