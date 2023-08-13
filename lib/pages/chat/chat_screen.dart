@@ -2,9 +2,10 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:sociality/Pages/chat/private_chat.dart';
 import 'package:sociality/adaptive/indicator.dart';
 import 'package:sociality/model/user_model.dart';
+import 'package:sociality/shared/components/my_divider.dart';
+import 'package:sociality/shared/components/navigator.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
-import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -74,8 +75,8 @@ class ChatScreen extends StatelessWidget {
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) =>
                             buildUsersItem(cubit.users[index], context),
-                        separatorBuilder: (context, index) => myDivider(
-                          Colors.grey.withOpacity(0.3),
+                        separatorBuilder: (context, index) => MyDivider(
+                          color: Colors.grey.withOpacity(0.3),
                         ),
                         itemCount: cubit.users.length,
                       ),

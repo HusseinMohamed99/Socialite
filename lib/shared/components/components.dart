@@ -1,4 +1,3 @@
-import 'package:sociality/Pages/Login/login_screen.dart';
 import 'package:sociality/Pages/comment/comment_screen.dart';
 import 'package:sociality/Pages/friend/profile_screen.dart';
 import 'package:sociality/Pages/post/edit_post.dart';
@@ -8,7 +7,7 @@ import 'package:sociality/model/post_model.dart';
 import 'package:sociality/model/user_model.dart';
 import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/components/constants.dart';
-import 'package:sociality/shared/network/cache_helper.dart';
+import 'package:sociality/shared/components/navigator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -150,24 +149,6 @@ Widget defaultTextButton(
   );
 }
 
-Widget myDivider(Color? color) {
-  return Container(
-    margin: const EdgeInsets.symmetric(horizontal: 8),
-    width: double.infinity,
-    height: 4.0,
-    color: color,
-  );
-}
-
-Widget myDivider2() {
-  return Container(
-    margin: const EdgeInsets.symmetric(vertical: 10),
-    width: double.infinity,
-    height: 4.0,
-    color: Colors.grey.shade200,
-  );
-}
-
 void showToast({
   required String text,
   required ToastStates state,
@@ -201,39 +182,6 @@ Color chooseToastColor(ToastStates state) {
       break;
   }
   return color;
-}
-
-void navigateTo(context, widget) {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => widget,
-    ),
-  );
-}
-
-void navigateAndFinish(context, widget) {
-  Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(
-        builder: (context) => widget,
-      ), (route) {
-    return false;
-  });
-}
-
-void logOut(context) {
-  CacheHelper.removeData(
-    key: 'uId',
-  ).then((value) {
-    if (value) {
-      navigateAndFinish(context, const LoginScreen());
-    }
-  });
-}
-
-void pop(context) {
-  Navigator.pop(context);
 }
 
 // Widget imagePreview(){

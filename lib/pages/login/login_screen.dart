@@ -3,6 +3,7 @@ import 'package:sociality/Pages/password/forget_password.dart';
 import 'package:sociality/adaptive/indicator.dart';
 import 'package:sociality/layout/Home/home_layout.dart';
 import 'package:sociality/pages/email_verification/email_verification_screen.dart';
+import 'package:sociality/shared/components/navigator.dart';
 import 'package:sociality/shared/cubit/loginCubit/state.dart';
 import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/constants.dart';
@@ -19,9 +20,9 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var formKey = GlobalKey<FormState>();
-    var emailController = TextEditingController();
-    var passController = TextEditingController();
+    final formKey = GlobalKey<FormState>();
+    final emailController = TextEditingController();
+    final passController = TextEditingController();
     return BlocProvider(
       create: (BuildContext context) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginStates>(

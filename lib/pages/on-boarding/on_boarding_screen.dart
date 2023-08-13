@@ -1,10 +1,10 @@
 import 'package:sociality/Pages/Login/login_screen.dart';
 import 'package:sociality/Pages/Register/register_screen.dart';
-import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sociality/shared/components/navigator.dart';
 import 'package:sociality/shared/styles/color.dart';
 
 class OnBoard extends StatelessWidget {

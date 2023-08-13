@@ -6,9 +6,11 @@ import 'package:sociality/Pages/profile/my_profile_screen.dart';
 import 'package:sociality/Pages/search/search_screen.dart';
 import 'package:sociality/adaptive/indicator.dart';
 import 'package:sociality/pages/post/save_post_screen.dart';
+import 'package:sociality/shared/components/logout.dart';
+import 'package:sociality/shared/components/my_divider.dart';
+import 'package:sociality/shared/components/navigator.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
-import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -162,7 +164,7 @@ class HomeLayout extends StatelessWidget {
                                             ? Colors.black
                                             : Colors.white),
                                   ),
-                                  myDivider(Colors.cyan),
+                                  const MyDivider(color: Colors.cyan),
                                   InkWell(
                                     onTap: () {
                                       SocialCubit.get(context).getMyPosts(uId);
