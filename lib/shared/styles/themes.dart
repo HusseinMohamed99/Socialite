@@ -36,11 +36,11 @@ class ThemeApp {
       showSelectedLabels: true,
       showUnselectedLabels: false,
       selectedIconTheme: IconThemeData(
-        size: 36.sp,
+        size: 30.sp,
         color: yellow,
       ),
       unselectedIconTheme: IconThemeData(
-        size: 30.sp,
+        size: 24.sp,
         color: Colors.grey,
       ),
       selectedLabelStyle: const TextStyle(
