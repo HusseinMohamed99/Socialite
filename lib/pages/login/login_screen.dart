@@ -1,6 +1,8 @@
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sociality/image_assets.dart';
+import 'package:sociality/layout/Home/home_layout.dart';
+import 'package:sociality/pages/email_verification/email_verification_screen.dart';
 import 'package:sociality/pages/register/register_screen.dart';
 import 'package:sociality/shared/components/buttons.dart';
 import 'package:sociality/shared/components/check_box.dart';
@@ -49,6 +51,7 @@ class LoginScreen extends StatelessWidget {
           }
         },
         builder: (context, state) {
+          var cubit = SocialCubit.get(context);
           return Scaffold(
             body: Form(
               key: formKey,
@@ -152,10 +155,36 @@ class LoginScreen extends StatelessWidget {
                               ? defaultMaterialButton(
                                   function: () {
                                     if (formKey.currentState!.validate()) {
-                                      LoginCubit.get(context).userLogin(
-                                        email: emailController.text,
-                                        password: passwordController.text,
-                                      );
+                                      LoginCubit.get(context)
+                                          .userLogin(
+                                            email: emailController.text,
+                                            password: passwordController.text,
+                                          )
+                                          .then(
+                                            (value) => {
+                                              LoginCubit.get(context)
+                                                  .loginReloadUser()
+                                                  .then(
+                                                (value) {
+                                                  if (LoginCubit.get(context)
+                                                      .isEmailVerified) {
+                                                    navigateAndFinish(
+                                                      context,
+                                                      const HomeLayout(),
+                                                    );
+                                                    cubit.getUserData();
+                                                    cubit.getPosts();
+                                                    cubit.getAllUsers();
+                                                  } else {
+                                                    navigateTo(
+                                                      context,
+                                                      const EmailVerificationScreen(),
+                                                    );
+                                                  }
+                                                },
+                                              )
+                                            },
+                                          );
                                     }
                                   },
                                   text: 'Sign In',
