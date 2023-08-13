@@ -1,5 +1,10 @@
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sociality/image_assets.dart';
+import 'package:sociality/pages/register/register_screen.dart';
 import 'package:sociality/shared/components/buttons.dart';
 import 'package:sociality/shared/components/check_box.dart';
+import 'package:sociality/shared/components/navigator.dart';
 import 'package:sociality/shared/components/text_form_field.dart';
 import 'package:sociality/shared/cubit/loginCubit/state.dart';
 import 'package:sociality/shared/components/components.dart';
@@ -49,13 +54,52 @@ class LoginScreen extends StatelessWidget {
               key: formKey,
               child: Column(
                 children: [
-                  Card(
+                  Row(
+                    children: [
+                      Expanded(child: SvgPicture.asset(Assets.imagesGroup1318)),
+                      Expanded(
+                          flex: 2,
+                          child: SvgPicture.asset(
+                              Assets.imagesWorldwidewebMonochromatic)),
+                    ],
+                  ),
+                  Expanded(
                     child: Container(
+                      padding: const EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                          color: SocialCubit.get(context).isDark
+                              ? AppMainColors.whiteColor
+                              : AppColorsDark.primaryDarkColor,
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(25),
+                            topRight: Radius.circular(25),
+                          ).r),
                       alignment: Alignment.bottomCenter,
-                      height: 800,
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          Text(
+                            'Sign in Now',
+                            style: GoogleFonts.roboto(
+                              textStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 40.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Text(
+                            'Please enter your information',
+                            style: GoogleFonts.roboto(
+                              textStyle: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          space(0, 20.h),
                           DefaultTextFormField(
                             color: AppMainColors.greyColor,
                             controller: emailController,
@@ -90,13 +134,16 @@ class LoginScreen extends StatelessWidget {
                             },
                             label: 'Password',
                           ),
-                          defaultTextButton(
-                            function: () {},
-                            text: "Forgot Password ?",
-                            context: context,
-                            color: AppMainColors.greyDarkColor,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 14.sp,
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: defaultTextButton(
+                              function: () {},
+                              text: "Forgot Password ?",
+                              context: context,
+                              color: AppMainColors.greyDarkColor,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14.sp,
+                            ),
                           ),
                           SizedBox(
                             height: 15.h,
@@ -166,34 +213,28 @@ class LoginScreen extends StatelessWidget {
                               ),
                             ],
                           ),
+                          const Spacer(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Don\'t have an account ?',
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                              defaultTextButton(
+                                function: () {
+                                  navigateTo(context, const RegisterScreen());
+                                },
+                                text: 'Sign Up'.toUpperCase(),
+                                color: AppColorsLight.primaryColor,
+                                context: context,
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  // const Spacer(),
-                  // Container(
-                  //   width: double.infinity,
-                  //   height: 43.h,
-                  //   decoration:
-                  //       const BoxDecoration(color: AppMainColors.orangeColor),
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.center,
-                  //     children: [
-                  //       Text(
-                  //         'Don\'t have an account ?',
-                  //         style: Theme.of(context).textTheme.titleLarge,
-                  //       ),
-                  //       defaultTextButton(
-                  //         function: () {
-                  //           navigateTo(context, const RegisterScreen());
-                  //         },
-                  //         text: 'Sign Up'.toUpperCase(),
-                  //         color: AppMainColors.whiteColor,
-                  //         context: context,
-                  //       ),
-                  //    ],
-                  //  ),
-                  // ),
                 ],
               ),
             ),
