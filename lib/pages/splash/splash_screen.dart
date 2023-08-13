@@ -68,7 +68,7 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(
-                      SocialCubit.get(context).isLight
+                      SocialCubit.get(context).isDark
                           ? 'assets/images/sLight.png'
                           : 'assets/images/sDark.png',
                     ),
@@ -83,7 +83,7 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
                     'Sociality',
                     style: GoogleFonts.pacifico(
                       textStyle: TextStyle(
-                        color: SocialCubit.get(context).isLight
+                        color: SocialCubit.get(context).isDark
                             ? Colors.blue
                             : Colors.white,
                         fontSize: 45,
@@ -95,7 +95,7 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
                     'APP',
                     style: GoogleFonts.pacifico(
                       textStyle: TextStyle(
-                        color: SocialCubit.get(context).isLight
+                        color: SocialCubit.get(context).isDark
                             ? Colors.blue
                             : Colors.white,
                         fontSize: 45,

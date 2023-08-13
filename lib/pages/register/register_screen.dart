@@ -53,7 +53,7 @@ class RegisterScreen extends StatelessWidget {
                 icon: Icon(
                   IconlyLight.arrowLeft2,
                   size: 30.sp,
-                  color: cubit.isLight ? Colors.black : Colors.white,
+                  color: cubit.isDark ? Colors.black : Colors.white,
                 ),
               ),
             ),
@@ -70,8 +70,7 @@ class RegisterScreen extends StatelessWidget {
                           'Sign up Now',
                           style: GoogleFonts.roboto(
                             textStyle: TextStyle(
-                              color:
-                                  cubit.isLight ? Colors.black : Colors.white,
+                              color: cubit.isDark ? Colors.black : Colors.white,
                               fontSize: 40.sp,
                               fontWeight: FontWeight.w600,
                             ),
@@ -222,7 +221,7 @@ class RegisterScreen extends StatelessWidget {
                             style: GoogleFonts.roboto(
                               textStyle: TextStyle(
                                 color:
-                                    cubit.isLight ? Colors.black : Colors.white,
+                                    cubit.isDark ? Colors.black : Colors.white,
                                 fontSize: 15.sp,
                                 fontWeight: FontWeight.w600,
                               ),

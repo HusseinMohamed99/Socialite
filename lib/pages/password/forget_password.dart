@@ -41,7 +41,7 @@ class RestPasswordScreen extends StatelessWidget {
                 },
                 icon: Icon(
                   Icons.arrow_back,
-                  color: cubit.isLight ? Colors.black : Colors.white,
+                  color: cubit.isDark ? Colors.black : Colors.white,
                 ),
               ),
               titleSpacing: 1,
@@ -49,7 +49,7 @@ class RestPasswordScreen extends StatelessWidget {
                 'Forget Password',
                 style: GoogleFonts.roboto(
                   textStyle: TextStyle(
-                    color: cubit.isLight ? Colors.black : Colors.white,
+                    color: cubit.isDark ? Colors.black : Colors.white,
                     fontSize: 20.sp,
                     fontWeight: FontWeight.w600,
                   ),
@@ -82,7 +82,7 @@ class RestPasswordScreen extends StatelessWidget {
                                 fontSize: 27.sp,
                                 fontWeight: FontWeight.w900,
                                 color:
-                                    cubit.isLight ? Colors.black : Colors.white,
+                                    cubit.isDark ? Colors.black : Colors.white,
                               ),
                             ),
                           ],
@@ -101,7 +101,7 @@ class RestPasswordScreen extends StatelessWidget {
                           boxShadow: [
                             BoxShadow(
                               blurStyle: BlurStyle.outer,
-                              color: cubit.isLight
+                              color: cubit.isDark
                                   ? const Color(0xff404258)
                                   : Colors.white,
                               blurRadius: 9,
@@ -110,11 +110,11 @@ class RestPasswordScreen extends StatelessWidget {
                             )
                           ],
                           border: Border.all(
-                            color: cubit.isLight
+                            color: cubit.isDark
                                 ? const Color(0xff404258)
                                 : Colors.white,
                           ),
-                          color: cubit.isLight
+                          color: cubit.isDark
                               ? Colors.white
                               : const Color(0xff404258),
                           borderRadius: const BorderRadius.only(

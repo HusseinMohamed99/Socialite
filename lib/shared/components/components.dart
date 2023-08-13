@@ -207,7 +207,7 @@ Widget buildPost(index, context, state, PostModel postModel, UserModel? model,
                             style: GoogleFonts.lobster(
                               fontSize: 20,
                               height: 1.3,
-                              color: SocialCubit.get(context).isLight
+                              color: SocialCubit.get(context).isDark
                                   ? CupertinoColors.activeBlue
                                   : Colors.white,
                             ),
@@ -419,7 +419,7 @@ Widget buildPost(index, context, state, PostModel postModel, UserModel? model,
                 icon: Icon(
                   IconlyLight.moreCircle,
                   size: 25,
-                  color: SocialCubit.get(context).isLight
+                  color: SocialCubit.get(context).isDark
                       ? Colors.black
                       : Colors.white,
                 ),
@@ -437,9 +437,8 @@ Widget buildPost(index, context, state, PostModel postModel, UserModel? model,
           Text(
             '${postModel.text}',
             style: GoogleFonts.libreBaskerville(
-              color: SocialCubit.get(context).isLight
-                  ? Colors.black
-                  : Colors.white,
+              color:
+                  SocialCubit.get(context).isDark ? Colors.black : Colors.white,
             ),
           ),
           space(0, 12),

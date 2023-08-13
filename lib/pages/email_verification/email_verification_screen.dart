@@ -32,7 +32,7 @@ class EmailVerificationScreen extends StatelessWidget {
                 icon: Icon(
                   IconlyLight.arrowLeft2,
                   size: 30.sp,
-                  color: mode.isLight ? Colors.black : Colors.white,
+                  color: mode.isDark ? Colors.black : Colors.white,
                 ),
               ),
             ),
@@ -45,7 +45,7 @@ class EmailVerificationScreen extends StatelessWidget {
                     space(0, 35.h),
                     Container(
                       decoration: BoxDecoration(
-                        color: mode.isLight ? Colors.black : Colors.white,
+                        color: mode.isDark ? Colors.black : Colors.white,
                         borderRadius: BorderRadius.circular(75.0).r,
                       ),
                       child: CircleAvatar(
@@ -58,7 +58,7 @@ class EmailVerificationScreen extends StatelessWidget {
                     Text('Email Confirmation',
                         style: TextStyle(
                           fontSize: 24.0.sp,
-                          color: mode.isLight ? Colors.black : Colors.white,
+                          color: mode.isDark ? Colors.black : Colors.white,
                           fontWeight: FontWeight.bold,
                         )),
                     space(0, 10.h),
@@ -66,7 +66,7 @@ class EmailVerificationScreen extends StatelessWidget {
                       'We\'re happy you signed up for Sociality App. To start exploring the \nSociality App,Please confirm your\nE-mail Address.',
                       style: GoogleFonts.libreBaskerville(
                         textStyle: TextStyle(
-                          color: mode.isLight ? Colors.blueGrey : Colors.white,
+                          color: mode.isDark ? Colors.blueGrey : Colors.white,
                           fontSize: 20.sp,
                           overflow: TextOverflow.visible,
                           fontWeight: FontWeight.w600,
@@ -83,14 +83,14 @@ class EmailVerificationScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Card(
-                                      color: mode.isLight
+                                      color: mode.isDark
                                           ? Colors.green
                                           : Colors.white,
                                       child: Row(
                                         children: [
                                           Icon(
                                             Icons.check_circle_outline,
-                                            color: mode.isLight
+                                            color: mode.isDark
                                                 ? Colors.white
                                                 : Colors.black,
                                             size: 24.sp,
@@ -99,7 +99,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                             'Email Verification Sent',
                                             style: GoogleFonts.libreBaskerville(
                                               textStyle: TextStyle(
-                                                color: mode.isLight
+                                                color: mode.isDark
                                                     ? Colors.white
                                                     : Colors.black,
                                                 fontSize: 20.sp,
@@ -115,7 +115,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                       style: ButtonStyle(
                                         backgroundColor:
                                             MaterialStateProperty.all(
-                                          mode.isLight
+                                          mode.isDark
                                               ? Colors.red
                                               : Colors.white,
                                         ),
@@ -127,7 +127,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                         'Send again',
                                         style: GoogleFonts.libreBaskerville(
                                           textStyle: TextStyle(
-                                            color: mode.isLight
+                                            color: mode.isDark
                                                 ? Colors.white
                                                 : Colors.black,
                                             overflow: TextOverflow.visible,
@@ -140,7 +140,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                 )
                               : Card(
                                   color:
-                                      mode.isLight ? Colors.blue : Colors.grey,
+                                      mode.isDark ? Colors.blue : Colors.grey,
                                   child: defaultTextButton(
                                     context: context,
                                     function: () {
@@ -155,7 +155,7 @@ class EmailVerificationScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 30.0).r,
                       child: cubit.isEmailSent
                           ? Card(
-                              color: mode.isLight ? Colors.green : Colors.grey,
+                              color: mode.isDark ? Colors.green : Colors.grey,
                               child: defaultTextButton(
                                 context: context,
                                 function: () {
@@ -179,7 +179,7 @@ class EmailVerificationScreen extends StatelessWidget {
                               ),
                             )
                           : Card(
-                              color: mode.isLight ? Colors.blue : Colors.grey,
+                              color: mode.isDark ? Colors.blue : Colors.grey,
                               child: defaultTextButton(
                                 context: context,
                                 function: () {},
