@@ -1,8 +1,8 @@
 import 'package:sociality/Pages/comment/comment_screen.dart';
 import 'package:sociality/Pages/post/edit_post.dart';
 import 'package:sociality/model/post_model.dart';
-import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/Cubit/socialCubit/social_state.dart';
+import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
 import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';

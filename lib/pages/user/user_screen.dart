@@ -3,8 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:sociality/model/user_model.dart';
 import 'package:sociality/pages/chat/private_chat.dart';
 import 'package:sociality/pages/friend/profile_screen.dart';
-import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/Cubit/socialCubit/social_state.dart';
+import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
 import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
@@ -285,10 +285,9 @@ class _UserScreenState extends State<UserScreen> {
           InkWell(
               onTap: () {
                 SocialCubit.get(context).getFriends(userModel.uId);
-              SocialCubit.get(context).checkFriends(userModel.uId);
-              SocialCubit.get(context).checkFriendRequest(userModel.uId);
+                SocialCubit.get(context).checkFriends(userModel.uId);
+                SocialCubit.get(context).checkFriendRequest(userModel.uId);
                 navigateTo(context, FriendsProfileScreen(userModel.uId));
-
               },
               child: Image(
                 image: NetworkImage(userModel.image),
