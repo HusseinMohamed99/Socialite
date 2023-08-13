@@ -118,7 +118,6 @@ class LoginScreen extends StatelessWidget {
                     ),
                     space(0, 10.h),
                     DefaultTextFormField(
-
                       controller: passController,
                       keyboardType: TextInputType.visiblePassword,
                       validate: (String? value) {
@@ -132,7 +131,8 @@ class LoginScreen extends StatelessWidget {
                       isPassword: LoginCubit.get(context).isPassword,
                       suffixPressed: () {
                         LoginCubit.get(context).showPassword();
-                      }, label: 'Password',
+                      },
+                      label: 'Password',
                     ),
                     space(0, 10.h),
                     Row(
