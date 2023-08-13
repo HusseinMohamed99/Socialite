@@ -1,12 +1,12 @@
-import 'package:f_app/shared/Cubit/socialCubit/social_cubit.dart';
-import 'package:f_app/shared/components/constants.dart';
+import 'package:sociality/Pages/friend/profile_screen.dart';
+import 'package:sociality/model/story_model.dart';
+import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
+import 'package:sociality/shared/Cubit/socialCubit/social_state.dart';
+import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../model/story_model.dart';
-import '../../shared/Cubit/socialCubit/social_state.dart';
-import '../friend/profile_screen.dart';
 
 class ViewStory extends StatelessWidget {
   final StoryModel? model;

@@ -1,8 +1,8 @@
-import 'package:f_app/model/post_model.dart';
-import 'package:f_app/shared/Cubit/socialCubit/social_cubit.dart';
-import 'package:f_app/shared/Cubit/socialCubit/social_state.dart';
-import 'package:f_app/shared/components/components.dart';
-import 'package:f_app/shared/components/constants.dart';
+import 'package:sociality/model/post_model.dart';
+import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
+import 'package:sociality/shared/Cubit/socialCubit/social_state.dart';
+import 'package:sociality/shared/components/components.dart';
+import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -20,7 +20,15 @@ class AddPostScreen extends StatelessWidget {
     var cubit = SocialCubit.get(context);
     var userModel = SocialCubit.get(context).userModel!;
     return BlocConsumer<SocialCubit, SocialStates>(
-      listener: (context, state) {},
+      listener: (context, state)
+      {
+        if(state is CreatePostSuccessState)
+        {
+          cubit.getPosts();
+          pop(context);
+          showToast(text: 'Create Post Successfully', state: ToastStates.success);
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -53,7 +61,7 @@ class AddPostScreen extends StatelessWidget {
                       dateTime: now.toString(),
                       text: textController.text,
                     );
-                    pop(context);
+
                     cubit.removePostImage();
                   } else if (cubit.postImagePicked != null) {
                     cubit.uploadPostImage(

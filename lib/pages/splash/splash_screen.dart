@@ -1,9 +1,9 @@
-import 'package:f_app/layout/Home/home_layout.dart';
-import 'package:f_app/pages/on-boarding/on_boarding_screen.dart';
-import 'package:f_app/shared/Cubit/socialCubit/social_cubit.dart';
-import 'package:f_app/shared/components/components.dart';
-import 'package:f_app/shared/components/constants.dart';
-import 'package:f_app/shared/styles/themes.dart';
+import 'package:sociality/layout/Home/home_layout.dart';
+import 'package:sociality/pages/on-boarding/on_boarding_screen.dart';
+import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
+import 'package:sociality/shared/components/components.dart';
+import 'package:sociality/shared/components/constants.dart';
+import 'package:sociality/shared/styles/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

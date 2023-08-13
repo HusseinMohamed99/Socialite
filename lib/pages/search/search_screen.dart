@@ -1,10 +1,10 @@
-import 'package:f_app/model/user_model.dart';
-import 'package:f_app/pages/friend/profile_screen.dart';
-import 'package:f_app/pages/profile/my_profile_screen.dart';
-import 'package:f_app/shared/Cubit/socialCubit/social_cubit.dart';
-import 'package:f_app/shared/Cubit/socialCubit/social_state.dart';
-import 'package:f_app/shared/components/components.dart';
-import 'package:f_app/shared/components/constants.dart';
+import 'package:sociality/model/user_model.dart';
+import 'package:sociality/pages/friend/profile_screen.dart';
+import 'package:sociality/pages/profile/my_profile_screen.dart';
+import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
+import 'package:sociality/shared/Cubit/socialCubit/social_state.dart';
+import 'package:sociality/shared/components/components.dart';
+import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';

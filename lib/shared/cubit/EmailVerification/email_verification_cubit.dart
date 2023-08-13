@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sociality/model/user_model.dart';
 
 import 'email_verification_state.dart';
 
@@ -25,6 +26,7 @@ class EmailVerificationCubit extends Cubit<EmailVerificationStates>{
 
 // reload user
   bool isEmailVerified = false;
+  UserModel ?userModel;
   Future<void> reloadUser() async {
     emit(ReloadLoadingState());
     await FirebaseAuth.instance.currentUser!.reload()
@@ -32,9 +34,7 @@ class EmailVerificationCubit extends Cubit<EmailVerificationStates>{
       if (FirebaseAuth.instance.currentUser!.emailVerified)
       {
         isEmailVerified = true;
-
       }
-
       emit(ReloadSuccessState());
     })
         .catchError((error){

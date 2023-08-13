@@ -1,19 +1,19 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:f_app/Pages/addPost/add_post_screen.dart';
-import 'package:f_app/Pages/comment/comment_screen.dart';
-import 'package:f_app/Pages/friend/profile_screen.dart';
-import 'package:f_app/Pages/post/edit_post.dart';
-import 'package:f_app/Pages/profile/my_profile_screen.dart';
-import 'package:f_app/Pages/story/veiw_story.dart';
-import 'package:f_app/adaptive/indicator.dart';
-import 'package:f_app/model/post_model.dart';
-import 'package:f_app/model/story_model.dart';
-import 'package:f_app/pages/viewPhoto/post_view.dart';
-import 'package:f_app/shared/Cubit/socialCubit/social_cubit.dart';
-import 'package:f_app/shared/Cubit/socialCubit/social_state.dart';
-import 'package:f_app/shared/components/components.dart';
-import 'package:f_app/shared/components/constants.dart';
-import 'package:f_app/shared/styles/themes.dart';
+import 'package:sociality/Pages/addPost/add_post_screen.dart';
+import 'package:sociality/Pages/comment/comment_screen.dart';
+import 'package:sociality/Pages/friend/profile_screen.dart';
+import 'package:sociality/Pages/post/edit_post.dart';
+import 'package:sociality/Pages/profile/my_profile_screen.dart';
+import 'package:sociality/Pages/story/veiw_story.dart';
+import 'package:sociality/adaptive/indicator.dart';
+import 'package:sociality/model/post_model.dart';
+import 'package:sociality/model/story_model.dart';
+import 'package:sociality/pages/viewPhoto/post_view.dart';
+import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
+import 'package:sociality/shared/Cubit/socialCubit/social_state.dart';
+import 'package:sociality/shared/components/components.dart';
+import 'package:sociality/shared/components/constants.dart';
+import 'package:sociality/shared/styles/themes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,7 +42,6 @@ class FeedScreen extends StatelessWidget {
             fontSize: 18.sp,
           );
         }
-
         if (state is LikesSuccessState) {
           Fluttertoast.showToast(
             msg: "Likes Success!",
@@ -52,7 +51,6 @@ class FeedScreen extends StatelessWidget {
             fontSize: 18.sp,
           );
         }
-
         if (state is DisLikesSuccessState) {
           Fluttertoast.showToast(
             msg: "UnLikes Success!",
@@ -69,102 +67,105 @@ class FeedScreen extends StatelessWidget {
         return SocialCubit.get(context).posts.isEmpty
             ? Scaffold(
                 body: Column(
-                children: [
-                  Card(
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    elevation: 10,
-                    margin: const EdgeInsets.all(10),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0).r,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              width: 220.w,
-                              height: 50.h,
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              margin: const EdgeInsets.all(10).r,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.grey.shade400,
-                                ),
-                                borderRadius: BorderRadius.circular(25).r,
-                              ),
-                              child: TextButton(
+                  children: [
+                    Card(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      elevation: 10,
+                      margin: const EdgeInsets.all(10),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0).r,
+                        child: Row(
+                          children: [
+                            CircleAvatar(
+                              backgroundImage: NetworkImage(cubit.userModel!.image),
+                            ),
+                            Expanded(
+                              child: Container(
+                                width: 220.w,
+                                height: 50.h,
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
-                                style: ButtonStyle(
-                                  overlayColor: MaterialStateProperty.all(
-                                    Colors.grey[300],
+                                margin: const EdgeInsets.all(10).r,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.grey.shade400,
                                   ),
+                                  borderRadius: BorderRadius.circular(25).r,
                                 ),
-                                child: Text(
-                                  '\' What\'s on your mind ? \'',
-                                  style: GoogleFonts.roboto(
-                                    fontSize: 16.sp,
-                                    color: SocialCubit.get(context).isLight
-                                        ? Colors.black
-                                        : Colors.white,
+                                child: TextButton(
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  style: ButtonStyle(
+                                    overlayColor: MaterialStateProperty.all(
+                                      Colors.grey[300],
+                                    ),
                                   ),
+                                  child: Text(
+                                    '\' What\'s on your mind ? \'',
+                                    style: GoogleFonts.roboto(
+                                      fontSize: 16.sp,
+                                      color: SocialCubit.get(context).isLight
+                                          ? Colors.black
+                                          : Colors.white,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    navigateTo(
+                                      context,
+                                      AddPostScreen(),
+                                    );
+                                  },
                                 ),
-                                onPressed: () {
-                                  navigateTo(
-                                    context,
-                                    AddPostScreen(),
-                                  );
-                                },
                               ),
                             ),
-                          ),
-                          Container(
-                            width: 2.w,
-                            height: 50.h,
-                            color: Colors.grey,
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              cubit.getPostImage();
-                              navigateTo(context, AddPostScreen());
-                            },
-                            icon: Icon(
-                              Icons.photo_library_outlined,
-                              size: 30.sp,
-                              color: cubit.isLight
-                                  ? CupertinoColors.activeBlue
-                                  : Colors.white,
+                            Container(
+                              width: 2.w,
+                              height: 50.h,
+                              color: Colors.grey,
                             ),
-                            splashRadius: 20.r,
-                          ),
-                        ],
+                            IconButton(
+                              onPressed: () {
+                                cubit.getPostImage();
+                                navigateTo(context, AddPostScreen());
+                              },
+                              icon: Icon(
+                                Icons.photo_library_outlined,
+                                size: 30.sp,
+                                color: cubit.isLight
+                                    ? CupertinoColors.activeBlue
+                                    : Colors.white,
+                              ),
+                              splashRadius: 20.r,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  const Spacer(),
-                  Icon(
-                    IconlyLight.infoSquare,
-                    size: 100.sp,
-                    color: Colors.grey,
-                  ),
-                  Text(
-                    'No Posts yet',
-                    style: GoogleFonts.libreBaskerville(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 30.sp,
-                      color: Colors.grey,
+                    const Spacer(),
+                    Column(
+                      children: [
+                        Icon(
+                          IconlyLight.infoSquare,
+                          size: 100.sp,
+                          color: Colors.grey,
+                        ),
+                        Text(
+                          'No Posts yet',
+                          style: GoogleFonts.libreBaskerville(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 30.sp,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  Center(
-                    child: AdaptiveIndicator(
-                      os: getOs(),
-                    ),
-                  ),
-                  const Spacer(),
-                ],
-              ))
+                    const Spacer(flex: 2),
+                  ],
+                ),
+              )
             : ConditionalBuilder(
                 condition: cubit.posts.isNotEmpty,
                 builder: (BuildContext context) => RefreshIndicator(
                   onRefresh: () async {
-                    cubit.getUserData();
+                    cubit.getPosts();
                     return cubit.getUserData();
                   },
                   child: SingleChildScrollView(
@@ -775,8 +776,9 @@ class FeedScreen extends StatelessWidget {
                     size: 24.sp,
                   ),
                   label: Text(
-    SocialCubit.get(context).likes.isEmpty ? '' :
-                    '${SocialCubit.get(context).likes[index]}',
+                    SocialCubit.get(context).likes.isEmpty
+                        ? ''
+                        : '${SocialCubit.get(context).likes[index]}',
                     style: GoogleFonts.roboto(
                       color: Colors.red,
                     ),

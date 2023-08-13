@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:f_app/adaptive/indicator.dart';
-import 'package:f_app/model/comment_model.dart';
-import 'package:f_app/shared/Cubit/socialCubit/social_cubit.dart';
-import 'package:f_app/shared/components/components.dart';
-import 'package:f_app/shared/components/constants.dart';
+import 'package:sociality/adaptive/indicator.dart';
+import 'package:sociality/model/comment_model.dart';
+import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
+import 'package:sociality/shared/components/components.dart';
+import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

@@ -1,4 +1,4 @@
-import 'package:f_app/shared/Cubit/restPasswordCubit/rest_password_state.dart';
+import 'package:sociality/shared/Cubit/restPasswordCubit/rest_password_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

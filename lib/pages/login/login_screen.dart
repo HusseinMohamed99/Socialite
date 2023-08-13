@@ -1,10 +1,10 @@
-import 'package:f_app/Pages/Register/register_screen.dart';
-import 'package:f_app/Pages/password/forget_password.dart';
-import 'package:f_app/adaptive/indicator.dart';
-import 'package:f_app/shared/Cubit/loginCubit/cubit.dart';
-import 'package:f_app/shared/Cubit/loginCubit/state.dart';
-import 'package:f_app/shared/components/components.dart';
-import 'package:f_app/shared/network/cache_helper.dart';
+import 'package:sociality/Pages/Register/register_screen.dart';
+import 'package:sociality/Pages/password/forget_password.dart';
+import 'package:sociality/adaptive/indicator.dart';
+import 'package:sociality/shared/Cubit/loginCubit/cubit.dart';
+import 'package:sociality/shared/Cubit/loginCubit/state.dart';
+import 'package:sociality/shared/components/components.dart';
+import 'package:sociality/shared/network/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

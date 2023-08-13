@@ -47,31 +47,30 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCKJUmxgzryb0abFWxmwl18BpS-n9DbEnk',
-    appId: '1:1003923502268:web:73fb47a334b62c08f3ccb9',
-    messagingSenderId: '1003923502268',
-    projectId: 'f-app-e69d9',
-    authDomain: 'f-app-e69d9.firebaseapp.com',
-    storageBucket: 'f-app-e69d9.appspot.com',
-    measurementId: 'G-V1F8H90EVK',
+    apiKey: 'AIzaSyCJwl8lf0TXLvvtLKOsXAjQ7VSDdNURTSw',
+    appId: '1:732112393517:web:f718c6fbcd830adc336fa4',
+    messagingSenderId: '732112393517',
+    projectId: 'sociality-f3dd1',
+    authDomain: 'sociality-f3dd1.firebaseapp.com',
+    storageBucket: 'sociality-f3dd1.appspot.com',
+    measurementId: 'G-90JHC9FQ4V',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBmYE_FrcJjUO7SI4yqd79XhOUEKMusbFA',
-    appId: '1:1003923502268:android:7b746d42898e1bdaf3ccb9',
-    messagingSenderId: '1003923502268',
-    projectId: 'f-app-e69d9',
-    storageBucket: 'f-app-e69d9.appspot.com',
+    apiKey: 'AIzaSyC0VOtoxOpuIR-rWn5af-t8EJtPHJi6aAI',
+    appId: '1:732112393517:android:079c4affa81bf009336fa4',
+    messagingSenderId: '732112393517',
+    projectId: 'sociality-f3dd1',
+    storageBucket: 'sociality-f3dd1.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyA4CV0tIz4-NNfPwlvjRA0aOCt7V4KU5Ao',
-    appId: '1:1003923502268:ios:7ce43c916cdd6df0f3ccb9',
-    messagingSenderId: '1003923502268',
-    projectId: 'f-app-e69d9',
-    storageBucket: 'f-app-e69d9.appspot.com',
-    androidClientId: '1003923502268-368mhf8ou051ufhc570tqnpdi97vb0ti.apps.googleusercontent.com',
-    iosClientId: '1003923502268-d37p4n5t88879s3qsuivl060djje22e1.apps.googleusercontent.com',
+    apiKey: 'AIzaSyABmGj0LmpOq7jYpj7f8XA0Jiqu64QvboA',
+    appId: '1:732112393517:ios:55a8c6841a086dd5336fa4',
+    messagingSenderId: '732112393517',
+    projectId: 'sociality-f3dd1',
+    storageBucket: 'sociality-f3dd1.appspot.com',
+    iosClientId: '732112393517-cp94ra29icq80dkiealv29b38m6jcggl.apps.googleusercontent.com',
     iosBundleId: 'com.example.fApp',
   );
 }

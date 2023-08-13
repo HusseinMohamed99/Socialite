@@ -1,11 +1,12 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:f_app/model/user_model.dart';
-import 'package:f_app/pages/chat/private_chat.dart';
-import 'package:f_app/pages/friend/profile_screen.dart';
-import 'package:f_app/shared/Cubit/socialCubit/social_cubit.dart';
-import 'package:f_app/shared/Cubit/socialCubit/social_state.dart';
-import 'package:f_app/shared/components/components.dart';
-import 'package:f_app/shared/components/constants.dart';
+import 'package:flutter/foundation.dart';
+import 'package:sociality/model/user_model.dart';
+import 'package:sociality/pages/chat/private_chat.dart';
+import 'package:sociality/pages/friend/profile_screen.dart';
+import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
+import 'package:sociality/shared/Cubit/socialCubit/social_state.dart';
+import 'package:sociality/shared/components/components.dart';
+import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -110,7 +111,6 @@ class _UserScreenState extends State<UserScreen> {
                             const SizedBox(
                               height: 10,
                             ),
-
                             Text(
                               'peopleMayKnow',
                               style: GoogleFonts.lobster(
@@ -123,7 +123,6 @@ class _UserScreenState extends State<UserScreen> {
                             const SizedBox(
                               height: 10,
                             ),
-
                             Container(
                               height: 330,
                               padding: const EdgeInsets.symmetric(vertical: 10),
@@ -139,7 +138,6 @@ class _UserScreenState extends State<UserScreen> {
                                 itemCount: peopleYouMayKnow.length,
                               ),
                             ),
-
                             const SizedBox(
                               height: 10,
                             ),
@@ -285,14 +283,13 @@ class _UserScreenState extends State<UserScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           InkWell(
-              onTap: ()
-        {
+              onTap: () {
+                SocialCubit.get(context).getFriends(userModel.uId);
+              SocialCubit.get(context).checkFriends(userModel.uId);
+              SocialCubit.get(context).checkFriendRequest(userModel.uId);
+                navigateTo(context, FriendsProfileScreen(userModel.uId));
 
-        navigateTo(context, FriendsProfileScreen(userModel.uId));
-        SocialCubit.get(context).getFriends(userModel.uId);
-        SocialCubit.get(context).checkFriends(userModel.uId);
-        SocialCubit.get(context).checkFriendRequest(userModel.uId);
-        },
+              },
               child: Image(
                 image: NetworkImage(userModel.image),
                 height: 200,
@@ -351,7 +348,6 @@ class _UserScreenState extends State<UserScreen> {
                                   'sent you a friend request, check it out!',
                               receiverId: userModel.uId,
                               receiverName: userModel.name);
-
                         },
                         child: SocialCubit.get(context).isFriend == false
                             ? SocialCubit.get(context).request
@@ -417,11 +413,11 @@ class _UserScreenState extends State<UserScreen> {
       child: Row(
         children: [
           InkWell(
-            onTap: ()
-            {
-
+            onTap: () {
               navigateTo(context, FriendsProfileScreen(userModel.uId));
-              print(userModel.uId);
+              if (kDebugMode) {
+                print(userModel.uId);
+              }
             },
             child: CircleAvatar(
               backgroundImage: NetworkImage(userModel.image),
@@ -457,14 +453,13 @@ class _UserScreenState extends State<UserScreen> {
                                 const Size.fromWidth(120))),
                         onPressed: () {
                           SocialCubit.get(context).addFriend(
-                              friendsUID: userModel.uId,
-                              friendName: userModel.name,
-                              friendImage: userModel.image,
-                              friendCover: userModel.cover,
-                              friendBio: userModel.bio,
-                              friendEmail: userModel.email,
-                              friendPhone: userModel.phone,
-
+                            friendsUID: userModel.uId,
+                            friendName: userModel.name,
+                            friendImage: userModel.image,
+                            friendCover: userModel.cover,
+                            friendBio: userModel.bio,
+                            friendEmail: userModel.email,
+                            friendPhone: userModel.phone,
                           );
                           SocialCubit.get(context)
                               .deleteFriendRequest(userModel.uId);

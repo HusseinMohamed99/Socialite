@@ -1,14 +1,14 @@
-import 'package:f_app/layout/Home/home_layout.dart';
-import 'package:f_app/shared/Cubit/socialCubit/social_cubit.dart';
-import 'package:f_app/shared/components/components.dart';
-import 'package:f_app/shared/components/constants.dart';
+import 'package:sociality/layout/Home/home_layout.dart';
+import 'package:sociality/shared/Cubit/EmailVerification/email_verification_cubit.dart';
+import 'package:sociality/shared/Cubit/EmailVerification/email_verification_state.dart';
+import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
+import 'package:sociality/shared/components/components.dart';
+import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../shared/Cubit/EmailVerification/email_verification_cubit.dart';
-import '../../shared/Cubit/EmailVerification/email_verification_state.dart';
 
 class EmailVerificationScreen extends StatelessWidget {
   const EmailVerificationScreen({Key? key}) : super(key: key);

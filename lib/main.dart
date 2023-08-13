@@ -1,26 +1,26 @@
-import 'package:f_app/firebase_options.dart';
-import 'package:f_app/pages/splash/splash_screen.dart';
-import 'package:f_app/shared/Cubit/socialCubit/social_cubit.dart';
-import 'package:f_app/shared/Cubit/socialCubit/social_state.dart';
-import 'package:f_app/shared/bloc_observer.dart';
-import 'package:f_app/shared/components/components.dart';
-import 'package:f_app/shared/styles/themes.dart';
+import 'package:sociality/firebase_options.dart';
+import 'package:sociality/pages/splash/splash_screen.dart';
+import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
+import 'package:sociality/shared/Cubit/socialCubit/social_state.dart';
+import 'package:sociality/shared/bloc_observer.dart';
+import 'package:sociality/shared/components/components.dart';
+import 'package:sociality/shared/styles/themes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wakelock/wakelock.dart';
 import 'shared/components/constants.dart';
 import 'shared/network/cache_helper.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   ScreenUtil.ensureScreenSize();
+  Wakelock.enable();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -89,13 +89,6 @@ class MyApp extends StatelessWidget {
             splitScreenMode: true,
             builder: (context, child) {
               return MaterialApp(
-                localizationsDelegates: const [
-                  AppLocalizations.delegate, // Add this line
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
-                supportedLocales: AppLocalizations.supportedLocales,
                 debugShowCheckedModeBanner: false,
                 theme: ThemeApp.lightTheme,
                 darkTheme: ThemeApp.darkTheme,
