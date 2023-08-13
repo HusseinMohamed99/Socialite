@@ -1,12 +1,12 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:sociality/adaptive/indicator.dart';
-import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sociality/shared/components/navigator.dart';
+import 'package:sociality/shared/components/text_form_field.dart';
 import '../../shared/cubit/socialCubit/social_cubit.dart';
 import '../../shared/cubit/socialCubit/social_state.dart';
 
@@ -65,12 +65,11 @@ class EditPasswordScreen extends StatelessWidget {
                         const SizedBox(
                           height: 20,
                         ),
-                        defaultTextFormField(
-                          context: context,
+                        DefaultTextFormField(
                           isPassword: cubit.isPassword,
                           controller: newPasswordController,
                           keyboardType: TextInputType.visiblePassword,
-                          hint: 'New Password',
+                          label: 'New Password',
                           validate: (String? value) {
                             if (value!.isEmpty) {
                               return 'password must be not empty';
@@ -87,12 +86,11 @@ class EditPasswordScreen extends StatelessWidget {
                           },
                         ),
                         space(0, 20),
-                        defaultTextFormField(
-                          context: context,
+                        DefaultTextFormField(
                           isPassword: cubit.isPassword,
                           controller: newPasswordController2,
                           keyboardType: TextInputType.visiblePassword,
-                          hint: 'Confirm New Password',
+                          label: 'Confirm New Password',
                           validate: (String? value) {
                             if (value!.isEmpty) {
                               return 'password must be not empty';
