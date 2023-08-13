@@ -53,7 +53,10 @@ class DefaultTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       onEditingComplete: onEditingComplete,
-      style: Theme.of(context).textTheme.titleLarge,
+      style: Theme.of(context)
+          .textTheme
+          .titleLarge!
+          .copyWith(color: AppMainColors.blackColor),
       focusNode: FocusNode(),
       maxLines: maxLines ?? 1,
       minLines: minLines ?? 1,
@@ -68,53 +71,54 @@ class DefaultTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         prefixIcon: Icon(
           prefix,
-
+          size: 24.sp,
+          color: Colors.grey,
         ),
-          suffixIcon: suffix != null
-              ? IconButton(
-                  onPressed: () {
-                    suffixPressed!();
-                  },
-                  icon: Icon(
-                    suffix,
-                    color: Colors.grey,
-                    size: 24.sp,
-                  ),
-                )
-              : null,
-      focusedBorder: const OutlineInputBorder(
-        borderSide: BorderSide(
-          color: AppMainColors.blueColor,
+        suffixIcon: suffix != null
+            ? IconButton(
+                onPressed: () {
+                  suffixPressed!();
+                },
+                icon: Icon(
+                  suffix,
+                  color: Colors.grey,
+                  size: 24.sp,
+                ),
+              )
+            : null,
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: AppMainColors.blueColor,
+          ),
+        ),
+        labelText: label,
+        labelStyle: GoogleFonts.roboto(
+          color: color ?? AppMainColors.greyColor,
+          fontSize: 18.sp,
+          fontWeight: FontWeight.w400,
+        ),
+        hintText: hint,
+        disabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: AppMainColors.greyColor,
+          ),
+        ),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: AppMainColors.greyColor,
+          ),
+        ),
+        errorBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.red,
+          ),
+        ),
+        focusedErrorBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.red,
+          ),
         ),
       ),
-      labelText: label,
-      labelStyle: GoogleFonts.roboto(
-        color: color ?? AppMainColors.greyColor,
-        fontSize: 18.sp,
-        fontWeight: FontWeight.w400,
-      ),
-      hintText: hint,
-      disabledBorder: const OutlineInputBorder(
-        borderSide: BorderSide(
-          color: AppMainColors.greyColor,
-        ),
-      ),
-      enabledBorder: const OutlineInputBorder(
-        borderSide: BorderSide(
-          color: AppMainColors.greyColor,
-        ),
-      ),
-      errorBorder: const OutlineInputBorder(
-        borderSide: BorderSide(
-          color: Colors.red,
-        ),
-      ),
-      focusedErrorBorder: const OutlineInputBorder(
-        borderSide: BorderSide(
-          color: Colors.red,
-        ),
-      ),
-    ),
     );
   }
 }
