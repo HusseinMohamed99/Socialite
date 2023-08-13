@@ -1,4 +1,5 @@
 import 'package:sociality/model/post_model.dart';
+import 'package:sociality/shared/components/navigator.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
 import 'package:sociality/shared/components/components.dart';
