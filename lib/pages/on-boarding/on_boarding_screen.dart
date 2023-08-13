@@ -5,6 +5,7 @@ import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sociality/shared/styles/color.dart';
 
 class OnBoard extends StatelessWidget {
   const OnBoard({Key? key}) : super(key: key);
@@ -50,17 +51,15 @@ class OnBoard extends StatelessWidget {
                         width: 270.w,
                         height: 40.h,
                         decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(
-                            10.0,
-                          ).r,
+                          color: AppMainColors.whiteColor,
+                          borderRadius: BorderRadius.circular(10.0).r,
                         ),
                         child: MaterialButton(
                           onPressed: () {
                             navigateAndFinish(context, const LoginScreen());
                           },
                           child: Text(
-                            'Sign in',
+                            'Sign in'.toUpperCase(),
                             style: GoogleFonts.robotoCondensed(
                               textStyle: TextStyle(
                                 color: Colors.black,
@@ -76,17 +75,15 @@ class OnBoard extends StatelessWidget {
                         width: 270.w,
                         height: 40.h,
                         decoration: BoxDecoration(
-                          color: Colors.yellow.shade700,
-                          borderRadius: BorderRadius.circular(
-                            10.0,
-                          ).r,
+                          color: AppMainColors.yellowColor,
+                          borderRadius: BorderRadius.circular(10.0).r,
                         ),
                         child: MaterialButton(
                           onPressed: () {
                             navigateTo(context, const RegisterScreen());
                           },
                           child: Text(
-                            'Sign up',
+                            'Sign up'.toUpperCase(),
                             style: GoogleFonts.robotoCondensed(
                               textStyle: TextStyle(
                                 color: Colors.black,
