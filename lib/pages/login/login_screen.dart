@@ -79,7 +79,9 @@ class LoginScreen extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
-                          color: AppMainColors.whiteColor,
+                          color: SocialCubit.get(context).isDark
+                              ? AppMainColors.whiteColor
+                              : AppMainColors.titanWithColor,
                           borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(25),
                             topRight: Radius.circular(25),
