@@ -47,6 +47,9 @@ class RegisterScreen extends StatelessWidget {
         },
         builder: (context, state) {
           return Scaffold(
+            backgroundColor: SocialCubit.get(context).isDark
+                ? AppColorsLight.primaryColor
+                : AppColorsDark.primaryDarkColor,
             appBar: AppBar(
               backgroundColor: Colors.transparent,
               elevation: 0,
