@@ -186,9 +186,6 @@ class LoginScreen extends StatelessWidget {
                                                             context,
                                                             const HomeLayout(),
                                                           );
-                                                          cubit.getUserData();
-                                                          cubit.getPosts();
-                                                          cubit.getAllUsers();
                                                         } else {
                                                           navigateTo(
                                                             context,
