@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:sociality/Pages/Login/login_screen.dart';
 import 'package:sociality/Pages/Register/register_screen.dart';
 import 'package:sociality/shared/components/constants.dart';
@@ -20,6 +21,15 @@ class OnBoard extends StatelessWidget {
         ),
       ),
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          systemOverlayStyle: const SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            statusBarIconBrightness: Brightness.light,
+            statusBarBrightness: Brightness.dark,
+          ),
+          elevation: 0,
+        ),
         backgroundColor: Colors.transparent,
         body: Padding(
           padding: const EdgeInsets.all(8.0).r,
