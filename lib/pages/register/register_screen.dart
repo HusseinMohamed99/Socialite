@@ -1,9 +1,11 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sociality/image_assets.dart';
 import 'package:sociality/pages/Login/login_screen.dart';
 import 'package:sociality/pages/email_verification/email_verification_screen.dart';
 import 'package:sociality/shared/components/buttons.dart';
 import 'package:sociality/shared/components/constants.dart';
+import 'package:sociality/shared/components/indicator.dart';
 import 'package:sociality/shared/components/navigator.dart';
 import 'package:sociality/shared/components/text_form_field.dart';
 import 'package:sociality/shared/cubit/registerCubit/cubit.dart';
@@ -172,12 +174,36 @@ class RegisterScreen extends StatelessWidget {
                                 height: 15.h,
                               ),
                               RegisterCubit.get(context).isCheck
-                                  ? defaultMaterialButton(
-                                      function: () {},
-                                      text: 'Sign In',
-                                      textColor: AppMainColors.whiteColor,
-                                      radius: 15,
-                                      context: context,
+                                  ? ConditionalBuilder(
+                                      condition: state is! RegisterLoadingState,
+                                      builder: (context) {
+                                        return defaultMaterialButton(
+                                          function: () {
+                                            if (formKey.currentState!
+                                                .validate()) {
+                                              RegisterCubit.get(context)
+                                                  .userRegister(
+                                                email: emailController.text,
+                                                password:
+                                                    passwordController.text,
+                                                phone: phoneController.text,
+                                                name: nameController.text,
+                                              );
+                                            }
+                                          },
+                                          text: 'Sign Up',
+                                          textColor: AppMainColors.whiteColor,
+                                          radius: 15,
+                                          context: context,
+                                        );
+                                      },
+                                      fallback: (context) {
+                                        return Center(
+                                          child: AdaptiveIndicator(
+                                            os: getOs(),
+                                          ),
+                                        );
+                                      },
                                     )
                                   : Container(
                                       alignment: Alignment.center,
@@ -190,7 +216,7 @@ class RegisterScreen extends StatelessWidget {
                                             .withOpacity(0.4),
                                       ),
                                       child: Text(
-                                        'Sign In'.toUpperCase(),
+                                        'Sign Up'.toUpperCase(),
                                         style: Theme.of(context)
                                             .textTheme
                                             .headlineSmall!
