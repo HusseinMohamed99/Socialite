@@ -1,5 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:sociality/adaptive/indicator.dart';
+import 'package:sociality/shared/components/indicator.dart';
 import 'package:sociality/shared/components/navigator.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/components/constants.dart';
@@ -7,8 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-import '../../shared/cubit/socialCubit/social_state.dart';
+import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
 
 class CreateStory extends StatelessWidget {
   CreateStory({

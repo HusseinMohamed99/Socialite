@@ -1,6 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:sociality/Pages/chat/private_chat.dart';
-import 'package:sociality/adaptive/indicator.dart';
+import 'package:sociality/shared/components/indicator.dart';
 import 'package:sociality/model/user_model.dart';
 import 'package:sociality/shared/components/my_divider.dart';
 import 'package:sociality/shared/components/navigator.dart';

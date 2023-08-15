@@ -4,7 +4,7 @@ import 'package:sociality/Pages/notifications/notifications_screen.dart';
 import 'package:sociality/Pages/password/change_password.dart';
 import 'package:sociality/Pages/profile/my_profile_screen.dart';
 import 'package:sociality/Pages/search/search_screen.dart';
-import 'package:sociality/adaptive/indicator.dart';
+import 'package:sociality/shared/components/indicator.dart';
 import 'package:sociality/pages/post/save_post_screen.dart';
 import 'package:sociality/shared/components/logout.dart';
 import 'package:sociality/shared/components/my_divider.dart';

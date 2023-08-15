@@ -1,5 +1,5 @@
 import 'package:sociality/Pages/Login/login_screen.dart';
-import 'package:sociality/adaptive/indicator.dart';
+import 'package:sociality/shared/components/indicator.dart';
 import 'package:sociality/shared/Cubit/restPasswordCubit/rest_password_cubit.dart';
 import 'package:sociality/shared/Cubit/restPasswordCubit/rest_password_state.dart';
 import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';

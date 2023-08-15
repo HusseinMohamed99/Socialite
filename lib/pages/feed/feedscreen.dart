@@ -5,7 +5,7 @@ import 'package:sociality/Pages/friend/profile_screen.dart';
 import 'package:sociality/Pages/post/edit_post.dart';
 import 'package:sociality/Pages/profile/my_profile_screen.dart';
 import 'package:sociality/Pages/story/veiw_story.dart';
-import 'package:sociality/adaptive/indicator.dart';
+import 'package:sociality/shared/components/indicator.dart';
 import 'package:sociality/model/post_model.dart';
 import 'package:sociality/model/story_model.dart';
 import 'package:sociality/pages/viewPhoto/post_view.dart';
