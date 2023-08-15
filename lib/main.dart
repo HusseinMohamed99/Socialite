@@ -46,8 +46,9 @@ void main() async {
   uId = CacheHelper.getData(key: 'uId');
   debugPrint('*** User ID == $uId ***');
   Widget widget;
+  bool? onBoarding = CacheHelper.getData(key: 'OnBoarding');
 
-  if (OnBoard != null) {
+  if (onBoarding != null) {
     if (uId != null) {
       widget = const HomeLayout();
     } else {

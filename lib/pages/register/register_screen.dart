@@ -48,6 +48,8 @@ class RegisterScreen extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
               leading: IconButton(
                 onPressed: () {
                   pop(context);
@@ -55,6 +57,7 @@ class RegisterScreen extends StatelessWidget {
                 icon: Icon(
                   IconlyLight.arrowLeft2,
                   size: 30.sp,
+                  color: AppMainColors.whiteColor,
                 ),
               ),
             ),
