@@ -1,4 +1,6 @@
 import 'package:sociality/firebase_options.dart';
+import 'package:sociality/layout/Home/home_layout.dart';
+import 'package:sociality/pages/Login/login_screen.dart';
 import 'package:sociality/pages/on-boarding/on_boarding_screen.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
@@ -43,9 +45,20 @@ void main() async {
   bool? isDark = CacheHelper.getBoolean(key: 'isDark');
   uId = CacheHelper.getData(key: 'uId');
   debugPrint('*** User ID == $uId ***');
+  Widget widget;
 
+  if (OnBoard != null) {
+    if (uId != null) {
+      widget = const HomeLayout();
+    } else {
+      widget = const LoginScreen();
+    }
+  } else {
+    widget = const OnBoard();
+  }
   runApp(
     MyApp(
+      startWidget: widget,
       isDark: isDark,
     ),
   );
@@ -53,12 +66,10 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final bool? isDark;
+  final Widget startWidget;
 
-  const MyApp({
-    Key? key,
-    this.isDark,
-  }) : super(key: key);
-
+  const MyApp({Key? key, required this.startWidget, this.isDark})
+      : super(key: key);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -97,7 +108,7 @@ class MyApp extends StatelessWidget {
                         ? ThemeMode.light
                         : ThemeMode.dark,
                 debugShowCheckedModeBanner: false,
-                home: const OnBoard(),
+                home: startWidget,
               );
             },
           );

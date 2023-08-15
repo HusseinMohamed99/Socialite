@@ -34,11 +34,7 @@ class HomeLayout extends StatelessWidget {
               titleSpacing: 0.0,
               title: Text(
                 cubit.titles[cubit.currentIndex],
-                style: GoogleFonts.roboto(
-                  color: cubit.isDark ? Colors.blue : Colors.white,
-                  fontSize: 24.sp,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
               actions: [
                 IconButton(
