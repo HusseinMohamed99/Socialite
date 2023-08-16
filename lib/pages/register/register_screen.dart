@@ -1,4 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sociality/image_assets.dart';
 import 'package:sociality/pages/Login/login_screen.dart';
@@ -52,6 +53,11 @@ class RegisterScreen extends StatelessWidget {
                 : AppColorsDark.primaryDarkColor,
             appBar: AppBar(
               backgroundColor: Colors.transparent,
+              systemOverlayStyle: const SystemUiOverlayStyle(
+                statusBarColor: Colors.transparent,
+                statusBarIconBrightness: Brightness.light,
+                statusBarBrightness: Brightness.dark,
+              ),
               elevation: 0,
               leading: IconButton(
                 onPressed: () {

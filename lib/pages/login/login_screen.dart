@@ -1,4 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sociality/image_assets.dart';
@@ -58,6 +59,15 @@ class LoginScreen extends StatelessWidget {
             backgroundColor: SocialCubit.get(context).isDark
                 ? AppColorsLight.primaryColor
                 : AppColorsDark.primaryDarkColor,
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              systemOverlayStyle: const SystemUiOverlayStyle(
+                statusBarColor: Colors.transparent,
+                statusBarIconBrightness: Brightness.light,
+                statusBarBrightness: Brightness.dark,
+              ),
+              elevation: 0,
+            ),
             body: Form(
               key: formKey,
               child: Column(
@@ -75,7 +85,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    flex: 2,
+                    flex: 3,
                     child: Container(
                       padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
