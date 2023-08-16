@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sociality/shared/components/navigator.dart';
+import 'package:sociality/shared/network/cache_helper.dart';
 import 'package:sociality/shared/styles/color.dart';
 
 class OnBoard extends StatelessWidget {
@@ -66,7 +67,7 @@ class OnBoard extends StatelessWidget {
                         ),
                         child: MaterialButton(
                           onPressed: () {
-                            navigateAndFinish(context, const LoginScreen());
+                            submit(context, const LoginScreen());
                           },
                           child: Text(
                             'Sign in'.toUpperCase(),
@@ -90,7 +91,7 @@ class OnBoard extends StatelessWidget {
                         ),
                         child: MaterialButton(
                           onPressed: () {
-                            navigateTo(context, const RegisterScreen());
+                            submit(context, const RegisterScreen());
                           },
                           child: Text(
                             'Sign up'.toUpperCase(),
@@ -115,4 +116,18 @@ class OnBoard extends StatelessWidget {
       ),
     );
   }
+}
+
+void submit(context, Widget widget) {
+  CacheHelper.saveData(
+    key: 'onBoarding',
+    value: true,
+  ).then((value) {
+    if (value) {
+      navigateTo(
+        context,
+        widget,
+      );
+    }
+  });
 }

@@ -1,5 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sociality/image_assets.dart';
@@ -67,6 +68,16 @@ class LoginScreen extends StatelessWidget {
                 statusBarBrightness: Brightness.dark,
               ),
               elevation: 0,
+              leading: IconButton(
+                onPressed: () {
+                  pop(context);
+                },
+                icon: Icon(
+                  IconlyLight.arrowLeft2,
+                  size: 30.sp,
+                  color: AppMainColors.whiteColor,
+                ),
+              ),
             ),
             body: Form(
               key: formKey,
