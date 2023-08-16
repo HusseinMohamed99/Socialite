@@ -206,29 +206,23 @@ class FeedScreen extends StatelessWidget {
                                                 .bottomCenter,
                                             children: [
                                               Align(
-                                                alignment: AlignmentDirectional
-                                                    .topCenter,
+                                                alignment:
+                                                    AlignmentDirectional.center,
                                                 child: Container(
-                                                  width: 110.w,
-                                                  height: 100.h,
+                                                  width: 95.w,
+                                                  height: 95.h,
                                                   decoration: BoxDecoration(
                                                     borderRadius:
-                                                        const BorderRadius.only(
-                                                      topRight:
-                                                          Radius.circular(17),
-                                                      topLeft:
-                                                          Radius.circular(17),
-                                                      bottomLeft:
-                                                          Radius.circular(10),
-                                                      bottomRight:
-                                                          Radius.circular(10),
+                                                        const BorderRadius.all(
+                                                      Radius.circular(10),
                                                     ).r,
-                                                    image: DecorationImage(
-                                                      image: NetworkImage(
+                                                  ),
+                                                  child: ImageWithShimmer(
+                                                    imageUrl:
                                                         cubit.userModel!.image,
-                                                      ),
-                                                      fit: BoxFit.cover,
-                                                    ),
+                                                    width: 10.w,
+                                                    height: 10.h,
+                                                    boxFit: BoxFit.fill,
                                                   ),
                                                 ),
                                               ),
