@@ -100,6 +100,13 @@ class SocialCubit extends Cubit<SocialStates> {
     StoryScreen(),
     SettingScreen(),
   ];
+  List<BottomNavigationBarItem> bottomNavigationBarItem = const [
+    BottomNavigationBarItem(icon: Icon(IconlyBroken.home), label: ''),
+    BottomNavigationBarItem(icon: Icon(IconlyBroken.message), label: ''),
+    BottomNavigationBarItem(icon: Icon(IconlyBroken.user3), label: ''),
+    BottomNavigationBarItem(icon: Icon(IconlyBroken.upload), label: ''),
+    BottomNavigationBarItem(icon: Icon(IconlyBroken.setting), label: ''),
+  ];
 
   ///END : Screens
 

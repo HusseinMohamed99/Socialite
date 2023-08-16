@@ -73,44 +73,10 @@ class HomeLayout extends StatelessWidget {
             ),
             drawer: DrawerWidget(cubit: cubit),
             bottomNavigationBar: BottomNavigationBar(
-              backgroundColor: cubit.isDark ? Colors.white : Colors.deepOrange,
-              items: [
-                BottomNavigationBarItem(
-                    backgroundColor:
-                        cubit.isDark ? Colors.white : Colors.deepOrange,
-                    icon: const Icon(
-                      Icons.home_outlined,
-                    ),
-                    label: 'Home'),
-                BottomNavigationBarItem(
-                    backgroundColor:
-                        cubit.isDark ? Colors.white : Colors.deepOrange,
-                    icon: const Icon(
-                      Icons.message,
-                    ),
-                    label: 'Chat'),
-                BottomNavigationBarItem(
-                    backgroundColor:
-                        cubit.isDark ? Colors.white : Colors.deepOrange,
-                    icon: const Icon(
-                      Icons.supervised_user_circle_sharp,
-                    ),
-                    label: 'Friend'),
-                BottomNavigationBarItem(
-                    backgroundColor:
-                        cubit.isDark ? Colors.white : Colors.deepOrange,
-                    icon: const Icon(
-                      Icons.location_history_outlined,
-                    ),
-                    label: 'Story'),
-                BottomNavigationBarItem(
-                    backgroundColor:
-                        cubit.isDark ? Colors.white : Colors.deepOrange,
-                    icon: const Icon(
-                      Icons.settings,
-                    ),
-                    label: 'Settings'),
-              ],
+              elevation: 0,
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              items: cubit.bottomNavigationBarItem,
               currentIndex: cubit.currentIndex,
               onTap: (index) {
                 cubit.changeNavBar(index);
