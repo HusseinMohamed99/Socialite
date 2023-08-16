@@ -3,11 +3,9 @@ import 'package:sociality/Pages/comment/comment_screen.dart';
 import 'package:sociality/Pages/friend/profile_screen.dart';
 import 'package:sociality/Pages/post/edit_post.dart';
 import 'package:sociality/Pages/profile/my_profile_screen.dart';
-import 'package:sociality/Pages/story/veiw_story.dart';
 import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/indicator.dart';
 import 'package:sociality/model/post_model.dart';
-import 'package:sociality/model/story_model.dart';
 import 'package:sociality/pages/viewPhoto/post_view.dart';
 import 'package:sociality/shared/components/navigator.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
@@ -616,72 +614,6 @@ class FeedScreen extends StatelessWidget {
                 ),
               ],
             ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget storyItem(context, StoryModel model) {
-    var bloc = SocialCubit.get(context).userModel;
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ViewStory(model),
-          ),
-        );
-      },
-      child: Container(
-        width: 110.w,
-        height: 180.h,
-        decoration: BoxDecoration(
-          color: Colors.grey[200],
-          borderRadius: BorderRadius.circular(17).r,
-        ),
-        child: Stack(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(14).r,
-                  image: DecorationImage(
-                    image: NetworkImage(model.storyImage!),
-                    fit: BoxFit.cover,
-                  )),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0).r,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CircleAvatar(
-                    radius: 23.r,
-                    child: CircleAvatar(
-                      radius: 20.r,
-                      backgroundImage: model.uId == bloc!.uId
-                          ? NetworkImage(bloc.image)
-                          : NetworkImage(model.image!),
-                    ),
-                  ),
-                  const Spacer(),
-                  SizedBox(
-                    width: 110.w,
-                    height: 25.h,
-                    child: Text(
-                      model.uId == bloc.uId ? bloc.name : model.name!,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  )
-                ],
-              ),
-            )
           ],
         ),
       ),
