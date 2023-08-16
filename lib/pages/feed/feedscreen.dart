@@ -1,11 +1,10 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:sociality/Pages/addPost/add_post_screen.dart';
 import 'package:sociality/Pages/comment/comment_screen.dart';
 import 'package:sociality/Pages/friend/profile_screen.dart';
 import 'package:sociality/Pages/post/edit_post.dart';
 import 'package:sociality/Pages/profile/my_profile_screen.dart';
 import 'package:sociality/Pages/story/veiw_story.dart';
-import 'package:sociality/shared/components/image_with_shimmer.dart';
+import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/indicator.dart';
 import 'package:sociality/model/post_model.dart';
 import 'package:sociality/model/story_model.dart';
@@ -20,8 +19,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttericon/linearicons_free_icons.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sociality/shared/widget/create_post.dart';
+import 'package:sociality/shared/widget/sotry_widget.dart';
 
 class FeedScreen extends StatelessWidget {
   const FeedScreen({Key? key}) : super(key: key);
@@ -34,31 +34,13 @@ class FeedScreen extends StatelessWidget {
           Navigator.pop(context);
         }
         if (state is SavedToGallerySuccessState) {
-          Fluttertoast.showToast(
-            msg: "Downloaded to Gallery!",
-            gravity: ToastGravity.BOTTOM,
-            backgroundColor: Colors.green,
-            timeInSecForIosWeb: 5,
-            fontSize: 18.sp,
-          );
+          showToast(text: "Downloaded to Gallery!", state: ToastStates.success);
         }
         if (state is LikesSuccessState) {
-          Fluttertoast.showToast(
-            msg: "Likes Success!",
-            gravity: ToastGravity.BOTTOM,
-            backgroundColor: Colors.green,
-            timeInSecForIosWeb: 5,
-            fontSize: 18.sp,
-          );
+          showToast(text: "Likes Successfully!", state: ToastStates.success);
         }
         if (state is DisLikesSuccessState) {
-          Fluttertoast.showToast(
-            msg: "UnLikes Success!",
-            gravity: ToastGravity.BOTTOM,
-            backgroundColor: Colors.red,
-            timeInSecForIosWeb: 5,
-            fontSize: 18.sp,
-          );
+          showToast(text: "UnLikes Successfully!", state: ToastStates.success);
         }
       },
       builder: (context, state) {
@@ -68,81 +50,8 @@ class FeedScreen extends StatelessWidget {
             ? Scaffold(
                 body: Column(
                   children: [
-                    Card(
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      elevation: 10,
-                      margin: const EdgeInsets.all(10),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0).r,
-                        child: Row(
-                          children: [
-                            CircleAvatar(
-                              child: ImageWithShimmer(
-                                imageUrl: cubit.userModel!.image,
-                                width: 50.w,
-                                height: 50.h,
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                width: 220.w,
-                                height: 50.h,
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                margin: const EdgeInsets.all(10).r,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.grey.shade400,
-                                  ),
-                                  borderRadius: BorderRadius.circular(25).r,
-                                ),
-                                child: TextButton(
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  style: ButtonStyle(
-                                    overlayColor: MaterialStateProperty.all(
-                                      Colors.grey[300],
-                                    ),
-                                  ),
-                                  child: Text(
-                                    '\' What\'s on your mind ? \'',
-                                    style: GoogleFonts.roboto(
-                                      fontSize: 16.sp,
-                                      color: SocialCubit.get(context).isDark
-                                          ? Colors.black
-                                          : Colors.white,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    navigateTo(
-                                      context,
-                                      AddPostScreen(),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: 2.w,
-                              height: 50.h,
-                              color: Colors.grey,
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                cubit.getPostImage();
-                                navigateTo(context, AddPostScreen());
-                              },
-                              icon: Icon(
-                                Icons.photo_library_outlined,
-                                size: 30.sp,
-                                color: cubit.isDark
-                                    ? CupertinoColors.activeBlue
-                                    : Colors.white,
-                              ),
-                              splashRadius: 20.r,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    ListOfStoryItem(cubit: cubit),
+                    CreatePost(cubit: cubit),
                     const Spacer(),
                     Column(
                       children: [
@@ -153,11 +62,7 @@ class FeedScreen extends StatelessWidget {
                         ),
                         Text(
                           'No Posts yet',
-                          style: GoogleFonts.libreBaskerville(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 30.sp,
-                            color: Colors.grey,
-                          ),
+                          style: Theme.of(context).textTheme.headlineLarge,
                         ),
                       ],
                     ),
@@ -177,189 +82,8 @@ class FeedScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          physics: const BouncingScrollPhysics(),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0).r,
-                            child: Row(
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    cubit.getStoryImage(context);
-                                  },
-                                  child: Container(
-                                    width: 110.w,
-                                    height: 140.h,
-                                    margin:
-                                        EdgeInsetsDirectional.only(start: 8.r),
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey.withOpacity(0.3),
-                                        borderRadius:
-                                            BorderRadius.circular(17).r),
-                                    child: Column(
-                                      children: [
-                                        SizedBox(
-                                          height: 125.h,
-                                          child: Stack(
-                                            alignment: AlignmentDirectional
-                                                .bottomCenter,
-                                            children: [
-                                              Align(
-                                                alignment:
-                                                    AlignmentDirectional.center,
-                                                child: Container(
-                                                  width: 95.w,
-                                                  height: 95.h,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        const BorderRadius.all(
-                                                      Radius.circular(10),
-                                                    ).r,
-                                                  ),
-                                                  child: ImageWithShimmer(
-                                                    imageUrl:
-                                                        cubit.userModel!.image,
-                                                    width: 10.w,
-                                                    height: 10.h,
-                                                    boxFit: BoxFit.fill,
-                                                  ),
-                                                ),
-                                              ),
-                                              CircleAvatar(
-                                                radius: 20.r,
-                                                backgroundColor: Colors.grey
-                                                    .withOpacity(0.3),
-                                                child: CircleAvatar(
-                                                  radius: 18.r,
-                                                  backgroundColor: Colors.blue,
-                                                  child: Icon(
-                                                    Icons.add,
-                                                    color: Colors.white,
-                                                    size: 24.sp,
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        const Spacer(),
-                                        Text(
-                                          "Create Story",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleSmall,
-                                        ),
-                                        const Spacer(),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                space(10.w, 0),
-                                SizedBox(
-                                  height: 140.h,
-                                  child: ListView.separated(
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      reverse: true,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.horizontal,
-                                      itemBuilder: (context, index) =>
-                                          storyItem(
-                                              context, cubit.stories[index]),
-                                      separatorBuilder: (context, index) =>
-                                          space(10.w, 0),
-                                      itemCount: cubit.stories.length),
-                                ),
-                                space(10.w, 0),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Card(
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          elevation: 10,
-                          margin: const EdgeInsets.all(10).r,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20.0.r),
-                            child: Row(
-                              children: [
-                                InkWell(
-                                  borderRadius: BorderRadius.circular(20).r,
-                                  onTap: () {
-                                    navigateTo(
-                                      context,
-                                      const MyProfileScreen(),
-                                    );
-                                  },
-                                  child: CircleAvatar(
-                                    radius: 20.r,
-                                    backgroundImage:
-                                        NetworkImage(userModel!.image),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    width: 220.w,
-                                    height: 35.h,
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    margin: const EdgeInsets.all(10).r,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: Colors.grey.shade400),
-                                      borderRadius: BorderRadius.circular(25).r,
-                                    ),
-                                    child: TextButton(
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      style: ButtonStyle(
-                                        overlayColor: MaterialStateProperty.all(
-                                          Colors.grey[300],
-                                        ),
-                                      ),
-                                      child: Text(
-                                        '\' What\'s on your mind ? \'',
-                                        style: GoogleFonts.roboto(
-                                          fontSize: 16.sp,
-                                          color: SocialCubit.get(context).isDark
-                                              ? Colors.black
-                                              : Colors.white,
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        navigateTo(
-                                          context,
-                                          AddPostScreen(),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  width: 2.w,
-                                  height: 50.h,
-                                  color: Colors.grey,
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    cubit.getPostImage();
-                                    navigateTo(
-                                      context,
-                                      AddPostScreen(),
-                                    );
-                                  },
-                                  icon: Icon(
-                                    Icons.photo_library_outlined,
-                                    size: 30.sp,
-                                    color: cubit.isDark
-                                        ? CupertinoColors.activeBlue
-                                        : Colors.white,
-                                  ),
-                                  splashRadius: 20.r,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        ListOfStoryItem(cubit: cubit),
+                        CreatePost(cubit: cubit),
                         space(0, 10.h),
                         ListView.separated(
                           physics: const NeverScrollableScrollPhysics(),
@@ -862,11 +586,11 @@ class FeedScreen extends StatelessWidget {
                   },
                   label: Text(
                     'Like',
-                    style: GoogleFonts.roboto(
-                      color: SocialCubit.get(context).likedByMe[index] == true
-                          ? Colors.red
-                          : Colors.grey,
-                    ),
+                    style: GoogleFonts.roboto(color: Colors.amber
+                        // color: SocialCubit.get(context).likedByMe[index] == true
+                        //     ? Colors.red
+                        //     : Colors.grey,
+                        ),
                   ),
                   icon: Icon(
                     IconlyLight.heart,
