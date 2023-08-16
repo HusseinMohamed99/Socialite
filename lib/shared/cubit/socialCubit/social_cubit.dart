@@ -37,60 +37,6 @@ class SocialCubit extends Cubit<SocialStates> {
   static SocialCubit get(context) => BlocProvider.of(context);
 
   // ----------------------------------------------------------//
-  ///START : GetUserData
-  UserModel? userModel;
-  void getUserData() {
-    emit(GetUserDataLoadingState());
-    FirebaseFirestore.instance.collection('users').doc(uId).get().then((value) {
-      userModel = UserModel.fromJson(value.data()!);
-      if (kDebugMode) {
-        print(userModel!.uId);
-      }
-      emit(GetUserDataSuccessState());
-    }).catchError((error) {
-      debugPrint(error.toString());
-      emit(GetUserDataErrorState(error.toString()));
-    });
-  }
-
-  ///END : GetUserData
-
-// ----------------------------------------------------------//
-  ///START : GetAllUsers
-  List<UserModel> users = [];
-  void getAllUsers() {
-    emit(GetAllUsersLoadingState());
-    FirebaseFirestore.instance.collection('users').get().then((event) {
-      users = [];
-      for (var element in event.docs) {
-        if (element.data()['uId'] != userModel!.uId) {
-          users.add(UserModel.fromJson(element.data()));
-        }
-      }
-      emit(GetAllUsersSuccessState());
-    }).catchError((error) {
-      emit(GetAllUsersErrorState(error.toString()));
-    });
-  }
-
-  ///END : GetAllUsers
-
-  // ----------------------------------------------------------//
-  ///START : setUserToken
-  void setUserToken() async {
-    emit(SetUSerTokenLoadingState());
-    String? token = await FirebaseMessaging.instance.getToken();
-    debugPrint(' token $token');
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userModel!.uId)
-        .update({'token': token}).then(
-            (value) => emit(SetUSerTokenSuccessState()));
-  }
-
-  ///END : setUserToken
-
-  // ----------------------------------------------------------//
   ///START : Screens
   int currentIndex = 0;
   List<Widget> screens = const [
@@ -146,6 +92,61 @@ class SocialCubit extends Cubit<SocialStates> {
     }
     emit(SocialChangeTabBarState());
   }
+
+  ///START : GetUserData
+  UserModel? userModel;
+  void getUserData() {
+    emit(GetUserDataLoadingState());
+    FirebaseFirestore.instance.collection('users').doc(uId).get().then((value) {
+      userModel = UserModel.fromJson(value.data()!);
+      if (kDebugMode) {
+        print(userModel!.uId);
+      }
+      emit(GetUserDataSuccessState());
+    }).catchError((error) {
+      debugPrint(error.toString());
+      emit(GetUserDataErrorState(error.toString()));
+    });
+  }
+
+  ///END : GetUserData
+
+// ----------------------------------------------------------//
+  ///START : GetAllUsers
+  List<UserModel> users = [];
+  void getAllUsers() {
+    emit(GetAllUsersLoadingState());
+    FirebaseFirestore.instance.collection('users').get().then((event) {
+      users = [];
+      for (var element in event.docs) {
+        if (element.data()['uId'] != userModel!.uId) {
+          users.add(UserModel.fromJson(element.data()));
+        }
+      }
+      emit(GetAllUsersSuccessState());
+    }).catchError((error) {
+      emit(GetAllUsersErrorState(error.toString()));
+    });
+  }
+
+  ///END : GetAllUsers
+
+  // ----------------------------------------------------------//
+  ///START : setUserToken
+  void setUserToken() async {
+    emit(SetUSerTokenLoadingState());
+    String? token = await FirebaseMessaging.instance.getToken();
+    debugPrint(' token $token');
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userModel!.uId)
+        .update({'token': token}).then(
+            (value) => emit(SetUSerTokenSuccessState()));
+  }
+
+  ///END : setUserToken
+
+  // ----------------------------------------------------------//
 
   ///START : ChangeMode
   bool isDark = false;
