@@ -11,6 +11,7 @@ import 'package:sociality/pages/post/edit_post.dart';
 import 'package:sociality/pages/profile/my_profile_screen.dart';
 import 'package:sociality/pages/viewPhoto/post_view.dart';
 import 'package:sociality/shared/components/constants.dart';
+import 'package:sociality/shared/components/image_with_shimmer.dart';
 import 'package:sociality/shared/components/navigator.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 
@@ -30,7 +31,7 @@ class BuildPostItem extends StatelessWidget {
       elevation: 10,
       margin: const EdgeInsets.symmetric(horizontal: 8).r,
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(10.0).r,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -55,8 +56,11 @@ class BuildPostItem extends StatelessWidget {
                   borderRadius: BorderRadius.circular(25).r,
                   child: CircleAvatar(
                     radius: 25.r,
-                    backgroundImage: NetworkImage(
-                      '${postModel.image}',
+                    child: ImageWithShimmer(
+                      radius: 75.r,
+                      imageUrl: '${postModel.image}',
+                      width: 100.w,
+                      height: 100.h,
                     ),
                   ),
                 ),

@@ -10,7 +10,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sociality/shared/widget/build_post_item.dart';
 import 'package:sociality/shared/widget/create_post.dart';
-import 'package:sociality/shared/widget/sotry_widget.dart';
+import 'package:sociality/shared/widget/story_widget.dart';
 
 class FeedScreen extends StatelessWidget {
   const FeedScreen({Key? key}) : super(key: key);
@@ -73,26 +73,32 @@ class FeedScreen extends StatelessWidget {
                       children: [
                         ListOfStoryItem(cubit: cubit),
                         CreatePost(cubit: cubit),
-                        space(0, 10.h),
+                        SizedBox(height: 10.h),
                         ListView.separated(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: cubit.posts.length,
-                          separatorBuilder: (context, index) => space(0, 10.h),
-                          itemBuilder: (context, index) => (BuildPostItem(
-                            postModel: cubit.posts[index],
-                            index: index,
-                          )),
+                          separatorBuilder: (context, index) {
+                            return SizedBox(height: 10.h);
+                          },
+                          itemBuilder: (context, index) {
+                            return BuildPostItem(
+                              postModel: cubit.posts[index],
+                              index: index,
+                            );
+                          },
                         ),
                       ],
                     ),
                   ),
                 ),
-                fallback: (BuildContext context) => Center(
-                  child: AdaptiveIndicator(
-                    os: getOs(),
-                  ),
-                ),
+                fallback: (BuildContext context) {
+                  return Center(
+                    child: AdaptiveIndicator(
+                      os: getOs(),
+                    ),
+                  );
+                },
               );
       },
     );

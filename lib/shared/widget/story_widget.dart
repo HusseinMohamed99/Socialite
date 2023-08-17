@@ -119,6 +119,7 @@ class ListOfStoryItem extends StatelessWidget {
                                 ).r,
                               ),
                               child: ImageWithShimmer(
+                                radius: 95.r,
                                 imageUrl: cubit.userModel!.image,
                                 width: 10.w,
                                 height: 10.h,

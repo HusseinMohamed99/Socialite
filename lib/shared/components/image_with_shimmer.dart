@@ -11,32 +11,38 @@ class ImageWithShimmer extends StatelessWidget {
     required this.width,
     required this.height,
     this.boxFit,
+    this.radius,
   });
 
   final String imageUrl;
   final double height;
   final double width;
   final BoxFit? boxFit;
+  final double? radius;
 
   @override
   Widget build(BuildContext context) {
-    return CachedNetworkImage(
-      imageUrl: imageUrl,
-      height: height,
-      width: width,
-      fit: boxFit ?? BoxFit.cover,
-      placeholder: (_, __) => Shimmer.fromColors(
-        baseColor: Colors.grey[850]!,
-        highlightColor: Colors.grey[800]!,
-        child: Container(
-          height: height,
-          color: AppMainColors.greyColor,
+    return ClipRRect(
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      borderRadius: BorderRadius.circular(radius ?? 0),
+      child: CachedNetworkImage(
+        imageUrl: imageUrl,
+        height: height,
+        width: width,
+        fit: boxFit ?? BoxFit.cover,
+        placeholder: (_, __) => Shimmer.fromColors(
+          baseColor: Colors.grey[850]!,
+          highlightColor: Colors.grey[800]!,
+          child: Container(
+            height: height,
+            color: AppMainColors.greyColor,
+          ),
         ),
-      ),
-      errorWidget: (_, __, ___) => Icon(
-        Icons.error,
-        color: Colors.red,
-        size: 24.sp,
+        errorWidget: (_, __, ___) => Icon(
+          Icons.error,
+          color: Colors.red,
+          size: 24.sp,
+        ),
       ),
     );
   }
