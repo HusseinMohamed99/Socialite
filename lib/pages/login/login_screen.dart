@@ -40,9 +40,25 @@ class LoginScreen extends StatelessWidget {
             SocialCubit.get(context).getUserData();
             CacheHelper.saveData(value: state.uid, key: 'uId').then((value) {
               uId = state.uid;
+              LoginCubit.get(context).loginReloadUser().then(
+                (value) {
+                  if (LoginCubit.get(context).isEmailVerified) {
+                    navigateAndFinish(
+                      context,
+                      const HomeLayout(),
+                    );
+                  } else {
+                    navigateTo(
+                      context,
+                      const EmailVerificationScreen(),
+                    );
+                  }
+                },
+              );
               SocialCubit.get(context).getUserData();
               SocialCubit.get(context).getPosts();
               SocialCubit.get(context).getAllUsers();
+
               showToast(
                 text: 'Login is successfully',
                 state: ToastStates.success,
@@ -192,35 +208,10 @@ class LoginScreen extends StatelessWidget {
                                         function: () {
                                           if (formKey.currentState!
                                               .validate()) {
-                                            LoginCubit.get(context)
-                                                .userLogin(
-                                                  email: emailController.text,
-                                                  password:
-                                                      passwordController.text,
-                                                )
-                                                .then(
-                                                  (value) => {
-                                                    LoginCubit.get(context)
-                                                        .loginReloadUser()
-                                                        .then(
-                                                      (value) {
-                                                        if (LoginCubit.get(
-                                                                context)
-                                                            .isEmailVerified) {
-                                                          navigateAndFinish(
-                                                            context,
-                                                            const HomeLayout(),
-                                                          );
-                                                        } else {
-                                                          navigateTo(
-                                                            context,
-                                                            const EmailVerificationScreen(),
-                                                          );
-                                                        }
-                                                      },
-                                                    )
-                                                  },
-                                                );
+                                            LoginCubit.get(context).userLogin(
+                                              email: emailController.text,
+                                              password: passwordController.text,
+                                            );
                                           }
                                         },
                                         text: 'Sign In',
