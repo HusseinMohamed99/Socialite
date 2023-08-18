@@ -76,6 +76,8 @@ class SocialCubit extends Cubit<SocialStates> {
     currentIndex = index;
     if (index == 0) {
       getUserData();
+      getStories();
+
       getPosts();
     }
     if (index == 1) {
@@ -101,6 +103,7 @@ class SocialCubit extends Cubit<SocialStates> {
       userModel = UserModel.fromJson(value.data()!);
       if (kDebugMode) {
         print(userModel!.uId);
+        print(value.data);
       }
       emit(GetUserDataSuccessState());
     }).catchError((error) {

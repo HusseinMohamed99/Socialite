@@ -58,6 +58,7 @@ class LoginScreen extends StatelessWidget {
               SocialCubit.get(context).getUserData();
               SocialCubit.get(context).getPosts();
               SocialCubit.get(context).getAllUsers();
+              SocialCubit.get(context).getStories();
 
               showToast(
                 text: 'Login is successfully',

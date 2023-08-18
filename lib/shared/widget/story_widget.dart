@@ -109,22 +109,11 @@ class ListOfStoryItem extends StatelessWidget {
                         alignment: AlignmentDirectional.bottomCenter,
                         children: [
                           Align(
-                            alignment: AlignmentDirectional.center,
-                            child: Container(
-                              width: 95.w,
-                              height: 95.h,
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(10),
-                                ).r,
-                              ),
-                              child: ImageWithShimmer(
-                                radius: 95.r,
-                                imageUrl: cubit.userModel!.image,
-                                width: 10.w,
-                                height: 10.h,
-                                boxFit: BoxFit.fill,
-                              ),
+                            child: ImageWithShimmer(
+                              imageUrl: cubit.userModel!.image,
+                              width: double.infinity,
+                              height: double.infinity,
+                              boxFit: BoxFit.fill,
                             ),
                           ),
                           CircleAvatar(
