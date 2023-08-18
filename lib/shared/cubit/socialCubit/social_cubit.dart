@@ -462,48 +462,23 @@ class SocialCubit extends Cubit<SocialStates> {
         .collection('posts')
         .orderBy('dateTime', descending: true)
         .snapshots()
-        .listen((event) {
+        .listen((event) async {
       posts = [];
-      likes = [];
-      postsId = [];
-      likedByMe = [];
-      commentsNum = [];
-      counter = 0;
-      commentCounter = 0;
-      for (var element in event.docs) {
-        element.reference.collection('likes').get().then((value) {
-          emit(GetPostsSuccessState());
-          likes.add(value.docs.length);
-          for (var element in value.docs) {
-            if (element.id == userModel!.uId) {
-              counter++;
-            }
-          }
-          if (counter > 0) {
-            likedByMe.add(true);
-          } else {
-            likedByMe.add(false);
-          }
-          counter = 0;
-        }).catchError((error) {
-          emit(GetPostsErrorState(error.toString()));
+      event.docs.forEach((element) async {
+        posts.add(PostModel.fromJson(element.data()));
+        postsId.add(element.id);
+        var likes = await element.reference.collection('likes').get();
+        var comments = await element.reference.collection('comments').get();
+        commentsNum.add(element.id.length);
+        await FirebaseFirestore.instance
+            .collection('posts')
+            .doc(element.id)
+            .update({
+          'likes': likes.docs.length,
+          'comments': comments.docs.length,
+          'postId': element.id,
         });
-        element.reference.collection('comments').get().then((value) {
-          emit(GetPostsSuccessState());
-          commentsNum.add(value.docs.length);
-          postsId.add(element.id);
-          posts.add(PostModel.fromJson(element.data()));
-          for (var element in value.docs) {
-            if (element.id == userModel!.uId) {
-              commentCounter++;
-            } else {
-              commentCounter++;
-            }
-            commentCounter = 0;
-          }
-        }).catchError((error) {});
-      }
-
+      });
       emit(GetPostsSuccessState());
     });
   }
@@ -513,10 +488,10 @@ class SocialCubit extends Cubit<SocialStates> {
 // ----------------------------------------------------------//
   ///START : GetMyPosts
   List<PostModel> userPosts = [];
-  void getMyPosts(String? userID) {
+  void getUserPosts(String? userID) {
     FirebaseFirestore.instance
         .collection('posts')
-        .orderBy('dateTime', descending: true)
+        .orderBy('dateTime')
         .snapshots()
         .listen((event) {
       userPosts = [];
@@ -546,6 +521,78 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
+  Future<bool> likeByMe(
+      {context,
+      String? postId,
+      PostModel? postModel,
+      UserModel? postUser}) async {
+    emit(LikedByMeCheckedLoadingState());
+    bool isLikedByMe = false;
+    FirebaseFirestore.instance
+        .collection('posts')
+        .doc(postId)
+        .get()
+        .then((event) async {
+      var likes = await event.reference.collection('likes').get();
+      for (var element in likes.docs) {
+        if (element.id == userModel!.uId) {
+          isLikedByMe = true;
+          disLikePost(postId!);
+        }
+      }
+      if (isLikedByMe == false) {
+        likePosts(
+            postId: postId,
+            context: context,
+            postModel: postModel,
+            postUser: postUser);
+      }
+      print(isLikedByMe);
+      emit(LikedByMeCheckedSuccessState());
+    });
+    return isLikedByMe;
+  }
+
+  void likePosts(
+      {context,
+      String? postId,
+      PostModel? postModel,
+      UserModel? postUser,
+      String? dateTime}) {
+    LikesModel likesModel = LikesModel(
+      uId: userModel!.uId,
+      name: userModel!.name,
+      image: userModel!.image,
+      dateTime: dateTime,
+    );
+    FirebaseFirestore.instance
+        .collection('posts')
+        .doc(postId)
+        .collection('likes')
+        .doc(userModel!.uId)
+        .set(likesModel.toMap())
+        .then((value) {
+      getPosts();
+      if (postModel!.uId != userModel!.uId) {
+        SocialCubit.get(context).sendInAppNotification(
+            receiverName: postModel.name,
+            receiverId: postModel.uId,
+            contentId: postModel.uId,
+            contentKey: 'likePost');
+        SocialCubit.get(context).sendFCMNotification(
+          token: postUser!.uId,
+          senderName: SocialCubit.get(context).userModel!.name,
+          messageText: '${SocialCubit.get(context).userModel!.name}'
+              ' likes a post you shared',
+        );
+      }
+      emit(LikesSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(LikesErrorState(error.toString()));
+    });
+  }
+
   ///END : Likes
 
 // ----------------------------------------------------------//
@@ -558,6 +605,7 @@ class SocialCubit extends Cubit<SocialStates> {
         .doc(userModel!.uId)
         .delete()
         .then((value) {
+      getPosts();
       emit(DisLikesSuccessState());
     }).catchError((error) {
       emit(DisLikesErrorState(error.toString()));

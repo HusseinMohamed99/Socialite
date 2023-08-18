@@ -4,9 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttericon/linearicons_free_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sociality/model/post_model.dart';
+import 'package:sociality/model/user_model.dart';
 import 'package:sociality/pages/comment/comment_screen.dart';
 import 'package:sociality/pages/friend/profile_screen.dart';
 import 'package:sociality/pages/post/edit_post.dart';
+import 'package:sociality/pages/post_like/likes_screen.dart';
 import 'package:sociality/pages/profile/my_profile_screen.dart';
 import 'package:sociality/pages/viewPhoto/post_view.dart';
 import 'package:sociality/shared/components/constants.dart';
@@ -178,7 +180,13 @@ class BuildPostItem extends StatelessWidget {
               children: [
                 TextButton.icon(
                   onPressed: () {
-                    // navigateTo(context, LikesScreen(SocialCubit.get(context).postsId[index],postModel.uId));
+                    navigateTo(
+                      context,
+                      LikesScreen(
+                        SocialCubit.get(context).postsId[index],
+                        postModel.uId,
+                      ),
+                    );
                   },
                   icon: Icon(
                     IconlyLight.heart,
@@ -189,9 +197,10 @@ class BuildPostItem extends StatelessWidget {
                     SocialCubit.get(context).likes.isEmpty
                         ? ''
                         : '${SocialCubit.get(context).likes[index]}',
-                    style: GoogleFonts.roboto(
-                      color: Colors.red,
-                    ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge!
+                        .copyWith(color: AppMainColors.redColor),
                   ),
                 ),
                 TextButton.icon(
@@ -210,18 +219,18 @@ class BuildPostItem extends StatelessWidget {
                     size: 24.sp,
                   ),
                   label: Text(
-                    '${SocialCubit.get(context).commentsNum[index]}',
-                    style: GoogleFonts.roboto(
-                      color: Colors.orangeAccent,
-                    ),
+                    '',
+                    // '${SocialCubit.get(context).commentsNum[index]}' ?? '',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge!
+                        .copyWith(color: AppMainColors.orangeColor),
                   ),
                 ),
               ],
             ),
-            Container(
-              color: Colors.grey[300],
-              height: 1.h,
-              width: double.infinity,
+            MyDivider(
+              color: AppMainColors.greyColor.withOpacity(0.4),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -231,12 +240,15 @@ class BuildPostItem extends StatelessWidget {
                     navigateTo(context, const MyProfileScreen());
                   },
                   child: CircleAvatar(
-                    radius: 17.r,
-                    backgroundImage:
-                        NetworkImage(SocialCubit.get(context).userModel!.image),
+                    radius: 15.r,
+                    child: ImageWithShimmer(
+                      imageUrl: SocialCubit.get(context).userModel!.image,
+                      width: 40.w,
+                      height: 40.h,
+                    ),
                   ),
                 ),
-                space(8.w, 0),
+                SizedBox(width: 8.w),
                 InkWell(
                   onTap: () {
                     navigateTo(
@@ -251,41 +263,32 @@ class BuildPostItem extends StatelessWidget {
                     width: 120.w,
                     child: Text(
                       'Write a comment ...',
-                      style: GoogleFonts.roboto(
-                        textStyle: Theme.of(context).textTheme.bodySmall,
-                        fontSize: 12.sp,
-                        color: Colors.grey,
-                      ),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge!
+                          .copyWith(color: AppMainColors.greyColor),
                     ),
                   ),
                 ),
                 TextButton.icon(
-                  onPressed: () {
-                    if (SocialCubit.get(context).likedByMe[index] == true) {
-                      SocialCubit.get(context)
-                          .disLikePost(SocialCubit.get(context).postsId[index]);
-                      SocialCubit.get(context).likedByMe[index] = false;
-                      SocialCubit.get(context).likes[index]--;
-                    } else {
-                      SocialCubit.get(context)
-                          .likePost(SocialCubit.get(context).postsId[index]);
-                      SocialCubit.get(context).likedByMe[index] = true;
-                      SocialCubit.get(context).likes[index]++;
-                    }
+                  onPressed: () async {
+                    UserModel? postUser = SocialCubit.get(context).userModel;
+
+                    await SocialCubit.get(context).likeByMe(
+                        postUser: postUser,
+                        context: context,
+                        postModel: postModel,
+                        postId: postModel.uId);
                   },
                   label: Text(
                     'Like',
-                    style: GoogleFonts.roboto(color: Colors.amber
-                        // color: SocialCubit.get(context).likedByMe[index] == true
-                        //     ? Colors.red
-                        //     : Colors.grey,
-                        ),
+                    style: GoogleFonts.roboto(
+                      color: Colors.grey,
+                    ),
                   ),
                   icon: Icon(
                     IconlyLight.heart,
-                    color: SocialCubit.get(context).likedByMe[index] == true
-                        ? Colors.red
-                        : Colors.grey,
+                    color: Colors.grey,
                     size: 24.sp,
                   ),
                 ),
