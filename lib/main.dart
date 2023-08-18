@@ -46,7 +46,7 @@ void main() async {
   uId = CacheHelper.getData(key: 'uId');
   debugPrint('*** User ID == $uId ***');
   Widget widget;
-  bool? onBoarding = CacheHelper.getData(key: 'OnBoarding');
+  bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
 
   if (onBoarding != null) {
     if (uId != null) {
