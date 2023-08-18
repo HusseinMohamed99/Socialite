@@ -5,7 +5,7 @@ import 'package:sociality/Pages/profile/my_profile_screen.dart';
 import 'package:sociality/Pages/viewPhoto/post_view.dart';
 import 'package:sociality/model/post_model.dart';
 import 'package:sociality/model/user_model.dart';
-import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
+import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:sociality/shared/components/navigator.dart';
 import 'package:flutter/cupertino.dart';
@@ -493,7 +493,7 @@ Widget buildPost(index, context, state, PostModel postModel, UserModel? model,
                   color: Colors.red,
                 ),
                 label: Text(
-                  '${SocialCubit.get(context).likes[index]}',
+                  '${postModel.likes}',
                   style: GoogleFonts.lobster(
                     color: Colors.red,
                   ),
@@ -564,32 +564,24 @@ Widget buildPost(index, context, state, PostModel postModel, UserModel? model,
                 ),
               ),
               TextButton.icon(
-                onPressed: () {
-                  if (SocialCubit.get(context).likedByMe[index] == true) {
-                    SocialCubit.get(context)
-                        .disLikePost(SocialCubit.get(context).postsId[index]);
-                    SocialCubit.get(context).likedByMe[index] = false;
-                    SocialCubit.get(context).likes[index]--;
-                  } else {
-                    SocialCubit.get(context)
-                        .likePost(SocialCubit.get(context).postsId[index]);
-                    SocialCubit.get(context).likedByMe[index] = true;
-                    SocialCubit.get(context).likes[index]++;
-                  }
+                onPressed: () async {
+                  UserModel? postUser = SocialCubit.get(context).userModel;
+
+                  await cubit.likeByMe(
+                      postUser: postUser,
+                      context: context,
+                      postModel: postModel,
+                      postId: postModel.uId);
                 },
                 label: Text(
                   'Like',
                   style: GoogleFonts.lobster(
-                    color: SocialCubit.get(context).likedByMe[index] == true
-                        ? Colors.red
-                        : Colors.grey,
+                    color: Colors.grey,
                   ),
                 ),
-                icon: Icon(
+                icon: const Icon(
                   IconlyLight.heart,
-                  color: SocialCubit.get(context).likedByMe[index] == true
-                      ? Colors.red
-                      : Colors.grey,
+                  color: Colors.grey,
                 ),
               ),
               TextButton.icon(

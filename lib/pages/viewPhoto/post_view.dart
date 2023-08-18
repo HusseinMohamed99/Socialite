@@ -1,6 +1,7 @@
 import 'package:sociality/Pages/comment/comment_screen.dart';
 import 'package:sociality/Pages/post/edit_post.dart';
 import 'package:sociality/model/post_model.dart';
+import 'package:sociality/model/user_model.dart';
 import 'package:sociality/shared/components/navigator.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
@@ -26,7 +27,8 @@ class FullScreen extends StatelessWidget {
         return Scaffold(
           backgroundColor: Colors.black,
           body: SafeArea(
-            child: buildMenu(context, index),
+            child:
+                buildMenu(context, index, SocialCubit.get(context).postModel!),
           ),
         );
       },
@@ -36,6 +38,7 @@ class FullScreen extends StatelessWidget {
   Widget buildMenu(
     context,
     index,
+    PostModel postModel,
   ) {
     var cubit = SocialCubit.get(context);
     late String postId;
@@ -273,37 +276,29 @@ class FullScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: InkWell(
-                        onTap: () {
-                          if (SocialCubit.get(context).likedByMe[index] ==
-                              true) {
-                            SocialCubit.get(context).disLikePost(
-                                SocialCubit.get(context).postsId[index]);
-                            SocialCubit.get(context).likedByMe[index] = false;
-                            SocialCubit.get(context).likes[index]--;
-                          } else {
-                            SocialCubit.get(context).likePost(
-                                SocialCubit.get(context).postsId[index]);
-                            SocialCubit.get(context).likedByMe[index] = true;
-                            SocialCubit.get(context).likes[index]++;
-                          }
+                        onTap: () async {
+                          UserModel? postUser =
+                              SocialCubit.get(context).userModel;
+
+                          await SocialCubit.get(context).likeByMe(
+                              postUser: postUser,
+                              context: context,
+                              postModel: postModel,
+                              postId: postModel.uId);
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: Row(
                             children: [
                               Text(
-                                '${SocialCubit.get(context).likes[index]}',
+                                '${postModel.likes}',
                                 style: GoogleFonts.lobster(
                                     color: Colors.white, fontSize: 20),
                               ),
                               space(10, 0),
-                              Icon(
+                              const Icon(
                                 IconlyLight.heart,
-                                color:
-                                    SocialCubit.get(context).likedByMe[index] ==
-                                            true
-                                        ? Colors.red
-                                        : Colors.grey,
+                                color: Colors.grey,
                               ),
                               const SizedBox(
                                 width: 5,
@@ -311,11 +306,7 @@ class FullScreen extends StatelessWidget {
                               Text(
                                 'Like',
                                 style: GoogleFonts.lobster(
-                                  color: SocialCubit.get(context)
-                                              .likedByMe[index] ==
-                                          true
-                                      ? Colors.red
-                                      : Colors.grey,
+                                  color: Colors.grey,
                                 ),
                               ),
                             ],

@@ -961,7 +961,7 @@ Widget buildPostItem(PostModel postModel, context, index) {
                   color: Colors.red,
                 ),
                 label: Text(
-                  '${SocialCubit.get(context).likes[index]}',
+                  '${postModel.likes}',
                   style: GoogleFonts.roboto(
                     color: Colors.red,
                   ),
@@ -1033,32 +1033,24 @@ Widget buildPostItem(PostModel postModel, context, index) {
                 ),
               ),
               TextButton.icon(
-                onPressed: () {
-                  if (SocialCubit.get(context).likedByMe[index] == true) {
-                    SocialCubit.get(context)
-                        .disLikePost(SocialCubit.get(context).postsId[index]);
-                    SocialCubit.get(context).likedByMe[index] = false;
-                    SocialCubit.get(context).likes[index]--;
-                  } else {
-                    SocialCubit.get(context)
-                        .likePost(SocialCubit.get(context).postsId[index]);
-                    SocialCubit.get(context).likedByMe[index] = true;
-                    SocialCubit.get(context).likes[index]++;
-                  }
+                onPressed: () async {
+                  UserModel? postUser = SocialCubit.get(context).userModel;
+
+                  await SocialCubit.get(context).likeByMe(
+                      postUser: postUser,
+                      context: context,
+                      postModel: postModel,
+                      postId: postModel.uId);
                 },
                 label: Text(
                   'Like',
                   style: GoogleFonts.roboto(
-                    color: SocialCubit.get(context).likedByMe[index] == true
-                        ? Colors.red
-                        : Colors.grey,
+                    color: Colors.grey,
                   ),
                 ),
-                icon: Icon(
+                icon: const Icon(
                   IconlyLight.heart,
-                  color: SocialCubit.get(context).likedByMe[index] == true
-                      ? Colors.red
-                      : Colors.grey,
+                  color: Colors.grey,
                 ),
               ),
               TextButton.icon(

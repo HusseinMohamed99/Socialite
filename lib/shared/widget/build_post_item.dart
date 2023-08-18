@@ -194,9 +194,7 @@ class BuildPostItem extends StatelessWidget {
                     size: 24.sp,
                   ),
                   label: Text(
-                    SocialCubit.get(context).likes.isEmpty
-                        ? ''
-                        : '${SocialCubit.get(context).likes[index]}',
+                    '${postModel.likes}',
                     style: Theme.of(context)
                         .textTheme
                         .bodyLarge!
@@ -282,13 +280,16 @@ class BuildPostItem extends StatelessWidget {
                   },
                   label: Text(
                     'Like',
-                    style: GoogleFonts.roboto(
-                      color: Colors.grey,
-                    ),
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: cubit.isLikedByMe
+                            ? AppMainColors.greyColor
+                            : AppMainColors.redColor),
                   ),
                   icon: Icon(
                     IconlyLight.heart,
-                    color: Colors.grey,
+                    color: cubit.isLikedByMe
+                        ? AppMainColors.greyColor
+                        : AppMainColors.redColor,
                     size: 24.sp,
                   ),
                 ),

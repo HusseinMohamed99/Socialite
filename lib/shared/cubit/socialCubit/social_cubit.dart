@@ -451,12 +451,8 @@ class SocialCubit extends Cubit<SocialStates> {
   ///START : GetAllPosts
   List<PostModel> posts = [];
   List<String> postsId = [];
-  List<int> likes = [];
-  List<bool> likedByMe = [];
   List<int> commentsNum = [];
   PostModel? postModel;
-  int counter = 0;
-  int commentCounter = 0;
   void getPosts() {
     FirebaseFirestore.instance
         .collection('posts')
@@ -508,26 +504,14 @@ class SocialCubit extends Cubit<SocialStates> {
 
 // ----------------------------------------------------------//
   ///START : Likes
-  void likePost(String postId) {
-    FirebaseFirestore.instance
-        .collection('posts')
-        .doc(postId)
-        .collection('likes')
-        .doc(userModel!.uId)
-        .set({'like': true}).then((value) {
-      emit(LikesSuccessState());
-    }).catchError((error) {
-      emit(LikesErrorState(error.toString()));
-    });
-  }
-
+  bool isLikedByMe = false;
   Future<bool> likeByMe(
       {context,
       String? postId,
       PostModel? postModel,
       UserModel? postUser}) async {
     emit(LikedByMeCheckedLoadingState());
-    bool isLikedByMe = false;
+
     FirebaseFirestore.instance
         .collection('posts')
         .doc(postId)
