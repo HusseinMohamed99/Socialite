@@ -103,7 +103,6 @@ class SocialCubit extends Cubit<SocialStates> {
       userModel = UserModel.fromJson(value.data()!);
       if (kDebugMode) {
         print(userModel!.uId);
-        print(value.data);
       }
       emit(GetUserDataSuccessState());
     }).catchError((error) {

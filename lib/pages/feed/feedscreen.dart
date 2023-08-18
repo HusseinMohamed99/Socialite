@@ -36,28 +36,35 @@ class FeedScreen extends StatelessWidget {
         //  var userModel = SocialCubit.get(context).userModel;
         var cubit = SocialCubit.get(context);
         return SocialCubit.get(context).posts.isEmpty
-            ? Scaffold(
-                body: Column(
-                  children: [
-                    ListOfStoryItem(cubit: cubit),
-                    CreatePost(cubit: cubit),
-                    const Spacer(),
-                    Column(
-                      children: [
-                        Icon(
-                          IconlyLight.infoSquare,
-                          size: 100.sp,
-                          color: Colors.grey,
-                        ),
-                        Text(
-                          'No Posts yet',
-                          style: Theme.of(context).textTheme.headlineLarge,
-                        ),
-                      ],
-                    ),
-                    const Spacer(flex: 2),
-                  ],
-                ),
+            ? ConditionalBuilder(
+                condition: state is GetStorySuccessState &&
+                    state is GetUserDataSuccessState,
+                fallback: (context) {
+                  return AdaptiveIndicator(os: getOs());
+                },
+                builder: (context) {
+                  return Column(
+                    children: [
+                      ListOfStoryItem(cubit: cubit),
+                      CreatePost(cubit: cubit),
+                      const Spacer(),
+                      Column(
+                        children: [
+                          Icon(
+                            IconlyLight.infoSquare,
+                            size: 100.sp,
+                            color: Colors.grey,
+                          ),
+                          Text(
+                            'No Posts yet',
+                            style: Theme.of(context).textTheme.headlineLarge,
+                          ),
+                        ],
+                      ),
+                      const Spacer(flex: 2),
+                    ],
+                  );
+                },
               )
             : ConditionalBuilder(
                 condition: cubit.posts.isNotEmpty,
