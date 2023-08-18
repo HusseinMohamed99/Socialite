@@ -52,7 +52,7 @@ class DrawerWidget extends StatelessWidget {
                     ),
                     ListOfItem(
                       function: () {
-                        cubit.getMyPosts(uId);
+                        cubit.getUserPosts(uId);
                         cubit.getFriends(uId!);
                         navigateTo(context, const MyProfileScreen());
                       },
