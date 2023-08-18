@@ -1,7 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sociality/pages/addPost/add_post_screen.dart';
-import 'package:sociality/shared/components/buttons.dart';
 import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/image_with_shimmer.dart';
 import 'package:sociality/shared/components/indicator.dart';
@@ -39,7 +38,7 @@ class FeedScreen extends StatelessWidget {
       },
       builder: (context, state) {
         var cubit = SocialCubit.get(context);
-        return cubit.posts.isNotEmpty || cubit.stories.isNotEmpty
+        return cubit.posts.isNotEmpty
             ? RefreshIndicator(
                 onRefresh: () async {
                   cubit.getPosts();
@@ -50,162 +49,8 @@ class FeedScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        physics: const BouncingScrollPhysics(),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0).r,
-                          child: Row(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  cubit.getStoryImage(context);
-                                },
-                                child: Container(
-                                  width: 110.w,
-                                  height: 140.h,
-                                  margin:
-                                      EdgeInsetsDirectional.only(start: 8.r),
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey.withOpacity(0.3),
-                                      borderRadius:
-                                          BorderRadius.circular(17).r),
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 125.h,
-                                        child: Stack(
-                                          alignment:
-                                              AlignmentDirectional.bottomCenter,
-                                          children: [
-                                            Align(
-                                              child: ImageWithShimmer(
-                                                imageUrl:
-                                                    cubit.userModel!.image,
-                                                width: double.infinity,
-                                                height: double.infinity,
-                                                boxFit: BoxFit.fill,
-                                              ),
-                                            ),
-                                            CircleAvatar(
-                                              radius: 20.r,
-                                              backgroundColor:
-                                                  Colors.grey.withOpacity(0.3),
-                                              child: CircleAvatar(
-                                                radius: 18.r,
-                                                backgroundColor: Colors.blue,
-                                                child: Icon(
-                                                  Icons.add,
-                                                  color: Colors.white,
-                                                  size: 24.sp,
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      const Spacer(),
-                                      Text(
-                                        "Create Story",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleSmall,
-                                      ),
-                                      const Spacer(),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 10.w),
-                              SizedBox(
-                                height: 140.h,
-                                child: ListView.separated(
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    reverse: true,
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (context, index) => StoryItem(
-                                          storyModel: cubit.stories[index],
-                                        ),
-                                    separatorBuilder: (context, index) =>
-                                        SizedBox(width: 10.w),
-                                    itemCount: cubit.stories.length),
-                              ),
-                              SizedBox(width: 10.w),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Card(
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        elevation: 10,
-                        margin: const EdgeInsets.all(10).r,
-                        child: Padding(
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 20.0).r,
-                          child: Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 25.r,
-                                child: ImageWithShimmer(
-                                  imageUrl: cubit.userModel!.image,
-                                  width: 100.w,
-                                  height: 100.h,
-                                  boxFit: BoxFit.fill,
-                                ),
-                              ),
-                              Expanded(
-                                child: Container(
-                                  width: 220.w,
-                                  height: 35.h,
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  margin: const EdgeInsets.all(10).r,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: AppMainColors.greyColor,
-                                    ),
-                                    borderRadius: BorderRadius.circular(25).r,
-                                  ),
-                                  child: TextButton(
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    style: TextButton.styleFrom(
-                                      backgroundColor: AppMainColors.greyColor
-                                          .withOpacity(0.1),
-                                    ),
-                                    child: Text(
-                                      "' What's on your mind ? '",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium,
-                                    ),
-                                    onPressed: () {},
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: 2.w,
-                                height: 50.h,
-                                color: Colors.grey,
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  cubit.getPostImage();
-                                  navigateTo(context, AddPostScreen());
-                                },
-                                icon: Icon(
-                                  Icons.photo_library_outlined,
-                                  size: 30.sp,
-                                  color: cubit.isDark
-                                      ? CupertinoColors.activeBlue
-                                      : AppMainColors.whiteColor,
-                                ),
-                                splashRadius: 20.r,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      StoriesItem(cubit: cubit),
+                      CreatePosts(cubit: cubit),
                       SizedBox(height: 10.h),
                       ListView.separated(
                         physics: const NeverScrollableScrollPhysics(),
@@ -226,108 +71,16 @@ class FeedScreen extends StatelessWidget {
                 ),
               )
             : ConditionalBuilder(
-                condition: state is GetStorySuccessState &&
-                    state is GetUserDataSuccessState,
+                condition: cubit.stories.isNotEmpty,
                 builder: (context) {
                   return Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        physics: const BouncingScrollPhysics(),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0).r,
-                          child: Row(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  cubit.getStoryImage(context);
-                                },
-                                child: Container(
-                                  width: 110.w,
-                                  height: 140.h,
-                                  margin:
-                                      EdgeInsetsDirectional.only(start: 8.r),
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey.withOpacity(0.3),
-                                      borderRadius:
-                                          BorderRadius.circular(17).r),
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 125.h,
-                                        child: Stack(
-                                          alignment:
-                                              AlignmentDirectional.bottomCenter,
-                                          children: [
-                                            Align(
-                                              child: ImageWithShimmer(
-                                                imageUrl:
-                                                    cubit.userModel!.image,
-                                                width: double.infinity,
-                                                height: double.infinity,
-                                                boxFit: BoxFit.fill,
-                                              ),
-                                            ),
-                                            CircleAvatar(
-                                              radius: 20.r,
-                                              backgroundColor:
-                                                  Colors.grey.withOpacity(0.3),
-                                              child: CircleAvatar(
-                                                radius: 18.r,
-                                                backgroundColor: Colors.blue,
-                                                child: Icon(
-                                                  Icons.add,
-                                                  color: Colors.white,
-                                                  size: 24.sp,
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      const Spacer(),
-                                      Text(
-                                        "Create Story",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleSmall,
-                                      ),
-                                      const Spacer(),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 10.w),
-                              SizedBox(
-                                height: 140.h,
-                                child: ListView.separated(
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    reverse: true,
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (context, index) => StoryItem(
-                                          storyModel: cubit.stories[index],
-                                        ),
-                                    separatorBuilder: (context, index) =>
-                                        SizedBox(width: 10.w),
-                                    itemCount: cubit.stories.length),
-                              ),
-                              SizedBox(width: 10.w),
-                            ],
-                          ),
-                        ),
-                      ),
-                      defaultTextButton(
-                          function: () {
-                            navigateTo(
-                              context,
-                              AddPostScreen(),
-                            );
-                          },
-                          text: 'Create Posts',
-                          context: context),
+                      StoriesItem(cubit: cubit),
+                      CreatePosts(cubit: cubit),
+                      SizedBox(height: 40.h),
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Icon(
                             IconlyLight.infoSquare,
@@ -344,10 +97,181 @@ class FeedScreen extends StatelessWidget {
                   );
                 },
                 fallback: (context) {
-                  return AdaptiveIndicator(os: getOs());
+                  return Center(child: AdaptiveIndicator(os: getOs()));
                 },
               );
       },
+    );
+  }
+}
+
+class StoriesItem extends StatelessWidget {
+  const StoriesItem({
+    super.key,
+    required this.cubit,
+  });
+
+  final SocialCubit cubit;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      physics: const BouncingScrollPhysics(),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0).r,
+        child: Row(
+          children: [
+            InkWell(
+              onTap: () {
+                cubit.getStoryImage(context);
+              },
+              child: Container(
+                width: 110.w,
+                height: 140.h,
+                margin: EdgeInsetsDirectional.only(start: 8.r),
+                decoration: BoxDecoration(
+                    color: Colors.grey.withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(17).r),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 125.h,
+                      child: Stack(
+                        alignment: AlignmentDirectional.bottomCenter,
+                        children: [
+                          Align(
+                            child: ImageWithShimmer(
+                              imageUrl: cubit.userModel!.image,
+                              width: double.infinity,
+                              height: double.infinity,
+                              boxFit: BoxFit.fill,
+                            ),
+                          ),
+                          CircleAvatar(
+                            radius: 20.r,
+                            backgroundColor: Colors.grey.withOpacity(0.3),
+                            child: CircleAvatar(
+                              radius: 18.r,
+                              backgroundColor: Colors.blue,
+                              child: Icon(
+                                Icons.add,
+                                color: Colors.white,
+                                size: 24.sp,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    const Spacer(),
+                    Text(
+                      "Create Story",
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    const Spacer(),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(width: 10.w),
+            SizedBox(
+              height: 140.h,
+              child: ListView.separated(
+                  physics: const NeverScrollableScrollPhysics(),
+                  reverse: true,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) => StoryItem(
+                        storyModel: cubit.stories[index],
+                      ),
+                  separatorBuilder: (context, index) => SizedBox(width: 10.w),
+                  itemCount: cubit.stories.length),
+            ),
+            SizedBox(width: 10.w),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CreatePosts extends StatelessWidget {
+  const CreatePosts({
+    super.key,
+    required this.cubit,
+  });
+
+  final SocialCubit cubit;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      elevation: 10,
+      margin: const EdgeInsets.all(10).r,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0).r,
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: 25.r,
+              child: ImageWithShimmer(
+                imageUrl: cubit.userModel!.image,
+                width: 100.w,
+                height: 100.h,
+                boxFit: BoxFit.fill,
+              ),
+            ),
+            Expanded(
+              child: Container(
+                width: 220.w,
+                height: 35.h,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                margin: const EdgeInsets.all(10).r,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: AppMainColors.greyColor,
+                  ),
+                  borderRadius: BorderRadius.circular(25).r,
+                ),
+                child: TextButton(
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  style: TextButton.styleFrom(
+                    backgroundColor: AppMainColors.greyColor.withOpacity(0.1),
+                  ),
+                  child: Text(
+                    "' What's on your mind ? '",
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  onPressed: () {
+                    navigateTo(context, AddPostScreen());
+                  },
+                ),
+              ),
+            ),
+            Container(
+              width: 2.w,
+              height: 50.h,
+              color: Colors.grey,
+            ),
+            IconButton(
+              onPressed: () {
+                cubit.getPostImage();
+                navigateTo(context, AddPostScreen());
+              },
+              icon: Icon(
+                Icons.photo_library_outlined,
+                size: 30.sp,
+                color: cubit.isDark
+                    ? CupertinoColors.activeBlue
+                    : AppMainColors.whiteColor,
+              ),
+              splashRadius: 20.r,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
