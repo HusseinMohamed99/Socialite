@@ -12,11 +12,11 @@ final getThemeData = {
     appBarTheme: AppBarTheme(
       titleSpacing: 20.0,
       systemOverlayStyle: const SystemUiOverlayStyle(
-        statusBarColor: AppMainColors.whiteColor,
+        statusBarColor: AppMainColors.kittenWithColor,
         statusBarIconBrightness: Brightness.dark,
         statusBarBrightness: Brightness.light,
       ),
-      backgroundColor: AppMainColors.whiteColor,
+      backgroundColor: AppMainColors.kittenWithColor,
       elevation: 1,
       titleTextStyle: GoogleFonts.roboto(
         color: AppMainColors.greyDarkColor,
