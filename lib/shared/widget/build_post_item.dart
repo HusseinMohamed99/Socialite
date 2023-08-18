@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,8 +11,10 @@ import 'package:sociality/pages/profile/my_profile_screen.dart';
 import 'package:sociality/pages/viewPhoto/post_view.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:sociality/shared/components/image_with_shimmer.dart';
+import 'package:sociality/shared/components/my_divider.dart';
 import 'package:sociality/shared/components/navigator.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:sociality/shared/styles/color.dart';
 
 class BuildPostItem extends StatelessWidget {
   const BuildPostItem(
@@ -86,20 +87,14 @@ class BuildPostItem extends StatelessWidget {
                             },
                             child: Text(
                               '${postModel.name}',
-                              style: GoogleFonts.roboto(
-                                fontSize: 20.sp,
-                                height: 1.3.h,
-                                color: SocialCubit.get(context).isDark
-                                    ? CupertinoColors.activeBlue
-                                    : Colors.white,
-                              ),
+                              style: Theme.of(context).textTheme.titleLarge,
                             ),
                           ),
-                          space(5.w, 0),
+                          SizedBox(width: 5.w),
                           Icon(
                             Icons.check_circle,
                             color: Colors.blue,
-                            size: 20.sp,
+                            size: 16.sp,
                           ),
                         ],
                       ),
@@ -107,262 +102,45 @@ class BuildPostItem extends StatelessWidget {
                         children: [
                           Icon(
                             LineariconsFree.earth,
-                            size: 20.sp,
+                            size: 16.sp,
                             color: Colors.grey,
                           ),
-                          space(10.w, 0),
+                          SizedBox(width: 10.w),
                           Text(
                             daysBetween(
                                 DateTime.parse(postModel.dateTime.toString())),
-                            style: GoogleFonts.roboto(
-                              fontSize: 15.sp,
-                              color: Colors.grey,
-                              textStyle: Theme.of(context).textTheme.bodySmall,
-                              height: 1.3.h,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge!
+                                .copyWith(color: AppMainColors.greyColor),
                           ),
                         ],
                       ),
                     ],
                   ),
                 ),
-                space(15.w, 0),
+                SizedBox(width: 15.w),
                 IconButton(
                   onPressed: () {
-                    showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: const BorderRadius.vertical(
-                            top: Radius.circular(30),
-                          ).r,
-                        ),
-                        builder: (context) {
-                          return Padding(
-                            padding: const EdgeInsets.all(15.0).r,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                if (postModel.uId == cubit.userModel!.uId)
-                                  InkWell(
-                                    onTap: () {
-                                      navigateTo(
-                                        context,
-                                        EditPosts(
-                                          postModel: postModel,
-                                          postId: postId,
-                                        ),
-                                      );
-                                    },
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                        left: 8.r,
-                                        right: 8.r,
-                                        top: 20.r,
-                                        bottom: 0.r,
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.edit_location_outlined,
-                                            color: cubit.isDark
-                                                ? Colors.black
-                                                : Colors.white,
-                                            size: 30.sp,
-                                          ),
-                                          space(10.w, 0),
-                                          Text(
-                                            "Edit Post",
-                                            style: TextStyle(
-                                                color: cubit.isDark
-                                                    ? Colors.black
-                                                    : Colors.white,
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 20.sp),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                InkWell(
-                                  onTap: () {
-                                    // cubit.savePost(
-                                    //     postId: postId,
-                                    //     date: DateTime.now(),
-                                    //     userName: model.name,
-                                    //     userId: model.uId,
-                                    //     userImage: model.image,
-                                    //     postText: model.text,
-                                    //     postImage: model.postImage);
-                                  },
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                      left: 8.r,
-                                      right: 8.r,
-                                      top: 20.r,
-                                      bottom: 0.r,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.turned_in_not_sharp,
-                                          color: cubit.isDark
-                                              ? Colors.black
-                                              : Colors.white,
-                                          size: 30.sp,
-                                        ),
-                                        space(10.w, 0),
-                                        Text(
-                                          "Save Post",
-                                          style: TextStyle(
-                                            color: cubit.isDark
-                                                ? Colors.black
-                                                : Colors.white,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 20.sp,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                if (postModel.postImage != '')
-                                  InkWell(
-                                    onTap: () {
-                                      cubit.saveToGallery(postModel.postImage!);
-                                    },
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                        left: 8.r,
-                                        right: 8.r,
-                                        top: 20.r,
-                                        bottom: 0.r,
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            IconlyLight.download,
-                                            color: cubit.isDark
-                                                ? Colors.black
-                                                : Colors.white,
-                                            size: 30.sp,
-                                          ),
-                                          space(10.w, 0),
-                                          Text(
-                                            "Save Image",
-                                            style: TextStyle(
-                                              color: cubit.isDark
-                                                  ? Colors.black
-                                                  : Colors.white,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 20.sp,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                InkWell(
-                                  onTap: () {},
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                      left: 8.r,
-                                      right: 8.r,
-                                      top: 20.r,
-                                      bottom: 0.r,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.share,
-                                          color: cubit.isDark
-                                              ? Colors.black
-                                              : Colors.white,
-                                          size: 30.sp,
-                                        ),
-                                        space(10.w, 0),
-                                        Text(
-                                          "Share",
-                                          style: TextStyle(
-                                            color: cubit.isDark
-                                                ? Colors.black
-                                                : Colors.white,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 20.sp,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                if (postModel.uId == cubit.userModel!.uId)
-                                  InkWell(
-                                    onTap: () {
-                                      cubit.deletePost(postId);
-                                    },
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                        left: 8.r,
-                                        right: 8.r,
-                                        top: 20.r,
-                                        bottom: 0.r,
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.delete,
-                                            color: cubit.isDark
-                                                ? Colors.black
-                                                : Colors.white,
-                                            size: 30.sp,
-                                          ),
-                                          space(10.w, 0),
-                                          Text(
-                                            "Delete Post",
-                                            style: TextStyle(
-                                              color: cubit.isDark
-                                                  ? Colors.black
-                                                  : Colors.white,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 20.sp,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                              ],
-                            ),
-                          );
-                        });
+                    moreOption(context, cubit, postId);
                   },
                   icon: Icon(
                     IconlyLight.moreCircle,
-                    size: 25.sp,
-                    color: SocialCubit.get(context).isDark
-                        ? Colors.black
-                        : Colors.white,
+                    size: 24.sp,
+                    color: AppMainColors.greyColor,
                   ),
                 ),
               ],
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0).r,
-              child: Container(
-                color: Colors.grey[300],
-                height: 2.h,
-                width: double.infinity,
-              ),
+              padding: const EdgeInsets.symmetric(vertical: 8.0).r,
+              child: MyDivider(color: AppMainColors.greyColor.withOpacity(0.5)),
             ),
             Text(
               '${postModel.text}',
-              style: GoogleFonts.libreBaskerville(
-                color: SocialCubit.get(context).isDark
-                    ? Colors.black
-                    : Colors.white,
-              ),
+              style: Theme.of(context).textTheme.titleLarge,
             ),
-            space(0, 12.h),
+            SizedBox(height: 12.w),
             if (postModel.postImage != '')
               InkWell(
                 onTap: () {
@@ -379,22 +157,15 @@ class BuildPostItem extends StatelessWidget {
                   children: [
                     Align(
                       alignment: AlignmentDirectional.bottomCenter,
-                      child: Container(
-                        height: 320,
+                      child: SizedBox(
                         width: double.infinity,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4).r,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.4),
-                            ),
-                          ],
-                        ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(15).r,
-                          child: Image(
-                            image: NetworkImage('${postModel.postImage}'),
-                            fit: BoxFit.cover,
+                          child: ImageWithShimmer(
+                            imageUrl: '${postModel.postImage}',
+                            width: 110.w,
+                            height: 110.h,
+                            boxFit: BoxFit.fill,
                           ),
                         ),
                       ),
@@ -538,5 +309,196 @@ class BuildPostItem extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<dynamic> moreOption(
+      BuildContext context, SocialCubit cubit, String postId) {
+    return showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(30),
+          ).r,
+        ),
+        builder: (context) {
+          return Padding(
+            padding: const EdgeInsets.all(15.0).r,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (postModel.uId == cubit.userModel!.uId)
+                  InkWell(
+                    onTap: () {
+                      navigateTo(
+                        context,
+                        EditPosts(
+                          postModel: postModel,
+                          postId: postId,
+                        ),
+                      );
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        left: 8.r,
+                        right: 8.r,
+                        top: 20.r,
+                        bottom: 0.r,
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.edit_location_outlined,
+                            color: cubit.isDark ? Colors.black : Colors.white,
+                            size: 30.sp,
+                          ),
+                          space(10.w, 0),
+                          Text(
+                            "Edit Post",
+                            style: TextStyle(
+                                color:
+                                    cubit.isDark ? Colors.black : Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 20.sp),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                InkWell(
+                  onTap: () {
+                    // cubit.savePost(
+                    //     postId: postId,
+                    //     date: DateTime.now(),
+                    //     userName: model.name,
+                    //     userId: model.uId,
+                    //     userImage: model.image,
+                    //     postText: model.text,
+                    //     postImage: model.postImage);
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      left: 8.r,
+                      right: 8.r,
+                      top: 20.r,
+                      bottom: 0.r,
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.turned_in_not_sharp,
+                          color: cubit.isDark ? Colors.black : Colors.white,
+                          size: 30.sp,
+                        ),
+                        space(10.w, 0),
+                        Text(
+                          "Save Post",
+                          style: TextStyle(
+                            color: cubit.isDark ? Colors.black : Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20.sp,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                if (postModel.postImage != '')
+                  InkWell(
+                    onTap: () {
+                      cubit.saveToGallery(postModel.postImage!);
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        left: 8.r,
+                        right: 8.r,
+                        top: 20.r,
+                        bottom: 0.r,
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            IconlyLight.download,
+                            color: cubit.isDark ? Colors.black : Colors.white,
+                            size: 30.sp,
+                          ),
+                          space(10.w, 0),
+                          Text(
+                            "Save Image",
+                            style: TextStyle(
+                              color: cubit.isDark ? Colors.black : Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20.sp,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                InkWell(
+                  onTap: () {},
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      left: 8.r,
+                      right: 8.r,
+                      top: 20.r,
+                      bottom: 0.r,
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.share,
+                          color: cubit.isDark ? Colors.black : Colors.white,
+                          size: 30.sp,
+                        ),
+                        space(10.w, 0),
+                        Text(
+                          "Share",
+                          style: TextStyle(
+                            color: cubit.isDark ? Colors.black : Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20.sp,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                if (postModel.uId == cubit.userModel!.uId)
+                  InkWell(
+                    onTap: () {
+                      cubit.deletePost(postId);
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        left: 8.r,
+                        right: 8.r,
+                        top: 20.r,
+                        bottom: 0.r,
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.delete,
+                            color: cubit.isDark ? Colors.black : Colors.white,
+                            size: 30.sp,
+                          ),
+                          space(10.w, 0),
+                          Text(
+                            "Delete Post",
+                            style: TextStyle(
+                              color: cubit.isDark ? Colors.black : Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20.sp,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          );
+        });
   }
 }
