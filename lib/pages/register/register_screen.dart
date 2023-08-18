@@ -36,7 +36,7 @@ class RegisterScreen extends StatelessWidget {
           if (state is UserCreateSuccessState) {
             CacheHelper.saveData(value: state.uid, key: 'uId').then((value) {
               uId = state.uid;
-              navigateTo(
+              navigateAndFinish(
                 context,
                 const EmailVerificationScreen(),
               );

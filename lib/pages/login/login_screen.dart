@@ -48,7 +48,7 @@ class LoginScreen extends StatelessWidget {
                       const HomeLayout(),
                     );
                   } else {
-                    navigateTo(
+                    navigateAndFinish(
                       context,
                       const EmailVerificationScreen(),
                     );

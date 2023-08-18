@@ -9,8 +9,41 @@ import 'package:sociality/shared/components/navigator.dart';
 import 'package:sociality/shared/network/cache_helper.dart';
 import 'package:sociality/shared/styles/color.dart';
 
-class OnBoard extends StatelessWidget {
+class OnBoard extends StatefulWidget {
   const OnBoard({Key? key}) : super(key: key);
+
+  @override
+  State<OnBoard> createState() => _OnBoardState();
+}
+
+class _OnBoardState extends State<OnBoard> {
+  void submit() {
+    CacheHelper.saveData(
+      key: 'onBoarding',
+      value: true,
+    ).then((value) {
+      if (value) {
+        navigateAndFinish(
+          context,
+          const LoginScreen(),
+        );
+      }
+    });
+  }
+
+  void submitted() {
+    CacheHelper.saveData(
+      key: 'onBoarding',
+      value: true,
+    ).then((value) {
+      if (value) {
+        navigateAndFinish(
+          context,
+          const RegisterScreen(),
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +100,7 @@ class OnBoard extends StatelessWidget {
                         ),
                         child: MaterialButton(
                           onPressed: () {
-                            submit(context, const LoginScreen());
+                            submit();
                           },
                           child: Text(
                             'Sign in'.toUpperCase(),
@@ -91,7 +124,7 @@ class OnBoard extends StatelessWidget {
                         ),
                         child: MaterialButton(
                           onPressed: () {
-                            submit(context, const RegisterScreen());
+                            submitted();
                           },
                           child: Text(
                             'Sign up'.toUpperCase(),
@@ -116,18 +149,4 @@ class OnBoard extends StatelessWidget {
       ),
     );
   }
-}
-
-void submit(context, Widget widget) {
-  CacheHelper.saveData(
-    key: 'onBoarding',
-    value: true,
-  ).then((value) {
-    if (value) {
-      navigateTo(
-        context,
-        widget,
-      );
-    }
-  });
 }
