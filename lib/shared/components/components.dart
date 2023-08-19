@@ -10,7 +10,6 @@ import 'package:sociality/shared/components/constants.dart';
 import 'package:sociality/shared/components/navigator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -554,24 +553,3 @@ Widget buildPost(index, context, state, PostModel postModel, UserModel? model,
     ),
   );
 }
-
-PreferredSizeWidget defaultAppBar() => AppBar(
-      backgroundColor: Colors.transparent,
-      systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarBrightness: Brightness.light,
-          statusBarIconBrightness: Brightness.light),
-      elevation: 0,
-      scrolledUnderElevation: 0,
-      toolbarHeight: 0,
-    );
-
-PreferredSizeWidget secondAppBar() => AppBar(
-      backgroundColor: Colors.transparent,
-      systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarBrightness: Brightness.dark,
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.dark),
-      elevation: 0,
-      scrolledUnderElevation: 0,
-      toolbarHeight: 0,
-    );

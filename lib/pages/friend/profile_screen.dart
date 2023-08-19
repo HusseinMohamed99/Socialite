@@ -456,13 +456,8 @@ class FriendsProfileScreen extends StatelessWidget {
                       builder: (context) => ListView.separated(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) => buildPost(
-                                index,
-                                context,
-                                state,
-                                posts[index],
-                                friendsModel,
-                                scaffoldKey,
+                            itemBuilder: (context, index) => buildPost(index,
+                                context, state, posts[index], friendsModel,
                                 isSingle: false),
                             separatorBuilder: (context, index) => SizedBox(
                               height: 10.h,
