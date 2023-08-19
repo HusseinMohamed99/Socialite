@@ -144,6 +144,7 @@ class StoriesItem extends StatelessWidget {
                           Align(
                             child: ImageWithShimmer(
                               imageUrl: cubit.userModel!.image,
+                              radius: 15.r,
                               width: double.infinity,
                               height: double.infinity,
                               boxFit: BoxFit.fill,
@@ -154,10 +155,10 @@ class StoriesItem extends StatelessWidget {
                             backgroundColor: Colors.grey.withOpacity(0.3),
                             child: CircleAvatar(
                               radius: 18.r,
-                              backgroundColor: Colors.blue,
+                              backgroundColor: AppMainColors.blueColor,
                               child: Icon(
                                 Icons.add,
-                                color: Colors.white,
+                                color: AppMainColors.kittenWithColor,
                                 size: 24.sp,
                               ),
                             ),

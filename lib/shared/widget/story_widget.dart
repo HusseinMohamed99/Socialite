@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sociality/model/story_model.dart';
 import 'package:sociality/pages/story/veiw_story.dart';
+import 'package:sociality/shared/components/image_with_shimmer.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
 
@@ -36,11 +37,15 @@ class StoryItem extends StatelessWidget {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(14).r,
-                      image: DecorationImage(
-                        image: NetworkImage(storyModel.storyImage!),
-                        fit: BoxFit.fill,
-                      )),
+                    borderRadius: BorderRadius.circular(14).r,
+                  ),
+                  child: ImageWithShimmer(
+                    radius: 15.r,
+                    imageUrl: storyModel.storyImage!,
+                    width: double.infinity,
+                    height: double.infinity,
+                    boxFit: BoxFit.fill,
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0).r,
@@ -51,10 +56,21 @@ class StoryItem extends StatelessWidget {
                         radius: 23.r,
                         child: CircleAvatar(
                           radius: 20.r,
-                          backgroundImage:
-                              storyModel.uId == cubit.userModel!.uId
-                                  ? NetworkImage(cubit.userModel!.image)
-                                  : NetworkImage(storyModel.image!),
+                          child: storyModel.uId == cubit.userModel!.uId
+                              ? ImageWithShimmer(
+                                  imageUrl: cubit.userModel!.image,
+                                  radius: 15.r,
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  boxFit: BoxFit.fill,
+                                )
+                              : ImageWithShimmer(
+                                  imageUrl: storyModel.image!,
+                                  radius: 15.r,
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  boxFit: BoxFit.fill,
+                                ),
                         ),
                       ),
                       const Spacer(),
