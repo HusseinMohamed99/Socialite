@@ -12,7 +12,9 @@
         "Reclip",
         "roboto",
         "screenutil",
-        "Wakelock"
+        "STEB",
+        "Wakelock",
+        "Worldwideweb"
     ],
     "cSpell.language": "en,lorem"
 }

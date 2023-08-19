@@ -13,56 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-void showToast({
-  required String text,
-  required ToastStates state,
-}) {
-  Fluttertoast.showToast(
-    msg: text,
-    toastLength: Toast.LENGTH_LONG,
-    gravity: ToastGravity.BOTTOM,
-    timeInSecForIosWeb: 10,
-    backgroundColor: chooseToastColor(state),
-    textColor: Colors.white,
-    fontSize: 16.0,
-  );
-}
-
-enum ToastStates { success, error, waring }
-
-Color chooseToastColor(ToastStates state) {
-  Color color;
-  switch (state) {
-    case ToastStates.success:
-      color = Colors.green;
-      break;
-
-    case ToastStates.error:
-      color = Colors.red;
-      break;
-
-    case ToastStates.waring:
-      color = Colors.amber;
-      break;
-  }
-  return color;
-}
-
-// Widget imagePreview(){
-//   return FullScreenWidget(
-//     child: Center(
-//       child: Image.network(
-//         "$image",
-//         fit: BoxFit.cover,
-//         width: double.infinity,
-//         alignment: AlignmentDirectional.topCenter,
-//       ),
-//     ),
-//   );
-// }
 
 Widget baseAlertDialog({
   required context,

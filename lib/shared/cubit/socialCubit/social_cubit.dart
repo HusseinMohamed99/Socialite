@@ -15,9 +15,9 @@ import 'package:sociality/model/story_model.dart';
 import 'package:sociality/model/user_model.dart';
 import 'package:sociality/pages/on-boarding/on_boarding_screen.dart';
 import 'package:sociality/pages/story/create_story.dart';
-import 'package:sociality/shared/components/components.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:sociality/shared/components/navigator.dart';
+import 'package:sociality/shared/components/show_toast.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
 import 'package:sociality/shared/network/cache_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -531,7 +531,9 @@ class SocialCubit extends Cubit<SocialStates> {
             postModel: postModel,
             postUser: postUser);
       }
-      print(isLikedByMe);
+      if (kDebugMode) {
+        print(isLikedByMe);
+      }
       emit(LikedByMeCheckedSuccessState());
     });
     return isLikedByMe;
@@ -572,7 +574,9 @@ class SocialCubit extends Cubit<SocialStates> {
       }
       emit(LikesSuccessState());
     }).catchError((error) {
-      print(error.toString());
+      if (kDebugMode) {
+        print(error.toString());
+      }
       emit(LikesErrorState(error.toString()));
     });
   }
