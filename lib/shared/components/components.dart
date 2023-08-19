@@ -1,18 +1,22 @@
+import 'package:fluttericon/linearicons_free_icons.dart';
 import 'package:sociality/Pages/comment/comment_screen.dart';
 import 'package:sociality/Pages/friend/profile_screen.dart';
-import 'package:sociality/Pages/post/edit_post.dart';
 import 'package:sociality/Pages/profile/my_profile_screen.dart';
 import 'package:sociality/Pages/viewPhoto/post_view.dart';
 import 'package:sociality/model/post_model.dart';
 import 'package:sociality/model/user_model.dart';
+import 'package:sociality/pages/post_like/likes_screen.dart';
+import 'package:sociality/shared/components/image_with_shimmer.dart';
+import 'package:sociality/shared/components/my_divider.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:sociality/shared/components/navigator.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sociality/shared/styles/color.dart';
+import 'package:sociality/shared/widget/more_options.dart';
 
 Widget baseAlertDialog({
   required context,
@@ -109,7 +113,7 @@ Widget buildPost(index, context, state, PostModel postModel, UserModel? model,
   return Card(
     clipBehavior: Clip.antiAliasWithSaveLayer,
     elevation: 10,
-    margin: const EdgeInsets.symmetric(horizontal: 8),
+    margin: const EdgeInsets.symmetric(horizontal: 8).r,
     child: Padding(
       padding: const EdgeInsets.all(10.0).r,
       child: Column(
@@ -128,13 +132,15 @@ Widget buildPost(index, context, state, PostModel postModel, UserModel? model,
                 },
                 borderRadius: BorderRadius.circular(25),
                 child: CircleAvatar(
-                  radius: 25,
-                  backgroundImage: NetworkImage(
-                    '${postModel.image}',
+                  radius: 25.r,
+                  child: ImageWithShimmer(
+                    imageUrl: '${postModel.image}',
+                    width: 30.w,
+                    height: 30.h,
                   ),
                 ),
               ),
-              space(15, 0),
+              SizedBox(width: 15.w),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,278 +159,84 @@ Widget buildPost(index, context, state, PostModel postModel, UserModel? model,
                           },
                           child: Text(
                             '${postModel.name}',
-                            style: GoogleFonts.lobster(
-                              fontSize: 20,
-                              height: 1.3,
-                              color: SocialCubit.get(context).isDark
-                                  ? CupertinoColors.activeBlue
-                                  : Colors.white,
-                            ),
+                            style: Theme.of(context).textTheme.titleLarge,
                           ),
                         ),
-                        space(10, 0),
-                        const Icon(
+                        SizedBox(width: 5.w),
+                        Icon(
                           Icons.check_circle,
                           color: Colors.blue,
-                          size: 20,
+                          size: 16.sp,
                         ),
                       ],
                     ),
-                    Text(
-                      daysBetween(
-                          DateTime.parse(postModel.dateTime.toString())),
-                      style: GoogleFonts.lobster(
-                          fontSize: 15,
+                    Row(
+                      children: [
+                        Icon(
+                          LineariconsFree.earth,
+                          size: 16.sp,
                           color: Colors.grey,
-                          textStyle: Theme.of(context).textTheme.bodySmall,
-                          height: 1.3),
+                        ),
+                        SizedBox(width: 10.w),
+                        Text(
+                          daysBetween(
+                              DateTime.parse(postModel.dateTime.toString())),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(color: AppMainColors.greyColor),
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ),
-              space(15, 0),
               IconButton(
                 onPressed: () {
-                  showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      shape: const RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(30))),
-                      builder: (context) {
-                        return Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              if (postModel.uId == cubit.userModel!.uId)
-                                InkWell(
-                                  onTap: () {
-                                    navigateTo(
-                                        context,
-                                        EditPosts(
-                                          postModel: postModel,
-                                          postId: postId,
-                                        ));
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                      left: 8,
-                                      right: 8,
-                                      top: 20,
-                                      bottom: 0,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.edit_location_outlined,
-                                          color: Colors.red,
-                                          size: 30,
-                                        ),
-                                        space(10, 0),
-                                        const Text(
-                                          "Edit Post",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 20),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              InkWell(
-                                onTap: () {
-                                  // cubit.savePost(
-                                  //     postId: postId,
-                                  //     date: DateTime.now(),
-                                  //     userName: model.name,
-                                  //     userId: model.uId,
-                                  //     userImage: model.image,
-                                  //     postText: model.text,
-                                  //     postImage: model.postImage);
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 8,
-                                    right: 8,
-                                    top: 20,
-                                    bottom: 0,
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.turned_in_not_sharp,
-                                        color: Colors.red,
-                                        size: 30,
-                                      ),
-                                      space(10, 0),
-                                      const Text(
-                                        "Save Post",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 20),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              if (postModel.postImage != '')
-                                InkWell(
-                                  onTap: () {
-                                    cubit.saveToGallery(postModel.postImage!);
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                      left: 8,
-                                      right: 8,
-                                      top: 20,
-                                      bottom: 0,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        const Icon(
-                                          IconlyLight.download,
-                                          color: Colors.red,
-                                          size: 30,
-                                        ),
-                                        space(10, 0),
-                                        const Text(
-                                          "Save Image",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 20),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              InkWell(
-                                onTap: () {},
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 8,
-                                    right: 8,
-                                    top: 20,
-                                    bottom: 0,
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.share,
-                                        color: Colors.red,
-                                        size: 30,
-                                      ),
-                                      space(10, 0),
-                                      const Text(
-                                        "Share",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 20),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              if (postModel.uId == cubit.userModel!.uId)
-                                InkWell(
-                                  onTap: () {
-                                    cubit.deletePost(postId);
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                      left: 8,
-                                      right: 8,
-                                      top: 20,
-                                      bottom: 0,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.delete,
-                                          color: Colors.red,
-                                          size: 30,
-                                        ),
-                                        space(10, 0),
-                                        const Text(
-                                          "Delete Post",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 20),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                            ],
-                          ),
-                        );
-                      });
+                  moreOption(context, cubit, postId, postModel);
                 },
                 icon: Icon(
                   IconlyLight.moreCircle,
-                  size: 25,
-                  color: SocialCubit.get(context).isDark
-                      ? Colors.black
-                      : Colors.white,
+                  size: 24.sp,
+                  color: AppMainColors.greyColor,
                 ),
               ),
             ],
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 15.0),
-            child: Container(
-              color: Colors.grey[300],
-              height: 2,
-              width: double.infinity,
-            ),
+            padding: const EdgeInsets.symmetric(vertical: 8.0).r,
+            child: MyDivider(color: AppMainColors.greyColor.withOpacity(0.5)),
           ),
           Text(
             '${postModel.text}',
-            style: GoogleFonts.libreBaskerville(
-              color:
-                  SocialCubit.get(context).isDark ? Colors.black : Colors.white,
-            ),
+            style: Theme.of(context).textTheme.titleLarge,
           ),
-          space(0, 12),
+          SizedBox(height: 12.w),
           if (postModel.postImage != '')
             InkWell(
               onTap: () {
                 navigateTo(
-                    context,
-                    FullScreen(
-                      postModel,
-                      index: index,
-                    ));
+                  context,
+                  FullScreen(
+                    postModel,
+                    index: index,
+                  ),
+                );
               },
               child: Stack(
                 alignment: AlignmentDirectional.topEnd,
                 children: [
                   Align(
                     alignment: AlignmentDirectional.bottomCenter,
-                    child: Container(
-                      height: 400,
+                    child: SizedBox(
                       width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.4),
-                            // blurRadius: 0,
-                            // spreadRadius: 0,
-                            // offset: Offset(0, 0)
-                          ),
-                        ],
-                      ),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: Image(
-                          image: NetworkImage('${postModel.postImage}'),
-                          fit: BoxFit.cover,
+                        borderRadius: BorderRadius.circular(15).r,
+                        child: ImageWithShimmer(
+                          imageUrl: '${postModel.postImage}',
+                          width: 110.w,
+                          height: 110.h,
+                          boxFit: BoxFit.fill,
                         ),
                       ),
                     ),
@@ -436,47 +248,56 @@ Widget buildPost(index, context, state, PostModel postModel, UserModel? model,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               TextButton.icon(
-                onPressed: () {},
-                icon: const Icon(
+                onPressed: () {
+                  navigateTo(
+                    context,
+                    LikesScreen(
+                      SocialCubit.get(context).postsId[index],
+                      postModel.uId,
+                    ),
+                  );
+                },
+                icon: Icon(
                   IconlyLight.heart,
                   color: Colors.red,
+                  size: 24.sp,
                 ),
                 label: Text(
                   '${postModel.likes}',
-                  style: GoogleFonts.lobster(
-                    color: Colors.red,
-                  ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge!
+                      .copyWith(color: AppMainColors.redColor),
                 ),
               ),
               TextButton.icon(
                 onPressed: () {
                   navigateTo(
-                      context,
-                      CommentsScreen(
-                        SocialCubit.get(context).postsId[index],
-                        postModel.uId,
-                      ));
+                    context,
+                    CommentsScreen(
+                      SocialCubit.get(context).postsId[index],
+                      postModel.uId,
+                    ),
+                  );
                 },
-                icon: const Icon(
+                icon: Icon(
                   IconlyLight.chat,
                   color: Colors.orangeAccent,
+                  size: 24.sp,
                 ),
                 label: Text(
-                  '${SocialCubit.get(context).commentsNum[index]}',
-                  style: GoogleFonts.lobster(
-                    color: Colors.orangeAccent,
-                  ),
+                  '',
+                  // '${SocialCubit.get(context).commentsNum[index]}' ?? '',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge!
+                      .copyWith(color: AppMainColors.orangeColor),
                 ),
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 3.0),
-            child: Container(
-              color: Colors.grey[300],
-              height: 2,
-              width: double.infinity,
-            ),
+          MyDivider(
+            color: AppMainColors.greyColor.withOpacity(0.4),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -486,29 +307,33 @@ Widget buildPost(index, context, state, PostModel postModel, UserModel? model,
                   navigateTo(context, const MyProfileScreen());
                 },
                 child: CircleAvatar(
-                  radius: 18,
-                  backgroundImage: NetworkImage('${postModel.image}'),
+                  radius: 15.r,
+                  child: ImageWithShimmer(
+                    imageUrl: SocialCubit.get(context).userModel!.image,
+                    width: 40.w,
+                    height: 40.h,
+                  ),
                 ),
               ),
-              space(10, 0),
+              SizedBox(width: 8.w),
               InkWell(
                 onTap: () {
                   navigateTo(
-                      context,
-                      CommentsScreen(
-                        SocialCubit.get(context).postsId[index],
-                        postModel.uId,
-                      ));
+                    context,
+                    CommentsScreen(
+                      SocialCubit.get(context).postsId[index],
+                      postModel.uId,
+                    ),
+                  );
                 },
                 child: SizedBox(
-                  width: 150,
+                  width: 120.w,
                   child: Text(
                     'Write a comment ...',
-                    style: GoogleFonts.lobster(
-                      textStyle: Theme.of(context).textTheme.bodySmall,
-                      fontSize: 15,
-                      color: Colors.grey,
-                    ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge!
+                        .copyWith(color: AppMainColors.greyColor),
                   ),
                 ),
               ),
@@ -516,7 +341,7 @@ Widget buildPost(index, context, state, PostModel postModel, UserModel? model,
                 onPressed: () async {
                   UserModel? postUser = SocialCubit.get(context).userModel;
 
-                  await cubit.likeByMe(
+                  await SocialCubit.get(context).likeByMe(
                       postUser: postUser,
                       context: context,
                       postModel: postModel,
@@ -524,24 +349,29 @@ Widget buildPost(index, context, state, PostModel postModel, UserModel? model,
                 },
                 label: Text(
                   'Like',
-                  style: GoogleFonts.lobster(
-                    color: Colors.grey,
-                  ),
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: cubit.isLikedByMe
+                          ? AppMainColors.greyColor
+                          : AppMainColors.redColor),
                 ),
-                icon: const Icon(
+                icon: Icon(
                   IconlyLight.heart,
-                  color: Colors.grey,
+                  color: cubit.isLikedByMe
+                      ? AppMainColors.greyColor
+                      : AppMainColors.redColor,
+                  size: 24.sp,
                 ),
               ),
               TextButton.icon(
                 onPressed: () {},
-                icon: const Icon(
+                icon: Icon(
                   IconlyLight.upload,
                   color: Colors.green,
+                  size: 24.sp,
                 ),
                 label: Text(
                   'Share',
-                  style: GoogleFonts.lobster(
+                  style: GoogleFonts.roboto(
                     color: Colors.green,
                   ),
                 ),
