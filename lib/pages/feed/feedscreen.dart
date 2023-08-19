@@ -219,6 +219,7 @@ class CreatePosts extends StatelessWidget {
             CircleAvatar(
               radius: 25.r,
               child: ImageWithShimmer(
+                radius: 25.r,
                 imageUrl: cubit.userModel!.image,
                 width: 100.w,
                 height: 100.h,

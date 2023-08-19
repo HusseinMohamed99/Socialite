@@ -55,6 +55,7 @@ class BuildPostItem extends StatelessWidget {
                       SocialCubit.get(context).getFriendsProfile(postModel.uId);
                     } else {
                       SocialCubit.get(context).getUserPosts(uId);
+                      SocialCubit.get(context).getUserData();
                       navigateTo(
                         context,
                         const MyProfileScreen(),
@@ -69,10 +70,11 @@ class BuildPostItem extends StatelessWidget {
                       imageUrl: userModel.image,
                       width: 100.w,
                       height: 100.h,
+                      boxFit: BoxFit.fill,
                     ),
                   ),
                 ),
-                space(15.w, 0),
+                SizedBox(width: 15.w),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,6 +88,8 @@ class BuildPostItem extends StatelessWidget {
                                 navigateTo(context,
                                     FriendsProfileScreen(postModel.uId));
                               } else {
+                                SocialCubit.get(context).getUserPosts(uId);
+                                SocialCubit.get(context).getUserData();
                                 navigateTo(
                                   context,
                                   const MyProfileScreen(),
@@ -245,9 +249,11 @@ class BuildPostItem extends StatelessWidget {
                   child: CircleAvatar(
                     radius: 15.r,
                     child: ImageWithShimmer(
+                      radius: 25.r,
                       imageUrl: SocialCubit.get(context).userModel!.image,
                       width: 40.w,
                       height: 40.h,
+                      boxFit: BoxFit.fill,
                     ),
                   ),
                 ),
