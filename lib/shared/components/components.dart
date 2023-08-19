@@ -103,7 +103,6 @@ Widget searchBar({
 }
 
 Widget buildPost(index, context, state, PostModel postModel, UserModel? model,
-    GlobalKey<ScaffoldState> scaffoldKey,
     {required bool isSingle}) {
   late String postId;
   var cubit = SocialCubit.get(context);
