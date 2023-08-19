@@ -78,6 +78,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => SocialCubit()
+            ..setUserToken()
             ..getPosts()
             ..getAllUsers()
             ..getUserData()
