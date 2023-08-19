@@ -20,10 +20,14 @@ import 'package:sociality/shared/widget/more_options.dart';
 
 class BuildPostItem extends StatelessWidget {
   const BuildPostItem(
-      {super.key, required this.postModel, required this.index});
+      {super.key,
+      required this.postModel,
+      required this.index,
+      required this.userModel});
 
   final PostModel postModel;
   final int index;
+  final UserModel userModel;
   @override
   Widget build(BuildContext context) {
     var cubit = SocialCubit.get(context);
@@ -50,6 +54,7 @@ class BuildPostItem extends StatelessWidget {
                       );
                       SocialCubit.get(context).getFriendsProfile(postModel.uId);
                     } else {
+                      SocialCubit.get(context).getUserPosts(uId);
                       navigateTo(
                         context,
                         const MyProfileScreen(),
@@ -61,7 +66,7 @@ class BuildPostItem extends StatelessWidget {
                     radius: 25.r,
                     child: ImageWithShimmer(
                       radius: 75.r,
-                      imageUrl: '${postModel.image}',
+                      imageUrl: userModel.image,
                       width: 100.w,
                       height: 100.h,
                     ),
@@ -88,7 +93,7 @@ class BuildPostItem extends StatelessWidget {
                               }
                             },
                             child: Text(
-                              '${postModel.name}',
+                              userModel.name,
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
                           ),

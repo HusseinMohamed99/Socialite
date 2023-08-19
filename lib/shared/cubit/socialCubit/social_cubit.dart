@@ -416,9 +416,7 @@ class SocialCubit extends Cubit<SocialStates> {
     emit(CreatePostLoadingState());
 
     PostModel model = PostModel(
-      name: userModel!.name,
       uId: userModel!.uId,
-      image: userModel!.image,
       text: text,
       postImage: postImage ?? '',
       dateTime: dateTime,
@@ -561,12 +559,12 @@ class SocialCubit extends Cubit<SocialStates> {
       getPosts();
       if (postModel!.uId != userModel!.uId) {
         SocialCubit.get(context).sendInAppNotification(
-            receiverName: postModel.name,
+            receiverName: postUser!.name,
             receiverId: postModel.uId,
             contentId: postModel.uId,
             contentKey: 'likePost');
         SocialCubit.get(context).sendFCMNotification(
-          token: postUser!.uId,
+          token: postUser.uId,
           senderName: SocialCubit.get(context).userModel!.name,
           messageText: '${SocialCubit.get(context).userModel!.name}'
               ' likes a post you shared',
@@ -702,8 +700,6 @@ class SocialCubit extends Cubit<SocialStates> {
     emit(EditPostLoadingState());
     postModel = PostModel(
         uId: postModel.uId,
-        name: postModel.name,
-        image: postModel.image,
         dateTime: postModel.dateTime,
         text: text,
         postImage: postImage ?? postModel.postImage);

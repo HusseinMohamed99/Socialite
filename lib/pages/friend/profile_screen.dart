@@ -16,6 +16,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sociality/shared/widget/build_post_item.dart';
 
 class FriendsProfileScreen extends StatelessWidget {
   FriendsProfileScreen(this.userUID, {Key? key}) : super(key: key);
@@ -456,9 +457,11 @@ class FriendsProfileScreen extends StatelessWidget {
                       builder: (context) => ListView.separated(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) => buildPost(index,
-                                context, state, posts[index], friendsModel,
-                                isSingle: false),
+                            itemBuilder: (context, index) => BuildPostItem(
+                              postModel: cubit.posts[index],
+                              userModel: cubit.userModel!,
+                              index: index,
+                            ),
                             separatorBuilder: (context, index) => SizedBox(
                               height: 10.h,
                             ),
