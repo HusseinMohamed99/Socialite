@@ -37,12 +37,12 @@ class _UserScreenState extends State<UserScreen> {
           List<UserModel> friends =
               SocialCubit.get(context).friends.cast<UserModel>();
           return SocialCubit.get(context).users.isEmpty
-              ? const Scaffold(
+              ? Scaffold(
                   body: Center(
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(
+                          const Icon(
                             IconlyLight.user3,
                             size: 70,
                             color: Colors.grey,
@@ -50,10 +50,7 @@ class _UserScreenState extends State<UserScreen> {
                           Center(
                             child: Text(
                               'No Users Yet',
-                              style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
+                              style: Theme.of(context).textTheme.titleLarge,
                             ),
                           ),
                         ]),

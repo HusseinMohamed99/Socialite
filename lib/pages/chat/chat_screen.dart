@@ -24,28 +24,20 @@ class ChatScreen extends StatelessWidget {
       builder: (context, state) {
         SocialCubit cubit = SocialCubit.get(context);
         return SocialCubit.get(context).users.isEmpty
-            ? Scaffold(
-                body: Center(
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          IconlyLight.chat,
-                          size: 70.sp,
-                          color: Colors.grey,
-                        ),
-                        Center(
-                          child: Text(
-                            'No Users Yet,\nPlease Add\nSome Friends ',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ]),
-                ),
+            ? Center(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        IconlyLight.chat,
+                        size: 70.sp,
+                        color: Colors.grey,
+                      ),
+                      Text(
+                        'No Users Yet,\nPlease Add\nSome Friends',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                    ]),
               )
             : SingleChildScrollView(
                 child: ConditionalBuilder(
@@ -65,7 +57,7 @@ class ChatScreen extends StatelessWidget {
                               itemBuilder: (context, index) =>
                                   buildStoryItem(cubit.users[index], context),
                               separatorBuilder: (context, index) =>
-                                  space(5.w, 0),
+                                  SizedBox(width: 5.w),
                               itemCount: cubit.users.length,
                             )),
                       ),
@@ -73,8 +65,9 @@ class ChatScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(10.0).r,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) =>
-                            buildUsersItem(cubit.users[index], context),
+                        itemBuilder: (context, index) => BuildUsersItems(
+                          users: cubit.users[index],
+                        ),
                         separatorBuilder: (context, index) => MyDivider(
                           color: Colors.grey.withOpacity(0.3),
                         ),
@@ -93,7 +86,60 @@ class ChatScreen extends StatelessWidget {
     );
   }
 
-  Widget buildUsersItem(UserModel users, context) {
+  Widget buildStoryItem(UserModel users, context) => InkWell(
+        onTap: () {
+          navigateTo(
+            context,
+            PrivateChatScreen(userModel: users),
+          );
+        },
+        child: Container(
+          margin: EdgeInsetsDirectional.all(10.r),
+          width: 60.0.w,
+          child: Column(
+            children: [
+              Stack(
+                alignment: AlignmentDirectional.bottomEnd,
+                children: [
+                  CircleAvatar(
+                    radius: 26.0.r,
+                    backgroundImage: NetworkImage(
+                      users.image,
+                    ),
+                  ),
+                  CircleAvatar(
+                    radius: 8.0.r,
+                    backgroundColor: Colors.white,
+                    child: CircleAvatar(
+                      radius: 5.0.r,
+                      backgroundColor: Colors.green,
+                    ),
+                  ),
+                ],
+              ),
+              Text(
+                users.name,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.roboto(
+                  fontSize: 16.sp,
+                  color: SocialCubit.get(context).isDark
+                      ? Colors.black
+                      : Colors.white,
+                ),
+              )
+            ],
+          ),
+        ),
+      );
+}
+
+class BuildUsersItems extends StatelessWidget {
+  const BuildUsersItems({super.key, required this.users});
+  final UserModel users;
+  @override
+  Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         navigateTo(
@@ -153,52 +199,4 @@ class ChatScreen extends StatelessWidget {
       ),
     );
   }
-
-  Widget buildStoryItem(UserModel users, context) => InkWell(
-        onTap: () {
-          navigateTo(
-            context,
-            PrivateChatScreen(userModel: users),
-          );
-        },
-        child: Container(
-          margin: EdgeInsetsDirectional.all(10.r),
-          width: 60.0.w,
-          child: Column(
-            children: [
-              Stack(
-                alignment: AlignmentDirectional.bottomEnd,
-                children: [
-                  CircleAvatar(
-                    radius: 26.0.r,
-                    backgroundImage: NetworkImage(
-                      users.image,
-                    ),
-                  ),
-                  CircleAvatar(
-                    radius: 8.0.r,
-                    backgroundColor: Colors.white,
-                    child: CircleAvatar(
-                      radius: 5.0.r,
-                      backgroundColor: Colors.green,
-                    ),
-                  ),
-                ],
-              ),
-              Text(
-                users.name,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center,
-                style: GoogleFonts.roboto(
-                  fontSize: 16.sp,
-                  color: SocialCubit.get(context).isDark
-                      ? Colors.black
-                      : Colors.white,
-                ),
-              )
-            ],
-          ),
-        ),
-      );
 }

@@ -64,12 +64,7 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/icon/
-
-  fonts:
-     - family: IconBroken
-       fonts:
-         - asset: assets/icon/icons.ttf
+  
 
 
 flutter_assets:
