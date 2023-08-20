@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:sociality/layout/Home/home_layout.dart';
+import 'package:sociality/shared/components/indicator.dart';
 import 'package:sociality/shared/cubit/EmailVerification/email_verification_cubit.dart';
 import 'package:sociality/shared/cubit/EmailVerification/email_verification_state.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
@@ -7,9 +8,7 @@ import 'package:sociality/shared/components/buttons.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sociality/shared/components/navigator.dart';
 import 'package:sociality/shared/styles/color.dart';
 
@@ -28,7 +27,7 @@ class EmailVerificationScreen extends StatelessWidget {
 
           return Scaffold(
             backgroundColor: SocialCubit.get(context).isDark
-                ? AppColorsLight.primaryColor
+                ? AppMainColors.kittenWithColor
                 : AppColorsDark.primaryDarkColor,
             appBar: AppBar(
               backgroundColor: Colors.transparent,
@@ -37,31 +36,19 @@ class EmailVerificationScreen extends StatelessWidget {
                 statusBarIconBrightness: Brightness.light,
                 statusBarBrightness: Brightness.dark,
               ),
-              leading: IconButton(
-                onPressed: () {
-                  pop(context);
-                },
-                icon: Icon(
-                  IconlyLight.arrowLeft2,
-                  size: 30.sp,
-                  color: SocialCubit.get(context).isDark
-                      ? Colors.black
-                      : Colors.white,
-                ),
-              ),
+              elevation: 0,
             ),
             body: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20.0).r,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    space(0, 35.h),
                     Container(
                       decoration: BoxDecoration(
                         color: SocialCubit.get(context).isDark
-                            ? Colors.black
-                            : Colors.white,
+                            ? AppMainColors.redColor
+                            : AppColorsDark.primaryDarkColor,
                         borderRadius: BorderRadius.circular(75.0).r,
                       ),
                       child: CircleAvatar(
@@ -70,101 +57,80 @@ class EmailVerificationScreen extends StatelessWidget {
                             const AssetImage('assets/images/email.png'),
                       ),
                     ),
-                    space(0, 15.h),
-                    Text('Email Confirmation',
-                        style: TextStyle(
-                          fontSize: 24.0.sp,
-                          color: SocialCubit.get(context).isDark
-                              ? Colors.black
-                              : Colors.white,
-                          fontWeight: FontWeight.bold,
-                        )),
-                    space(0, 10.h),
+                    SizedBox(height: 15.h),
                     Text(
-                      'We\'re happy you signed up for Sociality App. To start exploring the \nSociality App,Please confirm your\nE-mail Address.',
-                      style: GoogleFonts.libreBaskerville(
-                        textStyle: TextStyle(
-                          color: SocialCubit.get(context).isDark
-                              ? Colors.blueGrey
-                              : Colors.white,
-                          fontSize: 20.sp,
-                          overflow: TextOverflow.visible,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+                      'Email Confirmation',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                          .copyWith(fontWeight: FontWeight.w900),
                     ),
-                    space(0, 45.h),
+                    SizedBox(height: 10.h),
+                    Text(
+                      "We're happy you signed up for Sociality App. To start exploring the \nSociality App,Please confirm your\nE-mail Address.",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineSmall!
+                          .copyWith(
+                              fontWeight: FontWeight.w400,
+                              color: AppMainColors.greyColor),
+                    ),
+                    SizedBox(height: 45.h),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30.0).r,
                       child: state is SendVerificationLoadingState
-                          ? const CircularProgressIndicator()
+                          ? AdaptiveIndicator(os: getOs())
                           : cubit.isEmailSent
                               ? Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Card(
                                       color: SocialCubit.get(context).isDark
-                                          ? Colors.green
-                                          : Colors.white,
+                                          ? AppMainColors.greenColor
+                                          : AppMainColors.whiteColor,
                                       child: Row(
                                         children: [
                                           Icon(
                                             Icons.check_circle_outline,
                                             color:
                                                 SocialCubit.get(context).isDark
-                                                    ? Colors.white
-                                                    : Colors.black,
+                                                    ? AppMainColors.whiteColor
+                                                    : AppMainColors.blackColor,
                                             size: 24.sp,
                                           ),
                                           Text(
                                             'Email Verification Sent',
-                                            style: GoogleFonts.libreBaskerville(
-                                              textStyle: TextStyle(
-                                                color: SocialCubit.get(context)
-                                                        .isDark
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                                fontSize: 20.sp,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headlineSmall,
                                           ),
                                         ],
                                       ),
                                     ),
                                     space(10.w, 0),
                                     TextButton(
-                                      style: ButtonStyle(
+                                      style: TextButton.styleFrom(
                                         backgroundColor:
-                                            MaterialStateProperty.all(
-                                          SocialCubit.get(context).isDark
-                                              ? Colors.red
-                                              : Colors.white,
-                                        ),
+                                            SocialCubit.get(context).isDark
+                                                ? AppMainColors.redColor
+                                                : AppMainColors.whiteColor,
                                       ),
                                       onPressed: () {
                                         cubit.sendEmailVerification();
                                       },
                                       child: Text(
                                         'Send again',
-                                        style: GoogleFonts.libreBaskerville(
-                                          textStyle: TextStyle(
-                                            color:
-                                                SocialCubit.get(context).isDark
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                            overflow: TextOverflow.visible,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineSmall,
                                       ),
                                     ),
                                   ],
                                 )
                               : Card(
                                   color: SocialCubit.get(context).isDark
-                                      ? Colors.blue
-                                      : Colors.grey,
+                                      ? AppMainColors.blueColor
+                                      : AppMainColors.greyColor,
                                   child: defaultTextButton(
                                     context: context,
                                     function: () {
@@ -180,8 +146,8 @@ class EmailVerificationScreen extends StatelessWidget {
                       child: cubit.isEmailSent
                           ? Card(
                               color: SocialCubit.get(context).isDark
-                                  ? Colors.green
-                                  : Colors.grey,
+                                  ? AppMainColors.greenColor
+                                  : AppMainColors.greyColor,
                               child: defaultTextButton(
                                 context: context,
                                 function: () {
@@ -206,8 +172,8 @@ class EmailVerificationScreen extends StatelessWidget {
                             )
                           : Card(
                               color: SocialCubit.get(context).isDark
-                                  ? Colors.blue
-                                  : Colors.grey,
+                                  ? AppMainColors.blueColor
+                                  : AppMainColors.greyColor,
                               child: defaultTextButton(
                                 context: context,
                                 function: () {},
