@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sociality/model/user_model.dart';
 import 'package:sociality/pages/chat/private_chat.dart';
-import 'package:sociality/pages/friend/profile_screen.dart';
+import 'package:sociality/pages/friend/friends_profile_screen.dart';
 import 'package:sociality/shared/components/image_with_shimmer.dart';
 import 'package:sociality/shared/components/navigator.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';

@@ -2,7 +2,6 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:sociality/Pages/chat/private_chat.dart';
 import 'package:sociality/Pages/friend/friend_screen.dart';
 import 'package:sociality/shared/components/indicator.dart';
-import 'package:sociality/model/post_model.dart';
 import 'package:sociality/model/user_model.dart';
 import 'package:sociality/pages/viewPhoto/image_view.dart';
 import 'package:sociality/shared/components/my_divider.dart';
@@ -29,9 +28,8 @@ class FriendsProfileScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var friendsModel = SocialCubit.get(context).friendsProfile;
-        List<PostModel>? posts = SocialCubit.get(context).userPosts;
         List<UserModel>? friends = SocialCubit.get(context).friends;
-        var cubit = SocialCubit.get(context);
+        SocialCubit cubit = SocialCubit.get(context);
         return ConditionalBuilder(
           condition: friendsModel == null,
           builder: (context) => Scaffold(
@@ -142,7 +140,7 @@ class FriendsProfileScreen extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     Text(
-                                      '${posts.length}',
+                                      '${cubit.userPosts.length}',
                                       style: GoogleFonts.roboto(
                                         textStyle: Theme.of(context)
                                             .textTheme
@@ -453,19 +451,19 @@ class FriendsProfileScreen extends StatelessWidget {
                     ),
                   ),
                   ConditionalBuilder(
-                      condition: posts.isNotEmpty,
+                      condition: cubit.userPosts.isNotEmpty,
                       builder: (context) => ListView.separated(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) => BuildPostItem(
-                              postModel: cubit.posts[index],
+                              postModel: cubit.userPosts[index],
                               userModel: cubit.userModel!,
                               index: index,
                             ),
                             separatorBuilder: (context, index) => SizedBox(
                               height: 10.h,
                             ),
-                            itemCount: posts.length,
+                            itemCount: cubit.userPosts.length,
                           ),
                       fallback: (context) => Padding(
                             padding: const EdgeInsets.all(8.0).r,

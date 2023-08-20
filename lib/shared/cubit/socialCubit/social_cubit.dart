@@ -125,9 +125,8 @@ class SocialCubit extends Cubit<SocialStates> {
         if (element.data()['uId'] != userModel!.uId) {
           users.add(UserModel.fromJson(element.data()));
         }
-        print(element.data());
       }
-      print(users.length);
+
       emit(GetAllUsersSuccessState());
     }).catchError((error) {
       emit(GetAllUsersErrorState(error.toString()));
@@ -496,7 +495,6 @@ class SocialCubit extends Cubit<SocialStates> {
           userPosts.add(PostModel.fromJson(element.data()));
         }
       }
-      print('userPosts ==${userPosts.length}');
       emit(GetUserPostsSuccessState());
     });
   }
@@ -1154,9 +1152,7 @@ class SocialCubit extends Cubit<SocialStates> {
       friendRequests = [];
       for (var element in value.docs) {
         friendRequests.add(UserModel.fromJson(element.data()));
-        print('HIIIIIII');
-        print(element.data());
-        print(friendRequests.length);
+
         emit(GetFriendSuccessState());
       }
     });

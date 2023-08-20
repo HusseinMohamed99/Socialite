@@ -1,4 +1,4 @@
-import 'package:sociality/Pages/friend/profile_screen.dart';
+import 'package:sociality/Pages/friend/friends_profile_screen.dart';
 import 'package:sociality/Pages/profile/my_profile_screen.dart';
 import 'package:sociality/model/user_model.dart';
 import 'package:sociality/shared/components/navigator.dart';

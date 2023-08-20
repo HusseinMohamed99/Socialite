@@ -373,7 +373,7 @@ class MyProfileScreen extends StatelessWidget {
                                 separatorBuilder: (context, index) =>
                                     space(0, 10),
                                 itemBuilder: (context, index) => (BuildPostItem(
-                                  postModel: cubit.posts[index],
+                                  postModel: cubit.userPosts[index],
                                   userModel: cubit.userModel!,
                                   index: index,
                                 )),

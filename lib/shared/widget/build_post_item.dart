@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sociality/model/post_model.dart';
 import 'package:sociality/model/user_model.dart';
 import 'package:sociality/pages/comment/comment_screen.dart';
-import 'package:sociality/pages/friend/profile_screen.dart';
+import 'package:sociality/pages/friend/friends_profile_screen.dart';
 import 'package:sociality/pages/post_like/likes_screen.dart';
 import 'package:sociality/pages/profile/my_profile_screen.dart';
 import 'package:sociality/pages/viewPhoto/post_view.dart';
@@ -52,15 +52,13 @@ class BuildPostItem extends StatelessWidget {
                         context,
                         FriendsProfileScreen(postModel.uId),
                       );
-                      print(postModel.uId);
-                      print(uId);
+
                       SocialCubit.get(context).getFriendsProfile(postModel.uId);
                       SocialCubit.get(context).getUserPosts(postModel.uId);
                     } else {
                       SocialCubit.get(context).getUserPosts(postModel.uId);
                       SocialCubit.get(context).getUserData();
-                      print(postModel.uId);
-                      print(uId);
+
                       navigateTo(
                         context,
                         const MyProfileScreen(),
@@ -294,7 +292,6 @@ class BuildPostItem extends StatelessWidget {
                       postId: postId = SocialCubit.get(context).postsId[index],
                       dataTime: now.toString(),
                     );
-                    print('now$now');
                   },
                   label: Text(
                     'Like',
