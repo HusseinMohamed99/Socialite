@@ -271,13 +271,13 @@ class PrivateChatScreen extends StatelessWidget {
                                         text: textController.text,
                                       );
                                       textController.clear();
-                                      scroll.scrollTo(
-                                          duration:
-                                              const Duration(milliseconds: 1),
-                                          curve: Curves.linearToEaseOut,
-                                          index: SocialCubit.get(context)
-                                              .message
-                                              .length);
+                                      // scroll.scrollTo(
+                                      //     duration:
+                                      //         const Duration(milliseconds: 1),
+                                      //     curve: Curves.linearToEaseOut,
+                                      //     index: SocialCubit.get(context)
+                                      //         .message
+                                      //         .length);
                                     } else {
                                       SocialCubit.get(context)
                                           .uploadMessageImage(

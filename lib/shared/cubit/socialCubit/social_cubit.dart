@@ -85,6 +85,7 @@ class SocialCubit extends Cubit<SocialStates> {
     }
     if (index == 2) {
       getFriends(userModel!.uId);
+      getFriendRequest();
     }
     if (index == 3) {
       getPersonalStory(userModel!.uId);
@@ -119,12 +120,14 @@ class SocialCubit extends Cubit<SocialStates> {
   void getAllUsers() {
     emit(GetAllUsersLoadingState());
     FirebaseFirestore.instance.collection('users').get().then((event) {
+      users = [];
       for (var element in event.docs) {
-        users = [];
         if (element.data()['uId'] != userModel!.uId) {
           users.add(UserModel.fromJson(element.data()));
         }
+        print(element.data());
       }
+      print(users.length);
       emit(GetAllUsersSuccessState());
     }).catchError((error) {
       emit(GetAllUsersErrorState(error.toString()));
@@ -1150,6 +1153,9 @@ class SocialCubit extends Cubit<SocialStates> {
       friendRequests = [];
       for (var element in value.docs) {
         friendRequests.add(UserModel.fromJson(element.data()));
+        print('HIIIIIII');
+        print(element.data());
+        print(friendRequests.length);
         emit(GetFriendSuccessState());
       }
     });
@@ -1393,7 +1399,9 @@ class SocialCubit extends Cubit<SocialStates> {
     Dio dio = Dio();
 
     var token = await getDeviceToken();
-    print('device token : $token');
+    if (kDebugMode) {
+      print('device token : $token');
+    }
 
     final data = {
       "data": {
@@ -1411,12 +1419,18 @@ class SocialCubit extends Cubit<SocialStates> {
       final response = await dio.post(postUrl, data: data);
 
       if (response.statusCode == 200) {
-        print('Request Sent To Driver');
+        if (kDebugMode) {
+          print('Request Sent To Driver');
+        }
       } else {
-        print('notification sending failed');
+        if (kDebugMode) {
+          print('notification sending failed');
+        }
       }
     } catch (e) {
-      print('exception $e');
+      if (kDebugMode) {
+        print('exception $e');
+      }
     }
   }
 

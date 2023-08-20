@@ -13,12 +13,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sociality/shared/enum/enum.dart';
+import 'package:sociality/shared/network/dio_helper.dart';
 import 'package:sociality/shared/styles/themes.dart';
 import 'package:wakelock/wakelock.dart';
 import 'shared/components/constants.dart';
 import 'shared/network/cache_helper.dart';
 
-Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {}
+// Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {}
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   ScreenUtil.ensureScreenSize();
@@ -28,7 +29,7 @@ void main() async {
   );
   Bloc.observer = MyBlocObserver();
   await CacheHelper.init();
-  // DioHelper.init();
+  DioHelper.init();
   //when the app is opened
   FirebaseMessaging.onMessage.listen((event) {
     showToast(text: 'on Message', state: ToastStates.success);
@@ -41,7 +42,7 @@ void main() async {
     debugPrint('when click on notification to open app');
     debugPrint(event.data.toString());
   });
-  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
   bool? isDark = CacheHelper.getBoolean(key: 'isDark');
   uId = CacheHelper.getData(key: 'uId');
