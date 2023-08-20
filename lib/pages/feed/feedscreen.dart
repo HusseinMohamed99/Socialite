@@ -96,7 +96,11 @@ class FeedScreen extends StatelessWidget {
                   );
                 },
                 fallback: (context) {
-                  return Center(child: AdaptiveIndicator(os: getOs()));
+                  return Center(
+                    child: AdaptiveIndicator(
+                      os: getOs(),
+                    ),
+                  );
                 },
               );
       },
