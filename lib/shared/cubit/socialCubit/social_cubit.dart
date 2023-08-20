@@ -960,10 +960,7 @@ class SocialCubit extends Cubit<SocialStates> {
 
   void getFriendsProfile(String? friendsUID) {
     emit(GetFriendProfileLoadingState());
-    FirebaseFirestore.instance
-        .collectionGroup('friends')
-        .snapshots()
-        .listen((value) {
+    FirebaseFirestore.instance.collection('users').snapshots().listen((value) {
       for (var element in value.docs) {
         if (element.data()['uId'] == friendsUID) {
           friendsProfile = UserModel.fromJson(element.data());
@@ -1121,7 +1118,7 @@ class SocialCubit extends Cubit<SocialStates> {
       bio: userModel!.bio,
       phone: userModel!.phone,
       email: userModel!.email,
-      cover: '',
+      cover: userModel!.cover,
     );
     FirebaseFirestore.instance
         .collection('users')
