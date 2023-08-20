@@ -44,9 +44,9 @@ class RegisterCubit extends Cubit<RegisterStates> {
       name: name,
       uId: uId,
       image:
-          'https://cdn-icons-png.flaticon.com/512/149/149071.png?w=740&t=st=1678640338~exp=1678640938~hmac=e46c26cecdbc9dea7a4a6d4ad5a8577aff6029704aa4d890caaebf20053dd65d',
+          'https://img.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg?w=740&t=st=1692497461~exp=1692498061~hmac=4e76f888ce2372f12e339835e14f04b559236b4ae063439961923a24133f274b',
       cover:
-          'https://img.freepik.com/free-photo/social-media-concept-with-smartphone_52683-100042.jpg?w=996&t=st=1678640460~exp=1678641060~hmac=e1b04894098c1fcab71edce47d62db90e08400fd0be4825f2f064df4fa80387c',
+          'https://img.freepik.com/free-photo/islamic-new-year-decoration-with-lantern-quran_23-2148950335.jpg?w=900&t=st=1692497617~exp=1692498217~hmac=8a5078eef18cdaff2a1fe98110abc0f964ac1ba439b08056171561ae7c7a1046',
       bio: 'Write a bio...',
       isEmailVerified: false,
     );
