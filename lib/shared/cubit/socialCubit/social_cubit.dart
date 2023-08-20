@@ -414,6 +414,8 @@ class SocialCubit extends Cubit<SocialStates> {
 
     PostModel model = PostModel(
       uId: userModel!.uId,
+      image: userModel!.image,
+      name: userModel!.name,
       text: text,
       postImage: postImage ?? '',
       dateTime: dateTime,
@@ -499,14 +501,16 @@ class SocialCubit extends Cubit<SocialStates> {
 
 // ----------------------------------------------------------//
   ///START : Likes
-  bool isLikedByMe = false;
-  Future<bool> likeByMe(
-      {context,
-      String? postId,
-      PostModel? postModel,
-      UserModel? postUser}) async {
-    emit(LikedByMeCheckedLoadingState());
 
+  Future<bool> likeByMe({
+    context,
+    String? postId,
+    PostModel? postModel,
+    UserModel? postUser,
+    required String dataTime,
+  }) async {
+    emit(LikedByMeCheckedLoadingState());
+    bool isLikedByMe = false;
     FirebaseFirestore.instance
         .collection('posts')
         .doc(postId)
@@ -521,10 +525,12 @@ class SocialCubit extends Cubit<SocialStates> {
       }
       if (isLikedByMe == false) {
         likePosts(
-            postId: postId,
-            context: context,
-            postModel: postModel,
-            postUser: postUser);
+          postId: postId,
+          context: context,
+          postModel: postModel,
+          postUser: postUser,
+          dateTime: dataTime,
+        );
       }
       if (kDebugMode) {
         print(isLikedByMe);
@@ -534,12 +540,13 @@ class SocialCubit extends Cubit<SocialStates> {
     return isLikedByMe;
   }
 
-  void likePosts(
-      {context,
-      String? postId,
-      PostModel? postModel,
-      UserModel? postUser,
-      String? dateTime}) {
+  void likePosts({
+    context,
+    String? postId,
+    PostModel? postModel,
+    UserModel? postUser,
+    required String dateTime,
+  }) {
     LikesModel likesModel = LikesModel(
       uId: userModel!.uId,
       name: userModel!.name,

@@ -282,25 +282,26 @@ class BuildPostItem extends StatelessWidget {
                 TextButton.icon(
                   onPressed: () async {
                     UserModel? postUser = SocialCubit.get(context).userModel;
-
+                    DateTime now = DateTime.now();
                     await SocialCubit.get(context).likeByMe(
-                        postUser: postUser,
-                        context: context,
-                        postModel: postModel,
-                        postId: postModel.uId);
+                      postUser: postUser,
+                      context: context,
+                      postModel: postModel,
+                      postId: postId = SocialCubit.get(context).postsId[index],
+                      dataTime: now.toString(),
+                    );
+                    print('now$now');
                   },
                   label: Text(
                     'Like',
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        color: cubit.isLikedByMe
-                            ? AppMainColors.greyColor
-                            : AppMainColors.redColor),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(color: AppMainColors.redColor),
                   ),
                   icon: Icon(
                     IconlyLight.heart,
-                    color: cubit.isLikedByMe
-                        ? AppMainColors.greyColor
-                        : AppMainColors.redColor,
+                    color: AppMainColors.redColor,
                     size: 24.sp,
                   ),
                 ),

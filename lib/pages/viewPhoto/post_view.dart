@@ -279,12 +279,14 @@ class FullScreen extends StatelessWidget {
                         onTap: () async {
                           UserModel? postUser =
                               SocialCubit.get(context).userModel;
-
+                          DateTime now = DateTime.now();
                           await SocialCubit.get(context).likeByMe(
-                              postUser: postUser,
-                              context: context,
-                              postModel: postModel,
-                              postId: postModel.uId);
+                            postUser: postUser,
+                            context: context,
+                            postModel: postModel,
+                            postId: postId,
+                            dataTime: now.toString(),
+                          );
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
