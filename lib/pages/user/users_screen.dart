@@ -180,9 +180,10 @@ class FriendBuildItems extends StatelessWidget {
       child: Row(
         children: [
           CircleAvatar(
-            radius: 27.r,
+            radius: 20.r,
             child: ImageWithShimmer(
               imageUrl: userModel.image,
+              radius: 25.r,
               width: 50.w,
               height: 50.h,
               boxFit: BoxFit.fill,
@@ -260,6 +261,7 @@ class PeoplesMayKnow extends StatelessWidget {
                 height: 150.h,
                 width: double.infinity,
                 boxFit: BoxFit.fill,
+                radius: 10.r,
               )),
           SizedBox(height: 10.h),
           Container(
@@ -376,11 +378,12 @@ class FriendRequestItems extends StatelessWidget {
               }
             },
             child: CircleAvatar(
-              radius: 45.r,
+              radius: 30.r,
               child: ImageWithShimmer(
                 imageUrl: userModel.image,
-                height: 50.h,
-                width: 50.w,
+                height: 60.h,
+                width: 60.w,
+                radius: 25.r,
                 boxFit: BoxFit.fill,
               ),
             ),
@@ -400,7 +403,7 @@ class FriendRequestItems extends StatelessWidget {
                   userModel.bio,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.titleLarge,
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
