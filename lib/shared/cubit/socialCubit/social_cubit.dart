@@ -5,7 +5,7 @@ import 'package:sociality/Pages/chat/chat_screen.dart';
 import 'package:sociality/Pages/feed/feedscreen.dart';
 import 'package:sociality/Pages/setting/setting_screen.dart';
 import 'package:sociality/Pages/story/story_screen.dart';
-import 'package:sociality/Pages/user/user_screen.dart';
+import 'package:sociality/Pages/user/users_screen.dart';
 import 'package:sociality/model/comment_model.dart';
 import 'package:sociality/model/likes_model.dart';
 import 'package:sociality/model/message_model.dart';

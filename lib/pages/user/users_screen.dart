@@ -8,11 +8,9 @@ import 'package:sociality/shared/components/image_with_shimmer.dart';
 import 'package:sociality/shared/components/navigator.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
-import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sociality/shared/styles/color.dart';
 
 class UserScreen extends StatefulWidget {
@@ -103,8 +101,10 @@ class _UserScreenState extends State<UserScreen> {
                             ),
                             SizedBox(height: 10.h),
                             Container(
-                              height: 330.h,
-                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              height: 250.h,
+                              width: 200.w,
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 10).r,
                               child: ListView.separated(
                                 physics: const BouncingScrollPhysics(),
                                 scrollDirection: Axis.horizontal,
@@ -238,11 +238,12 @@ class PeoplesMayKnow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 350,
-      width: 230,
+      height: 100.h,
+      width: 200.w,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.green, style: BorderStyle.solid)),
+          borderRadius: BorderRadius.circular(10).r,
+          border: Border.all(
+              color: AppMainColors.greenColor, style: BorderStyle.solid)),
       clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -254,124 +255,102 @@ class PeoplesMayKnow extends StatelessWidget {
                 SocialCubit.get(context).checkFriendRequest(userModel.uId);
                 navigateTo(context, FriendsProfileScreen(userModel.uId));
               },
-              child: Image(
-                image: NetworkImage(userModel.image),
-                height: 200,
-                width: 230,
-                fit: BoxFit.fill,
+              child: ImageWithShimmer(
+                imageUrl: userModel.image,
+                height: 150.h,
+                width: double.infinity,
+                boxFit: BoxFit.fill,
               )),
-          space(0, 10),
+          SizedBox(height: 10.h),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10).r,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   userModel.name,
-                  style: GoogleFonts.lobster(
-                    fontSize: 16,
-                    color: SocialCubit.get(context).isDark
-                        ? Colors.black
-                        : Colors.white,
-                  ),
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
-                space(0, 5),
+                SizedBox(height: 5.h),
                 Text(
                   userModel.bio,
-                  style: GoogleFonts.lobster(
-                    fontSize: 16,
-                    color: Colors.grey,
-                  ),
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
               ],
             ),
           ),
-          space(0, 5),
+          SizedBox(height: 15.h),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.blueAccent),
-                            padding:
-                                MaterialStateProperty.all(EdgeInsets.zero)),
-                        onPressed: () {
-                          SocialCubit.get(context).sendFriendRequest(
-                            friendsUID: userModel.uId,
-                            friendName: userModel.name,
-                            friendImage: userModel.image,
-                          );
-                          SocialCubit.get(context).sendInAppNotification(
-                            contentKey: 'friendRequest',
-                            contentId: userModel.uId,
-                            content: 'sent you a friend request, check it out!',
-                            receiverId: userModel.uId,
-                            receiverName: userModel.name,
-                          );
-                          SocialCubit.get(context).sendFCMNotification(
-                              token: userModel.uId,
-                              senderName:
-                                  SocialCubit.get(context).userModel!.name,
-                              messageText:
-                                  '${SocialCubit.get(context).userModel!.name}'
-                                  'sent you a friend request, check it out!');
-                        },
-                        child: SocialCubit.get(context).isFriend == false
-                            ? SocialCubit.get(context).request
-                                ? const Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.person_add_alt_1_rounded,
-                                        color: Colors.white,
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text('requestSent',
-                                          style:
-                                              TextStyle(color: Colors.white)),
-                                    ],
-                                  )
-                                : const Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.person_add_alt_1_rounded,
-                                        color: Colors.white,
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text('addFriend',
-                                          style:
-                                              TextStyle(color: Colors.white)),
-                                    ],
-                                  )
-                            : const Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.person,
-                                    color: Colors.white,
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    'profileFriends',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ],
-                              )),
-                  ),
-                ],
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppMainColors.blueColor,
               ),
+              onPressed: () {
+                SocialCubit.get(context).sendFriendRequest(
+                  friendsUID: userModel.uId,
+                  friendName: userModel.name,
+                  friendImage: userModel.image,
+                );
+                SocialCubit.get(context).sendInAppNotification(
+                  contentKey: 'friendRequest',
+                  contentId: userModel.uId,
+                  content: 'sent you a friend request, check it out!',
+                  receiverId: userModel.uId,
+                  receiverName: userModel.name,
+                );
+                SocialCubit.get(context).sendFCMNotification(
+                    token: userModel.uId,
+                    senderName: SocialCubit.get(context).userModel!.name,
+                    messageText: '${SocialCubit.get(context).userModel!.name}'
+                        'sent you a friend request, check it out!');
+              },
+              child: SocialCubit.get(context).isFriend == false
+                  ? SocialCubit.get(context).request
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.person_add_alt_1_rounded,
+                              color: AppMainColors.titanWithColor,
+                              size: 24.sp,
+                            ),
+                            SizedBox(width: 5.w),
+                            Text(
+                              'Request Sent',
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                          ],
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.person_add_alt_1_rounded,
+                              color: AppMainColors.titanWithColor,
+                              size: 24.sp,
+                            ),
+                            SizedBox(width: 5.w),
+                            Text(
+                              'Add Friend',
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                          ],
+                        )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.person,
+                          color: AppMainColors.titanWithColor,
+                          size: 24.sp,
+                        ),
+                        SizedBox(width: 5.w),
+                        Text(
+                          'Profile Friends',
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                      ],
+                    ),
             ),
           )
         ],
@@ -386,7 +365,7 @@ class FriendRequestItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10).r,
       child: Row(
         children: [
           InkWell(
@@ -397,37 +376,40 @@ class FriendRequestItems extends StatelessWidget {
               }
             },
             child: CircleAvatar(
-              backgroundImage: NetworkImage(userModel.image),
-              radius: 45,
+              radius: 45.r,
+              child: ImageWithShimmer(
+                imageUrl: userModel.image,
+                height: 50.h,
+                width: 50.w,
+                boxFit: BoxFit.fill,
+              ),
             ),
           ),
-          const SizedBox(
-            width: 10,
-          ),
+          SizedBox(width: 10.w),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(userModel.name,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle()),
+                Text(
+                  userModel.name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
                 Text(
                   userModel.bio,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: 15, color: Colors.grey[600]),
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.blueAccent),
-                            fixedSize: MaterialStateProperty.all(
-                                const Size.fromWidth(120))),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppMainColors.blueColor,
+                        ),
                         onPressed: () {
                           SocialCubit.get(context).addFriend(
                             friendsUID: userModel.uId,
@@ -456,23 +438,24 @@ class FriendRequestItems extends StatelessWidget {
                                   '${SocialCubit.get(context).userModel!.name}'
                                   'accepted your friend request, you are now friends checkout his profile');
                         },
-                        child: const Text('Confirm',
-                            style: TextStyle(color: Colors.white)),
+                        child: Text(
+                          'Confirm',
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
+                    SizedBox(width: 10.w),
                     Expanded(
                       child: OutlinedButton(
-                          style: ButtonStyle(
-                              fixedSize: MaterialStateProperty.all(
-                                  const Size.fromWidth(120))),
-                          onPressed: () {
-                            SocialCubit.get(context)
-                                .deleteFriendRequest(userModel.uId);
-                          },
-                          child: const Text('Delete')),
+                        onPressed: () {
+                          SocialCubit.get(context)
+                              .deleteFriendRequest(userModel.uId);
+                        },
+                        child: Text(
+                          'Delete',
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                      ),
                     ),
                   ],
                 )
