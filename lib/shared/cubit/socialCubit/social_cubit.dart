@@ -496,6 +496,7 @@ class SocialCubit extends Cubit<SocialStates> {
           userPosts.add(PostModel.fromJson(element.data()));
         }
       }
+      print('userPosts ==${userPosts.length}');
       emit(GetUserPostsSuccessState());
     });
   }

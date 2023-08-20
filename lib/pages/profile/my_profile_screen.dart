@@ -198,7 +198,7 @@ class MyProfileScreen extends StatelessWidget {
                                       child: Column(
                                         children: [
                                           Text(
-                                            '${cubit.posts.length}',
+                                            '${cubit.userPosts.length}',
                                             style: GoogleFonts.roboto(
                                               textStyle: Theme.of(context)
                                                   .textTheme

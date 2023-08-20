@@ -52,10 +52,15 @@ class BuildPostItem extends StatelessWidget {
                         context,
                         FriendsProfileScreen(postModel.uId),
                       );
+                      print(postModel.uId);
+                      print(uId);
                       SocialCubit.get(context).getFriendsProfile(postModel.uId);
+                      SocialCubit.get(context).getUserPosts(postModel.uId);
                     } else {
-                      SocialCubit.get(context).getUserPosts(uId);
+                      SocialCubit.get(context).getUserPosts(postModel.uId);
                       SocialCubit.get(context).getUserData();
+                      print(postModel.uId);
+                      print(uId);
                       navigateTo(
                         context,
                         const MyProfileScreen(),
