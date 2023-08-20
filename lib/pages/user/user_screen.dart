@@ -333,16 +333,24 @@ class _UserScreenState extends State<UserScreen> {
                                 MaterialStateProperty.all(EdgeInsets.zero)),
                         onPressed: () {
                           SocialCubit.get(context).sendFriendRequest(
-                              friendsUID: userModel.uId,
-                              friendName: userModel.name,
-                              friendImage: userModel.image);
+                            friendsUID: userModel.uId,
+                            friendName: userModel.name,
+                            friendImage: userModel.image,
+                          );
                           SocialCubit.get(context).sendInAppNotification(
-                              contentKey: 'friendRequest',
-                              contentId: userModel.uId,
-                              content:
-                                  'sent you a friend request, check it out!',
-                              receiverId: userModel.uId,
-                              receiverName: userModel.name);
+                            contentKey: 'friendRequest',
+                            contentId: userModel.uId,
+                            content: 'sent you a friend request, check it out!',
+                            receiverId: userModel.uId,
+                            receiverName: userModel.name,
+                          );
+                          SocialCubit.get(context).sendFCMNotification(
+                              token: userModel.uId,
+                              senderName:
+                                  SocialCubit.get(context).userModel!.name,
+                              messageText:
+                                  '${SocialCubit.get(context).userModel!.name}'
+                                  'sent you a friend request, check it out!');
                         },
                         child: SocialCubit.get(context).isFriend == false
                             ? SocialCubit.get(context).request
@@ -459,13 +467,13 @@ class _UserScreenState extends State<UserScreen> {
                           SocialCubit.get(context)
                               .deleteFriendRequest(userModel.uId);
                           SocialCubit.get(context).sendInAppNotification(
-                              contentKey: 'friendRequestAccepted',
-                              contentId:
-                                  SocialCubit.get(context).userModel!.uId,
-                              content:
-                                  'accepted your friend request, you are now friends checkout his profile',
-                              receiverId: userModel.uId,
-                              receiverName: userModel.name);
+                            contentKey: 'friendRequestAccepted',
+                            contentId: SocialCubit.get(context).userModel!.uId,
+                            content:
+                                'accepted your friend request, you are now friends checkout his profile',
+                            receiverId: userModel.uId,
+                            receiverName: userModel.name,
+                          );
                           SocialCubit.get(context).sendFCMNotification(
                               token: userModel.uId,
                               senderName:
