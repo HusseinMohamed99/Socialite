@@ -60,16 +60,20 @@ class RegisterScreen extends StatelessWidget {
                 statusBarBrightness: Brightness.dark,
               ),
               elevation: 0,
-              leading: IconButton(
-                onPressed: () {
-                  pop(context);
-                },
-                icon: Icon(
-                  IconlyLight.arrowLeft2,
-                  size: 30.sp,
-                  color: AppMainColors.whiteColor,
-                ),
-              ),
+              leading: Navigator.canPop(context)
+                  ? IconButton(
+                      onPressed: () {
+                        if (Navigator.canPop(context)) {
+                          pop(context);
+                        }
+                      },
+                      icon: Icon(
+                        IconlyLight.arrowLeft2,
+                        size: 30.sp,
+                        color: AppMainColors.whiteColor,
+                      ),
+                    )
+                  : const Text(''),
             ),
             body: Form(
               key: formKey,

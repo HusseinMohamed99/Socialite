@@ -23,7 +23,7 @@ class _OnBoardState extends State<OnBoard> {
       value: true,
     ).then((value) {
       if (value) {
-        navigateAndFinish(
+        navigateTo(
           context,
           const LoginScreen(),
         );
@@ -37,7 +37,7 @@ class _OnBoardState extends State<OnBoard> {
       value: true,
     ).then((value) {
       if (value) {
-        navigateAndFinish(
+        navigateTo(
           context,
           const RegisterScreen(),
         );
