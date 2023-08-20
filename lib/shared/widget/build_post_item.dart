@@ -67,7 +67,7 @@ class BuildPostItem extends StatelessWidget {
                     radius: 25.r,
                     child: ImageWithShimmer(
                       radius: 75.r,
-                      imageUrl: userModel.image,
+                      imageUrl: postModel.image!,
                       width: 100.w,
                       height: 100.h,
                       boxFit: BoxFit.fill,
@@ -97,7 +97,7 @@ class BuildPostItem extends StatelessWidget {
                               }
                             },
                             child: Text(
-                              userModel.name,
+                              postModel.name!,
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
                           ),
@@ -226,8 +226,7 @@ class BuildPostItem extends StatelessWidget {
                     size: 24.sp,
                   ),
                   label: Text(
-                    '',
-                    // '${SocialCubit.get(context).commentsNum[index]}' ?? '',
+                    '${postModel.comments}',
                     style: Theme.of(context)
                         .textTheme
                         .bodyLarge!
