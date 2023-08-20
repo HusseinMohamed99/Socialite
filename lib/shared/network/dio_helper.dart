@@ -12,17 +12,14 @@ class DioHelper {
     ));
   }
 
-  static Future<Response> postData({
-    Map<String, dynamic> ?data
-  }) async
-  {
-    dio.options.headers =
-    {
+  static Future<Response> postData({Map<String, dynamic>? data}) async {
+    dio.options.headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'key = AAAA6b6A9Lw:APA91bFOeJ2XQOO-8LzVu_3LkJaLr5ncXOXPmmsJ-FV8M9CeEmZ6Lp9Zbwl5R21CMsmkO82iWubHylzh-RWaeueZLtzivSgHAoTszzF6fcNfNWd59ABRoSwR2bDYhVdz7zumct16Vrr6'
+      'Authorization':
+          'key = AAAAqnVMlS0:APA91bHd_ooZwkN81g8c0xaDHC0KPN1QrRhVcq_qG4MZ1pvciG6MF4MhiMDY1HnrscPQeONN_mgEOQl1eU80jZ2NgvYGJKTon8CJ2nLIxwGgkwNBtYhFEDhPYo3sYpXpeYzITVfDo9nT'
     };
     return await dio.post(
-      'https://fcm.googleapis.com/fcm/send',
+      'https://fcm.googleapis.com/v1/projects/myproject-b5ae1/messages:send',
       data: data,
     );
   }

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sociality/Pages/chat/chat_screen.dart';
 import 'package:sociality/Pages/feed/feedscreen.dart';
@@ -29,7 +30,6 @@ import 'package:gallery_saver/gallery_saver.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:sociality/shared/network/dio_helper.dart';
 import 'package:sociality/shared/styles/color.dart';
 
 class SocialCubit extends Cubit<SocialStates> {
@@ -1383,29 +1383,45 @@ class SocialCubit extends Cubit<SocialStates> {
   //------------------------------------------------------------//
   ///START : sendFCMNotification
   String? imageURL;
-  void sendFCMNotification({
+  Future<void> sendFCMNotification({
     required String token,
     required String senderName,
     String? messageText,
     String? messageImage,
-  }) {
-    DioHelper.postData(data: {
-      "to": token,
-      "notification": {
-        "title": senderName,
-        "body": messageText ?? (messageImage != null ? 'Photo' : 'ERROR 404'),
-        "sound": "default"
-      },
-      "android": {
-        "Priority": "HIGH",
-      },
+  }) async {
+    const postUrl = 'https://fcm.googleapis.com/fcm/send';
+    Dio dio = Dio();
+
+    var token = await getDeviceToken();
+    print('device token : $token');
+
+    final data = {
       "data": {
-        "type": "order",
-        "id": "87",
-        "click_action": "FLUTTER_NOTIFICATION_CLICK"
+        "message": senderName,
+        "title": messageText,
+      },
+      "to": token
+    };
+
+    dio.options.headers['Content-Type'] = 'application/json';
+    dio.options.headers["Authorization"] =
+        'key= AAAAqnVMlS0:APA91bHd_ooZwkN81g8c0xaDHC0KPN1QrRhVcq_qG4MZ1pvciG6MF4MhiMDY1HnrscPQeONN_mgEOQl1eU80jZ2NgvYGJKTon8CJ2nLIxwGgkwNBtYhFEDhPYo3sYpXpeYzITVfDo9nT';
+
+    try {
+      final response = await dio.post(postUrl, data: data);
+
+      if (response.statusCode == 200) {
+        print('Request Sent To Driver');
+      } else {
+        print('notification sending failed');
       }
-    });
-    emit(SendMessageSuccessState());
+    } catch (e) {
+      print('exception $e');
+    }
+  }
+
+  Future<String?> getDeviceToken() async {
+    return await FirebaseMessaging.instance.getToken();
   }
 
   ///END : sendFCMNotification
