@@ -1,11 +1,15 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sociality/model/story_model.dart';
 import 'package:sociality/pages/story/veiw_story.dart';
+import 'package:sociality/shared/components/constants.dart';
+import 'package:sociality/shared/components/image_with_shimmer.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
-import 'package:timeago/timeago.dart' as timeago;
+import 'package:sociality/shared/styles/color.dart';
+import 'package:sociality/shared/widget/user_stories.dart';
 
 class StoryScreen extends StatelessWidget {
   const StoryScreen({Key? key}) : super(key: key);
@@ -35,17 +39,15 @@ class StoryScreen extends StatelessWidget {
                               children: [
                                 Container(
                                   width: double.infinity,
-                                  height: 230,
-                                  margin: const EdgeInsets.all(10),
+                                  height: 230.h,
+                                  margin: const EdgeInsets.all(10).r,
                                   decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: NetworkImage(e.storyImage!),
-                                          fit: BoxFit.cover),
                                       borderRadius: const BorderRadius.only(
-                                          topRight: Radius.circular(10),
-                                          topLeft: Radius.circular(10),
-                                          bottomRight: Radius.circular(50),
-                                          bottomLeft: Radius.circular(50)),
+                                        topRight: Radius.circular(10),
+                                        topLeft: Radius.circular(10),
+                                        bottomRight: Radius.circular(50),
+                                        bottomLeft: Radius.circular(50),
+                                      ).r,
                                       boxShadow: [
                                         BoxShadow(
                                             color: Theme.of(context)
@@ -62,12 +64,34 @@ class StoryScreen extends StatelessWidget {
                                             blurRadius: 9,
                                             offset: const Offset(-1, -1))
                                       ]),
+                                  child: ImageWithShimmer(
+                                    radius: 15.r,
+                                    imageUrl: e.storyImage!,
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                    boxFit: BoxFit.fill,
+                                  ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(30.0),
+                                  padding: const EdgeInsets.all(30.0).r,
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
+                                      CircleAvatar(
+                                        radius: 20.r,
+                                        child: CircleAvatar(
+                                          radius: 18.r,
+                                          child: ImageWithShimmer(
+                                            imageUrl: e.image!,
+                                            width: 60.w,
+                                            height: 60.h,
+                                            radius: 15.r,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 5.w,
+                                      ),
                                       Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -75,37 +99,28 @@ class StoryScreen extends StatelessWidget {
                                         children: [
                                           Text(
                                             e.name!,
-                                            style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w600),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleLarge!
+                                                .copyWith(
+                                                    color: AppMainColors
+                                                        .titanWithColor),
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                           ),
                                           Text(
-                                            timeago.format(e.dateTime!),
+                                            daysBetween(DateTime.parse(
+                                                e.dateTime!.toString())),
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .bodySmall!
+                                                .bodyLarge!
                                                 .copyWith(
-                                                    color: Colors.grey,
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.w600),
+                                                  color:
+                                                      AppMainColors.greyColor,
+                                                ),
                                           ),
                                         ],
                                       ),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      CircleAvatar(
-                                        radius: 31,
-                                        child: CircleAvatar(
-                                          radius: 29,
-                                          backgroundImage:
-                                              NetworkImage(e.image!),
-                                        ),
-                                      )
                                     ],
                                   ),
                                 )
@@ -120,21 +135,15 @@ class StoryScreen extends StatelessWidget {
                     autoPlayInterval: const Duration(seconds: 3),
                     autoPlayAnimationDuration: const Duration(seconds: 2),
                     viewportFraction: 1,
-                    autoPlayCurve: Curves.fastOutSlowIn,
+                    autoPlayCurve: Curves.easeOutSine,
                     initialPage: 0,
-                    height: 240,
+                    height: 200.h,
                   )),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0).r,
                 child: Text(
                   "My Stories",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: SocialCubit.get(context).isDark
-                        ? Colors.black
-                        : Colors.white,
-                  ),
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
               SingleChildScrollView(
@@ -147,47 +156,53 @@ class StoryScreen extends StatelessWidget {
                         cubit.getStoryImage(context);
                       },
                       child: Container(
-                        width: 110,
-                        height: 190,
-                        margin: const EdgeInsetsDirectional.only(start: 8),
+                        width: 110.w,
+                        height: 140.h,
+                        margin: const EdgeInsets.only(left: 8).r,
                         decoration: BoxDecoration(
-                            color: Colors.grey.withOpacity(0.3),
-                            borderRadius: BorderRadius.circular(17)),
+                          color: Colors.grey.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(17).r,
+                        ),
                         child: Column(
                           children: [
                             SizedBox(
-                              height: 153,
+                              height: 120.h,
                               child: Stack(
                                 alignment: AlignmentDirectional.bottomCenter,
                                 children: [
                                   Align(
                                     alignment: AlignmentDirectional.topCenter,
                                     child: Container(
-                                      width: 110,
-                                      height: 135,
+                                      width: double.infinity,
+                                      height: 120.h,
                                       decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.only(
-                                            topRight: Radius.circular(17),
-                                            topLeft: Radius.circular(17),
-                                            bottomLeft: Radius.circular(10),
-                                            bottomRight: Radius.circular(10),
-                                          ),
-                                          image: DecorationImage(
-                                              image: NetworkImage(
-                                                  cubit.userModel!.image),
-                                              fit: BoxFit.cover)),
+                                        borderRadius: const BorderRadius.only(
+                                          topRight: Radius.circular(17),
+                                          topLeft: Radius.circular(17),
+                                          bottomLeft: Radius.circular(10),
+                                          bottomRight: Radius.circular(10),
+                                        ).r,
+                                      ),
+                                      child: ImageWithShimmer(
+                                        imageUrl: cubit.userModel!.image,
+                                        width: 100.w,
+                                        height: 100.h,
+                                        radius: 15.r,
+                                        boxFit: BoxFit.fill,
+                                      ),
                                     ),
                                   ),
                                   CircleAvatar(
-                                    radius: 20,
+                                    radius: 20.r,
                                     backgroundColor:
                                         Colors.grey.withOpacity(0.3),
-                                    child: const CircleAvatar(
-                                      radius: 18,
-                                      backgroundColor: Colors.blue,
+                                    child: CircleAvatar(
+                                      radius: 18.r,
+                                      backgroundColor: AppMainColors.blueColor,
                                       child: Icon(
                                         Icons.add,
-                                        color: Colors.white,
+                                        size: 24.sp,
+                                        color: AppMainColors.kittenWithColor,
                                       ),
                                     ),
                                   )
@@ -204,44 +219,35 @@ class StoryScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
+                    SizedBox(width: 10.w),
                     SizedBox(
-                      height: 190,
+                      height: 140.h,
                       child: ListView.separated(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          reverse: true,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) => personalStoryItem(
-                              context, cubit.personalStories[index]),
-                          separatorBuilder: (context, index) => const SizedBox(
-                                width: 10,
-                              ),
-                          itemCount: cubit.personalStories.length),
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        reverse: true,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) => UserStories(
+                          storyModel: cubit.userStories[index],
+                        ),
+                        separatorBuilder: (context, index) =>
+                            SizedBox(width: 10.w),
+                        itemCount: cubit.userStories.length,
+                      ),
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
+                    SizedBox(width: 10.w),
                   ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0).r,
                 child: Text(
                   "All Stories",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: SocialCubit.get(context).isDark
-                        ? Colors.black
-                        : Colors.white,
-                  ),
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0).r,
                 child: GridView.count(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
@@ -250,70 +256,16 @@ class StoryScreen extends StatelessWidget {
                   mainAxisSpacing: 8,
                   crossAxisSpacing: 8,
                   childAspectRatio: 1 / 1.5,
-                  children: List.generate(cubit.stories.length,
-                      (index) => storyItem(context, cubit.stories[index])),
+                  children: List.generate(
+                    cubit.stories.length,
+                    (index) => storyItem(context, cubit.stories[index]),
+                  ),
                 ),
               ),
             ],
           ),
         );
       },
-    );
-  }
-
-  Widget personalStoryItem(context, StoryModel model) {
-    var bloc = SocialCubit.get(context);
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ViewStory(model)));
-      },
-      child: Container(
-        width: 110,
-        height: 180,
-        decoration: BoxDecoration(
-            color: Colors.grey[200], borderRadius: BorderRadius.circular(17)),
-        child: Stack(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(14),
-                  image: DecorationImage(
-                    image: NetworkImage(model.storyImage!),
-                    fit: BoxFit.cover,
-                  )),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CircleAvatar(
-                    radius: 23,
-                    child: CircleAvatar(
-                      radius: 20,
-                      backgroundImage: NetworkImage(bloc.userModel!.image),
-                    ),
-                  ),
-                  const Spacer(),
-                  SizedBox(
-                    width: 110,
-                    child: Text(
-                      bloc.userModel!.name,
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
     );
   }
 

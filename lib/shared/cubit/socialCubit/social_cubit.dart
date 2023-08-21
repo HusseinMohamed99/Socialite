@@ -1349,12 +1349,12 @@ class SocialCubit extends Cubit<SocialStates> {
 
   //------------------------------------------------------------//
   ///START : getPersonalStory
-  List<StoryModel> personalStories = [];
+  List<StoryModel> userStories = [];
   void getPersonalStory(String? storyUID) {
     emit(CreateStoryLoadingState());
-    personalStories = [];
+    userStories = [];
     for (var element in stories) {
-      if (element.uId == userModel!.uId) personalStories.add(element);
+      if (element.uId == userModel!.uId) userStories.add(element);
     }
     emit(GetStorySuccessState());
   }
