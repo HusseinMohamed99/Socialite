@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sociality/model/story_model.dart';
 import 'package:sociality/pages/story/veiw_story.dart';
+import 'package:sociality/shared/components/image_with_shimmer.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:sociality/shared/styles/color.dart';
 
 class UserStories extends StatelessWidget {
   const UserStories({super.key, required this.storyModel});
@@ -16,45 +19,57 @@ class UserStories extends StatelessWidget {
             MaterialPageRoute(builder: (context) => ViewStory(storyModel)));
       },
       child: Container(
-        width: 110,
-        height: 180,
+        width: 110.w,
+        height: 180.h,
         decoration: BoxDecoration(
-            color: Colors.grey[200], borderRadius: BorderRadius.circular(17)),
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(17).r,
+        ),
         child: Stack(
           children: [
             Container(
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(14),
-                  image: DecorationImage(
-                    image: NetworkImage(storyModel.storyImage!),
-                    fit: BoxFit.cover,
-                  )),
+                borderRadius: BorderRadius.circular(14).r,
+              ),
+              child: ImageWithShimmer(
+                imageUrl: storyModel.storyImage!,
+                width: double.infinity,
+                height: double.infinity,
+                boxFit: BoxFit.fill,
+                radius: 10.r,
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0).r,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CircleAvatar(
-                    radius: 23,
+                    radius: 23.r,
                     child: CircleAvatar(
-                      radius: 20,
-                      backgroundImage: NetworkImage(bloc.userModel!.image),
+                      radius: 20.r,
+                      child: ImageWithShimmer(
+                        imageUrl: bloc.userModel!.image,
+                        width: 50.w,
+                        height: 50.h,
+                        boxFit: BoxFit.fill,
+                        radius: 25.r,
+                      ),
                     ),
                   ),
                   const Spacer(),
                   SizedBox(
-                    width: 110,
+                    width: 110.w,
                     child: Text(
                       bloc.userModel!.name,
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600),
-                      maxLines: 2,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge!
+                          .copyWith(color: AppMainColors.kittenWithColor),
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                  )
+                  ),
                 ],
               ),
             )
