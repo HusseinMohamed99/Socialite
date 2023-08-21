@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:sociality/pages/chat/chat_screen.dart';
 import 'package:sociality/pages/feed/feedscreen.dart';
 import 'package:sociality/pages/setting/setting_screen.dart';
@@ -180,6 +181,7 @@ class SocialCubit extends Cubit<SocialStates> {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       profileImage = File(pickedFile.path);
+      profileImage = await cropImage(imageFile: profileImage!);
       emit(GetProfileImagePickedSuccessState());
     } else {
       debugPrint('No image selected');
@@ -195,11 +197,19 @@ class SocialCubit extends Cubit<SocialStates> {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       coverImage = File(pickedFile.path);
+      coverImage = await cropImage(imageFile: coverImage!);
       emit(GetCoverImagePickedSuccessState());
     } else {
       debugPrint('No image selected');
       emit(GetCoverImagePickedErrorState());
     }
+  }
+
+  Future<File?> cropImage({required File imageFile}) async {
+    CroppedFile? croppedImage =
+        await ImageCropper().cropImage(sourcePath: imageFile.path);
+    if (croppedImage == null) return null;
+    return File(croppedImage.path);
   }
 
   ///END : GetCoverImage
@@ -1252,6 +1262,7 @@ class SocialCubit extends Cubit<SocialStates> {
 
     if (pickedFile != null) {
       storyImage = File(pickedFile.path);
+      storyImage = await cropImage(imageFile: storyImage!);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => CreateStory()));
       emit(CreateStoryImagePickedSuccessState());

@@ -113,7 +113,7 @@ class CreateStory extends StatelessWidget {
                                 ),
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),

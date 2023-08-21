@@ -1,11 +1,13 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sociality/Pages/friend/friends_profile_screen.dart';
 import 'package:sociality/model/story_model.dart';
+import 'package:sociality/shared/components/image_with_shimmer.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:sociality/shared/styles/color.dart';
 
 class ViewStory extends StatelessWidget {
   final StoryModel storyModel;
@@ -19,51 +21,50 @@ class ViewStory extends StatelessWidget {
         builder: (context, state) {
           var bloc = SocialCubit.get(context);
           return Scaffold(
-            backgroundColor: Colors.black,
             body: SafeArea(
                 child: Stack(
               children: [
-                SizedBox.expand(
-                  child: InteractiveViewer(
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                        image: NetworkImage(storyModel.storyImage!),
-                        fit: BoxFit.cover,
-                      )),
-                    ),
-                  ),
+                ImageWithShimmer(
+                  imageUrl: storyModel.storyImage!,
+                  width: double.infinity,
+                  height: double.infinity,
+                  boxFit: BoxFit.fitWidth,
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8.0).r,
                       child: Row(
                         children: [
                           IconButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              icon: Container(
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.grey.withOpacity(0.3),
-                                          blurRadius: 9,
-                                          spreadRadius: 4,
-                                          offset: const Offset(0, 4))
-                                    ]),
-                                child: CircleAvatar(
-                                    backgroundColor: Theme.of(context)
-                                        .scaffoldBackgroundColor,
-                                    child: const Icon(
-                                      Icons.arrow_back_ios_outlined,
-                                      color: Colors.red,
-                                    )),
-                              )),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppMainColors.greyColor
+                                        .withOpacity(0.3),
+                                    blurRadius: 9,
+                                    spreadRadius: 4,
+                                    offset: const Offset(0, 4),
+                                  )
+                                ],
+                              ),
+                              child: CircleAvatar(
+                                backgroundColor:
+                                    Theme.of(context).scaffoldBackgroundColor,
+                                child: Icon(
+                                  Icons.close_rounded,
+                                  color: AppMainColors.redColor,
+                                  size: 24.sp,
+                                ),
+                              ),
+                            ),
+                          ),
                           InkWell(
                             onTap: () {
                               if (storyModel.uId != bloc.userModel!.uId) {
@@ -80,15 +81,17 @@ class ViewStory extends StatelessWidget {
                               }
                             },
                             child: CircleAvatar(
-                              radius: 30,
-                              backgroundImage: NetworkImage(
-                                storyModel.image!,
+                              radius: 24.r,
+                              child: ImageWithShimmer(
+                                imageUrl: storyModel.image!,
+                                width: 60.w,
+                                height: 60.h,
+                                boxFit: BoxFit.fill,
+                                radius: 15.r,
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            width: 15,
-                          ),
+                          SizedBox(width: 15.w),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,34 +100,30 @@ class ViewStory extends StatelessWidget {
                                   children: [
                                     Text(
                                       storyModel.name!,
-                                      style: const TextStyle(
-                                          fontSize: 23,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.white),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge,
                                     ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    const Icon(
+                                    SizedBox(width: 5.w),
+                                    Icon(
                                       Icons.check_circle,
-                                      color: Colors.blue,
-                                      size: 23,
+                                      color: AppMainColors.blueColor,
+                                      size: 24.sp,
                                     )
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
+                                SizedBox(height: 5.h),
                                 Text(
-                                  daysBetween(DateTime.parse(
-                                      storyModel.dateTime.toString())),
-                                  style: GoogleFonts.roboto(
-                                      fontSize: 15,
-                                      color: Colors.grey,
-                                      textStyle:
-                                          Theme.of(context).textTheme.bodySmall,
-                                      height: 1.3),
-                                )
+                                  daysBetween(
+                                    DateTime.parse(
+                                      storyModel.dateTime.toString(),
+                                    ),
+                                  ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(color: AppMainColors.greyColor),
+                                ),
                               ],
                             ),
                           ),
@@ -133,22 +132,19 @@ class ViewStory extends StatelessWidget {
                     ),
                     Flexible(
                         child: Container(
-                      color: Colors.black.withOpacity(0.3),
+                      color: AppMainColors.blackColor.withOpacity(0.3),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          SizedBox(height: 10.h),
                           if (storyModel.text != "")
                             Center(
-                                child: Text(
-                              storyModel.text!,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 25),
-                            )),
-                          space(0, 35)
+                              child: Text(
+                                storyModel.text!,
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                            ),
                         ],
                       ),
                     )),

@@ -53,6 +53,7 @@ dependencies:
   intl: ^0.18.1
   shimmer: ^3.0.0
   story: ^1.1.0
+  image_cropper: ^3.0.1
 
 dev_dependencies:
   flutter_test:

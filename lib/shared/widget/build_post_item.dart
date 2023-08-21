@@ -122,7 +122,10 @@ class BuildPostItem extends StatelessWidget {
                           SizedBox(width: 10.w),
                           Text(
                             daysBetween(
-                                DateTime.parse(postModel.dateTime.toString())),
+                              DateTime.parse(
+                                postModel.dateTime.toString(),
+                              ),
+                            ),
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge!
