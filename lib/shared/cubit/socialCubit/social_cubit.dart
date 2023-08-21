@@ -208,8 +208,10 @@ class SocialCubit extends Cubit<SocialStates> {
   Future<File?> cropImage({required File imageFile}) async {
     CroppedFile? croppedImage =
         await ImageCropper().cropImage(sourcePath: imageFile.path);
-    if (croppedImage == null) return null;
-    return File(croppedImage.path);
+    if (croppedImage != null) {
+      return File(croppedImage.path);
+    }
+    return null;
   }
 
   ///END : GetCoverImage
@@ -1257,16 +1259,17 @@ class SocialCubit extends Cubit<SocialStates> {
   ///START : getStoryImage
   File? storyImage;
 
-  Future getStoryImage(context) async {
+  Future<void> getStoryImage(context) async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
       storyImage = File(pickedFile.path);
       storyImage = await cropImage(imageFile: storyImage!);
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => CreateStory()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const CreateStory()));
       emit(CreateStoryImagePickedSuccessState());
     } else {
+      Navigator.pop(context);
       debugPrint("No image selected");
       emit(CreateStoryImagePickedErrorState());
     }

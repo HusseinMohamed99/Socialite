@@ -12,10 +12,9 @@ import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
 import 'package:sociality/shared/styles/color.dart';
 
 class CreateStory extends StatelessWidget {
-  CreateStory({
+  const CreateStory({
     Key? key,
   }) : super(key: key);
-  final TextEditingController story = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SocialCubit, SocialStates>(
@@ -31,9 +30,11 @@ class CreateStory extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        var bloc = SocialCubit.get(context);
+        SocialCubit bloc = SocialCubit.get(context);
+        final TextEditingController story = TextEditingController();
+
         return Scaffold(
-          resizeToAvoidBottomInset: false,
+          resizeToAvoidBottomInset: true,
           body: SafeArea(
             child: Stack(
               children: [
@@ -43,7 +44,7 @@ class CreateStory extends StatelessWidget {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: FileImage(bloc.storyImage!),
-                      fit: BoxFit.fill,
+                      fit: BoxFit.fitWidth,
                     ),
                   ),
                 ),
@@ -97,10 +98,11 @@ class CreateStory extends StatelessWidget {
                                 shape: BoxShape.circle,
                                 boxShadow: [
                                   BoxShadow(
-                                      color: Colors.grey.withOpacity(0.3),
-                                      blurRadius: 9,
-                                      spreadRadius: 4,
-                                      offset: const Offset(0, 4))
+                                    color: Colors.grey.withOpacity(0.3),
+                                    blurRadius: 9,
+                                    spreadRadius: 4,
+                                    offset: const Offset(0, 4),
+                                  )
                                 ],
                               ),
                               child: CircleAvatar(
@@ -120,20 +122,22 @@ class CreateStory extends StatelessWidget {
                     if (bloc.addText == false)
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0).r,
-                        child: Center(
-                          child: TextFormField(
-                            controller: story,
-                            maxLines: 6,
-                            minLines: 1,
-                            style: Theme.of(context).textTheme.headlineMedium,
-                            decoration: InputDecoration(
-                              hintText: "What's on your mind ...",
-                              hintStyle: Theme.of(context)
-                                  .textTheme
-                                  .headlineMedium!
-                                  .copyWith(color: AppMainColors.greyColor),
-                              border: InputBorder.none,
-                            ),
+                        child: TextFormField(
+                          controller: story,
+                          keyboardType: TextInputType.text,
+                          maxLines: 6,
+                          minLines: 1,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(color: AppMainColors.greyColor),
+                          decoration: InputDecoration(
+                            hintText: "What's on your mind ...",
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .headlineMedium!
+                                .copyWith(color: AppMainColors.greyColor),
+                            border: InputBorder.none,
                           ),
                         ),
                       ),
@@ -191,7 +195,6 @@ class CreateStory extends StatelessWidget {
                                 DateTime date = DateTime.now();
                                 bloc.createStoryImage(
                                     text: story.text, dateTime: date);
-                                pop(context);
                               },
                               child: Container(
                                 height: 35.h,

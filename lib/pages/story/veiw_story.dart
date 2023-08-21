@@ -21,6 +21,7 @@ class ViewStory extends StatelessWidget {
         builder: (context, state) {
           var bloc = SocialCubit.get(context);
           return Scaffold(
+            resizeToAvoidBottomInset: true,
             body: SafeArea(
                 child: Stack(
               children: [
@@ -145,6 +146,7 @@ class ViewStory extends StatelessWidget {
                                 style: Theme.of(context).textTheme.titleLarge,
                               ),
                             ),
+                          SizedBox(height: 10.h),
                         ],
                       ),
                     )),

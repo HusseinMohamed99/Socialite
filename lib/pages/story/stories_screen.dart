@@ -76,92 +76,96 @@ class CreateNewStories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        InkWell(
-          onTap: () {
-            cubit.getStoryImage(context);
-          },
-          child: Container(
-            width: 110.w,
-            height: 140.h,
-            margin: const EdgeInsets.only(left: 8).r,
-            decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.3),
-              borderRadius: BorderRadius.circular(17).r,
-            ),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 120.h,
-                  child: Stack(
-                    alignment: AlignmentDirectional.bottomCenter,
-                    children: [
-                      Align(
-                        alignment: AlignmentDirectional.topCenter,
-                        child: Container(
-                          width: double.infinity,
-                          height: 120.h,
-                          decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.only(
-                              topRight: Radius.circular(17),
-                              topLeft: Radius.circular(17),
-                              bottomLeft: Radius.circular(10),
-                              bottomRight: Radius.circular(10),
-                            ).r,
-                          ),
-                          child: ImageWithShimmer(
-                            imageUrl: cubit.userModel!.image,
-                            width: 100.w,
-                            height: 100.h,
-                            radius: 15.r,
-                            boxFit: BoxFit.fill,
-                          ),
-                        ),
-                      ),
-                      CircleAvatar(
-                        radius: 20.r,
-                        backgroundColor: Colors.grey.withOpacity(0.3),
-                        child: CircleAvatar(
-                          radius: 18.r,
-                          backgroundColor: AppMainColors.blueColor,
-                          child: Icon(
-                            Icons.add,
-                            size: 24.sp,
-                            color: AppMainColors.kittenWithColor,
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          InkWell(
+            onTap: () {
+              cubit.getStoryImage(context);
+            },
+            child: Container(
+              width: 110.w,
+              height: 140.h,
+              margin: const EdgeInsets.only(left: 8).r,
+              decoration: BoxDecoration(
+                color: Colors.grey.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(17).r,
+              ),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 120.h,
+                    child: Stack(
+                      alignment: AlignmentDirectional.bottomCenter,
+                      children: [
+                        Align(
+                          alignment: AlignmentDirectional.topCenter,
+                          child: Container(
+                            width: double.infinity,
+                            height: 120.h,
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(17),
+                                topLeft: Radius.circular(17),
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10),
+                              ).r,
+                            ),
+                            child: ImageWithShimmer(
+                              imageUrl: cubit.userModel!.image,
+                              width: 100.w,
+                              height: 100.h,
+                              radius: 15.r,
+                              boxFit: BoxFit.fill,
+                            ),
                           ),
                         ),
-                      )
-                    ],
+                        CircleAvatar(
+                          radius: 20.r,
+                          backgroundColor: Colors.grey.withOpacity(0.3),
+                          child: CircleAvatar(
+                            radius: 18.r,
+                            backgroundColor: AppMainColors.blueColor,
+                            child: Icon(
+                              Icons.add,
+                              size: 24.sp,
+                              color: AppMainColors.kittenWithColor,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                const Spacer(),
-                Text(
-                  "Create Story",
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-                const Spacer(),
-              ],
+                  const Spacer(),
+                  Text(
+                    "Create Story",
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  const Spacer(),
+                ],
+              ),
             ),
           ),
-        ),
-        SizedBox(width: 10.w),
-        SizedBox(
-          height: 140.h,
-          child: ListView.separated(
-            physics: const BouncingScrollPhysics(),
-            shrinkWrap: true,
-            reverse: true,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) => UserStories(
-              storyModel: cubit.userStories[index],
+          SizedBox(width: 10.w),
+          SizedBox(
+            height: 140.h,
+            child: ListView.separated(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              reverse: true,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) => UserStories(
+                storyModel: cubit.userStories[index],
+              ),
+              separatorBuilder: (context, index) => SizedBox(width: 10.w),
+              itemCount: cubit.userStories.length,
             ),
-            separatorBuilder: (context, index) => SizedBox(width: 10.w),
-            itemCount: cubit.userStories.length,
           ),
-        ),
-        SizedBox(width: 10.w),
-      ],
+          SizedBox(width: 10.w),
+        ],
+      ),
     );
   }
 }
