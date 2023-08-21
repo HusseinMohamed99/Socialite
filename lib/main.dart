@@ -21,7 +21,7 @@ import 'shared/network/cache_helper.dart';
 
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   showToast(text: 'on Message', state: ToastStates.success);
-  debugPrint('when the app is BackGround');
+  debugPrint('when the app is Background');
   debugPrint(message.data.toString());
 }
 
