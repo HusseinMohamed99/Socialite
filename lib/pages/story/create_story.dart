@@ -1,13 +1,15 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sociality/shared/components/image_with_shimmer.dart';
 import 'package:sociality/shared/components/indicator.dart';
 import 'package:sociality/shared/components/navigator.dart';
+import 'package:sociality/shared/components/show_toast.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
+import 'package:sociality/shared/styles/color.dart';
 
 class CreateStory extends StatelessWidget {
   CreateStory({
@@ -16,74 +18,75 @@ class CreateStory extends StatelessWidget {
   final TextEditingController story = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SocialCubit, SocialStates>(listener: (context, state) {
-      if (state is CreateStorySuccessState) {
-        Navigator.pop(context);
-        SocialCubit.get(context)
-            .getPersonalStory(SocialCubit.get(context).userModel!.uId);
-        Fluttertoast.showToast(
-            msg: "Your story is created successfully",
-            fontSize: 16,
-            gravity: ToastGravity.BOTTOM,
-            textColor: Theme.of(context).scaffoldBackgroundColor,
-            backgroundColor: Colors.green,
-            toastLength: Toast.LENGTH_LONG);
-      }
-    }, builder: (context, state) {
-      var bloc = SocialCubit.get(context);
-      return Scaffold(
-        backgroundColor: Colors.black,
-        resizeToAvoidBottomInset: false,
-        body: SafeArea(
-          child: Stack(
-            children: [
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: FileImage(bloc.storyImage!),
-                    fit: BoxFit.cover,
+    return BlocConsumer<SocialCubit, SocialStates>(
+      listener: (context, state) {
+        if (state is CreateStorySuccessState) {
+          Navigator.pop(context);
+          SocialCubit.get(context).getUserStories(uId);
+          SocialCubit.get(context).getStories();
+          showToast(
+            text: "Your story is created successfully",
+            state: ToastStates.success,
+          );
+        }
+      },
+      builder: (context, state) {
+        var bloc = SocialCubit.get(context);
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: SafeArea(
+            child: Stack(
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: FileImage(bloc.storyImage!),
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 30,
-                          backgroundImage: NetworkImage(
-                            SocialCubit.get(context).userModel!.image,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0).r,
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 20.r,
+                            child: ImageWithShimmer(
+                              imageUrl: bloc.userModel!.image,
+                              width: 60.w,
+                              height: 60.h,
+                              radius: 25.r,
+                              boxFit: BoxFit.fill,
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          width: 15,
-                        ),
-                        Expanded(
-                          child: Row(
-                            children: [
-                              Text(
-                                SocialCubit.get(context).userModel!.name,
-                                style: const TextStyle(
-                                    fontSize: 23,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              const Icon(
-                                Icons.check_circle,
-                                color: Colors.blue,
-                                size: 23,
-                              )
-                            ],
+                          SizedBox(width: 15.w),
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Text(
+                                  SocialCubit.get(context).userModel!.name,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .copyWith(
+                                          color: AppMainColors.kittenWithColor),
+                                ),
+                                SizedBox(width: 5.w),
+                                Icon(
+                                  Icons.check_circle,
+                                  color: AppMainColors.blueColor,
+                                  size: 24.sp,
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                        IconButton(
+                          IconButton(
                             onPressed: () {
                               bloc.closeStory();
                               pop(context);
@@ -91,143 +94,160 @@ class CreateStory extends StatelessWidget {
                             },
                             icon: Container(
                               decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey.withOpacity(0.3),
-                                        blurRadius: 9,
-                                        spreadRadius: 4,
-                                        offset: const Offset(0, 4))
-                                  ]),
-                              child: CircleAvatar(
-                                  backgroundColor:
-                                      Theme.of(context).scaffoldBackgroundColor,
-                                  child: const Icon(
-                                    Icons.close_rounded,
-                                    color: Colors.black,
-                                  )),
-                            ))
-                      ],
-                    ),
-                  ),
-                  if (bloc.addText == false)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 70.0),
-                      child: Center(
-                        child: TextFormField(
-                          controller: story,
-                          maxLines: 6,
-                          minLines: 1,
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 30),
-                          decoration: const InputDecoration(
-                              hintText: "What's on your mind ...",
-                              hintStyle: TextStyle(
-                                color: Colors.white,
-                              ),
-                              border: InputBorder.none),
-                        ),
-                      ),
-                    ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              bloc.addTextStory();
-                            },
-                            child: Container(
-                              height: 45,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(15),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey.withOpacity(0.3),
-                                        blurRadius: 9,
-                                        spreadRadius: 4,
-                                        offset: const Offset(0, 4))
-                                  ]),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Icon(
-                                    Icons.text_fields,
-                                    color: Colors.black,
-                                  ),
-                                  Text(
-                                    bloc.addText ? " add text" : " remove text",
-                                    style: const TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 18),
-                                  )
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      blurRadius: 9,
+                                      spreadRadius: 4,
+                                      offset: const Offset(0, 4))
                                 ],
                               ),
+                              child: CircleAvatar(
+                                backgroundColor:
+                                    Theme.of(context).scaffoldBackgroundColor,
+                                child: Icon(
+                                  Icons.close_rounded,
+                                  color: AppMainColors.redColor,
+                                  size: 24.sp,
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    if (bloc.addText == false)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0).r,
+                        child: Center(
+                          child: TextFormField(
+                            controller: story,
+                            maxLines: 6,
+                            minLines: 1,
+                            style: Theme.of(context).textTheme.headlineMedium,
+                            decoration: InputDecoration(
+                              hintText: "What's on your mind ...",
+                              hintStyle: Theme.of(context)
+                                  .textTheme
+                                  .headlineMedium!
+                                  .copyWith(color: AppMainColors.greyColor),
+                              border: InputBorder.none,
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              DateTime date = DateTime.now();
-                              bloc.createStoryImage(
-                                  text: story.text, dateTime: date);
-                              pop(context);
-                            },
-                            child: Container(
-                              height: 45,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(15),
+                      ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0).r,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: InkWell(
+                              onTap: () {
+                                bloc.addTextStory();
+                              },
+                              child: Container(
+                                height: 35.h,
+                                decoration: BoxDecoration(
+                                  color: AppMainColors.titanWithColor,
+                                  borderRadius: BorderRadius.circular(15).r,
                                   boxShadow: [
                                     BoxShadow(
-                                        color: Colors.grey.withOpacity(0.3),
-                                        blurRadius: 9,
-                                        spreadRadius: 4,
-                                        offset: const Offset(0, 4))
-                                  ]),
-                              child: ConditionalBuilder(
-                                condition: state is! CreateStoryLoadingState,
-                                builder: (context) => const Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      IconlyLight.upload,
-                                      color: Colors.black,
-                                    ),
-                                    Text(
-                                      " Add Story",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 18),
+                                      color: AppMainColors.greyColor
+                                          .withOpacity(0.3),
+                                      blurRadius: 9,
+                                      spreadRadius: 4,
+                                      offset: const Offset(0, 4),
                                     )
                                   ],
                                 ),
-                                fallback: (context) => Center(
-                                  child: AdaptiveIndicator(
-                                    os: getOs(),
-                                  ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.text_fields,
+                                      color: AppMainColors.blackColor,
+                                      size: 24.sp,
+                                    ),
+                                    Text(
+                                      bloc.addText
+                                          ? " Add Text"
+                                          : " Remove Text",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge!
+                                          .copyWith(
+                                              color: AppMainColors.blackColor),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
                           ),
-                        )
-                      ],
+                          SizedBox(width: 5.w),
+                          Expanded(
+                            child: InkWell(
+                              onTap: () {
+                                DateTime date = DateTime.now();
+                                bloc.createStoryImage(
+                                    text: story.text, dateTime: date);
+                                pop(context);
+                              },
+                              child: Container(
+                                height: 35.h,
+                                decoration: BoxDecoration(
+                                  color: AppMainColors.titanWithColor,
+                                  borderRadius: BorderRadius.circular(15).r,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: AppMainColors.greyColor
+                                          .withOpacity(0.3),
+                                      blurRadius: 9,
+                                      spreadRadius: 4,
+                                      offset: const Offset(0, 4),
+                                    )
+                                  ],
+                                ),
+                                child: ConditionalBuilder(
+                                  condition: state is! CreateStoryLoadingState,
+                                  builder: (context) => Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.upload,
+                                        color: AppMainColors.blackColor,
+                                        size: 24.sp,
+                                      ),
+                                      Text(
+                                        "Add Story",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge!
+                                            .copyWith(
+                                                color:
+                                                    AppMainColors.blackColor),
+                                      )
+                                    ],
+                                  ),
+                                  fallback: (context) => Center(
+                                    child: AdaptiveIndicator(
+                                      os: getOs(),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              )
-            ],
+                  ],
+                )
+              ],
+            ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }

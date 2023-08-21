@@ -87,7 +87,7 @@ class SocialCubit extends Cubit<SocialStates> {
       getFriendRequest();
     }
     if (index == 3) {
-      getPersonalStory(userModel!.uId);
+      getUserStories(userModel!.uId);
     }
     if (index == 4) {
       getUserData();
@@ -1350,7 +1350,7 @@ class SocialCubit extends Cubit<SocialStates> {
   //------------------------------------------------------------//
   ///START : getPersonalStory
   List<StoryModel> userStories = [];
-  void getPersonalStory(String? storyUID) {
+  void getUserStories(String? storyUID) {
     emit(CreateStoryLoadingState());
     userStories = [];
     for (var element in stories) {
