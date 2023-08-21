@@ -75,6 +75,7 @@ class SocialCubit extends Cubit<SocialStates> {
   void changeNavBar(int index) {
     currentIndex = index;
     if (index == 0) {
+      getUserStories(userModel!.uId);
       getUserData();
       getStories();
       getAllUsers();

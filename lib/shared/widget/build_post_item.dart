@@ -50,7 +50,7 @@ class BuildPostItem extends StatelessWidget {
                         SocialCubit.get(context).userModel!.uId) {
                       navigateTo(
                         context,
-                        FriendsProfileScreen(postModel.uId),
+                        FriendsProfileScreen(userModel.uId),
                       );
 
                       SocialCubit.get(context).getFriendsProfile(postModel.uId);

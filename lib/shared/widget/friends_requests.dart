@@ -19,7 +19,10 @@ class FriendRequestItems extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
-              navigateTo(context, FriendsProfileScreen(userModel.uId));
+              navigateTo(
+                context,
+                FriendsProfileScreen(userModel.uId),
+              );
               if (kDebugMode) {
                 print(userModel.uId);
               }

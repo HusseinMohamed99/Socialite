@@ -25,10 +25,8 @@ class PeoplesMayKnow extends StatelessWidget {
         children: [
           InkWell(
               onTap: () {
-                SocialCubit.get(context).getFriends(userModel.uId);
-                SocialCubit.get(context).checkFriends(userModel.uId);
-                SocialCubit.get(context).checkFriendRequest(userModel.uId);
                 navigateTo(context, FriendsProfileScreen(userModel.uId));
+                SocialCubit.get(context).getUserPosts(userModel.uId);
               },
               child: ImageWithShimmer(
                 imageUrl: userModel.image,

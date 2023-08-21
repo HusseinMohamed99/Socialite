@@ -17,7 +17,11 @@ class FriendsBuildItems extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.of(context).build(context);
-        navigateTo(context, FriendsProfileScreen(userModel.uId));
+        navigateTo(
+          context,
+          FriendsProfileScreen(userModel.uId),
+        );
+        SocialCubit.get(context).getUserPosts(userModel.uId);
       },
       child: Row(
         children: [
