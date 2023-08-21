@@ -2,13 +2,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sociality/model/story_model.dart';
 import 'package:sociality/pages/story/veiw_story.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:sociality/shared/components/image_with_shimmer.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
 import 'package:sociality/shared/styles/color.dart';
+import 'package:sociality/shared/widget/build_stories_item.dart';
 import 'package:sociality/shared/widget/user_stories.dart';
 
 class StoryScreen extends StatelessWidget {
@@ -258,7 +258,8 @@ class StoryScreen extends StatelessWidget {
                   childAspectRatio: 1 / 1.5,
                   children: List.generate(
                     cubit.stories.length,
-                    (index) => storyItem(context, cubit.stories[index]),
+                    (index) =>
+                        BuildStoriesItem(storyModel: cubit.stories[index]),
                   ),
                 ),
               ),
@@ -266,65 +267,6 @@ class StoryScreen extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-
-  Widget storyItem(context, StoryModel model) {
-    var bloc = SocialCubit.get(context).userModel;
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ViewStory(model)));
-      },
-      child: Container(
-        width: 110,
-        height: 180,
-        decoration: BoxDecoration(
-            color: Colors.grey[200], borderRadius: BorderRadius.circular(17)),
-        child: Stack(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(14),
-                  image: DecorationImage(
-                    image: NetworkImage(model.storyImage!),
-                    fit: BoxFit.cover,
-                  )),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CircleAvatar(
-                    radius: 23,
-                    child: CircleAvatar(
-                      radius: 20,
-                      backgroundImage: model.uId == bloc!.uId
-                          ? NetworkImage(bloc.image)
-                          : NetworkImage(model.image!),
-                    ),
-                  ),
-                  const Spacer(),
-                  SizedBox(
-                    width: 110,
-                    height: 25,
-                    child: Text(
-                      model.uId == bloc.uId ? bloc.name : model.name!,
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
     );
   }
 }
