@@ -22,7 +22,7 @@ class StoryItem extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ViewStory(storyModel),
+                builder: (context) => ViewStory(storyModel: storyModel),
               ),
             );
           },

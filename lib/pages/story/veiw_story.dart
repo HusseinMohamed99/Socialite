@@ -8,9 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ViewStory extends StatelessWidget {
-  final StoryModel? model;
+  final StoryModel storyModel;
 
-  const ViewStory(this.model, {Key? key}) : super(key: key);
+  const ViewStory({Key? key, required this.storyModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class ViewStory extends StatelessWidget {
                       width: double.infinity,
                       decoration: BoxDecoration(
                           image: DecorationImage(
-                        image: NetworkImage(model!.storyImage!),
+                        image: NetworkImage(storyModel.storyImage!),
                         fit: BoxFit.cover,
                       )),
                     ),
@@ -66,13 +66,13 @@ class ViewStory extends StatelessWidget {
                               )),
                           InkWell(
                             onTap: () {
-                              if (model!.uId != bloc.userModel!.uId) {
-                                bloc.getFriends(model!.uId!);
+                              if (storyModel.uId != bloc.userModel!.uId) {
+                                bloc.getFriends(storyModel.uId!);
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        FriendsProfileScreen(model!.uId),
+                                        FriendsProfileScreen(storyModel.uId),
                                   ),
                                 );
                               } else {
@@ -82,7 +82,7 @@ class ViewStory extends StatelessWidget {
                             child: CircleAvatar(
                               radius: 30,
                               backgroundImage: NetworkImage(
-                                model!.image!,
+                                storyModel.image!,
                               ),
                             ),
                           ),
@@ -96,7 +96,7 @@ class ViewStory extends StatelessWidget {
                                 Row(
                                   children: [
                                     Text(
-                                      model!.name!,
+                                      storyModel.name!,
                                       style: const TextStyle(
                                           fontSize: 23,
                                           fontWeight: FontWeight.w600,
@@ -117,7 +117,7 @@ class ViewStory extends StatelessWidget {
                                 ),
                                 Text(
                                   daysBetween(DateTime.parse(
-                                      model!.dateTime.toString())),
+                                      storyModel.dateTime.toString())),
                                   style: GoogleFonts.roboto(
                                       fontSize: 15,
                                       color: Colors.grey,
@@ -140,10 +140,10 @@ class ViewStory extends StatelessWidget {
                           const SizedBox(
                             height: 10,
                           ),
-                          if (model!.text != "")
+                          if (storyModel.text != "")
                             Center(
                                 child: Text(
-                              model!.text!,
+                              storyModel.text!,
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                   color: Colors.white, fontSize: 25),

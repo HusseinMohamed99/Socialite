@@ -15,8 +15,12 @@ class UserStories extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ViewStory(storyModel)));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ViewStory(storyModel: storyModel),
+          ),
+        );
       },
       child: Container(
         width: 110.w,

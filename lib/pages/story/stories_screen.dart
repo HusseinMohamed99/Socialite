@@ -180,8 +180,10 @@ class CarouselSliderStories extends StatelessWidget {
         items: cubit.stories
             .map((e) => InkWell(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ViewStory(e)));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ViewStory(storyModel: e)));
                   },
                   child: Stack(
                     alignment: AlignmentDirectional.bottomStart,
