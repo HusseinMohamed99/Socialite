@@ -118,84 +118,90 @@ class StoriesItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      physics: const BouncingScrollPhysics(),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0).r,
-        child: Row(
-          children: [
-            InkWell(
-              onTap: () {
-                cubit.getStoryImage(context);
-              },
-              child: Container(
-                width: 110.w,
-                height: 140.h,
-                margin: EdgeInsetsDirectional.only(start: 8.r),
-                decoration: BoxDecoration(
-                    color: Colors.grey.withOpacity(0.3),
-                    borderRadius: BorderRadius.circular(17).r),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 125.h,
-                      child: Stack(
-                        alignment: AlignmentDirectional.bottomCenter,
-                        children: [
-                          Align(
-                            child: ImageWithShimmer(
-                              imageUrl: cubit.userModel!.image,
-                              radius: 15.r,
-                              width: double.infinity,
-                              height: double.infinity,
-                              boxFit: BoxFit.fill,
-                            ),
-                          ),
-                          CircleAvatar(
-                            radius: 20.r,
-                            backgroundColor: Colors.grey.withOpacity(0.3),
-                            child: CircleAvatar(
-                              radius: 18.r,
-                              backgroundColor: AppMainColors.blueColor,
-                              child: Icon(
-                                Icons.add,
-                                color: AppMainColors.kittenWithColor,
-                                size: 24.sp,
+    return BlocConsumer<SocialCubit, SocialStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        return SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          physics: const BouncingScrollPhysics(),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0).r,
+            child: Row(
+              children: [
+                InkWell(
+                  onTap: () {
+                    cubit.getStoryImage(context);
+                  },
+                  child: Container(
+                    width: 110.w,
+                    height: 140.h,
+                    margin: EdgeInsetsDirectional.only(start: 8.r),
+                    decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(17).r),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 125.h,
+                          child: Stack(
+                            alignment: AlignmentDirectional.bottomCenter,
+                            children: [
+                              Align(
+                                child: ImageWithShimmer(
+                                  imageUrl: cubit.userModel!.image,
+                                  radius: 15.r,
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  boxFit: BoxFit.fill,
+                                ),
                               ),
-                            ),
-                          )
-                        ],
-                      ),
+                              CircleAvatar(
+                                radius: 20.r,
+                                backgroundColor: Colors.grey.withOpacity(0.3),
+                                child: CircleAvatar(
+                                  radius: 18.r,
+                                  backgroundColor: AppMainColors.blueColor,
+                                  child: Icon(
+                                    Icons.add,
+                                    color: AppMainColors.kittenWithColor,
+                                    size: 24.sp,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        const Spacer(),
+                        Text(
+                          "Create Story",
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                        const Spacer(),
+                      ],
                     ),
-                    const Spacer(),
-                    Text(
-                      "Create Story",
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                    const Spacer(),
-                  ],
+                  ),
                 ),
-              ),
+                SizedBox(width: 10.w),
+                SizedBox(
+                  height: 140.h,
+                  child: ListView.separated(
+                      physics: const NeverScrollableScrollPhysics(),
+                      reverse: true,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) => StoryItem(
+                            storyModel: cubit.stories[index],
+                          ),
+                      separatorBuilder: (context, index) =>
+                          SizedBox(width: 10.w),
+                      itemCount: cubit.stories.length),
+                ),
+                SizedBox(width: 10.w),
+              ],
             ),
-            SizedBox(width: 10.w),
-            SizedBox(
-              height: 140.h,
-              child: ListView.separated(
-                  physics: const NeverScrollableScrollPhysics(),
-                  reverse: true,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => StoryItem(
-                        storyModel: cubit.stories[index],
-                      ),
-                  separatorBuilder: (context, index) => SizedBox(width: 10.w),
-                  itemCount: cubit.stories.length),
-            ),
-            SizedBox(width: 10.w),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
