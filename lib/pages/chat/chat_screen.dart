@@ -51,7 +51,7 @@ class ChatScreen extends StatelessWidget {
                         margin: const EdgeInsets.all(10).r,
                         child: Container(
                           alignment: Alignment.centerLeft,
-                          height: 80.h,
+                          height: 90.h,
                           width: double.infinity,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10).r),
