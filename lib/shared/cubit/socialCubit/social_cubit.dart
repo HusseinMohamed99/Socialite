@@ -80,6 +80,8 @@ class SocialCubit extends Cubit<SocialStates> {
       getStories();
       getAllUsers();
       getPosts();
+      getFriendsProfile(postModel!.uId);
+      getUserPosts(postModel!.uId);
     }
     if (index == 1) {
       getAllUsers();
@@ -142,8 +144,11 @@ class SocialCubit extends Cubit<SocialStates> {
     emit(SetUSerTokenLoadingState());
     String? token = await FirebaseMessaging.instance.getToken();
     debugPrint(' token $token');
-    await FirebaseFirestore.instance.collection('users').doc(uId).update(
-        {'token': token}).then((value) => emit(SetUSerTokenSuccessState()));
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userModel!.uId)
+        .update({'token': token}).then(
+            (value) => emit(SetUSerTokenSuccessState()));
   }
 
   ///END : setUserToken

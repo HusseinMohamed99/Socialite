@@ -90,7 +90,6 @@ class MyApp extends StatelessWidget {
             ..getAllUsers()
             ..getUserData()
             ..getStories()
-            ..setUserToken()
             ..changeAppMode(
               fromShared: isDark,
             ),
