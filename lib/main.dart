@@ -85,10 +85,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => SocialCubit()
-            ..getUserStories(uId)
+            ..getUserData()
             ..getPosts()
             ..getAllUsers()
-            ..getUserData()
             ..getStories()
             ..changeAppMode(
               fromShared: isDark,

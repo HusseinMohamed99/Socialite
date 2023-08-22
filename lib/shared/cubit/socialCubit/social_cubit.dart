@@ -76,9 +76,7 @@ class SocialCubit extends Cubit<SocialStates> {
     currentIndex = index;
     if (index == 0) {
       getUserData();
-      getUserStories(userModel!.uId);
-      getStories();
-      getAllUsers();
+
       getPosts();
       getFriendsProfile(userModel!.uId);
       getUserPosts(userModel!.uId);
@@ -93,6 +91,7 @@ class SocialCubit extends Cubit<SocialStates> {
       checkFriendRequest(userModel!.uId);
     }
     if (index == 3) {
+      getStories();
       getUserStories(userModel!.uId);
     }
     if (index == 4) {
