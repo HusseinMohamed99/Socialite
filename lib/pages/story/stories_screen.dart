@@ -224,7 +224,7 @@ class CarouselSliderStories extends StatelessWidget {
                           imageUrl: e.storyImage!,
                           width: double.infinity,
                           height: double.infinity,
-                          boxFit: BoxFit.fill,
+                          boxFit: BoxFit.fitWidth,
                         ),
                       ),
                       Padding(
