@@ -89,6 +89,8 @@ class SocialCubit extends Cubit<SocialStates> {
     if (index == 2) {
       getFriends(userModel!.uId);
       getFriendRequest();
+      checkFriends(userModel!.uId);
+      checkFriendRequest(userModel!.uId);
     }
     if (index == 3) {
       getUserStories(userModel!.uId);
@@ -1082,10 +1084,10 @@ class SocialCubit extends Cubit<SocialStates> {
         .collection('friends')
         .snapshots()
         .listen((value) {
-      isFriend = false;
       for (var element in value.docs) {
-        if (friendUID == element.id) isFriend = true;
+        if (friendUID != element.id) isFriend = true;
       }
+      print(isFriend);
       emit(CheckFriendSuccessState());
     });
     return isFriend;

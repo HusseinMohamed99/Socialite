@@ -119,7 +119,7 @@ class PeoplesMayKnow extends StatelessWidget {
                           size: 24.sp,
                         ),
                         Text(
-                          'Profile Friends',
+                          'Profile',
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                       ],
