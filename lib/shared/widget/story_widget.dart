@@ -59,14 +59,14 @@ class StoryItem extends StatelessWidget {
                           child: storyModel.uId == cubit.userModel!.uId
                               ? ImageWithShimmer(
                                   imageUrl: cubit.userModel!.image,
-                                  radius: 15.r,
+                                  radius: 20.r,
                                   width: double.infinity,
                                   height: double.infinity,
                                   boxFit: BoxFit.fill,
                                 )
                               : ImageWithShimmer(
                                   imageUrl: storyModel.image!,
-                                  radius: 15.r,
+                                  radius: 20.r,
                                   width: double.infinity,
                                   height: double.infinity,
                                   boxFit: BoxFit.fill,

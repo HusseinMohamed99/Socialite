@@ -70,7 +70,7 @@ class FeedScreen extends StatelessWidget {
                 ),
               )
             : ConditionalBuilder(
-                condition: cubit.stories.isEmpty&& cubit.userModel !=null,
+                condition: cubit.stories.isEmpty && cubit.userModel != null,
                 builder: (context) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -146,7 +146,7 @@ class StoriesItem extends StatelessWidget {
                           Align(
                             child: ImageWithShimmer(
                               imageUrl: cubit.userModel!.image,
-                              radius: 15.r,
+                              radius: 10.r,
                               width: double.infinity,
                               height: double.infinity,
                               boxFit: BoxFit.fill,
@@ -187,10 +187,9 @@ class StoriesItem extends StatelessWidget {
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) => StoryItem(
-                    storyModel: cubit.stories[index],
-                  ),
-                  separatorBuilder: (context, index) =>
-                      SizedBox(width: 10.w),
+                        storyModel: cubit.stories[index],
+                      ),
+                  separatorBuilder: (context, index) => SizedBox(width: 10.w),
                   itemCount: cubit.stories.length),
             ),
             SizedBox(width: 10.w),
@@ -198,6 +197,5 @@ class StoriesItem extends StatelessWidget {
         ),
       ),
     );
-
   }
 }
