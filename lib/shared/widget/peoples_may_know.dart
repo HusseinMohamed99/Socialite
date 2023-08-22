@@ -13,28 +13,28 @@ class PeoplesMayKnow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100.h,
-      width: 200.w,
+      width: 120.w,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10).r,
-          border: Border.all(
-              color: AppMainColors.greenColor, style: BorderStyle.solid)),
+        borderRadius: BorderRadius.circular(10).r,
+        border: Border.all(
+            color: AppMainColors.greenColor, style: BorderStyle.solid),
+      ),
       clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           InkWell(
-              onTap: () {
-                navigateTo(context, FriendsProfileScreen(userModel.uId));
-                SocialCubit.get(context).getUserPosts(userModel.uId);
-              },
-              child: ImageWithShimmer(
-                imageUrl: userModel.image,
-                height: 150.h,
-                width: double.infinity,
-                boxFit: BoxFit.fill,
-                radius: 10.r,
-              )),
+            onTap: () {
+              navigateTo(context, FriendsProfileScreen(userModel.uId));
+              SocialCubit.get(context).getUserPosts(userModel.uId);
+            },
+            child: ImageWithShimmer(
+              imageUrl: userModel.image,
+              height: 100.h,
+              width: 120.w,
+              boxFit: BoxFit.fitWidth,
+            ),
+          ),
           SizedBox(height: 10.h),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10).r,
@@ -53,31 +53,29 @@ class PeoplesMayKnow extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 15.h),
-          Expanded(
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppMainColors.blueColor,
-              ),
-              onPressed: () {
-                SocialCubit.get(context).sendFriendRequest(
-                  friendsUID: userModel.uId,
-                  friendName: userModel.name,
-                  friendImage: userModel.image,
-                );
-                SocialCubit.get(context).sendInAppNotification(
-                  contentKey: 'friendRequest',
-                  contentId: userModel.uId,
-                  content: 'sent you a friend request, check it out!',
-                  receiverId: userModel.uId,
-                  receiverName: userModel.name,
-                );
-                SocialCubit.get(context).sendFCMNotification(
-                    token: userModel.uId,
-                    senderName: SocialCubit.get(context).userModel!.name,
-                    messageText: '${SocialCubit.get(context).userModel!.name}'
-                        'sent you a friend request, check it out!');
-              },
+          const Spacer(),
+          InkWell(
+            onTap: () {
+              SocialCubit.get(context).sendFriendRequest(
+                friendsUID: userModel.uId,
+                friendName: userModel.name,
+                friendImage: userModel.image,
+              );
+              SocialCubit.get(context).sendInAppNotification(
+                contentKey: 'friendRequest',
+                contentId: userModel.uId,
+                content: 'sent you a friend request, check it out!',
+                receiverId: userModel.uId,
+                receiverName: userModel.name,
+              );
+              SocialCubit.get(context).sendFCMNotification(
+                  token: userModel.token,
+                  senderName: SocialCubit.get(context).userModel!.name,
+                  messageText: '${SocialCubit.get(context).userModel!.name}'
+                      'sent you a friend request, check it out!');
+            },
+            child: Container(
+              color: AppMainColors.blueColor,
               child: SocialCubit.get(context).isFriend == false
                   ? SocialCubit.get(context).request
                       ? Row(
@@ -88,9 +86,10 @@ class PeoplesMayKnow extends StatelessWidget {
                               color: AppMainColors.titanWithColor,
                               size: 24.sp,
                             ),
-                            SizedBox(width: 5.w),
                             Text(
                               'Request Sent',
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
                           ],
@@ -103,9 +102,10 @@ class PeoplesMayKnow extends StatelessWidget {
                               color: AppMainColors.titanWithColor,
                               size: 24.sp,
                             ),
-                            SizedBox(width: 5.w),
                             Text(
                               'Add Friend',
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
                           ],
@@ -118,7 +118,6 @@ class PeoplesMayKnow extends StatelessWidget {
                           color: AppMainColors.titanWithColor,
                           size: 24.sp,
                         ),
-                        SizedBox(width: 5.w),
                         Text(
                           'Profile Friends',
                           style: Theme.of(context).textTheme.titleLarge,
@@ -126,7 +125,7 @@ class PeoplesMayKnow extends StatelessWidget {
                       ],
                     ),
             ),
-          )
+          ),
         ],
       ),
     );

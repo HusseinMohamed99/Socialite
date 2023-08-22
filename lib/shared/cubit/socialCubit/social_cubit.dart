@@ -1235,6 +1235,44 @@ class SocialCubit extends Cubit<SocialStates> {
   }
 
   ///END : getSinglePost
+  void deleteForEveryone(
+      {required String? messageId, required String? receiverId}) async {
+    var myDocument = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userModel!.uId)
+        .collection('chat')
+        .doc(receiverId)
+        .collection('message')
+        .limit(1)
+        .where('messageId', isEqualTo: messageId)
+        .get();
+    myDocument.docs[0].reference.delete();
+
+    var hisDocument = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(receiverId)
+        .collection('chat')
+        .doc(userModel!.uId)
+        .collection('message')
+        .limit(1)
+        .where('messageId', isEqualTo: messageId)
+        .get();
+    hisDocument.docs[0].reference.delete();
+  }
+
+  void deleteForMe(
+      {required String? messageId, required String? receiverId}) async {
+    var myDocument = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userModel!.uId)
+        .collection('chat')
+        .doc(receiverId)
+        .collection('message')
+        .limit(1)
+        .where('messageId', isEqualTo: messageId)
+        .get();
+    myDocument.docs[0].reference.delete();
+  }
 
   //------------------------------------------------------------//
   ///START : getStories

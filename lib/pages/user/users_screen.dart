@@ -61,35 +61,34 @@ class _UserScreenState extends State<UserScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(height: 15.h),
-                            Text(
-                              'Friend Request',
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
+                            if (friendRequests.isNotEmpty)
+                              SizedBox(height: 15.h),
+                            if (friendRequests.isNotEmpty)
+                              Text(
+                                'Friend Request',
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                            if (friendRequests.isNotEmpty)
+                              Text(
+                                'No Friend Request',
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
                             ConditionalBuilder(
-                              condition: friendRequests.isNotEmpty,
-                              builder: (context) => ListView.separated(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) =>
-                                    FriendRequestItems(
-                                        userModel: friendRequests[index]),
-                                separatorBuilder: (context, index) =>
-                                    SizedBox(width: 10.w),
-                                itemCount: friendRequests.length,
-                              ),
-                              fallback: (context) => Container(
-                                padding: const EdgeInsets.only(
-                                  top: 15,
-                                  bottom: 5,
-                                ).r,
-                                alignment: AlignmentDirectional.center,
-                                child: Text(
-                                  'No Friend Request',
-                                  style: Theme.of(context).textTheme.titleLarge,
-                                ),
-                              ),
-                            ),
+                                condition: friendRequests.isNotEmpty,
+                                builder: (context) => ListView.separated(
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      itemBuilder: (context, index) =>
+                                          FriendRequestItems(
+                                              userModel: friendRequests[index]),
+                                      separatorBuilder: (context, index) =>
+                                          SizedBox(width: 10.w),
+                                      itemCount: friendRequests.length,
+                                    ),
+                                fallback: (context) {
+                                  return const SizedBox();
+                                }),
                             SizedBox(height: 10.h),
                             Text(
                               'People May Know',
@@ -97,7 +96,7 @@ class _UserScreenState extends State<UserScreen> {
                             ),
                             SizedBox(height: 10.h),
                             Container(
-                              height: 250.h,
+                              height: 190.h,
                               width: 200.w,
                               padding:
                                   const EdgeInsets.symmetric(vertical: 10).r,
