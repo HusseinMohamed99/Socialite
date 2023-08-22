@@ -50,7 +50,7 @@ class FriendsBuildItems extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: SocialCubit.get(context).isDark
                     ? AppMainColors.blueColor
-                    : AppMainColors.whiteColor,
+                    : AppColorsDark.primaryDarkColor,
               ),
               onPressed: () =>
                   navigateTo(context, PrivateChatScreen(userModel: userModel)),
