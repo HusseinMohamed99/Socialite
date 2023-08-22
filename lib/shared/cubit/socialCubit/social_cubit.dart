@@ -1397,7 +1397,8 @@ class SocialCubit extends Cubit<SocialStates> {
 
   //------------------------------------------------------------//
   ///START : closeStory
-  void closeStory() {
+  void closeStory(context) {
+    pop(context);
     emit(CloseCreateStoryScreenState());
   }
 

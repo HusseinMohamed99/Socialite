@@ -43,14 +43,14 @@ class CreatePosts extends StatelessWidget {
                 margin: const EdgeInsets.all(10).r,
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: AppMainColors.greyColor,
+                    color: AppMainColors.greyColor.withOpacity(0.1),
                   ),
                   borderRadius: BorderRadius.circular(25).r,
                 ),
                 child: TextButton(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   style: TextButton.styleFrom(
-                    backgroundColor: AppMainColors.greyColor.withOpacity(0.1),
+                    backgroundColor: Colors.transparent,
                   ),
                   child: Text(
                     "' What's on your mind ? '",

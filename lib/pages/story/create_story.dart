@@ -1,5 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sociality/layout/Home/home_layout.dart';
 import 'package:sociality/shared/components/image_with_shimmer.dart';
 import 'package:sociality/shared/components/indicator.dart';
 import 'package:sociality/shared/components/navigator.dart';
@@ -20,19 +21,18 @@ class CreateStory extends StatelessWidget {
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {
         if (state is CreateStorySuccessState) {
-          Navigator.pop(context);
           SocialCubit.get(context).getUserStories(uId);
           SocialCubit.get(context).getStories();
           showToast(
             text: "Your story is created successfully",
             state: ToastStates.success,
           );
+          navigateAndFinish(context, const HomeLayout());
         }
       },
       builder: (context, state) {
         SocialCubit bloc = SocialCubit.get(context);
         final TextEditingController story = TextEditingController();
-
         return Scaffold(
           resizeToAvoidBottomInset: true,
           body: SafeArea(
@@ -89,8 +89,8 @@ class CreateStory extends StatelessWidget {
                           ),
                           IconButton(
                             onPressed: () {
-                              bloc.closeStory();
-                              pop(context);
+                              bloc.closeStory(context);
+
                               bloc.addText = false;
                             },
                             icon: Container(
