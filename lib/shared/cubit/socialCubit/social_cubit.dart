@@ -76,7 +76,7 @@ class SocialCubit extends Cubit<SocialStates> {
     currentIndex = index;
     if (index == 0) {
       getUserData();
-
+      getStories();
       getPosts();
       getFriendsProfile(userModel!.uId);
       getUserPosts(userModel!.uId);
@@ -108,6 +108,7 @@ class SocialCubit extends Cubit<SocialStates> {
       userModel = UserModel.fromJson(value.data()!);
       if (kDebugMode) {
         print(userModel!.uId);
+        print(value.data());
       }
       emit(GetUserDataSuccessState());
     }).catchError((error) {
@@ -1086,7 +1087,9 @@ class SocialCubit extends Cubit<SocialStates> {
       for (var element in value.docs) {
         if (friendUID != element.id) isFriend = true;
       }
-      print(isFriend);
+      if (kDebugMode) {
+        print(isFriend);
+      }
       emit(CheckFriendSuccessState());
     });
     return isFriend;

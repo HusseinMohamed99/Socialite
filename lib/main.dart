@@ -52,6 +52,7 @@ void main() async {
   bool? isDark = CacheHelper.getBoolean(key: 'isDark');
   uId = CacheHelper.getData(key: 'uId');
   debugPrint('*** User ID == $uId ***');
+
   Widget widget;
   bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
 
