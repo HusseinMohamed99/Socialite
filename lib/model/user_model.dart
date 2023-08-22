@@ -7,7 +7,7 @@ class UserModel {
   String image;
   String cover;
   String bio;
-  bool isEmailVerified;
+  late bool isEmailVerified;
 
   UserModel({
     this.uId = '',
@@ -18,7 +18,7 @@ class UserModel {
     required this.image,
     required this.cover,
     required this.bio,
-    this.isEmailVerified = false,
+    required this.isEmailVerified,
   });
 
   UserModel.fromJson(Map<String, dynamic> json)

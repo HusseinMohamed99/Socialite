@@ -1006,6 +1006,7 @@ class SocialCubit extends Cubit<SocialStates> {
       email: friendEmail,
       cover: friendCover,
       bio: friendBio,
+      isEmailVerified: userModel!.isEmailVerified,
     );
     UserModel myModel = UserModel(
       uId: userModel!.uId,
@@ -1015,6 +1016,7 @@ class SocialCubit extends Cubit<SocialStates> {
       bio: userModel!.bio,
       phone: userModel!.phone,
       email: userModel!.email,
+      isEmailVerified: userModel!.isEmailVerified,
     );
     FirebaseFirestore.instance
         .collection('users')
@@ -1133,6 +1135,7 @@ class SocialCubit extends Cubit<SocialStates> {
       phone: userModel!.phone,
       email: userModel!.email,
       cover: userModel!.cover,
+      isEmailVerified: userModel!.isEmailVerified,
     );
     FirebaseFirestore.instance
         .collection('users')

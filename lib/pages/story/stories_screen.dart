@@ -25,7 +25,7 @@ class StoryScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CarouselSliderStories(cubit: cubit),
+              if (cubit.stories.isNotEmpty) CarouselSliderStories(cubit: cubit),
               Padding(
                 padding: const EdgeInsets.all(8.0).r,
                 child: Text(
@@ -34,13 +34,14 @@ class StoryScreen extends StatelessWidget {
                 ),
               ),
               CreateNewStories(cubit: cubit),
-              Padding(
-                padding: const EdgeInsets.all(8.0).r,
-                child: Text(
-                  "All Stories",
-                  style: Theme.of(context).textTheme.titleLarge,
+              if (cubit.stories.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.all(8.0).r,
+                  child: Text(
+                    "All Stories",
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
                 ),
-              ),
               Padding(
                 padding: const EdgeInsets.all(8.0).r,
                 child: GridView.count(
@@ -182,103 +183,105 @@ class CarouselSliderStories extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider(
         items: cubit.stories
-            .map((e) => InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ViewStory(storyModel: e)));
-                  },
-                  child: Stack(
-                    alignment: AlignmentDirectional.bottomStart,
-                    children: [
-                      Container(
+            .map(
+              (e) => InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ViewStory(storyModel: e)));
+                },
+                child: Stack(
+                  alignment: AlignmentDirectional.bottomStart,
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: 230.h,
+                      margin: const EdgeInsets.all(10).r,
+                      decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.only(
+                            topRight: Radius.circular(10),
+                            topLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(50),
+                            bottomLeft: Radius.circular(50),
+                          ).r,
+                          boxShadow: [
+                            BoxShadow(
+                                color: Theme.of(context)
+                                    .shadowColor
+                                    .withOpacity(0.3),
+                                spreadRadius: 3,
+                                blurRadius: 9,
+                                offset: const Offset(3, 3)),
+                            BoxShadow(
+                                color: Theme.of(context)
+                                    .shadowColor
+                                    .withOpacity(0.4),
+                                spreadRadius: 3,
+                                blurRadius: 9,
+                                offset: const Offset(-1, -1))
+                          ]),
+                      child: ImageWithShimmer(
+                        radius: 15.r,
+                        imageUrl: e.storyImage!,
                         width: double.infinity,
-                        height: 230.h,
-                        margin: const EdgeInsets.all(10).r,
-                        decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.only(
-                              topRight: Radius.circular(10),
-                              topLeft: Radius.circular(10),
-                              bottomRight: Radius.circular(50),
-                              bottomLeft: Radius.circular(50),
-                            ).r,
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Theme.of(context)
-                                      .shadowColor
-                                      .withOpacity(0.3),
-                                  spreadRadius: 3,
-                                  blurRadius: 9,
-                                  offset: const Offset(3, 3)),
-                              BoxShadow(
-                                  color: Theme.of(context)
-                                      .shadowColor
-                                      .withOpacity(0.4),
-                                  spreadRadius: 3,
-                                  blurRadius: 9,
-                                  offset: const Offset(-1, -1))
-                            ]),
-                        child: ImageWithShimmer(
-                          radius: 15.r,
-                          imageUrl: e.storyImage!,
-                          width: double.infinity,
-                          height: double.infinity,
-                          boxFit: BoxFit.fitWidth,
-                        ),
+                        height: double.infinity,
+                        boxFit: BoxFit.fitWidth,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(30.0).r,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            CircleAvatar(
-                              radius: 20.r,
-                              child: CircleAvatar(
-                                radius: 18.r,
-                                child: ImageWithShimmer(
-                                  imageUrl: e.image!,
-                                  width: 60.w,
-                                  height: 60.h,
-                                  radius: 15.r,
-                                ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(30.0).r,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          CircleAvatar(
+                            radius: 20.r,
+                            child: CircleAvatar(
+                              radius: 18.r,
+                              child: ImageWithShimmer(
+                                imageUrl: e.image!,
+                                width: 60.w,
+                                height: 60.h,
+                                radius: 15.r,
                               ),
                             ),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  e.name!,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge!
-                                      .copyWith(
-                                          color: AppMainColors.titanWithColor),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                Text(
-                                  daysBetween(
-                                      DateTime.parse(e.dateTime!.toString())),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .copyWith(
-                                        color: AppMainColors.greyColor,
-                                      ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ))
+                          ),
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                e.name!,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .copyWith(
+                                        color: AppMainColors.titanWithColor),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              Text(
+                                daysBetween(
+                                    DateTime.parse(e.dateTime!.toString())),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(
+                                      color: AppMainColors.greyColor,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )
             .toList(),
         options: CarouselOptions(
           reverse: false,

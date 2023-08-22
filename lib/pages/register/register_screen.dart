@@ -45,6 +45,7 @@ class RegisterScreen extends StatelessWidget {
             SocialCubit.get(context).getPosts();
             SocialCubit.get(context).getAllUsers();
             SocialCubit.get(context).getStories();
+            SocialCubit.get(context).setUserToken();
           }
         },
         builder: (context, state) {

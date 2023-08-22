@@ -105,6 +105,7 @@ class LoginCubit extends Cubit<LoginStates> {
           'https://media.cdnandroid.com/27/54/bb/52/imagen-cartoon-photo-editor-art-filter-2018-1gal.jpg',
       image: image,
       bio: 'Write you own bio...',
+      isEmailVerified: false,
     );
     FirebaseFirestore.instance
         .collection('users')
