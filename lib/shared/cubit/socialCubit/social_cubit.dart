@@ -640,7 +640,11 @@ class SocialCubit extends Cubit<SocialStates> {
       peopleReacted = [];
       for (var element in value.docs) {
         peopleReacted.add(LikesModel.fromJson(element.data()));
+        if (kDebugMode) {
+          print(element.data());
+        }
       }
+
       emit(GetLikedUsersSuccessState());
     });
   }

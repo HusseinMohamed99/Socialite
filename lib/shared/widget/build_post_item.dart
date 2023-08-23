@@ -180,9 +180,9 @@ class BuildPostItem extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15).r,
                           child: ImageWithShimmer(
                             imageUrl: '${postModel.postImage}',
-                            width: 110.w,
-                            height: 110.h,
-                            boxFit: BoxFit.fill,
+                            width: double.infinity,
+                            height: 250.h,
+                            boxFit: BoxFit.fitHeight,
                           ),
                         ),
                       ),
@@ -195,6 +195,7 @@ class BuildPostItem extends StatelessWidget {
               children: [
                 TextButton.icon(
                   onPressed: () {
+                    cubit.getLikes(postId);
                     navigateTo(
                       context,
                       LikesScreen(

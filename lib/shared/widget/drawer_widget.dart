@@ -103,11 +103,11 @@ class DrawerWidget extends StatelessWidget {
                   ],
                 ),
                 Positioned(
-                  top: 190.r,
-                  left: 40.r,
-                  right: 40.r,
+                  top: 190.h,
+                  left: 40.w,
+                  right: 40.w,
                   child: CircleAvatar(
-                    backgroundColor: Colors.blueAccent,
+                    backgroundColor: AppMainColors.blueColor,
                     radius: 42.r,
                     child: CircleAvatar(
                       radius: 40.r,

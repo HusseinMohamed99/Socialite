@@ -6,6 +6,7 @@ import 'package:sociality/pages/story/veiw_story.dart';
 import 'package:sociality/shared/components/image_with_shimmer.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
+import 'package:sociality/shared/styles/color.dart';
 
 class StoryItem extends StatelessWidget {
   const StoryItem({super.key, required this.storyModel});
@@ -81,11 +82,10 @@ class StoryItem extends StatelessWidget {
                           storyModel.uId == cubit.userModel!.uId
                               ? cubit.userModel!.name
                               : storyModel.name!,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(color: AppMainColors.kittenWithColor),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),

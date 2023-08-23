@@ -1,25 +1,26 @@
-import 'package:sociality/model/post_model.dart';
+import 'package:sociality/model/user_model.dart';
+import 'package:sociality/shared/components/image_with_shimmer.dart';
 import 'package:sociality/shared/components/navigator.dart';
 import 'package:sociality/shared/components/show_toast.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
-import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:sociality/shared/styles/color.dart';
 
 class AddPostScreen extends StatelessWidget {
-  AddPostScreen({Key? key, this.postModel}) : super(key: key);
-  final TextEditingController textController = TextEditingController();
-  final PostModel? postModel;
-  final formKey = GlobalKey<FormState>();
+  const AddPostScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var cubit = SocialCubit.get(context);
-    var userModel = SocialCubit.get(context).userModel!;
+    final TextEditingController textController = TextEditingController();
+    final formKey = GlobalKey<FormState>();
+    SocialCubit cubit = SocialCubit.get(context);
+    UserModel userModel = SocialCubit.get(context).userModel!;
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {
         if (state is CreatePostSuccessState) {
@@ -39,17 +40,16 @@ class AddPostScreen extends StatelessWidget {
               },
               icon: Icon(
                 IconlyLight.arrowLeft2,
-                size: 30.sp,
-                color: cubit.isDark ? Colors.black : Colors.white,
+                size: 24.sp,
+                color: cubit.isDark
+                    ? AppMainColors.blackColor
+                    : AppMainColors.titanWithColor,
               ),
             ),
             titleSpacing: 1,
             title: Text(
               'Create Post',
-              style: GoogleFonts.roboto(
-                color: cubit.isDark ? Colors.blue : Colors.white,
-                fontSize: 20.sp,
-              ),
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             actions: [
               TextButton(
@@ -61,7 +61,6 @@ class AddPostScreen extends StatelessWidget {
                       dateTime: now.toString(),
                       text: textController.text,
                     );
-
                     cubit.removePostImage();
                   } else if (cubit.postImagePicked != null) {
                     cubit.uploadPostImage(
@@ -75,11 +74,8 @@ class AddPostScreen extends StatelessWidget {
                   }
                 },
                 child: Text(
-                  'Post',
-                  style: GoogleFonts.roboto(
-                    color: cubit.isDark ? Colors.blue : Colors.white,
-                    fontSize: 20.sp,
-                  ),
+                  'Share',
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
             ],
@@ -96,35 +92,33 @@ class AddPostScreen extends StatelessWidget {
                       if (state is CreatePostLoadingState)
                         const LinearProgressIndicator(),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                          20.r,
-                          20.r,
-                          20.r,
-                          0.r,
-                        ),
+                        padding: const EdgeInsets.only(
+                          top: 20,
+                          right: 20,
+                          left: 20,
+                        ).r,
                         child: Row(
                           children: [
                             CircleAvatar(
                               radius: 35.r,
-                              backgroundImage: NetworkImage(
-                                userModel.image,
+                              child: ImageWithShimmer(
+                                radius: 75.r,
+                                imageUrl: userModel.image,
+                                width: 100.w,
+                                height: 100.h,
+                                boxFit: BoxFit.fill,
                               ),
                             ),
-                            space(10.w, 0),
+                            SizedBox(width: 10.w),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   userModel.name,
-                                  style: GoogleFonts.roboto(
-                                    color: cubit.isDark
-                                        ? Colors.black
-                                        : Colors.white,
-                                    fontSize: 24.sp,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                                  style:
+                                      Theme.of(context).textTheme.headlineSmall,
                                 ),
-                                space(0, 8.h),
+                                SizedBox(height: 10.h),
                                 Row(
                                   children: [
                                     Icon(
@@ -132,19 +126,17 @@ class AddPostScreen extends StatelessWidget {
                                       color: cubit.isDark
                                           ? Colors.black
                                           : Colors.white,
+                                      size: 24.sp,
                                     ),
-                                    space(5.w, 0),
+                                    SizedBox(width: 5.w),
                                     Text(
                                       'public',
-                                      style: GoogleFonts.roboto(
-                                        textStyle: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(
-                                              color: Colors.grey,
-                                              fontSize: 16.sp,
-                                            ),
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall!
+                                          .copyWith(
+                                            color: AppMainColors.greyColor,
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -153,24 +145,23 @@ class AddPostScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      space(0, 10.h),
+                      SizedBox(height: 10.h),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0).r,
+                        padding: const EdgeInsets.symmetric(horizontal: 20).r,
                         child: TextFormField(
                           maxLines: 6,
                           minLines: 1,
-                          style: GoogleFonts.cairo(
-                            height: 1.5.h,
-                            color: cubit.isDark ? Colors.black : Colors.white,
-                            fontWeight: FontWeight.w700,
-                          ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge!
+                              .copyWith(color: AppMainColors.blackColor),
                           controller: textController,
                           decoration: InputDecoration(
-                            hintText: ' \' What\'s on your mind ? \' ',
-                            hintStyle: GoogleFonts.roboto(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.w700,
-                            ),
+                            hintText: "' What's on your mind ? '",
+                            hintStyle:
+                                Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                      color: AppMainColors.greyColor,
+                                    ),
                             border: InputBorder.none,
                           ),
                         ),
@@ -187,15 +178,16 @@ class AddPostScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(10).r,
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.grey.withOpacity(0.4),
+                                      color: AppMainColors.greyColor
+                                          .withOpacity(0.4),
                                     ),
                                   ],
                                 ),
                                 child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(10).r,
                                   child: Image(
                                     image: FileImage(cubit.postImagePicked!),
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.fitWidth,
                                   ),
                                 ),
                               ),
@@ -206,17 +198,19 @@ class AddPostScreen extends StatelessWidget {
                               },
                               icon: Container(
                                 decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.4),
-                                        blurRadius: 9.r,
-                                        spreadRadius: 4.r,
-                                        offset: const Offset(0, 4),
-                                      )
-                                    ]),
+                                  shape: BoxShape.circle,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: AppMainColors.greyColor
+                                          .withOpacity(0.4),
+                                      blurRadius: 9,
+                                      spreadRadius: 4,
+                                      offset: const Offset(0, 4),
+                                    )
+                                  ],
+                                ),
                                 child: CircleAvatar(
-                                  backgroundColor: Colors.black,
+                                  backgroundColor: AppMainColors.titanWithColor,
                                   child: Icon(
                                     Icons.close_rounded,
                                     color: Colors.white,
@@ -227,7 +221,6 @@ class AddPostScreen extends StatelessWidget {
                             )
                           ],
                         ),
-                      space(0, 50.h),
                     ],
                   ),
                 ),
@@ -236,10 +229,10 @@ class AddPostScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: OutlinedButton.icon(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                          cubit.isDark ? Colors.white : const Color(0xff404258),
-                        ),
+                      style: OutlinedButton.styleFrom(
+                        backgroundColor: cubit.isDark
+                            ? AppMainColors.titanWithColor
+                            : AppColorsLight.primaryColor,
                       ),
                       onPressed: () {
                         cubit.getPostImage();
@@ -247,14 +240,11 @@ class AddPostScreen extends StatelessWidget {
                       clipBehavior: Clip.antiAliasWithSaveLayer,
                       label: Text(
                         'Add photo'.toUpperCase(),
-                        style: GoogleFonts.roboto(
-                          fontSize: 20.sp,
-                          color: cubit.isDark ? Colors.blue : Colors.white,
-                        ),
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
                       icon: Icon(
                         IconlyLight.image,
-                        color: cubit.isDark ? Colors.blue : Colors.white,
+                        color: AppMainColors.titanWithColor,
                         size: 24.sp,
                       ),
                     ),
