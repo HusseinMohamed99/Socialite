@@ -46,25 +46,20 @@ class ChatScreen extends StatelessWidget {
                   builder: (BuildContext context) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Card(
-                        elevation: 10,
-                        margin: const EdgeInsets.all(10).r,
-                        child: Container(
-                          alignment: Alignment.centerLeft,
-                          height: 90.h,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10).r),
-                          child: ListView.separated(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) =>
-                                BuildUsersOnlineItems(
-                                    users: cubit.users[index]),
-                            separatorBuilder: (context, index) =>
-                                SizedBox(width: 5.w),
-                            itemCount: cubit.users.length,
-                          ),
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        height: 90.h,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10).r),
+                        child: ListView.separated(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) =>
+                              BuildUsersOnlineItems(users: cubit.users[index]),
+                          separatorBuilder: (context, index) =>
+                              SizedBox(width: 5.w),
+                          itemCount: cubit.users.length,
                         ),
                       ),
                       ListView.separated(

@@ -103,7 +103,7 @@ class DrawerWidget extends StatelessWidget {
                   ],
                 ),
                 Positioned(
-                  top: 190.h,
+                  top: 160.h,
                   left: 40.w,
                   right: 40.w,
                   child: CircleAvatar(
