@@ -93,19 +93,18 @@ class AddPostScreen extends StatelessWidget {
                         const LinearProgressIndicator(),
                       Padding(
                         padding: const EdgeInsets.only(
-                          top: 20,
-                          right: 20,
+                          top: 5,
                           left: 20,
                         ).r,
                         child: Row(
                           children: [
                             CircleAvatar(
-                              radius: 35.r,
+                              radius: 25.r,
                               child: ImageWithShimmer(
-                                radius: 75.r,
+                                radius: 20.r,
                                 imageUrl: userModel.image,
-                                width: 100.w,
-                                height: 100.h,
+                                width: 50.w,
+                                height: 50.h,
                                 boxFit: BoxFit.fill,
                               ),
                             ),
@@ -115,10 +114,8 @@ class AddPostScreen extends StatelessWidget {
                               children: [
                                 Text(
                                   userModel.name,
-                                  style:
-                                      Theme.of(context).textTheme.headlineSmall,
+                                  style: Theme.of(context).textTheme.titleLarge,
                                 ),
-                                SizedBox(height: 10.h),
                                 Row(
                                   children: [
                                     Icon(
@@ -126,7 +123,7 @@ class AddPostScreen extends StatelessWidget {
                                       color: cubit.isDark
                                           ? Colors.black
                                           : Colors.white,
-                                      size: 24.sp,
+                                      size: 14.sp,
                                     ),
                                     SizedBox(width: 5.w),
                                     Text(
@@ -158,10 +155,12 @@ class AddPostScreen extends StatelessWidget {
                           controller: textController,
                           decoration: InputDecoration(
                             hintText: "' What's on your mind ? '",
-                            hintStyle:
-                                Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                      color: AppMainColors.greyColor,
-                                    ),
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(
+                                  color: AppMainColors.greyColor,
+                                ),
                             border: InputBorder.none,
                           ),
                         ),
@@ -210,7 +209,7 @@ class AddPostScreen extends StatelessWidget {
                                   ],
                                 ),
                                 child: CircleAvatar(
-                                  backgroundColor: AppMainColors.titanWithColor,
+                                  backgroundColor: AppMainColors.redColor,
                                   child: Icon(
                                     Icons.close_rounded,
                                     color: Colors.white,
@@ -228,24 +227,26 @@ class AddPostScreen extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: OutlinedButton.icon(
-                      style: OutlinedButton.styleFrom(
-                        backgroundColor: cubit.isDark
-                            ? AppMainColors.titanWithColor
-                            : AppColorsLight.primaryColor,
-                      ),
-                      onPressed: () {
-                        cubit.getPostImage();
-                      },
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      label: Text(
-                        'Add photo'.toUpperCase(),
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      icon: Icon(
-                        IconlyLight.image,
-                        color: AppMainColors.titanWithColor,
-                        size: 24.sp,
+                    child: SizedBox(
+                      height: 30.h,
+                      child: OutlinedButton.icon(
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor: cubit.isDark
+                              ? AppMainColors.titanWithColor
+                              : AppColorsLight.primaryColor,
+                        ),
+                        onPressed: () {
+                          cubit.getPostImage();
+                        },
+                        label: Text(
+                          'Add photo'.toUpperCase(),
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                        icon: Icon(
+                          IconlyLight.image,
+                          color: AppMainColors.titanWithColor,
+                          size: 24.sp,
+                        ),
                       ),
                     ),
                   ),

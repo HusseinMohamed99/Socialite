@@ -1,4 +1,5 @@
 import 'package:badges/badges.dart' as badges;
+import 'package:badges/badges.dart';
 import 'package:sociality/Pages/notifications/notifications_screen.dart';
 import 'package:sociality/Pages/search/search_screen.dart';
 import 'package:sociality/shared/components/navigator.dart';
@@ -58,14 +59,13 @@ class HomeLayout extends StatelessWidget {
                   splashRadius: 20.r,
                   icon: SocialCubit.get(context).unReadNotificationsCount != 0
                       ? tabBarBadge(
+                          context,
                           icon: IconlyBroken.notification,
                           count:
-                              SocialCubit.get(context).unReadNotificationsCount)
+                              SocialCubit.get(context).unReadNotificationsCount,
+                        )
                       : Icon(
                           IconlyBroken.notification,
-                          color: cubit.isDark
-                              ? AppMainColors.greyDarkColor
-                              : AppMainColors.kittenWithColor,
                           size: 24.sp,
                         ),
                 ),
@@ -87,10 +87,23 @@ class HomeLayout extends StatelessWidget {
     );
   }
 
-  Widget tabBarBadge({required IconData icon, required int count}) {
+  Widget tabBarBadge(context, {required IconData icon, required int count}) {
     return badges.Badge(
-      badgeContent: Text('$count'),
-      child: Icon(icon),
+      position: BadgePosition.topStart(start: -12),
+      badgeContent: Text(
+        '$count',
+        style: Theme.of(context)
+            .textTheme
+            .bodyLarge!
+            .copyWith(color: AppMainColors.dividerColor),
+      ),
+      badgeStyle: const badges.BadgeStyle(
+        shape: BadgeShape.circle,
+      ),
+      child: Icon(
+        icon,
+        size: 24.sp,
+      ),
     );
   }
 }
