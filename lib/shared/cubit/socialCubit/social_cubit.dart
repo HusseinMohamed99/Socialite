@@ -697,7 +697,7 @@ class SocialCubit extends Cubit<SocialStates> {
     emit(UploadCommentImageLoadingState());
     firebase_storage.FirebaseStorage.instance
         .ref()
-        .child(Uri.file(commentImage!.path).pathSegments.last)
+        .child('commentImage/${Uri.file(commentImage!.path).pathSegments.last}')
         .putFile(commentImage!)
         .then((value) {
       value.ref.getDownloadURL().then((value) {
@@ -716,13 +716,13 @@ class SocialCubit extends Cubit<SocialStates> {
         isCommentImageLoading = false;
       }).catchError((error) {
         if (kDebugMode) {
-          print('Error While getDownload CommentImageURL ' + error);
+          print('Error While getDownload CommentImageURL $error');
         }
         emit(UploadCommentImageErrorState());
       });
     }).catchError((error) {
       if (kDebugMode) {
-        print('Error While putting the File ' + error);
+        print('Error While putting the File $error');
       }
       emit(UploadCommentImageErrorState());
     });

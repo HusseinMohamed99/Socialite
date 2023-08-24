@@ -81,8 +81,7 @@ class AddPostScreen extends StatelessWidget {
             ],
             elevation: 0,
           ),
-          body: Stack(
-            alignment: AlignmentDirectional.bottomCenter,
+          body: Column(
             children: [
               SingleChildScrollView(
                 child: Form(
@@ -224,6 +223,7 @@ class AddPostScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              const Spacer(),
               Row(
                 children: [
                   Expanded(
