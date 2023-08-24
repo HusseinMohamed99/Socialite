@@ -62,7 +62,7 @@ class CreatePosts extends StatelessWidget {
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       onPressed: () {
-                        navigateTo(context, AddPostScreen());
+                        navigateTo(context, const AddPostScreen());
                       },
                     ),
                   ),
@@ -75,7 +75,7 @@ class CreatePosts extends StatelessWidget {
                 IconButton(
                   onPressed: () {
                     cubit.getPostImage();
-                    navigateTo(context, AddPostScreen());
+                    navigateTo(context, const AddPostScreen());
                   },
                   icon: Icon(
                     Icons.photo_library_outlined,
