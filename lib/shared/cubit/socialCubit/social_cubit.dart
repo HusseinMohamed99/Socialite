@@ -737,6 +737,7 @@ class SocialCubit extends Cubit<SocialStates> {
     CommentModel commentModel = CommentModel(
       name: userModel!.name,
       userImage: userModel!.image,
+      uId: userModel!.uId,
       commentText: comment,
       commentImage: commentImage,
       dateTime: time,
