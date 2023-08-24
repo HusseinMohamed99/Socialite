@@ -82,11 +82,12 @@ class CommentsScreen extends StatelessWidget {
                         ],
                       ),
                     ),
+                    SizedBox(height: 15.h),
                     comments.isNotEmpty
                         ? Expanded(
                             child: ListView.separated(
                               itemBuilder: (context, index) =>
-                                  buildComment(comments[index], context),
+                                  BuildCommentsItem(comment: comments[index]),
                               separatorBuilder: (context, index) =>
                                   SizedBox(height: 10.h),
                               itemCount:
@@ -131,8 +132,11 @@ class CommentsScreen extends StatelessWidget {
                               SizedBox(
                                 width: 100.w,
                                 height: 100.h,
-                                child: Image.file(commentImage,
-                                    fit: BoxFit.fitWidth, width: 100.w),
+                                child: Image.file(
+                                  commentImage,
+                                  fit: BoxFit.fitWidth,
+                                  width: 100.w,
+                                ),
                               ),
                               SizedBox(width: 5.w),
                               SizedBox(
@@ -235,7 +239,7 @@ class CommentsScreen extends StatelessWidget {
                             ],
                           ),
                           filled: true,
-                          fillColor: AppMainColors.greyColor,
+                          fillColor: AppMainColors.greyColor.withOpacity(0.8),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20).r,
                           ),
@@ -251,8 +255,13 @@ class CommentsScreen extends StatelessWidget {
       },
     );
   }
+}
 
-  Widget buildComment(CommentModel comment, context) {
+class BuildCommentsItem extends StatelessWidget {
+  const BuildCommentsItem({super.key, required this.comment});
+  final CommentModel comment;
+  @override
+  Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -288,7 +297,7 @@ class CommentsScreen extends StatelessWidget {
                               vertical: 8,
                             ).r,
                             decoration: BoxDecoration(
-                              color: AppMainColors.greyColor.withOpacity(0.8),
+                              color: AppMainColors.greyColor.withOpacity(0.4),
                               borderRadius: BorderRadius.circular(15).r,
                             ),
                             child: Column(
@@ -338,14 +347,15 @@ class CommentsScreen extends StatelessWidget {
                                 width: 250.w,
                                 height: 250.h,
                                 decoration: BoxDecoration(
-                                  color: Colors.amber,
+                                  color:
+                                      AppMainColors.greyColor.withOpacity(0.2),
                                   borderRadius: BorderRadius.circular(15).r,
                                 ),
                                 child: ImageWithShimmer(
                                   imageUrl: comment.commentImage!['image'],
                                   width: 250.w,
                                   height: 250.h,
-                                  boxFit: BoxFit.scaleDown,
+                                  boxFit: BoxFit.fitWidth,
                                 ),
                               ),
                             ],
@@ -361,7 +371,7 @@ class CommentsScreen extends StatelessWidget {
                                 ).r,
                                 decoration: BoxDecoration(
                                   color:
-                                      AppMainColors.greyColor.withOpacity(0.8),
+                                      AppMainColors.greyColor.withOpacity(0.4),
                                   borderRadius: BorderRadius.circular(15).r,
                                 ),
                                 child: Column(
