@@ -659,13 +659,19 @@ class SocialCubit extends Cubit<SocialStates> {
   Future getCommentImage() async {
     emit(UpdatePostLoadingState());
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    print('Selecting Image...');
+    if (kDebugMode) {
+      print('Selecting Image...');
+    }
     if (pickedFile != null) {
       commentImage = File(pickedFile.path);
-      print('Image Selected');
+      if (kDebugMode) {
+        print('Image Selected');
+      }
       emit(GetCommentImageSuccessState());
     } else {
-      print('No Image Selected');
+      if (kDebugMode) {
+        print('No Image Selected');
+      }
       emit(GetCommentImageErrorState());
     }
   }
@@ -705,11 +711,15 @@ class SocialCubit extends Cubit<SocialStates> {
         emit(UploadCommentImageSuccessState());
         isCommentImageLoading = false;
       }).catchError((error) {
-        print('Error While getDownload CommentImageURL ' + error);
+        if (kDebugMode) {
+          print('Error While getDownload CommentImageURL ' + error);
+        }
         emit(UploadCommentImageErrorState());
       });
     }).catchError((error) {
-      print('Error While putting the File ' + error);
+      if (kDebugMode) {
+        print('Error While putting the File ' + error);
+      }
       emit(UploadCommentImageErrorState());
     });
   }
@@ -736,7 +746,9 @@ class SocialCubit extends Cubit<SocialStates> {
       getPosts();
       emit(CommentPostSuccessState());
     }).catchError((error) {
-      print(error.toString());
+      if (kDebugMode) {
+        print(error.toString());
+      }
       emit(CommentPostErrorState());
     });
   }
