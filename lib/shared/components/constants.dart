@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
 import 'package:intl/intl.dart';
@@ -33,18 +32,10 @@ String daysBetween(DateTime postDate) {
   }
 }
 
-String getDate() {
+String getDate(DateTime dateTime) {
   DateTime dateTime = DateTime.now();
   String date = DateFormat.yMMMd().format(dateTime);
   return date;
-}
-
-String getNowDateTime(Timestamp dateTime) {
-  String date = DateFormat.yMd().format(dateTime.toDate()).toString();
-  String time = DateFormat.Hm().format(dateTime.toDate()).toString();
-  List<String> nowSeparated = [date, time];
-  String nowJoined = nowSeparated.join(' at ');
-  return nowJoined;
 }
 
 String time = DateTime.now().toString().split(' ').elementAt(1);

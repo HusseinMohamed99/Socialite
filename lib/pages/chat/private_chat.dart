@@ -267,7 +267,7 @@ class PrivateChatScreen extends StatelessWidget {
                                             null) {
                                       cubit.sendMessage(
                                         receiverId: userModel.uId,
-                                        dateTime: DateTime.now().toString(),
+                                        dateTime: DateTime.now(),
                                         text: textController.text,
                                       );
                                       textController.clear();
@@ -282,8 +282,7 @@ class PrivateChatScreen extends StatelessWidget {
                                       SocialCubit.get(context)
                                           .uploadMessageImage(
                                               receiverId: userModel.uId,
-                                              datetime:
-                                                  DateTime.now().toString(),
+                                              datetime: DateTime.now(),
                                               text: textController.text);
                                       textController.clear();
                                       cubit.removeMessageImage();
@@ -508,7 +507,7 @@ class PrivateChatScreen extends StatelessWidget {
                                       if (formKey.currentState!.validate()) {
                                         cubit.sendMessage(
                                           receiverId: userModel.uId,
-                                          dateTime: DateTime.now().toString(),
+                                          dateTime: DateTime.now(),
                                           text: textController.text,
                                         );
                                       }
@@ -526,7 +525,7 @@ class PrivateChatScreen extends StatelessWidget {
                                               null) {
                                         cubit.sendMessage(
                                           receiverId: userModel.uId,
-                                          dateTime: DateTime.now().toString(),
+                                          dateTime: DateTime.now(),
                                           text: textController.text,
                                         );
                                         textController.clear();
@@ -541,8 +540,7 @@ class PrivateChatScreen extends StatelessWidget {
                                         SocialCubit.get(context)
                                             .uploadMessageImage(
                                                 receiverId: userModel.uId,
-                                                datetime:
-                                                    DateTime.now().toString(),
+                                                datetime: DateTime.now(),
                                                 text: textController.text);
                                         textController.clear();
                                         cubit.removeMessageImage();

@@ -38,6 +38,10 @@ class CommentsScreen extends StatelessWidget {
             SocialCubit cubit = SocialCubit.get(context);
             return Scaffold(
               appBar: AppBar(
+                title: Text(
+                  'Comments',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
                 automaticallyImplyLeading: true,
                 leading: IconButton(
                   onPressed: () {
@@ -197,17 +201,17 @@ class CommentsScreen extends StatelessWidget {
                                 onPressed: () {
                                   if (commentImage == null) {
                                     SocialCubit.get(context).commentPost(
-                                      postId: postId,
+                                      postId: postId!,
                                       comment: commentTextControl.text,
-                                      time: TimeOfDay.now().format(context),
+                                      time: DateTime.now(),
                                     );
                                   } else {
                                     SocialCubit.get(context).uploadCommentImage(
-                                      postId: postId,
+                                      postId: postId!,
                                       commentText: commentTextControl.text == ''
                                           ? null
                                           : commentTextControl.text,
-                                      time: TimeOfDay.now().format(context),
+                                      time: DateTime.now(),
                                     );
                                   }
                                   SocialCubit.get(context)

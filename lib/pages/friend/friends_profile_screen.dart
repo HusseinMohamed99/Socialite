@@ -254,7 +254,7 @@ class FriendsProfileScreen extends StatelessWidget {
                                           false) {
                                         SocialCubit.get(context)
                                             .sendFriendRequest(
-                                                friendsUID: userUID,
+                                                friendsUID: userUID!,
                                                 friendName: friendsModel.name,
                                                 friendImage:
                                                     friendsModel.image);

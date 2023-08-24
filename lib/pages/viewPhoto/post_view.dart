@@ -285,7 +285,7 @@ class FullScreen extends StatelessWidget {
                             context: context,
                             postModel: postModel,
                             postId: postId,
-                            dataTime: now.toString(),
+                            dataTime: now,
                           );
                         },
                         child: Padding(

@@ -167,7 +167,7 @@ class NotificationScreenState extends State<NotificationScreen>
                         style:
                             const TextStyle(color: Colors.grey, fontSize: 15)),
                     Text(
-                      getNowDateTime(notifications.dateTime),
+                      getDate(notifications.dateTime),
                       style: TextStyle(fontSize: 15, color: Colors.grey[500]),
                     ),
                   ],

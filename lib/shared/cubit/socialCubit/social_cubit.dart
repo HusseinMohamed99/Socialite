@@ -396,7 +396,7 @@ class SocialCubit extends Cubit<SocialStates> {
   // ----------------------------------------------------------//
   ///START : uploadPostImage
   void uploadPostImage({
-    required String dateTime,
+    required DateTime dateTime,
     required String text,
   }) {
     emit(CreatePostLoadingState());
@@ -427,7 +427,7 @@ class SocialCubit extends Cubit<SocialStates> {
 
   ///START : CreatePost
   void createPost({
-    required String dateTime,
+    required DateTime dateTime,
     required String text,
     String? postImage,
   }) {
@@ -528,7 +528,7 @@ class SocialCubit extends Cubit<SocialStates> {
     String? postId,
     PostModel? postModel,
     UserModel? postUser,
-    required String dataTime,
+    required DateTime dataTime,
   }) async {
     emit(LikedByMeCheckedLoadingState());
     bool isLikedByMe = false;
@@ -566,13 +566,17 @@ class SocialCubit extends Cubit<SocialStates> {
     String? postId,
     PostModel? postModel,
     UserModel? postUser,
-    required String dateTime,
+    required DateTime dateTime,
   }) {
     LikesModel likesModel = LikesModel(
       uId: userModel!.uId,
       name: userModel!.name,
       image: userModel!.image,
       dateTime: dateTime,
+      bio: userModel!.bio,
+      cover: userModel!.cover,
+      email: userModel!.email,
+      phone: userModel!.phone,
     );
     FirebaseFirestore.instance
         .collection('posts')
@@ -685,9 +689,9 @@ class SocialCubit extends Cubit<SocialStates> {
   bool isCommentImageLoading = false;
 
   void uploadCommentImage({
-    required String? postId,
+    required String postId,
     String? commentText,
-    required String? time,
+    required DateTime time,
   }) {
     isCommentImageLoading = true;
     emit(UploadCommentImageLoadingState());
@@ -725,10 +729,10 @@ class SocialCubit extends Cubit<SocialStates> {
   }
 
   void commentPost({
-    required String? postId,
+    required String postId,
     String? comment,
     Map<String, dynamic>? commentImage,
-    required String? time,
+    required DateTime time,
   }) {
     CommentModel commentModel = CommentModel(
       name: userModel!.name,
@@ -921,7 +925,7 @@ class SocialCubit extends Cubit<SocialStates> {
   MessageModel? messageModel;
   void sendMessage({
     required String receiverId,
-    required String dateTime,
+    required DateTime dateTime,
     String? text,
     String? messageImage,
   }) {
@@ -1021,9 +1025,9 @@ class SocialCubit extends Cubit<SocialStates> {
   //------------------------------------------------------------//
   ///START : upload Message Image
   void uploadMessageImage({
-    required String? receiverId,
-    required String? datetime,
-    required String? text,
+    required String receiverId,
+    required DateTime datetime,
+    required String text,
   }) {
     emit(UploadMessageImageLoadingState());
     firebase_storage.FirebaseStorage.instance
@@ -1034,10 +1038,10 @@ class SocialCubit extends Cubit<SocialStates> {
         .then((value) {
       value.ref.getDownloadURL().then((value) {
         sendMessage(
-            dateTime: datetime!,
+            dateTime: datetime,
             text: text,
             messageImage: value,
-            receiverId: receiverId!);
+            receiverId: receiverId);
       }).catchError((error) {
         emit(UploadMessageImageErrorState());
       });
@@ -1204,10 +1208,11 @@ class SocialCubit extends Cubit<SocialStates> {
 
   //------------------------------------------------------------//
   ///START : sendFriendRequest
-  void sendFriendRequest(
-      {required String? friendsUID,
-      required String? friendName,
-      required String? friendImage}) {
+  void sendFriendRequest({
+    required String friendsUID,
+    required String friendName,
+    required String friendImage,
+  }) {
     emit(FriendRequestLoadingState());
     UserModel friendRequestModel = UserModel(
       uId: userModel!.uId,
@@ -1321,7 +1326,7 @@ class SocialCubit extends Cubit<SocialStates> {
 
   ///END : getSinglePost
   void deleteForEveryone(
-      {required String? messageId, required String? receiverId}) async {
+      {required String messageId, required String receiverId}) async {
     var myDocument = await FirebaseFirestore.instance
         .collection('users')
         .doc(userModel!.uId)
@@ -1346,7 +1351,7 @@ class SocialCubit extends Cubit<SocialStates> {
   }
 
   void deleteForMe(
-      {required String? messageId, required String? receiverId}) async {
+      {required String messageId, required String receiverId}) async {
     var myDocument = await FirebaseFirestore.instance
         .collection('users')
         .doc(userModel!.uId)
@@ -1595,7 +1600,7 @@ class SocialCubit extends Cubit<SocialStates> {
       receiverId: receiverId,
       senderImage: userModel!.image,
       read: false,
-      dateTime: Timestamp.now(),
+      dateTime: DateTime.now(),
       serverTimeStamp: FieldValue.serverTimestamp(),
     );
 

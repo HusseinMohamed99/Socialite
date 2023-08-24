@@ -58,13 +58,13 @@ class AddPostScreen extends StatelessWidget {
                   if (textController.text.trim().isNotEmpty &&
                       cubit.postImagePicked == null) {
                     cubit.createPost(
-                      dateTime: now.toString(),
+                      dateTime: now,
                       text: textController.text,
                     );
                     cubit.removePostImage();
                   } else if (cubit.postImagePicked != null) {
                     cubit.uploadPostImage(
-                      dateTime: now.toString(),
+                      dateTime: now,
                       text: textController.text,
                     );
                     pop(context);

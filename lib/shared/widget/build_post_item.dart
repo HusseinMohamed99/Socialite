@@ -295,7 +295,7 @@ class BuildPostItem extends StatelessWidget {
                       context: context,
                       postModel: postModel,
                       postId: postId = SocialCubit.get(context).postsId[index],
-                      dataTime: now.toString(),
+                      dataTime: now,
                     );
                   },
                   label: Text(

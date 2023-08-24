@@ -3,7 +3,7 @@ class CommentModel {
   String? name;
   String? userImage;
   Map<String, dynamic>? commentImage;
-  String? dateTime;
+  DateTime? dateTime;
   String? commentText;
 
   CommentModel({
@@ -15,14 +15,15 @@ class CommentModel {
     this.commentText,
   });
 
-  CommentModel.fromJson(Map<String, dynamic>? json) {
-    uId = json!['uId'];
-    name = json['name'];
-    userImage = json['userImage'];
-    commentImage = json['commentImage'];
-    commentText = json['comment'];
-    dateTime = json['dateTime'];
-  }
+  CommentModel.fromJson(Map<String, dynamic>? json)
+      : this(
+          uId: json!['uId'],
+          name: json['name'],
+          userImage: json['userImage'],
+          commentImage: json['commentImage'],
+          commentText: json['comment'],
+          dateTime: DateTime.fromMillisecondsSinceEpoch(json['dateTime']),
+        );
 
   Map<String, dynamic> toMap() {
     return {
