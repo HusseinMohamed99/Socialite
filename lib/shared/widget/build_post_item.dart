@@ -200,7 +200,6 @@ class BuildPostItem extends StatelessWidget {
                       context,
                       LikesScreen(
                         SocialCubit.get(context).postsId[index],
-                        postModel.uId,
                       ),
                     );
                   },
@@ -222,10 +221,12 @@ class BuildPostItem extends StatelessWidget {
                     navigateTo(
                       context,
                       CommentsScreen(
-                        SocialCubit.get(context).postsId[index],
-                        postModel.uId,
+                        likes: postModel.likes,
+                        postId: postModel.postId,
+                        postUid: postModel.uId,
                       ),
                     );
+                    cubit.getComments(SocialCubit.get(context).postsId[index]);
                   },
                   icon: Icon(
                     IconlyLight.chat,
@@ -267,12 +268,12 @@ class BuildPostItem extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     navigateTo(
-                      context,
-                      CommentsScreen(
-                        SocialCubit.get(context).postsId[index],
-                        postModel.uId,
-                      ),
-                    );
+                        context,
+                        CommentsScreen(
+                          likes: postModel.likes,
+                          postId: postModel.postId,
+                          postUid: postModel.uId,
+                        ));
                   },
                   child: SizedBox(
                     width: 120.w,

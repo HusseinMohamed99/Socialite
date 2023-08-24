@@ -653,52 +653,109 @@ class SocialCubit extends Cubit<SocialStates> {
 
 // ----------------------------------------------------------//
   ///END : GetComments
-  List<CommentModel> comments = [];
-  void getComments(
-    String? postId,
-  ) {
-    FirebaseFirestore.instance
-        .collection('posts')
-        .doc(postId)
-        .collection('comments')
-        .snapshots()
-        .listen((event) {
-      comments = [];
-      for (var element in event.docs) {
-        comments.add(CommentModel.fromJson(element.data()));
-      }
-    });
-    emit(GetCommentsSuccessState());
+  File? commentImage;
+  int? commentImageWidth;
+  int? commentImageHeight;
+  Future getCommentImage() async {
+    emit(UpdatePostLoadingState());
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    print('Selecting Image...');
+    if (pickedFile != null) {
+      commentImage = File(pickedFile.path);
+      print('Image Selected');
+      emit(GetCommentImageSuccessState());
+    } else {
+      print('No Image Selected');
+      emit(GetCommentImageErrorState());
+    }
   }
 
-  ///END : GetComments
+  void popCommentImage() {
+    commentImage = null;
+    emit(DeleteCommentImageState());
+  }
 
-// ----------------------------------------------------------//
+  String? commentImageURL;
+  bool isCommentImageLoading = false;
 
-  ///START : SendComment
-  CommentModel? comment;
-  void sendComment({
-    String? dateTime,
-    String? text,
-    String? postId,
+  void uploadCommentImage({
+    required String? postId,
+    String? commentText,
+    required String? time,
   }) {
-    CommentModel comment = CommentModel(
-        dateTime: dateTime,
-        uId: userModel!.uId,
-        comment: text,
-        image: userModel!.image,
-        name: userModel!.name);
+    isCommentImageLoading = true;
+    emit(UploadCommentImageLoadingState());
+    firebase_storage.FirebaseStorage.instance
+        .ref()
+        .child(Uri.file(commentImage!.path).pathSegments.last)
+        .putFile(commentImage!)
+        .then((value) {
+      value.ref.getDownloadURL().then((value) {
+        commentImageURL = value;
+        commentPost(
+          postId: postId,
+          comment: commentText,
+          commentImage: {
+            'width': commentImageWidth,
+            'image': value,
+            'height': commentImageHeight
+          },
+          time: time,
+        );
+        emit(UploadCommentImageSuccessState());
+        isCommentImageLoading = false;
+      }).catchError((error) {
+        print('Error While getDownload CommentImageURL ' + error);
+        emit(UploadCommentImageErrorState());
+      });
+    }).catchError((error) {
+      print('Error While putting the File ' + error);
+      emit(UploadCommentImageErrorState());
+    });
+  }
 
+  void commentPost({
+    required String? postId,
+    String? comment,
+    Map<String, dynamic>? commentImage,
+    required String? time,
+  }) {
+    CommentModel commentModel = CommentModel(
+      name: userModel!.name,
+      userImage: userModel!.image,
+      commentText: comment,
+      commentImage: commentImage,
+      dateTime: time,
+    );
     FirebaseFirestore.instance
         .collection('posts')
         .doc(postId)
         .collection('comments')
-        .add(comment.toMap())
+        .add(commentModel.toMap())
         .then((value) {
-      emit(SendCommentSuccessState());
+      getPosts();
+      emit(CommentPostSuccessState());
     }).catchError((error) {
-      emit(SendCommentErrorState());
-      debugPrint(error.toString());
+      print(error.toString());
+      emit(CommentPostErrorState());
+    });
+  }
+
+  List<CommentModel> comments = [];
+
+  void getComments(postId) {
+    FirebaseFirestore.instance
+        .collection('posts')
+        .doc(postId)
+        .collection('comments')
+        .orderBy('dateTime')
+        .snapshots()
+        .listen((event) {
+      comments.clear();
+      for (var element in event.docs) {
+        comments.add(CommentModel.fromJson(element.data()));
+        emit(GetCommentsSuccessState());
+      }
     });
   }
 

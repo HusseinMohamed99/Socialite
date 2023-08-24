@@ -171,13 +171,25 @@ class GetLikedUsersSuccessState extends SocialStates {}
 
 // ----------------------------------------------------------//
 ///START : Comments 18
-class SendCommentSuccessState extends SocialStates {}
+class UpdatePostLoadingState extends SocialStates {}
 
-class SendCommentErrorState extends SocialStates {}
+class GetCommentImageSuccessState extends SocialStates {}
+
+class GetCommentImageErrorState extends SocialStates {}
+
+class DeleteCommentImageState extends SocialStates {}
+
+class UploadCommentImageLoadingState extends SocialStates {}
+
+class UploadCommentImageSuccessState extends SocialStates {}
+
+class UploadCommentImageErrorState extends SocialStates {}
+
+class CommentPostSuccessState extends SocialStates {}
+
+class CommentPostErrorState extends SocialStates {}
 
 class GetCommentsSuccessState extends SocialStates {}
-
-class RemoveCommentImageSuccessState extends SocialStates {}
 
 ///END : Comments
 

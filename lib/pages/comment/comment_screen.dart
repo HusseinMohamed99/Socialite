@@ -1,410 +1,402 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:sociality/shared/components/indicator.dart';
-import 'package:sociality/model/comment_model.dart';
-import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:sociality/model/comment_model.dart';
+import 'package:sociality/model/post_model.dart';
+import 'package:sociality/model/user_model.dart';
+import 'package:sociality/pages/post_like/likes_screen.dart';
+import 'package:sociality/shared/components/image_with_shimmer.dart';
 import 'package:sociality/shared/components/my_divider.dart';
 import 'package:sociality/shared/components/navigator.dart';
+import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
+import 'package:sociality/shared/styles/color.dart';
 
 class CommentsScreen extends StatelessWidget {
+  final int? likes;
   final String? postId;
-  final String? receiverUid;
-
-  CommentsScreen(
-    this.postId,
-    this.receiverUid, {
-    Key? key,
-  }) : super(key: key);
-  final commentController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
+  final String? postUid;
+  const CommentsScreen({super.key, this.likes, this.postId, this.postUid});
 
   @override
   Widget build(BuildContext context) {
-    SocialCubit cubit = SocialCubit.get(context);
-
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 1,
-        leading: IconButton(
-          onPressed: () {
-            pop(context);
-          },
-          icon: Icon(
-            IconlyLight.arrowLeft2,
-            size: 30.sp,
-            color: cubit.isDark ? Colors.black : Colors.white,
-          ),
-        ),
-        titleSpacing: 1,
-        title: Text(
-          'Comments',
-          style: GoogleFonts.roboto(
-            color: cubit.isDark ? Colors.blue : Colors.white,
-            fontSize: 20.sp,
-          ),
-        ),
-      ),
-      body: StreamBuilder(
-          stream: FirebaseFirestore.instance
-              .collection('posts')
-              .doc(postId)
-              .collection('comments')
-              .orderBy('dateTime', descending: true)
-              .snapshots(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (!snapshot.hasData) {
-              return Center(
-                child: AdaptiveIndicator(
-                  os: getOs(),
+    var commentTextControl = TextEditingController();
+    String? postId = this.postId;
+    return Builder(
+      builder: (context) {
+        SocialCubit.get(context).getSinglePost(postId);
+        SocialCubit.get(context).getComments(postId);
+        SocialCubit.get(context).getUserData();
+        return BlocConsumer<SocialCubit, SocialStates>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            dynamic commentImage = SocialCubit.get(context).commentImage;
+            PostModel? post = SocialCubit.get(context).singlePost;
+            List<CommentModel> comments = SocialCubit.get(context).comments;
+            UserModel? user = SocialCubit.get(context).userModel;
+            SocialCubit cubit = SocialCubit.get(context);
+            return Scaffold(
+              appBar: AppBar(
+                automaticallyImplyLeading: true,
+                leading: IconButton(
+                  onPressed: () {
+                    comments.clear();
+                    pop(context);
+                  },
+                  icon: Icon(
+                    IconlyLight.arrowLeft2,
+                    size: 30.sp,
+                    color: cubit.isDark
+                        ? AppMainColors.blackColor
+                        : AppMainColors.titanWithColor,
+                  ),
                 ),
-              );
-            } else {
-              cubit.comments = [];
-              snapshot.data.docs.forEach((element) {
-                cubit.comments.add(CommentModel.fromJson(element.data()));
-              });
-              return ConditionalBuilder(
-                  condition: snapshot.hasData == true &&
-                      cubit.comments.isNotEmpty == true,
-                  builder: (BuildContext context) => Column(
+                elevation: 0,
+              ),
+              body: Padding(
+                padding: const EdgeInsets.all(15).r,
+                child: Column(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        navigateTo(context, LikesScreen(postId));
+                      },
+                      child: Row(
                         children: [
-                          Expanded(
-                            child: ListView.separated(
-                              physics: const BouncingScrollPhysics(),
-                              reverse: false,
-                              itemBuilder: (context, index) {
-                                return buildComment(
-                                  cubit.comments[index],
-                                  context,
-                                );
-                              },
-                              separatorBuilder: (context, index) =>
-                                  const MyDivider(),
-                              itemCount: cubit.comments.length,
-                            ),
+                          Icon(
+                            IconlyBroken.heart,
+                            color: Colors.red,
+                            size: 24.sp,
                           ),
-                          Container(
-                            color: cubit.isDark
-                                ? const Color(0xff404258)
-                                : Colors.white,
-                            child: Form(
-                              key: formKey,
-                              child: Row(
-                                children: [
-                                  IconButton(
-                                    icon: CircleAvatar(
-                                        radius: 35.r,
-                                        backgroundColor: cubit.isDark
-                                            ? Colors.white
-                                            : const Color(0xff404258),
-                                        child: Icon(
-                                          IconlyBroken.image,
-                                          size: 25.sp,
-                                          color: cubit.isDark
-                                              ? Colors.black
-                                              : Colors.white,
-                                        )),
-                                    onPressed: () {
-                                      debugPrint('add image');
-                                    },
-                                  ),
-                                  Expanded(
-                                    child: TextFormField(
-                                      autofocus: false,
-                                      keyboardType: TextInputType.text,
-                                      enableInteractiveSelection: true,
-                                      style: TextStyle(
-                                        color: cubit.isDark
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: 18.sp,
-                                      ),
-                                      enableSuggestions: true,
-                                      scrollPhysics:
-                                          const BouncingScrollPhysics(),
-                                      decoration: InputDecoration(
-                                        focusedBorder: InputBorder.none,
-                                        disabledBorder: InputBorder.none,
-                                        border: InputBorder.none,
-                                        fillColor: Colors.grey,
-                                        hintText: 'comment..',
-                                        hintStyle: TextStyle(
-                                          color: cubit.isDark
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),
-                                      ),
-                                      autocorrect: true,
-                                      controller: commentController,
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return 'The comment can\'t be empty';
-                                        }
-                                        return null;
-                                      },
-                                      onFieldSubmitted: (value) {},
-                                    ),
-                                  ),
-                                  IconButton(
-                                    icon: CircleAvatar(
-                                      radius: 25.r,
-                                      backgroundColor: cubit.isDark
-                                          ? Colors.white
-                                          : const Color(0xff404258),
-                                      child: Icon(
-                                        IconlyBroken.send,
-                                        size: 25.sp,
-                                        color: cubit.isDark
-                                            ? Colors.black
-                                            : Colors.white,
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      if (formKey.currentState!.validate() ==
-                                          true) {
-                                        debugPrint('comment');
-                                        SocialCubit.get(context).sendComment(
-                                            dateTime: DateTime.now().toString(),
-                                            text: commentController.text,
-                                            postId: postId);
-                                        commentController.text = '';
-                                        SocialCubit.get(context).getPosts();
-                                      }
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
+                          SizedBox(width: 5.w),
+                          Text(
+                            '$likes',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(color: AppMainColors.dividerColor),
                           ),
+                          const Spacer(),
+                          Icon(IconlyBroken.arrowRightCircle, size: 24.sp),
                         ],
                       ),
-                  fallback: (BuildContext context) => Column(
-                        children: [
-                          Expanded(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  IconlyLight.chat,
-                                  size: 100.sp,
-                                  color: Colors.grey,
-                                ),
-                                Center(
-                                  child: Text(
-                                    'No comments yet,\nPut your comment',
-                                    style: GoogleFonts.libreBaskerville(
-                                      color: Colors.grey,
-                                      fontSize: 25.sp,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                    ),
+                    comments.isNotEmpty
+                        ? Expanded(
+                            child: ListView.separated(
+                              itemBuilder: (context, index) =>
+                                  buildComment(comments[index], context),
+                              separatorBuilder: (context, index) =>
+                                  SizedBox(height: 10.h),
+                              itemCount:
+                                  SocialCubit.get(context).comments.length,
                             ),
-                          ),
-                          Container(
-                            color: cubit.isDark
-                                ? const Color(0xff404258)
-                                : Colors.white,
-                            child: Form(
-                              key: formKey,
-                              child: Row(
+                          )
+                        : Expanded(
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  IconButton(
-                                    icon: CircleAvatar(
-                                        radius: 35.r,
-                                        backgroundColor: cubit.isDark
-                                            ? Colors.white
-                                            : const Color(0xff404258),
-                                        child: Icon(
-                                          IconlyBroken.image,
-                                          size: 25.sp,
-                                          color: cubit.isDark
-                                              ? Colors.black
-                                              : Colors.white,
-                                        )),
-                                    onPressed: () {
-                                      debugPrint('add image');
-                                    },
+                                  Text(
+                                    "No comments yet,\nPut your comment",
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
                                   ),
-                                  Expanded(
-                                    child: TextFormField(
-                                      autofocus: false,
-                                      keyboardType: TextInputType.text,
-                                      enableInteractiveSelection: true,
-                                      style: TextStyle(
-                                        color: cubit.isDark
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: 18.sp,
-                                      ),
-                                      enableSuggestions: true,
-                                      scrollPhysics:
-                                          const BouncingScrollPhysics(),
-                                      decoration: InputDecoration(
-                                        focusedBorder: InputBorder.none,
-                                        disabledBorder: InputBorder.none,
-                                        border: InputBorder.none,
-                                        fillColor: Colors.grey,
-                                        hintText: 'comment..',
-                                        hintStyle: TextStyle(
-                                          color: cubit.isDark
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),
-                                      ),
-                                      autocorrect: true,
-                                      controller: commentController,
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return 'The comment can\'t be empty';
-                                        }
-                                        return null;
-                                      },
-                                      onFieldSubmitted: (value) {},
-                                    ),
-                                  ),
-                                  IconButton(
-                                    icon: CircleAvatar(
-                                        radius: 25.r,
-                                        backgroundColor: cubit.isDark
-                                            ? Colors.white
-                                            : const Color(0xff404258),
-                                        child: Icon(
-                                          IconlyBroken.send,
-                                          size: 25.sp,
-                                          color: cubit.isDark
-                                              ? Colors.black
-                                              : Colors.white,
-                                        )),
-                                    onPressed: () {
-                                      if (formKey.currentState!.validate() ==
-                                          true) {
-                                        debugPrint('comment');
-                                        SocialCubit.get(context).sendComment(
-                                            dateTime: DateTime.now().toString(),
-                                            text: commentController.text,
-                                            postId: postId);
-                                        commentController.text = '';
-                                        SocialCubit.get(context).getPosts();
-                                      }
-                                    },
-                                  ),
+                                  Text(
+                                    "First Comment 💬",
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  )
                                 ],
                               ),
                             ),
                           ),
-                        ],
-                      ));
-            }
-          }),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: SocialCubit.get(context).isCommentImageLoading
+                          ? const LinearProgressIndicator(
+                              color: Colors.blueAccent,
+                            )
+                          : const MyDivider(),
+                    ),
+                    if (commentImage != null)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8).r,
+                        child: Align(
+                          alignment: AlignmentDirectional.topStart,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 100.w,
+                                height: 100.h,
+                                child: Image.file(commentImage,
+                                    fit: BoxFit.fitWidth, width: 100.w),
+                              ),
+                              SizedBox(width: 5.w),
+                              SizedBox(
+                                width: 30.w,
+                                height: 30.h,
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.grey[300],
+                                  child: IconButton(
+                                    onPressed: () {
+                                      SocialCubit.get(context)
+                                          .popCommentImage();
+                                    },
+                                    icon: Icon(Icons.close, size: 15.sp),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    SizedBox(
+                      height: 35.h,
+                      child: TextFormField(
+                        controller: commentTextControl,
+                        autofocus: true,
+                        textAlignVertical: TextAlignVertical.center,
+                        style: Theme.of(context).textTheme.titleLarge,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "The comment can't be empty";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20).r,
+                            borderSide: BorderSide.none,
+                          ),
+                          contentPadding: const EdgeInsets.all(10).r,
+                          hintText: 'comment..',
+                          hintStyle: Theme.of(context).textTheme.titleLarge,
+                          suffixIcon: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              IconButton(
+                                  padding: EdgeInsets.zero,
+                                  onPressed: () {
+                                    SocialCubit.get(context).getCommentImage();
+                                  },
+                                  icon: Icon(
+                                    IconlyBroken.camera,
+                                    color: Colors.grey,
+                                    size: 24.sp,
+                                  )),
+                              IconButton(
+                                padding: EdgeInsets.zero,
+                                onPressed: () {
+                                  if (commentImage == null) {
+                                    SocialCubit.get(context).commentPost(
+                                      postId: postId,
+                                      comment: commentTextControl.text,
+                                      time: TimeOfDay.now().format(context),
+                                    );
+                                  } else {
+                                    SocialCubit.get(context).uploadCommentImage(
+                                      postId: postId,
+                                      commentText: commentTextControl.text == ''
+                                          ? null
+                                          : commentTextControl.text,
+                                      time: TimeOfDay.now().format(context),
+                                    );
+                                  }
+                                  SocialCubit.get(context)
+                                      .sendInAppNotification(
+                                          receiverName: post!.name,
+                                          receiverId: post.uId,
+                                          content:
+                                              'commented on a post you shared',
+                                          contentId: postId,
+                                          contentKey: 'post');
+                                  SocialCubit.get(context).sendFCMNotification(
+                                    token: user!.token,
+                                    senderName: SocialCubit.get(context)
+                                        .userModel!
+                                        .name,
+                                    messageText:
+                                        '${SocialCubit.get(context).userModel!.name}'
+                                        ' commented on a post you shared',
+                                  );
+                                  commentTextControl.clear();
+                                  SocialCubit.get(context).popCommentImage();
+                                },
+                                icon: Icon(
+                                  IconlyBroken.send,
+                                  color: AppMainColors.blueColor,
+                                  size: 24.sp,
+                                ),
+                              ),
+                            ],
+                          ),
+                          filled: true,
+                          fillColor: AppMainColors.greyColor,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20).r,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 
   Widget buildComment(CommentModel comment, context) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0).r,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CircleAvatar(
-            radius: 25.r,
-            backgroundImage: NetworkImage(
-              '${comment.image}',
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CircleAvatar(
+              radius: 20.r,
+              child: ImageWithShimmer(
+                imageUrl: '${comment.userImage}',
+                width: 50.w,
+                height: 50.h,
+                boxFit: BoxFit.fill,
+                radius: 15.r,
+              ),
             ),
-          ),
-          space(10.w, 0),
-          Expanded(
-            child: Column(
+            SizedBox(width: 5.w),
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.3),
-                        blurRadius: 9.r,
-                        spreadRadius: 4.r,
-                        offset: const Offset(0, 4),
-                      )
-                    ],
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                    ).r,
-                    color: SocialCubit.get(context).isDark
-                        ? Colors.grey.shade300
-                        : const Color(0xff404258),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(
-                      12.r,
-                      5.r,
-                      12.r,
-                      12.r,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              '${comment.name}',
-                              textAlign: TextAlign.start,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: GoogleFonts.roboto(
-                                color: SocialCubit.get(context).isDark
-                                    ? Colors.blue
-                                    : Colors.white,
-                              ),
+                comment.commentText != null && comment.commentImage != null
+                    ?
+
+                    /// If its (Text & Image) Comment
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 8,
+                            ).r,
+                            decoration: BoxDecoration(
+                              color: AppMainColors.greyColor.withOpacity(0.8),
+                              borderRadius: BorderRadius.circular(15).r,
                             ),
-                            space(5.w, 0),
-                            Icon(
-                              Icons.check_circle,
-                              color: Colors.blue,
-                              size: 20.sp,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${comment.name}',
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
+                                SizedBox(height: 5.h),
+                                Text(
+                                  '${comment.commentText}',
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                        space(0, 10.h),
-                        Text(
-                          '${comment.comment}',
-                          style: GoogleFonts.libreBaskerville(
-                            color: SocialCubit.get(context).isDark
-                                ? Colors.black
-                                : Colors.white,
-                            fontSize: 17.sp,
                           ),
-                        ),
-                      ],
-                    ),
+                          SizedBox(height: 3.h),
+                          Container(
+                            padding: const EdgeInsets.all(8).r,
+                            width: 250.w,
+                            height: 250.h,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15).r,
+                            ),
+                            child: ImageWithShimmer(
+                              imageUrl: comment.commentImage!['image'],
+                              width: 250.w,
+                              height: 250.h,
+                              boxFit: BoxFit.fitWidth,
+                            ),
+                          ),
+                        ],
+                      )
+                    : comment.commentImage != null
+                        ?
+
+                        /// If its (Image) Comment
+                        Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${comment.name}',
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                              Container(
+                                width: 250.w,
+                                height: 250.h,
+                                decoration: BoxDecoration(
+                                  color: Colors.amber,
+                                  borderRadius: BorderRadius.circular(15).r,
+                                ),
+                                child: ImageWithShimmer(
+                                  imageUrl: comment.commentImage!['image'],
+                                  width: 250.w,
+                                  height: 250.h,
+                                  boxFit: BoxFit.scaleDown,
+                                ),
+                              ),
+                            ],
+                          )
+                        : comment.commentText != null
+                            ?
+
+                            /// If its (Text) Comment
+                            Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 8,
+                                ).r,
+                                decoration: BoxDecoration(
+                                  color:
+                                      AppMainColors.greyColor.withOpacity(0.8),
+                                  borderRadius: BorderRadius.circular(15).r,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '${comment.name}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge,
+                                    ),
+                                    SizedBox(height: 5.h),
+                                    Text(
+                                      '${comment.commentText}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge,
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : const SizedBox(),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8).r,
+                  child: Text(
+                    '${comment.dateTime}',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                    textAlign: TextAlign.end,
                   ),
-                ),
-                Text(
-                  daysBetween(
-                    DateTime.parse(
-                      comment.dateTime.toString(),
-                    ),
-                  ),
-                  style: GoogleFonts.roboto(
-                    fontSize: 15.sp,
-                    color: Colors.grey,
-                    textStyle: Theme.of(context).textTheme.bodySmall,
-                    height: 1.3.h,
-                  ),
-                ),
+                )
               ],
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
+      ],
     );
   }
 }

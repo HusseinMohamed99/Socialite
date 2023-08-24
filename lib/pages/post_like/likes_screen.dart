@@ -8,10 +8,8 @@ import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 
 class LikesScreen extends StatelessWidget {
   final String? postId;
-  final String? receiverUid;
   LikesScreen(
-    this.postId,
-    this.receiverUid, {
+    this.postId, {
     Key? key,
   }) : super(key: key);
   final formKey = GlobalKey<FormState>();

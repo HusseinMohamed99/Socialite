@@ -62,7 +62,7 @@ Widget imagePreview(String? image) {
     child: Center(
       child: Image.network(
         "$image",
-        fit: BoxFit.cover,
+        fit: BoxFit.fitWidth,
         width: double.infinity,
         alignment: AlignmentDirectional.topCenter,
       ),
@@ -72,4 +72,9 @@ Widget imagePreview(String? image) {
 
 String getOs() {
   return Platform.operatingSystem;
+}
+
+double intToDouble(double num) {
+  double doubleNum = num.toDouble();
+  return doubleNum;
 }

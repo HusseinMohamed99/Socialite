@@ -322,8 +322,9 @@ class FullScreen extends StatelessWidget {
                           navigateTo(
                               context,
                               CommentsScreen(
-                                SocialCubit.get(context).postsId[index],
-                                model.uId,
+                                likes: postModel.likes,
+                                postId: postModel.postId,
+                                postUid: postModel.uId,
                               ));
                         },
                         child: Padding(

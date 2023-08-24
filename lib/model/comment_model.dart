@@ -1,39 +1,37 @@
-class CommentModel
-{
+class CommentModel {
   String? uId;
   String? name;
-  String? image;
+  String? userImage;
+  Map<String, dynamic>? commentImage;
   String? dateTime;
-  String? comment;
+  String? commentText;
 
-
-
-  CommentModel ({
+  CommentModel({
     this.uId,
     this.name,
-    this.image,
+    this.userImage,
+    this.commentImage,
     this.dateTime,
-    this.comment,
-
+    this.commentText,
   });
 
-  CommentModel .fromJson(Map<String, dynamic>? json){
+  CommentModel.fromJson(Map<String, dynamic>? json) {
     uId = json!['uId'];
     name = json['name'];
-    image = json['image'];
-    comment = json['comment'];
+    userImage = json['userImage'];
+    commentImage = json['commentImage'];
+    commentText = json['comment'];
     dateTime = json['dateTime'];
-
   }
 
-  Map<String, dynamic> toMap (){
+  Map<String, dynamic> toMap() {
     return {
-      'uId' : uId,
-      'name':name,
-      'image':image,
-      'dateTime':dateTime,
-      'comment':comment,
-
+      'uId': uId,
+      'name': name,
+      'userImage': userImage,
+      'commentImage': commentImage,
+      'dateTime': dateTime,
+      'comment': commentText,
     };
   }
 }
