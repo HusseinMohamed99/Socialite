@@ -62,7 +62,7 @@ class NotificationModel {
       'receiverId': receiverId,
       'senderImage': senderImage,
       'read': read,
-      'dateTime': dateTime,
+      'dateTime': dateTime.millisecondsSinceEpoch,
       'serverTimeStamp': serverTimeStamp,
     };
   }

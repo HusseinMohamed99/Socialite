@@ -31,7 +31,7 @@ class CommentModel {
       'name': name,
       'userImage': userImage,
       'commentImage': commentImage,
-      'dateTime': dateTime,
+      'dateTime': dateTime!.millisecondsSinceEpoch,
       'comment': commentText,
     };
   }

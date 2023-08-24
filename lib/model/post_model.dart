@@ -35,7 +35,7 @@ class PostModel {
         );
   Map<String, dynamic> toMap() {
     return {
-      'dateTime': dateTime,
+      'dateTime': dateTime!.millisecondsSinceEpoch,
       'name': name,
       'text': text,
       'uId': uId,

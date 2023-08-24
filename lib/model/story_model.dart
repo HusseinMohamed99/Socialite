@@ -31,7 +31,7 @@ class StoryModel {
       'image': image,
       'text': text,
       'storyImage': storyImage,
-      'date': dateTime,
+      'dateTime': dateTime!.millisecondsSinceEpoch,
     };
   }
 }
