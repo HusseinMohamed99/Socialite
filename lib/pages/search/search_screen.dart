@@ -1,6 +1,6 @@
 import 'package:sociality/model/user_model.dart';
 import 'package:sociality/pages/friend/friends_profile_screen.dart';
-import 'package:sociality/pages/profile/my_profile_screen.dart';
+import 'package:sociality/pages/profile/user_profile_screen.dart';
 import 'package:sociality/shared/components/navigator.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
@@ -143,7 +143,7 @@ class _SearchScreenState extends State<SearchScreen> {
             } else {
               navigateTo(
                 context,
-                const MyProfileScreen(),
+                const UserProfileScreen(),
               );
             }
           },

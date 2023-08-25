@@ -62,14 +62,19 @@ Widget imagePreview(
   String? image, {
   double? height,
   double? width,
+  double? radius,
 }) {
   return FullScreenWidget(
     child: Center(
-      child: ImageWithShimmer(
-        imageUrl: '$image',
-        width: width ?? double.infinity,
-        height: height ?? double.infinity,
-        boxFit: BoxFit.fitWidth,
+      child: ClipRRect(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        borderRadius: BorderRadius.circular(radius ?? 0),
+        child: ImageWithShimmer(
+          imageUrl: '$image',
+          width: width ?? double.infinity,
+          height: height ?? double.infinity,
+          boxFit: BoxFit.fitWidth,
+        ),
       ),
     ),
   );

@@ -8,7 +8,7 @@ import 'package:sociality/model/user_model.dart';
 import 'package:sociality/pages/comment/comment_screen.dart';
 import 'package:sociality/pages/friend/friends_profile_screen.dart';
 import 'package:sociality/pages/post_like/likes_screen.dart';
-import 'package:sociality/pages/profile/my_profile_screen.dart';
+import 'package:sociality/pages/profile/user_profile_screen.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:sociality/shared/components/image_with_shimmer.dart';
 import 'package:sociality/shared/components/my_divider.dart';
@@ -60,7 +60,7 @@ class BuildPostItem extends StatelessWidget {
 
                       navigateTo(
                         context,
-                        const MyProfileScreen(),
+                        const UserProfileScreen(),
                       );
                     }
                   },
@@ -94,7 +94,7 @@ class BuildPostItem extends StatelessWidget {
                                 SocialCubit.get(context).getUserData();
                                 navigateTo(
                                   context,
-                                  const MyProfileScreen(),
+                                  const UserProfileScreen(),
                                 );
                               }
                             },
@@ -237,7 +237,7 @@ class BuildPostItem extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    navigateTo(context, const MyProfileScreen());
+                    navigateTo(context, const UserProfileScreen());
                   },
                   child: CircleAvatar(
                     radius: 15.r,

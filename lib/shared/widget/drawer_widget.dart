@@ -3,7 +3,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sociality/pages/notifications/notifications_screen.dart';
 import 'package:sociality/pages/post/save_post_screen.dart';
-import 'package:sociality/pages/profile/my_profile_screen.dart';
+import 'package:sociality/pages/profile/user_profile_screen.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:sociality/shared/components/image_with_shimmer.dart';
 import 'package:sociality/shared/components/indicator.dart';
@@ -53,7 +53,7 @@ class DrawerWidget extends StatelessWidget {
                       function: () {
                         cubit.getUserPosts(uId);
                         cubit.getFriends(uId!);
-                        navigateTo(context, const MyProfileScreen());
+                        navigateTo(context, const UserProfileScreen());
                       },
                       cubit: cubit,
                       text: 'Profile',
