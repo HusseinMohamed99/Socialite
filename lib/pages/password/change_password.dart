@@ -1,158 +1,148 @@
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:sociality/shared/components/indicator.dart';
-import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:sociality/shared/components/navigator.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sociality/shared/components/buttons.dart';
 import 'package:sociality/shared/components/text_form_field.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
+import 'package:sociality/shared/styles/color.dart';
 
-class EditPasswordScreen extends StatelessWidget {
-  const EditPasswordScreen({Key? key}) : super(key: key);
+void bottomSheetChangePassword(
+    {required BuildContext context, required SocialCubit cubit}) {
+  showModalBottomSheet(
+    backgroundColor: cubit.isDark
+        ? AppMainColors.titanWithColor
+        : AppColorsDark.primaryDarkColor,
+    isScrollControlled: true,
+    shape: RoundedRectangleBorder(
+      borderRadius: const BorderRadius.only(
+        topLeft: Radius.circular(20),
+        topRight: Radius.circular(20),
+      ).r,
+    ),
+    context: context,
+    builder: (context) {
+      return const ShowModalBottomSheet();
+    },
+  );
+}
+
+class ShowModalBottomSheet extends StatelessWidget {
+  const ShowModalBottomSheet({super.key});
+
   @override
   Widget build(BuildContext context) {
-    var newPasswordController = TextEditingController();
-    var newPasswordController2 = TextEditingController();
-    return BlocConsumer<SocialCubit, SocialStates>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        var cubit = SocialCubit.get(context);
-        var userModel = SocialCubit.get(context).userModel;
-        var formKey = GlobalKey<FormState>();
-        return ConditionalBuilder(
-          condition: userModel != null,
-          builder: (BuildContext context) {
-            return Scaffold(
-              appBar: AppBar(
-                leading: IconButton(
-                  onPressed: () {
-                    pop(context);
-                  },
-                  icon: Icon(
-                    IconlyLight.arrowLeft2,
-                    size: 30,
-                    color: cubit.isDark ? Colors.black : Colors.white,
-                  ),
-                ),
-                titleSpacing: 1,
-                title: Text(
-                  'Change Password',
-                  style: GoogleFonts.roboto(
-                    color: cubit.isDark ? Colors.blue : Colors.white,
-                    fontSize: 20,
-                  ),
-                ),
-                elevation: 2,
-              ),
-              body: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: SingleChildScrollView(
-                  child: Form(
-                    key: formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'You Should Re-login Before\n Change Password',
-                          style: GoogleFonts.roboto(
-                            color: cubit.isDark ? Colors.black : Colors.white,
-                            fontSize: 20,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        DefaultTextFormField(
-                          isPassword: cubit.isPassword,
-                          controller: newPasswordController,
-                          keyboardType: TextInputType.visiblePassword,
-                          label: 'New Password',
-                          validate: (String? value) {
-                            if (value!.isEmpty) {
-                              return 'password must be not empty';
-                            }
-                            if (value != newPasswordController2.text) {
-                              return ' Password is not the same';
-                            }
-                            return null;
-                          },
-                          prefix: IconlyBroken.unlock,
-                          suffix: cubit.suffix,
-                          suffixPressed: () {
-                            cubit.showPassword();
-                          },
-                        ),
-                        space(0, 20),
-                        DefaultTextFormField(
-                          isPassword: cubit.isPassword,
-                          controller: newPasswordController2,
-                          keyboardType: TextInputType.visiblePassword,
-                          label: 'Confirm New Password',
-                          validate: (String? value) {
-                            if (value!.isEmpty) {
-                              return 'password must be not empty';
-                            }
-                            if (value != newPasswordController.text) {
-                              return ' Password is not the same';
-                            }
-                            return null;
-                          },
-                          prefix: IconlyBroken.unlock,
-                          suffix: cubit.suffix,
-                          suffixPressed: () {
-                            cubit.showPassword();
-                          },
-                        ),
-                        space(0, 55),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: OutlinedButton.icon(
-                                style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(
-                                    cubit.isDark
-                                        ? Colors.white
-                                        : const Color(0xff404258),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  if (formKey.currentState!.validate()) {
-                                    cubit.changeUserPassword(
-                                      password: newPasswordController.text,
-                                    );
-                                  }
-                                },
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                label: Text(
-                                  'Update'.toUpperCase(),
-                                  style: GoogleFonts.roboto(
-                                      fontSize: 20,
-                                      color: cubit.isDark
-                                          ? Colors.blue
-                                          : Colors.white),
-                                ),
-                                icon: Icon(
-                                  IconlyLight.upload,
-                                  color:
-                                      cubit.isDark ? Colors.blue : Colors.white,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+    var formKey = GlobalKey<FormState>();
+    TextEditingController currentPasswordController = TextEditingController();
+    TextEditingController newPasswordController = TextEditingController();
+    SocialCubit cubit = SocialCubit.get(context);
+    return DraggableScrollableSheet(
+      initialChildSize: 0.35.sp,
+      minChildSize: 0.35.spMin,
+      maxChildSize: 0.5.spMax,
+      expand: false,
+      builder: (context, scrollController) {
+        return SingleChildScrollView(
+          controller: scrollController,
+          child: Container(
+            decoration: BoxDecoration(
+              color: cubit.isDark
+                  ? AppMainColors.whiteColor
+                  : AppColorsDark.primaryDarkColor,
+              borderRadius:
+                  BorderRadius.vertical(top: const Radius.circular(20).r),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 10).r,
+            margin: const EdgeInsets.symmetric(horizontal: 10).r,
+            child: Stack(
+              alignment: AlignmentDirectional.topCenter,
+              clipBehavior: Clip.none,
+              children: [
+                Positioned(
+                  top: -20.h,
+                  child: Container(
+                    width: 50.w,
+                    height: 6.h,
+                    margin: const EdgeInsets.only(bottom: 20).r,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(2.5).r,
+                      color: AppMainColors.mainColor,
                     ),
                   ),
                 ),
-              ),
-            );
-          },
-          fallback: (BuildContext context) => Center(
-            child: AdaptiveIndicator(
-              os: getOs(),
+                SizedBox(height: 20.h),
+                Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      SizedBox(height: 10.h),
+                      Text(
+                        'Change Password',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          top: 25,
+                          bottom: 25,
+                        ).r,
+                        child: Column(
+                          children: [
+                            DefaultTextFormField(
+                              controller: currentPasswordController,
+                              keyboardType: TextInputType.visiblePassword,
+                              validate: (String? value) {
+                                if (value!.trim().isEmpty) {
+                                  return 'Please enter your current password';
+                                }
+                                return null;
+                              },
+                              label: 'Current Password',
+                              prefix: IconlyBroken.unlock,
+                              suffix: cubit.suffix,
+                              suffixPressed: () {
+                                cubit.showPassword();
+                              },
+                              isPassword: cubit.isPassword,
+                            ),
+                            SizedBox(height: 20.h),
+                            DefaultTextFormField(
+                              controller: newPasswordController,
+                              keyboardType: TextInputType.visiblePassword,
+                              validate: (String? value) {
+                                if (value!.trim().isEmpty) {
+                                  return 'Please enter your new password';
+                                } else if (value.length < 8) {
+                                  return 'Password is too short';
+                                }
+                                return null;
+                              },
+                              label: 'New Password',
+                              prefix: IconlyBroken.unlock,
+                              suffix: cubit.suffixIcon,
+                              suffixPressed: () {
+                                cubit.showConfirmPassword();
+                              },
+                              isPassword: cubit.iSPassword,
+                            ),
+                            SizedBox(height: 20.h),
+                            defaultMaterialButton(
+                              context: context,
+                              text: 'Change Password',
+                              textColor: AppMainColors.whiteColor,
+                              function: () {
+                                if (formKey.currentState!.validate()) {
+                                  cubit.changeUserPassword(
+                                    newPassword: newPasswordController.text,
+                                  );
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         );

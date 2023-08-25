@@ -888,10 +888,12 @@ class SocialCubit extends Cubit<SocialStates> {
 // ----------------------------------------------------------//
   ///START : ChangeUserPassword
   void changeUserPassword({
-    required String password,
+    required String newPassword,
   }) {
     emit(ChangeUserPasswordLoadingState());
-    FirebaseAuth.instance.currentUser?.updatePassword(password).then((value) {
+    FirebaseAuth.instance.currentUser
+        ?.updatePassword(newPassword)
+        .then((value) {
       showToast(
         state: ToastStates.success,
         text: 'Change Successful',
@@ -912,14 +914,25 @@ class SocialCubit extends Cubit<SocialStates> {
 
 // ----------------------------------------------------------//
   ///START : Show Password
-  IconData suffix = Icons.visibility_outlined;
+
+  IconData suffix = IconlyBroken.show;
   bool isPassword = true;
+
   void showPassword() {
     isPassword = !isPassword;
-    suffix =
-        isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
+    suffix = isPassword ? IconlyBroken.show : IconlyBroken.hide;
 
     emit(ShowPasswordState());
+  }
+
+  IconData suffixIcon = IconlyBroken.show;
+  bool iSPassword = true;
+
+  void showConfirmPassword() {
+    iSPassword = !iSPassword;
+    suffixIcon = iSPassword ? IconlyBroken.show : IconlyBroken.hide;
+
+    emit(ChangeConfirmPasswordState());
   }
 
   ///END : Show Password

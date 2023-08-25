@@ -227,6 +227,8 @@ class ChangeUserPasswordErrorState extends SocialStates {
 
 class ShowPasswordState extends SocialStates {}
 
+class ChangeConfirmPasswordState extends SocialStates {}
+
 ///END : ChangeUserPassword
 
 //------------------------------------------------------------//

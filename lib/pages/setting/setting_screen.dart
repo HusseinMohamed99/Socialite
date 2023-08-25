@@ -206,7 +206,10 @@ class SettingScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                       onTap: () {
-                        navigateTo(context, const EditPasswordScreen());
+                        bottomSheetChangePassword(
+                          context: context,
+                          cubit: cubit,
+                        );
                       },
                       child: Row(
                         children: [

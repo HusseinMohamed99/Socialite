@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sociality/pages/notifications/notifications_screen.dart';
-import 'package:sociality/pages/password/change_password.dart';
 import 'package:sociality/pages/post/save_post_screen.dart';
 import 'package:sociality/pages/profile/my_profile_screen.dart';
 import 'package:sociality/shared/components/constants.dart';
@@ -75,14 +74,6 @@ class DrawerWidget extends StatelessWidget {
                       cubit: cubit,
                       text: 'Saved Post',
                       iconData: IconlyBroken.bookmark,
-                    ),
-                    ListOfItem(
-                      function: () {
-                        navigateTo(context, const EditPasswordScreen());
-                      },
-                      cubit: cubit,
-                      text: 'Rest Password',
-                      iconData: IconlyBroken.password,
                     ),
                     ListOfItem(
                       function: () {
