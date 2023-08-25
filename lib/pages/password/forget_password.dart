@@ -1,8 +1,9 @@
 import 'package:sociality/Pages/Login/login_screen.dart';
 import 'package:sociality/shared/components/indicator.dart';
-import 'package:sociality/shared/Cubit/restPasswordCubit/rest_password_cubit.dart';
-import 'package:sociality/shared/Cubit/restPasswordCubit/rest_password_state.dart';
-import 'package:sociality/shared/Cubit/socialCubit/social_cubit.dart';
+import 'package:sociality/shared/components/show_toast.dart';
+import 'package:sociality/shared/cubit/restPasswordCubit/rest_password_cubit.dart';
+import 'package:sociality/shared/cubit/restPasswordCubit/rest_password_state.dart';
+import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/components/buttons.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ class RestPasswordScreen extends StatelessWidget {
       child: BlocConsumer<ResetPasswordCubit, ResetPasswordStates>(
         listener: (context, state) {
           if (state is ResetPasswordSuccessState) {
+            showToast(text: 'Check your mail', state: ToastStates.success);
             navigateAndFinish(context, const LoginScreen());
           }
         },

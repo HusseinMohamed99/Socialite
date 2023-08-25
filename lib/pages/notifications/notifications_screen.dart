@@ -13,16 +13,8 @@ import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
 import 'package:sociality/shared/styles/color.dart';
 
-class NotificationScreen extends StatefulWidget {
+class NotificationScreen extends StatelessWidget {
   const NotificationScreen({Key? key}) : super(key: key);
-
-  @override
-  State<NotificationScreen> createState() => NotificationScreenState();
-}
-
-class NotificationScreenState extends State<NotificationScreen>
-    with SingleTickerProviderStateMixin {
-  var scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +25,6 @@ class NotificationScreenState extends State<NotificationScreen>
           listener: (context, state) {},
           builder: (context, state) {
             return Scaffold(
-              key: scaffoldKey,
               appBar: AppBar(
                 centerTitle: false,
                 elevation: 1,
