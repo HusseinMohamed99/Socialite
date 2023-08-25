@@ -713,9 +713,6 @@ class SocialCubit extends Cubit<SocialStates> {
           time: time,
         );
         emit(UploadCommentImageSuccessState());
-        print(value);
-        print(commentImageHeight);
-        print(commentImageWidth);
         isCommentImageLoading = false;
       }).catchError((error) {
         if (kDebugMode) {
@@ -785,7 +782,7 @@ class SocialCubit extends Cubit<SocialStates> {
   ///START : SaveToGallery
   void saveToGallery(String imageUrl) {
     emit(SavedToGalleryLoadingState());
-    GallerySaver.saveImage(imageUrl, albumName: 'Sociality-APP').then((value) {
+    GallerySaver.saveImage(imageUrl, albumName: 'Sociality').then((value) {
       emit(SavedToGallerySuccessState());
     }).catchError((error) {
       debugPrint("${error.toString()} from saveToGallery");
@@ -797,15 +794,18 @@ class SocialCubit extends Cubit<SocialStates> {
 
 // ----------------------------------------------------------//
   ///START : EditPost
-  void editPost(
-      {required String dateTime,
-      required PostModel postModel,
-      required String postId,
-      required String text,
-      String? postImage}) {
+  void editPost({
+    required String dateTime,
+    required PostModel postModel,
+    required String postId,
+    required String text,
+    String? postImage,
+  }) {
     emit(EditPostLoadingState());
     postModel = PostModel(
-        uId: postModel.uId,
+        name: userModel!.name,
+        image: userModel!.image,
+        uId: userModel!.uId,
         dateTime: postModel.dateTime,
         text: text,
         postImage: postImage ?? postModel.postImage);
