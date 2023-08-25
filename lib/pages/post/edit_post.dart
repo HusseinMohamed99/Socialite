@@ -207,6 +207,7 @@ class EditPosts extends StatelessWidget {
                             IconButton(
                               onPressed: () {
                                 cubit.removePostImage();
+                                postModel.postImage = '';
                               },
                               icon: Container(
                                 decoration: BoxDecoration(
