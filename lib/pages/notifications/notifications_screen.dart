@@ -118,7 +118,8 @@ class NotificationsBuilder extends StatelessWidget {
           SocialCubit.get(context)
               .readNotification(notifications.notificationId);
         } else if (notifications.contentKey == 'post') {
-          print('object');
+          SocialCubit.get(context)
+              .readNotification(notifications.notificationId);
         }
       },
       child: Container(
@@ -179,16 +180,17 @@ class NotificationsBuilder extends StatelessWidget {
                 ),
               ),
               IconButton(
-                  onPressed: () {
-                    showBottomSheet(context);
-                  },
-                  icon: Icon(
-                    Icons.more_horiz_outlined,
-                    size: 24.sp,
-                    color: cubit.isDark
-                        ? AppMainColors.greyColor
-                        : AppMainColors.titanWithColor,
-                  ))
+                onPressed: () {
+                  showBottomSheet(context);
+                },
+                icon: Icon(
+                  Icons.more_horiz_outlined,
+                  size: 24.sp,
+                  color: cubit.isDark
+                      ? AppMainColors.greyColor
+                      : AppMainColors.titanWithColor,
+                ),
+              ),
             ],
           ),
         ),
