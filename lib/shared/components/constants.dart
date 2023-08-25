@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
 import 'package:intl/intl.dart';
@@ -39,6 +40,14 @@ String getDate(DateTime dateTime) {
   return date;
 }
 
+String getNowDateTime(Timestamp dateTime) {
+  String date = DateFormat.yMMMd().format(dateTime.toDate()).toString();
+  String time = DateFormat.Hm().format(dateTime.toDate()).toString();
+  List<String> nowSeparated = [date, time];
+  String nowJoined = nowSeparated.join(' at ');
+  return nowJoined;
+}
+
 String time = DateTime.now().toString().split(' ').elementAt(1);
 
 String? uId = '';
@@ -60,7 +69,7 @@ Widget imagePreview(
         imageUrl: '$image',
         width: width ?? double.infinity,
         height: height ?? double.infinity,
-        boxFit: BoxFit.fitHeight,
+        boxFit: BoxFit.fitWidth,
       ),
     ),
   );

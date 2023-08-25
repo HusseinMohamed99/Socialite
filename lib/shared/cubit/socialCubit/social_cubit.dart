@@ -158,7 +158,7 @@ class SocialCubit extends Cubit<SocialStates> {
 
   ///START : ChangeMode
   bool isDark = false;
-  Color backgroundColor = AppMainColors.whiteColor;
+  Color backgroundColor = AppMainColors.titanWithColor;
 
   void changeAppMode({bool? fromShared}) {
     if (fromShared == null) {
@@ -1633,7 +1633,7 @@ class SocialCubit extends Cubit<SocialStates> {
         .collection('users')
         .doc(userModel!.uId)
         .collection('notifications')
-        .orderBy('serverTimeStamp', descending: true)
+        .orderBy('dateTime', descending: true)
         .snapshots()
         .listen((event) async {
       notifications = [];
@@ -1724,23 +1724,26 @@ class SocialCubit extends Cubit<SocialStates> {
   //------------------------------------------------------------//
   ///START : notificationContent
   String notificationContent(String? contentKey) {
-    if (contentKey == 'likePost') {
+    if (contentKey == 'post') {
+      return 'post';
+    }
+    if (contentKey == 'like Post') {
       return 'like Post';
     } else if (contentKey == 'commentPost') {
       return 'comment Post';
-    } else if (contentKey == 'friendRequestAccepted') {
+    } else if (contentKey == 'friend Request Accepted') {
       return 'friend Request Accepted';
     } else {
-      return ' friend Request';
+      return 'friend Request';
     }
   }
 
   IconData notificationContentIcon(String? contentKey) {
-    if (contentKey == 'likePost') {
+    if (contentKey == 'like Post') {
       return IconlyBroken.heart;
-    } else if (contentKey == 'commentPost') {
+    } else if (contentKey == 'comment Post') {
       return IconlyBroken.chat;
-    } else if (contentKey == 'friendRequestAccepted') {
+    } else if (contentKey == 'friend Request Accepted') {
       return Icons.person;
     } else {
       return Icons.person;

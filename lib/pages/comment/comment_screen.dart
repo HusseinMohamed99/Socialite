@@ -43,7 +43,6 @@ class CommentsScreen extends StatelessWidget {
                   'Comments',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
-                automaticallyImplyLeading: true,
                 leading: IconButton(
                   onPressed: () {
                     comments.clear();
@@ -104,6 +103,12 @@ class CommentsScreen extends StatelessWidget {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
+                                  Icon(
+                                    IconlyLight.chat,
+                                    color: AppMainColors.greyColor,
+                                    size: 60.sp,
+                                  ),
+                                  SizedBox(height: 15.h),
                                   Text(
                                     "No comments yet,\nPut your comment",
                                     style:
