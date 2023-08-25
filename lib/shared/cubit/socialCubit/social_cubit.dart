@@ -658,8 +658,7 @@ class SocialCubit extends Cubit<SocialStates> {
 // ----------------------------------------------------------//
   ///END : GetComments
   File? commentImage;
-  int? commentImageWidth;
-  int? commentImageHeight;
+
   Future getCommentImage() async {
     emit(UpdatePostLoadingState());
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -692,6 +691,8 @@ class SocialCubit extends Cubit<SocialStates> {
     required String postId,
     String? commentText,
     required DateTime time,
+    double? commentImageWidth,
+    double? commentImageHeight,
   }) {
     isCommentImageLoading = true;
     emit(UploadCommentImageLoadingState());
@@ -713,6 +714,9 @@ class SocialCubit extends Cubit<SocialStates> {
           time: time,
         );
         emit(UploadCommentImageSuccessState());
+        print(value);
+        print(commentImageHeight);
+        print(commentImageWidth);
         isCommentImageLoading = false;
       }).catchError((error) {
         if (kDebugMode) {

@@ -9,7 +9,6 @@ import 'package:sociality/pages/comment/comment_screen.dart';
 import 'package:sociality/pages/friend/friends_profile_screen.dart';
 import 'package:sociality/pages/post_like/likes_screen.dart';
 import 'package:sociality/pages/profile/my_profile_screen.dart';
-import 'package:sociality/pages/viewPhoto/post_view.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:sociality/shared/components/image_with_shimmer.dart';
 import 'package:sociality/shared/components/my_divider.dart';
@@ -159,36 +158,23 @@ class BuildPostItem extends StatelessWidget {
             ),
             SizedBox(height: 12.w),
             if (postModel.postImage != '')
-              InkWell(
-                onTap: () {
-                  navigateTo(
-                    context,
-                    FullScreen(
-                      postModel,
-                      index: index,
-                    ),
-                  );
-                },
-                child: Stack(
-                  alignment: AlignmentDirectional.topEnd,
-                  children: [
-                    Align(
-                      alignment: AlignmentDirectional.bottomCenter,
-                      child: SizedBox(
-                        width: double.infinity,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(15).r,
-                          child: ImageWithShimmer(
-                            imageUrl: '${postModel.postImage}',
-                            width: double.infinity,
-                            height: 250.h,
-                            boxFit: BoxFit.fitHeight,
-                          ),
+              Stack(
+                alignment: AlignmentDirectional.topEnd,
+                children: [
+                  Align(
+                    alignment: AlignmentDirectional.bottomCenter,
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15).r,
+                        child: imagePreview(
+                          '${postModel.postImage}',
+                          height: 250.h,
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

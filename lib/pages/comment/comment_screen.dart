@@ -6,6 +6,7 @@ import 'package:sociality/model/comment_model.dart';
 import 'package:sociality/model/post_model.dart';
 import 'package:sociality/model/user_model.dart';
 import 'package:sociality/pages/post_like/likes_screen.dart';
+import 'package:sociality/shared/components/constants.dart';
 import 'package:sociality/shared/components/image_with_shimmer.dart';
 import 'package:sociality/shared/components/my_divider.dart';
 import 'package:sociality/shared/components/navigator.dart';
@@ -321,19 +322,15 @@ class BuildCommentsItem extends StatelessWidget {
                           ),
                           SizedBox(height: 3.h),
                           Container(
-                            padding: const EdgeInsets.all(8).r,
-                            width: 250.w,
-                            height: 250.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15).r,
-                            ),
-                            child: ImageWithShimmer(
-                              imageUrl: comment.commentImage!['image'],
-                              width: 250.w,
-                              height: 250.h,
-                              boxFit: BoxFit.fitWidth,
-                            ),
-                          ),
+                              width: intToDouble(
+                                  comment.commentImage?['width'] ?? 250),
+                              height: intToDouble(
+                                  comment.commentImage?['height'] ?? 250),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15).r,
+                              ),
+                              child:
+                                  imagePreview(comment.commentImage!['image'])),
                         ],
                       )
                     : comment.commentImage != null
@@ -348,20 +345,17 @@ class BuildCommentsItem extends StatelessWidget {
                                 style: Theme.of(context).textTheme.titleLarge,
                               ),
                               Container(
-                                width: 250.w,
-                                height: 250.h,
-                                decoration: BoxDecoration(
-                                  color:
-                                      AppMainColors.greyColor.withOpacity(0.2),
-                                  borderRadius: BorderRadius.circular(15).r,
-                                ),
-                                child: ImageWithShimmer(
-                                  imageUrl: comment.commentImage!['image'],
-                                  width: 250.w,
-                                  height: 250.h,
-                                  boxFit: BoxFit.fitWidth,
-                                ),
-                              ),
+                                  width: intToDouble(
+                                      comment.commentImage?['width'] ?? 250),
+                                  height: intToDouble(
+                                      comment.commentImage?['height'] ?? 250),
+                                  decoration: BoxDecoration(
+                                    color: AppMainColors.greyColor
+                                        .withOpacity(0.2),
+                                    borderRadius: BorderRadius.circular(15).r,
+                                  ),
+                                  child: imagePreview(
+                                      comment.commentImage!['image'])),
                             ],
                           )
                         : comment.commentText != null

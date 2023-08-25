@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
 import 'package:intl/intl.dart';
+import 'package:sociality/shared/components/image_with_shimmer.dart';
 
 void printFullText(String text) {
   final pattern = RegExp('.{1,800}'); //800 is the size of each chunk
@@ -48,14 +49,18 @@ int importId() {
   return messageId;
 }
 
-Widget imagePreview(String? image) {
+Widget imagePreview(
+  String? image, {
+  double? height,
+  double? width,
+}) {
   return FullScreenWidget(
     child: Center(
-      child: Image.network(
-        "$image",
-        fit: BoxFit.fitWidth,
-        width: double.infinity,
-        alignment: AlignmentDirectional.topCenter,
+      child: ImageWithShimmer(
+        imageUrl: '$image',
+        width: width ?? double.infinity,
+        height: height ?? double.infinity,
+        boxFit: BoxFit.fitHeight,
       ),
     ),
   );
@@ -65,7 +70,7 @@ String getOs() {
   return Platform.operatingSystem;
 }
 
-double intToDouble(double num) {
+double intToDouble(int num) {
   double doubleNum = num.toDouble();
   return doubleNum;
 }
