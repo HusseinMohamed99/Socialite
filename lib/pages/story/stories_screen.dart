@@ -199,17 +199,12 @@ class CarouselSliderStories extends StatelessWidget {
                       height: 230.h,
                       margin: const EdgeInsets.all(10).r,
                       decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(10),
-                            topLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(50),
-                            bottomLeft: Radius.circular(50),
-                          ).r,
+                          borderRadius: BorderRadius.circular(10).r,
                           boxShadow: [
                             BoxShadow(
                                 color: Theme.of(context)
                                     .shadowColor
-                                    .withOpacity(0.3),
+                                    .withOpacity(0.1),
                                 spreadRadius: 3,
                                 blurRadius: 9,
                                 offset: const Offset(3, 3)),
@@ -222,11 +217,11 @@ class CarouselSliderStories extends StatelessWidget {
                                 offset: const Offset(-1, -1))
                           ]),
                       child: ImageWithShimmer(
-                        radius: 15.r,
+                        radius: 10.r,
                         imageUrl: e.storyImage!,
                         width: double.infinity,
                         height: double.infinity,
-                        boxFit: BoxFit.fitWidth,
+                        boxFit: BoxFit.fitHeight,
                       ),
                     ),
                     Padding(
