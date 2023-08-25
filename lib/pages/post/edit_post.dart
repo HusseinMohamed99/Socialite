@@ -1,13 +1,15 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sociality/model/post_model.dart';
+import 'package:sociality/model/user_model.dart';
+import 'package:sociality/shared/components/image_with_shimmer.dart';
 import 'package:sociality/shared/components/navigator.dart';
+import 'package:sociality/shared/components/show_toast.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
-import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:sociality/shared/styles/color.dart';
 
 class EditPosts extends StatelessWidget {
   final PostModel postModel;
@@ -28,18 +30,14 @@ class EditPosts extends StatelessWidget {
           if (state is EditPostSuccessState) {
             Navigator.pop(context);
             SocialCubit.get(context).removePostImage();
-            Fluttertoast.showToast(
-                msg: "Your post is Edited successfully",
-                fontSize: 16,
-                gravity: ToastGravity.BOTTOM,
-                textColor: Theme.of(context).scaffoldBackgroundColor,
-                backgroundColor: Colors.green,
-                toastLength: Toast.LENGTH_LONG);
+            showToast(
+                text: 'Your post is Edited successfully',
+                state: ToastStates.success);
           }
         },
         builder: (context, state) {
-          var cubit = SocialCubit.get(context);
-          var userModel = SocialCubit.get(context).userModel!;
+          SocialCubit cubit = SocialCubit.get(context);
+          UserModel userModel = SocialCubit.get(context).userModel!;
           return Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
@@ -50,17 +48,16 @@ class EditPosts extends StatelessWidget {
                 },
                 icon: Icon(
                   IconlyLight.arrowLeft2,
-                  size: 30,
-                  color: cubit.isDark ? Colors.black : Colors.white,
+                  size: 24.sp,
+                  color: cubit.isDark
+                      ? AppMainColors.blackColor
+                      : AppMainColors.titanWithColor,
                 ),
               ),
               titleSpacing: 1,
               title: Text(
                 'Edit Your Post',
-                style: GoogleFonts.roboto(
-                  color: cubit.isDark ? Colors.blue : Colors.white,
-                  fontSize: 20,
-                ),
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               actions: [
                 TextButton(
@@ -84,53 +81,43 @@ class EditPosts extends StatelessWidget {
                   },
                   child: Text(
                     'Update',
-                    style: GoogleFonts.roboto(
-                      color: cubit.isDark ? Colors.blue : Colors.white,
-                      fontSize: 20,
-                    ),
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
               ],
-              elevation: 5,
             ),
-            body: Stack(
-              alignment: AlignmentDirectional.bottomCenter,
+            body: Column(
               children: [
                 SingleChildScrollView(
                   child: Column(
                     children: [
-                      if (state is EditPostLoadingState)
+                      if (state is CreatePostLoadingState)
                         const LinearProgressIndicator(),
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                          20,
-                          20,
-                          20,
-                          0,
-                        ),
+                        padding: const EdgeInsets.only(
+                          top: 5,
+                          left: 20,
+                        ).r,
                         child: Row(
                           children: [
                             CircleAvatar(
-                              radius: 35,
-                              backgroundImage: NetworkImage(
-                                userModel.image,
+                              radius: 25.r,
+                              child: ImageWithShimmer(
+                                radius: 20.r,
+                                imageUrl: userModel.image,
+                                width: 50.w,
+                                height: 50.h,
+                                boxFit: BoxFit.fill,
                               ),
                             ),
-                            space(10, 0),
+                            SizedBox(width: 10.w),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   userModel.name,
-                                  style: GoogleFonts.roboto(
-                                    color: cubit.isDark
-                                        ? Colors.black
-                                        : Colors.white,
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                                  style: Theme.of(context).textTheme.titleLarge,
                                 ),
-                                space(0, 8),
                                 Row(
                                   children: [
                                     Icon(
@@ -138,19 +125,17 @@ class EditPosts extends StatelessWidget {
                                       color: cubit.isDark
                                           ? Colors.black
                                           : Colors.white,
+                                      size: 14.sp,
                                     ),
-                                    space(5, 0),
+                                    SizedBox(width: 5.w),
                                     Text(
                                       'public',
-                                      style: GoogleFonts.roboto(
-                                        textStyle: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(
-                                              color: Colors.grey,
-                                              fontSize: 16,
-                                            ),
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall!
+                                          .copyWith(
+                                            color: AppMainColors.greyColor,
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -159,23 +144,25 @@ class EditPosts extends StatelessWidget {
                           ],
                         ),
                       ),
-                      space(0, 10),
+                      SizedBox(height: 10.h),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 20).r,
                         child: TextFormField(
                           maxLines: 6,
-                          style: GoogleFonts.cairo(
-                            height: 1.5,
-                            color: cubit.isDark ? Colors.black : Colors.white,
-                            fontWeight: FontWeight.w700,
-                          ),
+                          minLines: 1,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge!
+                              .copyWith(color: AppMainColors.blackColor),
                           controller: post,
                           decoration: InputDecoration(
-                            hintText: ' \' What\'s on your mind ? \' ',
-                            hintStyle: GoogleFonts.roboto(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.w700,
-                            ),
+                            hintText: "' What's on your mind ? '",
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(
+                                  color: AppMainColors.greyColor,
+                                ),
                             border: InputBorder.none,
                           ),
                         ),
@@ -190,10 +177,11 @@ class EditPosts extends StatelessWidget {
                               child: Container(
                                 width: double.infinity,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(10).r,
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.grey.withOpacity(0.4),
+                                      color: AppMainColors.greyColor
+                                          .withOpacity(0.4),
                                     ),
                                   ],
                                 ),
@@ -203,7 +191,7 @@ class EditPosts extends StatelessWidget {
                                         child: Image(
                                           image:
                                               FileImage(cubit.postImagePicked!),
-                                          fit: BoxFit.cover,
+                                          fit: BoxFit.fitHeight,
                                         ),
                                       )
                                     : ClipRRect(
@@ -211,7 +199,7 @@ class EditPosts extends StatelessWidget {
                                         child: Image(
                                           image: NetworkImage(
                                               postModel.postImage!),
-                                          fit: BoxFit.cover,
+                                          fit: BoxFit.fitHeight,
                                         ),
                                       ),
                               ),
@@ -222,55 +210,57 @@ class EditPosts extends StatelessWidget {
                               },
                               icon: Container(
                                 decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.grey.withOpacity(0.4),
-                                          blurRadius: 9,
-                                          spreadRadius: 4,
-                                          offset: const Offset(0, 4))
-                                    ]),
-                                child: const CircleAvatar(
-                                  backgroundColor: Colors.black,
+                                  shape: BoxShape.circle,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: AppMainColors.greyColor
+                                          .withOpacity(0.4),
+                                      blurRadius: 9,
+                                      spreadRadius: 4,
+                                      offset: const Offset(0, 4),
+                                    )
+                                  ],
+                                ),
+                                child: CircleAvatar(
+                                  backgroundColor: AppMainColors.redColor,
                                   child: Icon(
                                     Icons.close_rounded,
                                     color: Colors.white,
+                                    size: 24.sp,
                                   ),
                                 ),
                               ),
-                            ),
+                            )
                           ],
                         ),
-                      space(0, 50),
                     ],
                   ),
                 ),
+                const Spacer(),
                 if (cubit.postImagePicked == null && postModel.postImage == '')
                   Row(
                     children: [
                       Expanded(
-                        child: OutlinedButton.icon(
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                              cubit.isDark
-                                  ? Colors.white
-                                  : const Color(0xff404258),
+                        child: SizedBox(
+                          height: 30.h,
+                          child: OutlinedButton.icon(
+                            style: OutlinedButton.styleFrom(
+                              backgroundColor: cubit.isDark
+                                  ? AppMainColors.titanWithColor
+                                  : AppColorsLight.primaryColor,
                             ),
-                          ),
-                          onPressed: () {
-                            cubit.getPostImage();
-                          },
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          label: Text(
-                            'Add photo'.toUpperCase(),
-                            style: GoogleFonts.roboto(
-                                fontSize: 20,
-                                color:
-                                    cubit.isDark ? Colors.blue : Colors.white),
-                          ),
-                          icon: Icon(
-                            IconlyLight.image,
-                            color: cubit.isDark ? Colors.blue : Colors.white,
+                            onPressed: () {
+                              cubit.getPostImage();
+                            },
+                            label: Text(
+                              'Add photo'.toUpperCase(),
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                            icon: Icon(
+                              IconlyLight.image,
+                              color: AppMainColors.titanWithColor,
+                              size: 24.sp,
+                            ),
                           ),
                         ),
                       ),
