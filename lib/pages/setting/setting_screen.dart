@@ -1,6 +1,6 @@
 import 'package:sociality/Pages/password/forget_password.dart';
 import 'package:sociality/Pages/profile/edit_profile_screen.dart';
-import 'package:sociality/Pages/profile/my_profile_screen.dart';
+import 'package:sociality/Pages/profile/user_profile_screen.dart';
 import 'package:sociality/pages/password/change_password.dart';
 import 'package:sociality/shared/components/logout.dart';
 import 'package:sociality/shared/components/navigator.dart';
@@ -51,7 +51,7 @@ class SettingScreen extends StatelessWidget {
                       onTap: () {
                         SocialCubit.get(context).getUserPosts(uId);
                         SocialCubit.get(context).getFriends(uId!);
-                        navigateTo(context, const MyProfileScreen());
+                        navigateTo(context, const UserProfileScreen());
                       },
                       child: Row(
                         children: [

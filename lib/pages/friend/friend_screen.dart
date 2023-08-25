@@ -1,5 +1,5 @@
 import 'package:sociality/Pages/friend/friends_profile_screen.dart';
-import 'package:sociality/Pages/profile/my_profile_screen.dart';
+import 'package:sociality/Pages/profile/user_profile_screen.dart';
 import 'package:sociality/model/user_model.dart';
 import 'package:sociality/shared/components/navigator.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
@@ -129,7 +129,7 @@ Widget chatBuildItem(context, UserModel model, bool myFriends) {
       if (SocialCubit.get(context).userModel!.uId == model.uId) {
         navigateTo(
           context,
-          const MyProfileScreen(),
+          const UserProfileScreen(),
         );
       } else {
         navigateTo(
