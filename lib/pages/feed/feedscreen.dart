@@ -1,10 +1,8 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:sociality/shared/components/image_with_shimmer.dart';
-import 'package:sociality/shared/components/indicator.dart';
 import 'package:sociality/shared/components/show_toast.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
-import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -96,10 +94,27 @@ class FeedScreen extends StatelessWidget {
                   );
                 },
                 fallback: (context) {
-                  return Center(
-                    child: AdaptiveIndicator(
-                      os: getOs(),
-                    ),
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      StoriesItem(cubit: cubit),
+                      CreatePosts(cubit: cubit),
+                      SizedBox(height: 40.h),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            IconlyLight.infoSquare,
+                            size: 100.sp,
+                            color: Colors.grey,
+                          ),
+                          Text(
+                            'No Posts yet',
+                            style: Theme.of(context).textTheme.headlineLarge,
+                          ),
+                        ],
+                      ),
+                    ],
                   );
                 },
               );
