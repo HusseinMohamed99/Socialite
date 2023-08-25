@@ -1,4 +1,6 @@
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:sociality/Pages/Login/login_screen.dart';
+import 'package:sociality/image_assets.dart';
 import 'package:sociality/shared/components/indicator.dart';
 import 'package:sociality/shared/components/show_toast.dart';
 import 'package:sociality/shared/cubit/restPasswordCubit/rest_password_cubit.dart';
@@ -9,9 +11,9 @@ import 'package:sociality/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sociality/shared/components/navigator.dart';
 import 'package:sociality/shared/components/text_form_field.dart';
+import 'package:sociality/shared/styles/color.dart';
 
 class RestPasswordScreen extends StatelessWidget {
   final loginFormKey = GlobalKey<FormState>();
@@ -31,31 +33,28 @@ class RestPasswordScreen extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          var cubit = SocialCubit.get(context);
+          SocialCubit cubit = SocialCubit.get(context);
           return Scaffold(
             extendBodyBehindAppBar: true,
             appBar: AppBar(
               elevation: 1,
               leading: IconButton(
+                icon: Icon(
+                  IconlyLight.arrowLeft2,
+                  size: 30.sp,
+                  color: cubit.isDark
+                      ? AppMainColors.blackColor
+                      : AppMainColors.titanWithColor,
+                ),
                 onPressed: () {
                   emailController.clear();
-                  pop(context);
+                  Navigator.pop(context);
                 },
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: cubit.isDark ? Colors.black : Colors.white,
-                ),
               ),
               titleSpacing: 1,
               title: Text(
                 'Forget Password',
-                style: GoogleFonts.roboto(
-                  textStyle: TextStyle(
-                    color: cubit.isDark ? Colors.black : Colors.white,
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
             body: Stack(
@@ -64,7 +63,8 @@ class RestPasswordScreen extends StatelessWidget {
                 Container(
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/images/Resetpassword.png'),
+                      fit: BoxFit.fitWidth,
+                      image: AssetImage(Assets.imagesResetpassword),
                     ),
                   ),
                 ),
@@ -80,12 +80,7 @@ class RestPasswordScreen extends StatelessWidget {
                           children: [
                             Text(
                               'Enter the E-mail address associated with your account',
-                              style: GoogleFonts.libreBaskerville(
-                                fontSize: 27.sp,
-                                fontWeight: FontWeight.w900,
-                                color:
-                                    cubit.isDark ? Colors.black : Colors.white,
-                              ),
+                              style: Theme.of(context).textTheme.headlineMedium,
                             ),
                           ],
                         ),
@@ -93,32 +88,26 @@ class RestPasswordScreen extends StatelessWidget {
                       Container(
                         height: 150.h,
                         width: double.infinity,
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                          15.r,
-                          20.r,
-                          15.r,
-                          0.r,
+                        padding: EdgeInsets.only(
+                          left: 15.r,
+                          top: 20.r,
+                          right: 15.r,
+                          bottom: 0.r,
                         ),
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
                               blurStyle: BlurStyle.outer,
-                              color: cubit.isDark
-                                  ? const Color(0xff404258)
-                                  : Colors.white,
+                              color: AppMainColors.greenColor,
                               blurRadius: 9,
                               spreadRadius: 10.r,
                               offset: const Offset(0, 1),
                             )
                           ],
-                          border: Border.all(
-                            color: cubit.isDark
-                                ? const Color(0xff404258)
-                                : Colors.white,
-                          ),
+                          border: Border.all(color: AppMainColors.dividerColor),
                           color: cubit.isDark
-                              ? Colors.white
-                              : const Color(0xff404258),
+                              ? AppMainColors.kittenWithColor
+                              : AppMainColors.greyColor,
                           borderRadius: const BorderRadius.only(
                             topRight: Radius.circular(50.0),
                             topLeft: Radius.circular(50.0),
@@ -129,11 +118,11 @@ class RestPasswordScreen extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              space(0, 10.h),
+                              SizedBox(height: 10.h),
                               DefaultTextFormField(
                                 controller: emailController,
                                 keyboardType: TextInputType.emailAddress,
-                                prefix: Icons.email,
+                                prefix: IconlyBroken.message,
                                 validate: (value) {
                                   if (value!.trim().isEmpty) {
                                     return 'Enter Your E-mail';
@@ -149,21 +138,18 @@ class RestPasswordScreen extends StatelessWidget {
                                         os: getOs(),
                                       ),
                                     )
-                                  : Container(
-                                      color: Colors.blue,
-                                      child: defaultTextButton(
-                                        context: context,
-                                        text: 'RESET PASSWORD',
-                                        function: () {
-                                          if (loginFormKey.currentState!
-                                              .validate()) {
-                                            ResetPasswordCubit.get(context)
-                                                .resetPassword(
-                                              email: emailController.text,
-                                            );
-                                          }
-                                        },
-                                      ),
+                                  : defaultTextButton(
+                                      context: context,
+                                      text: 'RESET PASSWORD',
+                                      function: () {
+                                        if (loginFormKey.currentState!
+                                            .validate()) {
+                                          ResetPasswordCubit.get(context)
+                                              .resetPassword(
+                                            email: emailController.text,
+                                          );
+                                        }
+                                      },
                                     ),
                             ],
                           ),
