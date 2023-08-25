@@ -124,10 +124,9 @@ class ShowModalBottomSheet extends StatelessWidget {
                               isPassword: cubit.iSPassword,
                             ),
                             SizedBox(height: 20.h),
-                            defaultMaterialButton(
+                            defaultTextButton(
                               context: context,
                               text: 'Change Password',
-                              textColor: AppMainColors.whiteColor,
                               function: () {
                                 if (formKey.currentState!.validate()) {
                                   cubit.changeUserPassword(
