@@ -60,3 +60,5 @@ class ChangeValueLoadingState extends LoginStates {}
 class ChangeValueSuccessState extends LoginStates {}
 
 class ChangeValueErrorState extends LoginStates {}
+
+class UserLoginSuccessState extends LoginStates {}
