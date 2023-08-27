@@ -1,10 +1,11 @@
 import 'package:socialite/model/user_model.dart';
 import 'package:socialite/pages/friend/friends_profile_screen.dart';
 import 'package:socialite/pages/profile/user_profile_screen.dart';
+import 'package:socialite/shared/components/image_with_shimmer.dart';
+import 'package:socialite/shared/components/my_divider.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
-import 'package:socialite/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -72,11 +73,10 @@ class _SearchScreenState extends State<SearchScreen> {
                 autofocus: true,
                 keyboardType: TextInputType.text,
                 enableInteractiveSelection: true,
-                style: GoogleFonts.libreBaskerville(
-                  color: SocialCubit.get(context).isDark
-                      ? Colors.black
-                      : Colors.white,
-                ),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge!
+                    .copyWith(color: AppMainColors.blueColor),
                 enableSuggestions: true,
                 scrollPhysics: const BouncingScrollPhysics(),
                 decoration: InputDecoration(
@@ -84,15 +84,15 @@ class _SearchScreenState extends State<SearchScreen> {
                   disabledBorder: InputBorder.none,
                   border: InputBorder.none,
                   hintText: 'Search',
-                  hintStyle: GoogleFonts.libreBaskerville(
-                    color: SocialCubit.get(context).isDark
-                        ? Colors.black
-                        : Colors.white,
+                  hintStyle: GoogleFonts.roboto(
+                    color: AppMainColors.greyColor,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
                 autocorrect: true,
                 validator: (value) {
-                  if (value!.isEmpty) {
+                  if (value!.trim().isEmpty) {
                     return 'The search can\'t be empty';
                   }
                   return null;
@@ -106,26 +106,23 @@ class _SearchScreenState extends State<SearchScreen> {
             body: foundUsers.isNotEmpty
                 ? ListView.separated(
                     itemBuilder: (context, index) =>
-                        singleUserBuilder(foundUsers[index], context),
-                    separatorBuilder: (context, index) => space(0, 0),
-                    itemCount: foundUsers.length)
+                        UsersBuilderItems(user: foundUsers[index]),
+                    separatorBuilder: (context, index) => const MyDivider(),
+                    itemCount: foundUsers.length,
+                  )
                 : Center(
                     child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(
-                        IconlyLight.search,
-                        color: Colors.grey,
-                        size: 60,
+                      Icon(
+                        IconlyBroken.search,
+                        color: AppMainColors.greyColor,
+                        size: 60.sp,
                       ),
-                      space(0, 15),
+                      SizedBox(height: 15.h),
                       Text(
                         'No result is found !',
-                        style: GoogleFonts.libreBaskerville(
-                          color: SocialCubit.get(context).isDark
-                              ? Colors.black
-                              : Colors.white,
-                        ),
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ],
                   )),
@@ -133,71 +130,79 @@ class _SearchScreenState extends State<SearchScreen> {
         },
         listener: (context, state) {});
   }
+}
 
-  Widget singleUserBuilder(UserModel user, BuildContext context) => Padding(
-        padding: const EdgeInsets.only(top: 12, left: 12, right: 12).r,
-        child: InkWell(
-          onTap: () {
-            if (user.uId != SocialCubit.get(context).userModel!.uId) {
-              navigateTo(
-                context,
-                FriendsProfileScreen(user.uId),
-              );
-              SocialCubit.get(context).getFriendsProfile(user.uId);
-            } else {
-              navigateTo(
-                context,
-                const UserProfileScreen(),
-              );
-            }
-          },
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                radius: 30,
-                backgroundImage: NetworkImage(
-                  user.image,
-                ),
+class UsersBuilderItems extends StatelessWidget {
+  const UsersBuilderItems({super.key, required this.user});
+  final UserModel user;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 12, left: 12, right: 12).r,
+      child: InkWell(
+        onTap: () {
+          if (user.uId != SocialCubit.get(context).userModel!.uId) {
+            navigateTo(
+              context,
+              FriendsProfileScreen(user.uId),
+            );
+            SocialCubit.get(context).getFriendsProfile(user.uId);
+          } else {
+            navigateTo(
+              context,
+              const UserProfileScreen(),
+            );
+          }
+        },
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: 30.r,
+              backgroundImage: NetworkImage(
+                user.image,
               ),
-              space(10, 0),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      user.name,
-                      textAlign: TextAlign.start,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.libreBaskerville(
-                        color: SocialCubit.get(context).isDark
-                            ? Colors.black
-                            : Colors.white,
-                      ),
-                    ),
-                    space(0, 5),
-                    Text(
-                      '${SocialCubit.get(context).users.length - 1} mutual friends',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontSize: 9,
-                          color: Colors.grey,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ],
-                ),
+              child: ImageWithShimmer(
+                imageUrl: user.image,
+                width: 50.w,
+                height: 50.h,
+                radius: 25.r,
+                boxFit: BoxFit.fill,
               ),
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    IconlyBroken.user2,
-                    color: Colors.grey,
-                  ))
-            ],
-          ),
+            ),
+            SizedBox(width: 10.w),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    user.name,
+                    textAlign: TextAlign.start,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  SizedBox(height: 5.h),
+                  Text(
+                    '${SocialCubit.get(context).users.length - 1} mutual friends',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          color: AppMainColors.greyColor,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(
+              IconlyBroken.user2,
+              color: AppMainColors.greyColor,
+              size: 24.sp,
+            ),
+          ],
         ),
-      );
+      ),
+    );
+  }
 }

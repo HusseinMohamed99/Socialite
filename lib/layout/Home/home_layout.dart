@@ -32,6 +32,7 @@ class HomeLayout extends StatelessWidget {
               actions: [
                 IconButton(
                   onPressed: () {
+                    cubit.getAllUsers();
                     navigateTo(
                       context,
                       const SearchScreen(),
