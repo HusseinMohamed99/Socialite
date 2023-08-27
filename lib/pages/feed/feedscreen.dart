@@ -173,7 +173,10 @@ class StoriesItem extends StatelessWidget {
                     const Spacer(),
                     Text(
                       "Create Story",
-                      style: Theme.of(context).textTheme.titleSmall,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall!
+                          .copyWith(color: AppMainColors.kittenWithColor),
                     ),
                     const Spacer(),
                   ],

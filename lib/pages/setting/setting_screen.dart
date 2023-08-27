@@ -1,16 +1,16 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/Pages/password/forget_password.dart';
-import 'package:socialite/Pages/profile/user_profile_screen.dart';
 import 'package:socialite/pages/password/change_password.dart';
 import 'package:socialite/pages/profile/edit_profile_screen.dart';
+import 'package:socialite/pages/profile/user_profile_screen.dart';
+import 'package:socialite/shared/components/constants.dart';
 import 'package:socialite/shared/components/image_with_shimmer.dart';
 import 'package:socialite/shared/components/logout.dart';
 import 'package:socialite/shared/components/my_divider.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
-import 'package:socialite/shared/components/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,52 +35,65 @@ class SettingScreen extends StatelessWidget {
               children: [
                 Card(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0).r,
-                    child: InkWell(
-                      onTap: () {
-                        SocialCubit.get(context).getUserPosts(uId);
-                        SocialCubit.get(context).getFriends(uId!);
-                        navigateTo(context, const UserProfileScreen());
-                      },
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 25.r,
-                            child: ImageWithShimmer(
-                              imageUrl: userModel.image,
-                              width: 50.w,
-                              height: 50.h,
-                              radius: 15.r,
-                            ),
+                    padding: const EdgeInsets.all(8).r,
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 25.r,
+                          child: ImageWithShimmer(
+                            imageUrl: userModel.image,
+                            width: 50.w,
+                            height: 50.h,
+                            radius: 15.r,
                           ),
-                          SizedBox(width: 10.w),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  userModel.name,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: Theme.of(context).textTheme.titleLarge,
-                                ),
-                                Text(
-                                  'See your profile',
+                        ),
+                        SizedBox(width: 10.w),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                userModel.name,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                              Text(
+                                'See your profile',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(color: AppMainColors.greyColor),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  // UrlUtils.urlLauncher(
+                                  //     "https://${userModel.portfolio}");
+                                },
+                                child: Text(
+                                  userModel.portfolio,
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodySmall!
-                                      .copyWith(color: AppMainColors.greyColor),
+                                      .bodyLarge!
+                                      .copyWith(color: AppMainColors.blueColor),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                          Icon(
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            SocialCubit.get(context).getUserPosts(uId);
+                            SocialCubit.get(context).getFriends(uId!);
+                            navigateTo(context, const UserProfileScreen());
+                          },
+                          icon: Icon(
                             IconlyLight.arrowRight2,
                             size: 24.sp,
                             color: AppMainColors.greyColor,
-                          )
-                        ],
-                      ),
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ),
@@ -95,7 +108,7 @@ class SettingScreen extends StatelessWidget {
                   iconData: IconlyBroken.profile,
                   text: 'Your Personal info',
                   function: () {
-                    navigateTo(context, EditProfileScreen());
+                    navigateTo(context, const EditProfileScreen());
                   },
                 ),
                 SettingsListItem(
