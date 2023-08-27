@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:socialite/shared/styles/color.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -57,7 +58,10 @@ class _SearchScreenState extends State<SearchScreen> {
               leading: IconButton(
                 icon: Icon(
                   IconlyBroken.arrowLeft2,
-                  color: cubit.isDark ? const Color(0xff404258) : Colors.white,
+                  size: 30.sp,
+                  color: cubit.isDark
+                      ? AppMainColors.blackColor
+                      : AppMainColors.titanWithColor,
                 ),
                 onPressed: () {
                   Navigator.pop(context);

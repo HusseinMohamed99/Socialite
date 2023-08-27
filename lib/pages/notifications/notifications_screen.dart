@@ -30,7 +30,7 @@ class NotificationScreen extends StatelessWidget {
                 elevation: 1,
                 leading: IconButton(
                   icon: Icon(
-                    IconlyLight.arrowLeft2,
+                    IconlyBroken.arrowLeft2,
                     size: 30.sp,
                     color: cubit.isDark
                         ? AppMainColors.blackColor
