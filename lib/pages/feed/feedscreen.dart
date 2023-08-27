@@ -88,7 +88,7 @@ class FeedScreen extends StatelessWidget {
                           Icon(
                             IconlyLight.infoSquare,
                             size: 100.sp,
-                            color: Colors.grey,
+                            color: AppMainColors.greyColor,
                           ),
                           Text(
                             'No Posts yet',
@@ -134,8 +134,9 @@ class StoriesItem extends StatelessWidget {
                 height: 140.h,
                 margin: EdgeInsetsDirectional.only(start: 8.r),
                 decoration: BoxDecoration(
-                    color: Colors.grey.withOpacity(0.3),
-                    borderRadius: BorderRadius.circular(17).r),
+                  color: AppMainColors.greyColor.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(17).r,
+                ),
                 child: Column(
                   children: [
                     SizedBox(
@@ -154,7 +155,8 @@ class StoriesItem extends StatelessWidget {
                           ),
                           CircleAvatar(
                             radius: 20.r,
-                            backgroundColor: Colors.grey.withOpacity(0.3),
+                            backgroundColor:
+                                AppMainColors.greyColor.withOpacity(0.3),
                             child: CircleAvatar(
                               radius: 18.r,
                               backgroundColor: AppMainColors.blueColor,
