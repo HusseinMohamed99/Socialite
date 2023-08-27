@@ -1,8 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socialite/model/user_model.dart';
-
-import 'email_verification_state.dart';
+import 'package:socialite/shared/components/constants.dart';
+import 'package:socialite/shared/cubit/EmailVerification/email_verification_state.dart';
 
 class EmailVerificationCubit extends Cubit<EmailVerificationStates> {
   EmailVerificationCubit() : super(EmailVerificationInitialState());
@@ -29,6 +30,11 @@ class EmailVerificationCubit extends Cubit<EmailVerificationStates> {
     await FirebaseAuth.instance.currentUser!.reload().then((value) {
       if (FirebaseAuth.instance.currentUser!.emailVerified) {
         isEmailVerified = true;
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(uId)
+            .update({'isEmailVerified': true}).then(
+                (value) => emit(EmailVerifiedSuccessfullyState()));
       }
       emit(ReloadSuccessState());
     }).catchError((error) {
