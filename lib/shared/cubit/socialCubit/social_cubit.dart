@@ -107,7 +107,7 @@ class SocialCubit extends Cubit<SocialStates> {
     FirebaseFirestore.instance.collection('users').doc(uId).get().then((value) {
       userModel = UserModel.fromJson(value.data()!);
       if (kDebugMode) {
-        print(userModel!.uId);
+        print(uId);
       }
       emit(GetUserDataSuccessState());
     }).catchError((error) {
@@ -141,15 +141,12 @@ class SocialCubit extends Cubit<SocialStates> {
 
   // ----------------------------------------------------------//
   ///START : setUserToken
-  void setUserToken() async {
+  void setUserToken(String? uId) async {
     emit(SetUSerTokenLoadingState());
     String? token = await FirebaseMessaging.instance.getToken();
     debugPrint(' token $token');
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userModel!.uId)
-        .update({'token': token}).then(
-            (value) => emit(SetUSerTokenSuccessState()));
+    await FirebaseFirestore.instance.collection('users').doc(uId).update(
+        {'token': token}).then((value) => emit(SetUSerTokenSuccessState()));
   }
 
   ///END : setUserToken

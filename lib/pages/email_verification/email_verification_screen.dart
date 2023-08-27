@@ -25,7 +25,7 @@ class EmailVerificationScreen extends StatelessWidget {
           if (state is ReloadSuccessState) {
             showToast(
               text: 'Create Account Successfully',
-              state: ToastStates.error,
+              state: ToastStates.success,
             );
           }
           if (state is ReloadErrorState) {
