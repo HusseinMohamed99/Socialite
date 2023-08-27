@@ -150,4 +150,39 @@ class LoginCubit extends Cubit<LoginStates> {
       emit(ChangeValueErrorState());
     });
   }
+
+  Future<void> signInWithGoogle() async {
+    GoogleSignInAccount? googleSignInAccount = await GoogleSignIn().signIn();
+    GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount!.authentication;
+    OAuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleSignInAuthentication.accessToken,
+      idToken: googleSignInAuthentication.idToken,
+    );
+    // userCredential mean data for user that i sign in with it
+    UserCredential user =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+    CacheHelper.saveData(
+      key: 'uid',
+      value: user.user!.uid,
+    ); // to save User ID on Cache to go to home directly second time
+    UserModel model = UserModel(
+      name: user.user!.displayName!,
+      email: user.user!.email!,
+      uId: user.user!.uid,
+      image: user.user!.photoURL!,
+      bio: "type your bio here",
+      portfolio: "",
+      phone: user.user!.phoneNumber!,
+      cover: user.user!.photoURL!,
+      isEmailVerified: user.user!.emailVerified,
+    );
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.user!.uid)
+        .set(model.toMap())
+        .then((value) {
+      emit(UserLoginSuccessState());
+    });
+  }
 }

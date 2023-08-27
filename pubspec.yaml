@@ -55,7 +55,7 @@ dependencies:
   story: ^1.1.0
   image_cropper: ^4.0.1
   awesome_dialog: ^3.1.0
-  url_launcher: ^6.1.12
+  url_launcher: ^6.1.6
 
 dev_dependencies:
   flutter_test:
