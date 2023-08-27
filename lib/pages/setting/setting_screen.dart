@@ -67,8 +67,9 @@ class SettingScreen extends StatelessWidget {
                               ),
                               InkWell(
                                 onTap: () {
-                                  // UrlUtils.urlLauncher(
-                                  //     "https://${userModel.portfolio}");
+                                  cubit.openWebsiteUrl(
+                                    websiteUrl: cubit.userModel!.portfolio,
+                                  );
                                 },
                                 child: Text(
                                   userModel.portfolio,

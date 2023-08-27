@@ -31,6 +31,7 @@ import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:socialite/shared/styles/color.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SocialCubit extends Cubit<SocialStates> {
   SocialCubit() : super(SocialInitialState());
@@ -477,6 +478,7 @@ class SocialCubit extends Cubit<SocialStates> {
   List<String> postsId = [];
   List<int> commentsNum = [];
   PostModel? postModel;
+
   void getPosts() {
     FirebaseFirestore.instance
         .collection('posts')
@@ -528,7 +530,7 @@ class SocialCubit extends Cubit<SocialStates> {
 
 // ----------------------------------------------------------//
   ///START : Likes
-
+  bool isLikedByMe = false;
   Future<bool> likeByMe({
     context,
     String? postId,
@@ -537,7 +539,7 @@ class SocialCubit extends Cubit<SocialStates> {
     required DateTime dataTime,
   }) async {
     emit(LikedByMeCheckedLoadingState());
-    bool isLikedByMe = false;
+
     FirebaseFirestore.instance
         .collection('posts')
         .doc(postId)
@@ -650,9 +652,6 @@ class SocialCubit extends Cubit<SocialStates> {
       peopleReacted = [];
       for (var element in value.docs) {
         peopleReacted.add(LikesModel.fromJson(element.data()));
-        if (kDebugMode) {
-          print(element.data());
-        }
       }
 
       emit(GetLikedUsersSuccessState());
@@ -1771,4 +1770,13 @@ class SocialCubit extends Cubit<SocialStates> {
   }
 
   ///END : notificationContent
+  ///
+  void openWebsiteUrl({required String websiteUrl}) async {
+    final url = Uri.parse(websiteUrl);
+    if (await canLaunchUrl(url) && websiteUrl != "") {
+      await launchUrl(url);
+    } else {
+      emit(ErrorDuringOpenWebsiteUrlState());
+    }
+  }
 }

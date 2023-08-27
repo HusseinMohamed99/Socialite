@@ -364,6 +364,8 @@ class GetNotificationsErrorState extends SocialStates {
 class SetUSerTokenLoadingState extends SocialStates {}
 
 class SetUSerTokenSuccessState extends SocialStates {}
+
+class ErrorDuringOpenWebsiteUrlState extends SocialStates {}
 ///END : Token
 
 //----------------------------------------------------//
