@@ -40,7 +40,7 @@ class RestPasswordScreen extends StatelessWidget {
               elevation: 1,
               leading: IconButton(
                 icon: Icon(
-                  IconlyLight.arrowLeft2,
+                  IconlyBroken.arrowLeft2,
                   size: 30.sp,
                   color: cubit.isDark
                       ? AppMainColors.blackColor
@@ -88,12 +88,12 @@ class RestPasswordScreen extends StatelessWidget {
                       Container(
                         height: 150.h,
                         width: double.infinity,
-                        padding: EdgeInsets.only(
-                          left: 15.r,
-                          top: 20.r,
-                          right: 15.r,
-                          bottom: 0.r,
-                        ),
+                        padding: const EdgeInsets.only(
+                          left: 15,
+                          top: 20,
+                          right: 15,
+                          bottom: 0,
+                        ).r,
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
@@ -107,7 +107,7 @@ class RestPasswordScreen extends StatelessWidget {
                           border: Border.all(color: AppMainColors.dividerColor),
                           color: cubit.isDark
                               ? AppMainColors.kittenWithColor
-                              : AppMainColors.greyColor,
+                              : AppMainColors.greyDarkColor,
                           borderRadius: const BorderRadius.only(
                             topRight: Radius.circular(50.0),
                             topLeft: Radius.circular(50.0),
