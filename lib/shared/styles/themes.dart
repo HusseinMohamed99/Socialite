@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sociality/shared/enum/enum.dart';
-import 'package:sociality/shared/styles/color.dart';
+import 'package:socialite/shared/enum/enum.dart';
+import 'package:socialite/shared/styles/color.dart';
 
 final getThemeData = {
   AppTheme.lightTheme: ThemeData(

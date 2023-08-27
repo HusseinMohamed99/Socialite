@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sociality/model/story_model.dart';
-import 'package:sociality/pages/story/veiw_story.dart';
-import 'package:sociality/shared/components/image_with_shimmer.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/styles/color.dart';
+import 'package:socialite/model/story_model.dart';
+import 'package:socialite/pages/story/veiw_story.dart';
+import 'package:socialite/shared/components/image_with_shimmer.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/styles/color.dart';
 
 class UserStories extends StatelessWidget {
   const UserStories({super.key, required this.storyModel});

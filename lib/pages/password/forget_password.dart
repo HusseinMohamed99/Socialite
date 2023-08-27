@@ -1,19 +1,19 @@
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:sociality/Pages/Login/login_screen.dart';
-import 'package:sociality/image_assets.dart';
-import 'package:sociality/shared/components/indicator.dart';
-import 'package:sociality/shared/components/show_toast.dart';
-import 'package:sociality/shared/cubit/restPasswordCubit/rest_password_cubit.dart';
-import 'package:sociality/shared/cubit/restPasswordCubit/rest_password_state.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/components/buttons.dart';
-import 'package:sociality/shared/components/constants.dart';
+import 'package:socialite/Pages/Login/login_screen.dart';
+import 'package:socialite/image_assets.dart';
+import 'package:socialite/shared/components/indicator.dart';
+import 'package:socialite/shared/components/show_toast.dart';
+import 'package:socialite/shared/cubit/restPasswordCubit/rest_password_cubit.dart';
+import 'package:socialite/shared/cubit/restPasswordCubit/rest_password_state.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/components/buttons.dart';
+import 'package:socialite/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sociality/shared/components/navigator.dart';
-import 'package:sociality/shared/components/text_form_field.dart';
-import 'package:sociality/shared/styles/color.dart';
+import 'package:socialite/shared/components/navigator.dart';
+import 'package:socialite/shared/components/text_form_field.dart';
+import 'package:socialite/shared/styles/color.dart';
 
 class RestPasswordScreen extends StatelessWidget {
   final loginFormKey = GlobalKey<FormState>();

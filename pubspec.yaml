@@ -1,4 +1,4 @@
-name: sociality
+name: socialite
 description: A new Flutter project.
 
 
@@ -53,7 +53,7 @@ dependencies:
   intl: ^0.18.1
   shimmer: ^3.0.0
   story: ^1.1.0
-  image_cropper: ^3.0.1
+  image_cropper: ^4.0.1
   awesome_dialog: ^3.1.0
 
 dev_dependencies:

@@ -47,30 +47,30 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCJwl8lf0TXLvvtLKOsXAjQ7VSDdNURTSw',
-    appId: '1:732112393517:web:f718c6fbcd830adc336fa4',
-    messagingSenderId: '732112393517',
-    projectId: 'sociality-f3dd1',
-    authDomain: 'sociality-f3dd1.firebaseapp.com',
-    storageBucket: 'sociality-f3dd1.appspot.com',
-    measurementId: 'G-90JHC9FQ4V',
+    apiKey: 'AIzaSyDxKlT0YUmcsC-mcaPY-tH-3RUCL2fxcxw',
+    appId: '1:133115175036:web:81dd75048e968407c669f9',
+    messagingSenderId: '133115175036',
+    projectId: 'socialite-2bd7a',
+    authDomain: 'socialite-2bd7a.firebaseapp.com',
+    storageBucket: 'socialite-2bd7a.appspot.com',
+    measurementId: 'G-75CVQCBWWW',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyC0VOtoxOpuIR-rWn5af-t8EJtPHJi6aAI',
-    appId: '1:732112393517:android:079c4affa81bf009336fa4',
-    messagingSenderId: '732112393517',
-    projectId: 'sociality-f3dd1',
-    storageBucket: 'sociality-f3dd1.appspot.com',
+    apiKey: 'AIzaSyCitNXb479NPTe5tkx8z-RTc1ABCIHfgoo',
+    appId: '1:133115175036:android:8df79b0da830b8f4c669f9',
+    messagingSenderId: '133115175036',
+    projectId: 'socialite-2bd7a',
+    storageBucket: 'socialite-2bd7a.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyABmGj0LmpOq7jYpj7f8XA0Jiqu64QvboA',
-    appId: '1:732112393517:ios:55a8c6841a086dd5336fa4',
-    messagingSenderId: '732112393517',
-    projectId: 'sociality-f3dd1',
-    storageBucket: 'sociality-f3dd1.appspot.com',
-    iosClientId: '732112393517-cp94ra29icq80dkiealv29b38m6jcggl.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDYPX8_lK1UxWOS3Y4I0emHwmOCOet2_Fw',
+    appId: '1:133115175036:ios:6eddcf7dc5964118c669f9',
+    messagingSenderId: '133115175036',
+    projectId: 'socialite-2bd7a',
+    storageBucket: 'socialite-2bd7a.appspot.com',
+    iosClientId: '133115175036-4283b2dbs85l04pourel21a9v72ek61b.apps.googleusercontent.com',
     iosBundleId: 'com.example.fApp',
   );
 }

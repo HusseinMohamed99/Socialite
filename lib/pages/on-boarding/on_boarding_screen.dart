@@ -1,13 +1,13 @@
 import 'package:flutter/services.dart';
-import 'package:sociality/Pages/Login/login_screen.dart';
-import 'package:sociality/Pages/Register/register_screen.dart';
-import 'package:sociality/shared/components/constants.dart';
+import 'package:socialite/Pages/Login/login_screen.dart';
+import 'package:socialite/Pages/Register/register_screen.dart';
+import 'package:socialite/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sociality/shared/components/navigator.dart';
-import 'package:sociality/shared/network/cache_helper.dart';
-import 'package:sociality/shared/styles/color.dart';
+import 'package:socialite/shared/components/navigator.dart';
+import 'package:socialite/shared/network/cache_helper.dart';
+import 'package:socialite/shared/styles/color.dart';
 
 class OnBoard extends StatefulWidget {
   const OnBoard({Key? key}) : super(key: key);

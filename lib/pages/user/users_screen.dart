@@ -1,15 +1,15 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sociality/model/user_model.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
+import 'package:socialite/model/user_model.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:sociality/shared/styles/color.dart';
-import 'package:sociality/shared/widget/friends_item.dart';
-import 'package:sociality/shared/widget/friends_requests.dart';
-import 'package:sociality/shared/widget/peoples_may_know.dart';
+import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/widget/friends_item.dart';
+import 'package:socialite/shared/widget/friends_requests.dart';
+import 'package:socialite/shared/widget/peoples_may_know.dart';
 
 class UserScreen extends StatefulWidget {
   const UserScreen({Key? key}) : super(key: key);

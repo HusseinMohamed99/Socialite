@@ -1,4 +1,4 @@
-package com.example.sociality
+package com.example.socialite
 
 import io.flutter.embedding.android.FlutterActivity
 

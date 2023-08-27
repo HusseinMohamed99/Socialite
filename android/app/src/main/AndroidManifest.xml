@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.sociality">
+    package="com.example.socialite">
         <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -21,7 +21,7 @@
     </queries>
 
     <application
-        android:label="Sociality"
+        android:label="socialite"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         android:requestLegacyExternalStorage="true"

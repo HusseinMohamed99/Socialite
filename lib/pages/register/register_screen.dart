@@ -1,23 +1,23 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sociality/image_assets.dart';
-import 'package:sociality/pages/Login/login_screen.dart';
-import 'package:sociality/pages/email_verification/email_verification_screen.dart';
-import 'package:sociality/shared/components/buttons.dart';
-import 'package:sociality/shared/components/constants.dart';
-import 'package:sociality/shared/components/indicator.dart';
-import 'package:sociality/shared/components/navigator.dart';
-import 'package:sociality/shared/components/show_toast.dart';
-import 'package:sociality/shared/components/text_form_field.dart';
-import 'package:sociality/shared/cubit/registerCubit/cubit.dart';
-import 'package:sociality/shared/cubit/registerCubit/state.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/network/cache_helper.dart';
+import 'package:socialite/image_assets.dart';
+import 'package:socialite/pages/Login/login_screen.dart';
+import 'package:socialite/pages/email_verification/email_verification_screen.dart';
+import 'package:socialite/shared/components/buttons.dart';
+import 'package:socialite/shared/components/constants.dart';
+import 'package:socialite/shared/components/indicator.dart';
+import 'package:socialite/shared/components/navigator.dart';
+import 'package:socialite/shared/components/show_toast.dart';
+import 'package:socialite/shared/components/text_form_field.dart';
+import 'package:socialite/shared/cubit/registerCubit/cubit.dart';
+import 'package:socialite/shared/cubit/registerCubit/state.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/network/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sociality/shared/styles/color.dart';
+import 'package:socialite/shared/styles/color.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({Key? key}) : super(key: key);

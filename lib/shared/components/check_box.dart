@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sociality/shared/cubit/loginCubit/cubit.dart';
-import 'package:sociality/shared/styles/color.dart';
+import 'package:socialite/shared/cubit/loginCubit/cubit.dart';
+import 'package:socialite/shared/styles/color.dart';
 
 Widget checkBox(BuildContext context, {Color? color}) {
   var cubit = LoginCubit.get(context);

@@ -1,20 +1,20 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sociality/Pages/password/forget_password.dart';
-import 'package:sociality/Pages/profile/user_profile_screen.dart';
-import 'package:sociality/pages/password/change_password.dart';
-import 'package:sociality/pages/profile/edit_profile_screen.dart';
-import 'package:sociality/shared/components/image_with_shimmer.dart';
-import 'package:sociality/shared/components/logout.dart';
-import 'package:sociality/shared/components/navigator.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
-import 'package:sociality/shared/components/constants.dart';
+import 'package:socialite/Pages/password/forget_password.dart';
+import 'package:socialite/Pages/profile/user_profile_screen.dart';
+import 'package:socialite/pages/password/change_password.dart';
+import 'package:socialite/pages/profile/edit_profile_screen.dart';
+import 'package:socialite/shared/components/image_with_shimmer.dart';
+import 'package:socialite/shared/components/logout.dart';
+import 'package:socialite/shared/components/navigator.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
+import 'package:socialite/shared/components/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:sociality/shared/styles/color.dart';
+import 'package:socialite/shared/styles/color.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({Key? key}) : super(key: key);

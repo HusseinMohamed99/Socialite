@@ -1,13 +1,13 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sociality/Pages/friend/friends_profile_screen.dart';
-import 'package:sociality/model/story_model.dart';
-import 'package:sociality/shared/components/image_with_shimmer.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
-import 'package:sociality/shared/components/constants.dart';
+import 'package:socialite/Pages/friend/friends_profile_screen.dart';
+import 'package:socialite/model/story_model.dart';
+import 'package:socialite/shared/components/image_with_shimmer.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
+import 'package:socialite/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sociality/shared/styles/color.dart';
+import 'package:socialite/shared/styles/color.dart';
 
 class ViewStory extends StatelessWidget {
   final StoryModel storyModel;

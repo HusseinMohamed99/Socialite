@@ -1,16 +1,16 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:sociality/shared/components/image_with_shimmer.dart';
-import 'package:sociality/shared/components/show_toast.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
+import 'package:socialite/shared/components/image_with_shimmer.dart';
+import 'package:socialite/shared/components/show_toast.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sociality/shared/styles/color.dart';
-import 'package:sociality/shared/widget/build_post_item.dart';
-import 'package:sociality/shared/widget/create_post.dart';
-import 'package:sociality/shared/widget/story_widget.dart';
+import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/widget/build_post_item.dart';
+import 'package:socialite/shared/widget/create_post.dart';
+import 'package:socialite/shared/widget/story_widget.dart';
 
 class FeedScreen extends StatelessWidget {
   const FeedScreen({Key? key}) : super(key: key);

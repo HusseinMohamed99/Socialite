@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sociality/model/user_model.dart';
-import 'package:sociality/pages/friend/friends_profile_screen.dart';
-import 'package:sociality/shared/components/image_with_shimmer.dart';
-import 'package:sociality/shared/components/navigator.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/styles/color.dart';
+import 'package:socialite/model/user_model.dart';
+import 'package:socialite/pages/friend/friends_profile_screen.dart';
+import 'package:socialite/shared/components/image_with_shimmer.dart';
+import 'package:socialite/shared/components/navigator.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/styles/color.dart';
 
 class PeoplesMayKnow extends StatelessWidget {
   const PeoplesMayKnow({super.key, required this.userModel});

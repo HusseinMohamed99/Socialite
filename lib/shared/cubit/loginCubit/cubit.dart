@@ -4,9 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:sociality/model/user_model.dart';
-import 'package:sociality/shared/cubit/loginCubit/state.dart';
-import 'package:sociality/shared/network/cache_helper.dart';
+import 'package:socialite/model/user_model.dart';
+import 'package:socialite/shared/cubit/loginCubit/state.dart';
+import 'package:socialite/shared/network/cache_helper.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
   LoginCubit() : super(LoginInitialState());

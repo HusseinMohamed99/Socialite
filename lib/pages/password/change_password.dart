@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sociality/shared/components/buttons.dart';
-import 'package:sociality/shared/components/text_form_field.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/styles/color.dart';
+import 'package:socialite/shared/components/buttons.dart';
+import 'package:socialite/shared/components/text_form_field.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/styles/color.dart';
 
 void bottomSheetChangePassword(
     {required BuildContext context, required SocialCubit cubit}) {

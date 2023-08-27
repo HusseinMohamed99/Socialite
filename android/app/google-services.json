@@ -1,37 +1,37 @@
 {
   "project_info": {
-    "project_number": "732112393517",
-    "project_id": "sociality-f3dd1",
-    "storage_bucket": "sociality-f3dd1.appspot.com"
+    "project_number": "133115175036",
+    "project_id": "socialite-2bd7a",
+    "storage_bucket": "socialite-2bd7a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:732112393517:android:079c4affa81bf009336fa4",
+        "mobilesdk_app_id": "1:133115175036:android:8df79b0da830b8f4c669f9",
         "android_client_info": {
-          "package_name": "com.example.sociality"
+          "package_name": "com.example.socialite"
         }
       },
       "oauth_client": [
         {
-          "client_id": "732112393517-lo1m2fklv8c8i8eltjk5ab6m2ffqn7jg.apps.googleusercontent.com",
+          "client_id": "133115175036-5gq5gonqu4qib1goh4jlrd3m2oomnte5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC0VOtoxOpuIR-rWn5af-t8EJtPHJi6aAI"
+          "current_key": "AIzaSyCitNXb479NPTe5tkx8z-RTc1ABCIHfgoo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "732112393517-lo1m2fklv8c8i8eltjk5ab6m2ffqn7jg.apps.googleusercontent.com",
+              "client_id": "133115175036-5gq5gonqu4qib1goh4jlrd3m2oomnte5.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "732112393517-cp94ra29icq80dkiealv29b38m6jcggl.apps.googleusercontent.com",
+              "client_id": "133115175036-4283b2dbs85l04pourel21a9v72ek61b.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.example.fApp"

@@ -1,20 +1,20 @@
-import 'package:sociality/firebase_options.dart';
-import 'package:sociality/layout/Home/home_layout.dart';
-import 'package:sociality/pages/Login/login_screen.dart';
-import 'package:sociality/pages/on-boarding/on_boarding_screen.dart';
-import 'package:sociality/shared/components/show_toast.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
-import 'package:sociality/shared/bloc_observer.dart';
+import 'package:socialite/firebase_options.dart';
+import 'package:socialite/layout/Home/home_layout.dart';
+import 'package:socialite/pages/Login/login_screen.dart';
+import 'package:socialite/pages/on-boarding/on_boarding_screen.dart';
+import 'package:socialite/shared/components/show_toast.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
+import 'package:socialite/shared/bloc_observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sociality/shared/enum/enum.dart';
-import 'package:sociality/shared/network/dio_helper.dart';
-import 'package:sociality/shared/styles/themes.dart';
+import 'package:socialite/shared/enum/enum.dart';
+import 'package:socialite/shared/network/dio_helper.dart';
+import 'package:socialite/shared/styles/themes.dart';
 import 'package:wakelock/wakelock.dart';
 import 'shared/components/constants.dart';
 import 'shared/network/cache_helper.dart';
@@ -105,7 +105,7 @@ class MyApp extends StatelessWidget {
             splitScreenMode: true,
             builder: (context, child) {
               return MaterialApp(
-                title: 'Sociality',
+                title: 'socialite',
                 theme: getThemeData[AppTheme.lightTheme],
                 darkTheme: getThemeData[AppTheme.darkTheme],
                 themeMode: uId == null

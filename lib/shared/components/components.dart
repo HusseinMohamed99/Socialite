@@ -1,4 +1,4 @@
-import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:flutter/material.dart';
 
 Widget baseAlertDialog({

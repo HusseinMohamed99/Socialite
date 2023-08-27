@@ -1,21 +1,21 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sociality/Pages/friend/friend_screen.dart';
-import 'package:sociality/Pages/profile/edit_profile_screen.dart';
-import 'package:sociality/shared/components/indicator.dart';
-import 'package:sociality/model/user_model.dart';
-import 'package:sociality/shared/components/my_divider.dart';
-import 'package:sociality/shared/components/navigator.dart';
-import 'package:sociality/shared/components/show_toast.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
-import 'package:sociality/shared/components/constants.dart';
+import 'package:socialite/Pages/friend/friend_screen.dart';
+import 'package:socialite/Pages/profile/edit_profile_screen.dart';
+import 'package:socialite/shared/components/indicator.dart';
+import 'package:socialite/model/user_model.dart';
+import 'package:socialite/shared/components/my_divider.dart';
+import 'package:socialite/shared/components/navigator.dart';
+import 'package:socialite/shared/components/show_toast.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
+import 'package:socialite/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:sociality/shared/styles/color.dart';
-import 'package:sociality/shared/widget/build_post_item.dart';
+import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/widget/build_post_item.dart';
 
 class UserProfileScreen extends StatelessWidget {
   const UserProfileScreen({Key? key}) : super(key: key);

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sociality/model/post_model.dart';
-import 'package:sociality/pages/post/edit_post.dart';
-import 'package:sociality/shared/components/navigator.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/styles/color.dart';
+import 'package:socialite/model/post_model.dart';
+import 'package:socialite/pages/post/edit_post.dart';
+import 'package:socialite/shared/components/navigator.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/styles/color.dart';
 
 Future<dynamic> moreOption(BuildContext context, SocialCubit cubit,
     String postId, PostModel postModel) {

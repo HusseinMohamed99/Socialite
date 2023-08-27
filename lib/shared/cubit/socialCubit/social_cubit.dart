@@ -3,25 +3,25 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_cropper/image_cropper.dart';
-import 'package:sociality/pages/chat/chat_screen.dart';
-import 'package:sociality/pages/feed/feedscreen.dart';
-import 'package:sociality/pages/setting/setting_screen.dart';
-import 'package:sociality/pages/user/users_screen.dart';
-import 'package:sociality/model/comment_model.dart';
-import 'package:sociality/model/likes_model.dart';
-import 'package:sociality/model/message_model.dart';
-import 'package:sociality/model/notifications_model.dart';
-import 'package:sociality/model/post_model.dart';
-import 'package:sociality/model/story_model.dart';
-import 'package:sociality/model/user_model.dart';
-import 'package:sociality/pages/on-boarding/on_boarding_screen.dart';
-import 'package:sociality/pages/story/create_story.dart';
-import 'package:sociality/pages/story/stories_screen.dart';
-import 'package:sociality/shared/components/constants.dart';
-import 'package:sociality/shared/components/navigator.dart';
-import 'package:sociality/shared/components/show_toast.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
-import 'package:sociality/shared/network/cache_helper.dart';
+import 'package:socialite/pages/chat/chat_screen.dart';
+import 'package:socialite/pages/feed/feedscreen.dart';
+import 'package:socialite/pages/setting/setting_screen.dart';
+import 'package:socialite/pages/user/users_screen.dart';
+import 'package:socialite/model/comment_model.dart';
+import 'package:socialite/model/likes_model.dart';
+import 'package:socialite/model/message_model.dart';
+import 'package:socialite/model/notifications_model.dart';
+import 'package:socialite/model/post_model.dart';
+import 'package:socialite/model/story_model.dart';
+import 'package:socialite/model/user_model.dart';
+import 'package:socialite/pages/on-boarding/on_boarding_screen.dart';
+import 'package:socialite/pages/story/create_story.dart';
+import 'package:socialite/pages/story/stories_screen.dart';
+import 'package:socialite/shared/components/constants.dart';
+import 'package:socialite/shared/components/navigator.dart';
+import 'package:socialite/shared/components/show_toast.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
+import 'package:socialite/shared/network/cache_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +30,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:sociality/shared/styles/color.dart';
+import 'package:socialite/shared/styles/color.dart';
 
 class SocialCubit extends Cubit<SocialStates> {
   SocialCubit() : super(SocialInitialState());
@@ -782,7 +782,7 @@ class SocialCubit extends Cubit<SocialStates> {
   ///START : SaveToGallery
   void saveToGallery(String imageUrl) {
     emit(SavedToGalleryLoadingState());
-    GallerySaver.saveImage(imageUrl, albumName: 'Sociality').then((value) {
+    GallerySaver.saveImage(imageUrl, albumName: 'socialite').then((value) {
       emit(SavedToGallerySuccessState());
     }).catchError((error) {
       debugPrint("${error.toString()} from saveToGallery");

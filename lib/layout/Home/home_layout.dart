@@ -1,16 +1,16 @@
 import 'package:badges/badges.dart' as badges;
 import 'package:badges/badges.dart';
-import 'package:sociality/Pages/notifications/notifications_screen.dart';
-import 'package:sociality/Pages/search/search_screen.dart';
-import 'package:sociality/shared/components/navigator.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
+import 'package:socialite/Pages/notifications/notifications_screen.dart';
+import 'package:socialite/Pages/search/search_screen.dart';
+import 'package:socialite/shared/components/navigator.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sociality/shared/styles/color.dart';
-import 'package:sociality/shared/widget/drawer_widget.dart';
+import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/widget/drawer_widget.dart';
 
 class HomeLayout extends StatelessWidget {
   const HomeLayout({Key? key}) : super(key: key);

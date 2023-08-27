@@ -2,14 +2,14 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sociality/pages/story/veiw_story.dart';
-import 'package:sociality/shared/components/constants.dart';
-import 'package:sociality/shared/components/image_with_shimmer.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
-import 'package:sociality/shared/styles/color.dart';
-import 'package:sociality/shared/widget/build_stories_item.dart';
-import 'package:sociality/shared/widget/user_stories.dart';
+import 'package:socialite/pages/story/veiw_story.dart';
+import 'package:socialite/shared/components/constants.dart';
+import 'package:socialite/shared/components/image_with_shimmer.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
+import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/widget/build_stories_item.dart';
+import 'package:socialite/shared/widget/user_stories.dart';
 
 class StoryScreen extends StatelessWidget {
   const StoryScreen({Key? key}) : super(key: key);

@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sociality/model/comment_model.dart';
-import 'package:sociality/model/post_model.dart';
-import 'package:sociality/model/user_model.dart';
-import 'package:sociality/pages/post_like/likes_screen.dart';
-import 'package:sociality/shared/components/constants.dart';
-import 'package:sociality/shared/components/image_with_shimmer.dart';
-import 'package:sociality/shared/components/my_divider.dart';
-import 'package:sociality/shared/components/navigator.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
-import 'package:sociality/shared/styles/color.dart';
+import 'package:socialite/model/comment_model.dart';
+import 'package:socialite/model/post_model.dart';
+import 'package:socialite/model/user_model.dart';
+import 'package:socialite/pages/post_like/likes_screen.dart';
+import 'package:socialite/shared/components/constants.dart';
+import 'package:socialite/shared/components/image_with_shimmer.dart';
+import 'package:socialite/shared/components/my_divider.dart';
+import 'package:socialite/shared/components/navigator.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
+import 'package:socialite/shared/styles/color.dart';
 
 class CommentsScreen extends StatelessWidget {
   final int? likes;

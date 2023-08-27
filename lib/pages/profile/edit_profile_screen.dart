@@ -1,9 +1,9 @@
 import 'dart:io';
-import 'package:sociality/shared/components/navigator.dart';
-import 'package:sociality/shared/components/text_form_field.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
-import 'package:sociality/shared/cubit/socialCubit/social_state.dart';
-import 'package:sociality/shared/components/constants.dart';
+import 'package:socialite/shared/components/navigator.dart';
+import 'package:socialite/shared/components/text_form_field.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
+import 'package:socialite/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
