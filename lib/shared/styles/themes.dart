@@ -9,6 +9,7 @@ final getThemeData = {
   AppTheme.lightTheme: ThemeData(
     scaffoldBackgroundColor: AppMainColors.titanWithColor,
     primarySwatch: Colors.blue,
+    cardColor: AppMainColors.titanWithColor,
     appBarTheme: AppBarTheme(
       titleSpacing: 20.0,
       systemOverlayStyle: const SystemUiOverlayStyle(
@@ -155,7 +156,7 @@ final getThemeData = {
       ),
     ),
     iconTheme: const IconThemeData(
-      color: AppMainColors.whiteColor,
+      color: AppMainColors.greyColor,
     ),
     inputDecorationTheme: InputDecorationTheme(
       labelStyle: GoogleFonts.roboto(
