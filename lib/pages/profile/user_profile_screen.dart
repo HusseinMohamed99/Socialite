@@ -45,22 +45,23 @@ class UserProfileScreen extends StatelessWidget {
         return SocialCubit.get(context).userModel == null
             ? Scaffold(
                 body: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      IconlyLight.infoSquare,
-                      size: 100.sp,
-                      color: AppMainColors.greyColor,
-                    ),
-                    Text(
-                      'No Posts yet',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    const CircularProgressIndicator(),
-                  ],
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        IconlyLight.infoSquare,
+                        size: 100.sp,
+                        color: AppMainColors.greyColor,
+                      ),
+                      Text(
+                        'No Posts yet',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      const CircularProgressIndicator(),
+                    ],
+                  ),
                 ),
-              ))
+              )
             : AnnotatedRegion<SystemUiOverlayStyle>(
                 value: const SystemUiOverlayStyle(
                   statusBarColor: Colors.transparent,

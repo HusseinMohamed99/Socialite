@@ -8,6 +8,7 @@ import 'package:sociality/shared/components/buttons.dart';
 import 'package:sociality/shared/components/constants.dart';
 import 'package:sociality/shared/components/indicator.dart';
 import 'package:sociality/shared/components/navigator.dart';
+import 'package:sociality/shared/components/show_toast.dart';
 import 'package:sociality/shared/components/text_form_field.dart';
 import 'package:sociality/shared/cubit/registerCubit/cubit.dart';
 import 'package:sociality/shared/cubit/registerCubit/state.dart';
@@ -15,9 +16,7 @@ import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:sociality/shared/network/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sociality/shared/styles/color.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -47,99 +46,88 @@ class RegisterScreen extends StatelessWidget {
             SocialCubit.get(context).getStories();
             SocialCubit.get(context).setUserToken();
           }
+          if (state is UserCreateErrorState) {
+            showToast(
+              text: state.error,
+              state: ToastStates.error,
+            );
+          }
         },
         builder: (context, state) {
-          return Scaffold(
-            backgroundColor: SocialCubit.get(context).isDark
-                ? AppColorsLight.primaryColor
-                : AppColorsDark.primaryDarkColor,
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              systemOverlayStyle: const SystemUiOverlayStyle(
-                statusBarColor: Colors.transparent,
-                statusBarIconBrightness: Brightness.light,
-                statusBarBrightness: Brightness.dark,
-              ),
-              elevation: 0,
-              leading: Navigator.canPop(context)
-                  ? IconButton(
-                      onPressed: () {
-                        if (Navigator.canPop(context)) {
-                          pop(context);
-                        }
-                      },
-                      icon: Icon(
-                        IconlyLight.arrowLeft2,
-                        size: 30.sp,
-                        color: AppMainColors.whiteColor,
-                      ),
-                    )
-                  : const Text(''),
+          return AnnotatedRegion<SystemUiOverlayStyle>(
+            value: const SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
             ),
-            body: Form(
-              key: formKey,
-              child: Column(
-                children: [
-                  Expanded(
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: SvgPicture.asset(Assets.imagesGroup1320),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: SvgPicture.asset(
-                              Assets.imagesAchievementMonochromatic),
-                        ),
-                      ],
+            child: Scaffold(
+              backgroundColor: SocialCubit.get(context).isDark
+                  ? AppColorsLight.primaryColor
+                  : AppColorsDark.primaryDarkColor,
+              body: Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: SvgPicture.asset(Assets.imagesGroup1320),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: SvgPicture.asset(
+                                Assets.imagesAchievementMonochromatic),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    flex: 4,
-                    child: Container(
-                      padding: const EdgeInsets.all(15),
-                      decoration: BoxDecoration(
+                    Expanded(
+                      flex: 3,
+                      child: Container(
+                        padding: const EdgeInsets.all(15),
+                        decoration: BoxDecoration(
                           color: SocialCubit.get(context).isDark
                               ? AppMainColors.whiteColor
                               : AppMainColors.titanWithColor,
                           borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(25),
                             topRight: Radius.circular(25),
-                          ).r),
-                      alignment: Alignment.topCenter,
-                      child: SingleChildScrollView(
-                        child: Column(
+                          ).r,
+                        ),
+                        alignment: Alignment.topCenter,
+                        child: SingleChildScrollView(
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
                                 'Sign Up Now',
-                                style: GoogleFonts.roboto(
-                                  textStyle: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 40.sp,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineLarge!
+                                    .copyWith(
+                                      color: AppMainColors.blackColor,
+                                      fontWeight: FontWeight.w600,
+                                    ),
                               ),
                               SizedBox(height: 10.h),
                               Text(
                                 'Please enter your information',
-                                style: GoogleFonts.roboto(
-                                  textStyle: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .copyWith(
+                                      color: AppMainColors.greyColor,
+                                      fontWeight: FontWeight.w600,
+                                    ),
                               ),
-                              space(0, 20.h),
+                              SizedBox(height: 20.h),
                               DefaultTextFormField(
                                 controller: nameController,
                                 keyboardType: TextInputType.name,
                                 prefix: Icons.person,
                                 validate: (String? value) {
-                                  if (value!.isEmpty) {
-                                    return 'Please enter name';
+                                  if (value!.trim().isEmpty ||
+                                      value.length < 3) {
+                                    return 'Please enter a valid name';
                                   }
                                   return null;
                                 },
@@ -151,8 +139,9 @@ class RegisterScreen extends StatelessWidget {
                                 keyboardType: TextInputType.emailAddress,
                                 prefix: Icons.email,
                                 validate: (String? value) {
-                                  if (value!.isEmpty) {
-                                    return 'Please enter email';
+                                  if (value!.trim().isEmpty ||
+                                      value.length < 13) {
+                                    return 'Please enter a valid email';
                                   }
                                   return null;
                                 },
@@ -164,8 +153,10 @@ class RegisterScreen extends StatelessWidget {
                                 keyboardType: TextInputType.phone,
                                 prefix: Icons.phone,
                                 validate: (String? value) {
-                                  if (value!.isEmpty) {
-                                    return 'Please enter phone';
+                                  if (value!.trim().isEmpty ||
+                                      value.length < 11 ||
+                                      value.length > 11) {
+                                    return 'An Egyptian phone number consisting of 11 digits';
                                   }
                                   return null;
                                 },
@@ -183,16 +174,15 @@ class RegisterScreen extends StatelessWidget {
                                   RegisterCubit.get(context).changePassword();
                                 },
                                 validate: (String? value) {
-                                  if (value!.isEmpty) {
-                                    return 'Please enter password';
+                                  if (value!.trim().isEmpty ||
+                                      value.trim().length < 6) {
+                                    return 'Please enter a valid password';
                                   }
                                   return null;
                                 },
-                                label: 'Password',
+                                label: '*******',
                               ),
-                              SizedBox(
-                                height: 15.h,
-                              ),
+                              SizedBox(height: 15.h),
                               RegisterCubit.get(context).isCheck
                                   ? ConditionalBuilder(
                                       condition: state is! RegisterLoadingState,
@@ -213,7 +203,7 @@ class RegisterScreen extends StatelessWidget {
                                           },
                                           text: 'Sign Up',
                                           textColor: AppMainColors.whiteColor,
-                                          radius: 15,
+                                          radius: 10.r,
                                           context: context,
                                         );
                                       },
@@ -231,7 +221,7 @@ class RegisterScreen extends StatelessWidget {
                                       height: 48.h,
                                       decoration: BoxDecoration(
                                         borderRadius:
-                                            BorderRadius.circular(15).r,
+                                            BorderRadius.circular(10).r,
                                         color: AppMainColors.mainColor
                                             .withOpacity(0.4),
                                       ),
@@ -241,8 +231,8 @@ class RegisterScreen extends StatelessWidget {
                                             .textTheme
                                             .headlineSmall!
                                             .copyWith(
-                                                color:
-                                                    AppMainColors.whiteColor),
+                                              color: AppMainColors.whiteColor,
+                                            ),
                                       ),
                                     ),
                               Column(
@@ -260,14 +250,13 @@ class RegisterScreen extends StatelessWidget {
                                             .textTheme
                                             .labelLarge!
                                             .copyWith(
-                                                color:
-                                                    AppMainColors.blackColor),
+                                              color: AppMainColors.blackColor,
+                                            ),
                                       ),
                                     ],
                                   ),
                                   Padding(
-                                    padding:
-                                        const EdgeInsets.only(left: 45.0).r,
+                                    padding: const EdgeInsets.only(left: 45).r,
                                     child: Text(
                                       'Term and Conditions',
                                       style: Theme.of(context)
@@ -304,11 +293,13 @@ class RegisterScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                            ]),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );

@@ -27,11 +27,12 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  ScreenUtil.ensureScreenSize();
-  Wakelock.enable();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  ScreenUtil.ensureScreenSize();
+  Wakelock.enable();
+
   Bloc.observer = MyBlocObserver();
   await CacheHelper.init();
   DioHelper.init();
@@ -86,10 +87,6 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => SocialCubit()
-            ..getUserData()
-            ..getPosts()
-            ..getAllUsers()
-            ..getStories()
             ..changeAppMode(
               fromShared: isDark,
             ),

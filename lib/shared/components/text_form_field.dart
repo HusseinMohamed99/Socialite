@@ -26,6 +26,7 @@ class DefaultTextFormField extends StatelessWidget {
     this.prefixPressed,
     this.maxLines,
     this.minLines,
+    this.obscuringCharacter,
   });
 
   final TextEditingController controller;
@@ -48,10 +49,12 @@ class DefaultTextFormField extends StatelessWidget {
   final Color? color;
   final int? maxLines;
   final int? minLines;
+  final String? obscuringCharacter;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      obscuringCharacter: obscuringCharacter ?? '*',
       onEditingComplete: onEditingComplete,
       style: Theme.of(context)
           .textTheme

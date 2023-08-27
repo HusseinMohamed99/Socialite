@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:sociality/layout/Home/home_layout.dart';
 import 'package:sociality/shared/components/indicator.dart';
+import 'package:sociality/shared/components/show_toast.dart';
 import 'package:sociality/shared/cubit/EmailVerification/email_verification_cubit.dart';
 import 'package:sociality/shared/cubit/EmailVerification/email_verification_state.dart';
 import 'package:sociality/shared/cubit/socialCubit/social_cubit.dart';
@@ -20,7 +21,20 @@ class EmailVerificationScreen extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => EmailVerificationCubit(),
       child: BlocConsumer<EmailVerificationCubit, EmailVerificationStates>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is ReloadSuccessState) {
+            showToast(
+              text: 'Create Account Successfully',
+              state: ToastStates.error,
+            );
+          }
+          if (state is ReloadErrorState) {
+            showToast(
+              text: state.errorString!,
+              state: ToastStates.error,
+            );
+          }
+        },
         builder: (context, state) {
           EmailVerificationCubit cubit = EmailVerificationCubit.get(context);
           SocialCubit.get(context).getUserData();
