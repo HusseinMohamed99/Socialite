@@ -49,7 +49,7 @@ class UserProfileScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
-                        IconlyLight.infoSquare,
+                        IconlyBroken.infoSquare,
                         size: 100.sp,
                         color: AppMainColors.greyColor,
                       ),
@@ -151,7 +151,7 @@ class ProfileInfo extends StatelessWidget {
                     ).r,
                   ),
                   width: double.infinity,
-                  height: 230,
+                  height: 200.h,
                   child: imagePreview(
                     userModel!.cover,
                   ),
@@ -175,7 +175,7 @@ class ProfileInfo extends StatelessWidget {
                   icon: CircleAvatar(
                     backgroundColor: AppMainColors.greyDarkColor,
                     child: Icon(
-                      IconlyLight.arrowLeft2,
+                      IconlyBroken.arrowLeft2,
                       size: 24.sp,
                       color: AppMainColors.titanWithColor,
                     ),

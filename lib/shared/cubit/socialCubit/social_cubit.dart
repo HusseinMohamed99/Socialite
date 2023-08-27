@@ -227,6 +227,7 @@ class SocialCubit extends Cubit<SocialStates> {
     required String phone,
     required String name,
     required String bio,
+    required String portfolio,
   }) {
     emit(UpdateUserLoadingState());
     firebase_storage.FirebaseStorage.instance
@@ -242,6 +243,7 @@ class SocialCubit extends Cubit<SocialStates> {
           name: name,
           bio: bio,
           image: value,
+          portfolio: portfolio,
         );
       }).catchError((error) {
         emit(UploadProfileImageErrorState());
@@ -260,6 +262,7 @@ class SocialCubit extends Cubit<SocialStates> {
     required String phone,
     required String name,
     required String bio,
+    required String portfolio,
   }) {
     emit(UpdateUserLoadingState());
     firebase_storage.FirebaseStorage.instance
@@ -274,6 +277,7 @@ class SocialCubit extends Cubit<SocialStates> {
           name: name,
           bio: bio,
           cover: value,
+          portfolio: portfolio,
         );
       }).catchError((error) {
         emit(UploadCoverImageErrorState());
@@ -292,6 +296,7 @@ class SocialCubit extends Cubit<SocialStates> {
     required String phone,
     required String name,
     required String bio,
+    required String portfolio,
   }) {
     emit(UpdateUserLoadingState());
     firebase_storage.FirebaseStorage.instance
@@ -307,6 +312,7 @@ class SocialCubit extends Cubit<SocialStates> {
           name: name,
           bio: bio,
           image: value,
+          portfolio: portfolio,
         );
       }).catchError((error) {
         emit(UploadProfileImageErrorState());
@@ -327,6 +333,7 @@ class SocialCubit extends Cubit<SocialStates> {
           name: name,
           bio: bio,
           cover: value,
+          portfolio: portfolio,
         );
       }).catchError((error) {
         emit(UploadCoverImageErrorState());
@@ -346,6 +353,7 @@ class SocialCubit extends Cubit<SocialStates> {
     required String phone,
     required String name,
     required String bio,
+    required String portfolio,
     String? image,
     String? cover,
   }) {
@@ -355,6 +363,7 @@ class SocialCubit extends Cubit<SocialStates> {
       phone: phone,
       name: name,
       bio: bio,
+      portfolio: portfolio,
       cover: cover ?? userModel!.cover,
       image: image ?? userModel!.image,
       uId: userModel!.uId,
@@ -365,6 +374,7 @@ class SocialCubit extends Cubit<SocialStates> {
         .doc(userModel!.uId)
         .update(model.toMap())
         .then((value) {
+      emit(UpdateUserSuccessState());
       getUserData();
     }).catchError((error) {
       emit(UpdateUserErrorState());

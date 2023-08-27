@@ -1,5 +1,8 @@
 import 'dart:io';
+import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/shared/components/navigator.dart';
+import 'package:socialite/shared/components/show_toast.dart';
 import 'package:socialite/shared/components/text_form_field.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
@@ -8,19 +11,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:socialite/shared/styles/color.dart';
 
 class EditProfileScreen extends StatelessWidget {
-  final emailController = TextEditingController();
-  final bioController = TextEditingController();
-  final nameController = TextEditingController();
-  final phoneController = TextEditingController();
-
-  EditProfileScreen({Key? key}) : super(key: key);
+  const EditProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController bioController = TextEditingController();
+    final TextEditingController nameController = TextEditingController();
+    final TextEditingController phoneController = TextEditingController();
+    final TextEditingController portfolioController = TextEditingController();
     return BlocConsumer<SocialCubit, SocialStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is UpdateUserSuccessState) {
+          showToast(
+              text: 'Update Data Successfully', state: ToastStates.success);
+        }
+      },
       builder: (context, state) {
         var userModel = SocialCubit.get(context).userModel;
         File? profileImage = SocialCubit.get(context).profileImage;
@@ -30,30 +39,31 @@ class EditProfileScreen extends StatelessWidget {
         bioController.text = userModel.bio;
         nameController.text = userModel.name;
         phoneController.text = userModel.phone;
+        portfolioController.text = userModel.portfolio;
 
         return SocialCubit.get(context).userModel == null
             ? Scaffold(
                 body: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Icon(
-                      IconlyLight.infoSquare,
-                      size: 100,
-                      color: Colors.grey,
-                    ),
-                    Text(
-                      'No Posts yet',
-                      style: GoogleFonts.libreBaskerville(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 30,
-                        color: Colors.grey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        IconlyBroken.infoSquare,
+                        size: 100.sp,
+                        color: AppMainColors.greyColor,
                       ),
-                    ),
-                  ],
+                      Text(
+                        'User Nullable',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                    ],
+                  ),
                 ),
-              ))
-            : SafeArea(
+              )
+            : AnnotatedRegion<SystemUiOverlayStyle>(
+                value: const SystemUiOverlayStyle(
+                  statusBarColor: Colors.transparent,
+                ),
                 child: Scaffold(
                   body: Column(
                     children: [
@@ -62,7 +72,7 @@ class EditProfileScreen extends StatelessWidget {
                           child: Column(
                             children: [
                               SizedBox(
-                                height: 240,
+                                height: 220.h,
                                 child: Stack(
                                   alignment: AlignmentDirectional.bottomCenter,
                                   children: [
@@ -70,44 +80,68 @@ class EditProfileScreen extends StatelessWidget {
                                       alignment: AlignmentDirectional.topCenter,
                                       child: Stack(
                                         children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                fit: BoxFit.cover,
-                                                image: coverImage == null
-                                                    ? NetworkImage(
-                                                        userModel.cover)
-                                                    : FileImage(coverImage)
-                                                        as ImageProvider,
-                                              ),
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(8.0),
-                                                topRight: Radius.circular(8.0),
-                                              ),
-                                            ),
-                                            width: double.infinity,
-                                            height: 200,
+                                          Align(
+                                            alignment:
+                                                AlignmentDirectional.topCenter,
+                                            child: coverImage == null
+                                                ? Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                              .only(
+                                                        topLeft:
+                                                            Radius.circular(8),
+                                                        topRight:
+                                                            Radius.circular(8),
+                                                      ).r,
+                                                    ),
+                                                    width: double.infinity,
+                                                    height: 200.h,
+                                                    child: imagePreview(
+                                                      userModel.cover,
+                                                    ),
+                                                  )
+                                                : Container(
+                                                    decoration: BoxDecoration(
+                                                      image: DecorationImage(
+                                                        fit: BoxFit.cover,
+                                                        image: FileImage(
+                                                          coverImage,
+                                                        ),
+                                                      ),
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                              .only(
+                                                        topLeft:
+                                                            Radius.circular(8),
+                                                        topRight:
+                                                            Radius.circular(8),
+                                                      ).r,
+                                                    ),
+                                                    width: double.infinity,
+                                                    height: 200.h,
+                                                    child: imagePreview(
+                                                      userModel.cover,
+                                                    ),
+                                                  ),
                                           ),
                                           Positioned(
-                                            bottom: 10,
-                                            right: 10,
+                                            bottom: 30.h,
+                                            right: 10.w,
                                             child: CircleAvatar(
-                                              radius: 25,
-                                              backgroundColor: cubit.isDark
-                                                  ? Colors.grey.shade50
-                                                  : const Color(0xff404258),
+                                              radius: 22.r,
+                                              backgroundColor:
+                                                  AppMainColors.greyColor,
                                               child: IconButton(
                                                 splashRadius: 1,
                                                 onPressed: () {
                                                   cubit.getCoverImage();
                                                 },
                                                 icon: Icon(
-                                                  IconlyLight.camera,
-                                                  color: cubit.isDark
-                                                      ? Colors.black
-                                                      : Colors.white,
-                                                  size: 30,
+                                                  IconlyBroken.camera,
+                                                  color: AppMainColors
+                                                      .kittenWithColor,
+                                                  size: 30.sp,
                                                 ),
                                               ),
                                             ),
@@ -117,37 +151,46 @@ class EditProfileScreen extends StatelessWidget {
                                     ),
                                     Stack(
                                       children: [
-                                        CircleAvatar(
-                                          backgroundColor: Colors.white,
-                                          radius: 65,
-                                          child: CircleAvatar(
-                                            backgroundImage: profileImage ==
-                                                    null
-                                                ? NetworkImage(userModel.image)
-                                                : FileImage(profileImage)
-                                                    as ImageProvider,
-                                            radius: 60,
-                                          ),
-                                        ),
+                                        profileImage == null
+                                            ? CircleAvatar(
+                                                backgroundColor:
+                                                    AppMainColors.dividerColor,
+                                                radius: 75.r,
+                                                child: CircleAvatar(
+                                                  radius: 70.r,
+                                                  child: imagePreview(
+                                                    userModel.image,
+                                                    radius: 65.r,
+                                                  ),
+                                                ),
+                                              )
+                                            : CircleAvatar(
+                                                backgroundColor:
+                                                    AppMainColors.dividerColor,
+                                                radius: 75.r,
+                                                child: CircleAvatar(
+                                                  radius: 70.r,
+                                                  backgroundImage:
+                                                      FileImage(profileImage),
+                                                ),
+                                              ),
                                         Positioned(
-                                          top: 90,
-                                          left: 90,
+                                          top: 90.h,
+                                          left: 95.w,
                                           child: CircleAvatar(
-                                            radius: 25,
-                                            backgroundColor: cubit.isDark
-                                                ? Colors.grey.shade50
-                                                : const Color(0xff404258),
+                                            radius: 22.r,
+                                            backgroundColor:
+                                                AppMainColors.greyColor,
                                             child: IconButton(
                                               splashRadius: 1,
                                               onPressed: () {
                                                 cubit.getProfileImage();
                                               },
                                               icon: Icon(
-                                                IconlyLight.camera,
-                                                color: cubit.isDark
-                                                    ? Colors.black
-                                                    : Colors.white,
-                                                size: 30,
+                                                IconlyBroken.camera,
+                                                color: AppMainColors
+                                                    .kittenWithColor,
+                                                size: 30.sp,
                                               ),
                                             ),
                                           ),
@@ -155,18 +198,19 @@ class EditProfileScreen extends StatelessWidget {
                                       ],
                                     ),
                                     Positioned(
-                                      top: 60,
-                                      left: 5,
+                                      top: 30.h,
+                                      left: 5.w,
                                       child: IconButton(
                                         onPressed: () {
                                           pop(context);
                                         },
-                                        icon: const CircleAvatar(
-                                          backgroundColor: Colors.black,
+                                        icon: CircleAvatar(
+                                          backgroundColor:
+                                              AppMainColors.greyDarkColor,
                                           child: Icon(
-                                            IconlyLight.arrowLeft2,
-                                            size: 30,
-                                            color: Colors.white,
+                                            IconlyBroken.arrowLeft2,
+                                            size: 24.sp,
+                                            color: AppMainColors.titanWithColor,
                                           ),
                                         ),
                                       ),
@@ -174,60 +218,89 @@ class EditProfileScreen extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              space(0, 15),
+                              SizedBox(height: 15.h),
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Column(
                                   children: [
                                     DefaultTextFormField(
-                                        controller: nameController,
-                                        keyboardType: TextInputType.name,
-                                        validate: (String? value) {
-                                          if (value!.isEmpty) {
-                                            return 'Please enter your name';
-                                          }
-                                          return null;
-                                        },
-                                        label: 'Name',
-                                        prefix: IconlyLight.user3),
-                                    space(0, 15),
+                                      controller: nameController,
+                                      keyboardType: TextInputType.name,
+                                      validate: (String? value) {
+                                        if (value!.trim().isEmpty) {
+                                          return 'Please enter your name';
+                                        }
+                                        return null;
+                                      },
+                                      label: 'Name',
+                                      prefix: IconlyBroken.user3,
+                                      textColor: cubit.isDark
+                                          ? AppMainColors.blackColor
+                                          : AppMainColors.titanWithColor,
+                                    ),
+                                    SizedBox(height: 15.h),
                                     DefaultTextFormField(
                                       controller: bioController,
                                       keyboardType: TextInputType.text,
                                       validate: (String? value) {
-                                        if (value!.isEmpty) {
+                                        if (value!.trim().isEmpty) {
                                           return 'Please enter your bio';
                                         }
                                         return null;
                                       },
                                       label: 'Bio ...',
-                                      prefix: IconlyLight.infoSquare,
+                                      prefix: IconlyBroken.infoSquare,
+                                      textColor: cubit.isDark
+                                          ? AppMainColors.blackColor
+                                          : AppMainColors.titanWithColor,
                                     ),
-                                    space(0, 15),
+                                    SizedBox(height: 15.h),
                                     DefaultTextFormField(
                                       controller: emailController,
                                       keyboardType: TextInputType.emailAddress,
                                       validate: (String? value) {
-                                        if (value!.isEmpty) {
+                                        if (value!.trim().isEmpty) {
                                           return 'Please enter your email';
                                         }
                                         return null;
                                       },
                                       label: 'E-mail Address',
-                                      prefix: IconlyLight.message,
+                                      prefix: IconlyBroken.message,
+                                      textColor: cubit.isDark
+                                          ? AppMainColors.blackColor
+                                          : AppMainColors.titanWithColor,
                                     ),
-                                    space(0, 15),
+                                    SizedBox(height: 15.h),
                                     DefaultTextFormField(
                                       controller: phoneController,
                                       keyboardType: TextInputType.phone,
                                       validate: (String? value) {
-                                        if (value!.isEmpty) {
+                                        if (value!.trim().isEmpty) {
                                           return 'Please enter your phone';
                                         }
                                         return null;
                                       },
                                       label: 'Phone',
-                                      prefix: IconlyLight.calling,
+                                      prefix: IconlyBroken.calling,
+                                      textColor: cubit.isDark
+                                          ? AppMainColors.blackColor
+                                          : AppMainColors.titanWithColor,
+                                    ),
+                                    SizedBox(height: 15.h),
+                                    DefaultTextFormField(
+                                      controller: portfolioController,
+                                      keyboardType: TextInputType.url,
+                                      validate: (String? value) {
+                                        if (value!.trim().isEmpty) {
+                                          return 'Please enter your portfolio';
+                                        }
+                                        return null;
+                                      },
+                                      label: 'Portfolio',
+                                      prefix: IconlyBroken.document,
+                                      textColor: cubit.isDark
+                                          ? AppMainColors.blackColor
+                                          : AppMainColors.titanWithColor,
                                     ),
                                   ],
                                 ),
@@ -242,10 +315,10 @@ class EditProfileScreen extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: OutlinedButton(
-                                  style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(
-                                      cubit.isDark ? Colors.blue : Colors.white,
-                                    ),
+                                  style: OutlinedButton.styleFrom(
+                                    backgroundColor: cubit.isDark
+                                        ? AppMainColors.blueColor
+                                        : AppMainColors.titanWithColor,
                                   ),
                                   onPressed: () {
                                     if (cubit.coverImage != null &&
@@ -255,6 +328,7 @@ class EditProfileScreen extends StatelessWidget {
                                         phone: phoneController.text,
                                         name: nameController.text,
                                         bio: bioController.text,
+                                        portfolio: portfolioController.text,
                                       );
                                     } else if (cubit.profileImage != null &&
                                         cubit.coverImage == null) {
@@ -263,6 +337,7 @@ class EditProfileScreen extends StatelessWidget {
                                         phone: phoneController.text,
                                         name: nameController.text,
                                         bio: bioController.text,
+                                        portfolio: portfolioController.text,
                                       );
                                     } else if (cubit.profileImage == null &&
                                         cubit.coverImage == null) {
@@ -271,6 +346,7 @@ class EditProfileScreen extends StatelessWidget {
                                         phone: phoneController.text,
                                         name: nameController.text,
                                         bio: bioController.text,
+                                        portfolio: portfolioController.text,
                                       );
                                     } else if (cubit.coverImage != null &&
                                         cubit.profileImage != null) {
@@ -279,17 +355,19 @@ class EditProfileScreen extends StatelessWidget {
                                         phone: phoneController.text,
                                         name: nameController.text,
                                         bio: bioController.text,
+                                        portfolio: portfolioController.text,
                                       );
                                     }
                                   },
                                   clipBehavior: Clip.antiAliasWithSaveLayer,
                                   child: Text(
                                     'Update'.toUpperCase(),
-                                    style: GoogleFonts.lobster(
-                                        fontSize: 20,
-                                        color: cubit.isDark
-                                            ? Colors.white
-                                            : Colors.blue),
+                                    style: GoogleFonts.roboto(
+                                      fontSize: 20.sp,
+                                      color: cubit.isDark
+                                          ? AppMainColors.titanWithColor
+                                          : AppMainColors.blueColor,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -299,7 +377,6 @@ class EditProfileScreen extends StatelessWidget {
                       ),
                       if (state is UpdateUserLoadingState)
                         const LinearProgressIndicator(),
-                      space(0, 5),
                     ],
                   ),
                 ),

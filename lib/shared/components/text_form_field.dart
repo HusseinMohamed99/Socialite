@@ -27,6 +27,7 @@ class DefaultTextFormField extends StatelessWidget {
     this.maxLines,
     this.minLines,
     this.obscuringCharacter,
+    this.textColor,
   });
 
   final TextEditingController controller;
@@ -47,6 +48,7 @@ class DefaultTextFormField extends StatelessWidget {
   final Function(String)? onFieldSubmitted;
   final Function()? onEditingComplete;
   final Color? color;
+  final Color? textColor;
   final int? maxLines;
   final int? minLines;
   final String? obscuringCharacter;
@@ -59,7 +61,7 @@ class DefaultTextFormField extends StatelessWidget {
       style: Theme.of(context)
           .textTheme
           .titleLarge!
-          .copyWith(color: AppMainColors.blackColor),
+          .copyWith(color: textColor ?? AppMainColors.blackColor),
       focusNode: FocusNode(),
       maxLines: maxLines ?? 1,
       minLines: minLines ?? 1,

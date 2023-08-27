@@ -84,6 +84,8 @@ class UploadCoverImageErrorState extends SocialStates {}
 ///START : UpdateUserData 10
 class UpdateUserLoadingState extends SocialStates {}
 
+class UpdateUserSuccessState extends SocialStates {}
+
 class UpdateUserErrorState extends SocialStates {}
 
 ///END : UpdateUserData
