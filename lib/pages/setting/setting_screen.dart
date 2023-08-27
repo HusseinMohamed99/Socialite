@@ -6,6 +6,7 @@ import 'package:socialite/pages/password/change_password.dart';
 import 'package:socialite/pages/profile/edit_profile_screen.dart';
 import 'package:socialite/shared/components/image_with_shimmer.dart';
 import 'package:socialite/shared/components/logout.dart';
+import 'package:socialite/shared/components/my_divider.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
@@ -28,20 +29,10 @@ class SettingScreen extends StatelessWidget {
         SocialCubit cubit = SocialCubit.get(context);
         return SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(10.0).r,
+            padding: const EdgeInsets.all(10).r,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Setting ',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(vertical: 10).r,
-                  width: double.infinity,
-                  height: 4.h,
-                  color: AppMainColors.greyColor.withOpacity(0.2),
-                ),
                 Card(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0).r,
@@ -74,7 +65,7 @@ class SettingScreen extends StatelessWidget {
                                   style: Theme.of(context).textTheme.titleLarge,
                                 ),
                                 Text(
-                                  'see your profile',
+                                  'See your profile',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodySmall!
@@ -93,17 +84,12 @@ class SettingScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                space(0, 10),
+                SizedBox(height: 10.h),
                 Text(
                   'Account',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
-                Container(
-                  margin: const EdgeInsets.symmetric(vertical: 10).r,
-                  width: double.infinity,
-                  height: 4.h,
-                  color: AppMainColors.greyColor.withOpacity(0.2),
-                ), //1
+                const MyDivider(),
                 SettingsListItem(
                   cubit: cubit,
                   iconData: IconlyBroken.profile,
@@ -111,7 +97,7 @@ class SettingScreen extends StatelessWidget {
                   function: () {
                     navigateTo(context, EditProfileScreen());
                   },
-                ), //2
+                ),
                 SettingsListItem(
                   cubit: cubit,
                   iconData: IconlyBroken.lock,
@@ -119,7 +105,7 @@ class SettingScreen extends StatelessWidget {
                   function: () {
                     navigateTo(context, RestPasswordScreen());
                   },
-                ), //3
+                ),
                 SettingsListItem(
                   cubit: cubit,
                   iconData: IconlyBroken.unlock,
@@ -130,7 +116,7 @@ class SettingScreen extends StatelessWidget {
                       cubit: cubit,
                     );
                   },
-                ), //4
+                ),
                 SettingsListItem(
                   cubit: cubit,
                   iconData:
@@ -145,9 +131,7 @@ class SettingScreen extends StatelessWidget {
                       btnOkOnPress: () {
                         cubit.changeAppMode();
                       },
-                      btnCancelOnPress: () {
-                        pop(context);
-                      },
+                      btnCancelOnPress: () {},
                     ).show();
                   },
                 ),
@@ -158,16 +142,13 @@ class SettingScreen extends StatelessWidget {
                   function: () {
                     AwesomeDialog(
                       context: context,
-                      dialogType: DialogType.question,
+                      dialogType: DialogType.error,
                       animType: AnimType.topSlide,
                       title: "Do you want Delete Account ?",
                       btnOkOnPress: () {
                         cubit.deleteAccount(context);
-                        Navigator.pop(context);
                       },
-                      btnCancelOnPress: () {
-                        pop(context);
-                      },
+                      btnCancelOnPress: () {},
                     ).show();
                   },
                 ),
@@ -178,16 +159,14 @@ class SettingScreen extends StatelessWidget {
                   function: () {
                     AwesomeDialog(
                       context: context,
-                      dialogType: DialogType.question,
+                      dialogType: DialogType.warning,
                       animType: AnimType.topSlide,
                       title: "Do you want LogOut ?",
                       btnOkOnPress: () {
                         logOut(context);
                         FirebaseAuth.instance.signOut();
                       },
-                      btnCancelOnPress: () {
-                        pop(context);
-                      },
+                      btnCancelOnPress: () {},
                     ).show();
                   },
                 ),
@@ -229,13 +208,13 @@ class SettingsListItem extends StatelessWidget {
                 width: 60.w,
                 height: 60.h,
                 decoration: BoxDecoration(
-                  color: AppMainColors.greyColor.withOpacity(0.4),
+                  color: AppMainColors.blueColor.withOpacity(0.4),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
                   iconData,
                   size: 50.sp,
-                  color: AppMainColors.blackColor,
+                  color: AppMainColors.greyColor,
                 ),
               ),
               SizedBox(width: 10.w),
