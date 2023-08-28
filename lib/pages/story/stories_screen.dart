@@ -142,10 +142,7 @@ class CreateNewStories extends StatelessWidget {
                   const Spacer(),
                   Text(
                     "Create Story",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall!
-                        .copyWith(color: AppMainColors.kittenWithColor),
+                    style: Theme.of(context).textTheme.titleSmall,
                   ),
                   const Spacer(),
                 ],
@@ -202,7 +199,7 @@ class CarouselSliderStories extends StatelessWidget {
                       height: 230.h,
                       margin: const EdgeInsets.all(10).r,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10).r,
+                          borderRadius: BorderRadius.circular(50).r,
                           boxShadow: [
                             BoxShadow(
                                 color: Theme.of(context)
@@ -220,11 +217,11 @@ class CarouselSliderStories extends StatelessWidget {
                                 offset: const Offset(-1, -1))
                           ]),
                       child: ImageWithShimmer(
-                        radius: 10.r,
+                        radius: 50.r,
                         imageUrl: e.storyImage!,
                         width: double.infinity,
                         height: double.infinity,
-                        boxFit: BoxFit.fitHeight,
+                        boxFit: BoxFit.fitWidth,
                       ),
                     ),
                     Padding(
