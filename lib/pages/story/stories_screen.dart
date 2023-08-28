@@ -230,14 +230,15 @@ class CarouselSliderStories extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           CircleAvatar(
-                            radius: 20.r,
+                            radius: 25.r,
                             child: CircleAvatar(
-                              radius: 18.r,
+                              radius: 22.r,
                               child: ImageWithShimmer(
                                 imageUrl: e.image!,
-                                width: 60.w,
-                                height: 60.h,
-                                radius: 15.r,
+                                width: 80.w,
+                                height: 80.h,
+                                radius: 20.r,
+                                boxFit: BoxFit.fill,
                               ),
                             ),
                           ),
