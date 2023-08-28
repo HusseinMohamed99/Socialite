@@ -147,10 +147,12 @@ class AddPostScreen extends StatelessWidget {
                         child: TextFormField(
                           maxLines: 6,
                           minLines: 1,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge!
-                              .copyWith(color: AppMainColors.blackColor),
+                          style:
+                              Theme.of(context).textTheme.titleLarge!.copyWith(
+                                    color: cubit.isDark
+                                        ? AppMainColors.blackColor
+                                        : AppMainColors.kittenWithColor,
+                                  ),
                           controller: textController,
                           decoration: InputDecoration(
                             hintText: "' What's on your mind ? '",
