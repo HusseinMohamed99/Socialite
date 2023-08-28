@@ -10,7 +10,6 @@ import 'package:socialite/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:socialite/shared/styles/color.dart';
 
 class EditProfileScreen extends StatelessWidget {
@@ -314,59 +313,59 @@ class EditProfileScreen extends StatelessWidget {
                           Row(
                             children: [
                               Expanded(
-                                child: OutlinedButton(
-                                  style: OutlinedButton.styleFrom(
-                                    backgroundColor: cubit.isDark
-                                        ? AppMainColors.blueColor
-                                        : AppMainColors.titanWithColor,
-                                  ),
-                                  onPressed: () {
-                                    if (cubit.coverImage != null &&
-                                        cubit.profileImage == null) {
-                                      cubit.uploadCoverImage(
-                                        email: emailController.text,
-                                        phone: phoneController.text,
-                                        name: nameController.text,
-                                        bio: bioController.text,
-                                        portfolio: portfolioController.text,
-                                      );
-                                    } else if (cubit.profileImage != null &&
-                                        cubit.coverImage == null) {
-                                      cubit.uploadProfileImage(
-                                        email: emailController.text,
-                                        phone: phoneController.text,
-                                        name: nameController.text,
-                                        bio: bioController.text,
-                                        portfolio: portfolioController.text,
-                                      );
-                                    } else if (cubit.profileImage == null &&
-                                        cubit.coverImage == null) {
-                                      cubit.updateUserData(
-                                        email: emailController.text,
-                                        phone: phoneController.text,
-                                        name: nameController.text,
-                                        bio: bioController.text,
-                                        portfolio: portfolioController.text,
-                                      );
-                                    } else if (cubit.coverImage != null &&
-                                        cubit.profileImage != null) {
-                                      cubit.uploadProfileAndCoverImage(
-                                        email: emailController.text,
-                                        phone: phoneController.text,
-                                        name: nameController.text,
-                                        bio: bioController.text,
-                                        portfolio: portfolioController.text,
-                                      );
-                                    }
-                                  },
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  child: Text(
-                                    'Update'.toUpperCase(),
-                                    style: GoogleFonts.roboto(
-                                      fontSize: 20.sp,
-                                      color: cubit.isDark
+                                child: SizedBox(
+                                  height: 30.h,
+                                  child: OutlinedButton(
+                                    style: OutlinedButton.styleFrom(
+                                      backgroundColor: cubit.isDark
                                           ? AppMainColors.titanWithColor
-                                          : AppMainColors.blueColor,
+                                          : AppColorsLight.primaryColor,
+                                    ),
+                                    onPressed: () {
+                                      if (cubit.coverImage != null &&
+                                          cubit.profileImage == null) {
+                                        cubit.uploadCoverImage(
+                                          email: emailController.text,
+                                          phone: phoneController.text,
+                                          name: nameController.text,
+                                          bio: bioController.text,
+                                          portfolio: portfolioController.text,
+                                        );
+                                      } else if (cubit.profileImage != null &&
+                                          cubit.coverImage == null) {
+                                        cubit.uploadProfileImage(
+                                          email: emailController.text,
+                                          phone: phoneController.text,
+                                          name: nameController.text,
+                                          bio: bioController.text,
+                                          portfolio: portfolioController.text,
+                                        );
+                                      } else if (cubit.profileImage == null &&
+                                          cubit.coverImage == null) {
+                                        cubit.updateUserData(
+                                          email: emailController.text,
+                                          phone: phoneController.text,
+                                          name: nameController.text,
+                                          bio: bioController.text,
+                                          portfolio: portfolioController.text,
+                                        );
+                                      } else if (cubit.coverImage != null &&
+                                          cubit.profileImage != null) {
+                                        cubit.uploadProfileAndCoverImage(
+                                          email: emailController.text,
+                                          phone: phoneController.text,
+                                          name: nameController.text,
+                                          bio: bioController.text,
+                                          portfolio: portfolioController.text,
+                                        );
+                                      }
+                                    },
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    child: Text(
+                                      'Update'.toUpperCase(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge,
                                     ),
                                   ),
                                 ),
