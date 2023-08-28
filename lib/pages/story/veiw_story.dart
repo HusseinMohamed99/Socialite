@@ -38,34 +38,6 @@ class ViewStory extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0).r,
                       child: Row(
                         children: [
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: AppMainColors.greyColor
-                                        .withOpacity(0.3),
-                                    blurRadius: 9,
-                                    spreadRadius: 4,
-                                    offset: const Offset(0, 4),
-                                  )
-                                ],
-                              ),
-                              child: CircleAvatar(
-                                backgroundColor:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                child: Icon(
-                                  Icons.close_rounded,
-                                  color: AppMainColors.redColor,
-                                  size: 24.sp,
-                                ),
-                              ),
-                            ),
-                          ),
                           InkWell(
                             onTap: () {
                               if (storyModel.uId != bloc.userModel!.uId) {
@@ -126,6 +98,34 @@ class ViewStory extends StatelessWidget {
                                       .copyWith(color: AppMainColors.greyColor),
                                 ),
                               ],
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppMainColors.greyColor
+                                        .withOpacity(0.3),
+                                    blurRadius: 9,
+                                    spreadRadius: 4,
+                                    offset: const Offset(0, 4),
+                                  )
+                                ],
+                              ),
+                              child: CircleAvatar(
+                                backgroundColor:
+                                    Theme.of(context).scaffoldBackgroundColor,
+                                child: Icon(
+                                  Icons.close_rounded,
+                                  color: AppMainColors.redColor,
+                                  size: 24.sp,
+                                ),
+                              ),
                             ),
                           ),
                         ],
