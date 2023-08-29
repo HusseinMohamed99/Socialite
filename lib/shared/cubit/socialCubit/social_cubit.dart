@@ -518,6 +518,7 @@ class SocialCubit extends Cubit<SocialStates> {
         .snapshots()
         .listen((event) {
       userPosts = [];
+
       for (var element in event.docs) {
         if (element.data()['uId'] == userID) {
           userPosts.add(PostModel.fromJson(element.data()));
@@ -531,8 +532,8 @@ class SocialCubit extends Cubit<SocialStates> {
 
 // ----------------------------------------------------------//
   ///START : Likes
-
-  Future<bool> likeByMe({
+  bool isLikedByMe = false;
+  likeByMe({
     context,
     String? postId,
     PostModel? postModel,
@@ -540,7 +541,7 @@ class SocialCubit extends Cubit<SocialStates> {
     required DateTime dataTime,
   }) async {
     emit(LikedByMeCheckedLoadingState());
-    bool isLikedByMe = false;
+    isLikedByMe = false;
     FirebaseFirestore.instance
         .collection('posts')
         .doc(postId)
@@ -562,12 +563,12 @@ class SocialCubit extends Cubit<SocialStates> {
           dateTime: dataTime,
         );
       }
+
+      emit(LikedByMeCheckedSuccessState());
       if (kDebugMode) {
         print(isLikedByMe);
       }
-      emit(LikedByMeCheckedSuccessState());
     });
-    return isLikedByMe;
   }
 
   void likePosts({
@@ -600,9 +601,9 @@ class SocialCubit extends Cubit<SocialStates> {
             receiverName: postUser!.name,
             receiverId: postModel.uId,
             contentId: postModel.uId,
-            contentKey: 'likePost');
+            contentKey: 'like Post');
         SocialCubit.get(context).sendFCMNotification(
-          token: postUser.uId,
+          token: postUser.token,
           senderName: SocialCubit.get(context).userModel!.name,
           messageText: '${SocialCubit.get(context).userModel!.name}'
               ' likes a post you shared',

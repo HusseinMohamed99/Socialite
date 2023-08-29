@@ -72,7 +72,9 @@ class FeedScreen extends StatelessWidget {
                 ),
               )
             : ConditionalBuilder(
-                condition: cubit.stories.isEmpty && cubit.userModel != null,
+                condition: cubit.stories.isNotEmpty &&
+                    cubit.posts.isEmpty &&
+                    cubit.userModel != null,
                 builder: (context) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,

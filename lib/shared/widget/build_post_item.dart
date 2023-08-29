@@ -141,7 +141,7 @@ class BuildPostItem extends StatelessWidget {
                     moreOption(context, cubit, postId, postModel);
                   },
                   icon: Icon(
-                    IconlyLight.moreCircle,
+                    IconlyBroken.moreCircle,
                     size: 24.sp,
                     color: AppMainColors.greyColor,
                   ),
@@ -190,7 +190,7 @@ class BuildPostItem extends StatelessWidget {
                     );
                   },
                   icon: Icon(
-                    IconlyLight.heart,
+                    IconlyBroken.heart,
                     color: Colors.red,
                     size: 24.sp,
                   ),
@@ -215,7 +215,7 @@ class BuildPostItem extends StatelessWidget {
                     cubit.getComments(SocialCubit.get(context).postsId[index]);
                   },
                   icon: Icon(
-                    IconlyLight.chat,
+                    IconlyBroken.chat,
                     color: Colors.orangeAccent,
                     size: 24.sp,
                   ),
@@ -280,27 +280,30 @@ class BuildPostItem extends StatelessWidget {
                       postUser: postUser,
                       context: context,
                       postModel: postModel,
-                      postId: postId = SocialCubit.get(context).postsId[index],
+                      postId: postId,
                       dataTime: now,
                     );
                   },
                   label: Text(
-                    'Like',
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium!
-                        .copyWith(color: AppMainColors.redColor),
+                    cubit.isLikedByMe == false ? 'Liked' : 'Like',
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          color: cubit.isLikedByMe == false
+                              ? AppMainColors.redColor
+                              : AppMainColors.greyColor,
+                        ),
                   ),
                   icon: Icon(
-                    IconlyLight.heart,
-                    color: AppMainColors.redColor,
+                    IconlyBroken.heart,
+                    color: cubit.isLikedByMe == false
+                        ? AppMainColors.redColor
+                        : AppMainColors.greyColor,
                     size: 24.sp,
                   ),
                 ),
                 TextButton.icon(
                   onPressed: () {},
                   icon: Icon(
-                    IconlyLight.upload,
+                    IconlyBroken.upload,
                     color: Colors.green,
                     size: 24.sp,
                   ),
