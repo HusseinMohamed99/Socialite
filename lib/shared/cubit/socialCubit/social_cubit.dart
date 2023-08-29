@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:socialite/pages/chat/chat_screen.dart';
@@ -30,6 +29,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:socialite/shared/network/dio_helper.dart';
 import 'package:socialite/shared/styles/color.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -563,7 +563,6 @@ class SocialCubit extends Cubit<SocialStates> {
           dateTime: dataTime,
         );
       }
-
       emit(LikedByMeCheckedSuccessState());
       if (kDebugMode) {
         print(isLikedByMe);
@@ -598,10 +597,11 @@ class SocialCubit extends Cubit<SocialStates> {
       getPosts();
       if (postModel!.uId != userModel!.uId) {
         SocialCubit.get(context).sendInAppNotification(
-            receiverName: postUser!.name,
-            receiverId: postModel.uId,
-            contentId: postModel.uId,
-            contentKey: 'like Post');
+          receiverName: postUser!.name,
+          receiverId: postModel.uId,
+          contentId: postModel.uId,
+          contentKey: 'like Post',
+        );
         SocialCubit.get(context).sendFCMNotification(
           token: postUser.token,
           senderName: SocialCubit.get(context).userModel!.name,
@@ -1560,48 +1560,28 @@ class SocialCubit extends Cubit<SocialStates> {
     String? messageText,
     String? messageImage,
   }) async {
-    const postUrl = 'https://fcm.googleapis.com/fcm/send';
-    Dio dio = Dio();
-
-    var token = await getDeviceToken();
-    if (kDebugMode) {
-      print('device token : $token');
-    }
-
-    final data = {
-      "data": {
-        "message": senderName,
-        "title": messageText,
+    DioHelper.postData(data: {
+      "to": token,
+      "notification": {
+        "title": senderName,
+        "body": messageText ?? (messageImage != null ? 'Photo' : 'ERROR 404'),
+        "sound": "default"
       },
-      "to": token
-    };
-
-    dio.options.headers['Content-Type'] = 'application/json';
-    dio.options.headers["Authorization"] =
-        'key= AAAAHv5IYHw:APA91bFL7S1bvVb9PlK-fUdeSWWQQAiCEyckzYfmogaWGlkxLLtzK5LKCnPk4_imOygnahdkJF7c4bxBCt7FD-PQM2jotv9W_ou3lIUihfHetFxWWQptcDVzf9ziyXNQTX2R5BMZ1Imo';
-
-    try {
-      final response = await dio.post(postUrl, data: data);
-
-      if (response.statusCode == 200) {
-        if (kDebugMode) {
-          print('Request Sent To Driver');
-        }
-      } else {
-        if (kDebugMode) {
-          print('notification sending failed');
-        }
+      "android": {
+        "Priority": "HIGH",
+      },
+      "data": {
+        "type": "order",
+        "id": "87",
+        "click_action": "FLUTTER_NOTIFICATION_CLICK"
       }
-    } catch (e) {
-      if (kDebugMode) {
-        print('exception $e');
-      }
-    }
+    });
+    emit(SendMessageSuccessState());
   }
 
-  Future<String?> getDeviceToken() async {
-    return await FirebaseMessaging.instance.getToken();
-  }
+  // Future<String?> getDeviceToken() async {
+  //   return await FirebaseMessaging.instance.getToken();
+  // }
 
   ///END : sendFCMNotification
 

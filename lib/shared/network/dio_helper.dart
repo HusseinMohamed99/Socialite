@@ -16,10 +16,10 @@ class DioHelper {
     dio.options.headers = {
       'Content-Type': 'application/json',
       'Authorization':
-          'key = AAAAqnVMlS0:APA91bHd_ooZwkN81g8c0xaDHC0KPN1QrRhVcq_qG4MZ1pvciG6MF4MhiMDY1HnrscPQeONN_mgEOQl1eU80jZ2NgvYGJKTon8CJ2nLIxwGgkwNBtYhFEDhPYo3sYpXpeYzITVfDo9nT'
+          'key = AAAAHv5IYHw:APA91bFL7S1bvVb9PlK-fUdeSWWQQAiCEyckzYfmogaWGlkxLLtzK5LKCnPk4_imOygnahdkJF7c4bxBCt7FD-PQM2jotv9W_ou3lIUihfHetFxWWQptcDVzf9ziyXNQTX2R5BMZ1Imo '
     };
     return await dio.post(
-      'https://fcm.googleapis.com/v1/projects/myproject-b5ae1/messages:send',
+      'https://fcm.googleapis.com/fcm/send',
       data: data,
     );
   }

@@ -254,12 +254,13 @@ class BuildPostItem extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     navigateTo(
-                        context,
-                        CommentsScreen(
-                          likes: postModel.likes,
-                          postId: postModel.postId,
-                          postUid: postModel.uId,
-                        ));
+                      context,
+                      CommentsScreen(
+                        likes: postModel.likes,
+                        postId: postModel.postId,
+                        postUid: postModel.uId,
+                      ),
+                    );
                   },
                   child: SizedBox(
                     width: 120.w,
