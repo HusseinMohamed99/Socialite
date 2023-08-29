@@ -39,7 +39,6 @@ class RegisterScreen extends StatelessWidget {
                 context,
                 const EmailVerificationScreen(),
               );
-              SocialCubit.get(context).setUserToken(uId);
             });
             SocialCubit.get(context).getUserData();
             SocialCubit.get(context).getPosts();
