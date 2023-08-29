@@ -49,7 +49,7 @@ class CommentsScreen extends StatelessWidget {
                     pop(context);
                   },
                   icon: Icon(
-                    IconlyLight.arrowLeft2,
+                    IconlyBroken.arrowLeft2,
                     size: 30.sp,
                     color: cubit.isDark
                         ? AppMainColors.blackColor
@@ -104,7 +104,7 @@ class CommentsScreen extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Icon(
-                                    IconlyLight.chat,
+                                    IconlyBroken.chat,
                                     color: AppMainColors.greyColor,
                                     size: 60.sp,
                                   ),

@@ -1,15 +1,14 @@
-import 'package:socialite/Pages/friend/friends_profile_screen.dart';
-import 'package:socialite/Pages/profile/user_profile_screen.dart';
 import 'package:socialite/model/user_model.dart';
+import 'package:socialite/shared/components/image_with_shimmer.dart';
+import 'package:socialite/shared/components/my_divider.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
-import 'package:socialite/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:socialite/shared/styles/color.dart';
 
 class FriendsScreen extends StatelessWidget {
   final bool? myFriends;
@@ -25,175 +24,136 @@ class FriendsScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           List<UserModel>? friends = this.friends;
-          var cubit = SocialCubit.get(context);
-          return SocialCubit.get(context).friends.isEmpty
-              ? Scaffold(
-                  extendBodyBehindAppBar: true,
-                  appBar: AppBar(
-                    elevation: 1,
-                    leading: IconButton(
-                      onPressed: () {
-                        pop(context);
-                      },
-                      icon: Icon(
-                        Icons.arrow_back,
-                        color: cubit.isDark ? Colors.black : Colors.white,
-                        size: 24.sp,
-                      ),
-                    ),
-                    titleSpacing: 1,
-                    title: Text(
-                      'Friends',
-                      style: GoogleFonts.roboto(
-                        textStyle: TextStyle(
-                          color: cubit.isDark ? Colors.black : Colors.white,
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
-                  body: Center(
+          SocialCubit cubit = SocialCubit.get(context);
+          return Scaffold(
+            extendBodyBehindAppBar: true,
+            appBar: AppBar(
+              elevation: 1,
+              leading: IconButton(
+                onPressed: () {
+                  pop(context);
+                },
+                icon: Icon(
+                  IconlyBroken.arrowLeft2,
+                  size: 30.sp,
+                  color: cubit.isDark
+                      ? AppMainColors.blackColor
+                      : AppMainColors.titanWithColor,
+                ),
+              ),
+              titleSpacing: 1,
+              title: Text(
+                'Friends',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+            ),
+            body: friends!.isEmpty
+                ? Center(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(
-                          IconlyLight.infoSquare,
-                          size: 100.sp,
-                          color: Colors.grey,
+                          IconlyBroken.infoSquare,
+                          color: AppMainColors.greyColor,
+                          size: 60.sp,
                         ),
                         Text(
                           'No Friends yet',
-                          style: GoogleFonts.libreBaskerville(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 30.sp,
-                            color: Colors.grey,
-                          ),
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
                       ],
                     ),
-                  ),
-                )
-              : Scaffold(
-                  extendBodyBehindAppBar: true,
-                  appBar: AppBar(
-                    elevation: 1,
-                    leading: IconButton(
-                      onPressed: () {
-                        pop(context);
-                      },
-                      icon: Icon(
-                        Icons.arrow_back,
-                        color: cubit.isDark ? Colors.black : Colors.white,
-                        size: 24.sp,
-                      ),
+                  )
+                : ListView.separated(
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (context, index) => FriendsBuilderItems(
+                      friendsModel: friends[index],
+                      myFriend: myFriends ?? false,
+                      cubit: cubit,
                     ),
-                    titleSpacing: 1,
-                    title: Text(
-                      'Friends',
-                      style: GoogleFonts.roboto(
-                        textStyle: TextStyle(
-                          color: cubit.isDark ? Colors.black : Colors.white,
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
+                    separatorBuilder: (context, index) => const MyDivider(),
+                    itemCount: friends.length,
                   ),
-                  body: //state is GetFriendLoadingState
-                      friends!.isEmpty
-                          ? const Center(
-                              child: CircularProgressIndicator(),
-                            )
-                          : ListView.separated(
-                              physics: const BouncingScrollPhysics(),
-                              itemBuilder: (context, index) => chatBuildItem(
-                                  context, friends[index], myFriends ?? false),
-                              separatorBuilder: (context, index) =>
-                                  const SizedBox(
-                                height: 0,
-                              ),
-                              itemCount: friends.length,
-                            ));
+          );
         },
       );
     });
   }
 }
 
-Widget chatBuildItem(context, UserModel model, bool myFriends) {
-  var cubit = SocialCubit.get(context);
-  return InkWell(
-    onTap: () {
-      if (SocialCubit.get(context).userModel!.uId == model.uId) {
-        navigateTo(
-          context,
-          const UserProfileScreen(),
-        );
-      } else {
-        navigateTo(
-          context,
-          FriendsProfileScreen(model.uId),
-        );
-      }
-    },
-    child: Padding(
-      padding: const EdgeInsets.all(15),
+class FriendsBuilderItems extends StatelessWidget {
+  const FriendsBuilderItems({
+    super.key,
+    required this.cubit,
+    required this.friendsModel,
+    required this.myFriend,
+  });
+  final SocialCubit cubit;
+  final UserModel friendsModel;
+  final bool myFriend;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(15).r,
       child: Row(
         children: [
           CircleAvatar(
-            backgroundImage: NetworkImage(model.image),
-            radius: 35.r,
-          ),
-          space(10.w, 0),
-          Text(
-            model.name,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.libreBaskerville(
-              textStyle: TextStyle(
-                color: cubit.isDark ? Colors.black : Colors.white,
-                fontSize: 20.sp,
-                fontWeight: FontWeight.w600,
-              ),
+            radius: 20.r,
+            child: ImageWithShimmer(
+              imageUrl: friendsModel.image,
+              width: 50.w,
+              height: 50.h,
+              radius: 10.r,
+              boxFit: BoxFit.fill,
             ),
           ),
+          SizedBox(width: 10.w),
+          Text(
+            friendsModel.name,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
           const Spacer(),
-          if (myFriends)
+          if (myFriend)
             PopupMenuButton(
-              color: cubit.isDark ? Colors.black : Colors.white,
+              color: cubit.isDark
+                  ? AppMainColors.blackColor
+                  : AppMainColors.titanWithColor,
               onSelected: (value) {
                 if (value == 'Unfriend') {
-                  SocialCubit.get(context).unFriend(model.uId);
+                  SocialCubit.get(context).unFriend(friendsModel.uId);
                 }
               },
               child: Icon(
-                IconlyLight.moreSquare,
-                color: cubit.isDark ? Colors.black : Colors.white,
+                IconlyBroken.moreSquare,
+                color: cubit.isDark
+                    ? AppMainColors.blackColor
+                    : AppMainColors.titanWithColor,
                 size: 24.sp,
               ),
               itemBuilder: (context) => [
                 PopupMenuItem(
-                  height: 40.h,
+                  height: 20.h,
                   value: 'Unfriend',
                   child: Row(
                     children: [
                       Icon(
-                        IconlyLight.delete,
-                        color: cubit.isDark ? Colors.white : Colors.black,
+                        IconlyBroken.delete,
+                        color: cubit.isDark
+                            ? AppMainColors.titanWithColor
+                            : AppMainColors.blackColor,
                         size: 24.sp,
                       ),
-                      space(15.w, 0),
+                      SizedBox(width: 15.w),
                       Text(
                         'Unfriend',
-                        style: GoogleFonts.libreBaskerville(
-                          textStyle: TextStyle(
-                            color: cubit.isDark ? Colors.white : Colors.black,
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                              color: cubit.isDark
+                                  ? AppMainColors.titanWithColor
+                                  : AppMainColors.blackColor,
+                            ),
                       ),
                     ],
                   ),
@@ -202,6 +162,6 @@ Widget chatBuildItem(context, UserModel model, bool myFriends) {
             ),
         ],
       ),
-    ),
-  );
+    );
+  }
 }
