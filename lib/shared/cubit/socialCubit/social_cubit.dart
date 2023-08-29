@@ -597,30 +597,17 @@ class SocialCubit extends Cubit<SocialStates> {
         .then((value) {
       getPosts();
       if (postModel!.uId != userModel!.uId) {
-        //  SocialCubit.get(context).sendInAppNotification(
-        //         contentKey: 'friendRequest',
-        //         contentId: userModel.uId,
-        //         content: 'sent you a friend request, check it out!',
-        //         receiverId: userModel.uId,
-        //         receiverName: userModel.name,
-        //       );
-        //       SocialCubit.get(context).sendFCMNotification(
-        //           token: userModel.token,
-        //           senderName: SocialCubit.get(context).userModel!.name,
-        //           messageText: '${SocialCubit.get(context).userModel!.name}'
-        //               'sent you a friend request, check it out!');
-        //     },
         SocialCubit.get(context).sendInAppNotification(
-          receiverName: postUser!.name,
-          receiverId: postModel.uId,
-          contentId: postModel.uId,
+          receiverName: userModel!.name,
+          receiverId: userModel!.uId,
+          contentId: userModel!.uId,
           contentKey: 'like Post',
         );
         SocialCubit.get(context).sendFCMNotification(
-          token: postUser.token,
-          senderName: SocialCubit.get(context).userModel!.name,
-          messageText: '${SocialCubit.get(context).userModel!.name}'
-              ' likes a post you shared',
+          token: userModel!.token,
+          senderName: userModel!.name,
+          messageText: '${userModel!.name}'
+              'likes a post you shared',
         );
       }
       emit(LikesSuccessState());
