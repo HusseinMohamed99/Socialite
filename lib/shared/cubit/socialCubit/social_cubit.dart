@@ -532,8 +532,8 @@ class SocialCubit extends Cubit<SocialStates> {
 
 // ----------------------------------------------------------//
   ///START : Likes
-  bool isLikedByMe = false;
-  likeByMe({
+
+  Future<bool> likeByMe({
     context,
     String? postId,
     PostModel? postModel,
@@ -541,7 +541,7 @@ class SocialCubit extends Cubit<SocialStates> {
     required DateTime dataTime,
   }) async {
     emit(LikedByMeCheckedLoadingState());
-    isLikedByMe = false;
+    bool isLikedByMe = false;
     FirebaseFirestore.instance
         .collection('posts')
         .doc(postId)
@@ -568,6 +568,7 @@ class SocialCubit extends Cubit<SocialStates> {
         print(isLikedByMe);
       }
     });
+    return isLikedByMe;
   }
 
   void likePosts({
@@ -596,6 +597,19 @@ class SocialCubit extends Cubit<SocialStates> {
         .then((value) {
       getPosts();
       if (postModel!.uId != userModel!.uId) {
+        //  SocialCubit.get(context).sendInAppNotification(
+        //         contentKey: 'friendRequest',
+        //         contentId: userModel.uId,
+        //         content: 'sent you a friend request, check it out!',
+        //         receiverId: userModel.uId,
+        //         receiverName: userModel.name,
+        //       );
+        //       SocialCubit.get(context).sendFCMNotification(
+        //           token: userModel.token,
+        //           senderName: SocialCubit.get(context).userModel!.name,
+        //           messageText: '${SocialCubit.get(context).userModel!.name}'
+        //               'sent you a friend request, check it out!');
+        //     },
         SocialCubit.get(context).sendInAppNotification(
           receiverName: postUser!.name,
           receiverId: postModel.uId,

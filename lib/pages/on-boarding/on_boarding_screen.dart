@@ -72,21 +72,22 @@ class _OnBoardState extends State<OnBoard> {
             children: [
               const Spacer(),
               Expanded(
+                flex: 3,
                 child: Text(
                   'Snap\nand\nShare\nevery\nmoments',
                   textAlign: TextAlign.start,
                   style: GoogleFonts.roboto(
                     textStyle: TextStyle(
                       color: Colors.white,
-                      fontSize: 60.sp,
+                      fontSize: 50.sp,
                       overflow: TextOverflow.visible,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
               ),
-              const Spacer(),
               Expanded(
+                flex: 1,
                 child: Center(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -138,7 +139,6 @@ class _OnBoardState extends State<OnBoard> {
                           ),
                         ),
                       ),
-                      space(0, 50.h),
                     ],
                   ),
                 ),

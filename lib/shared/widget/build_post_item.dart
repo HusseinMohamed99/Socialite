@@ -286,18 +286,14 @@ class BuildPostItem extends StatelessWidget {
                     );
                   },
                   label: Text(
-                    cubit.isLikedByMe == false ? 'Liked' : 'Like',
+                    'Like',
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                          color: cubit.isLikedByMe == false
-                              ? AppMainColors.redColor
-                              : AppMainColors.greyColor,
+                          color: AppMainColors.redColor,
                         ),
                   ),
                   icon: Icon(
                     IconlyBroken.heart,
-                    color: cubit.isLikedByMe == false
-                        ? AppMainColors.redColor
-                        : AppMainColors.greyColor,
+                    color: AppMainColors.redColor,
                     size: 24.sp,
                   ),
                 ),

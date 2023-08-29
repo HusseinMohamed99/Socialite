@@ -39,25 +39,20 @@ class EmailVerificationScreen extends StatelessWidget {
           EmailVerificationCubit cubit = EmailVerificationCubit.get(context);
           SocialCubit.get(context).getUserData();
 
-          return Scaffold(
-            backgroundColor: SocialCubit.get(context).isDark
-                ? AppMainColors.kittenWithColor
-                : AppColorsDark.primaryDarkColor,
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              systemOverlayStyle: const SystemUiOverlayStyle(
-                statusBarColor: Colors.transparent,
-                statusBarIconBrightness: Brightness.light,
-                statusBarBrightness: Brightness.dark,
-              ),
-              elevation: 0,
+          return AnnotatedRegion<SystemUiOverlayStyle>(
+            value: const SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
             ),
-            body: SingleChildScrollView(
-              child: Padding(
+            child: Scaffold(
+              backgroundColor: SocialCubit.get(context).isDark
+                  ? AppMainColors.kittenWithColor
+                  : AppColorsDark.primaryDarkColor,
+              body: Padding(
                 padding: const EdgeInsets.all(20.0).r,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    SizedBox(height: 50.h),
                     Container(
                       decoration: BoxDecoration(
                         color: SocialCubit.get(context).isDark
@@ -81,7 +76,7 @@ class EmailVerificationScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 10.h),
                     Text(
-                      "We're happy you signed up for socialite App. To start exploring the \nSociality App,Please confirm your\nE-mail Address.",
+                      "We're happy you signed up for socialite App. To start exploring the \nSocialite App,Please confirm your\nE-mail Address.",
                       style: Theme.of(context)
                           .textTheme
                           .headlineSmall!
@@ -112,7 +107,6 @@ class EmailVerificationScreen extends StatelessWidget {
                                                     : AppMainColors.blackColor,
                                             size: 24.sp,
                                           ),
-                                          SizedBox(width: 5.w),
                                           Text(
                                             'Email Verification Sent',
                                             style: Theme.of(context)

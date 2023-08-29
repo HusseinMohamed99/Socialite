@@ -559,7 +559,7 @@ class PrivateChatScreen extends StatelessWidget {
                                         messageText: textController.text,
                                         messageImage:
                                             SocialCubit.get(context).imageURL,
-                                        token: userModel.uId,
+                                        token: userModel.token,
                                       );
                                     },
                                     child: Icon(
