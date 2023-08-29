@@ -1,26 +1,25 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:socialite/Pages/chat/private_chat.dart';
+import 'package:flutter/services.dart';
 import 'package:socialite/Pages/friend/friend_screen.dart';
-import 'package:socialite/shared/components/indicator.dart';
 import 'package:socialite/model/user_model.dart';
-import 'package:socialite/pages/viewPhoto/image_view.dart';
+import 'package:socialite/pages/chat/private_chat.dart';
+import 'package:socialite/shared/components/components.dart';
+import 'package:socialite/shared/components/indicator.dart';
 import 'package:socialite/shared/components/my_divider.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
-import 'package:socialite/shared/components/components.dart';
 import 'package:socialite/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:socialite/shared/styles/color.dart';
 import 'package:socialite/shared/widget/build_post_item.dart';
 
 class FriendsProfileScreen extends StatelessWidget {
-  FriendsProfileScreen(this.userUID, {Key? key}) : super(key: key);
+  const FriendsProfileScreen(this.userUID, {Key? key}) : super(key: key);
   final String? userUID;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -28,473 +27,348 @@ class FriendsProfileScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var friendsModel = SocialCubit.get(context).friendsProfile;
-        List<UserModel>? friends = SocialCubit.get(context).friends;
         SocialCubit cubit = SocialCubit.get(context);
-        return ConditionalBuilder(
-          condition: friendsModel == null,
-          builder: (context) => Scaffold(
+        if (cubit.friendsProfile == null) {
+          return Scaffold(
             body: Center(
-              child: AdaptiveIndicator(
-                os: getOs(),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    IconlyBroken.infoSquare,
+                    size: 100.sp,
+                    color: AppMainColors.greyColor,
+                  ),
+                  Text(
+                    'No Posts yet',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const CircularProgressIndicator(),
+                ],
               ),
             ),
-          ),
-          fallback: (context) => Scaffold(
-            key: scaffoldKey,
-            body: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15).r,
-                    ),
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 280.h,
-                          child: Stack(
-                            alignment: AlignmentDirectional.bottomCenter,
-                            children: [
-                              Align(
-                                alignment: AlignmentDirectional.topCenter,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(8.0),
-                                    topRight: Radius.circular(8.0),
-                                  ).r),
-                                  width: double.infinity,
-                                  height: 230.h,
-                                  child: ImageViewScreen(
-                                      image: friendsModel?.cover, body: ''),
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  navigateTo(
-                                    context,
-                                    ImageViewScreen(
-                                        image: friendsModel.image, body: ''),
-                                  );
-                                },
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  radius: 75,
-                                  child: CircleAvatar(
-                                    backgroundImage: NetworkImage(
-                                      friendsModel!.image,
-                                    ),
-                                    radius: 70.r,
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                top: 60.h,
-                                left: 5.w,
-                                child: IconButton(
-                                  onPressed: () {
-                                    pop(context);
-                                  },
-                                  icon: CircleAvatar(
-                                    backgroundColor: Colors.black,
-                                    child: Icon(
-                                      IconlyLight.arrowLeft2,
-                                      size: 30.sp,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        space(0, 5.h),
-                        Text(
-                          friendsModel.name,
-                          style: GoogleFonts.roboto(
-                            fontSize: 24.sp,
-                            color: cubit.isDark ? Colors.blue : Colors.white,
-                          ),
-                        ),
-                        space(0, 5.h),
-                        Text(
-                          friendsModel.bio,
-                          style: GoogleFonts.roboto(
-                            textStyle:
-                                Theme.of(context).textTheme.bodySmall!.copyWith(
-                                      fontSize: 16.sp,
-                                      color: Colors.grey,
-                                    ),
-                          ),
-                        ),
-                        space(0, 15.h),
-                        Card(
-                          margin: const EdgeInsets.symmetric(horizontal: 10).r,
-                          color: Colors.grey[100],
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      '${cubit.userPosts.length}',
-                                      style: GoogleFonts.roboto(
-                                        textStyle: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(
-                                              fontSize: 20.sp,
-                                            ),
-                                      ),
-                                    ),
-                                    Text(
-                                      'Posts',
-                                      style: GoogleFonts.roboto(
-                                        textStyle: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(
-                                              fontSize: 20.sp,
-                                              color: Colors.black,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      '10K',
-                                      style: GoogleFonts.roboto(
-                                        textStyle: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(
-                                              fontSize: 20.sp,
-                                            ),
-                                      ),
-                                    ),
-                                    Text(
-                                      'Followers',
-                                      style: GoogleFonts.roboto(
-                                        textStyle: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(
-                                              fontSize: 20.sp,
-                                              color: Colors.black,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                child: InkWell(
-                                  onTap: () {
-                                    navigateTo(
-                                      context,
-                                      FriendsScreen(
-                                        friends,
-                                        myFriends: true,
-                                      ),
-                                    );
-                                  },
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        '${friends.length}',
-                                        style: GoogleFonts.roboto(
-                                          textStyle: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(fontSize: 20.sp),
-                                        ),
-                                      ),
-                                      Text(
-                                        'Friends',
-                                        style: GoogleFonts.roboto(
-                                          textStyle: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(
-                                                fontSize: 20.sp,
-                                                color: Colors.black,
-                                              ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Row(
+          );
+        } else {
+          return AnnotatedRegion<SystemUiOverlayStyle>(
+            value: const SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
+            ),
+            child: Scaffold(
+              body: cubit.userPosts.isEmpty
+                  ? ProfileInfo(friendsProfile: friendsModel!, cubit: cubit)
+                  : ConditionalBuilder(
+                      condition: cubit.userPosts.isNotEmpty,
+                      builder: (context) => SingleChildScrollView(
+                        child: Column(
                           children: [
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0).r,
-                                child: ElevatedButton(
-                                    style: ButtonStyle(
-                                        backgroundColor:
-                                            SocialCubit.get(context).isFriend ==
-                                                    false
-                                                ? MaterialStateProperty.all(
-                                                    Colors.blueAccent)
-                                                : MaterialStateProperty.all(
-                                                    Colors.grey[300])),
-                                    onPressed: () {
-                                      if (SocialCubit.get(context).isFriend ==
-                                          false) {
-                                        SocialCubit.get(context)
-                                            .sendFriendRequest(
-                                                friendsUID: userUID!,
-                                                friendName: friendsModel.name,
-                                                friendImage:
-                                                    friendsModel.image);
-                                        SocialCubit.get(context)
-                                            .checkFriendRequest(userUID);
-                                        SocialCubit.get(context)
-                                            .sendInAppNotification(
-                                                contentKey: 'friendRequest',
-                                                contentId: friendsModel.uId,
-                                                content:
-                                                    'sent you a friend request, check it out!',
-                                                receiverId: friendsModel.uId,
-                                                receiverName:
-                                                    friendsModel.name);
-                                        SocialCubit.get(context)
-                                            .sendFCMNotification(
-                                                token: friendsModel.uId,
-                                                senderName:
-                                                    SocialCubit.get(context)
-                                                        .userModel!
-                                                        .name,
-                                                messageText:
-                                                    '${SocialCubit.get(context).userModel!.name}'
-                                                    'sent you a friend request, check it out!');
-                                      } else {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) => baseAlertDialog(
-                                            context: context,
-                                            title: 'You are already Friends',
-                                            content:
-                                                'Do you want to Unfriend ?',
-                                            outlinedButtonText: 'Cancel',
-                                            elevatedButtonText: 'Unfriend',
-                                            elevatedButtonIcon:
-                                                Icons.person_remove,
-                                          ),
-                                          barrierDismissible: true,
-                                        );
-                                      }
-                                    },
-                                    child: SocialCubit.get(context).isFriend ==
-                                            false
-                                        ? SocialCubit.get(context).request
-                                            ? Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Icon(
-                                                    Icons
-                                                        .person_add_alt_1_rounded,
-                                                    color: Colors.white,
-                                                    size: 24.sp,
-                                                  ),
-                                                  SizedBox(
-                                                    width: 5.w,
-                                                  ),
-                                                  const Text(
-                                                    'requestSent',
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                ],
-                                              )
-                                            : Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Icon(
-                                                    size: 24.sp,
-                                                    Icons
-                                                        .person_add_alt_1_rounded,
-                                                    color: Colors.white,
-                                                  ),
-                                                  SizedBox(
-                                                    width: 5.w,
-                                                  ),
-                                                  const Text(
-                                                    'addFriend',
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                ],
-                                              )
-                                        : Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.person,
-                                                color: Colors.black,
-                                                size: 24.sp,
-                                              ),
-                                              SizedBox(
-                                                width: 5.w,
-                                              ),
-                                              const Text(
-                                                'profileFriends',
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                            ],
-                                          )),
+                            ProfileInfo(
+                                friendsProfile: friendsModel!, cubit: cubit),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                left: 10.0,
+                                right: 10,
+                                top: 10,
+                              ).r,
+                              child: Align(
+                                alignment: AlignmentDirectional.topStart,
+                                child: Text(
+                                  'Posts',
+                                  style:
+                                      Theme.of(context).textTheme.headlineSmall,
+                                ),
                               ),
                             ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0).r,
-                                child: ElevatedButton(
-                                    style: ButtonStyle(
-                                      backgroundColor:
-                                          SocialCubit.get(context).isFriend ==
-                                                  false
-                                              ? MaterialStateProperty.all(
-                                                  Colors.grey[300])
-                                              : MaterialStateProperty.all(
-                                                  Colors.blueAccent,
-                                                ),
-                                    ),
-                                    onPressed: () {
-                                      navigateTo(
-                                        context,
-                                        PrivateChatScreen(
-                                          userModel: friendsModel,
-                                        ),
-                                      );
-                                    },
-                                    child: SocialCubit.get(context).isFriend !=
-                                            false
-                                        ? Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                size: 24.sp,
-                                                IconlyBroken.chat,
-                                                color: Colors.white,
-                                              ),
-                                              SizedBox(
-                                                width: 5.w,
-                                              ),
-                                              const Text(
-                                                'message',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ],
-                                          )
-                                        : Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                IconlyBroken.chat,
-                                                color: Colors.black,
-                                                size: 24.sp,
-                                              ),
-                                              SizedBox(
-                                                width: 5.w,
-                                              ),
-                                              const Text(
-                                                'message',
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                            ],
-                                          )),
+                            ListView.separated(
+                              padding: const EdgeInsets.only(top: 10).r,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: cubit.userPosts.length,
+                              separatorBuilder: (context, index) =>
+                                  SizedBox(height: 10.h),
+                              itemBuilder: (context, index) => BuildPostItem(
+                                postModel: cubit.userPosts[index],
+                                userModel: cubit.userModel!,
+                                index: index,
                               ),
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                  ),
-                  const MyDivider(),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 4.0, vertical: 0)
-                            .r,
-                    child: Align(
-                      alignment: AlignmentDirectional.topStart,
-                      child: Text(
-                        'Posts',
-                        style: GoogleFonts.roboto(
-                          fontSize: 24.sp,
-                          color: cubit.isDark ? Colors.black : Colors.white,
+                      ),
+                      fallback: (BuildContext context) => Center(
+                        child: AdaptiveIndicator(
+                          os: getOs(),
                         ),
                       ),
                     ),
+            ),
+          );
+        }
+      },
+    );
+  }
+}
+
+class ProfileInfo extends StatelessWidget {
+  const ProfileInfo({
+    super.key,
+    required this.friendsProfile,
+    required this.cubit,
+    this.userUID,
+  });
+
+  final UserModel friendsProfile;
+  final SocialCubit cubit;
+  final String? userUID;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          height: 220.h,
+          child: Stack(
+            alignment: AlignmentDirectional.bottomCenter,
+            children: [
+              Align(
+                alignment: AlignmentDirectional.topCenter,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(8),
+                      topRight: Radius.circular(8),
+                    ).r,
                   ),
-                  ConditionalBuilder(
-                      condition: cubit.userPosts.isNotEmpty,
-                      builder: (context) => ListView.separated(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) => BuildPostItem(
-                              postModel: cubit.userPosts[index],
-                              userModel: cubit.userModel!,
-                              index: index,
-                            ),
-                            separatorBuilder: (context, index) => SizedBox(
-                              height: 10.h,
-                            ),
-                            itemCount: cubit.userPosts.length,
-                          ),
-                      fallback: (context) => Padding(
-                            padding: const EdgeInsets.all(8.0).r,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  height: 70.h,
-                                ),
-                                Icon(
-                                  Icons.article_outlined,
-                                  size: 70.sp,
-                                  color: Colors.grey,
-                                ),
-                                Text(
-                                  'No Posts',
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                )
-                              ],
-                            ),
-                          )),
-                ],
+                  width: double.infinity,
+                  height: 200.h,
+                  child: imagePreview(
+                    friendsProfile.cover,
+                  ),
+                ),
               ),
+              CircleAvatar(
+                backgroundColor: AppMainColors.dividerColor,
+                radius: 75.r,
+                child: CircleAvatar(
+                  radius: 70.r,
+                  child: imagePreview(friendsProfile.image, radius: 65.r),
+                ),
+              ),
+              Positioned(
+                top: 30.h,
+                left: 5.w,
+                child: IconButton(
+                  onPressed: () {
+                    pop(context);
+                  },
+                  icon: CircleAvatar(
+                    backgroundColor: AppMainColors.greyDarkColor,
+                    child: Icon(
+                      IconlyBroken.arrowLeft2,
+                      size: 24.sp,
+                      color: AppMainColors.titanWithColor,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 5.h),
+        Text(
+          friendsProfile.name,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        SizedBox(height: 5.h),
+        Text(
+          friendsProfile.bio,
+          style: Theme.of(context)
+              .textTheme
+              .bodyLarge!
+              .copyWith(color: AppMainColors.greyColor),
+        ),
+        SizedBox(height: 5.h),
+        Text(
+          friendsProfile.portfolio,
+          style: Theme.of(context)
+              .textTheme
+              .bodyLarge!
+              .copyWith(color: AppMainColors.blueColor),
+        ),
+        SizedBox(height: 15.h),
+        Card(
+          margin: const EdgeInsets.symmetric(
+            horizontal: 10,
+          ).r,
+          color: AppMainColors.greyColor.withOpacity(0.1),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5).r,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    children: [
+                      Text(
+                        '${cubit.userPosts.length}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge!
+                            .copyWith(color: AppMainColors.dividerColor),
+                      ),
+                      Text(
+                        'Posts',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Text(
+                        '${cubit.friends.length}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge!
+                            .copyWith(color: AppMainColors.dividerColor),
+                      ),
+                      Text(
+                        'Followers',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      navigateTo(
+                        context,
+                        FriendsScreen(
+                          cubit.friends,
+                          myFriends: true,
+                        ),
+                      );
+                    },
+                    child: Column(
+                      children: [
+                        Text(
+                          '${cubit.friends.length}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge!
+                              .copyWith(color: AppMainColors.dividerColor),
+                        ),
+                        Text(
+                          'Friends',
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-        );
-      },
+        ),
+        SizedBox(height: 5.h),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12,
+          ).r,
+          child: Row(
+            children: [
+              Expanded(
+                child: TextButton.icon(
+                  style: TextButton.styleFrom(
+                    backgroundColor: AppMainColors.greyColor.withOpacity(0.4),
+                  ),
+                  onPressed: () {
+                    if (SocialCubit.get(context).isFriend == false) {
+                      SocialCubit.get(context).sendFriendRequest(
+                          friendsUID: userUID!,
+                          friendName: friendsProfile.name,
+                          friendImage: friendsProfile.image);
+                      SocialCubit.get(context).checkFriendRequest(userUID);
+                      SocialCubit.get(context).sendInAppNotification(
+                          contentKey: 'friendRequest',
+                          contentId: friendsProfile.uId,
+                          content: 'sent you a friend request, check it out!',
+                          receiverId: friendsProfile.uId,
+                          receiverName: friendsProfile.name);
+                      SocialCubit.get(context).sendFCMNotification(
+                          token: friendsProfile.uId,
+                          senderName: SocialCubit.get(context).userModel!.name,
+                          messageText:
+                              '${SocialCubit.get(context).userModel!.name}'
+                              'sent you a friend request, check it out!');
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (context) => baseAlertDialog(
+                          context: context,
+                          title: 'You are already Friends',
+                          content: 'Do you want to Unfriend ?',
+                          outlinedButtonText: 'Cancel',
+                          elevatedButtonText: 'Unfriend',
+                          elevatedButtonIcon: Icons.person_remove,
+                        ),
+                        barrierDismissible: true,
+                      );
+                    }
+                  },
+                  label: SocialCubit.get(context).isFriend == false
+                      ? SocialCubit.get(context).request
+                          ? Text(
+                              'Request Sent',
+                              style: Theme.of(context).textTheme.titleLarge,
+                            )
+                          : Text(
+                              'Add Friend',
+                              style: Theme.of(context).textTheme.titleLarge,
+                            )
+                      : Text(
+                          'Profile Friends',
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                  icon: Icon(
+                    IconlyBroken.user2,
+                    color: Colors.white,
+                    size: 24.sp,
+                  ),
+                ),
+              ),
+              SizedBox(width: 20.w),
+              Expanded(
+                child: TextButton.icon(
+                  style: TextButton.styleFrom(
+                    backgroundColor: AppMainColors.blueColor,
+                  ),
+                  onPressed: () {
+                    navigateTo(
+                      context,
+                      PrivateChatScreen(
+                        userModel: friendsProfile,
+                      ),
+                    );
+                  },
+                  label: const Text(
+                    'message',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  icon: Icon(
+                    IconlyBroken.chat,
+                    color: Colors.black,
+                    size: 24.sp,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 10.h),
+        const MyDivider(),
+      ],
     );
   }
 }

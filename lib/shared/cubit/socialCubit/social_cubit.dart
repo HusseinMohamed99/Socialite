@@ -530,7 +530,7 @@ class SocialCubit extends Cubit<SocialStates> {
 
 // ----------------------------------------------------------//
   ///START : Likes
-  bool isLikedByMe = false;
+
   Future<bool> likeByMe({
     context,
     String? postId,
@@ -539,7 +539,7 @@ class SocialCubit extends Cubit<SocialStates> {
     required DateTime dataTime,
   }) async {
     emit(LikedByMeCheckedLoadingState());
-
+    bool isLikedByMe = false;
     FirebaseFirestore.instance
         .collection('posts')
         .doc(postId)
@@ -1576,7 +1576,7 @@ class SocialCubit extends Cubit<SocialStates> {
 
     dio.options.headers['Content-Type'] = 'application/json';
     dio.options.headers["Authorization"] =
-        'key= AAAAqnVMlS0:APA91bHd_ooZwkN81g8c0xaDHC0KPN1QrRhVcq_qG4MZ1pvciG6MF4MhiMDY1HnrscPQeONN_mgEOQl1eU80jZ2NgvYGJKTon8CJ2nLIxwGgkwNBtYhFEDhPYo3sYpXpeYzITVfDo9nT';
+        'key= AAAAHv5IYHw:APA91bFL7S1bvVb9PlK-fUdeSWWQQAiCEyckzYfmogaWGlkxLLtzK5LKCnPk4_imOygnahdkJF7c4bxBCt7FD-PQM2jotv9W_ou3lIUihfHetFxWWQptcDVzf9ziyXNQTX2R5BMZ1Imo';
 
     try {
       final response = await dio.post(postUrl, data: data);
