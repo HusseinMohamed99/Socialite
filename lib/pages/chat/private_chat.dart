@@ -1,6 +1,5 @@
 import 'package:bubble/bubble.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:socialite/Pages/viewPhoto/image_view.dart';
 import 'package:socialite/shared/components/indicator.dart';
 import 'package:socialite/model/message_model.dart';
 import 'package:socialite/model/user_model.dart';
@@ -671,10 +670,10 @@ class PrivateChatScreen extends StatelessWidget {
                         cubit.saveToGallery(messageModel.messageImage!);
                       },
                       onTap: () {
-                        navigateTo(
-                            context,
-                            ImageViewScreen(
-                                image: messageModel.messageImage, body: ''));
+                        // navigateTo(
+                        //     context,
+                        //     ImageViewScreen(
+                        //         image: messageModel.messageImage, body: ''));
                       },
                       child: Image(
                         image: NetworkImage(
@@ -731,10 +730,10 @@ class PrivateChatScreen extends StatelessWidget {
                 cubit.saveToGallery(messageModel.messageImage!);
               },
               onTap: () {
-                navigateTo(
-                    context,
-                    ImageViewScreen(
-                        image: messageModel.messageImage, body: ''));
+                // navigateTo(
+                //     context,
+                //     ImageViewScreen(
+                //         image: messageModel.messageImage, body: ''));
               },
               child: Container(
                   width: 300,
@@ -848,10 +847,10 @@ class PrivateChatScreen extends StatelessWidget {
                         cubit.saveToGallery(messageModel.messageImage!);
                       },
                       onTap: () {
-                        navigateTo(
-                            context,
-                            ImageViewScreen(
-                                image: messageModel.messageImage, body: ''));
+                        // navigateTo(
+                        //     context,
+                        //     ImageViewScreen(
+                        //         image: messageModel.messageImage, body: ''));
                       },
                       child: Image(
                         image: NetworkImage(
@@ -904,10 +903,10 @@ class PrivateChatScreen extends StatelessWidget {
                 cubit.saveToGallery(messageModel.messageImage!);
               },
               onTap: () {
-                navigateTo(
-                    context,
-                    ImageViewScreen(
-                        image: messageModel.messageImage, body: ''));
+                // navigateTo(
+                //     context,
+                //     ImageViewScreen(
+                //         image: messageModel.messageImage, body: ''));
               },
               child: Container(
                   width: 300,
