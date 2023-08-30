@@ -1020,7 +1020,6 @@ class SocialCubit extends Cubit<SocialStates> {
 
 //------------------------------------------------------------//
   ///START : get Message Image
-  bool messageImageSelected = false;
   File? messageImagePicked;
 
   Future<void> getMessageImage() async {
@@ -1030,7 +1029,6 @@ class SocialCubit extends Cubit<SocialStates> {
       messageImagePicked = File(pickedFile.path);
 
       emit(MessageImagePickedSuccessState());
-      messageImageSelected = true;
     } else {
       debugPrint('No image selected.');
       emit(MessageImagePickedErrorState());
@@ -1053,7 +1051,7 @@ class SocialCubit extends Cubit<SocialStates> {
   void uploadMessageImage({
     required String receiverId,
     required DateTime datetime,
-    required String text,
+    String? text,
   }) {
     emit(UploadMessageImageLoadingState());
     firebase_storage.FirebaseStorage.instance
