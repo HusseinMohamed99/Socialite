@@ -3,6 +3,37 @@
 ## Download The App![GitHub All Releases](https://img.shields.io/github/downloads/HusseinMohamed99/Socialite/total?color=green)
 <a href="https://github.com/HusseinMohamed99/Socialite/releases/download/v2.0.0/Socialite.apk"><img src="https://playerzon.com/asset/download.png" width="200"></img></a>
 
+## Screenshots Light Theme:
+<p>
+  <img src=" ![1](https://github.com/HusseinMohamed99/Socialite/assets/84459939/002bb27a-2168-4820-8a13-47c85fe1bfc5)" width="250" />
+  <img src=" " width="250" />
+  <img src="" width="250" />
+  <img src=" " width="250" />
+  <img src=" " width="250" />
+  <img src=" " width="250" />
+  <img src=" " width="250" />
+  <img src=" " width="250" />
+  <img src=" " width="250" />
+  <img src=" " width="250" />
+    <img src=" " width="250" />
+  <img src=" " width="250" />
+    <img src=" " width="250" />
+  <img src=" " width="250" />
+    <img src=" " width="250" />
+        <img src=" " width="250" />
+    <img src=" " width="250" />
+    <img src=" " width="250" />
+    <img src=" " width="250" />
+       <img src=" " width="250" />
+          <img src=" " width="250" />
+             <img src=" " width="250" />
+                <img src=" " width="250" />
+                   <img src=" " width="250" />
+                      <img src=" " width="250" />
+                         <img src=" " width="250" />
+
+</p>
+
 Flutter application, a person can add posts,
 chats, change profile details, profile image, and cover
 image for the most interactive posts using
