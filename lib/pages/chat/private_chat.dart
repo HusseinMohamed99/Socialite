@@ -85,7 +85,7 @@ class PrivateChatScreen extends StatelessWidget {
                         userModel.name,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.titleLarge,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
                   ],
@@ -514,7 +514,7 @@ class BuildUserMessageItem extends StatelessWidget {
                   children: [
                     Text(
                       messageModel.text!,
-                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
                             color: cubit.isDark
                                 ? AppMainColors.titanWithColor
                                 : AppMainColors.blackColor,
@@ -550,7 +550,6 @@ class BuildUserMessageItem extends StatelessWidget {
         children: [
           Container(
             width: 250.w,
-            height: 225.h,
             clipBehavior: Clip.none,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(
@@ -581,49 +580,35 @@ class BuildUserMessageItem extends StatelessWidget {
                       onLongPress: () {
                         cubit.saveToGallery(messageModel.messageImage!);
                       },
-                      onTap: () {
-                        // navigateTo(
-                        //     context,
-                        //     ImageViewScreen(
-                        //         image: messageModel.messageImage, body: ''));
-                      },
-                      child: Image(
-                        image: NetworkImage(
-                          '${messageModel.messageImage}',
-                        ),
-                        fit: BoxFit.cover,
+                      child: imagePreview(
+                        '${messageModel.messageImage}',
                       ),
                     ),
                   ),
-                  Align(
-                    alignment: AlignmentDirectional.bottomEnd,
-                    child: Column(
-                      textBaseline: TextBaseline.alphabetic,
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          messageModel.text!,
-                          style: GoogleFonts.libreBaskerville(
-                            color: cubit.isDark ? Colors.white : Colors.black,
-                            fontSize: 16,
-                            height: 1.7,
-                          ),
+                  SizedBox(height: 5.h),
+                  Column(
+                    textBaseline: TextBaseline.alphabetic,
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Align(
+                        alignment: Alignment.bottomLeft,
+                        child: ExpandableText(
+                          text: messageModel.text!,
                         ),
-                        Text(
+                      ),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: Text(
                           daysBetween(
                               DateTime.parse(messageModel.dateTime.toString())),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                color:
-                                    cubit.isDark ? Colors.grey : Colors.black54,
-                                height: 2.2,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    color: AppMainColors.greyColor,
+                                  ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -641,32 +626,26 @@ class BuildUserMessageItem extends StatelessWidget {
               onLongPress: () {
                 cubit.saveToGallery(messageModel.messageImage!);
               },
-              onTap: () {
-                // navigateTo(
-                //     context,
-                //     ImageViewScreen(
-                //         image: messageModel.messageImage, body: ''));
-              },
               child: Container(
-                  width: 300,
-                  height: 250,
+                  width: 250.w,
+                  height: 200.h,
                   decoration: BoxDecoration(
-                    borderRadius: const BorderRadiusDirectional.only(
-                      bottomStart: Radius.circular(20),
-                      topEnd: Radius.circular(20),
-                      topStart: Radius.circular(20),
-                    ),
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage('${messageModel.messageImage}')),
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                      topLeft: Radius.circular(20),
+                    ).r,
+                  ),
+                  child: imagePreview(
+                    '${messageModel.messageImage}',
                   )),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8).r,
               child: Text(
                 daysBetween(DateTime.parse(messageModel.dateTime.toString())),
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      color: Colors.white,
+                      color: AppMainColors.greyColor,
                     ),
               ),
             ),
@@ -854,5 +833,56 @@ class BuildFriendMessageItem extends StatelessWidget {
         ),
       );
     }
+  }
+}
+
+class ExpandableText extends StatefulWidget {
+  const ExpandableText({Key? key, required this.text}) : super(key: key);
+
+  final String text;
+
+  @override
+  ExpandableTextState createState() => ExpandableTextState();
+}
+
+class ExpandableTextState extends State<ExpandableText>
+    with TickerProviderStateMixin {
+  bool expanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    SocialCubit cubit = SocialCubit.get(context);
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      AnimatedSize(
+        duration: const Duration(milliseconds: 250),
+        child: ConstrainedBox(
+          constraints: expanded
+              ? const BoxConstraints()
+              : const BoxConstraints(maxHeight: 85),
+          child: Text(
+            widget.text,
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  color: cubit.isDark
+                      ? AppMainColors.titanWithColor
+                      : AppMainColors.blackColor,
+                ),
+            overflow: TextOverflow.fade,
+          ),
+        ),
+      ),
+      expanded
+          ? OutlinedButton.icon(
+              icon: const Icon(Icons.arrow_upward, color: Color(0xFFD50000)),
+              label: const Text(
+                'Close Text / Read Less',
+                style: TextStyle(color: Color(0xFF2E7D32)),
+              ),
+              onPressed: () => setState(() => expanded = false))
+          : OutlinedButton.icon(
+              icon: const Icon(Icons.arrow_downward, color: Color(0xFFD50000)),
+              label: const Text('Read More Here',
+                  style: TextStyle(color: Color(0xFF2E7D32))),
+              onPressed: () => setState(() => expanded = true))
+    ]);
   }
 }
