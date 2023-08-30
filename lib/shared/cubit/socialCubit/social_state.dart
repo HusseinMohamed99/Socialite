@@ -237,6 +237,8 @@ class ChangeConfirmPasswordState extends SocialStates {}
 ///START : Message 21
 class SendMessageSuccessState extends SocialStates {}
 
+class SendFCMNotificationSuccessState extends SocialStates {}
+
 class SendMessageErrorState extends SocialStates {}
 
 class GetMessageSuccessState extends SocialStates {}

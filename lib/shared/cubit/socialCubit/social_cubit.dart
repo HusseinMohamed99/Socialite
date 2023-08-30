@@ -1575,7 +1575,7 @@ class SocialCubit extends Cubit<SocialStates> {
         "click_action": "FLUTTER_NOTIFICATION_CLICK"
       }
     });
-    emit(SendMessageSuccessState());
+    emit(SendFCMNotificationSuccessState());
   }
 
   // Future<String?> getDeviceToken() async {
