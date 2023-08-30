@@ -1,4 +1,5 @@
 import 'package:bubble/bubble.dart';
+import 'package:socialite/shared/components/image_with_shimmer.dart';
 import 'package:socialite/model/message_model.dart';
 import 'package:socialite/model/user_model.dart';
 import 'package:socialite/shared/components/navigator.dart';
@@ -9,6 +10,7 @@ import 'package:socialite/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttericon/octicons_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -59,8 +61,8 @@ class PrivateChatScreen extends StatelessWidget {
                   pop(context);
                 },
                 icon: Icon(
-                  IconlyLight.arrowLeft2,
-                  size: 30,
+                  IconlyBroken.arrowLeft2,
+                  size: 30.sp,
                   color: cubit.isDark ? Colors.black : Colors.white,
                 ),
               ),
@@ -68,26 +70,43 @@ class PrivateChatScreen extends StatelessWidget {
               title: Row(
                 children: [
                   CircleAvatar(
-                    radius: 25,
-                    backgroundImage: NetworkImage(
-                      userModel.image,
+                    radius: 15.r,
+                    child: ImageWithShimmer(
+                      imageUrl: userModel.image,
+                      width: 30.w,
+                      height: 30.h,
+                      radius: 15.r,
                     ),
                   ),
-                  space(15, 0),
+                  SizedBox(width: 10.w),
                   Expanded(
                     child: Text(
                       userModel.name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.roboto(
-                        color: cubit.isDark ? Colors.blue : Colors.white,
-                        fontSize: 20,
-                      ),
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ),
-                  space(30, 0),
                 ],
               ),
+              actions: [
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    IconlyBroken.video,
+                    size: 24.sp,
+                    color: cubit.isDark ? Colors.black : Colors.white,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    IconlyBroken.call,
+                    size: 24.sp,
+                    color: cubit.isDark ? Colors.black : Colors.white,
+                  ),
+                ),
+              ],
               elevation: 1,
             ),
             body: Padding(
@@ -246,12 +265,10 @@ class PrivateChatScreen extends StatelessWidget {
                                     curve: Curves.linearToEaseOut,
                                     index: cubit.message.length);
                               } else {
-                                cubit.uploadMessageImage(
+                                SocialCubit.get(context).uploadMessageImage(
                                   receiverId: userModel.uId,
                                   datetime: DateTime.now(),
-                                  text: textController.text == ''
-                                      ? null
-                                      : textController.text,
+                                  text: textController.text,
                                 );
                                 textController.clear();
                                 cubit.removeMessageImage();
@@ -261,7 +278,7 @@ class PrivateChatScreen extends StatelessWidget {
                                   index: cubit.message.length,
                                 );
                               }
-                              cubit.sendFCMNotification(
+                              SocialCubit.get(context).sendFCMNotification(
                                 senderName: cubit.userModel!.name,
                                 messageText: textController.text,
                                 messageImage: cubit.imageURL,
