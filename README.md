@@ -31,57 +31,52 @@
   <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/14ca6857-fb3e-49b0-a754-0b181e3729b6 " width="250" />
   <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/502038e0-d7db-4b33-9b52-4530d2d29ab1 " width="250" />
   <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/88c22877-7e79-47e4-a518-6c712b535f01" width="250" />
- <img src="![27](https://github.com/HusseinMohamed99/Socialite/assets/84459939/faf36b96-20b5-44e6-86fe-0beb4a8df3b8 " width="250" />
+  <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/faf36b96-20b5-44e6-86fe-0beb4a8df3b8" width="250" />
   <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/a7df2bda-b22f-4560-af57-ed54fe2c8c57" width="250" />
-   <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/7efe0f82-844c-4876-932f-69877b8906ef" width="250" />
-    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/82e920d2-5d86-4806-bca6-e8f90d3163b6" width="250" />
-     <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/19a99dda-3089-44f7-aa0b-aca9223486d3 " width="250" />
-      <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/8b95ffe6-8ff2-4bf5-9840-c9adcf812753" width="250" />
-       <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/b9216096-5227-48be-aecf-7229521ae7fe" width="250" />
-        <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/96c162b6-4971-4ad0-9993-65bbc2ace799" width="250" />
-         <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/4757679e-208f-4a02-81a2-bc9d7cb545ef" width="250" />
+  <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/7efe0f82-844c-4876-932f-69877b8906ef" width="250" />
+  <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/82e920d2-5d86-4806-bca6-e8f90d3163b6" width="250" />
+  <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/19a99dda-3089-44f7-aa0b-aca9223486d3 " width="250" />
+  <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/8b95ffe6-8ff2-4bf5-9840-c9adcf812753" width="250" />
+  <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/b9216096-5227-48be-aecf-7229521ae7fe" width="250" />
+  <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/96c162b6-4971-4ad0-9993-65bbc2ace799" width="250" />
+  <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/4757679e-208f-4a02-81a2-bc9d7cb545ef" width="250" />
 </p>
 
 ## Screenshots Dark Theme:
   <p>
-          <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/78cf65e5-dc5c-4b14-9ffa-de976bd7359b" width="250" />
-           <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/78285775-353a-41be-8db2-c2d4429562c1" width="250" />
-            <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/5b925c18-cfb2-4a94-93d0-65369f16b5cd " width="250" />
-             <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/5b65a5e8-8706-4b38-90d5-830262fde723" width="250" />
-              <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/0885cf67-4f0e-4170-996b-b8870f5e528d" width="250" />
-               <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/e82e2ae3-3f58-469f-af0f-9266be396972" width="250" />
-                <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/cc3c8a29-4d09-4c39-a458-1f8c462e7c45 " width="250" />
-                 <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/384ba3b0-e486-4afe-b9d4-1e30853f971a" width="250" />
-                  <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/839851fb-6608-4028-a04b-c322f118684e " width="250" />
-                   <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/f5e98a38-f725-4176-b7bc-3693ecaaa513" width="250" />
-                    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/60cf1335-9fb8-4ff7-85c0-f658860c7f79 " width="250" />
-                     <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/05a0b086-3acb-4e1c-b3be-351d74ed63d1" width="250" />
-                      <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/30db34a8-1f84-4d3a-9fe3-678ef91e44c3 " width="250" />
-                       <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/36305bb0-3c33-4f3c-9638-d0735e891b6a" width="250" />
-                        <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/9b143cdb-ca36-4ea1-b2c8-8f854f06ea40" width="250" />
-                         <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/2c4a7a62-73bc-47ad-8a72-a826899593d9 " width="250" />
-                          <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/8ca6c29f-7958-4301-b8aa-a9fcc73c4acc " width="250" />
-                           <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/1e642a81-7e61-4a9f-84ac-ccc9cf26ffe4" width="250" />
-                            <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/051ce2d4-1222-4736-b31f-82dba0bf030a" width="250" />
-                             <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/e02e0c8a-aaca-4b02-b97f-14d329626d44 " width="250" />
-                              <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/8a9387fd-3d43-4084-9afc-57895486fdd1" width="250" />
-                               <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/e7f46542-f5ec-4682-a05d-c7b2adffaa35 " width="250" />
-                                <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/2b734c2a-c66b-470a-abfb-25da88fc078d " width="250" />
-                                 <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/12feed53-d198-401f-9ce7-c5947a32d2b9 " width="250" />
-                                  <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/4230fc31-0d2e-480c-9a16-6c87c9f2ab4c " width="250" />
-                                   <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/4ee04ef9-1163-4e3d-9b1d-b700abb50326" width="250" />  
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/78cf65e5-dc5c-4b14-9ffa-de976bd7359b" width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/78285775-353a-41be-8db2-c2d4429562c1" width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/5b925c18-cfb2-4a94-93d0-65369f16b5cd " width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/5b65a5e8-8706-4b38-90d5-830262fde723" width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/0885cf67-4f0e-4170-996b-b8870f5e528d" width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/e82e2ae3-3f58-469f-af0f-9266be396972" width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/cc3c8a29-4d09-4c39-a458-1f8c462e7c45 " width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/384ba3b0-e486-4afe-b9d4-1e30853f971a" width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/839851fb-6608-4028-a04b-c322f118684e " width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/f5e98a38-f725-4176-b7bc-3693ecaaa513" width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/60cf1335-9fb8-4ff7-85c0-f658860c7f79 " width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/05a0b086-3acb-4e1c-b3be-351d74ed63d1" width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/30db34a8-1f84-4d3a-9fe3-678ef91e44c3 " width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/36305bb0-3c33-4f3c-9638-d0735e891b6a" width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/9b143cdb-ca36-4ea1-b2c8-8f854f06ea40" width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/2c4a7a62-73bc-47ad-8a72-a826899593d9 " width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/8ca6c29f-7958-4301-b8aa-a9fcc73c4acc " width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/1e642a81-7e61-4a9f-84ac-ccc9cf26ffe4" width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/051ce2d4-1222-4736-b31f-82dba0bf030a" width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/e02e0c8a-aaca-4b02-b97f-14d329626d44 " width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/8a9387fd-3d43-4084-9afc-57895486fdd1" width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/e7f46542-f5ec-4682-a05d-c7b2adffaa35 " width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/2b734c2a-c66b-470a-abfb-25da88fc078d " width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/12feed53-d198-401f-9ce7-c5947a32d2b9 " width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/4230fc31-0d2e-480c-9a16-6c87c9f2ab4c " width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/4ee04ef9-1163-4e3d-9b1d-b700abb50326" width="250" />  
     <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/2eab9267-21f3-4613-86e0-d0edd40a934c " width="250" />
-                                     <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/1fde2d70-eeac-48a5-804b-53133d737ac5 " width="250" /> 
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/1fde2d70-eeac-48a5-804b-53133d737ac5 " width="250" /> 
     <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/631d7616-8ce4-4363-9b36-ebdf946780d8" width="250" />
-     <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/d9bf4fb3-7938-45a7-a881-394ab5381529" width="250" />
-      <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/a84b421d-907a-4f37-9ea6-f1d00e2c320a " width="250" />
-       <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/836765a8-9379-4d87-a8ec-c49ff083e9be " width="250" />
-        <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/eecd8e5f-aa56-4d2f-ba8b-3c6774d5dbc8" width="250" />
-     
-
-                          
-                        
-
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/d9bf4fb3-7938-45a7-a881-394ab5381529" width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/a84b421d-907a-4f37-9ea6-f1d00e2c320a " width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/836765a8-9379-4d87-a8ec-c49ff083e9be " width="250" />
+    <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/eecd8e5f-aa56-4d2f-ba8b-3c6774d5dbc8" width="250" />
 </p>
 
 Flutter application, a person can add posts,
