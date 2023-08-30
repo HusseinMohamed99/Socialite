@@ -5,7 +5,7 @@
 
 ## Screenshots Light Theme:
 <p>
-  <img src=" ![1](https://github.com/HusseinMohamed99/Socialite/assets/84459939/002bb27a-2168-4820-8a13-47c85fe1bfc5)" width="250" />
+  <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/002bb27a-2168-4820-8a13-47c85fe1bfc5" width="250" />
   <img src=" " width="250" />
   <img src="" width="250" />
   <img src=" " width="250" />
