@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttericon/octicons_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:socialite/shared/styles/color.dart';
@@ -129,7 +128,9 @@ class PrivateChatScreen extends StatelessWidget {
                                 messageModel: message,
                               );
                             } else {
-                              return buildMessageItem(message, context);
+                              return BuildFriendMessageItem(
+                                messageModel: message,
+                              );
                             }
                           },
                           separatorBuilder: (context, index) =>
@@ -218,7 +219,7 @@ class PrivateChatScreen extends StatelessWidget {
                                     prefixIcon: IconButton(
                                       onPressed: () {},
                                       icon: Icon(
-                                        Octicons.smiley,
+                                        Icons.emoji_emotions_outlined,
                                         size: 20.sp,
                                         color: AppMainColors.greyColor,
                                       ),
@@ -313,179 +314,6 @@ class PrivateChatScreen extends StatelessWidget {
         );
       },
     );
-  }
-
-  Widget buildMessageItem(MessageModel messageModel, context) {
-    SocialCubit cubit = SocialCubit.get(context);
-    if (messageModel.messageImage == '') {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CircleAvatar(
-            radius: 12,
-            backgroundImage: NetworkImage(
-              userModel.image,
-            ),
-          ),
-          Flexible(
-            child: Padding(
-              padding:
-                  const EdgeInsets.only(left: 8, right: 8, top: 5, bottom: 5),
-              child: Bubble(
-                nip: BubbleNip.leftTop,
-                color:
-                    cubit.isDark ? Colors.blue : Colors.blue.withOpacity(0.4),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      messageModel.text!,
-                      style: GoogleFonts.libreBaskerville(
-                        color: Colors.white,
-                        fontSize: 20,
-                      ),
-                    ),
-                    space(0, 5),
-                    Text(
-                      daysBetween(
-                          DateTime.parse(messageModel.dateTime.toString())),
-                      style: GoogleFonts.roboto(
-                        color: Colors.white70,
-                        textStyle: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      );
-    } else if (messageModel.messageImage != '' && messageModel.text != '') {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Container(
-            width: 300,
-            height: 290,
-            clipBehavior: Clip.none,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadiusDirectional.only(
-                bottomStart: Radius.circular(10),
-                topEnd: Radius.circular(10),
-                topStart: Radius.circular(10),
-              ),
-            ),
-            child: Bubble(
-              padding: const BubbleEdges.all(4),
-              nip: BubbleNip.leftTop,
-              color: cubit.isDark ? Colors.blue : Colors.blue.withOpacity(0.3),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Container(
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadiusDirectional.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                    width: 300,
-                    height: 220,
-                    child: InkWell(
-                      onLongPress: () {
-                        cubit.saveToGallery(messageModel.messageImage!);
-                      },
-                      onTap: () {
-                        // navigateTo(
-                        //     context,
-                        //     ImageViewScreen(
-                        //         image: messageModel.messageImage, body: ''));
-                      },
-                      child: Image(
-                        image: NetworkImage(
-                          '${messageModel.messageImage}',
-                        ),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional.bottomStart,
-                    child: Column(
-                      textBaseline: TextBaseline.alphabetic,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Text(
-                          messageModel.text!,
-                          style: GoogleFonts.libreBaskerville(
-                            color: Colors.white,
-                            fontSize: 16,
-                            height: 1.7,
-                          ),
-                        ),
-                        Text(
-                          daysBetween(
-                              DateTime.parse(messageModel.dateTime.toString())),
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    color: Colors.grey,
-                                    height: 2.2,
-                                  ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      );
-    } else {
-      return Align(
-        alignment: AlignmentDirectional.bottomStart,
-        child: Stack(
-          alignment: AlignmentDirectional.bottomEnd,
-          children: [
-            InkWell(
-              onLongPress: () {
-                cubit.saveToGallery(messageModel.messageImage!);
-              },
-              onTap: () {
-                // navigateTo(
-                //     context,
-                //     ImageViewScreen(
-                //         image: messageModel.messageImage, body: ''));
-              },
-              child: Container(
-                  width: 300,
-                  height: 250,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadiusDirectional.only(
-                      bottomStart: Radius.circular(20),
-                      topEnd: Radius.circular(20),
-                      topStart: Radius.circular(20),
-                    ),
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage('${messageModel.messageImage}')),
-                  )),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                daysBetween(DateTime.parse(messageModel.dateTime.toString())),
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      color: Colors.white,
-                    ),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
   }
 }
 
@@ -657,10 +485,12 @@ class BuildUserMessageItem extends StatelessWidget {
 }
 
 class BuildFriendMessageItem extends StatelessWidget {
-  const BuildFriendMessageItem(
-      {super.key, required this.messageModel, required this.userModel});
+  const BuildFriendMessageItem({
+    super.key,
+    required this.messageModel,
+  });
   final MessageModel messageModel;
-  final UserModel userModel;
+
   @override
   Widget build(BuildContext context) {
     SocialCubit cubit = SocialCubit.get(context);
@@ -670,37 +500,41 @@ class BuildFriendMessageItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CircleAvatar(
-            radius: 12,
-            backgroundImage: NetworkImage(
-              userModel.image,
+            radius: 12.r,
+            child: ImageWithShimmer(
+              imageUrl: cubit.userModel!.image,
+              width: 25.w,
+              height: 25.h,
+              radius: 25.r,
             ),
           ),
           Flexible(
             child: Padding(
               padding:
-                  const EdgeInsets.only(left: 8, right: 8, top: 5, bottom: 5),
+                  const EdgeInsets.only(left: 0, right: 8, top: 5, bottom: 5).r,
               child: Bubble(
-                nip: BubbleNip.leftTop,
-                color:
-                    cubit.isDark ? Colors.blue : Colors.blue.withOpacity(0.4),
+                nip: BubbleNip.leftBottom,
+                color: cubit.isDark
+                    ? AppMainColors.blueColor
+                    : AppMainColors.greyColor,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
                       messageModel.text!,
-                      style: GoogleFonts.libreBaskerville(
-                        color: Colors.white,
-                        fontSize: 20,
-                      ),
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                            color: cubit.isDark
+                                ? AppMainColors.titanWithColor
+                                : AppMainColors.blackColor,
+                          ),
                     ),
-                    space(0, 5),
+                    SizedBox(height: 5.h),
                     Text(
                       daysBetween(
                           DateTime.parse(messageModel.dateTime.toString())),
-                      style: GoogleFonts.roboto(
-                        color: Colors.white70,
-                        textStyle: Theme.of(context).textTheme.bodySmall,
-                      ),
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            color: AppMainColors.greyColor,
+                          ),
                     ),
                   ],
                 ),
@@ -711,78 +545,69 @@ class BuildFriendMessageItem extends StatelessWidget {
       );
     } else if (messageModel.messageImage != '' && messageModel.text != '') {
       return Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Container(
-            width: 300,
-            height: 290,
+            width: 250.w,
             clipBehavior: Clip.none,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadiusDirectional.only(
-                bottomStart: Radius.circular(10),
-                topEnd: Radius.circular(10),
-                topStart: Radius.circular(10),
-              ),
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+                topLeft: Radius.circular(10),
+              ).r,
             ),
             child: Bubble(
               padding: const BubbleEdges.all(4),
               nip: BubbleNip.leftTop,
-              color: cubit.isDark ? Colors.blue : Colors.blue.withOpacity(0.3),
+              color: cubit.isDark
+                  ? AppColorsDark.primaryDarkColor
+                  : AppMainColors.titanWithColor,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Container(
                     clipBehavior: Clip.antiAliasWithSaveLayer,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadiusDirectional.all(
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(
                         Radius.circular(10),
-                      ),
+                      ).r,
                     ),
-                    width: 300,
-                    height: 220,
+                    width: 250.w,
+                    height: 150.h,
                     child: InkWell(
                       onLongPress: () {
                         cubit.saveToGallery(messageModel.messageImage!);
                       },
-                      onTap: () {
-                        // navigateTo(
-                        //     context,
-                        //     ImageViewScreen(
-                        //         image: messageModel.messageImage, body: ''));
-                      },
-                      child: Image(
-                        image: NetworkImage(
-                          '${messageModel.messageImage}',
-                        ),
-                        fit: BoxFit.cover,
+                      child: imagePreview(
+                        '${messageModel.messageImage}',
                       ),
                     ),
                   ),
-                  Align(
-                    alignment: AlignmentDirectional.bottomStart,
-                    child: Column(
-                      textBaseline: TextBaseline.alphabetic,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Text(
-                          messageModel.text!,
-                          style: GoogleFonts.libreBaskerville(
-                            color: Colors.white,
-                            fontSize: 16,
-                            height: 1.7,
-                          ),
+                  SizedBox(height: 5.h),
+                  Column(
+                    textBaseline: TextBaseline.alphabetic,
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Align(
+                        alignment: Alignment.bottomLeft,
+                        child: ExpandableText(
+                          text: messageModel.text!,
                         ),
-                        Text(
+                      ),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: Text(
                           daysBetween(
                               DateTime.parse(messageModel.dateTime.toString())),
                           style:
                               Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    color: Colors.grey,
-                                    height: 2.2,
+                                    color: AppMainColors.greyColor,
                                   ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -792,7 +617,7 @@ class BuildFriendMessageItem extends StatelessWidget {
       );
     } else {
       return Align(
-        alignment: AlignmentDirectional.bottomStart,
+        alignment: AlignmentDirectional.bottomEnd,
         child: Stack(
           alignment: AlignmentDirectional.bottomEnd,
           children: [
@@ -800,32 +625,26 @@ class BuildFriendMessageItem extends StatelessWidget {
               onLongPress: () {
                 cubit.saveToGallery(messageModel.messageImage!);
               },
-              onTap: () {
-                // navigateTo(
-                //     context,
-                //     ImageViewScreen(
-                //         image: messageModel.messageImage, body: ''));
-              },
               child: Container(
-                  width: 300,
-                  height: 250,
+                  width: 250.w,
+                  height: 200.h,
                   decoration: BoxDecoration(
-                    borderRadius: const BorderRadiusDirectional.only(
-                      bottomStart: Radius.circular(20),
-                      topEnd: Radius.circular(20),
-                      topStart: Radius.circular(20),
-                    ),
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage('${messageModel.messageImage}')),
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                      topLeft: Radius.circular(20),
+                    ).r,
+                  ),
+                  child: imagePreview(
+                    '${messageModel.messageImage}',
                   )),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8).r,
               child: Text(
                 daysBetween(DateTime.parse(messageModel.dateTime.toString())),
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      color: Colors.white,
+                      color: AppMainColors.greyColor,
                     ),
               ),
             ),
