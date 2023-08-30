@@ -98,7 +98,7 @@ class _UserScreenState extends State<UserScreen> {
                             SizedBox(height: 10.h),
                             Container(
                               height: 200.h,
-                              width: 200.w,
+                              
                               padding:
                                   const EdgeInsets.symmetric(vertical: 10).r,
                               child: ListView.separated(

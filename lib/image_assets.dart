@@ -30,4 +30,5 @@ class Assets {
   /// assets/images/World wide web_Monochromatic.svg
   static const String imagesWorldwidewebMonochromatic =
       "assets/images/World wide web_Monochromatic.svg";
+  static const String imageGoogle = "assets/images/google.svg";
 }

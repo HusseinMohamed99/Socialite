@@ -47,12 +47,13 @@ class LoginCubit extends Cubit<LoginStates> {
 
   bool userExist = false;
 
-  Future<void> isUserExist(
-      {required String uId,
-      required String name,
-      required String phone,
-      required String email,
-      required String image}) async {
+  Future<void> isUserExist({
+    required String uId,
+    required String name,
+    required String phone,
+    required String email,
+    required String image,
+  }) async {
     FirebaseFirestore.instance.collection('users').get().then((value) {
       for (var element in value.docs) {
         if (element.id == uId) {
@@ -61,7 +62,12 @@ class LoginCubit extends Cubit<LoginStates> {
       }
       if (userExist == false) {
         createGoogleUser(
-            uId: uId, name: name, phone: phone, email: email, image: image);
+          uId: uId,
+          name: name,
+          phone: phone,
+          email: email,
+          image: image,
+        );
       } else {
         emit(LoginGoogleUserSuccessState(uId));
       }
@@ -69,7 +75,7 @@ class LoginCubit extends Cubit<LoginStates> {
   }
 
   ///START : SignIN With Google
-  void signINWithGoogle() async {
+  void getGoogleUserCredentials() async {
     emit(LoginGoogleUserLoadingState());
     GoogleSignIn googleSignIn = GoogleSignIn();
     GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
@@ -90,20 +96,22 @@ class LoginCubit extends Cubit<LoginStates> {
   }
 
   ///END : SignIN With Google
-  void createGoogleUser(
-      {required String uId,
-      required String name,
-      required String phone,
-      required String email,
-      required String image}) {
+  void createGoogleUser({
+    required String uId,
+    required String name,
+    required String? phone,
+    required String email,
+    required String? image,
+  }) {
     UserModel model = UserModel(
       uId: uId,
       name: name,
-      phone: phone,
+      phone: phone ?? '0000-000-0000',
       email: email,
       cover:
-          'https://media.cdnandroid.com/27/54/bb/52/imagen-cartoon-photo-editor-art-filter-2018-1gal.jpg',
-      image: image,
+          'https://img.freepik.com/free-photo/islamic-new-year-decoration-with-lantern-quran_23-2148950335.jpg?w=900&t=st=1692497617~exp=1692498217~hmac=8a5078eef18cdaff2a1fe98110abc0f964ac1ba439b08056171561ae7c7a1046',
+      image: image ??
+          'https://img.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg?w=740&t=st=1692497461~exp=1692498061~hmac=4e76f888ce2372f12e339835e14f04b559236b4ae063439961923a24133f274b',
       bio: 'Write you own bio...',
       isEmailVerified: false,
     );
@@ -148,41 +156,6 @@ class LoginCubit extends Cubit<LoginStates> {
       }
     }).catchError((error) {
       emit(ChangeValueErrorState());
-    });
-  }
-
-  Future<void> signInWithGoogle() async {
-    GoogleSignInAccount? googleSignInAccount = await GoogleSignIn().signIn();
-    GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount!.authentication;
-    OAuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleSignInAuthentication.accessToken,
-      idToken: googleSignInAuthentication.idToken,
-    );
-    // userCredential mean data for user that i sign in with it
-    UserCredential user =
-        await FirebaseAuth.instance.signInWithCredential(credential);
-    CacheHelper.saveData(
-      key: 'uid',
-      value: user.user!.uid,
-    ); // to save User ID on Cache to go to home directly second time
-    UserModel model = UserModel(
-      name: user.user!.displayName!,
-      email: user.user!.email!,
-      uId: user.user!.uid,
-      image: user.user!.photoURL!,
-      bio: "type your bio here",
-      portfolio: "",
-      phone: user.user!.phoneNumber!,
-      cover: user.user!.photoURL!,
-      isEmailVerified: user.user!.emailVerified,
-    );
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(user.user!.uid)
-        .set(model.toMap())
-        .then((value) {
-      emit(UserLoginSuccessState());
     });
   }
 }
