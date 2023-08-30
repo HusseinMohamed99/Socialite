@@ -33,6 +33,8 @@ dependencies:
   google_fonts: any
   gallery_saver: any
   dart_code_metrics: ^5.7.6
+  fluttericon: ^2.0.0
+  full_screen_image_null_safe: any
 
   # firebase
   firebase_core: ^2.3.0
