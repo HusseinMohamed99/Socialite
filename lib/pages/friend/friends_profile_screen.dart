@@ -186,12 +186,19 @@ class ProfileInfo extends StatelessWidget {
               .copyWith(color: AppMainColors.greyColor),
         ),
         SizedBox(height: 5.h),
-        Text(
-          friendsProfile.portfolio,
-          style: Theme.of(context)
-              .textTheme
-              .bodyLarge!
-              .copyWith(color: AppMainColors.blueColor),
+        InkWell(
+          onTap: () {
+            urlLauncher(
+              Uri.parse(friendsProfile.portfolio),
+            );
+          },
+          child: Text(
+            friendsProfile.portfolio,
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge!
+                .copyWith(color: AppMainColors.blueColor),
+          ),
         ),
         SizedBox(height: 15.h),
         Card(

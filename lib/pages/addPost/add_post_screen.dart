@@ -39,7 +39,7 @@ class AddPostScreen extends StatelessWidget {
                 cubit.removePostImage();
               },
               icon: Icon(
-                IconlyLight.arrowLeft2,
+                IconlyBroken.arrowLeft2,
                 size: 24.sp,
                 color: cubit.isDark
                     ? AppMainColors.blackColor
@@ -173,6 +173,7 @@ class AddPostScreen extends StatelessWidget {
                             Align(
                               alignment: AlignmentDirectional.bottomCenter,
                               child: Container(
+                                height: 400.h,
                                 width: double.infinity,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10).r,

@@ -13,7 +13,6 @@ import 'package:socialite/model/post_model.dart';
 import 'package:socialite/model/story_model.dart';
 import 'package:socialite/model/user_model.dart';
 import 'package:socialite/pages/on-boarding/on_boarding_screen.dart';
-import 'package:socialite/pages/story/create_story.dart';
 import 'package:socialite/pages/story/stories_screen.dart';
 import 'package:socialite/shared/components/constants.dart';
 import 'package:socialite/shared/components/navigator.dart';
@@ -30,7 +29,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:socialite/shared/network/dio_helper.dart';
 import 'package:socialite/shared/styles/color.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class SocialCubit extends Cubit<SocialStates> {
   SocialCubit() : super(SocialInitialState());
@@ -334,7 +332,6 @@ class SocialCubit extends Cubit<SocialStates> {
       postImagePicked = File(pickedFile.path);
       emit(GetPostImagePickedSuccessState());
     } else {
-      debugPrint('No image selected');
       emit(GetPostImagePickedErrorState());
     }
   }
@@ -368,6 +365,8 @@ class SocialCubit extends Cubit<SocialStates> {
     required DateTime dateTime,
     required String text,
     String? postImage,
+    String? profileImage,
+    String? userName,
   }) {
     emit(CreatePostLoadingState());
 
@@ -783,11 +782,13 @@ class SocialCubit extends Cubit<SocialStates> {
   MessageModel? messageModel;
   void sendMessage({
     required String receiverId,
+    required String messageId,
     required DateTime dateTime,
     String? text,
     String? messageImage,
   }) {
     MessageModel model = MessageModel(
+      messageId: messageId,
       receiverId: receiverId,
       dateTime: dateTime,
       text: text ?? '',
@@ -859,6 +860,7 @@ class SocialCubit extends Cubit<SocialStates> {
 
   void uploadMessageImage({
     required String receiverId,
+    required String messageId,
     required DateTime datetime,
     String? text,
   }) {
@@ -871,10 +873,12 @@ class SocialCubit extends Cubit<SocialStates> {
         .then((value) {
       value.ref.getDownloadURL().then((value) {
         sendMessage(
-            dateTime: datetime,
-            text: text,
-            messageImage: value,
-            receiverId: receiverId);
+          dateTime: datetime,
+          text: text,
+          messageImage: value,
+          receiverId: receiverId,
+          messageId: messageId,
+        );
       }).catchError((error) {
         emit(UploadMessageImageErrorState());
       });
@@ -1107,12 +1111,12 @@ class SocialCubit extends Cubit<SocialStates> {
   }
 
   void deleteForEveryone(
-      {required String messageId, required String receiverId}) async {
+      {required String? messageId, required String? receiverId}) async {
     var myDocument = await FirebaseFirestore.instance
         .collection('users')
         .doc(userModel!.uId)
         .collection('chat')
-        .doc(receiverId)
+        .doc(receiverId!)
         .collection('message')
         .limit(1)
         .where('messageId', isEqualTo: messageId)
@@ -1131,7 +1135,7 @@ class SocialCubit extends Cubit<SocialStates> {
   }
 
   void deleteForMe(
-      {required String messageId, required String receiverId}) async {
+      {required String? messageId, required String? receiverId}) async {
     var myDocument = await FirebaseFirestore.instance
         .collection('users')
         .doc(userModel!.uId)
@@ -1167,11 +1171,9 @@ class SocialCubit extends Cubit<SocialStates> {
     if (pickedFile != null) {
       storyImage = File(pickedFile.path);
       storyImage = await cropImage(imageFile: storyImage!);
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const CreateStory()));
+
       emit(CreateStoryImagePickedSuccessState());
     } else {
-      Navigator.pop(context);
       emit(CreateStoryImagePickedErrorState());
     }
   }
@@ -1192,11 +1194,9 @@ class SocialCubit extends Cubit<SocialStates> {
         debugPrint(value);
       }).catchError((error) {
         emit(CreateStoryErrorState());
-        debugPrint(error.toString());
       });
     }).catchError((error) {
       emit(CreateStoryErrorState());
-      debugPrint(error.toString());
     });
   }
 
@@ -1219,7 +1219,6 @@ class SocialCubit extends Cubit<SocialStates> {
         .then((value) {
       emit(CreateStorySuccessState());
     }).catchError((error) {
-      debugPrint(error.toString());
       emit(CreateStoryErrorState());
     });
   }
@@ -1428,12 +1427,9 @@ class SocialCubit extends Cubit<SocialStates> {
     }
   }
 
-  void openWebsiteUrl({required String websiteUrl}) async {
-    final url = Uri.parse(websiteUrl);
-    if (await canLaunchUrl(url) && websiteUrl != "") {
-      await launchUrl(url);
-    } else {
-      emit(ErrorDuringOpenWebsiteUrlState());
-    }
+  bool showTime = false;
+  void showTimes() {
+    showTime = !showTime;
+    emit(ShowTimeState());
   }
 }

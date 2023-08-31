@@ -36,7 +36,7 @@ class LikesScreen extends StatelessWidget {
                 pop(context);
               },
               icon: Icon(
-                IconlyLight.arrowLeft2,
+                IconlyBroken.arrowLeft2,
                 size: 30.sp,
                 color: cubit.isDark
                     ? AppMainColors.blackColor

@@ -1,4 +1,5 @@
 import 'package:bubble/bubble.dart';
+import 'package:socialite/shared/components/components.dart';
 import 'package:socialite/shared/components/image_with_shimmer.dart';
 import 'package:socialite/model/message_model.dart';
 import 'package:socialite/model/user_model.dart';
@@ -14,6 +15,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:socialite/shared/styles/color.dart';
+import 'package:uuid/uuid.dart';
 
 class PrivateChatScreen extends StatelessWidget {
   final UserModel userModel;
@@ -53,7 +55,7 @@ class PrivateChatScreen extends StatelessWidget {
           },
           builder: (context, state) {
             SocialCubit cubit = SocialCubit.get(context);
-
+            var uuid = const Uuid();
             return Scaffold(
               appBar: AppBar(
                 leading: IconButton(
@@ -268,6 +270,7 @@ class PrivateChatScreen extends StatelessWidget {
                                     receiverId: userModel.uId,
                                     dateTime: DateTime.now(),
                                     text: textController.text,
+                                    messageId: uuid.v4(),
                                   );
                                   textController.clear();
                                   scroll.scrollTo(
@@ -279,6 +282,7 @@ class PrivateChatScreen extends StatelessWidget {
                                     receiverId: userModel.uId,
                                     datetime: DateTime.now(),
                                     text: textController.text,
+                                    messageId: uuid.v4(),
                                   );
                                   textController.clear();
                                   cubit.removeMessageImage();
@@ -324,159 +328,262 @@ class BuildUserMessageItem extends StatelessWidget {
   Widget build(BuildContext context) {
     SocialCubit cubit = SocialCubit.get(context);
     if (messageModel.messageImage == '') {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Flexible(
-            child: Padding(
-              padding:
-                  const EdgeInsets.only(left: 0, right: 8, top: 5, bottom: 5).r,
-              child: Bubble(
-                nip: BubbleNip.rightBottom,
-                color: cubit.isDark
-                    ? AppColorsDark.primaryDarkColor
-                    : AppMainColors.titanWithColor,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      messageModel.text!,
-                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                            color: cubit.isDark
-                                ? AppMainColors.titanWithColor
-                                : AppMainColors.blackColor,
-                          ),
-                    ),
-                    SizedBox(height: 5.h),
-                    Text(
-                      daysBetween(
-                          DateTime.parse(messageModel.dateTime.toString())),
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            color: AppMainColors.greyColor,
-                          ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          CircleAvatar(
-            radius: 12.r,
-            child: ImageWithShimmer(
-              imageUrl: cubit.userModel!.image,
-              width: 25.w,
-              height: 25.h,
-              radius: 25.r,
-            ),
-          ),
-        ],
-      );
-    } else if (messageModel.messageImage != '' && messageModel.text != '') {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Container(
-            width: 250.w,
-            clipBehavior: Clip.none,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(10),
-                topRight: Radius.circular(10),
-                topLeft: Radius.circular(10),
-              ).r,
-            ),
-            child: Bubble(
-              padding: const BubbleEdges.all(4),
-              nip: BubbleNip.rightBottom,
-              color: cubit.isDark
-                  ? AppColorsDark.primaryDarkColor
-                  : AppMainColors.titanWithColor,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Container(
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(10),
-                      ).r,
-                    ),
-                    width: 250.w,
-                    height: 150.h,
-                    child: InkWell(
-                      onLongPress: () {
-                        cubit.saveToGallery(messageModel.messageImage!);
-                      },
-                      child: imagePreview(
-                        '${messageModel.messageImage}',
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 5.h),
-                  Column(
-                    textBaseline: TextBaseline.alphabetic,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Align(
-                        alignment: Alignment.bottomLeft,
-                        child: ExpandableText(
-                          text: messageModel.text!,
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: Text(
-                          daysBetween(
-                              DateTime.parse(messageModel.dateTime.toString())),
+      return InkWell(
+        onTap: () {
+          cubit.showTimes();
+        },
+        onLongPress: () async {
+          final result = await showDialog(
+              context: context,
+              builder: (context) => baseAlertDialog(context: context));
+          switch (result) {
+            case 'DELETE FOR EVERYONE':
+              break;
+            case 'DELETE FOR ME':
+              cubit.deleteForMe(
+                  messageId: messageModel.messageId,
+                  receiverId: messageModel.receiverId);
+              break;
+          }
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 0,
+                    right: 8,
+                    top: 5,
+                    bottom: 5,
+                  ).r,
+                  child: Bubble(
+                    nip: BubbleNip.rightBottom,
+                    color: cubit.isDark
+                        ? AppColorsDark.primaryDarkColor
+                        : AppMainColors.titanWithColor,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          messageModel.text!,
                           style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    color: AppMainColors.greyColor,
+                              Theme.of(context).textTheme.titleMedium!.copyWith(
+                                    color: cubit.isDark
+                                        ? AppMainColors.titanWithColor
+                                        : AppMainColors.blackColor,
                                   ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ],
-              ),
+                ),
+                CircleAvatar(
+                  radius: 12.r,
+                  child: ImageWithShimmer(
+                    imageUrl: cubit.userModel!.image,
+                    width: 25.w,
+                    height: 25.h,
+                    radius: 25.r,
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
+            if (cubit.showTime)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20).r,
+                child: Text(
+                  daysBetween(DateTime.parse(messageModel.dateTime.toString())),
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: AppMainColors.greyColor,
+                      ),
+                ),
+              ),
+          ],
+        ),
       );
-    } else {
-      return Align(
-        alignment: AlignmentDirectional.bottomEnd,
-        child: Stack(
-          alignment: AlignmentDirectional.bottomEnd,
+    } else if (messageModel.messageImage != '' && messageModel.text != '') {
+      return InkWell(
+        onTap: () {
+          cubit.showTimes();
+        },
+        onLongPress: () async {
+          final result = await showDialog(
+              context: context,
+              builder: (context) => baseAlertDialog(context: context));
+          switch (result) {
+            case 'DELETE FOR EVERYONE':
+              cubit.deleteForEveryone(
+                  messageId: messageModel.messageId,
+                  receiverId: messageModel.receiverId);
+              break;
+            case 'DELETE FOR ME':
+              cubit.deleteForMe(
+                  messageId: messageModel.messageId,
+                  receiverId: messageModel.receiverId);
+              break;
+          }
+        },
+        child: Column(
           children: [
-            InkWell(
-              onLongPress: () {
-                cubit.saveToGallery(messageModel.messageImage!);
-              },
-              child: Container(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    cubit.saveToGallery(messageModel.messageImage!);
+                  },
+                  icon: Icon(
+                    IconlyBroken.download,
+                    size: 24.sp,
+                  ),
+                ),
+                Container(
                   width: 250.w,
-                  height: 200.h,
+                  clipBehavior: Clip.none,
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                      topLeft: Radius.circular(20),
+                      bottomLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                      topLeft: Radius.circular(10),
                     ).r,
                   ),
-                  child: imagePreview(
-                    '${messageModel.messageImage}',
-                  )),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8).r,
-              child: Text(
-                daysBetween(DateTime.parse(messageModel.dateTime.toString())),
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      color: AppMainColors.greyColor,
+                  child: Bubble(
+                    padding: const BubbleEdges.all(4),
+                    nip: BubbleNip.rightBottom,
+                    color: cubit.isDark
+                        ? AppColorsDark.primaryDarkColor
+                        : AppMainColors.titanWithColor,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(10),
+                            ).r,
+                          ),
+                          width: 250.w,
+                          height: 150.h,
+                          child: imagePreview(
+                            '${messageModel.messageImage}',
+                          ),
+                        ),
+                        SizedBox(height: 5.h),
+                        Column(
+                          textBaseline: TextBaseline.alphabetic,
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Align(
+                              alignment: Alignment.bottomLeft,
+                              child: ExpandableText(
+                                text: messageModel.text!,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-              ),
+                  ),
+                ),
+              ],
             ),
+            if (cubit.showTime)
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Text(
+                  daysBetween(DateTime.parse(messageModel.dateTime.toString())),
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: AppMainColors.greyColor,
+                      ),
+                ),
+              ),
+          ],
+        ),
+      );
+    } else {
+      return InkWell(
+        onTap: () {
+          cubit.showTimes();
+        },
+        onLongPress: () async {
+          final result = await showDialog(
+              context: context,
+              builder: (context) => baseAlertDialog(context: context));
+          switch (result) {
+            case 'DELETE FOR EVERYONE':
+              cubit.deleteForEveryone(
+                  messageId: messageModel.messageId,
+                  receiverId: messageModel.receiverId);
+              break;
+            case 'DELETE FOR ME':
+              cubit.deleteForMe(
+                  messageId: messageModel.messageId,
+                  receiverId: messageModel.receiverId);
+              break;
+          }
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    cubit.saveToGallery(messageModel.messageImage!);
+                  },
+                  icon: Icon(
+                    IconlyBroken.download,
+                    size: 24.sp,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 0,
+                    right: 8,
+                    top: 5,
+                    bottom: 5,
+                  ).r,
+                  child: Container(
+                      width: 250.w,
+                      height: 200.h,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: AppMainColors.greenColor,
+                        ),
+                      ),
+                      child: imagePreview(
+                        '${messageModel.messageImage}',
+                      )),
+                ),
+                CircleAvatar(
+                  radius: 12.r,
+                  child: ImageWithShimmer(
+                    imageUrl: cubit.userModel!.image,
+                    width: 25.w,
+                    height: 25.h,
+                    radius: 25.r,
+                  ),
+                ),
+              ],
+            ),
+            if (cubit.showTime)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40).r,
+                child: Text(
+                  daysBetween(DateTime.parse(messageModel.dateTime.toString())),
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: AppMainColors.greyColor,
+                      ),
+                ),
+              ),
           ],
         ),
       );
@@ -490,164 +597,263 @@ class BuildFriendMessageItem extends StatelessWidget {
     required this.messageModel,
   });
   final MessageModel messageModel;
-
   @override
   Widget build(BuildContext context) {
     SocialCubit cubit = SocialCubit.get(context);
     if (messageModel.messageImage == '') {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CircleAvatar(
-            radius: 12.r,
-            child: ImageWithShimmer(
-              imageUrl: cubit.userModel!.image,
-              width: 25.w,
-              height: 25.h,
-              radius: 25.r,
-            ),
-          ),
-          Flexible(
-            child: Padding(
-              padding:
-                  const EdgeInsets.only(left: 0, right: 8, top: 5, bottom: 5).r,
-              child: Bubble(
-                nip: BubbleNip.leftBottom,
-                color: cubit.isDark
-                    ? AppMainColors.blueColor
-                    : AppMainColors.greyColor,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      messageModel.text!,
-                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                            color: cubit.isDark
-                                ? AppMainColors.titanWithColor
-                                : AppMainColors.blackColor,
-                          ),
-                    ),
-                    SizedBox(height: 5.h),
-                    Text(
-                      daysBetween(
-                          DateTime.parse(messageModel.dateTime.toString())),
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            color: AppMainColors.greyColor,
-                          ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      );
-    } else if (messageModel.messageImage != '' && messageModel.text != '') {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Container(
-            width: 250.w,
-            clipBehavior: Clip.none,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(10),
-                topRight: Radius.circular(10),
-                topLeft: Radius.circular(10),
-              ).r,
-            ),
-            child: Bubble(
-              padding: const BubbleEdges.all(4),
-              nip: BubbleNip.leftTop,
-              color: cubit.isDark
-                  ? AppColorsDark.primaryDarkColor
-                  : AppMainColors.titanWithColor,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Container(
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(10),
-                      ).r,
-                    ),
-                    width: 250.w,
-                    height: 150.h,
-                    child: InkWell(
-                      onLongPress: () {
-                        cubit.saveToGallery(messageModel.messageImage!);
-                      },
-                      child: imagePreview(
-                        '${messageModel.messageImage}',
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 5.h),
-                  Column(
-                    textBaseline: TextBaseline.alphabetic,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Align(
-                        alignment: Alignment.bottomLeft,
-                        child: ExpandableText(
-                          text: messageModel.text!,
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: Text(
-                          daysBetween(
-                              DateTime.parse(messageModel.dateTime.toString())),
+      return InkWell(
+        onTap: () {
+          cubit.showTimes();
+        },
+        onLongPress: () async {
+          final result = await showDialog(
+              context: context,
+              builder: (context) => baseAlertDialog(context: context));
+          switch (result) {
+            case 'DELETE FOR EVERYONE':
+              cubit.deleteForEveryone(
+                  messageId: messageModel.messageId,
+                  receiverId: messageModel.receiverId);
+              break;
+            case 'DELETE FOR ME':
+              cubit.deleteForMe(
+                  messageId: messageModel.messageId,
+                  receiverId: messageModel.receiverId);
+              break;
+          }
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 0,
+                    right: 8,
+                    top: 5,
+                    bottom: 5,
+                  ).r,
+                  child: Bubble(
+                    nip: BubbleNip.leftBottom,
+                    color: cubit.isDark
+                        ? AppMainColors.blueColor
+                        : AppMainColors.greyColor,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          messageModel.text!,
                           style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    color: AppMainColors.greyColor,
+                              Theme.of(context).textTheme.titleMedium!.copyWith(
+                                    color: cubit.isDark
+                                        ? AppMainColors.titanWithColor
+                                        : AppMainColors.blackColor,
                                   ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ],
-              ),
+                ),
+                CircleAvatar(
+                  radius: 12.r,
+                  child: ImageWithShimmer(
+                    imageUrl: cubit.userModel!.image,
+                    width: 25.w,
+                    height: 25.h,
+                    radius: 25.r,
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
+            if (cubit.showTime)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20).r,
+                child: Text(
+                  daysBetween(DateTime.parse(messageModel.dateTime.toString())),
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: AppMainColors.greyColor,
+                      ),
+                ),
+              ),
+          ],
+        ),
       );
-    } else {
-      return Align(
-        alignment: AlignmentDirectional.bottomEnd,
-        child: Stack(
-          alignment: AlignmentDirectional.bottomEnd,
+    } else if (messageModel.messageImage != '' && messageModel.text != '') {
+      return InkWell(
+        onTap: () {
+          cubit.showTimes();
+        },
+        onLongPress: () async {
+          final result = await showDialog(
+              context: context,
+              builder: (context) => baseAlertDialog(context: context));
+          switch (result) {
+            case 'DELETE FOR EVERYONE':
+              break;
+            case 'DELETE FOR ME':
+              cubit.deleteForMe(
+                  messageId: messageModel.messageId,
+                  receiverId: messageModel.receiverId);
+              break;
+          }
+        },
+        child: Column(
           children: [
-            InkWell(
-              onLongPress: () {
-                cubit.saveToGallery(messageModel.messageImage!);
-              },
-              child: Container(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    cubit.saveToGallery(messageModel.messageImage!);
+                  },
+                  icon: Icon(
+                    IconlyBroken.download,
+                    size: 24.sp,
+                  ),
+                ),
+                Container(
                   width: 250.w,
-                  height: 200.h,
+                  clipBehavior: Clip.none,
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                      topLeft: Radius.circular(20),
+                      bottomLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                      topLeft: Radius.circular(10),
                     ).r,
                   ),
-                  child: imagePreview(
-                    '${messageModel.messageImage}',
-                  )),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8).r,
-              child: Text(
-                daysBetween(DateTime.parse(messageModel.dateTime.toString())),
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      color: AppMainColors.greyColor,
+                  child: Bubble(
+                    padding: const BubbleEdges.all(4),
+                    nip: BubbleNip.leftTop,
+                    color: cubit.isDark
+                        ? AppColorsDark.primaryDarkColor
+                        : AppMainColors.titanWithColor,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(10),
+                            ).r,
+                          ),
+                          width: 250.w,
+                          height: 150.h,
+                          child: imagePreview(
+                            '${messageModel.messageImage}',
+                          ),
+                        ),
+                        SizedBox(height: 5.h),
+                        Column(
+                          textBaseline: TextBaseline.alphabetic,
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Align(
+                              alignment: Alignment.bottomLeft,
+                              child: ExpandableText(
+                                text: messageModel.text!,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-              ),
+                  ),
+                ),
+              ],
             ),
+            if (cubit.showTime)
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Text(
+                  daysBetween(DateTime.parse(messageModel.dateTime.toString())),
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: AppMainColors.greyColor,
+                      ),
+                ),
+              ),
+          ],
+        ),
+      );
+    } else {
+      return InkWell(
+        onTap: () {
+          cubit.showTimes();
+        },
+        onLongPress: () async {
+          final result = await showDialog(
+              context: context,
+              builder: (context) => baseAlertDialog(context: context));
+          switch (result) {
+            case 'DELETE FOR EVERYONE':
+              break;
+            case 'DELETE FOR ME':
+              cubit.deleteForMe(
+                  messageId: messageModel.messageId,
+                  receiverId: messageModel.receiverId);
+              break;
+          }
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    cubit.saveToGallery(messageModel.messageImage!);
+                  },
+                  icon: Icon(
+                    IconlyBroken.download,
+                    size: 24.sp,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 0,
+                    right: 8,
+                    top: 5,
+                    bottom: 5,
+                  ).r,
+                  child: Container(
+                      width: 250.w,
+                      height: 200.h,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: AppMainColors.greenColor,
+                        ),
+                      ),
+                      child: imagePreview(
+                        '${messageModel.messageImage}',
+                      )),
+                ),
+                CircleAvatar(
+                  radius: 12.r,
+                  child: ImageWithShimmer(
+                    imageUrl: cubit.userModel!.image,
+                    width: 25.w,
+                    height: 25.h,
+                    radius: 25.r,
+                  ),
+                ),
+              ],
+            ),
+            if (cubit.showTime)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40).r,
+                child: Text(
+                  daysBetween(DateTime.parse(messageModel.dateTime.toString())),
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: AppMainColors.greyColor,
+                      ),
+                ),
+              ),
           ],
         ),
       );

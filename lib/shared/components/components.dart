@@ -1,5 +1,7 @@
-import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/components/navigator.dart';
 import 'package:flutter/material.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/styles/color.dart';
 
 Widget baseAlertDialog({
   required context,
@@ -10,47 +12,34 @@ Widget baseAlertDialog({
   IconData? elevatedButtonIcon,
 }) {
   return AlertDialog(
-    backgroundColor: SocialCubit.get(context).backgroundColor.withOpacity(1),
-    title: Text(
-      '$title',
-      style: const TextStyle(color: Colors.red),
-    ),
-    titlePadding: const EdgeInsetsDirectional.only(start: 13, top: 15),
-    content: Text(
-      '$content',
-      style: const TextStyle(
-        color: Colors.grey,
+    backgroundColor: SocialCubit.get(context).isDark
+        ? AppMainColors.titanWithColor
+        : AppMainColors.greyDarkColor,
+    content: Padding(
+      padding: const EdgeInsetsDirectional.only(start: 15, top: 15),
+      child: Text(
+        'Delete Message',
+        style: Theme.of(context).textTheme.titleLarge,
       ),
     ),
     elevation: 8,
     contentPadding: const EdgeInsets.all(15),
     actions: [
-      OutlinedButton(
+      TextButton(
           onPressed: () {
-            Navigator.of(context).pop(false);
+            Navigator.of(context).pop('DELETE FOR EVERYONE');
           },
-          child: Text('$outlinedButtonText')),
-      SizedBox(
-        width: 115,
-        child: ElevatedButton(
-          style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.blueAccent)),
+          child: const Text('DELETE FOR EVERYONE')),
+      TextButton(
           onPressed: () {
-            Navigator.of(context).pop(true);
+            Navigator.of(context).pop('DELETE FOR ME');
           },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(elevatedButtonIcon),
-              const SizedBox(
-                width: 5,
-              ),
-              Text('$elevatedButtonText',
-                  style: const TextStyle(color: Colors.white)),
-            ],
-          ),
-        ),
-      ),
+          child: const Text('DELETE FOR ME')),
+      TextButton(
+          onPressed: () {
+            pop(context);
+          },
+          child: const Text('CANCEL')),
     ],
   );
 }

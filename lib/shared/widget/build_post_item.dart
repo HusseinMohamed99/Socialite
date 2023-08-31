@@ -13,6 +13,7 @@ import 'package:socialite/shared/components/constants.dart';
 import 'package:socialite/shared/components/image_with_shimmer.dart';
 import 'package:socialite/shared/components/my_divider.dart';
 import 'package:socialite/shared/components/navigator.dart';
+import 'package:socialite/shared/components/show_toast.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/styles/color.dart';
 import 'package:socialite/shared/widget/more_options.dart';
@@ -156,7 +157,6 @@ class BuildPostItem extends StatelessWidget {
               '${postModel.text}',
               style: Theme.of(context).textTheme.titleLarge,
             ),
-            SizedBox(height: 12.w),
             if (postModel.postImage != '')
               Stack(
                 alignment: AlignmentDirectional.topEnd,
@@ -165,11 +165,11 @@ class BuildPostItem extends StatelessWidget {
                     alignment: AlignmentDirectional.bottomCenter,
                     child: SizedBox(
                       width: double.infinity,
+                      height: 150.h,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(15).r,
                         child: imagePreview(
                           '${postModel.postImage}',
-                          height: 250.h,
                         ),
                       ),
                     ),
@@ -298,7 +298,19 @@ class BuildPostItem extends StatelessWidget {
                   ),
                 ),
                 TextButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    SocialCubit.get(context).createPost(
+                      userName: SocialCubit.get(context).userModel!.name,
+                      profileImage: SocialCubit.get(context).userModel!.image,
+                      text: postModel.text!,
+                      postImage: postModel.postImage,
+                      dateTime: DateTime.now(),
+                    );
+                    showToast(
+                      text: 'Shared Post Successfully ',
+                      state: ToastStates.success,
+                    );
+                  },
                   icon: Icon(
                     IconlyBroken.upload,
                     color: Colors.green,

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/model/post_model.dart';
 import 'package:socialite/pages/post/edit_post.dart';
 import 'package:socialite/shared/components/navigator.dart';
+import 'package:socialite/shared/components/show_toast.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/styles/color.dart';
 
@@ -61,7 +62,19 @@ Future<dynamic> moreOption(BuildContext context, SocialCubit cubit,
                 text: 'Saved Image',
               ),
             ShowModalSheetItems(
-              function: () {},
+              function: () {
+                SocialCubit.get(context).createPost(
+                  userName: SocialCubit.get(context).userModel!.name,
+                  profileImage: SocialCubit.get(context).userModel!.image,
+                  text: postModel.text!,
+                  postImage: postModel.postImage,
+                  dateTime: DateTime.now(),
+                );
+                showToast(
+                  text: 'Shared Post Successfully ',
+                  state: ToastStates.success,
+                );
+              },
               iconData: Icons.share,
               text: 'Share',
             ),

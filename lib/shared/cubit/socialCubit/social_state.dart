@@ -263,3 +263,5 @@ class SetUSerTokenLoadingState extends SocialStates {}
 class SetUSerTokenSuccessState extends SocialStates {}
 
 class ErrorDuringOpenWebsiteUrlState extends SocialStates {}
+
+class ShowTimeState extends SocialStates {}
