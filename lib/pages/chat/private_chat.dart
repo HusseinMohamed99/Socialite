@@ -338,6 +338,9 @@ class BuildUserMessageItem extends StatelessWidget {
               builder: (context) => baseAlertDialog(context: context));
           switch (result) {
             case 'DELETE FOR EVERYONE':
+              cubit.deleteForEveryone(
+                  messageId: messageModel.messageId,
+                  receiverId: messageModel.receiverId);
               break;
             case 'DELETE FOR ME':
               cubit.deleteForMe(
@@ -361,7 +364,7 @@ class BuildUserMessageItem extends StatelessWidget {
                     bottom: 5,
                   ).r,
                   child: Bubble(
-                    nip: BubbleNip.rightBottom,
+                    nip: BubbleNip.leftBottom,
                     color: cubit.isDark
                         ? AppColorsDark.primaryDarkColor
                         : AppMainColors.titanWithColor,
@@ -489,6 +492,15 @@ class BuildUserMessageItem extends StatelessWidget {
                         ),
                       ],
                     ),
+                  ),
+                ),
+                CircleAvatar(
+                  radius: 12.r,
+                  child: ImageWithShimmer(
+                    imageUrl: cubit.userModel!.image,
+                    width: 25.w,
+                    height: 25.h,
+                    radius: 25.r,
                   ),
                 ),
               ],
@@ -611,9 +623,6 @@ class BuildFriendMessageItem extends StatelessWidget {
               builder: (context) => baseAlertDialog(context: context));
           switch (result) {
             case 'DELETE FOR EVERYONE':
-              cubit.deleteForEveryone(
-                  messageId: messageModel.messageId,
-                  receiverId: messageModel.receiverId);
               break;
             case 'DELETE FOR ME':
               cubit.deleteForMe(
@@ -623,12 +632,21 @@ class BuildFriendMessageItem extends StatelessWidget {
           }
         },
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
+                CircleAvatar(
+                  radius: 12.r,
+                  child: ImageWithShimmer(
+                    imageUrl: cubit.userModel!.image,
+                    width: 25.w,
+                    height: 25.h,
+                    radius: 25.r,
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(
                     left: 0,
@@ -655,15 +673,6 @@ class BuildFriendMessageItem extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ),
-                ),
-                CircleAvatar(
-                  radius: 12.r,
-                  child: ImageWithShimmer(
-                    imageUrl: cubit.userModel!.image,
-                    width: 25.w,
-                    height: 25.h,
-                    radius: 25.r,
                   ),
                 ),
               ],
@@ -703,15 +712,15 @@ class BuildFriendMessageItem extends StatelessWidget {
         child: Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                IconButton(
-                  onPressed: () {
-                    cubit.saveToGallery(messageModel.messageImage!);
-                  },
-                  icon: Icon(
-                    IconlyBroken.download,
-                    size: 24.sp,
+                CircleAvatar(
+                  radius: 12.r,
+                  child: ImageWithShimmer(
+                    imageUrl: cubit.userModel!.image,
+                    width: 25.w,
+                    height: 25.h,
+                    radius: 25.r,
                   ),
                 ),
                 Container(
@@ -764,6 +773,15 @@ class BuildFriendMessageItem extends StatelessWidget {
                     ),
                   ),
                 ),
+                IconButton(
+                  onPressed: () {
+                    cubit.saveToGallery(messageModel.messageImage!);
+                  },
+                  icon: Icon(
+                    IconlyBroken.download,
+                    size: 24.sp,
+                  ),
+                ),
               ],
             ),
             if (cubit.showTime)
@@ -799,19 +817,19 @@ class BuildFriendMessageItem extends StatelessWidget {
           }
         },
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                IconButton(
-                  onPressed: () {
-                    cubit.saveToGallery(messageModel.messageImage!);
-                  },
-                  icon: Icon(
-                    IconlyBroken.download,
-                    size: 24.sp,
+                CircleAvatar(
+                  radius: 12.r,
+                  child: ImageWithShimmer(
+                    imageUrl: cubit.userModel!.image,
+                    width: 25.w,
+                    height: 25.h,
+                    radius: 25.r,
                   ),
                 ),
                 Padding(
@@ -833,13 +851,13 @@ class BuildFriendMessageItem extends StatelessWidget {
                         '${messageModel.messageImage}',
                       )),
                 ),
-                CircleAvatar(
-                  radius: 12.r,
-                  child: ImageWithShimmer(
-                    imageUrl: cubit.userModel!.image,
-                    width: 25.w,
-                    height: 25.h,
-                    radius: 25.r,
+                IconButton(
+                  onPressed: () {
+                    cubit.saveToGallery(messageModel.messageImage!);
+                  },
+                  icon: Icon(
+                    IconlyBroken.download,
+                    size: 24.sp,
                   ),
                 ),
               ],
