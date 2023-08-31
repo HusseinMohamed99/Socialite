@@ -76,7 +76,7 @@ class CreateStory extends StatelessWidget {
                                       .textTheme
                                       .titleLarge!
                                       .copyWith(
-                                          color: AppMainColors.kittenWithColor),
+                                          color: AppMainColors.titanWithColor),
                                 ),
                                 SizedBox(width: 5.w),
                                 Icon(

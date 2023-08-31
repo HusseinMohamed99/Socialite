@@ -17,7 +17,6 @@ class AppMainColors {
   static const Color blueColor = Color(0xff2196f3);
   static const Color dividerColor = Color(0xffFFC107);
   static const Color whiteColor = Color(0xffffffff);
-  static const Color kittenWithColor = Color(0xffF8F8FF);
   static const Color titanWithColor = Color(0xffEEEEFF);
   static const Color greyDarkColor = Color(0xFF303030);
   static const Color orangeColor = Color(0xffff5722);

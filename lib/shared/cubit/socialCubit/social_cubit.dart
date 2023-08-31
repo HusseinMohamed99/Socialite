@@ -1,9 +1,8 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:socialite/pages/chat/chat_screen.dart';
-import 'package:socialite/pages/feed/feedscreen.dart';
+import 'package:socialite/pages/feed/feed_screen.dart';
 import 'package:socialite/pages/setting/setting_screen.dart';
 import 'package:socialite/pages/user/users_screen.dart';
 import 'package:socialite/model/comment_model.dart';
@@ -37,8 +36,6 @@ class SocialCubit extends Cubit<SocialStates> {
   SocialCubit() : super(SocialInitialState());
   static SocialCubit get(context) => BlocProvider.of(context);
 
-  // ----------------------------------------------------------//
-  ///START : Screens
   int currentIndex = 0;
   List<Widget> screens = const [
     FeedScreen(),
@@ -55,11 +52,6 @@ class SocialCubit extends Cubit<SocialStates> {
     BottomNavigationBarItem(icon: Icon(IconlyBroken.setting), label: ''),
   ];
 
-  ///END : Screens
-
-  // ----------------------------------------------------------//
-
-  ///START : Titles
   List<String> titles = [
     'Feed',
     'Chat',
@@ -68,11 +60,6 @@ class SocialCubit extends Cubit<SocialStates> {
     'Setting',
   ];
 
-  ///END : Titles
-
-  // ----------------------------------------------------------//
-
-  ///START : ChangeTabBar
   void changeNavBar(int index) {
     currentIndex = index;
     if (index == 0) {
@@ -101,27 +88,18 @@ class SocialCubit extends Cubit<SocialStates> {
     emit(SocialChangeTabBarState());
   }
 
-  ///START : GetUserData
   UserModel? userModel;
   void getUserData() {
     emit(GetUserDataLoadingState());
     FirebaseFirestore.instance.collection('users').doc(uId).get().then((value) {
       userModel = UserModel.fromJson(value.data()!);
       setUserToken();
-      if (kDebugMode) {
-        print(uId);
-      }
       emit(GetUserDataSuccessState());
     }).catchError((error) {
-      debugPrint(error.toString());
       emit(GetUserDataErrorState(error.toString()));
     });
   }
 
-  ///END : GetUserData
-
-// ----------------------------------------------------------//
-  ///START : GetAllUsers
   List<UserModel> users = [];
   void getAllUsers() {
     emit(GetAllUsersLoadingState());
@@ -132,17 +110,12 @@ class SocialCubit extends Cubit<SocialStates> {
           users.add(UserModel.fromJson(element.data()));
         }
       }
-
       emit(GetAllUsersSuccessState());
     }).catchError((error) {
       emit(GetAllUsersErrorState(error.toString()));
     });
   }
 
-  ///END : GetAllUsers
-
-  // ----------------------------------------------------------//
-  ///START : setUserToken
   void setUserToken() async {
     emit(SetUSerTokenLoadingState());
     String? token = await FirebaseMessaging.instance.getToken();
@@ -151,11 +124,6 @@ class SocialCubit extends Cubit<SocialStates> {
         {'token': token}).then((value) => emit(SetUSerTokenSuccessState()));
   }
 
-  ///END : setUserToken
-
-  // ----------------------------------------------------------//
-
-  ///START : ChangeMode
   bool isDark = false;
   Color backgroundColor = AppMainColors.titanWithColor;
 
@@ -177,9 +145,6 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : ChaneMode
-
-  ///START : GetProfileImage
   var picker = ImagePicker();
   File? profileImage;
 
@@ -195,9 +160,6 @@ class SocialCubit extends Cubit<SocialStates> {
     }
   }
 
-  ///END : GetProfileImage
-
-  ///START : GetCoverImage
   File? coverImage;
   Future<void> getCoverImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -206,7 +168,6 @@ class SocialCubit extends Cubit<SocialStates> {
       coverImage = await cropImage(imageFile: coverImage!);
       emit(GetCoverImagePickedSuccessState());
     } else {
-      debugPrint('No image selected');
       emit(GetCoverImagePickedErrorState());
     }
   }
@@ -219,10 +180,6 @@ class SocialCubit extends Cubit<SocialStates> {
     }
     return null;
   }
-
-  ///END : GetCoverImage
-
-  ///START : UploadProfileImage
 
   void uploadProfileImage({
     required String email,
@@ -255,10 +212,6 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : UploadProfileImage
-
-  ///START : UploadCoverImage
-
   void uploadCoverImage({
     required String email,
     required String phone,
@@ -288,10 +241,6 @@ class SocialCubit extends Cubit<SocialStates> {
       emit(UploadCoverImageErrorState());
     });
   }
-
-  ///END : UploadCoverImage
-
-  ///START : UploadProfileAndCoverImage
 
   void uploadProfileAndCoverImage({
     required String email,
@@ -345,11 +294,6 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : UploadProfileAndCoverImage
-
-// ----------------------------------------------------------//
-
-  ///START : UpdateUserData
   void updateUserData({
     required String email,
     required String phone,
@@ -383,10 +327,6 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : UpdateUserData
-
-// ----------------------------------------------------------//
-  ///START : GetPostImage
   File? postImagePicked;
   Future<void> getPostImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -399,10 +339,6 @@ class SocialCubit extends Cubit<SocialStates> {
     }
   }
 
-  ///END : GetPostImage
-
-  // ----------------------------------------------------------//
-  ///START : uploadPostImage
   void uploadPostImage({
     required DateTime dateTime,
     required String text,
@@ -419,7 +355,6 @@ class SocialCubit extends Cubit<SocialStates> {
           text: text,
           postImage: value,
         );
-
         emit(CreatePostSuccessState());
       }).catchError((error) {
         emit(CreatePostErrorState());
@@ -429,11 +364,6 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : uploadPostImage
-
-// ----------------------------------------------------------//
-
-  ///START : CreatePost
   void createPost({
     required DateTime dateTime,
     required String text,
@@ -459,22 +389,12 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : CreatePost
-
-// ----------------------------------------------------------//
-
-  ///START : RemovePostImage
   void removePostImage() {
     postImagePicked = null;
 
     emit(RemovePostImageSuccessState());
   }
 
-  ///END : RemovePostImage
-
-// ----------------------------------------------------------//
-
-  ///START : GetAllPosts
   List<PostModel> posts = [];
   List<String> postsId = [];
   List<int> commentsNum = [];
@@ -506,10 +426,6 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : GetAllPosts
-
-// ----------------------------------------------------------//
-  ///START : GetMyPosts
   List<PostModel> userPosts = [];
   void getUserPosts(String? userID) {
     FirebaseFirestore.instance
@@ -518,7 +434,6 @@ class SocialCubit extends Cubit<SocialStates> {
         .snapshots()
         .listen((event) {
       userPosts = [];
-
       for (var element in event.docs) {
         if (element.data()['uId'] == userID) {
           userPosts.add(PostModel.fromJson(element.data()));
@@ -527,11 +442,6 @@ class SocialCubit extends Cubit<SocialStates> {
       emit(GetUserPostsSuccessState());
     });
   }
-
-  ///END : GetMyPosts
-
-// ----------------------------------------------------------//
-  ///START : Likes
 
   Future<bool> likeByMe({
     context,
@@ -564,9 +474,6 @@ class SocialCubit extends Cubit<SocialStates> {
         );
       }
       emit(LikedByMeCheckedSuccessState());
-      if (kDebugMode) {
-        print(isLikedByMe);
-      }
     });
     return isLikedByMe;
   }
@@ -612,17 +519,10 @@ class SocialCubit extends Cubit<SocialStates> {
       }
       emit(LikesSuccessState());
     }).catchError((error) {
-      if (kDebugMode) {
-        print(error.toString());
-      }
       emit(LikesErrorState(error.toString()));
     });
   }
 
-  ///END : Likes
-
-// ----------------------------------------------------------//
-  ///START : DisLikes
   void disLikePost(String postId) {
     FirebaseFirestore.instance
         .collection('posts')
@@ -638,10 +538,6 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : DisLikes
-
-//-----------------------------------------------------------//
-  ///START : WhoLikes
   List<LikesModel> peopleReacted = [];
   void getLikes(
     String? postId,
@@ -656,33 +552,18 @@ class SocialCubit extends Cubit<SocialStates> {
       for (var element in value.docs) {
         peopleReacted.add(LikesModel.fromJson(element.data()));
       }
-
       emit(GetLikedUsersSuccessState());
     });
   }
 
-  ///END : WhoLikes
-
-// ----------------------------------------------------------//
-  ///END : GetComments
   File? commentImage;
-
   Future getCommentImage() async {
     emit(UpdatePostLoadingState());
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if (kDebugMode) {
-      print('Selecting Image...');
-    }
     if (pickedFile != null) {
       commentImage = File(pickedFile.path);
-      if (kDebugMode) {
-        print('Image Selected');
-      }
       emit(GetCommentImageSuccessState());
     } else {
-      if (kDebugMode) {
-        print('No Image Selected');
-      }
       emit(GetCommentImageErrorState());
     }
   }
@@ -694,7 +575,6 @@ class SocialCubit extends Cubit<SocialStates> {
 
   String? commentImageURL;
   bool isCommentImageLoading = false;
-
   void uploadCommentImage({
     required String postId,
     String? commentText,
@@ -724,15 +604,9 @@ class SocialCubit extends Cubit<SocialStates> {
         emit(UploadCommentImageSuccessState());
         isCommentImageLoading = false;
       }).catchError((error) {
-        if (kDebugMode) {
-          print('Error While getDownload CommentImageURL $error');
-        }
         emit(UploadCommentImageErrorState());
       });
     }).catchError((error) {
-      if (kDebugMode) {
-        print('Error While putting the File $error');
-      }
       emit(UploadCommentImageErrorState());
     });
   }
@@ -760,15 +634,11 @@ class SocialCubit extends Cubit<SocialStates> {
       getPosts();
       emit(CommentPostSuccessState());
     }).catchError((error) {
-      if (kDebugMode) {
-        print(error.toString());
-      }
       emit(CommentPostErrorState());
     });
   }
 
   List<CommentModel> comments = [];
-
   void getComments(postId) {
     FirebaseFirestore.instance
         .collection('posts')
@@ -785,13 +655,9 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : SendComment
-
-// ----------------------------------------------------------//
-  ///START : SaveToGallery
   void saveToGallery(String imageUrl) {
     emit(SavedToGalleryLoadingState());
-    GallerySaver.saveImage(imageUrl, albumName: 'socialite').then((value) {
+    GallerySaver.saveImage(imageUrl, albumName: 'Socialite').then((value) {
       emit(SavedToGallerySuccessState());
     }).catchError((error) {
       debugPrint("${error.toString()} from saveToGallery");
@@ -799,10 +665,6 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : SaveToGallery
-
-// ----------------------------------------------------------//
-  ///START : EditPost
   void editPost({
     required String dateTime,
     required PostModel postModel,
@@ -830,10 +692,6 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : EditPost
-
-// ----------------------------------------------------------//
-  ///START : EditPostWithImage
   void editPostWithImage({
     required String dateTime,
     required PostModel postModel,
@@ -865,10 +723,6 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : EditPostWithImage
-
-// ----------------------------------------------------------//
-  ///START : DeleteAccount
   void deleteAccount(context) async {
     await FirebaseAuth.instance.currentUser!.delete().then((value) async {
       await FirebaseFirestore.instance.collection('users').doc(uId).delete();
@@ -877,10 +731,6 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : DeleteAccount
-
-// ----------------------------------------------------------//
-  ///START : DeletePost
   void deletePost(String? postId) {
     FirebaseFirestore.instance
         .collection('posts')
@@ -892,10 +742,6 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : DeletePost
-
-// ----------------------------------------------------------//
-  ///START : ChangeUserPassword
   void changeUserPassword({
     required String newPassword,
   }) {
@@ -912,42 +758,28 @@ class SocialCubit extends Cubit<SocialStates> {
     }).catchError((error) {
       showToast(
         state: ToastStates.error,
-        text: 'process failed\nYou Should Re-login Before Change Password',
+        text: 'Process failed\nYou Should Re-login Before Change Password',
       );
       emit(ChangeUserPasswordErrorState(error.toString()));
-      debugPrint(error.toString());
     });
   }
 
-  ///END : ChangeUserPassword
-
-// ----------------------------------------------------------//
-  ///START : Show Password
-
   IconData suffix = IconlyBroken.show;
   bool isPassword = true;
-
   void showPassword() {
     isPassword = !isPassword;
     suffix = isPassword ? IconlyBroken.show : IconlyBroken.hide;
-
     emit(ShowPasswordState());
   }
 
   IconData suffixIcon = IconlyBroken.show;
   bool iSPassword = true;
-
   void showConfirmPassword() {
     iSPassword = !iSPassword;
     suffixIcon = iSPassword ? IconlyBroken.show : IconlyBroken.hide;
-
     emit(ChangeConfirmPasswordState());
   }
 
-  ///END : Show Password
-
-//------------------------------------------------------------//
-  ///START : sendMessage
   MessageModel? messageModel;
   void sendMessage({
     required String receiverId,
@@ -962,7 +794,6 @@ class SocialCubit extends Cubit<SocialStates> {
       senderId: userModel!.uId,
       messageImage: messageImage ?? '',
     );
-
     FirebaseFirestore.instance
         .collection('users')
         .doc(userModel!.uId)
@@ -975,7 +806,6 @@ class SocialCubit extends Cubit<SocialStates> {
     }).catchError((error) {
       emit(SendMessageErrorState());
     });
-
     FirebaseFirestore.instance
         .collection('users')
         .doc(receiverId)
@@ -990,12 +820,7 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : sendMessage
-
-//------------------------------------------------------------//
-  ///START : getMessage
   List<MessageModel> message = [];
-
   void getMessage({
     required String receiverId,
   }) {
@@ -1016,38 +841,22 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : getMessage
-
-//------------------------------------------------------------//
-  ///START : get Message Image
   File? messageImagePicked;
-
   Future<void> getMessageImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
     if (pickedFile != null) {
       messageImagePicked = File(pickedFile.path);
-
       emit(MessageImagePickedSuccessState());
     } else {
-      debugPrint('No image selected.');
       emit(MessageImagePickedErrorState());
     }
   }
 
-  ///END : get Message Image
-
-  //------------------------------------------------------------//
-  ///START : remove Message Image
   void removeMessageImage() {
     messageImagePicked = null;
     emit(DeleteMessageImageSuccessState());
   }
 
-  ///END : remove Message Image
-
-  //------------------------------------------------------------//
-  ///START : upload Message Image
   void uploadMessageImage({
     required String receiverId,
     required DateTime datetime,
@@ -1074,12 +883,7 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : upload Message Image
-
-//------------------------------------------------------------//
-  ///START : getFriendsProfile
   UserModel? friendsProfile;
-
   void getFriendsProfile(String? friendsUID) {
     emit(GetFriendProfileLoadingState());
     FirebaseFirestore.instance.collection('users').snapshots().listen((value) {
@@ -1092,10 +896,6 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : getFriendsProfile
-
-  //------------------------------------------------------------//
-  ///START : addFriend
   void addFriend({
     required String friendsUID,
     required String friendName,
@@ -1135,7 +935,6 @@ class SocialCubit extends Cubit<SocialStates> {
         .then((value) {
       emit(AddFriendSuccessState());
     }).catchError((error) {
-      debugPrint(error.toString());
       emit(AddFriendErrorState());
     });
     FirebaseFirestore.instance
@@ -1147,15 +946,10 @@ class SocialCubit extends Cubit<SocialStates> {
         .then((value) {
       emit(AddFriendSuccessState());
     }).catchError((error) {
-      debugPrint(error.toString());
       emit(AddFriendErrorState());
     });
   }
 
-  ///END : addFriend
-
-  //------------------------------------------------------------//
-  ///START : getFriends
   List<UserModel> friends = [];
   void getFriends(String? userUID) {
     emit(GetFriendLoadingState());
@@ -1173,10 +967,6 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : getFriends
-
-  //------------------------------------------------------------//
-  ///START : checkFriends
   bool isFriend = false;
   bool checkFriends(String? friendUID) {
     FirebaseFirestore.instance
@@ -1188,18 +978,11 @@ class SocialCubit extends Cubit<SocialStates> {
       for (var element in value.docs) {
         if (friendUID != element.id) isFriend = true;
       }
-      if (kDebugMode) {
-        print(isFriend);
-      }
       emit(CheckFriendSuccessState());
     });
     return isFriend;
   }
 
-  ///END : checkFriends
-
-  //------------------------------------------------------------//
-  ///START : unFriend
   void unFriend(String? friendsUID) {
     emit(UnFriendLoadingState());
     FirebaseFirestore.instance
@@ -1212,7 +995,6 @@ class SocialCubit extends Cubit<SocialStates> {
       emit(UnFriendSuccessState());
     }).catchError((error) {
       emit(UnFriendErrorState());
-      debugPrint(error.toString());
     });
     FirebaseFirestore.instance
         .collection('users')
@@ -1224,14 +1006,9 @@ class SocialCubit extends Cubit<SocialStates> {
       emit(UnFriendSuccessState());
     }).catchError((error) {
       emit(UnFriendErrorState());
-      debugPrint(error.toString());
     });
   }
 
-  ///END : unFriend
-
-  //------------------------------------------------------------//
-  ///START : sendFriendRequest
   void sendFriendRequest({
     required String friendsUID,
     required String friendName,
@@ -1257,15 +1034,10 @@ class SocialCubit extends Cubit<SocialStates> {
         .then((value) {
       emit(FriendRequestSuccessState());
     }).catchError((error) {
-      debugPrint(error.toString());
       emit(FriendRequestErrorState());
     });
   }
 
-  ///END : sendFriendRequest
-
-  //------------------------------------------------------------//
-  ///START : getFriendRequest
   List<UserModel> friendRequests = [];
   void getFriendRequest() {
     emit(GetFriendLoadingState());
@@ -1278,16 +1050,11 @@ class SocialCubit extends Cubit<SocialStates> {
       friendRequests = [];
       for (var element in value.docs) {
         friendRequests.add(UserModel.fromJson(element.data()));
-
         emit(GetFriendSuccessState());
       }
     });
   }
 
-  ///END : getFriendRequest
-
-  //------------------------------------------------------------//
-  ///START : checkFriendRequest
   bool request = false;
   bool checkFriendRequest(String? friendUID) {
     FirebaseFirestore.instance
@@ -1308,10 +1075,6 @@ class SocialCubit extends Cubit<SocialStates> {
     return request;
   }
 
-  ///END : checkFriendRequest
-
-  //------------------------------------------------------------//
-  ///START : deleteFriendRequest
   void deleteFriendRequest(String? friendsUID) {
     emit(DeleteFriendRequestLoadingState());
     FirebaseFirestore.instance
@@ -1328,12 +1091,7 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : deleteFriendRequest
-
-//------------------------------------------------------------//
-  ///START : getSinglePost
   PostModel? singlePost;
-
   void getSinglePost(String? postId) {
     emit(GetPostsLoadingState());
     FirebaseFirestore.instance
@@ -1348,7 +1106,6 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : getSinglePost
   void deleteForEveryone(
       {required String messageId, required String receiverId}) async {
     var myDocument = await FirebaseFirestore.instance
@@ -1361,7 +1118,6 @@ class SocialCubit extends Cubit<SocialStates> {
         .where('messageId', isEqualTo: messageId)
         .get();
     myDocument.docs[0].reference.delete();
-
     var hisDocument = await FirebaseFirestore.instance
         .collection('users')
         .doc(receiverId)
@@ -1388,8 +1144,6 @@ class SocialCubit extends Cubit<SocialStates> {
     myDocument.docs[0].reference.delete();
   }
 
-  //------------------------------------------------------------//
-  ///START : getStories
   List<StoryModel> stories = [];
   void getStories() {
     emit(GetStoryLoadingState());
@@ -1406,12 +1160,7 @@ class SocialCubit extends Cubit<SocialStates> {
     emit(GetStorySuccessState());
   }
 
-  ///END : getStories
-
-  //------------------------------------------------------------//
-  ///START : getStoryImage
   File? storyImage;
-
   Future<void> getStoryImage(context) async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
@@ -1423,15 +1172,10 @@ class SocialCubit extends Cubit<SocialStates> {
       emit(CreateStoryImagePickedSuccessState());
     } else {
       Navigator.pop(context);
-      debugPrint("No image selected");
       emit(CreateStoryImagePickedErrorState());
     }
   }
 
-  ///END : getStoryImage
-
-  //------------------------------------------------------------//
-  ///START : getStoryImage
   void createStoryImage({
     required DateTime dateTime,
     String? text,
@@ -1456,10 +1200,6 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : getStoryImage
-
-  //------------------------------------------------------------//
-  ///START : uploadStory
   void uploadStory({
     required DateTime dateTime,
     String? text,
@@ -1473,7 +1213,6 @@ class SocialCubit extends Cubit<SocialStates> {
       storyImage: storyImage,
       image: userModel!.image,
     );
-
     FirebaseFirestore.instance
         .collection('stories')
         .add(storyModel.toMap())
@@ -1485,38 +1224,22 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : uploadStory
-
-  //------------------------------------------------------------//
-  ///START : removeStoryImage
   void removeStoryImage() {
     storyImage = null;
     emit(RemoveStoryImagePickedSuccessState());
   }
 
-  ///START : removeStoryImage
-
-  //------------------------------------------------------------//
-  ///START : AddText
   bool addText = false;
   void addTextStory() {
     addText = !addText;
     emit(AddTextSuccessState());
   }
 
-  ///END : AddText
-
-  //------------------------------------------------------------//
-  ///START : closeStory
   void closeStory(context) {
     pop(context);
     emit(CloseCreateStoryScreenState());
   }
 
-  ///END : closeStory
-
-  //------------------------------------------------------------//
-  ///START : getPersonalStory
   List<StoryModel> userStories = [];
   void getUserStories(String? storyUID) {
     emit(CreateStoryLoadingState());
@@ -1527,10 +1250,6 @@ class SocialCubit extends Cubit<SocialStates> {
     emit(GetStorySuccessState());
   }
 
-  ///END : getPersonalStory
-
-  //------------------------------------------------------------//
-  ///START : searchUser
   List<UserModel> searchList = [];
   Map<String, dynamic>? search;
   void searchUser(String? searchText) {
@@ -1548,10 +1267,6 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : searchUser
-
-  //------------------------------------------------------------//
-  ///START : sendFCMNotification
   String? imageURL;
   Future<void> sendFCMNotification({
     required String token,
@@ -1578,14 +1293,6 @@ class SocialCubit extends Cubit<SocialStates> {
     emit(SendFCMNotificationSuccessState());
   }
 
-  // Future<String?> getDeviceToken() async {
-  //   return await FirebaseMessaging.instance.getToken();
-  // }
-
-  ///END : sendFCMNotification
-
-  //------------------------------------------------------------//
-  ///START : sendInAppNotification
   void sendInAppNotification({
     String? contentKey,
     String? contentId,
@@ -1607,7 +1314,6 @@ class SocialCubit extends Cubit<SocialStates> {
       dateTime: DateTime.now(),
       serverTimeStamp: FieldValue.serverTimestamp(),
     );
-
     FirebaseFirestore.instance
         .collection('users')
         .doc(receiverId)
@@ -1621,12 +1327,7 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : sendInAppNotification
-
-  //------------------------------------------------------------//
-  ///START : getInAppNotification
   List<NotificationModel> notifications = [];
-
   void getInAppNotification() async {
     emit(GetInAppNotificationLoadingState());
     FirebaseFirestore.instance
@@ -1644,12 +1345,7 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : getInAppNotification
-
-  //------------------------------------------------------------//
-  ///START : getUnReadNotificationsCount
   int unReadNotificationsCount = 0;
-
   Future<int> getUnReadNotificationsCount() async {
     FirebaseFirestore.instance
         .collection('users')
@@ -1664,16 +1360,10 @@ class SocialCubit extends Cubit<SocialStates> {
         }
       }
       emit(ReadNotificationSuccessState());
-      debugPrint("UnRead: " '$unReadNotificationsCount');
     });
-
     return unReadNotificationsCount;
   }
 
-  ///END : getUnReadNotificationsCount
-
-  //------------------------------------------------------------//
-  ///START : getUnReadNotificationsCount
   Future setNotificationId() async {
     await FirebaseFirestore.instance.collection('users').get().then((value) {
       value.docs.forEach((element) async {
@@ -1688,10 +1378,6 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : getUnReadNotificationsCount
-
-  //------------------------------------------------------------//
-  ///START : readNotification
   Future readNotification(String? notificationId) async {
     await FirebaseFirestore.instance
         .collection('users')
@@ -1703,10 +1389,6 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : readNotification
-
-  //------------------------------------------------------------//
-  ///START : deleteNotification
   void deleteNotification(String? notificationId) async {
     await FirebaseFirestore.instance
         .collection('users')
@@ -1719,10 +1401,6 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  ///END : deleteNotification
-
-  //------------------------------------------------------------//
-  ///START : notificationContent
   String notificationContent(String? contentKey) {
     if (contentKey == 'post') {
       return 'post';
@@ -1744,14 +1422,12 @@ class SocialCubit extends Cubit<SocialStates> {
     } else if (contentKey == 'comment Post') {
       return IconlyBroken.chat;
     } else if (contentKey == 'friend Request Accepted') {
-      return Icons.person;
+      return IconlyBroken.user2;
     } else {
-      return Icons.person;
+      return IconlyBroken.user2;
     }
   }
 
-  ///END : notificationContent
-  ///
   void openWebsiteUrl({required String websiteUrl}) async {
     final url = Uri.parse(websiteUrl);
     if (await canLaunchUrl(url) && websiteUrl != "") {

@@ -69,7 +69,7 @@ class UserStories extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .bodyLarge!
-                          .copyWith(color: AppMainColors.kittenWithColor),
+                          .copyWith(color: AppMainColors.titanWithColor),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),

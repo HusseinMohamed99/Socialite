@@ -24,7 +24,7 @@ class FriendRequestItems extends StatelessWidget {
                 FriendsProfileScreen(userModel.uId),
               );
               if (kDebugMode) {
-                print(userModel.uId);
+                
               }
             },
             child: CircleAvatar(

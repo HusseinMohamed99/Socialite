@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:socialite/shared/styles/color.dart';
 
 void showToast({
   required String text,
@@ -12,7 +13,7 @@ void showToast({
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 5,
       backgroundColor: chooseToastColor(state),
-      textColor: Colors.white,
+      textColor: AppMainColors.titanWithColor,
       fontSize: 16.sp,
     );
 
@@ -22,15 +23,15 @@ Color chooseToastColor(ToastStates state) {
   Color color;
   switch (state) {
     case ToastStates.success:
-      color = Colors.green;
+      color = AppMainColors.greenColor;
       break;
 
     case ToastStates.error:
-      color = Colors.red;
+      color = AppMainColors.redColor;
       break;
 
     case ToastStates.warning:
-      color = Colors.amber;
+      color = AppMainColors.dividerColor;
       break;
   }
   return color;

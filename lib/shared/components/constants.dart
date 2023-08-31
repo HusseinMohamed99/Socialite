@@ -1,22 +1,9 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
 import 'package:intl/intl.dart';
 import 'package:socialite/shared/components/image_with_shimmer.dart';
-
-void printFullText(String text) {
-  final pattern = RegExp('.{1,800}'); //800 is the size of each chunk
-  pattern.allMatches(text).forEach((match) => debugPrint(match.group(0)));
-}
-
-Widget space(double width, double height) {
-  return SizedBox(
-    width: width,
-    height: height,
-  );
-}
 
 String daysBetween(DateTime postDate) {
   if ((DateTime.now().difference(postDate).inHours / 24).round() == 0) {

@@ -21,8 +21,6 @@ import 'shared/network/cache_helper.dart';
 
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   showToast(text: 'on Message', state: ToastStates.success);
-  debugPrint('when the app is Background');
-  debugPrint(message.data.toString());
 }
 
 void main() async {
@@ -39,14 +37,10 @@ void main() async {
   //when the app is opened
   FirebaseMessaging.onMessage.listen((event) {
     showToast(text: 'on Message', state: ToastStates.success);
-    debugPrint('when the app is opened');
-    debugPrint(event.data.toString());
   });
   // when click on notification to open app
   FirebaseMessaging.onMessageOpenedApp.listen((event) {
     showToast(text: 'on Message Opened App', state: ToastStates.success);
-    debugPrint('when click on notification to open app');
-    debugPrint(event.data.toString());
   });
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 

@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:socialite/image_assets.dart';
 import 'package:socialite/layout/Home/home_layout.dart';
 import 'package:socialite/shared/components/indicator.dart';
 import 'package:socialite/shared/components/show_toast.dart';
@@ -45,7 +46,7 @@ class EmailVerificationScreen extends StatelessWidget {
             ),
             child: Scaffold(
               backgroundColor: SocialCubit.get(context).isDark
-                  ? AppMainColors.kittenWithColor
+                  ? AppMainColors.titanWithColor
                   : AppColorsDark.primaryDarkColor,
               body: Padding(
                 padding: const EdgeInsets.all(20.0).r,
@@ -63,7 +64,7 @@ class EmailVerificationScreen extends StatelessWidget {
                       child: CircleAvatar(
                         radius: 80.0.r,
                         backgroundImage:
-                            const AssetImage('assets/images/email.png'),
+                            const AssetImage(Assets.imagesEmail),
                       ),
                     ),
                     SizedBox(height: 15.h),
@@ -94,9 +95,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Card(
-                                      color: SocialCubit.get(context).isDark
-                                          ? AppMainColors.greenColor
-                                          : AppMainColors.greyColor,
+                                      color: AppMainColors.greenColor,
                                       child: Row(
                                         children: [
                                           Icon(
@@ -149,7 +148,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                   ),
                                 ),
                     ),
-                    space(0, 15.h),
+                    SizedBox(height: 15.h),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30.0).r,
                       child: cubit.isEmailSent

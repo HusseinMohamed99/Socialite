@@ -44,7 +44,7 @@ class HomeLayout extends StatelessWidget {
                     IconlyBroken.search,
                     color: cubit.isDark
                         ? AppMainColors.greyDarkColor
-                        : AppMainColors.kittenWithColor,
+                        : AppMainColors.titanWithColor,
                     size: 24.sp,
                   ),
                 ),

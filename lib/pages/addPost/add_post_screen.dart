@@ -151,7 +151,7 @@ class AddPostScreen extends StatelessWidget {
                               Theme.of(context).textTheme.titleLarge!.copyWith(
                                     color: cubit.isDark
                                         ? AppMainColors.blackColor
-                                        : AppMainColors.kittenWithColor,
+                                        : AppMainColors.titanWithColor,
                                   ),
                           controller: textController,
                           decoration: InputDecoration(

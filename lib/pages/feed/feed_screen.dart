@@ -164,7 +164,7 @@ class StoriesItem extends StatelessWidget {
                               backgroundColor: AppMainColors.blueColor,
                               child: Icon(
                                 Icons.add,
-                                color: AppMainColors.kittenWithColor,
+                                color: AppMainColors.titanWithColor,
                                 size: 24.sp,
                               ),
                             ),

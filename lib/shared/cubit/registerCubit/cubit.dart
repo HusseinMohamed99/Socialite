@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:socialite/model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -61,28 +61,22 @@ class RegisterCubit extends Cubit<RegisterStates> {
     });
   }
 
-  IconData suffix = Icons.visibility_outlined;
+  IconData suffixIcon = IconlyBroken.show;
   bool isPassword = true;
-
   void changePassword() {
     isPassword = !isPassword;
-    suffix =
-        isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
+    suffixIcon = isPassword ? IconlyBroken.show : IconlyBroken.hide;
 
     emit(ChangePasswordRegisterState());
   }
 
   bool isCheck = false;
-
   void boxCheck(bool newCheck) async {
     emit(ChangeValueLoadingState());
     if (isCheck == newCheck) return;
     isCheck = newCheck;
     CacheHelper.saveData(key: 'check', value: isCheck).then((value) {
       emit(ChangeValueSuccessState());
-      if (kDebugMode) {
-        print('isCheck === $isCheck');
-      }
     }).catchError((error) {
       emit(ChangeValueErrorState());
     });

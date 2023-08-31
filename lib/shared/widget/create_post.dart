@@ -25,7 +25,7 @@ class CreatePosts extends StatelessWidget {
         return Card(
           clipBehavior: Clip.antiAliasWithSaveLayer,
           elevation: 10,
-          shadowColor: AppMainColors.kittenWithColor,
+          shadowColor: AppMainColors.titanWithColor,
           margin: const EdgeInsets.all(10).r,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0).r,

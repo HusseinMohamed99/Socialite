@@ -35,7 +35,7 @@ final getThemeData = {
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
-      selectedItemColor: AppMainColors.orangeColor,
+      selectedItemColor: AppMainColors.blueColor,
       unselectedItemColor: AppMainColors.greyDarkColor,
       backgroundColor: AppMainColors.whiteColor,
       elevation: 25.0,
@@ -109,7 +109,7 @@ final getThemeData = {
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
-      selectedItemColor: AppMainColors.orangeColor,
+      selectedItemColor: AppMainColors.blueColor,
       unselectedItemColor: AppMainColors.whiteColor,
       backgroundColor: AppMainColors.greyDarkColor,
       elevation: 25.0,

@@ -106,7 +106,7 @@ class RestPasswordScreen extends StatelessWidget {
                           ],
                           border: Border.all(color: AppMainColors.dividerColor),
                           color: cubit.isDark
-                              ? AppMainColors.kittenWithColor
+                              ? AppMainColors.titanWithColor
                               : AppMainColors.greyDarkColor,
                           borderRadius: const BorderRadius.only(
                             topRight: Radius.circular(50.0),

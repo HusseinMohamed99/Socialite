@@ -166,7 +166,7 @@ class RegisterScreen extends StatelessWidget {
                                 controller: passwordController,
                                 keyboardType: TextInputType.visiblePassword,
                                 prefix: Icons.key,
-                                suffix: RegisterCubit.get(context).suffix,
+                                suffix: RegisterCubit.get(context).suffixIcon,
                                 isPassword:
                                     RegisterCubit.get(context).isPassword,
                                 suffixPressed: () {

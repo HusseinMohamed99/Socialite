@@ -139,7 +139,7 @@ class EditProfileScreen extends StatelessWidget {
                                                 icon: Icon(
                                                   IconlyBroken.camera,
                                                   color: AppMainColors
-                                                      .kittenWithColor,
+                                                      .titanWithColor,
                                                   size: 30.sp,
                                                 ),
                                               ),
@@ -188,7 +188,7 @@ class EditProfileScreen extends StatelessWidget {
                                               icon: Icon(
                                                 IconlyBroken.camera,
                                                 color: AppMainColors
-                                                    .kittenWithColor,
+                                                    .titanWithColor,
                                                 size: 30.sp,
                                               ),
                                             ),

@@ -10,7 +10,6 @@ class EmailVerificationCubit extends Cubit<EmailVerificationStates> {
 
   static EmailVerificationCubit get(context) => BlocProvider.of(context);
 
-  // send email verification
   bool isEmailSent = false;
   void sendEmailVerification() {
     emit(SendVerificationLoadingState());
@@ -22,7 +21,6 @@ class EmailVerificationCubit extends Cubit<EmailVerificationStates> {
     });
   }
 
-// reload user
   bool isEmailVerified = false;
   UserModel? userModel;
   Future<void> reloadUser() async {

@@ -11,7 +11,7 @@ Future<dynamic> moreOption(BuildContext context, SocialCubit cubit,
     String postId, PostModel postModel) {
   return showModalBottomSheet(
     backgroundColor: cubit.isDark
-        ? AppMainColors.kittenWithColor
+        ? AppMainColors.titanWithColor
         : AppColorsDark.primaryDarkColor,
     context: context,
     isScrollControlled: true,
@@ -111,7 +111,7 @@ class ShowModalSheetItems extends StatelessWidget {
               iconData,
               color: cubit.isDark
                   ? AppMainColors.blackColor
-                  : AppMainColors.kittenWithColor,
+                  : AppMainColors.titanWithColor,
               size: 30.sp,
             ),
             SizedBox(width: 10.w),

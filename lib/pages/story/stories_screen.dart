@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/pages/story/veiw_story.dart';
 import 'package:socialite/shared/components/constants.dart';
@@ -130,9 +131,9 @@ class CreateNewStories extends StatelessWidget {
                             radius: 18.r,
                             backgroundColor: AppMainColors.blueColor,
                             child: Icon(
-                              Icons.add,
+                              IconlyBroken.plus,
                               size: 24.sp,
-                              color: AppMainColors.kittenWithColor,
+                              color: AppMainColors.titanWithColor,
                             ),
                           ),
                         )

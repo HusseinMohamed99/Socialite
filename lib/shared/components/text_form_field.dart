@@ -77,7 +77,7 @@ class DefaultTextFormField extends StatelessWidget {
         prefixIcon: Icon(
           prefix,
           size: 24.sp,
-          color: Colors.grey,
+          color: AppMainColors.greyColor,
         ),
         suffixIcon: suffix != null
             ? IconButton(
@@ -86,7 +86,7 @@ class DefaultTextFormField extends StatelessWidget {
                 },
                 icon: Icon(
                   suffix,
-                  color: Colors.grey,
+                  color: AppMainColors.greyColor,
                   size: 24.sp,
                 ),
               )
@@ -115,12 +115,12 @@ class DefaultTextFormField extends StatelessWidget {
         ),
         errorBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.red,
+            color: AppMainColors.redColor,
           ),
         ),
         focusedErrorBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.red,
+            color: AppMainColors.redColor,
           ),
         ),
       ),

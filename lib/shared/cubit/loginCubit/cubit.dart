@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:socialite/model/user_model.dart';
 import 'package:socialite/shared/cubit/loginCubit/state.dart';
@@ -13,7 +13,6 @@ class LoginCubit extends Cubit<LoginStates> {
 
   static LoginCubit get(context) => BlocProvider.of(context);
 
-  ///START : Login With E-mail & Password
   Future<void> userLogin({
     required String email,
     required String password,
@@ -29,24 +28,16 @@ class LoginCubit extends Cubit<LoginStates> {
     });
   }
 
-  ///END : Login With E-mail & Password
-
-  ///START : Show Password
-  IconData suffix = Icons.visibility_outlined;
+  IconData suffix= IconlyBroken.show;
   bool isPassword = true;
-
   void changePassword() {
     isPassword = !isPassword;
-    suffix =
-        isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
-
+    suffix = isPassword ? IconlyBroken.show : IconlyBroken.hide;
     emit(ShowPasswordState());
   }
 
-  ///END : Show Password
 
   bool userExist = false;
-
   Future<void> isUserExist({
     required String uId,
     required String name,
@@ -74,7 +65,6 @@ class LoginCubit extends Cubit<LoginStates> {
     });
   }
 
-  ///START : SignIN With Google
   void getGoogleUserCredentials() async {
     emit(LoginGoogleUserLoadingState());
     GoogleSignIn googleSignIn = GoogleSignIn();
@@ -95,7 +85,6 @@ class LoginCubit extends Cubit<LoginStates> {
     });
   }
 
-  ///END : SignIN With Google
   void createGoogleUser({
     required String uId,
     required String name,
@@ -126,7 +115,6 @@ class LoginCubit extends Cubit<LoginStates> {
     });
   }
 
-  ///START : isEmailVerified
   bool isEmailVerified = false;
   Future<void> loginReloadUser() async {
     emit(LoginReloadLoadingState());
@@ -134,26 +122,19 @@ class LoginCubit extends Cubit<LoginStates> {
       if (FirebaseAuth.instance.currentUser!.emailVerified) {
         isEmailVerified = true;
       }
-
       emit(LoginReloadSuccessState());
     }).catchError((error) {
       emit(LoginReloadErrorState(error.toString()));
     });
   }
 
-  ///END : isEmailVerified
-
   bool isCheck = false;
-
   void boxCheck(bool newCheck) async {
     emit(ChangeValueLoadingState());
     if (isCheck == newCheck) return;
     isCheck = newCheck;
     CacheHelper.saveData(key: 'check', value: isCheck).then((value) {
       emit(ChangeValueSuccessState());
-      if (kDebugMode) {
-        print('isCheck === $isCheck');
-      }
     }).catchError((error) {
       emit(ChangeValueErrorState());
     });
