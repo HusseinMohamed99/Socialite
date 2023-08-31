@@ -130,7 +130,6 @@ class BuildUsersOnlineItems extends StatelessWidget {
             ),
             Text(
               users.name,
-              maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
               style: Theme.of(context)
