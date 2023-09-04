@@ -3,6 +3,19 @@
 ## Download The App![GitHub All Releases](https://img.shields.io/github/downloads/HusseinMohamed99/Socialite/total?color=green)
 <a href="https://github.com/HusseinMohamed99/Socialite/releases/download/v2.0.0/Socialite.apk"><img src="https://playerzon.com/asset/download.png" width="200"></img></a>
 
+Developed and implemented the sign-in with Google feature
+Built the chat function, including the ability to send text and image messages
+Implemented the profile update feature, allowing users to change their profile picture, information, and password
+Created the post-creation and deletion feature, as well as the ability to save images
+Developed the story upload feature
+Added the likes and comments feature for both text and image posts
+Implemented the real-time messaging feature
+Integrated the pull-to-refresh functionality
+Set up the notification system
+Integrated cloud messaging
+Added the light and dark mode options
+Implemented the friend request and friend-adding features
+
 ## Screenshots Light Theme:
 <p>
   <img src="https://github.com/HusseinMohamed99/Socialite/assets/84459939/002bb27a-2168-4820-8a13-47c85fe1bfc5" width="250" />
