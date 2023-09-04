@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:socialite/firebase_options.dart';
 import 'package:socialite/layout/Home/home_layout.dart';
 import 'package:socialite/pages/Login/login_screen.dart';
@@ -19,8 +20,9 @@ import 'package:wakelock/wakelock.dart';
 import 'shared/components/constants.dart';
 import 'shared/network/cache_helper.dart';
 
+FirebaseMessaging messaging = FirebaseMessaging.instance;
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  showToast(text: 'on Message', state: ToastStates.success);
+  showToast(text: 'You Received Message', state: ToastStates.success);
 }
 
 void main() async {
@@ -28,6 +30,21 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+  NotificationSettings settings = await messaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+
+  if (kDebugMode) {
+    print('User granted permission: ${settings.authorizationStatus}');
+  }
   ScreenUtil.ensureScreenSize();
   Wakelock.enable();
 
@@ -36,7 +53,7 @@ void main() async {
   DioHelper.init();
   //when the app is opened
   FirebaseMessaging.onMessage.listen((event) {
-    showToast(text: 'on Message', state: ToastStates.success);
+    showToast(text: 'You Received Message', state: ToastStates.success);
   });
   // when click on notification to open app
   FirebaseMessaging.onMessageOpenedApp.listen((event) {
