@@ -133,7 +133,7 @@ class StoriesItem extends StatelessWidget {
               },
               child: Container(
                 width: 110.w,
-                height: 140.h,
+                height: 145.h,
                 margin: EdgeInsetsDirectional.only(start: 8.r),
                 decoration: BoxDecoration(
                   color: AppMainColors.greyColor.withOpacity(0.3),

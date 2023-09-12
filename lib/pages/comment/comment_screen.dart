@@ -98,31 +98,26 @@ class CommentsScreen extends StatelessWidget {
                                   SocialCubit.get(context).comments.length,
                             ),
                           )
-                        : Expanded(
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    IconlyBroken.chat,
-                                    color: AppMainColors.greyColor,
-                                    size: 60.sp,
-                                  ),
-                                  SizedBox(height: 15.h),
-                                  Text(
-                                    "No comments yet,\nPut your comment",
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge,
-                                  ),
-                                  Text(
-                                    "First Comment 💬",
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge,
-                                  )
-                                ],
+                        : Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                IconlyBroken.chat,
+                                color: AppMainColors.greyColor,
+                                size: 60.sp,
                               ),
-                            ),
+                              SizedBox(height: 15.h),
+                              Text(
+                                "No comments yet,\nPut your comment",
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                              Text(
+                                "First Comment 💬",
+                                style: Theme.of(context).textTheme.titleLarge,
+                              )
+                            ],
                           ),
+                    const Spacer(),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: SocialCubit.get(context).isCommentImageLoading
@@ -167,11 +162,12 @@ class CommentsScreen extends StatelessWidget {
                           ),
                         ),
                       ),
+                    const Spacer(),
                     SizedBox(
-                      height: 35.h,
+                      height: 40.sp,
                       child: TextFormField(
                         controller: commentTextControl,
-                        autofocus: true,
+                        autofocus: false,
                         textAlignVertical: TextAlignVertical.center,
                         style: Theme.of(context).textTheme.titleLarge,
                         validator: (value) {
@@ -193,15 +189,16 @@ class CommentsScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               IconButton(
-                                  padding: EdgeInsets.zero,
-                                  onPressed: () {
-                                    SocialCubit.get(context).getCommentImage();
-                                  },
-                                  icon: Icon(
-                                    IconlyBroken.camera,
-                                    color: Colors.grey,
-                                    size: 24.sp,
-                                  )),
+                                padding: EdgeInsets.zero,
+                                onPressed: () {
+                                  SocialCubit.get(context).getCommentImage();
+                                },
+                                icon: Icon(
+                                  IconlyBroken.camera,
+                                  color: Colors.grey,
+                                  size: 24.sp,
+                                ),
+                              ),
                               IconButton(
                                 padding: EdgeInsets.zero,
                                 onPressed: () {
@@ -222,12 +219,12 @@ class CommentsScreen extends StatelessWidget {
                                   }
                                   SocialCubit.get(context)
                                       .sendInAppNotification(
-                                          receiverName: post!.name,
-                                          receiverId: post.uId,
-                                          content:
-                                              'commented on a post you shared',
-                                          contentId: postId,
-                                          contentKey: 'post');
+                                    receiverName: post!.name,
+                                    receiverId: post.uId,
+                                    content: 'commented on a post you shared',
+                                    contentId: postId,
+                                    contentKey: 'post',
+                                  );
                                   SocialCubit.get(context).sendFCMNotification(
                                     token: user!.token,
                                     senderName: SocialCubit.get(context)

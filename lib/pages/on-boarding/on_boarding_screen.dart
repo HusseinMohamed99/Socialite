@@ -62,7 +62,7 @@ class _OnBoardState extends State<OnBoard> {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(Assets.imagesBack),
-                fit: BoxFit.fill,
+                fit: BoxFit.fitHeight,
               ),
             ),
             child: Scaffold(
@@ -77,18 +77,17 @@ class _OnBoardState extends State<OnBoard> {
               ),
               backgroundColor: Colors.transparent,
               body: Padding(
-                padding: const EdgeInsets.all(8.0).r,
+                padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
-                      flex: 3,
+                      flex: 2,
                       child: Text(
                         'Snap\nAnd\nShare\nEvery\nMoments',
                         textAlign: TextAlign.start,
                         style: GoogleFonts.roboto(
                           textStyle: TextStyle(
-                            height: 1.7,
                             color: AppMainColors.titanWithColor,
                             fontSize: 60.sp,
                             overflow: TextOverflow.visible,

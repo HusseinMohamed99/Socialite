@@ -115,7 +115,7 @@ class MyApp extends StatelessWidget {
             DeviceOrientation.portraitDown,
           ]);
           return ScreenUtilInit(
-            designSize: ScreenUtil.defaultSize,
+            designSize: const Size(360, 690),
             minTextAdapt: true,
             splitScreenMode: true,
             builder: (context, child) {

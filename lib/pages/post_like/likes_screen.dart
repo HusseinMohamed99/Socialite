@@ -123,7 +123,7 @@ class UsersLikedItem extends StatelessWidget {
           const Spacer(),
           if (uId != like.uId)
             SizedBox(
-              width: 125.w,
+              width: 135.w,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppMainColors.greyColor.withOpacity(0.1),
