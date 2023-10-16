@@ -24,7 +24,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:socialite/shared/network/dio_helper.dart';
@@ -654,15 +653,15 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  void saveToGallery(String imageUrl) {
-    emit(SavedToGalleryLoadingState());
-    GallerySaver.saveImage(imageUrl, albumName: 'Socialite').then((value) {
-      emit(SavedToGallerySuccessState());
-    }).catchError((error) {
-      debugPrint("${error.toString()} from saveToGallery");
-      emit(SavedToGalleryErrorState());
-    });
-  }
+  // void saveToGallery(String imageUrl) {
+  //   emit(SavedToGalleryLoadingState());
+  //   GallerySaver.saveImage(imageUrl, albumName: 'Socialite').then((value) {
+  //     emit(SavedToGallerySuccessState());
+  //   }).catchError((error) {
+  //     debugPrint("${error.toString()} from saveToGallery");
+  //     emit(SavedToGalleryErrorState());
+  //   });
+  // }
 
   void editPost({
     required String dateTime,

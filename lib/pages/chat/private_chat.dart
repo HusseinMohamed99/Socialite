@@ -437,7 +437,7 @@ class BuildUserMessageItem extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {
-                    cubit.saveToGallery(messageModel.messageImage!);
+                    // cubit.saveToGallery(messageModel.messageImage!);
                   },
                   icon: Icon(
                     IconlyBroken.download,
@@ -549,7 +549,7 @@ class BuildUserMessageItem extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {
-                    cubit.saveToGallery(messageModel.messageImage!);
+                    // cubit.saveToGallery(messageModel.messageImage!);
                   },
                   icon: Icon(
                     IconlyBroken.download,
@@ -775,7 +775,7 @@ class BuildFriendMessageItem extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () {
-                    cubit.saveToGallery(messageModel.messageImage!);
+                    // cubit.saveToGallery(messageModel.messageImage!);
                   },
                   icon: Icon(
                     IconlyBroken.download,
@@ -853,7 +853,7 @@ class BuildFriendMessageItem extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () {
-                    cubit.saveToGallery(messageModel.messageImage!);
+                    // cubit.saveToGallery(messageModel.messageImage!);
                   },
                   icon: Icon(
                     IconlyBroken.download,

@@ -16,7 +16,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/shared/enum/enum.dart';
 import 'package:socialite/shared/network/dio_helper.dart';
 import 'package:socialite/shared/styles/themes.dart';
-import 'package:wakelock/wakelock.dart';
 import 'shared/components/constants.dart';
 import 'shared/network/cache_helper.dart';
 
@@ -46,7 +45,6 @@ void main() async {
     print('User granted permission: ${settings.authorizationStatus}');
   }
   ScreenUtil.ensureScreenSize();
-  Wakelock.enable();
 
   Bloc.observer = MyBlocObserver();
   await CacheHelper.init();
