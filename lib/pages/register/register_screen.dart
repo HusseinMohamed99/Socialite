@@ -40,10 +40,6 @@ class RegisterScreen extends StatelessWidget {
                 const EmailVerificationScreen(),
               );
             });
-            SocialCubit.get(context).getUserData();
-            SocialCubit.get(context).getPosts();
-            SocialCubit.get(context).getAllUsers();
-            SocialCubit.get(context).getStories();
           }
           if (state is UserCreateErrorState) {
             showToast(

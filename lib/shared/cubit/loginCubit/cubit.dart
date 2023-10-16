@@ -28,14 +28,13 @@ class LoginCubit extends Cubit<LoginStates> {
     });
   }
 
-  IconData suffix= IconlyBroken.show;
+  IconData suffix = IconlyBroken.show;
   bool isPassword = true;
   void changePassword() {
     isPassword = !isPassword;
     suffix = isPassword ? IconlyBroken.show : IconlyBroken.hide;
     emit(ShowPasswordState());
   }
-
 
   bool userExist = false;
   Future<void> isUserExist({

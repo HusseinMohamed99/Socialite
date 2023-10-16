@@ -28,6 +28,10 @@ class EmailVerificationScreen extends StatelessWidget {
               text: 'Create Account Successfully',
               state: ToastStates.success,
             );
+            SocialCubit.get(context).getUserData();
+            SocialCubit.get(context).getPosts();
+            SocialCubit.get(context).getAllUsers();
+            SocialCubit.get(context).getStories();
           }
           if (state is ReloadErrorState) {
             showToast(
@@ -38,8 +42,6 @@ class EmailVerificationScreen extends StatelessWidget {
         },
         builder: (context, state) {
           EmailVerificationCubit cubit = EmailVerificationCubit.get(context);
-          SocialCubit.get(context).getUserData();
-
           return AnnotatedRegion<SystemUiOverlayStyle>(
             value: const SystemUiOverlayStyle(
               statusBarColor: Colors.transparent,
@@ -63,8 +65,7 @@ class EmailVerificationScreen extends StatelessWidget {
                       ),
                       child: CircleAvatar(
                         radius: 80.0.r,
-                        backgroundImage:
-                            const AssetImage(Assets.imagesEmail),
+                        backgroundImage: const AssetImage(Assets.imagesEmail),
                       ),
                     ),
                     SizedBox(height: 15.h),

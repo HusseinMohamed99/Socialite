@@ -1152,7 +1152,6 @@ class SocialCubit extends Cubit<SocialStates> {
     emit(GetStoryLoadingState());
     FirebaseFirestore.instance
         .collection('stories')
-        .orderBy('dateTime')
         .snapshots()
         .listen((event) {
       stories = [];
