@@ -9,7 +9,7 @@ import 'package:socialite/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 import 'package:socialite/shared/widget/build_post_item.dart';
 import 'package:socialite/shared/widget/profile_info.dart';
 
@@ -47,7 +47,7 @@ class UserProfileScreen extends StatelessWidget {
                       Icon(
                         IconlyBroken.infoSquare,
                         size: 100.sp,
-                        color: AppMainColors.greyColor,
+                        color: ColorManager.greyColor,
                       ),
                       Text(
                         'No Posts yet',

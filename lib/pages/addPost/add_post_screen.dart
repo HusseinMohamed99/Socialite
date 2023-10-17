@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class AddPostScreen extends StatelessWidget {
   const AddPostScreen({
@@ -42,8 +42,8 @@ class AddPostScreen extends StatelessWidget {
                 IconlyBroken.arrowLeft2,
                 size: 24.sp,
                 color: cubit.isDark
-                    ? AppMainColors.blackColor
-                    : AppMainColors.titanWithColor,
+                    ? ColorManager.blackColor
+                    : ColorManager.titanWithColor,
               ),
             ),
             titleSpacing: 1,
@@ -131,7 +131,7 @@ class AddPostScreen extends StatelessWidget {
                                           .textTheme
                                           .bodySmall!
                                           .copyWith(
-                                            color: AppMainColors.greyColor,
+                                            color: ColorManager.greyColor,
                                           ),
                                     ),
                                   ],
@@ -150,8 +150,8 @@ class AddPostScreen extends StatelessWidget {
                           style:
                               Theme.of(context).textTheme.titleLarge!.copyWith(
                                     color: cubit.isDark
-                                        ? AppMainColors.blackColor
-                                        : AppMainColors.titanWithColor,
+                                        ? ColorManager.blackColor
+                                        : ColorManager.titanWithColor,
                                   ),
                           controller: textController,
                           decoration: InputDecoration(
@@ -160,7 +160,7 @@ class AddPostScreen extends StatelessWidget {
                                 .textTheme
                                 .titleMedium!
                                 .copyWith(
-                                  color: AppMainColors.greyColor,
+                                  color: ColorManager.greyColor,
                                 ),
                             border: InputBorder.none,
                           ),
@@ -179,7 +179,7 @@ class AddPostScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(10).r,
                                   boxShadow: [
                                     BoxShadow(
-                                      color: AppMainColors.greyColor
+                                      color: ColorManager.greyColor
                                           .withOpacity(0.4),
                                     ),
                                   ],
@@ -202,7 +202,7 @@ class AddPostScreen extends StatelessWidget {
                                   shape: BoxShape.circle,
                                   boxShadow: [
                                     BoxShadow(
-                                      color: AppMainColors.greyColor
+                                      color: ColorManager.greyColor
                                           .withOpacity(0.4),
                                       blurRadius: 9,
                                       spreadRadius: 4,
@@ -211,7 +211,7 @@ class AddPostScreen extends StatelessWidget {
                                   ],
                                 ),
                                 child: CircleAvatar(
-                                  backgroundColor: AppMainColors.redColor,
+                                  backgroundColor: ColorManager.redColor,
                                   child: Icon(
                                     Icons.close_rounded,
                                     color: Colors.white,
@@ -235,8 +235,8 @@ class AddPostScreen extends StatelessWidget {
                       child: OutlinedButton.icon(
                         style: OutlinedButton.styleFrom(
                           backgroundColor: cubit.isDark
-                              ? AppMainColors.titanWithColor
-                              : AppColorsLight.primaryColor,
+                              ? ColorManager.titanWithColor
+                              : ColorManager.primaryColor,
                         ),
                         onPressed: () {
                           cubit.getPostImage();
@@ -247,7 +247,7 @@ class AddPostScreen extends StatelessWidget {
                         ),
                         icon: Icon(
                           IconlyLight.image,
-                          color: AppMainColors.titanWithColor,
+                          color: ColorManager.titanWithColor,
                           size: 24.sp,
                         ),
                       ),

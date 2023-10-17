@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 import 'package:socialite/shared/widget/drawer_widget.dart';
 
 class HomeLayout extends StatelessWidget {
@@ -38,13 +38,13 @@ class HomeLayout extends StatelessWidget {
                       const SearchScreen(),
                     );
                   },
-                  splashColor: AppMainColors.blueColor,
+                  splashColor: ColorManager.blueColor,
                   splashRadius: 20.r,
                   icon: Icon(
                     IconlyBroken.search,
                     color: cubit.isDark
-                        ? AppMainColors.greyDarkColor
-                        : AppMainColors.titanWithColor,
+                        ? ColorManager.greyDarkColor
+                        : ColorManager.titanWithColor,
                     size: 24.sp,
                   ),
                 ),
@@ -56,7 +56,7 @@ class HomeLayout extends StatelessWidget {
                       const NotificationScreen(),
                     );
                   },
-                  splashColor: AppMainColors.blueColor,
+                  splashColor: ColorManager.blueColor,
                   splashRadius: 20.r,
                   icon: SocialCubit.get(context).unReadNotificationsCount != 0
                       ? tabBarBadge(
@@ -96,7 +96,7 @@ class HomeLayout extends StatelessWidget {
         style: Theme.of(context)
             .textTheme
             .bodyLarge!
-            .copyWith(color: AppMainColors.dividerColor),
+            .copyWith(color: ColorManager.dividerColor),
       ),
       badgeStyle: const badges.BadgeStyle(
         shape: BadgeShape.circle,

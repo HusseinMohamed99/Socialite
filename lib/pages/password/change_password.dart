@@ -4,14 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/shared/components/buttons.dart';
 import 'package:socialite/shared/components/text_form_field.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 void bottomSheetChangePassword(
     {required BuildContext context, required SocialCubit cubit}) {
   showModalBottomSheet(
     backgroundColor: cubit.isDark
-        ? AppMainColors.titanWithColor
-        : AppColorsDark.primaryDarkColor,
+        ? ColorManager.titanWithColor
+        : ColorManager.primaryDarkColor,
     isScrollControlled: true,
     shape: RoundedRectangleBorder(
       borderRadius: const BorderRadius.only(
@@ -46,8 +46,8 @@ class ShowModalBottomSheet extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               color: cubit.isDark
-                  ? AppMainColors.whiteColor
-                  : AppColorsDark.primaryDarkColor,
+                  ? ColorManager.whiteColor
+                  : ColorManager.primaryDarkColor,
               borderRadius:
                   BorderRadius.vertical(top: const Radius.circular(20).r),
             ),
@@ -65,7 +65,7 @@ class ShowModalBottomSheet extends StatelessWidget {
                     margin: const EdgeInsets.only(bottom: 20).r,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(2.5).r,
-                      color: AppMainColors.mainColor,
+                      color: ColorManager.mainColor,
                     ),
                   ),
                 ),

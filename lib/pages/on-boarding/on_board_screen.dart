@@ -11,7 +11,7 @@ import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/loginCubit/cubit.dart';
 import 'package:socialite/shared/cubit/loginCubit/state.dart';
 import 'package:socialite/shared/network/cache_helper.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class OnBoard extends StatefulWidget {
   const OnBoard({Key? key}) : super(key: key);
@@ -88,7 +88,7 @@ class _OnBoardState extends State<OnBoard> {
                         textAlign: TextAlign.start,
                         style: GoogleFonts.roboto(
                           textStyle: TextStyle(
-                            color: AppMainColors.titanWithColor,
+                            color: ColorManager.titanWithColor,
                             fontSize: 60.sp,
                             overflow: TextOverflow.visible,
                             fontWeight: FontWeight.w600,
@@ -106,7 +106,7 @@ class _OnBoardState extends State<OnBoard> {
                               height: 40.h,
                               width: 300.w,
                               decoration: BoxDecoration(
-                                color: AppMainColors.whiteColor,
+                                color: ColorManager.whiteColor,
                                 borderRadius: BorderRadius.circular(10.0).r,
                               ),
                               child: MaterialButton(
@@ -130,7 +130,7 @@ class _OnBoardState extends State<OnBoard> {
                               height: 40.h,
                               width: 300.w,
                               decoration: BoxDecoration(
-                                color: AppMainColors.yellowColor,
+                                color: ColorManager.yellowColor,
                                 borderRadius: BorderRadius.circular(10.0).r,
                               ),
                               child: MaterialButton(
@@ -154,7 +154,7 @@ class _OnBoardState extends State<OnBoard> {
                               height: 40.h,
                               width: 300.w,
                               decoration: BoxDecoration(
-                                color: AppMainColors.titanWithColor,
+                                color: ColorManager.titanWithColor,
                                 borderRadius: BorderRadius.circular(10.0).r,
                               ),
                               child: MaterialButton(

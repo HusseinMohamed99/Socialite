@@ -15,7 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/shared/enum/enum.dart';
 import 'package:socialite/shared/network/dio_helper.dart';
-import 'package:socialite/shared/styles/themes.dart';
+import 'package:socialite/shared/utils/themes.dart';
 import 'shared/components/constants.dart';
 import 'shared/network/cache_helper.dart';
 

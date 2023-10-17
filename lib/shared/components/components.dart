@@ -1,7 +1,7 @@
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 Widget baseAlertDialog({
   required context,
@@ -13,8 +13,8 @@ Widget baseAlertDialog({
 }) {
   return AlertDialog(
     backgroundColor: SocialCubit.get(context).isDark
-        ? AppMainColors.titanWithColor
-        : AppMainColors.greyDarkColor,
+        ? ColorManager.titanWithColor
+        : ColorManager.greyDarkColor,
     content: Padding(
       padding: const EdgeInsetsDirectional.only(start: 15, top: 15),
       child: Text(

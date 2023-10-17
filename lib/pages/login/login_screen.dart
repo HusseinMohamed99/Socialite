@@ -20,7 +20,7 @@ import 'package:socialite/shared/network/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -77,8 +77,8 @@ class LoginScreen extends StatelessWidget {
             ),
             child: Scaffold(
               backgroundColor: SocialCubit.get(context).isDark
-                  ? AppColorsLight.primaryColor
-                  : AppColorsDark.primaryDarkColor,
+                  ? ColorManager.primaryColor
+                  : ColorManager.primaryDarkColor,
               body: Form(
                 key: formKey,
                 child: Column(
@@ -106,8 +106,8 @@ class LoginScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(15).r,
                         decoration: BoxDecoration(
                           color: SocialCubit.get(context).isDark
-                              ? AppMainColors.whiteColor
-                              : AppMainColors.titanWithColor,
+                              ? ColorManager.whiteColor
+                              : ColorManager.titanWithColor,
                           borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(25),
                             topRight: Radius.circular(25),
@@ -124,7 +124,7 @@ class LoginScreen extends StatelessWidget {
                                     .textTheme
                                     .headlineLarge!
                                     .copyWith(
-                                      color: AppMainColors.blackColor,
+                                      color: ColorManager.blackColor,
                                       fontWeight: FontWeight.w600,
                                     ),
                               ),
@@ -135,13 +135,13 @@ class LoginScreen extends StatelessWidget {
                                     .textTheme
                                     .titleLarge!
                                     .copyWith(
-                                      color: AppMainColors.greyColor,
+                                      color: ColorManager.greyColor,
                                       fontWeight: FontWeight.w600,
                                     ),
                               ),
                               SizedBox(height: 20.h),
                               DefaultTextFormField(
-                                color: AppMainColors.greyColor,
+                                color: ColorManager.greyColor,
                                 controller: emailController,
                                 keyboardType: TextInputType.emailAddress,
                                 prefix: Icons.email,
@@ -155,7 +155,7 @@ class LoginScreen extends StatelessWidget {
                               ),
                               SizedBox(height: 15.h),
                               DefaultTextFormField(
-                                color: AppMainColors.greyColor,
+                                color: ColorManager.greyColor,
                                 controller: passwordController,
                                 keyboardType: TextInputType.visiblePassword,
                                 prefix: Icons.key,
@@ -180,7 +180,7 @@ class LoginScreen extends StatelessWidget {
                                   },
                                   text: "Forgot Password ?",
                                   context: context,
-                                  color: AppMainColors.greyColor,
+                                  color: ColorManager.greyColor,
                                   fontWeight: FontWeight.w400,
                                   fontSize: 14.sp,
                                 ),
@@ -202,7 +202,7 @@ class LoginScreen extends StatelessWidget {
                                             }
                                           },
                                           text: 'Sign In',
-                                          textColor: AppMainColors.whiteColor,
+                                          textColor: ColorManager.whiteColor,
                                           radius: 10.r,
                                           context: context,
                                         );
@@ -222,7 +222,7 @@ class LoginScreen extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(10).r,
-                                        color: AppMainColors.mainColor
+                                        color: ColorManager.mainColor
                                             .withOpacity(0.4),
                                       ),
                                       child: Text(
@@ -231,7 +231,7 @@ class LoginScreen extends StatelessWidget {
                                             .textTheme
                                             .headlineSmall!
                                             .copyWith(
-                                              color: AppMainColors.whiteColor,
+                                              color: ColorManager.whiteColor,
                                             ),
                                       ),
                                     ),
@@ -242,7 +242,7 @@ class LoginScreen extends StatelessWidget {
                                     children: [
                                       checkBox(
                                         context,
-                                        color: AppMainColors.greyColor,
+                                        color: ColorManager.greyColor,
                                       ),
                                       Text(
                                         'By creating an account, you agree to our',
@@ -250,7 +250,7 @@ class LoginScreen extends StatelessWidget {
                                             .textTheme
                                             .labelLarge!
                                             .copyWith(
-                                              color: AppMainColors.blackColor,
+                                              color: ColorManager.blackColor,
                                             ),
                                       ),
                                     ],
@@ -264,7 +264,7 @@ class LoginScreen extends StatelessWidget {
                                           .labelLarge!
                                           .copyWith(
                                             height: 0.2,
-                                            color: AppMainColors.greenColor,
+                                            color: ColorManager.greenColor,
                                             fontWeight: FontWeight.w700,
                                           ),
                                     ),
@@ -281,7 +281,7 @@ class LoginScreen extends StatelessWidget {
                                         .textTheme
                                         .titleLarge!
                                         .copyWith(
-                                            color: AppMainColors.blackColor),
+                                            color: ColorManager.blackColor),
                                   ),
                                   defaultTextButton(
                                     function: () {
@@ -289,7 +289,7 @@ class LoginScreen extends StatelessWidget {
                                           context, const RegisterScreen());
                                     },
                                     text: 'Sign Up'.toUpperCase(),
-                                    color: AppColorsLight.primaryColor,
+                                    color: ColorManager.primaryColor,
                                     context: context,
                                   ),
                                 ],

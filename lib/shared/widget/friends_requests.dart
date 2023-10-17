@@ -6,7 +6,7 @@ import 'package:socialite/pages/friend/friends_profile_screen.dart';
 import 'package:socialite/shared/components/image_with_shimmer.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class FriendRequestItems extends StatelessWidget {
   const FriendRequestItems({super.key, required this.userModel});
@@ -23,9 +23,7 @@ class FriendRequestItems extends StatelessWidget {
                 context,
                 FriendsProfileScreen(userModel.uId),
               );
-              if (kDebugMode) {
-                
-              }
+              if (kDebugMode) {}
             },
             child: CircleAvatar(
               radius: 30.r,
@@ -61,7 +59,7 @@ class FriendRequestItems extends StatelessWidget {
                     Expanded(
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: AppMainColors.blueColor,
+                          backgroundColor: ColorManager.blueColor,
                         ),
                         onPressed: () {
                           SocialCubit.get(context).addFriend(

@@ -7,7 +7,7 @@ import 'package:socialite/shared/components/image_with_shimmer.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class CreatePosts extends StatelessWidget {
   const CreatePosts({
@@ -25,7 +25,7 @@ class CreatePosts extends StatelessWidget {
         return Card(
           clipBehavior: Clip.antiAliasWithSaveLayer,
           elevation: 10,
-          shadowColor: AppMainColors.titanWithColor,
+          shadowColor: ColorManager.titanWithColor,
           margin: const EdgeInsets.all(10).r,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0).r,
@@ -49,7 +49,7 @@ class CreatePosts extends StatelessWidget {
                     margin: const EdgeInsets.all(10).r,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: AppMainColors.greyColor.withOpacity(0.1),
+                        color: ColorManager.greyColor.withOpacity(0.1),
                       ),
                       borderRadius: BorderRadius.circular(25).r,
                     ),
@@ -83,7 +83,7 @@ class CreatePosts extends StatelessWidget {
                     size: 30.sp,
                     color: cubit.isDark
                         ? CupertinoColors.activeBlue
-                        : AppMainColors.whiteColor,
+                        : ColorManager.whiteColor,
                   ),
                   splashRadius: 20.r,
                 ),

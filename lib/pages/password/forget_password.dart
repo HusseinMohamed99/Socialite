@@ -13,7 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/components/text_form_field.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class RestPasswordScreen extends StatelessWidget {
   final loginFormKey = GlobalKey<FormState>();
@@ -43,8 +43,8 @@ class RestPasswordScreen extends StatelessWidget {
                   IconlyBroken.arrowLeft2,
                   size: 30.sp,
                   color: cubit.isDark
-                      ? AppMainColors.blackColor
-                      : AppMainColors.titanWithColor,
+                      ? ColorManager.blackColor
+                      : ColorManager.titanWithColor,
                 ),
                 onPressed: () {
                   emailController.clear();
@@ -98,16 +98,16 @@ class RestPasswordScreen extends StatelessWidget {
                           boxShadow: [
                             BoxShadow(
                               blurStyle: BlurStyle.outer,
-                              color: AppMainColors.greenColor,
+                              color: ColorManager.greenColor,
                               blurRadius: 9,
                               spreadRadius: 10.r,
                               offset: const Offset(0, 1),
                             )
                           ],
-                          border: Border.all(color: AppMainColors.dividerColor),
+                          border: Border.all(color: ColorManager.dividerColor),
                           color: cubit.isDark
-                              ? AppMainColors.titanWithColor
-                              : AppMainColors.greyDarkColor,
+                              ? ColorManager.titanWithColor
+                              : ColorManager.greyDarkColor,
                           borderRadius: const BorderRadius.only(
                             topRight: Radius.circular(50.0),
                             topLeft: Radius.circular(50.0),

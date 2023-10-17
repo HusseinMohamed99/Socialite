@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 import 'package:socialite/shared/widget/build_post_item.dart';
 import 'package:socialite/shared/widget/create_post.dart';
 import 'package:socialite/shared/widget/story_widget.dart';
@@ -90,7 +90,7 @@ class FeedScreen extends StatelessWidget {
                           Icon(
                             IconlyLight.infoSquare,
                             size: 100.sp,
-                            color: AppMainColors.greyColor,
+                            color: ColorManager.greyColor,
                           ),
                           Text(
                             'No Posts yet',
@@ -136,7 +136,7 @@ class StoriesItem extends StatelessWidget {
                 height: 145.h,
                 margin: EdgeInsetsDirectional.only(start: 8.r),
                 decoration: BoxDecoration(
-                  color: AppMainColors.greyColor.withOpacity(0.3),
+                  color: ColorManager.greyColor.withOpacity(0.3),
                   borderRadius: BorderRadius.circular(17).r,
                 ),
                 child: Column(
@@ -158,13 +158,13 @@ class StoriesItem extends StatelessWidget {
                           CircleAvatar(
                             radius: 20.r,
                             backgroundColor:
-                                AppMainColors.greyColor.withOpacity(0.3),
+                                ColorManager.greyColor.withOpacity(0.3),
                             child: CircleAvatar(
                               radius: 18.r,
-                              backgroundColor: AppMainColors.blueColor,
+                              backgroundColor: ColorManager.blueColor,
                               child: Icon(
                                 Icons.add,
-                                color: AppMainColors.titanWithColor,
+                                color: ColorManager.titanWithColor,
                                 size: 24.sp,
                               ),
                             ),

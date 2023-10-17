@@ -11,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -61,8 +61,8 @@ class _SearchScreenState extends State<SearchScreen> {
                   IconlyBroken.arrowLeft2,
                   size: 30.sp,
                   color: cubit.isDark
-                      ? AppMainColors.blackColor
-                      : AppMainColors.titanWithColor,
+                      ? ColorManager.blackColor
+                      : ColorManager.titanWithColor,
                 ),
                 onPressed: () {
                   Navigator.pop(context);
@@ -76,7 +76,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 style: Theme.of(context)
                     .textTheme
                     .titleLarge!
-                    .copyWith(color: AppMainColors.blueColor),
+                    .copyWith(color: ColorManager.blueColor),
                 enableSuggestions: true,
                 scrollPhysics: const BouncingScrollPhysics(),
                 decoration: InputDecoration(
@@ -85,7 +85,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   border: InputBorder.none,
                   hintText: 'Search',
                   hintStyle: GoogleFonts.roboto(
-                    color: AppMainColors.greyColor,
+                    color: ColorManager.greyColor,
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w400,
                   ),
@@ -116,7 +116,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     children: [
                       Icon(
                         IconlyBroken.search,
-                        color: AppMainColors.greyColor,
+                        color: ColorManager.greyColor,
                         size: 60.sp,
                       ),
                       SizedBox(height: 15.h),
@@ -189,7 +189,7 @@ class UsersBuilderItems extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          color: AppMainColors.greyColor,
+                          color: ColorManager.greyColor,
                         ),
                   ),
                 ],
@@ -197,7 +197,7 @@ class UsersBuilderItems extends StatelessWidget {
             ),
             Icon(
               IconlyBroken.user2,
-              color: AppMainColors.greyColor,
+              color: ColorManager.greyColor,
               size: 24.sp,
             ),
           ],

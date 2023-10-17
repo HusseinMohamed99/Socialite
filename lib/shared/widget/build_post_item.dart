@@ -15,7 +15,7 @@ import 'package:socialite/shared/components/my_divider.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/components/show_toast.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 import 'package:socialite/shared/widget/more_options.dart';
 
 class BuildPostItem extends StatelessWidget {
@@ -129,7 +129,7 @@ class BuildPostItem extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge!
-                                .copyWith(color: AppMainColors.greyColor),
+                                .copyWith(color: ColorManager.greyColor),
                           ),
                         ],
                       ),
@@ -144,14 +144,14 @@ class BuildPostItem extends StatelessWidget {
                   icon: Icon(
                     IconlyBroken.moreCircle,
                     size: 24.sp,
-                    color: AppMainColors.greyColor,
+                    color: ColorManager.greyColor,
                   ),
                 ),
               ],
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0).r,
-              child: MyDivider(color: AppMainColors.greyColor.withOpacity(0.5)),
+              child: MyDivider(color: ColorManager.greyColor.withOpacity(0.5)),
             ),
             Text(
               '${postModel.text}',
@@ -199,7 +199,7 @@ class BuildPostItem extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .bodyLarge!
-                        .copyWith(color: AppMainColors.redColor),
+                        .copyWith(color: ColorManager.redColor),
                   ),
                 ),
                 TextButton.icon(
@@ -224,13 +224,13 @@ class BuildPostItem extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .bodyLarge!
-                        .copyWith(color: AppMainColors.orangeColor),
+                        .copyWith(color: ColorManager.orangeColor),
                   ),
                 ),
               ],
             ),
             MyDivider(
-              color: AppMainColors.greyColor.withOpacity(0.4),
+              color: ColorManager.greyColor.withOpacity(0.4),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -269,7 +269,7 @@ class BuildPostItem extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .bodyLarge!
-                          .copyWith(color: AppMainColors.greyColor),
+                          .copyWith(color: ColorManager.greyColor),
                     ),
                   ),
                 ),
@@ -288,12 +288,12 @@ class BuildPostItem extends StatelessWidget {
                   label: Text(
                     'Like',
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                          color: AppMainColors.redColor,
+                          color: ColorManager.redColor,
                         ),
                   ),
                   icon: Icon(
                     IconlyBroken.heart,
-                    color: AppMainColors.redColor,
+                    color: ColorManager.redColor,
                     size: 24.sp,
                   ),
                 ),

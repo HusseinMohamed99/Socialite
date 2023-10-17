@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class ImageWithShimmer extends StatelessWidget {
   const ImageWithShimmer({
@@ -35,7 +35,7 @@ class ImageWithShimmer extends StatelessWidget {
           highlightColor: Colors.grey[800]!,
           child: Container(
             height: height,
-            color: AppMainColors.greyColor,
+            color: ColorManager.greyColor,
           ),
         ),
         errorWidget: (_, __, ___) => Icon(

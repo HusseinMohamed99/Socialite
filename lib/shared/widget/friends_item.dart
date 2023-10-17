@@ -7,7 +7,7 @@ import 'package:socialite/pages/friend/friends_profile_screen.dart';
 import 'package:socialite/shared/components/image_with_shimmer.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class FriendsBuildItems extends StatelessWidget {
   const FriendsBuildItems({super.key, required this.userModel});
@@ -49,8 +49,8 @@ class FriendsBuildItems extends StatelessWidget {
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: SocialCubit.get(context).isDark
-                    ? AppMainColors.blueColor
-                    : AppColorsDark.primaryDarkColor,
+                    ? ColorManager.blueColor
+                    : ColorManager.primaryDarkColor,
               ),
               onPressed: () =>
                   navigateTo(context, PrivateChatScreen(userModel: userModel)),
@@ -61,8 +61,8 @@ class FriendsBuildItems extends StatelessWidget {
                     IconlyBroken.chat,
                     size: 24.sp,
                     color: SocialCubit.get(context).isDark
-                        ? AppMainColors.whiteColor
-                        : AppMainColors.blackColor,
+                        ? ColorManager.whiteColor
+                        : ColorManager.blackColor,
                   ),
                   SizedBox(width: 5.w),
                   Text(

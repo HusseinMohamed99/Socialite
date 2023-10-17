@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class FriendsScreen extends StatelessWidget {
   final bool? myFriends;
@@ -37,8 +37,8 @@ class FriendsScreen extends StatelessWidget {
                   IconlyBroken.arrowLeft2,
                   size: 30.sp,
                   color: cubit.isDark
-                      ? AppMainColors.blackColor
-                      : AppMainColors.titanWithColor,
+                      ? ColorManager.blackColor
+                      : ColorManager.titanWithColor,
                 ),
               ),
               titleSpacing: 1,
@@ -55,7 +55,7 @@ class FriendsScreen extends StatelessWidget {
                       children: [
                         Icon(
                           IconlyBroken.infoSquare,
-                          color: AppMainColors.greyColor,
+                          color: ColorManager.greyColor,
                           size: 60.sp,
                         ),
                         Text(
@@ -119,8 +119,8 @@ class FriendsBuilderItems extends StatelessWidget {
           if (myFriend)
             PopupMenuButton(
               color: cubit.isDark
-                  ? AppMainColors.blackColor
-                  : AppMainColors.titanWithColor,
+                  ? ColorManager.blackColor
+                  : ColorManager.titanWithColor,
               onSelected: (value) {
                 if (value == 'Unfriend') {
                   SocialCubit.get(context).unFriend(friendsModel.uId);
@@ -129,8 +129,8 @@ class FriendsBuilderItems extends StatelessWidget {
               child: Icon(
                 IconlyBroken.moreSquare,
                 color: cubit.isDark
-                    ? AppMainColors.blackColor
-                    : AppMainColors.titanWithColor,
+                    ? ColorManager.blackColor
+                    : ColorManager.titanWithColor,
                 size: 24.sp,
               ),
               itemBuilder: (context) => [
@@ -142,8 +142,8 @@ class FriendsBuilderItems extends StatelessWidget {
                       Icon(
                         IconlyBroken.delete,
                         color: cubit.isDark
-                            ? AppMainColors.titanWithColor
-                            : AppMainColors.blackColor,
+                            ? ColorManager.titanWithColor
+                            : ColorManager.blackColor,
                         size: 24.sp,
                       ),
                       SizedBox(width: 15.w),
@@ -151,8 +151,8 @@ class FriendsBuilderItems extends StatelessWidget {
                         'Unfriend',
                         style: Theme.of(context).textTheme.titleLarge!.copyWith(
                               color: cubit.isDark
-                                  ? AppMainColors.titanWithColor
-                                  : AppMainColors.blackColor,
+                                  ? ColorManager.titanWithColor
+                                  : ColorManager.blackColor,
                             ),
                       ),
                     ],

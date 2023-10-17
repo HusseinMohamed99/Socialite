@@ -11,7 +11,7 @@ import 'package:socialite/shared/components/my_divider.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -33,8 +33,8 @@ class NotificationScreen extends StatelessWidget {
                     IconlyBroken.arrowLeft2,
                     size: 30.sp,
                     color: cubit.isDark
-                        ? AppMainColors.blackColor
-                        : AppMainColors.titanWithColor,
+                        ? ColorManager.blackColor
+                        : ColorManager.titanWithColor,
                   ),
                   onPressed: () {
                     Navigator.pop(context);
@@ -63,7 +63,7 @@ class NotificationScreen extends StatelessWidget {
                     children: [
                       Icon(
                         IconlyLight.notification,
-                        color: AppMainColors.greyColor,
+                        color: ColorManager.greyColor,
                         size: 60.sp,
                       ),
                       SizedBox(height: 15.h),
@@ -114,9 +114,8 @@ class NotificationsBuilder extends StatelessWidget {
         }
       },
       child: Container(
-        color: cubit.isDark
-            ? AppMainColors.titanWithColor
-            : AppMainColors.greyColor,
+        color:
+            cubit.isDark ? ColorManager.titanWithColor : ColorManager.greyColor,
         child: Padding(
           padding: const EdgeInsets.all(10).r,
           child: Row(
@@ -136,10 +135,10 @@ class NotificationsBuilder extends StatelessWidget {
                   ),
                   CircleAvatar(
                     radius: 12.r,
-                    backgroundColor: AppMainColors.blueColor,
+                    backgroundColor: ColorManager.blueColor,
                     child: Icon(
                       size: 20.sp,
-                      color: AppMainColors.titanWithColor,
+                      color: ColorManager.titanWithColor,
                       cubit.notificationContentIcon(notifications.contentKey),
                     ),
                   ),
@@ -161,7 +160,7 @@ class NotificationsBuilder extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .bodyLarge!
-                          .copyWith(color: AppMainColors.dividerColor),
+                          .copyWith(color: ColorManager.dividerColor),
                     ),
                     Text(
                       getDate(notifications.dateTime),
@@ -178,8 +177,8 @@ class NotificationsBuilder extends StatelessWidget {
                   Icons.more_horiz_outlined,
                   size: 24.sp,
                   color: cubit.isDark
-                      ? AppMainColors.greyColor
-                      : AppMainColors.titanWithColor,
+                      ? ColorManager.greyColor
+                      : ColorManager.titanWithColor,
                 ),
               ),
             ],
@@ -196,8 +195,8 @@ class NotificationsBuilder extends StatelessWidget {
         SocialCubit cubit = SocialCubit.get(context);
         return Container(
           color: cubit.isDark
-              ? AppMainColors.titanWithColor
-              : AppMainColors.greyColor,
+              ? ColorManager.titanWithColor
+              : ColorManager.greyColor,
           margin: EdgeInsets.zero,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15).r,
@@ -209,8 +208,8 @@ class NotificationsBuilder extends StatelessWidget {
                   Icons.drag_handle,
                   size: 24.sp,
                   color: cubit.isDark
-                      ? AppMainColors.greyColor
-                      : AppMainColors.titanWithColor,
+                      ? ColorManager.greyColor
+                      : ColorManager.titanWithColor,
                 ),
                 CircleAvatar(
                   radius: 25,
@@ -237,7 +236,7 @@ class NotificationsBuilder extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .titleLarge!
-                          .copyWith(color: AppMainColors.dividerColor),
+                          .copyWith(color: ColorManager.dividerColor),
                     ),
                   ],
                 ),
@@ -261,7 +260,7 @@ class NotificationsBuilder extends StatelessWidget {
                         style: Theme.of(context)
                             .textTheme
                             .titleLarge!
-                            .copyWith(color: AppMainColors.redColor),
+                            .copyWith(color: ColorManager.redColor),
                       ),
                     ],
                   ),

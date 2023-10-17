@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 import 'package:socialite/shared/widget/build_post_item.dart';
 
 class FriendsProfileScreen extends StatelessWidget {
@@ -37,7 +37,7 @@ class FriendsProfileScreen extends StatelessWidget {
                   Icon(
                     IconlyBroken.infoSquare,
                     size: 100.sp,
-                    color: AppMainColors.greyColor,
+                    color: ColorManager.greyColor,
                   ),
                   Text(
                     'No Posts yet',
@@ -145,7 +145,7 @@ class ProfileInfo extends StatelessWidget {
                 ),
               ),
               CircleAvatar(
-                backgroundColor: AppMainColors.dividerColor,
+                backgroundColor: ColorManager.dividerColor,
                 radius: 75.r,
                 child: CircleAvatar(
                   radius: 70.r,
@@ -160,11 +160,11 @@ class ProfileInfo extends StatelessWidget {
                     pop(context);
                   },
                   icon: CircleAvatar(
-                    backgroundColor: AppMainColors.greyDarkColor,
+                    backgroundColor: ColorManager.greyDarkColor,
                     child: Icon(
                       IconlyBroken.arrowLeft2,
                       size: 24.sp,
-                      color: AppMainColors.titanWithColor,
+                      color: ColorManager.titanWithColor,
                     ),
                   ),
                 ),
@@ -183,7 +183,7 @@ class ProfileInfo extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .bodyLarge!
-              .copyWith(color: AppMainColors.greyColor),
+              .copyWith(color: ColorManager.greyColor),
         ),
         SizedBox(height: 5.h),
         InkWell(
@@ -197,7 +197,7 @@ class ProfileInfo extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .bodyLarge!
-                .copyWith(color: AppMainColors.blueColor),
+                .copyWith(color: ColorManager.blueColor),
           ),
         ),
         SizedBox(height: 15.h),
@@ -205,7 +205,7 @@ class ProfileInfo extends StatelessWidget {
           margin: const EdgeInsets.symmetric(
             horizontal: 10,
           ).r,
-          color: AppMainColors.greyColor.withOpacity(0.1),
+          color: ColorManager.greyColor.withOpacity(0.1),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 5).r,
             child: Row(
@@ -218,7 +218,7 @@ class ProfileInfo extends StatelessWidget {
                         style: Theme.of(context)
                             .textTheme
                             .titleLarge!
-                            .copyWith(color: AppMainColors.dividerColor),
+                            .copyWith(color: ColorManager.dividerColor),
                       ),
                       Text(
                         'Posts',
@@ -235,7 +235,7 @@ class ProfileInfo extends StatelessWidget {
                         style: Theme.of(context)
                             .textTheme
                             .titleLarge!
-                            .copyWith(color: AppMainColors.dividerColor),
+                            .copyWith(color: ColorManager.dividerColor),
                       ),
                       Text(
                         'Followers',
@@ -262,7 +262,7 @@ class ProfileInfo extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .titleLarge!
-                              .copyWith(color: AppMainColors.dividerColor),
+                              .copyWith(color: ColorManager.dividerColor),
                         ),
                         Text(
                           'Friends',
@@ -286,7 +286,7 @@ class ProfileInfo extends StatelessWidget {
               Expanded(
                 child: TextButton.icon(
                   style: TextButton.styleFrom(
-                    backgroundColor: AppMainColors.greyColor.withOpacity(0.4),
+                    backgroundColor: ColorManager.greyColor.withOpacity(0.4),
                   ),
                   onPressed: () {
                     if (SocialCubit.get(context).isFriend == false) {
@@ -347,7 +347,7 @@ class ProfileInfo extends StatelessWidget {
               Expanded(
                 child: TextButton.icon(
                   style: TextButton.styleFrom(
-                    backgroundColor: AppMainColors.blueColor,
+                    backgroundColor: ColorManager.blueColor,
                   ),
                   onPressed: () {
                     navigateTo(

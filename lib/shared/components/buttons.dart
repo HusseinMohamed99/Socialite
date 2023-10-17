@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 Widget defaultMaterialButton({
   required Function function,
@@ -21,7 +21,7 @@ Widget defaultMaterialButton({
       borderRadius: BorderRadius.circular(
         radius ?? 3,
       ).r,
-      color: color ?? AppMainColors.mainColor,
+      color: color ?? ColorManager.mainColor,
     ),
     child: MaterialButton(
       onPressed: () {

@@ -27,7 +27,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:socialite/shared/network/dio_helper.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class SocialCubit extends Cubit<SocialStates> {
   SocialCubit() : super(SocialInitialState());
@@ -122,7 +122,7 @@ class SocialCubit extends Cubit<SocialStates> {
   }
 
   bool isDark = false;
-  Color backgroundColor = AppMainColors.titanWithColor;
+  Color backgroundColor = ColorManager.titanWithColor;
 
   void changeAppMode({bool? fromShared}) {
     if (fromShared == null) {
@@ -132,7 +132,7 @@ class SocialCubit extends Cubit<SocialStates> {
     }
     CacheHelper.putBoolean(key: 'isDark', value: isDark).then((value) {
       if (isDark) {
-        backgroundColor = AppColorsDark.primaryDarkColor;
+        backgroundColor = ColorManager.primaryDarkColor;
         emit(ChangeThemeState());
       } else {
         backgroundColor = Colors.white;

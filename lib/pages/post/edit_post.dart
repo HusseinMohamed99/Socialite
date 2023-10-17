@@ -9,7 +9,7 @@ import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class EditPosts extends StatelessWidget {
   final PostModel postModel;
@@ -50,8 +50,8 @@ class EditPosts extends StatelessWidget {
                   IconlyLight.arrowLeft2,
                   size: 24.sp,
                   color: cubit.isDark
-                      ? AppMainColors.blackColor
-                      : AppMainColors.titanWithColor,
+                      ? ColorManager.blackColor
+                      : ColorManager.titanWithColor,
                 ),
               ),
               titleSpacing: 1,
@@ -134,7 +134,7 @@ class EditPosts extends StatelessWidget {
                                           .textTheme
                                           .bodySmall!
                                           .copyWith(
-                                            color: AppMainColors.greyColor,
+                                            color: ColorManager.greyColor,
                                           ),
                                     ),
                                   ],
@@ -153,7 +153,7 @@ class EditPosts extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .titleLarge!
-                              .copyWith(color: AppMainColors.blackColor),
+                              .copyWith(color: ColorManager.blackColor),
                           controller: post,
                           decoration: InputDecoration(
                             hintText: "' What's on your mind ? '",
@@ -161,7 +161,7 @@ class EditPosts extends StatelessWidget {
                                 .textTheme
                                 .titleMedium!
                                 .copyWith(
-                                  color: AppMainColors.greyColor,
+                                  color: ColorManager.greyColor,
                                 ),
                             border: InputBorder.none,
                           ),
@@ -180,7 +180,7 @@ class EditPosts extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(10).r,
                                   boxShadow: [
                                     BoxShadow(
-                                      color: AppMainColors.greyColor
+                                      color: ColorManager.greyColor
                                           .withOpacity(0.4),
                                     ),
                                   ],
@@ -214,7 +214,7 @@ class EditPosts extends StatelessWidget {
                                   shape: BoxShape.circle,
                                   boxShadow: [
                                     BoxShadow(
-                                      color: AppMainColors.greyColor
+                                      color: ColorManager.greyColor
                                           .withOpacity(0.4),
                                       blurRadius: 9,
                                       spreadRadius: 4,
@@ -223,7 +223,7 @@ class EditPosts extends StatelessWidget {
                                   ],
                                 ),
                                 child: CircleAvatar(
-                                  backgroundColor: AppMainColors.redColor,
+                                  backgroundColor: ColorManager.redColor,
                                   child: Icon(
                                     Icons.close_rounded,
                                     color: Colors.white,
@@ -247,8 +247,8 @@ class EditPosts extends StatelessWidget {
                           child: OutlinedButton.icon(
                             style: OutlinedButton.styleFrom(
                               backgroundColor: cubit.isDark
-                                  ? AppMainColors.titanWithColor
-                                  : AppColorsLight.primaryColor,
+                                  ? ColorManager.titanWithColor
+                                  : ColorManager.primaryColor,
                             ),
                             onPressed: () {
                               cubit.getPostImage();
@@ -259,7 +259,7 @@ class EditPosts extends StatelessWidget {
                             ),
                             icon: Icon(
                               IconlyLight.image,
-                              color: AppMainColors.titanWithColor,
+                              color: ColorManager.titanWithColor,
                               size: 24.sp,
                             ),
                           ),

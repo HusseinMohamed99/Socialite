@@ -5,7 +5,7 @@ import 'package:socialite/pages/friend/friends_profile_screen.dart';
 import 'package:socialite/shared/components/image_with_shimmer.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class PeoplesMayKnow extends StatelessWidget {
   const PeoplesMayKnow({super.key, required this.userModel});
@@ -17,7 +17,7 @@ class PeoplesMayKnow extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10).r,
         border: Border.all(
-            color: AppMainColors.greenColor, style: BorderStyle.solid),
+            color: ColorManager.greenColor, style: BorderStyle.solid),
       ),
       clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Column(
@@ -75,7 +75,7 @@ class PeoplesMayKnow extends StatelessWidget {
                       'sent you a friend request, check it out!');
             },
             child: Container(
-              color: AppMainColors.blueColor,
+              color: ColorManager.blueColor,
               child: SocialCubit.get(context).isFriend == false
                   ? SocialCubit.get(context).request
                       ? Row(
@@ -83,7 +83,7 @@ class PeoplesMayKnow extends StatelessWidget {
                           children: [
                             Icon(
                               Icons.person_add_alt_1_rounded,
-                              color: AppMainColors.titanWithColor,
+                              color: ColorManager.titanWithColor,
                               size: 24.sp,
                             ),
                             Text(
@@ -99,7 +99,7 @@ class PeoplesMayKnow extends StatelessWidget {
                           children: [
                             Icon(
                               Icons.person_add_alt_1_rounded,
-                              color: AppMainColors.titanWithColor,
+                              color: ColorManager.titanWithColor,
                               size: 24.sp,
                             ),
                             Text(
@@ -115,7 +115,7 @@ class PeoplesMayKnow extends StatelessWidget {
                       children: [
                         Icon(
                           Icons.person,
-                          color: AppMainColors.titanWithColor,
+                          color: ColorManager.titanWithColor,
                           size: 24.sp,
                         ),
                         Text(

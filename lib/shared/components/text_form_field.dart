@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class DefaultTextFormField extends StatelessWidget {
   const DefaultTextFormField({
@@ -61,7 +61,7 @@ class DefaultTextFormField extends StatelessWidget {
       style: Theme.of(context)
           .textTheme
           .titleLarge!
-          .copyWith(color: textColor ?? AppMainColors.blackColor),
+          .copyWith(color: textColor ?? ColorManager.blackColor),
       focusNode: FocusNode(),
       maxLines: maxLines ?? 1,
       minLines: minLines ?? 1,
@@ -77,7 +77,7 @@ class DefaultTextFormField extends StatelessWidget {
         prefixIcon: Icon(
           prefix,
           size: 24.sp,
-          color: AppMainColors.greyColor,
+          color: ColorManager.greyColor,
         ),
         suffixIcon: suffix != null
             ? IconButton(
@@ -86,41 +86,41 @@ class DefaultTextFormField extends StatelessWidget {
                 },
                 icon: Icon(
                   suffix,
-                  color: AppMainColors.greyColor,
+                  color: ColorManager.greyColor,
                   size: 24.sp,
                 ),
               )
             : null,
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: AppMainColors.blueColor,
+            color: ColorManager.blueColor,
           ),
         ),
         labelText: label,
         labelStyle: GoogleFonts.roboto(
-          color: color ?? AppMainColors.greyColor,
+          color: color ?? ColorManager.greyColor,
           fontSize: 18.sp,
           fontWeight: FontWeight.w400,
         ),
         hintText: hint,
         disabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: AppMainColors.greyColor,
+            color: ColorManager.greyColor,
           ),
         ),
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: AppMainColors.greyColor,
+            color: ColorManager.greyColor,
           ),
         ),
         errorBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: AppMainColors.redColor,
+            color: ColorManager.redColor,
           ),
         ),
         focusedErrorBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: AppMainColors.redColor,
+            color: ColorManager.redColor,
           ),
         ),
       ),

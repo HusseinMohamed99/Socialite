@@ -12,7 +12,7 @@ import 'package:socialite/shared/components/my_divider.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class CommentsScreen extends StatelessWidget {
   final int? likes;
@@ -52,8 +52,8 @@ class CommentsScreen extends StatelessWidget {
                     IconlyBroken.arrowLeft2,
                     size: 30.sp,
                     color: cubit.isDark
-                        ? AppMainColors.blackColor
-                        : AppMainColors.titanWithColor,
+                        ? ColorManager.blackColor
+                        : ColorManager.titanWithColor,
                   ),
                 ),
                 elevation: 0,
@@ -79,7 +79,7 @@ class CommentsScreen extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .titleLarge!
-                                .copyWith(color: AppMainColors.dividerColor),
+                                .copyWith(color: ColorManager.dividerColor),
                           ),
                           const Spacer(),
                           Icon(IconlyBroken.arrowRightCircle, size: 24.sp),
@@ -103,7 +103,7 @@ class CommentsScreen extends StatelessWidget {
                             children: [
                               Icon(
                                 IconlyBroken.chat,
-                                color: AppMainColors.greyColor,
+                                color: ColorManager.greyColor,
                                 size: 60.sp,
                               ),
                               SizedBox(height: 15.h),
@@ -239,14 +239,14 @@ class CommentsScreen extends StatelessWidget {
                                 },
                                 icon: Icon(
                                   IconlyBroken.send,
-                                  color: AppMainColors.blueColor,
+                                  color: ColorManager.blueColor,
                                   size: 24.sp,
                                 ),
                               ),
                             ],
                           ),
                           filled: true,
-                          fillColor: AppMainColors.greyColor.withOpacity(0.8),
+                          fillColor: ColorManager.greyColor.withOpacity(0.8),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20).r,
                           ),
@@ -304,7 +304,7 @@ class BuildCommentsItem extends StatelessWidget {
                               vertical: 8,
                             ).r,
                             decoration: BoxDecoration(
-                              color: AppMainColors.greyColor.withOpacity(0.4),
+                              color: ColorManager.greyColor.withOpacity(0.4),
                               borderRadius: BorderRadius.circular(15).r,
                             ),
                             child: Column(
@@ -352,8 +352,8 @@ class BuildCommentsItem extends StatelessWidget {
                                   height: intToDouble(
                                       comment.commentImage?['height'] ?? 250),
                                   decoration: BoxDecoration(
-                                    color: AppMainColors.greyColor
-                                        .withOpacity(0.2),
+                                    color:
+                                        ColorManager.greyColor.withOpacity(0.2),
                                     borderRadius: BorderRadius.circular(15).r,
                                   ),
                                   child: imagePreview(
@@ -371,7 +371,7 @@ class BuildCommentsItem extends StatelessWidget {
                                 ).r,
                                 decoration: BoxDecoration(
                                   color:
-                                      AppMainColors.greyColor.withOpacity(0.4),
+                                      ColorManager.greyColor.withOpacity(0.4),
                                   borderRadius: BorderRadius.circular(15).r,
                                 ),
                                 child: Column(

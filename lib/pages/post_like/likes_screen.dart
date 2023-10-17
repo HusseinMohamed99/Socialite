@@ -10,7 +10,7 @@ import 'package:socialite/shared/components/indicator.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class LikesScreen extends StatelessWidget {
   final String? postId;
@@ -39,8 +39,8 @@ class LikesScreen extends StatelessWidget {
                 IconlyBroken.arrowLeft2,
                 size: 30.sp,
                 color: cubit.isDark
-                    ? AppMainColors.blackColor
-                    : AppMainColors.titanWithColor,
+                    ? ColorManager.blackColor
+                    : ColorManager.titanWithColor,
               ),
             ),
           ),
@@ -126,7 +126,7 @@ class UsersLikedItem extends StatelessWidget {
               width: 135.w,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppMainColors.greyColor.withOpacity(0.1),
+                  backgroundColor: ColorManager.greyColor.withOpacity(0.1),
                   elevation: 0,
                 ),
                 onPressed: () {
@@ -147,7 +147,7 @@ class UsersLikedItem extends StatelessWidget {
                     Icon(
                       Icons.person_add_alt_1_rounded,
                       size: 15.sp,
-                      color: AppMainColors.blueColor,
+                      color: ColorManager.blueColor,
                     ),
                     Text(
                       'add Friend',

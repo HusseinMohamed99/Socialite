@@ -10,7 +10,7 @@ import 'package:socialite/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class EditProfileScreen extends StatelessWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
@@ -49,7 +49,7 @@ class EditProfileScreen extends StatelessWidget {
                       Icon(
                         IconlyBroken.infoSquare,
                         size: 100.sp,
-                        color: AppMainColors.greyColor,
+                        color: ColorManager.greyColor,
                       ),
                       Text(
                         'User Nullable',
@@ -130,7 +130,7 @@ class EditProfileScreen extends StatelessWidget {
                                             child: CircleAvatar(
                                               radius: 22.r,
                                               backgroundColor:
-                                                  AppMainColors.greyColor,
+                                                  ColorManager.greyColor,
                                               child: IconButton(
                                                 splashRadius: 1,
                                                 onPressed: () {
@@ -138,7 +138,7 @@ class EditProfileScreen extends StatelessWidget {
                                                 },
                                                 icon: Icon(
                                                   IconlyBroken.camera,
-                                                  color: AppMainColors
+                                                  color: ColorManager
                                                       .titanWithColor,
                                                   size: 30.sp,
                                                 ),
@@ -153,7 +153,7 @@ class EditProfileScreen extends StatelessWidget {
                                         profileImage == null
                                             ? CircleAvatar(
                                                 backgroundColor:
-                                                    AppMainColors.dividerColor,
+                                                    ColorManager.dividerColor,
                                                 radius: 75.r,
                                                 child: CircleAvatar(
                                                   radius: 70.r,
@@ -165,7 +165,7 @@ class EditProfileScreen extends StatelessWidget {
                                               )
                                             : CircleAvatar(
                                                 backgroundColor:
-                                                    AppMainColors.dividerColor,
+                                                    ColorManager.dividerColor,
                                                 radius: 75.r,
                                                 child: CircleAvatar(
                                                   radius: 70.r,
@@ -179,7 +179,7 @@ class EditProfileScreen extends StatelessWidget {
                                           child: CircleAvatar(
                                             radius: 22.r,
                                             backgroundColor:
-                                                AppMainColors.greyColor,
+                                                ColorManager.greyColor,
                                             child: IconButton(
                                               splashRadius: 1,
                                               onPressed: () {
@@ -187,8 +187,8 @@ class EditProfileScreen extends StatelessWidget {
                                               },
                                               icon: Icon(
                                                 IconlyBroken.camera,
-                                                color: AppMainColors
-                                                    .titanWithColor,
+                                                color:
+                                                    ColorManager.titanWithColor,
                                                 size: 30.sp,
                                               ),
                                             ),
@@ -205,11 +205,11 @@ class EditProfileScreen extends StatelessWidget {
                                         },
                                         icon: CircleAvatar(
                                           backgroundColor:
-                                              AppMainColors.greyDarkColor,
+                                              ColorManager.greyDarkColor,
                                           child: Icon(
                                             IconlyBroken.arrowLeft2,
                                             size: 24.sp,
-                                            color: AppMainColors.titanWithColor,
+                                            color: ColorManager.titanWithColor,
                                           ),
                                         ),
                                       ),
@@ -234,8 +234,8 @@ class EditProfileScreen extends StatelessWidget {
                                       label: 'Name',
                                       prefix: IconlyBroken.user3,
                                       textColor: cubit.isDark
-                                          ? AppMainColors.blackColor
-                                          : AppMainColors.titanWithColor,
+                                          ? ColorManager.blackColor
+                                          : ColorManager.titanWithColor,
                                     ),
                                     SizedBox(height: 15.h),
                                     DefaultTextFormField(
@@ -250,8 +250,8 @@ class EditProfileScreen extends StatelessWidget {
                                       label: 'Bio ...',
                                       prefix: IconlyBroken.infoSquare,
                                       textColor: cubit.isDark
-                                          ? AppMainColors.blackColor
-                                          : AppMainColors.titanWithColor,
+                                          ? ColorManager.blackColor
+                                          : ColorManager.titanWithColor,
                                     ),
                                     SizedBox(height: 15.h),
                                     DefaultTextFormField(
@@ -266,8 +266,8 @@ class EditProfileScreen extends StatelessWidget {
                                       label: 'E-mail Address',
                                       prefix: IconlyBroken.message,
                                       textColor: cubit.isDark
-                                          ? AppMainColors.blackColor
-                                          : AppMainColors.titanWithColor,
+                                          ? ColorManager.blackColor
+                                          : ColorManager.titanWithColor,
                                     ),
                                     SizedBox(height: 15.h),
                                     DefaultTextFormField(
@@ -282,8 +282,8 @@ class EditProfileScreen extends StatelessWidget {
                                       label: 'Phone',
                                       prefix: IconlyBroken.calling,
                                       textColor: cubit.isDark
-                                          ? AppMainColors.blackColor
-                                          : AppMainColors.titanWithColor,
+                                          ? ColorManager.blackColor
+                                          : ColorManager.titanWithColor,
                                     ),
                                     SizedBox(height: 15.h),
                                     DefaultTextFormField(
@@ -298,8 +298,8 @@ class EditProfileScreen extends StatelessWidget {
                                       label: 'Portfolio',
                                       prefix: IconlyBroken.document,
                                       textColor: cubit.isDark
-                                          ? AppMainColors.blackColor
-                                          : AppMainColors.titanWithColor,
+                                          ? ColorManager.blackColor
+                                          : ColorManager.titanWithColor,
                                     ),
                                   ],
                                 ),
@@ -318,8 +318,8 @@ class EditProfileScreen extends StatelessWidget {
                                   child: OutlinedButton(
                                     style: OutlinedButton.styleFrom(
                                       backgroundColor: cubit.isDark
-                                          ? AppMainColors.titanWithColor
-                                          : AppColorsLight.primaryColor,
+                                          ? ColorManager.titanWithColor
+                                          : ColorManager.primaryColor,
                                     ),
                                     onPressed: () {
                                       if (cubit.coverImage != null &&

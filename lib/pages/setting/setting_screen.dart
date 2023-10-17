@@ -15,7 +15,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -63,7 +63,7 @@ class SettingScreen extends StatelessWidget {
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall!
-                                    .copyWith(color: AppMainColors.greyColor),
+                                    .copyWith(color: ColorManager.greyColor),
                               ),
                               InkWell(
                                 onTap: () {
@@ -76,7 +76,7 @@ class SettingScreen extends StatelessWidget {
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge!
-                                      .copyWith(color: AppMainColors.blueColor),
+                                      .copyWith(color: ColorManager.blueColor),
                                 ),
                               ),
                             ],
@@ -91,7 +91,7 @@ class SettingScreen extends StatelessWidget {
                           icon: Icon(
                             IconlyLight.arrowRight2,
                             size: 24.sp,
-                            color: AppMainColors.greyColor,
+                            color: ColorManager.greyColor,
                           ),
                         )
                       ],
@@ -222,13 +222,13 @@ class SettingsListItem extends StatelessWidget {
                 width: 60.w,
                 height: 60.h,
                 decoration: BoxDecoration(
-                  color: AppMainColors.blueColor.withOpacity(0.4),
+                  color: ColorManager.blueColor.withOpacity(0.4),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
                   iconData,
                   size: 50.sp,
-                  color: AppMainColors.greyColor,
+                  color: ColorManager.greyColor,
                 ),
               ),
               SizedBox(width: 10.w),
@@ -240,7 +240,7 @@ class SettingsListItem extends StatelessWidget {
               Icon(
                 IconlyLight.arrowRight2,
                 size: 24.sp,
-                color: AppMainColors.greyColor,
+                color: ColorManager.greyColor,
               )
             ],
           ),

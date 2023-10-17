@@ -11,7 +11,7 @@ import 'package:socialite/shared/components/logout.dart';
 import 'package:socialite/shared/components/my_divider.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key, required this.cubit});
@@ -20,8 +20,8 @@ class DrawerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       backgroundColor: cubit.isDark
-          ? AppMainColors.titanWithColor
-          : AppColorsDark.primaryDarkColor,
+          ? ColorManager.titanWithColor
+          : ColorManager.primaryDarkColor,
       child: cubit.userModel != null
           ? Stack(
               children: [
@@ -98,7 +98,7 @@ class DrawerWidget extends StatelessWidget {
                   left: 40.w,
                   right: 40.w,
                   child: CircleAvatar(
-                    backgroundColor: AppMainColors.blueColor,
+                    backgroundColor: ColorManager.blueColor,
                     radius: 42.r,
                     child: CircleAvatar(
                       radius: 40.r,
@@ -151,7 +151,7 @@ class ListOfItem extends StatelessWidget {
             Icon(
               iconData,
               size: 30.sp,
-              color: AppMainColors.greyColor,
+              color: ColorManager.greyColor,
             ),
             SizedBox(
               width: 10.w,

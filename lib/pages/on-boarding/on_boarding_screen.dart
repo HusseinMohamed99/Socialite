@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:socialite/model/onboarding_model.dart';
 import 'package:socialite/pages/on-boarding/on_board_screen.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
@@ -56,11 +57,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 }
 
 class OnBoardingItems extends StatelessWidget {
-  const OnBoardingItems(
-      {super.key,
-      required this.index,
-      required this.currentIndex,
-      required this.controller});
+  const OnBoardingItems({
+    super.key,
+    required this.index,
+    required this.currentIndex,
+    required this.controller,
+  });
   final int index;
   final int currentIndex;
   final PageController controller;
@@ -76,7 +78,7 @@ class OnBoardingItems extends StatelessWidget {
           fit: BoxFit.fill,
         ),
       ),
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -86,7 +88,9 @@ class OnBoardingItems extends StatelessWidget {
               children: [
                 Text(
                   contents[index].title,
-                  style: Theme.of(context).textTheme.headlineLarge,
+                  style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                        color: ColorManager.blackColor,
+                      ),
                 ),
                 const SizedBox(height: 20),
                 Text(
@@ -167,7 +171,9 @@ class BuildDotWidget extends StatelessWidget {
       margin: const EdgeInsets.only(right: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: currentIndex == index ? Colors.amber : Colors.grey,
+        color: currentIndex == index
+            ? ColorManager.whiteColor
+            : ColorManager.greyColor,
       ),
     );
   }

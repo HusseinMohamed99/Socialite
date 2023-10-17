@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/model/story_model.dart';
-import 'package:socialite/pages/story/veiw_story.dart';
+import 'package:socialite/pages/story/view_story.dart';
 import 'package:socialite/shared/components/image_with_shimmer.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class StoryItem extends StatelessWidget {
   const StoryItem({super.key, required this.storyModel});
@@ -85,7 +85,7 @@ class StoryItem extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium!
-                              .copyWith(color: AppMainColors.titanWithColor),
+                              .copyWith(color: ColorManager.titanWithColor),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),

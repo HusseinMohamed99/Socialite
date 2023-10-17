@@ -4,13 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/pages/story/create_story.dart';
-import 'package:socialite/pages/story/veiw_story.dart';
+import 'package:socialite/pages/story/view_story.dart';
 import 'package:socialite/shared/components/constants.dart';
 import 'package:socialite/shared/components/image_with_shimmer.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 import 'package:socialite/shared/widget/build_stories_item.dart';
 import 'package:socialite/shared/widget/user_stories.dart';
 
@@ -135,11 +135,11 @@ class CreateNewStories extends StatelessWidget {
                           backgroundColor: Colors.grey.withOpacity(0.3),
                           child: CircleAvatar(
                             radius: 18.r,
-                            backgroundColor: AppMainColors.blueColor,
+                            backgroundColor: ColorManager.blueColor,
                             child: Icon(
                               IconlyBroken.plus,
                               size: 24.sp,
-                              color: AppMainColors.titanWithColor,
+                              color: ColorManager.titanWithColor,
                             ),
                           ),
                         )
@@ -262,7 +262,7 @@ class CarouselSliderStories extends StatelessWidget {
                                     .textTheme
                                     .titleLarge!
                                     .copyWith(
-                                        color: AppMainColors.titanWithColor),
+                                        color: ColorManager.titanWithColor),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -273,7 +273,7 @@ class CarouselSliderStories extends StatelessWidget {
                                     .textTheme
                                     .bodyLarge!
                                     .copyWith(
-                                      color: AppMainColors.greyColor,
+                                      color: ColorManager.greyColor,
                                     ),
                               ),
                             ],

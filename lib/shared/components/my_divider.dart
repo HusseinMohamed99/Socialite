@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class MyDivider extends StatelessWidget {
   const MyDivider({super.key, this.color});
@@ -11,7 +11,7 @@ class MyDivider extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 1.h,
-      color: color ?? AppMainColors.dividerColor,
+      color: color ?? ColorManager.dividerColor,
     );
   }
 }

@@ -6,7 +6,7 @@ import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 import 'package:socialite/shared/widget/friends_item.dart';
 import 'package:socialite/shared/widget/friends_requests.dart';
 import 'package:socialite/shared/widget/peoples_may_know.dart';
@@ -44,7 +44,7 @@ class _UserScreenState extends State<UserScreen> {
                         Icon(
                           IconlyLight.chat,
                           size: 70.sp,
-                          color: AppMainColors.greyColor,
+                          color: ColorManager.greyColor,
                         ),
                         Text(
                           'No Users Yet,\nPlease Add\nSome Friends',

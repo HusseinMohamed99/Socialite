@@ -17,7 +17,7 @@ import 'package:socialite/shared/network/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -55,8 +55,8 @@ class RegisterScreen extends StatelessWidget {
             ),
             child: Scaffold(
               backgroundColor: SocialCubit.get(context).isDark
-                  ? AppColorsLight.primaryColor
-                  : AppColorsDark.primaryDarkColor,
+                  ? ColorManager.primaryColor
+                  : ColorManager.primaryDarkColor,
               body: Form(
                 key: formKey,
                 child: Column(
@@ -80,8 +80,8 @@ class RegisterScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(15),
                         decoration: BoxDecoration(
                           color: SocialCubit.get(context).isDark
-                              ? AppMainColors.whiteColor
-                              : AppMainColors.titanWithColor,
+                              ? ColorManager.whiteColor
+                              : ColorManager.titanWithColor,
                           borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(25),
                             topRight: Radius.circular(25),
@@ -98,7 +98,7 @@ class RegisterScreen extends StatelessWidget {
                                     .textTheme
                                     .headlineLarge!
                                     .copyWith(
-                                      color: AppMainColors.blackColor,
+                                      color: ColorManager.blackColor,
                                       fontWeight: FontWeight.w600,
                                     ),
                               ),
@@ -109,7 +109,7 @@ class RegisterScreen extends StatelessWidget {
                                     .textTheme
                                     .titleLarge!
                                     .copyWith(
-                                      color: AppMainColors.greyColor,
+                                      color: ColorManager.greyColor,
                                       fontWeight: FontWeight.w600,
                                     ),
                               ),
@@ -196,7 +196,7 @@ class RegisterScreen extends StatelessWidget {
                                             }
                                           },
                                           text: 'Sign Up',
-                                          textColor: AppMainColors.whiteColor,
+                                          textColor: ColorManager.whiteColor,
                                           radius: 10.r,
                                           context: context,
                                         );
@@ -216,7 +216,7 @@ class RegisterScreen extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(10).r,
-                                        color: AppMainColors.mainColor
+                                        color: ColorManager.mainColor
                                             .withOpacity(0.4),
                                       ),
                                       child: Text(
@@ -225,7 +225,7 @@ class RegisterScreen extends StatelessWidget {
                                             .textTheme
                                             .headlineSmall!
                                             .copyWith(
-                                              color: AppMainColors.whiteColor,
+                                              color: ColorManager.whiteColor,
                                             ),
                                       ),
                                     ),
@@ -236,7 +236,7 @@ class RegisterScreen extends StatelessWidget {
                                     children: [
                                       checkBox(
                                         context,
-                                        AppMainColors.greyColor,
+                                        ColorManager.greyColor,
                                       ),
                                       Text(
                                         'By creating an account, you agree to our',
@@ -244,7 +244,7 @@ class RegisterScreen extends StatelessWidget {
                                             .textTheme
                                             .labelLarge!
                                             .copyWith(
-                                              color: AppMainColors.blackColor,
+                                              color: ColorManager.blackColor,
                                             ),
                                       ),
                                     ],
@@ -258,7 +258,7 @@ class RegisterScreen extends StatelessWidget {
                                           .labelLarge!
                                           .copyWith(
                                             height: 0.2,
-                                            color: AppMainColors.greenColor,
+                                            color: ColorManager.greenColor,
                                             fontWeight: FontWeight.w700,
                                           ),
                                     ),
@@ -275,14 +275,14 @@ class RegisterScreen extends StatelessWidget {
                                         .textTheme
                                         .titleLarge!
                                         .copyWith(
-                                            color: AppMainColors.blackColor),
+                                            color: ColorManager.blackColor),
                                   ),
                                   defaultTextButton(
                                     function: () {
                                       navigateTo(context, const LoginScreen());
                                     },
                                     text: 'Sign In'.toUpperCase(),
-                                    color: AppMainColors.mainColor,
+                                    color: ColorManager.mainColor,
                                     context: context,
                                   ),
                                 ],
@@ -306,9 +306,9 @@ class RegisterScreen extends StatelessWidget {
     var cubit = RegisterCubit.get(context);
     return Checkbox.adaptive(
       side: BorderSide(
-        color: color ?? AppMainColors.whiteColor,
+        color: color ?? ColorManager.whiteColor,
       ),
-      activeColor: AppMainColors.mainColor,
+      activeColor: ColorManager.mainColor,
       value: cubit.isCheck,
       onChanged: (e) {
         cubit.boxCheck(e!);

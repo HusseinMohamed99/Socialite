@@ -10,7 +10,7 @@ import 'package:socialite/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class CreateStory extends StatelessWidget {
   const CreateStory({
@@ -76,12 +76,12 @@ class CreateStory extends StatelessWidget {
                                       .textTheme
                                       .titleLarge!
                                       .copyWith(
-                                          color: AppMainColors.titanWithColor),
+                                          color: ColorManager.titanWithColor),
                                 ),
                                 SizedBox(width: 5.w),
                                 Icon(
                                   Icons.check_circle,
-                                  color: AppMainColors.blueColor,
+                                  color: ColorManager.blueColor,
                                   size: 24.sp,
                                 )
                               ],
@@ -110,7 +110,7 @@ class CreateStory extends StatelessWidget {
                                     Theme.of(context).scaffoldBackgroundColor,
                                 child: Icon(
                                   Icons.close_rounded,
-                                  color: AppMainColors.redColor,
+                                  color: ColorManager.redColor,
                                   size: 24.sp,
                                 ),
                               ),
@@ -130,13 +130,13 @@ class CreateStory extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .headlineMedium!
-                              .copyWith(color: AppMainColors.greyColor),
+                              .copyWith(color: ColorManager.greyColor),
                           decoration: InputDecoration(
                             hintText: "What's on your mind ...",
                             hintStyle: Theme.of(context)
                                 .textTheme
                                 .headlineMedium!
-                                .copyWith(color: AppMainColors.greyColor),
+                                .copyWith(color: ColorManager.greyColor),
                             border: InputBorder.none,
                           ),
                         ),
@@ -153,11 +153,11 @@ class CreateStory extends StatelessWidget {
                               child: Container(
                                 height: 35.h,
                                 decoration: BoxDecoration(
-                                  color: AppMainColors.titanWithColor,
+                                  color: ColorManager.titanWithColor,
                                   borderRadius: BorderRadius.circular(15).r,
                                   boxShadow: [
                                     BoxShadow(
-                                      color: AppMainColors.greyColor
+                                      color: ColorManager.greyColor
                                           .withOpacity(0.3),
                                       blurRadius: 9,
                                       spreadRadius: 4,
@@ -170,7 +170,7 @@ class CreateStory extends StatelessWidget {
                                   children: [
                                     Icon(
                                       Icons.text_fields,
-                                      color: AppMainColors.blackColor,
+                                      color: ColorManager.blackColor,
                                       size: 24.sp,
                                     ),
                                     Text(
@@ -181,7 +181,7 @@ class CreateStory extends StatelessWidget {
                                           .textTheme
                                           .titleLarge!
                                           .copyWith(
-                                              color: AppMainColors.blackColor),
+                                              color: ColorManager.blackColor),
                                     ),
                                   ],
                                 ),
@@ -199,11 +199,11 @@ class CreateStory extends StatelessWidget {
                               child: Container(
                                 height: 35.h,
                                 decoration: BoxDecoration(
-                                  color: AppMainColors.titanWithColor,
+                                  color: ColorManager.titanWithColor,
                                   borderRadius: BorderRadius.circular(15).r,
                                   boxShadow: [
                                     BoxShadow(
-                                      color: AppMainColors.greyColor
+                                      color: ColorManager.greyColor
                                           .withOpacity(0.3),
                                       blurRadius: 9,
                                       spreadRadius: 4,
@@ -218,7 +218,7 @@ class CreateStory extends StatelessWidget {
                                     children: [
                                       Icon(
                                         Icons.upload,
-                                        color: AppMainColors.blackColor,
+                                        color: ColorManager.blackColor,
                                         size: 24.sp,
                                       ),
                                       Text(
@@ -227,8 +227,7 @@ class CreateStory extends StatelessWidget {
                                             .textTheme
                                             .titleLarge!
                                             .copyWith(
-                                                color:
-                                                    AppMainColors.blackColor),
+                                                color: ColorManager.blackColor),
                                       )
                                     ],
                                   ),

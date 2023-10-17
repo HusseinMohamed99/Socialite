@@ -14,7 +14,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 import 'package:uuid/uuid.dart';
 
 class PrivateChatScreen extends StatelessWidget {
@@ -150,8 +150,8 @@ class PrivateChatScreen extends StatelessWidget {
                               height: 170.h,
                               decoration: BoxDecoration(
                                 color: cubit.isDark
-                                    ? AppMainColors.greyColor.withOpacity(0.5)
-                                    : AppMainColors.greyDarkColor,
+                                    ? ColorManager.greyColor.withOpacity(0.5)
+                                    : ColorManager.greyDarkColor,
                                 borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(4),
                                   topRight: Radius.circular(4),
@@ -164,7 +164,7 @@ class PrivateChatScreen extends StatelessWidget {
                             ),
                             CircleAvatar(
                               radius: 20.r,
-                              backgroundColor: AppMainColors.blueColor,
+                              backgroundColor: ColorManager.blueColor,
                               child: IconButton(
                                 onPressed: () {
                                   SocialCubit.get(context).removeMessageImage();
@@ -172,7 +172,7 @@ class PrivateChatScreen extends StatelessWidget {
                                 icon: Icon(
                                   IconlyBroken.closeSquare,
                                   size: 24.sp,
-                                  color: AppMainColors.titanWithColor,
+                                  color: ColorManager.titanWithColor,
                                 ),
                               ),
                             ),
@@ -191,15 +191,15 @@ class PrivateChatScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(16).r,
                                 border: Border.all(
                                   color:
-                                      AppMainColors.greyColor.withOpacity(0.2),
+                                      ColorManager.greyColor.withOpacity(0.2),
                                 ),
                               ),
                               child: SingleChildScrollView(
                                 child: TextFormField(
                                   style: GoogleFonts.roboto(
                                     color: cubit.isDark
-                                        ? AppMainColors.blackColor
-                                        : AppMainColors.titanWithColor,
+                                        ? ColorManager.blackColor
+                                        : ColorManager.titanWithColor,
                                   ),
                                   textAlignVertical: TextAlignVertical.center,
                                   maxLines: 3,
@@ -214,7 +214,7 @@ class PrivateChatScreen extends StatelessWidget {
                                     contentPadding: const EdgeInsets.all(12).r,
                                     hintText: "Type a message",
                                     hintStyle: GoogleFonts.roboto(
-                                      color: AppMainColors.greyColor,
+                                      color: ColorManager.greyColor,
                                       fontWeight: FontWeight.w700,
                                     ),
                                     border: InputBorder.none,
@@ -223,7 +223,7 @@ class PrivateChatScreen extends StatelessWidget {
                                       icon: Icon(
                                         Icons.emoji_emotions_outlined,
                                         size: 20.sp,
-                                        color: AppMainColors.greyColor,
+                                        color: ColorManager.greyColor,
                                       ),
                                     ),
                                     suffixIcon: Row(
@@ -238,7 +238,7 @@ class PrivateChatScreen extends StatelessWidget {
                                           icon: Icon(
                                             IconlyBroken.camera,
                                             size: 24.sp,
-                                            color: AppMainColors.greyColor,
+                                            color: ColorManager.greyColor,
                                           ),
                                         ),
                                       ],
@@ -257,8 +257,8 @@ class PrivateChatScreen extends StatelessWidget {
                           Container(
                             decoration: BoxDecoration(
                               color: cubit.isDark
-                                  ? AppMainColors.blueColor
-                                  : AppMainColors.titanWithColor,
+                                  ? ColorManager.blueColor
+                                  : ColorManager.titanWithColor,
                               shape: BoxShape.circle,
                             ),
                             child: MaterialButton(
@@ -302,8 +302,8 @@ class PrivateChatScreen extends StatelessWidget {
                               child: Icon(
                                 IconlyBroken.send,
                                 color: cubit.isDark
-                                    ? AppMainColors.titanWithColor
-                                    : AppMainColors.blackColor,
+                                    ? ColorManager.titanWithColor
+                                    : ColorManager.blackColor,
                               ),
                             ),
                           ),
@@ -366,8 +366,8 @@ class BuildUserMessageItem extends StatelessWidget {
                   child: Bubble(
                     nip: BubbleNip.leftBottom,
                     color: cubit.isDark
-                        ? AppColorsDark.primaryDarkColor
-                        : AppMainColors.titanWithColor,
+                        ? ColorManager.primaryDarkColor
+                        : ColorManager.titanWithColor,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
@@ -376,8 +376,8 @@ class BuildUserMessageItem extends StatelessWidget {
                           style:
                               Theme.of(context).textTheme.titleMedium!.copyWith(
                                     color: cubit.isDark
-                                        ? AppMainColors.titanWithColor
-                                        : AppMainColors.blackColor,
+                                        ? ColorManager.titanWithColor
+                                        : ColorManager.blackColor,
                                   ),
                         ),
                       ],
@@ -401,7 +401,7 @@ class BuildUserMessageItem extends StatelessWidget {
                 child: Text(
                   daysBetween(DateTime.parse(messageModel.dateTime.toString())),
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        color: AppMainColors.greyColor,
+                        color: ColorManager.greyColor,
                       ),
                 ),
               ),
@@ -458,8 +458,8 @@ class BuildUserMessageItem extends StatelessWidget {
                     padding: const BubbleEdges.all(4),
                     nip: BubbleNip.rightBottom,
                     color: cubit.isDark
-                        ? AppColorsDark.primaryDarkColor
-                        : AppMainColors.titanWithColor,
+                        ? ColorManager.primaryDarkColor
+                        : ColorManager.titanWithColor,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
@@ -511,7 +511,7 @@ class BuildUserMessageItem extends StatelessWidget {
                 child: Text(
                   daysBetween(DateTime.parse(messageModel.dateTime.toString())),
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        color: AppMainColors.greyColor,
+                        color: ColorManager.greyColor,
                       ),
                 ),
               ),
@@ -568,7 +568,7 @@ class BuildUserMessageItem extends StatelessWidget {
                       height: 200.h,
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: AppMainColors.greenColor,
+                          color: ColorManager.greenColor,
                         ),
                       ),
                       child: imagePreview(
@@ -592,7 +592,7 @@ class BuildUserMessageItem extends StatelessWidget {
                 child: Text(
                   daysBetween(DateTime.parse(messageModel.dateTime.toString())),
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        color: AppMainColors.greyColor,
+                        color: ColorManager.greyColor,
                       ),
                 ),
               ),
@@ -657,8 +657,8 @@ class BuildFriendMessageItem extends StatelessWidget {
                   child: Bubble(
                     nip: BubbleNip.leftBottom,
                     color: cubit.isDark
-                        ? AppMainColors.blueColor
-                        : AppMainColors.greyColor,
+                        ? ColorManager.blueColor
+                        : ColorManager.greyColor,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
@@ -667,8 +667,8 @@ class BuildFriendMessageItem extends StatelessWidget {
                           style:
                               Theme.of(context).textTheme.titleMedium!.copyWith(
                                     color: cubit.isDark
-                                        ? AppMainColors.titanWithColor
-                                        : AppMainColors.blackColor,
+                                        ? ColorManager.titanWithColor
+                                        : ColorManager.blackColor,
                                   ),
                         ),
                       ],
@@ -683,7 +683,7 @@ class BuildFriendMessageItem extends StatelessWidget {
                 child: Text(
                   daysBetween(DateTime.parse(messageModel.dateTime.toString())),
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        color: AppMainColors.greyColor,
+                        color: ColorManager.greyColor,
                       ),
                 ),
               ),
@@ -737,8 +737,8 @@ class BuildFriendMessageItem extends StatelessWidget {
                     padding: const BubbleEdges.all(4),
                     nip: BubbleNip.leftTop,
                     color: cubit.isDark
-                        ? AppColorsDark.primaryDarkColor
-                        : AppMainColors.titanWithColor,
+                        ? ColorManager.primaryDarkColor
+                        : ColorManager.titanWithColor,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
@@ -790,7 +790,7 @@ class BuildFriendMessageItem extends StatelessWidget {
                 child: Text(
                   daysBetween(DateTime.parse(messageModel.dateTime.toString())),
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        color: AppMainColors.greyColor,
+                        color: ColorManager.greyColor,
                       ),
                 ),
               ),
@@ -844,7 +844,7 @@ class BuildFriendMessageItem extends StatelessWidget {
                       height: 200.h,
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: AppMainColors.greenColor,
+                          color: ColorManager.greenColor,
                         ),
                       ),
                       child: imagePreview(
@@ -868,7 +868,7 @@ class BuildFriendMessageItem extends StatelessWidget {
                 child: Text(
                   daysBetween(DateTime.parse(messageModel.dateTime.toString())),
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        color: AppMainColors.greyColor,
+                        color: ColorManager.greyColor,
                       ),
                 ),
               ),
@@ -906,8 +906,8 @@ class ExpandableTextState extends State<ExpandableText>
             widget.text,
             style: Theme.of(context).textTheme.titleMedium!.copyWith(
                   color: cubit.isDark
-                      ? AppMainColors.titanWithColor
-                      : AppMainColors.blackColor,
+                      ? ColorManager.titanWithColor
+                      : ColorManager.blackColor,
                 ),
             overflow: TextOverflow.fade,
           ),

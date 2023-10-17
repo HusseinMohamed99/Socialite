@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -31,7 +31,7 @@ class ChatScreen extends StatelessWidget {
                     Icon(
                       IconlyLight.chat,
                       size: 70.sp,
-                      color: AppMainColors.greyColor,
+                      color: ColorManager.greyColor,
                     ),
                     Text(
                       'No Users Yet,\nPlease Add\nSome Friends',
@@ -120,10 +120,10 @@ class BuildUsersOnlineItems extends StatelessWidget {
                 ),
                 CircleAvatar(
                   radius: 8.r,
-                  backgroundColor: AppMainColors.whiteColor,
+                  backgroundColor: ColorManager.whiteColor,
                   child: CircleAvatar(
                     radius: 5.r,
-                    backgroundColor: AppMainColors.greenColor,
+                    backgroundColor: ColorManager.greenColor,
                   ),
                 ),
               ],

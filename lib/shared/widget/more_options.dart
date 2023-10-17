@@ -6,14 +6,14 @@ import 'package:socialite/pages/post/edit_post.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/components/show_toast.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 Future<dynamic> moreOption(BuildContext context, SocialCubit cubit,
     String postId, PostModel postModel) {
   return showModalBottomSheet(
     backgroundColor: cubit.isDark
-        ? AppMainColors.titanWithColor
-        : AppColorsDark.primaryDarkColor,
+        ? ColorManager.titanWithColor
+        : ColorManager.primaryDarkColor,
     context: context,
     isScrollControlled: true,
     shape: RoundedRectangleBorder(
@@ -123,8 +123,8 @@ class ShowModalSheetItems extends StatelessWidget {
             Icon(
               iconData,
               color: cubit.isDark
-                  ? AppMainColors.blackColor
-                  : AppMainColors.titanWithColor,
+                  ? ColorManager.blackColor
+                  : ColorManager.titanWithColor,
               size: 30.sp,
             ),
             SizedBox(width: 10.w),

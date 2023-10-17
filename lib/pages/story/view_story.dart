@@ -7,7 +7,7 @@ import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
 import 'package:socialite/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:socialite/shared/styles/color.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 
 class ViewStory extends StatelessWidget {
   final StoryModel storyModel;
@@ -80,7 +80,7 @@ class ViewStory extends StatelessWidget {
                                     SizedBox(width: 5.w),
                                     Icon(
                                       Icons.check_circle,
-                                      color: AppMainColors.blueColor,
+                                      color: ColorManager.blueColor,
                                       size: 24.sp,
                                     )
                                   ],
@@ -95,7 +95,7 @@ class ViewStory extends StatelessWidget {
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge!
-                                      .copyWith(color: AppMainColors.greyColor),
+                                      .copyWith(color: ColorManager.greyColor),
                                 ),
                               ],
                             ),
@@ -109,8 +109,8 @@ class ViewStory extends StatelessWidget {
                                 shape: BoxShape.circle,
                                 boxShadow: [
                                   BoxShadow(
-                                    color: AppMainColors.greyColor
-                                        .withOpacity(0.3),
+                                    color:
+                                        ColorManager.greyColor.withOpacity(0.3),
                                     blurRadius: 9,
                                     spreadRadius: 4,
                                     offset: const Offset(0, 4),
@@ -122,7 +122,7 @@ class ViewStory extends StatelessWidget {
                                     Theme.of(context).scaffoldBackgroundColor,
                                 child: Icon(
                                   Icons.close_rounded,
-                                  color: AppMainColors.redColor,
+                                  color: ColorManager.redColor,
                                   size: 24.sp,
                                 ),
                               ),
@@ -133,7 +133,7 @@ class ViewStory extends StatelessWidget {
                     ),
                     Flexible(
                         child: Container(
-                      color: AppMainColors.blackColor.withOpacity(0.3),
+                      color: ColorManager.blackColor.withOpacity(0.3),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
