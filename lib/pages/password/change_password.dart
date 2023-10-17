@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/shared/components/buttons.dart';
 import 'package:socialite/shared/components/text_form_field.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 void bottomSheetChangePassword(
@@ -76,7 +77,7 @@ class ShowModalBottomSheet extends StatelessWidget {
                     children: [
                       SizedBox(height: 10.h),
                       Text(
-                        'Change Password',
+                        AppString.changePassword,
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       Padding(
@@ -91,11 +92,11 @@ class ShowModalBottomSheet extends StatelessWidget {
                               keyboardType: TextInputType.visiblePassword,
                               validate: (String? value) {
                                 if (value!.trim().isEmpty) {
-                                  return 'Please enter your current password';
+                                  return AppString.enterCurrentPassword;
                                 }
                                 return null;
                               },
-                              label: 'Current Password',
+                              label: AppString.currentPassword,
                               prefix: IconlyBroken.unlock,
                               suffix: cubit.suffix,
                               suffixPressed: () {
@@ -109,13 +110,13 @@ class ShowModalBottomSheet extends StatelessWidget {
                               keyboardType: TextInputType.visiblePassword,
                               validate: (String? value) {
                                 if (value!.trim().isEmpty) {
-                                  return 'Please enter your new password';
+                                  return AppString.enterNewPassword;
                                 } else if (value.length < 8) {
-                                  return 'Password is too short';
+                                  return AppString.shortPassword;
                                 }
                                 return null;
                               },
-                              label: 'New Password',
+                              label: AppString.newPassword,
                               prefix: IconlyBroken.unlock,
                               suffix: cubit.suffixIcon,
                               suffixPressed: () {
@@ -126,7 +127,7 @@ class ShowModalBottomSheet extends StatelessWidget {
                             SizedBox(height: 20.h),
                             defaultTextButton(
                               context: context,
-                              text: 'Change Password',
+                              text: AppString.changePassword,
                               function: () {
                                 if (formKey.currentState!.validate()) {
                                   cubit.changeUserPassword(

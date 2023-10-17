@@ -73,7 +73,7 @@ class AppString {
   static const String email = 'Email';
   static const String enterPassword = 'Please enter your Password';
   static const String password = 'Password';
-  static const String forgotPassword = "Forgot Password ?";
+  static const String forgotPassword = "Forgot Password";
   static const String youAgree = "By creating an account, you agree to our";
   static const String conditions = "Term and Conditions";
   static const String noAccount = "Don't have an account ?";
@@ -91,4 +91,16 @@ class AppString {
   static const String commentPost = "Comment Post";
   static const String likePost = "Like Post";
   static const String requestAccepted = "Friend Request Accepted";
+  static const String changePassword = "Change Password";
+  static const String enterCurrentPassword =
+      "Please enter your current password";
+  static const String currentPassword = "Current password";
+  static const String enterNewPassword = "Please enter a new Password";
+  static const String shortPassword = "Password is too short";
+  static const String newPassword = "New Password";
+  static const String checkMail = "Check your mail";
+  static const String mailAssociated =
+      "Enter the E-mail address associated with your account";
+  static const String emailAddress = 'E-mail Address';
+  static const String resetPassword = 'Reset Password';
 }

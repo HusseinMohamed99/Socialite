@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/components/text_form_field.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 class RestPasswordScreen extends StatelessWidget {
@@ -27,7 +28,7 @@ class RestPasswordScreen extends StatelessWidget {
       child: BlocConsumer<ResetPasswordCubit, ResetPasswordStates>(
         listener: (context, state) {
           if (state is ResetPasswordSuccessState) {
-            showToast(text: 'Check your mail', state: ToastStates.success);
+            showToast(text: AppString.checkMail, state: ToastStates.success);
             navigateAndFinish(context, const LoginScreen());
           }
         },
@@ -52,7 +53,7 @@ class RestPasswordScreen extends StatelessWidget {
               ),
               titleSpacing: 1,
               title: Text(
-                'Forget Password',
+                AppString.forgotPassword,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
@@ -78,7 +79,7 @@ class RestPasswordScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Enter the E-mail address associated with your account',
+                              AppString.mailAssociated,
                               style: Theme.of(context).textTheme.headlineMedium,
                             ),
                           ],
@@ -124,11 +125,11 @@ class RestPasswordScreen extends StatelessWidget {
                                 prefix: IconlyBroken.message,
                                 validate: (value) {
                                   if (value!.trim().isEmpty) {
-                                    return 'Enter Your E-mail';
+                                    return AppString.enterEmail;
                                   }
                                   return null;
                                 },
-                                label: 'E-mail Address',
+                                label: AppString.emailAddress,
                               ),
                               const Spacer(),
                               state is ResetPasswordLoadingState
@@ -137,7 +138,7 @@ class RestPasswordScreen extends StatelessWidget {
                                     )
                                   : defaultTextButton(
                                       context: context,
-                                      text: 'RESET PASSWORD',
+                                      text: AppString.resetPassword,
                                       function: () {
                                         if (loginFormKey.currentState!
                                             .validate()) {
