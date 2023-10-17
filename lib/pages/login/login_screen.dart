@@ -20,6 +20,7 @@ import 'package:socialite/shared/network/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -36,7 +37,8 @@ class LoginScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is LoginSuccessState) {
             SocialCubit.get(context).getUserData();
-            CacheHelper.saveData(value: state.uid, key: 'uId').then((value) {
+            CacheHelper.saveData(value: state.uid, key: AppString.uId)
+                .then((value) {
               uId = state.uid;
               LoginCubit.get(context).loginReloadUser().then(
                 (value) {
@@ -59,7 +61,7 @@ class LoginScreen extends StatelessWidget {
               SocialCubit.get(context).getStories();
 
               showToast(
-                text: 'Login is successfully',
+                text: AppString.loginSuccessfully,
                 state: ToastStates.success,
               );
             });
@@ -119,7 +121,7 @@ class LoginScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                'Sign in Now',
+                                AppString.signInNow,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineLarge!
@@ -130,7 +132,7 @@ class LoginScreen extends StatelessWidget {
                               ),
                               SizedBox(height: 10.h),
                               Text(
-                                'Please enter your information',
+                                AppString.yourInformation,
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleLarge!
@@ -147,11 +149,11 @@ class LoginScreen extends StatelessWidget {
                                 prefix: Icons.email,
                                 validate: (String? value) {
                                   if (value!.isEmpty) {
-                                    return 'Please enter email';
+                                    return AppString.enterEmail;
                                   }
                                   return null;
                                 },
-                                label: 'Email',
+                                label: AppString.email,
                               ),
                               SizedBox(height: 15.h),
                               DefaultTextFormField(
@@ -166,11 +168,11 @@ class LoginScreen extends StatelessWidget {
                                 },
                                 validate: (String? value) {
                                   if (value!.isEmpty) {
-                                    return 'Please enter password';
+                                    return AppString.enterPassword;
                                   }
                                   return null;
                                 },
-                                label: 'Password',
+                                label: AppString.password,
                               ),
                               Align(
                                 alignment: Alignment.bottomRight,
@@ -178,7 +180,7 @@ class LoginScreen extends StatelessWidget {
                                   function: () {
                                     navigateTo(context, RestPasswordScreen());
                                   },
-                                  text: "Forgot Password ?",
+                                  text: AppString.forgotPassword,
                                   context: context,
                                   color: ColorManager.greyColor,
                                   fontWeight: FontWeight.w400,
@@ -201,7 +203,7 @@ class LoginScreen extends StatelessWidget {
                                               );
                                             }
                                           },
-                                          text: 'Sign In',
+                                          text: AppString.signIn,
                                           textColor: ColorManager.whiteColor,
                                           radius: 10.r,
                                           context: context,
@@ -224,7 +226,7 @@ class LoginScreen extends StatelessWidget {
                                             .withOpacity(0.4),
                                       ),
                                       child: Text(
-                                        'Sign In'.toUpperCase(),
+                                        AppString.signIn.toUpperCase(),
                                         style: Theme.of(context)
                                             .textTheme
                                             .headlineSmall!
@@ -243,7 +245,7 @@ class LoginScreen extends StatelessWidget {
                                         color: ColorManager.greyColor,
                                       ),
                                       Text(
-                                        'By creating an account, you agree to our',
+                                        AppString.youAgree,
                                         style: Theme.of(context)
                                             .textTheme
                                             .labelLarge!
@@ -256,7 +258,7 @@ class LoginScreen extends StatelessWidget {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 45).r,
                                     child: Text(
-                                      'Term and Conditions',
+                                      AppString.conditions,
                                       style: Theme.of(context)
                                           .textTheme
                                           .labelLarge!
@@ -274,7 +276,7 @@ class LoginScreen extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    'Don\'t have an account ?',
+                                    AppString.noAccount,
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleLarge!
@@ -286,7 +288,7 @@ class LoginScreen extends StatelessWidget {
                                       navigateTo(
                                           context, const RegisterScreen());
                                     },
-                                    text: 'Sign Up'.toUpperCase(),
+                                    text: AppString.signUp.toUpperCase(),
                                     color: ColorManager.primaryColor,
                                     context: context,
                                   ),

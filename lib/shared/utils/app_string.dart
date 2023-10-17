@@ -65,4 +65,24 @@ class AppString {
   static const String sentRequest = 'Request Sent';
   static const String addFriend = 'Add Friend';
   static const String friendProfile = 'Friends Profile';
+  static const String loginSuccessfully = 'Login is Successfully';
+  static const String signInNow = 'Sign in Now';
+  static const String signUpNow = 'Sign Up Now';
+  static const String yourInformation = 'Please enter your information';
+  static const String enterEmail = 'Please enter your Email';
+  static const String email = 'Email';
+  static const String enterPassword = 'Please enter your Password';
+  static const String password = 'Password';
+  static const String forgotPassword = "Forgot Password ?";
+  static const String youAgree = "By creating an account, you agree to our";
+  static const String conditions = "Term and Conditions";
+  static const String noAccount = "Don't have an account ?";
+  static const String validName = "Please enter a valid Name";
+  static const String name = "Name";
+  static const String validEmail = "Please enter a valid Email";
+  static const String egyptianNumber =
+      "An Egyptian phone number consisting of 11 digits";
+  static const String phone = "Phone";
+  static const String validPassword = "Please enter a valid Password";
+  static const String haveAccount = "Have an account ?";
 }

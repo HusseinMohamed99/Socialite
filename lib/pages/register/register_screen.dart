@@ -17,6 +17,7 @@ import 'package:socialite/shared/network/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -33,7 +34,8 @@ class RegisterScreen extends StatelessWidget {
       child: BlocConsumer<RegisterCubit, RegisterStates>(
         listener: (context, state) {
           if (state is UserCreateSuccessState) {
-            CacheHelper.saveData(value: state.uid, key: 'uId').then((value) {
+            CacheHelper.saveData(value: state.uid, key: AppString.uId)
+                .then((value) {
               uId = state.uid;
               navigateAndFinish(
                 context,
@@ -93,7 +95,7 @@ class RegisterScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                'Sign Up Now',
+                                AppString.signUpNow,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineLarge!
@@ -104,7 +106,7 @@ class RegisterScreen extends StatelessWidget {
                               ),
                               SizedBox(height: 10.h),
                               Text(
-                                'Please enter your information',
+                                AppString.yourInformation,
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleLarge!
@@ -121,11 +123,11 @@ class RegisterScreen extends StatelessWidget {
                                 validate: (String? value) {
                                   if (value!.trim().isEmpty ||
                                       value.length < 3) {
-                                    return 'Please enter a valid name';
+                                    return AppString.validName;
                                   }
                                   return null;
                                 },
-                                label: 'Name',
+                                label: AppString.name,
                               ),
                               SizedBox(height: 15.h),
                               DefaultTextFormField(
@@ -135,11 +137,11 @@ class RegisterScreen extends StatelessWidget {
                                 validate: (String? value) {
                                   if (value!.trim().isEmpty ||
                                       value.length < 13) {
-                                    return 'Please enter a valid email';
+                                    return AppString.validEmail;
                                   }
                                   return null;
                                 },
-                                label: 'Email',
+                                label: AppString.email,
                               ),
                               SizedBox(height: 15.h),
                               DefaultTextFormField(
@@ -150,11 +152,11 @@ class RegisterScreen extends StatelessWidget {
                                   if (value!.trim().isEmpty ||
                                       value.length < 11 ||
                                       value.length > 11) {
-                                    return 'An Egyptian phone number consisting of 11 digits';
+                                    return AppString.egyptianNumber;
                                   }
                                   return null;
                                 },
-                                label: 'Phone',
+                                label: AppString.phone,
                               ),
                               SizedBox(height: 15.h),
                               DefaultTextFormField(
@@ -170,7 +172,7 @@ class RegisterScreen extends StatelessWidget {
                                 validate: (String? value) {
                                   if (value!.trim().isEmpty ||
                                       value.trim().length < 6) {
-                                    return 'Please enter a valid password';
+                                    return AppString.validPassword;
                                   }
                                   return null;
                                 },
@@ -195,7 +197,7 @@ class RegisterScreen extends StatelessWidget {
                                               );
                                             }
                                           },
-                                          text: 'Sign Up',
+                                          text: AppString.signUp,
                                           textColor: ColorManager.whiteColor,
                                           radius: 10.r,
                                           context: context,
@@ -218,7 +220,7 @@ class RegisterScreen extends StatelessWidget {
                                             .withOpacity(0.4),
                                       ),
                                       child: Text(
-                                        'Sign Up'.toUpperCase(),
+                                        AppString.signUp.toUpperCase(),
                                         style: Theme.of(context)
                                             .textTheme
                                             .headlineSmall!
@@ -237,7 +239,7 @@ class RegisterScreen extends StatelessWidget {
                                         ColorManager.greyColor,
                                       ),
                                       Text(
-                                        'By creating an account, you agree to our',
+                                        AppString.youAgree,
                                         style: Theme.of(context)
                                             .textTheme
                                             .labelLarge!
@@ -250,7 +252,7 @@ class RegisterScreen extends StatelessWidget {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 45).r,
                                     child: Text(
-                                      'Term and Conditions',
+                                      AppString.conditions,
                                       style: Theme.of(context)
                                           .textTheme
                                           .labelLarge!
@@ -268,7 +270,7 @@ class RegisterScreen extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    'Have an account ?',
+                                    AppString.haveAccount,
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleLarge!
@@ -279,7 +281,7 @@ class RegisterScreen extends StatelessWidget {
                                     function: () {
                                       navigateTo(context, const LoginScreen());
                                     },
-                                    text: 'Sign In'.toUpperCase(),
+                                    text: AppString.signIn.toUpperCase(),
                                     color: ColorManager.mainColor,
                                     context: context,
                                   ),
