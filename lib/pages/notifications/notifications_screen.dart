@@ -11,6 +11,7 @@ import 'package:socialite/shared/components/my_divider.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 class NotificationScreen extends StatelessWidget {
@@ -41,7 +42,7 @@ class NotificationScreen extends StatelessWidget {
                   },
                 ),
                 title: Text(
-                  'Notifications',
+                  AppString.notifications,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
@@ -68,7 +69,7 @@ class NotificationScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 15.h),
                       Text(
-                        'No Notifications',
+                        AppString.noNotifications,
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ],
@@ -97,18 +98,18 @@ class NotificationsBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        if (notifications.contentKey == 'friend Request Accepted') {
+        if (notifications.contentKey == AppString.requestAccepted) {
           SocialCubit.get(context)
               .readNotification(notifications.notificationId);
           navigateTo(context, FriendsProfileScreen(notifications.contentId));
-        } else if (notifications.contentKey == 'like Post' ||
-            notifications.contentKey == 'comment Post') {
+        } else if (notifications.contentKey == AppString.likePost ||
+            notifications.contentKey == AppString.commentPost) {
           SocialCubit.get(context)
               .readNotification(notifications.notificationId);
-        } else if (notifications.contentKey == 'friend Request') {
+        } else if (notifications.contentKey == AppString.friendRequest) {
           SocialCubit.get(context)
               .readNotification(notifications.notificationId);
-        } else if (notifications.contentKey == 'post') {
+        } else if (notifications.contentKey == AppString.post) {
           SocialCubit.get(context)
               .readNotification(notifications.notificationId);
         }
@@ -256,7 +257,7 @@ class NotificationsBuilder extends StatelessWidget {
                       ),
                       SizedBox(width: 15.w),
                       Text(
-                        'Remove this notification',
+                        AppString.removeNotifications,
                         style: Theme.of(context)
                             .textTheme
                             .titleLarge!

@@ -85,4 +85,10 @@ class AppString {
   static const String phone = "Phone";
   static const String validPassword = "Please enter a valid Password";
   static const String haveAccount = "Have an account ?";
+  static const String notifications = "Notifications";
+  static const String noNotifications = "No Notifications";
+  static const String removeNotifications = "Remove this Notifications";
+  static const String commentPost = "Comment Post";
+  static const String likePost = "Like Post";
+  static const String requestAccepted = "Friend Request Accepted";
 }
