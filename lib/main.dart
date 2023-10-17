@@ -73,7 +73,7 @@ void main() async {
       widget = const LoginScreen();
     }
   } else {
-    widget = const OnBoard();
+    widget = const OnBoardingScreen();
   }
   runApp(
     MyApp(
@@ -116,7 +116,7 @@ class MyApp extends StatelessWidget {
             splitScreenMode: true,
             builder: (context, child) {
               return MaterialApp(
-                title: 'socialite',
+                title: 'Socialite',
                 theme: getThemeData[AppTheme.lightTheme],
                 darkTheme: getThemeData[AppTheme.darkTheme],
                 themeMode: uId == null

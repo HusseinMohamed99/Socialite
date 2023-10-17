@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:socialite/pages/chat/chat_screen.dart';
 import 'package:socialite/pages/feed/feed_screen.dart';
+import 'package:socialite/pages/on-boarding/on_boarding_screen.dart';
 import 'package:socialite/pages/setting/setting_screen.dart';
 import 'package:socialite/pages/user/users_screen.dart';
 import 'package:socialite/model/comment_model.dart';
@@ -12,7 +13,6 @@ import 'package:socialite/model/notifications_model.dart';
 import 'package:socialite/model/post_model.dart';
 import 'package:socialite/model/story_model.dart';
 import 'package:socialite/model/user_model.dart';
-import 'package:socialite/pages/on-boarding/on_boarding_screen.dart';
 import 'package:socialite/pages/story/stories_screen.dart';
 import 'package:socialite/shared/components/constants.dart';
 import 'package:socialite/shared/components/navigator.dart';
@@ -725,7 +725,7 @@ class SocialCubit extends Cubit<SocialStates> {
     await FirebaseAuth.instance.currentUser!.delete().then((value) async {
       await FirebaseFirestore.instance.collection('users').doc(uId).delete();
       CacheHelper.removeData(key: 'uId');
-      navigateAndFinish(context, const OnBoard());
+      navigateAndFinish(context, const OnBoardingScreen());
     });
   }
 
