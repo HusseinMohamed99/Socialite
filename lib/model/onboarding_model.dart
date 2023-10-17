@@ -1,3 +1,6 @@
+import 'package:socialite/image_assets.dart';
+import 'package:socialite/shared/utils/app_string.dart';
+
 class OnboardingContent {
   String image;
   String title;
@@ -9,18 +12,18 @@ class OnboardingContent {
 
 List<OnboardingContent> contents = [
   OnboardingContent(
-      title: 'Pray for Palestine',
-      image: 'assets/images/1.png',
-      description:
-          "Don't stop talking about Palestine, Our people in Palestine are suffering."),
+    title: AppString.prayForPalestine,
+    image: Assets.imagesPalestine1,
+    description: AppString.descriptionPalestine1,
+  ),
   OnboardingContent(
-      title: 'Pray for Palestine',
-      image: 'assets/images/2.png',
-      description:
-          "Inform everyone about the truth,talk\nabout the crimes of the Zionist entity, "),
+    title: AppString.prayForPalestine,
+    image: Assets.imagesPalestine2,
+    description: AppString.descriptionPalestine2,
+  ),
   OnboardingContent(
-      title: 'Pray for Palestine',
-      image: 'assets/images/3.png',
-      description:
-          "Pass on the cause to your children\n and be a voice for the voiceless."),
+    title: AppString.prayForPalestine,
+    image: Assets.imagesPalestine3,
+    description: AppString.descriptionPalestine3,
+  ),
 ];

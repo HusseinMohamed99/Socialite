@@ -1,18 +1,6 @@
 class Assets {
   Assets._();
   
-  /// Assets for images1
-  /// assets/images/1.png
-  static const String images1 = "assets/images/1.png";
-
-  /// Assets for images2
-  /// assets/images/2.png
-  static const String images2 = "assets/images/2.png";
-
-  /// Assets for images3
-  /// assets/images/3.png
-  static const String images3 = "assets/images/3.png";
-
   /// Assets for imagesAchievement
   /// assets/images/Achievement.svg
   static const String imagesAchievement = "assets/images/Achievement.svg";
@@ -36,6 +24,18 @@ class Assets {
   /// Assets for imagesGroup1320
   /// assets/images/Group1320.svg
   static const String imagesGroup1320 = "assets/images/Group1320.svg";
+
+  /// Assets for imagesPalestine1
+  /// assets/images/Palestine1.png
+  static const String imagesPalestine1 = "assets/images/Palestine1.png";
+
+  /// Assets for imagesPalestine2
+  /// assets/images/Palestine2.png
+  static const String imagesPalestine2 = "assets/images/Palestine2.png";
+
+  /// Assets for imagesPalestine3
+  /// assets/images/Palestine3.png
+  static const String imagesPalestine3 = "assets/images/Palestine3.png";
 
   /// Assets for imagesResetPassword
   /// assets/images/ResetPassword.png

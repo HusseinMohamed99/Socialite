@@ -12,13 +12,8 @@ final getThemeData = {
     cardColor: ColorManager.titanWithColor,
     appBarTheme: AppBarTheme(
       titleSpacing: 20.0,
-      systemOverlayStyle: const SystemUiOverlayStyle(
-        statusBarColor: ColorManager.titanWithColor,
-        statusBarIconBrightness: Brightness.dark,
-        statusBarBrightness: Brightness.light,
-      ),
-      backgroundColor: ColorManager.titanWithColor,
-      elevation: 1,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
       titleTextStyle: GoogleFonts.roboto(
         color: ColorManager.greyDarkColor,
         fontSize: 20.0,

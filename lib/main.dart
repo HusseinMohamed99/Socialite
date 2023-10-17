@@ -15,13 +15,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/shared/enum/enum.dart';
 import 'package:socialite/shared/network/dio_helper.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/themes.dart';
 import 'shared/components/constants.dart';
 import 'shared/network/cache_helper.dart';
 
 FirebaseMessaging messaging = FirebaseMessaging.instance;
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  showToast(text: 'You Received Message', state: ToastStates.success);
+  showToast(text: AppString.receivedMessage, state: ToastStates.success);
 }
 
 void main() async {
@@ -42,7 +43,7 @@ void main() async {
   );
 
   if (kDebugMode) {
-    print('User granted permission: ${settings.authorizationStatus}');
+    print('${AppString.authorizationStatus}: ${settings.authorizationStatus}');
   }
   ScreenUtil.ensureScreenSize();
 
@@ -51,20 +52,20 @@ void main() async {
   DioHelper.init();
   //when the app is opened
   FirebaseMessaging.onMessage.listen((event) {
-    showToast(text: 'You Received Message', state: ToastStates.success);
+    showToast(text: AppString.receivedMessage, state: ToastStates.success);
   });
   // when click on notification to open app
   FirebaseMessaging.onMessageOpenedApp.listen((event) {
-    showToast(text: 'on Message Opened App', state: ToastStates.success);
+    showToast(text: AppString.openedApp, state: ToastStates.success);
   });
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
-  bool? isDark = CacheHelper.getBoolean(key: 'isDark');
-  uId = CacheHelper.getData(key: 'uId');
+  bool? isDark = CacheHelper.getBoolean(key: AppString.isDark);
+  uId = CacheHelper.getData(key: AppString.uId);
   debugPrint('*** User ID == $uId ***');
 
   Widget widget;
-  bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
+  bool? onBoarding = CacheHelper.getData(key: AppString.onBoarding);
 
   if (onBoarding != null) {
     if (uId != null) {
@@ -116,7 +117,7 @@ class MyApp extends StatelessWidget {
             splitScreenMode: true,
             builder: (context, child) {
               return MaterialApp(
-                title: 'Socialite',
+                title: AppString.appTitle,
                 theme: getThemeData[AppTheme.lightTheme],
                 darkTheme: getThemeData[AppTheme.darkTheme],
                 themeMode: uId == null

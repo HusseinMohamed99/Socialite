@@ -11,7 +11,9 @@ import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/loginCubit/cubit.dart';
 import 'package:socialite/shared/cubit/loginCubit/state.dart';
 import 'package:socialite/shared/network/cache_helper.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
+import 'package:socialite/shared/utils/value_manager.dart';
 
 class OnBoard extends StatefulWidget {
   const OnBoard({Key? key}) : super(key: key);
@@ -23,7 +25,7 @@ class OnBoard extends StatefulWidget {
 class _OnBoardState extends State<OnBoard> {
   void submit() {
     CacheHelper.saveData(
-      key: 'onBoarding',
+      key: AppString.onBoarding,
       value: true,
     ).then((value) {
       if (value) {
@@ -37,7 +39,7 @@ class _OnBoardState extends State<OnBoard> {
 
   void submitted() {
     CacheHelper.saveData(
-      key: 'onBoarding',
+      key: AppString.onBoarding,
       value: true,
     ).then((value) {
       if (value) {
@@ -52,144 +54,143 @@ class _OnBoardState extends State<OnBoard> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) {
-        return LoginCubit();
-      },
+      create: (context) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          return Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(Assets.imagesBack),
-                fit: BoxFit.fitHeight,
-              ),
+          return AnnotatedRegion<SystemUiOverlayStyle>(
+            value: const SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
+              statusBarIconBrightness: Brightness.light,
+              statusBarBrightness: Brightness.dark,
             ),
-            child: Scaffold(
-              appBar: AppBar(
-                backgroundColor: Colors.transparent,
-                systemOverlayStyle: const SystemUiOverlayStyle(
-                  statusBarColor: Colors.transparent,
-                  statusBarIconBrightness: Brightness.light,
-                  statusBarBrightness: Brightness.dark,
+            child: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(Assets.imagesBack),
+                  fit: BoxFit.fill,
                 ),
-                elevation: 0,
               ),
-              backgroundColor: Colors.transparent,
-              body: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        'Snap\nAnd\nShare\nEvery\nMoments',
-                        textAlign: TextAlign.start,
-                        style: GoogleFonts.roboto(
-                          textStyle: TextStyle(
-                            color: ColorManager.titanWithColor,
-                            fontSize: 60.sp,
-                            overflow: TextOverflow.visible,
-                            fontWeight: FontWeight.w600,
+              child: Scaffold(
+                backgroundColor: Colors.transparent,
+                body: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Text(
+                          AppString.onBoardingBody,
+                          textAlign: TextAlign.start,
+                          style: GoogleFonts.roboto(
+                            textStyle: TextStyle(
+                              color: ColorManager.titanWithColor,
+                              fontSize: 60.sp,
+                              overflow: TextOverflow.visible,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Center(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              height: 40.h,
-                              width: 300.w,
-                              decoration: BoxDecoration(
-                                color: ColorManager.whiteColor,
-                                borderRadius: BorderRadius.circular(10.0).r,
-                              ),
-                              child: MaterialButton(
-                                onPressed: () {
-                                  submit();
-                                },
-                                child: Text(
-                                  'Sign in'.toUpperCase(),
-                                  style: GoogleFonts.robotoCondensed(
-                                    textStyle: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 20.sp,
-                                      fontWeight: FontWeight.w600,
+                      Expanded(
+                        flex: 1,
+                        child: Center(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                height: 40.h,
+                                width: 300.w,
+                                decoration: BoxDecoration(
+                                  color: ColorManager.whiteColor,
+                                  borderRadius: BorderRadius.circular(10.0).r,
+                                ),
+                                child: MaterialButton(
+                                  onPressed: () {
+                                    submit();
+                                  },
+                                  child: Text(
+                                    AppString.signIn.toUpperCase(),
+                                    style: GoogleFonts.robotoCondensed(
+                                      textStyle: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                            SizedBox(height: 10.h),
-                            Container(
-                              height: 40.h,
-                              width: 300.w,
-                              decoration: BoxDecoration(
-                                color: ColorManager.yellowColor,
-                                borderRadius: BorderRadius.circular(10.0).r,
-                              ),
-                              child: MaterialButton(
-                                onPressed: () {
-                                  submitted();
-                                },
-                                child: Text(
-                                  'Sign up'.toUpperCase(),
-                                  style: GoogleFonts.robotoCondensed(
-                                    textStyle: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 20.sp,
-                                      fontWeight: FontWeight.w600,
+                              SizedBox(height: 10.h),
+                              Container(
+                                height: 40.h,
+                                width: 300.w,
+                                decoration: BoxDecoration(
+                                  color: ColorManager.yellowColor,
+                                  borderRadius: BorderRadius.circular(10.0).r,
+                                ),
+                                child: MaterialButton(
+                                  onPressed: () {
+                                    submitted();
+                                  },
+                                  child: Text(
+                                    AppString.signUp.toUpperCase(),
+                                    style: GoogleFonts.robotoCondensed(
+                                      textStyle: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                            SizedBox(height: 10.h),
-                            Container(
-                              height: 40.h,
-                              width: 300.w,
-                              decoration: BoxDecoration(
-                                color: ColorManager.titanWithColor,
-                                borderRadius: BorderRadius.circular(10.0).r,
-                              ),
-                              child: MaterialButton(
-                                onPressed: () {
-                                  LoginCubit.get(context)
-                                      .getGoogleUserCredentials();
-                                },
-                                child: state is LoginGoogleUserLoadingState
-                                    ? const Center(
-                                        child: CircularProgressIndicator())
-                                    : Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          SvgPicture.asset(Assets.imagesGoogle),
-                                          Text(
-                                            'Sign In With Google '
-                                                .toUpperCase(),
-                                            style: GoogleFonts.robotoCondensed(
-                                              textStyle: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 20.sp,
-                                                fontWeight: FontWeight.w600,
+                              SizedBox(height: 10.h),
+                              Container(
+                                height: 40.h,
+                                width: 300.w,
+                                decoration: BoxDecoration(
+                                  color: ColorManager.titanWithColor,
+                                  borderRadius: BorderRadius.circular(10.0).r,
+                                ),
+                                child: MaterialButton(
+                                  onPressed: () {
+                                    LoginCubit.get(context)
+                                        .getGoogleUserCredentials();
+                                  },
+                                  child: state is LoginGoogleUserLoadingState
+                                      ? const Center(
+                                          child: CircularProgressIndicator())
+                                      : Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            SvgPicture.asset(
+                                                Assets.imagesGoogle),
+                                            Text(
+                                              AppString.signInWithGoogle
+                                                  .toUpperCase(),
+                                              style:
+                                                  GoogleFonts.robotoCondensed(
+                                                textStyle: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 20.sp,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
+                                          ],
+                                        ),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
