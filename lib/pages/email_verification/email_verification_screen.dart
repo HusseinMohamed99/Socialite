@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/shared/components/navigator.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 class EmailVerificationScreen extends StatelessWidget {
@@ -25,7 +26,7 @@ class EmailVerificationScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is ReloadSuccessState) {
             showToast(
-              text: 'Create Account Successfully',
+              text: AppString.createAccountSuccessfully,
               state: ToastStates.success,
             );
             SocialCubit.get(context).getUserData();
@@ -70,7 +71,7 @@ class EmailVerificationScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 15.h),
                     Text(
-                      'Email Confirmation',
+                      AppString.emailConfirmation,
                       style: Theme.of(context)
                           .textTheme
                           .headlineMedium!
@@ -108,7 +109,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                             size: 24.sp,
                                           ),
                                           Text(
-                                            'Email Verification Sent',
+                                            AppString.emailVerification,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headlineSmall,
@@ -128,7 +129,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                         cubit.sendEmailVerification();
                                       },
                                       child: Text(
-                                        'Send again',
+                                        AppString.sendAgain,
                                         style: Theme.of(context)
                                             .textTheme
                                             .headlineSmall,
@@ -145,7 +146,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                     function: () {
                                       cubit.sendEmailVerification();
                                     },
-                                    text: 'Send Email',
+                                    text: AppString.sendEmail,
                                   ),
                                 ),
                     ),
@@ -176,7 +177,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                     },
                                   );
                                 },
-                                text: 'Verified, Go Home',
+                                text: AppString.verified,
                               ),
                             )
                           : Card(
@@ -186,7 +187,7 @@ class EmailVerificationScreen extends StatelessWidget {
                               child: defaultTextButton(
                                 context: context,
                                 function: () {},
-                                text: 'Verified, Go Home',
+                                text: AppString.verified,
                               ),
                             ),
                     ),

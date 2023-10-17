@@ -40,11 +40,12 @@ class AppString {
   static const String comment = 'Comments';
   static const String commentedOnPost = 'commented on a post you shared';
   static const String post = 'Post';
-  static const String isDark = '';
-  static const String isDark = '';
-  static const String isDark = '';
-  static const String isDark = '';
-  static const String isDark = '';
-  static const String isDark = '';
-  static const String isDark = '';
+  static const String createAccountSuccessfully = 'Create Account Successfully';
+  static const String emailConfirmation = 'Email Confirmation';
+  static const String emailConfirmationBody =
+      "We're happy you signed up for socialite App. To start exploring the \nSocialite App,Please confirm your\nE-mail Address.";
+  static const String emailVerification = 'Email Verification Sent';
+  static const String sendAgain = 'Send Again';
+  static const String sendEmail = 'Send Email';
+  static const String verified = 'Verified, Go Home';
 }
