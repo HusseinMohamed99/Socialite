@@ -52,4 +52,17 @@ class AppString {
   static const String unLikesSuccessfully = 'UnLikes Successfully!';
   static const String noPosts = 'No Posts yet';
   static const String createStory = 'Create Story';
+  static const String friends = 'Friends';
+  static const String noFriends = 'No Friends yet';
+  static const String unFriends = 'Un Friends';
+  static const String followers = 'Followers';
+  static const String alreadyFriends = 'You are already Friends';
+  static const String wantUnfriend = 'Do you want to Unfriend ?';
+  static const String cancel = 'Cancel';
+  static const String friendRequest = 'friendRequest';
+  static const String checkFriendRequest =
+      'Sent you a friend request, check it out!';
+  static const String sentRequest = 'Request Sent';
+  static const String addFriend = 'Add Friend';
+  static const String friendProfile = 'Friends Profile';
 }

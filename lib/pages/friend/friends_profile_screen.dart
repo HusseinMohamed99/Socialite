@@ -1,5 +1,4 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:flutter/services.dart';
 import 'package:socialite/Pages/friend/friend_screen.dart';
 import 'package:socialite/model/user_model.dart';
 import 'package:socialite/pages/chat/private_chat.dart';
@@ -14,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 import 'package:socialite/shared/widget/build_post_item.dart';
 
@@ -40,7 +40,7 @@ class FriendsProfileScreen extends StatelessWidget {
                     color: ColorManager.greyColor,
                   ),
                   Text(
-                    'No Posts yet',
+                    AppString.noPosts,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const CircularProgressIndicator(),
@@ -49,56 +49,51 @@ class FriendsProfileScreen extends StatelessWidget {
             ),
           );
         } else {
-          return AnnotatedRegion<SystemUiOverlayStyle>(
-            value: const SystemUiOverlayStyle(
-              statusBarColor: Colors.transparent,
-            ),
-            child: Scaffold(
-              body: cubit.userPosts.isEmpty
-                  ? ProfileInfo(friendsProfile: friendsModel!, cubit: cubit)
-                  : ConditionalBuilder(
-                      condition: cubit.userPosts.isNotEmpty,
-                      builder: (context) => SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            ProfileInfo(
-                                friendsProfile: friendsModel!, cubit: cubit),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                left: 10.0,
-                                right: 10,
-                                top: 10,
-                              ).r,
-                              child: Align(
-                                alignment: AlignmentDirectional.topStart,
-                                child: Text(
-                                  'Posts',
-                                  style:
-                                      Theme.of(context).textTheme.headlineSmall,
-                                ),
+          return Scaffold(
+            body: cubit.userPosts.isEmpty
+                ? ProfileInfo(friendsProfile: friendsModel!, cubit: cubit)
+                : ConditionalBuilder(
+                    condition: cubit.userPosts.isNotEmpty,
+                    builder: (context) => SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          ProfileInfo(
+                              friendsProfile: friendsModel!, cubit: cubit),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 10.0,
+                              right: 10,
+                              top: 10,
+                            ).r,
+                            child: Align(
+                              alignment: AlignmentDirectional.topStart,
+                              child: Text(
+                                AppString.post,
+                                style:
+                                    Theme.of(context).textTheme.headlineSmall,
                               ),
                             ),
-                            ListView.separated(
-                              padding: const EdgeInsets.only(top: 10).r,
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: cubit.userPosts.length,
-                              separatorBuilder: (context, index) =>
-                                  SizedBox(height: 10.h),
-                              itemBuilder: (context, index) => BuildPostItem(
-                                postModel: cubit.userPosts[index],
-                                userModel: cubit.userModel!,
-                                index: index,
-                              ),
+                          ),
+                          ListView.separated(
+                            padding: const EdgeInsets.only(top: 10).r,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: cubit.userPosts.length,
+                            separatorBuilder: (context, index) =>
+                                SizedBox(height: 10.h),
+                            itemBuilder: (context, index) => BuildPostItem(
+                              postModel: cubit.userPosts[index],
+                              userModel: cubit.userModel!,
+                              index: index,
                             ),
-                          ],
-                        ),
-                      ),
-                      fallback: (BuildContext context) => const Center(
-                        child: AdaptiveIndicator(),
+                          ),
+                        ],
                       ),
                     ),
-            ),
+                    fallback: (BuildContext context) => const Center(
+                      child: AdaptiveIndicator(),
+                    ),
+                  ),
           );
         }
       },
@@ -219,7 +214,7 @@ class ProfileInfo extends StatelessWidget {
                             .copyWith(color: ColorManager.dividerColor),
                       ),
                       Text(
-                        'Posts',
+                        AppString.post,
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ],
@@ -236,7 +231,7 @@ class ProfileInfo extends StatelessWidget {
                             .copyWith(color: ColorManager.dividerColor),
                       ),
                       Text(
-                        'Followers',
+                        AppString.followers,
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ],
@@ -263,7 +258,7 @@ class ProfileInfo extends StatelessWidget {
                               .copyWith(color: ColorManager.dividerColor),
                         ),
                         Text(
-                          'Friends',
+                          AppString.friends,
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                       ],
@@ -294,26 +289,27 @@ class ProfileInfo extends StatelessWidget {
                           friendImage: friendsProfile.image);
                       SocialCubit.get(context).checkFriendRequest(userUID);
                       SocialCubit.get(context).sendInAppNotification(
-                          contentKey: 'friendRequest',
+                          contentKey: AppString.friendRequest,
                           contentId: friendsProfile.uId,
-                          content: 'sent you a friend request, check it out!',
+                          content: AppString.checkFriendRequest,
                           receiverId: friendsProfile.uId,
                           receiverName: friendsProfile.name);
                       SocialCubit.get(context).sendFCMNotification(
-                          token: friendsProfile.uId,
-                          senderName: SocialCubit.get(context).userModel!.name,
-                          messageText:
-                              '${SocialCubit.get(context).userModel!.name}'
-                              'sent you a friend request, check it out!');
+                        token: friendsProfile.uId,
+                        senderName: SocialCubit.get(context).userModel!.name,
+                        messageText:
+                            '${SocialCubit.get(context).userModel!.name}'
+                            '${AppString.checkFriendRequest}',
+                      );
                     } else {
                       showDialog(
                         context: context,
                         builder: (context) => baseAlertDialog(
                           context: context,
-                          title: 'You are already Friends',
-                          content: 'Do you want to Unfriend ?',
-                          outlinedButtonText: 'Cancel',
-                          elevatedButtonText: 'Unfriend',
+                          title: AppString.alreadyFriends,
+                          content: AppString.wantUnfriend,
+                          outlinedButtonText: AppString.cancel,
+                          elevatedButtonText: AppString.unFriends,
                           elevatedButtonIcon: Icons.person_remove,
                         ),
                         barrierDismissible: true,
@@ -323,15 +319,15 @@ class ProfileInfo extends StatelessWidget {
                   label: SocialCubit.get(context).isFriend == false
                       ? SocialCubit.get(context).request
                           ? Text(
-                              'Request Sent',
+                              AppString.sentRequest,
                               style: Theme.of(context).textTheme.titleLarge,
                             )
                           : Text(
-                              'Add Friend',
+                              AppString.addFriend,
                               style: Theme.of(context).textTheme.titleLarge,
                             )
                       : Text(
-                          'Profile Friends',
+                          AppString.friendProfile,
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                   icon: Icon(
@@ -356,7 +352,7 @@ class ProfileInfo extends StatelessWidget {
                     );
                   },
                   label: const Text(
-                    'message',
+                    AppString.message,
                     style: TextStyle(
                       color: Colors.white,
                     ),

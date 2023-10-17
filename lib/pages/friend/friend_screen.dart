@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 class FriendsScreen extends StatelessWidget {
@@ -43,7 +44,7 @@ class FriendsScreen extends StatelessWidget {
               ),
               titleSpacing: 1,
               title: Text(
-                'Friends',
+                AppString.friends,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
@@ -59,7 +60,7 @@ class FriendsScreen extends StatelessWidget {
                           size: 60.sp,
                         ),
                         Text(
-                          'No Friends yet',
+                          AppString.noFriends,
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                       ],
@@ -122,7 +123,7 @@ class FriendsBuilderItems extends StatelessWidget {
                   ? ColorManager.blackColor
                   : ColorManager.titanWithColor,
               onSelected: (value) {
-                if (value == 'Unfriend') {
+                if (value == AppString.unFriends) {
                   SocialCubit.get(context).unFriend(friendsModel.uId);
                 }
               },
@@ -136,7 +137,7 @@ class FriendsBuilderItems extends StatelessWidget {
               itemBuilder: (context) => [
                 PopupMenuItem(
                   height: 20.h,
-                  value: 'Unfriend',
+                  value: AppString.unFriends,
                   child: Row(
                     children: [
                       Icon(
@@ -148,7 +149,7 @@ class FriendsBuilderItems extends StatelessWidget {
                       ),
                       SizedBox(width: 15.w),
                       Text(
-                        'Unfriend',
+                        AppString.unFriends,
                         style: Theme.of(context).textTheme.titleLarge!.copyWith(
                               color: cubit.isDark
                                   ? ColorManager.titanWithColor
