@@ -69,8 +69,7 @@ class RegisterScreen extends StatelessWidget {
                           ),
                           Expanded(
                             flex: 2,
-                            child: SvgPicture.asset(
-                                Assets.imagesAchievementMonochromatic),
+                            child: SvgPicture.asset(Assets.imagesAchievement),
                           ),
                         ],
                       ),

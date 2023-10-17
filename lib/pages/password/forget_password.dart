@@ -64,7 +64,7 @@ class RestPasswordScreen extends StatelessWidget {
                   decoration: const BoxDecoration(
                     image: DecorationImage(
                       fit: BoxFit.fitWidth,
-                      image: AssetImage(Assets.imagesResetpassword),
+                      image: AssetImage(Assets.imagesResetPassword),
                     ),
                   ),
                 ),

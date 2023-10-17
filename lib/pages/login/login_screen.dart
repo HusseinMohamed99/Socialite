@@ -94,7 +94,7 @@ class LoginScreen extends StatelessWidget {
                           Expanded(
                             flex: 2,
                             child: SvgPicture.asset(
-                              Assets.imagesWorldwidewebMonochromatic,
+                              Assets.imagesWww,
                             ),
                           ),
                         ],

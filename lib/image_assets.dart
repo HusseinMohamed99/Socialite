@@ -1,6 +1,6 @@
 class Assets {
   Assets._();
-
+  
   /// Assets for images1
   /// assets/images/1.png
   static const String images1 = "assets/images/1.png";
@@ -13,10 +13,9 @@ class Assets {
   /// assets/images/3.png
   static const String images3 = "assets/images/3.png";
 
-  /// Assets for imagesAchievement Monochromatic
-  /// assets/images/Achievement _Monochromatic.svg
-  static const String imagesAchievementMonochromatic =
-      "assets/images/Achievement _Monochromatic.svg";
+  /// Assets for imagesAchievement
+  /// assets/images/Achievement.svg
+  static const String imagesAchievement = "assets/images/Achievement.svg";
 
   /// Assets for imagesBack
   /// assets/images/back.jpg
@@ -30,20 +29,19 @@ class Assets {
   /// assets/images/google.svg
   static const String imagesGoogle = "assets/images/google.svg";
 
-  /// Assets for imagesGroup 1318
-  /// assets/images/Group 1318.svg
-  static const String imagesGroup1318 = "assets/images/Group 1318.svg";
+  /// Assets for imagesGroup1318
+  /// assets/images/Group1318.svg
+  static const String imagesGroup1318 = "assets/images/Group1318.svg";
 
-  /// Assets for imagesGroup 1320
-  /// assets/images/Group 1320.svg
-  static const String imagesGroup1320 = "assets/images/Group 1320.svg";
+  /// Assets for imagesGroup1320
+  /// assets/images/Group1320.svg
+  static const String imagesGroup1320 = "assets/images/Group1320.svg";
 
-  /// Assets for imagesResetpassword
-  /// assets/images/Resetpassword.png
-  static const String imagesResetpassword = "assets/images/Resetpassword.png";
+  /// Assets for imagesResetPassword
+  /// assets/images/ResetPassword.png
+  static const String imagesResetPassword = "assets/images/ResetPassword.png";
 
-  /// Assets for imagesWorld wide webMonochromatic
-  /// assets/images/World wide web_Monochromatic.svg
-  static const String imagesWorldwidewebMonochromatic =
-      "assets/images/World wide web_Monochromatic.svg";
+  /// Assets for imagesWww
+  /// assets/images/Www.svg
+  static const String imagesWww = "assets/images/Www.svg";
 }
