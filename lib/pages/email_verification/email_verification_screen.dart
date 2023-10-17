@@ -7,7 +7,6 @@ import 'package:socialite/shared/cubit/EmailVerification/email_verification_cubi
 import 'package:socialite/shared/cubit/EmailVerification/email_verification_state.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/components/buttons.dart';
-import 'package:socialite/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -91,7 +90,7 @@ class EmailVerificationScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30.0).r,
                       child: state is SendVerificationLoadingState
-                          ? AdaptiveIndicator(os: getOs())
+                          ? const AdaptiveIndicator()
                           : cubit.isEmailSent
                               ? Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,

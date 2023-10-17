@@ -1,5 +1,4 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:socialite/shared/components/constants.dart';
 import 'package:socialite/shared/components/image_with_shimmer.dart';
 import 'package:socialite/shared/components/indicator.dart';
 import 'package:socialite/shared/components/show_toast.dart';
@@ -9,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 import 'package:socialite/shared/widget/build_post_item.dart';
 import 'package:socialite/shared/widget/create_post.dart';
@@ -25,13 +25,16 @@ class FeedScreen extends StatelessWidget {
           Navigator.pop(context);
         }
         if (state is SavedToGallerySuccessState) {
-          showToast(text: "Downloaded to Gallery!", state: ToastStates.success);
+          showToast(
+              text: AppString.downloadedToGallery, state: ToastStates.success);
         }
         if (state is LikesSuccessState) {
-          showToast(text: "Likes Successfully!", state: ToastStates.success);
+          showToast(
+              text: AppString.likesSuccessfully, state: ToastStates.success);
         }
         if (state is DisLikesSuccessState) {
-          showToast(text: "UnLikes Successfully!", state: ToastStates.success);
+          showToast(
+              text: AppString.unLikesSuccessfully, state: ToastStates.success);
         }
       },
       builder: (context, state) {
@@ -93,7 +96,7 @@ class FeedScreen extends StatelessWidget {
                             color: ColorManager.greyColor,
                           ),
                           Text(
-                            'No Posts yet',
+                            AppString.noPosts,
                             style: Theme.of(context).textTheme.headlineLarge,
                           ),
                         ],
@@ -102,7 +105,7 @@ class FeedScreen extends StatelessWidget {
                   );
                 },
                 fallback: (context) {
-                  return AdaptiveIndicator(os: getOs());
+                  return const AdaptiveIndicator();
                 },
               );
       },
@@ -174,7 +177,7 @@ class StoriesItem extends StatelessWidget {
                     ),
                     const Spacer(),
                     Text(
-                      "Create Story",
+                      AppString.createStory,
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                     const Spacer(),

@@ -80,9 +80,7 @@ class LikesScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  fallback: (BuildContext context) => AdaptiveIndicator(
-                    os: getOs(),
-                  ),
+                  fallback: (BuildContext context) => const AdaptiveIndicator(),
                 ),
         );
       },

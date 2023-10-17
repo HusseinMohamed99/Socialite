@@ -5,7 +5,6 @@ import 'package:socialite/shared/components/indicator.dart';
 import 'package:socialite/shared/components/show_toast.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
-import 'package:socialite/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -105,10 +104,8 @@ class UserProfileScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-                          fallback: (BuildContext context) => Center(
-                            child: AdaptiveIndicator(
-                              os: getOs(),
-                            ),
+                          fallback: (BuildContext context) => const Center(
+                            child: AdaptiveIndicator(),
                           ),
                         ),
                 ),

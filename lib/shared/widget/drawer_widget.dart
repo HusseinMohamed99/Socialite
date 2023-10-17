@@ -116,9 +116,7 @@ class DrawerWidget extends StatelessWidget {
                 ),
               ],
             )
-          : AdaptiveIndicator(
-              os: getOs(),
-            ),
+          : const AdaptiveIndicator(),
     );
   }
 }

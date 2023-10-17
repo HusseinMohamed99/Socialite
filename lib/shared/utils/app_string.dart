@@ -48,4 +48,8 @@ class AppString {
   static const String sendAgain = 'Send Again';
   static const String sendEmail = 'Send Email';
   static const String verified = 'Verified, Go Home';
+  static const String likesSuccessfully = 'Likes Successfully!';
+  static const String unLikesSuccessfully = 'UnLikes Successfully!';
+  static const String noPosts = 'No Posts yet';
+  static const String createStory = 'Create Story';
 }

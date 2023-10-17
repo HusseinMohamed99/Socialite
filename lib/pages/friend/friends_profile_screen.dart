@@ -94,10 +94,8 @@ class FriendsProfileScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      fallback: (BuildContext context) => Center(
-                        child: AdaptiveIndicator(
-                          os: getOs(),
-                        ),
+                      fallback: (BuildContext context) => const Center(
+                        child: AdaptiveIndicator(),
                       ),
                     ),
             ),

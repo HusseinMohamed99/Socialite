@@ -7,7 +7,6 @@ import 'package:socialite/shared/cubit/restPasswordCubit/rest_password_cubit.dar
 import 'package:socialite/shared/cubit/restPasswordCubit/rest_password_state.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/components/buttons.dart';
-import 'package:socialite/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -133,10 +132,8 @@ class RestPasswordScreen extends StatelessWidget {
                               ),
                               const Spacer(),
                               state is ResetPasswordLoadingState
-                                  ? Center(
-                                      child: AdaptiveIndicator(
-                                        os: getOs(),
-                                      ),
+                                  ? const Center(
+                                      child: AdaptiveIndicator(),
                                     )
                                   : defaultTextButton(
                                       context: context,

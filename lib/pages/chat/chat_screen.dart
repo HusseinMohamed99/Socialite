@@ -7,7 +7,6 @@ import 'package:socialite/shared/components/my_divider.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
-import 'package:socialite/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -77,10 +76,8 @@ class ChatScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  fallback: (BuildContext context) => Center(
-                    child: AdaptiveIndicator(
-                      os: getOs(),
-                    ),
+                  fallback: (BuildContext context) => const Center(
+                    child: AdaptiveIndicator(),
                   ),
                 ),
               );

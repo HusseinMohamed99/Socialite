@@ -231,10 +231,8 @@ class CreateStory extends StatelessWidget {
                                       )
                                     ],
                                   ),
-                                  fallback: (context) => Center(
-                                    child: AdaptiveIndicator(
-                                      os: getOs(),
-                                    ),
+                                  fallback: (context) => const Center(
+                                    child: AdaptiveIndicator(),
                                   ),
                                 ),
                               ),

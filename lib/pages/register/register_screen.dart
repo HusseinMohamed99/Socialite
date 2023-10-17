@@ -202,10 +202,8 @@ class RegisterScreen extends StatelessWidget {
                                         );
                                       },
                                       fallback: (context) {
-                                        return Center(
-                                          child: AdaptiveIndicator(
-                                            os: getOs(),
-                                          ),
+                                        return const Center(
+                                          child: AdaptiveIndicator(),
                                         );
                                       },
                                     )
