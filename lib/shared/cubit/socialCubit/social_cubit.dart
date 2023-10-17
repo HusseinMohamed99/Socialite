@@ -27,6 +27,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:socialite/shared/network/dio_helper.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 class SocialCubit extends Cubit<SocialStates> {
@@ -50,11 +51,11 @@ class SocialCubit extends Cubit<SocialStates> {
   ];
 
   List<String> titles = [
-    'Feed',
-    'Chat',
-    'User',
-    'Story',
-    'Setting',
+    AppString.feed,
+    AppString.chat,
+    AppString.user,
+    AppString.story,
+    AppString.setting,
   ];
 
   void changeNavBar(int index) {
@@ -130,7 +131,7 @@ class SocialCubit extends Cubit<SocialStates> {
     } else {
       isDark = fromShared;
     }
-    CacheHelper.putBoolean(key: 'isDark', value: isDark).then((value) {
+    CacheHelper.putBoolean(key: AppString.isDark, value: isDark).then((value) {
       if (isDark) {
         backgroundColor = ColorManager.primaryDarkColor;
         emit(ChangeThemeState());

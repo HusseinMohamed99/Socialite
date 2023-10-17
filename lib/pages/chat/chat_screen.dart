@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 class ChatScreen extends StatelessWidget {
@@ -34,7 +35,7 @@ class ChatScreen extends StatelessWidget {
                       color: ColorManager.greyColor,
                     ),
                     Text(
-                      'No Users Yet,\nPlease Add\nSome Friends',
+                      AppString.noUsers,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ],
@@ -188,7 +189,7 @@ class BuildUsersItems extends StatelessWidget {
                 );
               },
               label: Text(
-                'Message',
+                AppString.message,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               icon: Icon(

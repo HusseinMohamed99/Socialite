@@ -14,6 +14,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 import 'package:uuid/uuid.dart';
 
@@ -50,7 +51,9 @@ class PrivateChatScreen extends StatelessWidget {
             }
             if (state is SavedToGallerySuccessState) {
               showToast(
-                  text: "Downloaded to Gallery!", state: ToastStates.success);
+                text: AppString.downloadedToGallery,
+                state: ToastStates.success,
+              );
             }
           },
           builder: (context, state) {
@@ -212,7 +215,7 @@ class PrivateChatScreen extends StatelessWidget {
                                     ),
                                     isDense: true,
                                     contentPadding: const EdgeInsets.all(12).r,
-                                    hintText: "Type a message",
+                                    hintText: AppString.message,
                                     hintStyle: GoogleFonts.roboto(
                                       color: ColorManager.greyColor,
                                       fontWeight: FontWeight.w700,
@@ -246,7 +249,7 @@ class PrivateChatScreen extends StatelessWidget {
                                   ),
                                   validator: (String? value) {
                                     if (value!.isEmpty) {
-                                      return 'Enter your message';
+                                      return AppString.message;
                                     }
                                     return null;
                                   },
@@ -337,12 +340,12 @@ class BuildUserMessageItem extends StatelessWidget {
               context: context,
               builder: (context) => baseAlertDialog(context: context));
           switch (result) {
-            case 'DELETE FOR EVERYONE':
+            case AppString.deleteForEvery:
               cubit.deleteForEveryone(
                   messageId: messageModel.messageId,
                   receiverId: messageModel.receiverId);
               break;
-            case 'DELETE FOR ME':
+            case AppString.deleteForMe:
               cubit.deleteForMe(
                   messageId: messageModel.messageId,
                   receiverId: messageModel.receiverId);
@@ -418,12 +421,12 @@ class BuildUserMessageItem extends StatelessWidget {
               context: context,
               builder: (context) => baseAlertDialog(context: context));
           switch (result) {
-            case 'DELETE FOR EVERYONE':
+            case AppString.deleteForEvery:
               cubit.deleteForEveryone(
                   messageId: messageModel.messageId,
                   receiverId: messageModel.receiverId);
               break;
-            case 'DELETE FOR ME':
+            case AppString.deleteForMe:
               cubit.deleteForMe(
                   messageId: messageModel.messageId,
                   receiverId: messageModel.receiverId);
@@ -528,12 +531,12 @@ class BuildUserMessageItem extends StatelessWidget {
               context: context,
               builder: (context) => baseAlertDialog(context: context));
           switch (result) {
-            case 'DELETE FOR EVERYONE':
+            case AppString.deleteForEvery:
               cubit.deleteForEveryone(
                   messageId: messageModel.messageId,
                   receiverId: messageModel.receiverId);
               break;
-            case 'DELETE FOR ME':
+            case AppString.deleteForMe:
               cubit.deleteForMe(
                   messageId: messageModel.messageId,
                   receiverId: messageModel.receiverId);
@@ -622,9 +625,9 @@ class BuildFriendMessageItem extends StatelessWidget {
               context: context,
               builder: (context) => baseAlertDialog(context: context));
           switch (result) {
-            case 'DELETE FOR EVERYONE':
+            case AppString.deleteForEvery:
               break;
-            case 'DELETE FOR ME':
+            case AppString.deleteForMe:
               cubit.deleteForMe(
                   messageId: messageModel.messageId,
                   receiverId: messageModel.receiverId);
@@ -700,9 +703,9 @@ class BuildFriendMessageItem extends StatelessWidget {
               context: context,
               builder: (context) => baseAlertDialog(context: context));
           switch (result) {
-            case 'DELETE FOR EVERYONE':
+            case AppString.deleteForEvery:
               break;
-            case 'DELETE FOR ME':
+            case AppString.deleteForMe:
               cubit.deleteForMe(
                   messageId: messageModel.messageId,
                   receiverId: messageModel.receiverId);
@@ -807,9 +810,9 @@ class BuildFriendMessageItem extends StatelessWidget {
               context: context,
               builder: (context) => baseAlertDialog(context: context));
           switch (result) {
-            case 'DELETE FOR EVERYONE':
+            case AppString.deleteForEvery:
               break;
-            case 'DELETE FOR ME':
+            case AppString.deleteForMe:
               cubit.deleteForMe(
                   messageId: messageModel.messageId,
                   receiverId: messageModel.receiverId);
@@ -917,13 +920,13 @@ class ExpandableTextState extends State<ExpandableText>
           ? OutlinedButton.icon(
               icon: const Icon(Icons.arrow_upward, color: Color(0xFFD50000)),
               label: const Text(
-                'Close Text / Read Less',
+                AppString.readLess,
                 style: TextStyle(color: Color(0xFF2E7D32)),
               ),
               onPressed: () => setState(() => expanded = false))
           : OutlinedButton.icon(
               icon: const Icon(Icons.arrow_downward, color: Color(0xFFD50000)),
-              label: const Text('Read More Here',
+              label: const Text(AppString.readMore,
                   style: TextStyle(color: Color(0xFF2E7D32))),
               onPressed: () => setState(() => expanded = true))
     ]);

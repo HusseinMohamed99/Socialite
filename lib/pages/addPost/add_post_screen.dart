@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 class AddPostScreen extends StatelessWidget {
@@ -27,7 +28,8 @@ class AddPostScreen extends StatelessWidget {
           cubit.getPosts();
           pop(context);
           showToast(
-              text: 'Create Post Successfully', state: ToastStates.success);
+              text: AppString.createPostSuccessfully,
+              state: ToastStates.success);
         }
       },
       builder: (context, state) {
@@ -48,7 +50,7 @@ class AddPostScreen extends StatelessWidget {
             ),
             titleSpacing: 1,
             title: Text(
-              'Create Post',
+              AppString.createPost,
               style: Theme.of(context).textTheme.titleLarge,
             ),
             actions: [
@@ -74,7 +76,7 @@ class AddPostScreen extends StatelessWidget {
                   }
                 },
                 child: Text(
-                  'Share',
+                  AppString.share,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
@@ -126,7 +128,7 @@ class AddPostScreen extends StatelessWidget {
                                     ),
                                     SizedBox(width: 5.w),
                                     Text(
-                                      'public',
+                                      AppString.public,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodySmall!
@@ -155,7 +157,7 @@ class AddPostScreen extends StatelessWidget {
                                   ),
                           controller: textController,
                           decoration: InputDecoration(
-                            hintText: "' What's on your mind ? '",
+                            hintText: AppString.yourMind,
                             hintStyle: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
@@ -242,7 +244,7 @@ class AddPostScreen extends StatelessWidget {
                           cubit.getPostImage();
                         },
                         label: Text(
-                          'Add photo'.toUpperCase(),
+                          AppString.addPhoto.toUpperCase(),
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                         icon: Icon(

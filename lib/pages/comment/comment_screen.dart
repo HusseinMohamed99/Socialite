@@ -12,6 +12,7 @@ import 'package:socialite/shared/components/my_divider.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 class CommentsScreen extends StatelessWidget {
@@ -40,7 +41,7 @@ class CommentsScreen extends StatelessWidget {
             return Scaffold(
               appBar: AppBar(
                 title: Text(
-                  'Comments',
+                  AppString.comment,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 leading: IconButton(
@@ -108,11 +109,11 @@ class CommentsScreen extends StatelessWidget {
                               ),
                               SizedBox(height: 15.h),
                               Text(
-                                "No comments yet,\nPut your comment",
+                                AppString.noComments,
                                 style: Theme.of(context).textTheme.titleLarge,
                               ),
                               Text(
-                                "First Comment 💬",
+                                AppString.firstComment,
                                 style: Theme.of(context).textTheme.titleLarge,
                               )
                             ],
@@ -172,7 +173,7 @@ class CommentsScreen extends StatelessWidget {
                         style: Theme.of(context).textTheme.titleLarge,
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return "The comment can't be empty";
+                            return AppString.noComments;
                           }
                           return null;
                         },
@@ -182,7 +183,7 @@ class CommentsScreen extends StatelessWidget {
                             borderSide: BorderSide.none,
                           ),
                           contentPadding: const EdgeInsets.all(10).r,
-                          hintText: 'comment..',
+                          hintText: AppString.comment,
                           hintStyle: Theme.of(context).textTheme.titleLarge,
                           suffixIcon: Row(
                             mainAxisSize: MainAxisSize.min,
@@ -221,9 +222,9 @@ class CommentsScreen extends StatelessWidget {
                                       .sendInAppNotification(
                                     receiverName: post!.name,
                                     receiverId: post.uId,
-                                    content: 'commented on a post you shared',
+                                    content: AppString.commentedOnPost,
                                     contentId: postId,
-                                    contentKey: 'post',
+                                    contentKey: AppString.post,
                                   );
                                   SocialCubit.get(context).sendFCMNotification(
                                     token: user!.token,
@@ -232,7 +233,7 @@ class CommentsScreen extends StatelessWidget {
                                         .name,
                                     messageText:
                                         '${SocialCubit.get(context).userModel!.name}'
-                                        ' commented on a post you shared',
+                                        '${AppString.commentedOnPost}',
                                   );
                                   commentTextControl.clear();
                                   SocialCubit.get(context).popCommentImage();

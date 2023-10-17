@@ -3,14 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class NotificationModel {
   String? notificationId;
   String? contentKey;
-
-  /// the place he should go onClick (ex: post)
   String? contentId;
-
-  /// the Id of the target post
   String? content;
-
-  /// the notification content
   String? senderName;
   String? receiverName;
   String? senderId;
