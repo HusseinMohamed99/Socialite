@@ -96,6 +96,8 @@ class AppString {
   static const String commentPost = "Comment Post";
   static const String likePost = "Like Post";
   static const String requestAccepted = "Friend Request Accepted";
+  static const String requestAcceptedContent =
+      "accepted your friend request, you are now friends checkout his profile";
   static const String changePassword = "Change Password";
   static const String enterCurrentPassword =
       "Please enter your current password";
@@ -147,4 +149,12 @@ class AppString {
       "Change Password Successfully";
   static const String changePasswordError =
       "Process failed\nYou Should Re-login Before Change Password";
+  static const String writeComment = "Write a comment ...";
+  static const String sharedPostSuccessfully = "Shared Post Successfully";
+  static const String profile = "Profile";
+  static const String savePost = "Save Post";
+  static const String saveImage = "Save Image";
+  static const String confirm = "Confirm";
+  static const String delete = "Delete";
+  static const String editProfile = "Edit Profile";
 }

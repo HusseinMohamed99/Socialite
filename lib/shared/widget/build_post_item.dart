@@ -15,6 +15,7 @@ import 'package:socialite/shared/components/my_divider.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/components/show_toast.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 import 'package:socialite/shared/widget/more_options.dart';
 
@@ -265,7 +266,7 @@ class BuildPostItem extends StatelessWidget {
                   child: SizedBox(
                     width: 120.w,
                     child: Text(
-                      'Write a comment ...',
+                      AppString.writeComment,
                       style: Theme.of(context)
                           .textTheme
                           .bodyLarge!
@@ -286,7 +287,7 @@ class BuildPostItem extends StatelessWidget {
                     );
                   },
                   label: Text(
-                    'Like',
+                    AppString.likes,
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
                           color: ColorManager.redColor,
                         ),
@@ -307,7 +308,7 @@ class BuildPostItem extends StatelessWidget {
                       dateTime: DateTime.now(),
                     );
                     showToast(
-                      text: 'Shared Post Successfully ',
+                      text: AppString.sharedPostSuccessfully,
                       state: ToastStates.success,
                     );
                   },
@@ -317,7 +318,7 @@ class BuildPostItem extends StatelessWidget {
                     size: 24.sp,
                   ),
                   label: Text(
-                    'Share',
+                    AppString.share,
                     style: GoogleFonts.roboto(
                       color: Colors.green,
                     ),

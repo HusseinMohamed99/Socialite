@@ -5,6 +5,7 @@ import 'package:socialite/pages/friend/friends_profile_screen.dart';
 import 'package:socialite/shared/components/image_with_shimmer.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 class PeoplesMayKnow extends StatelessWidget {
@@ -62,17 +63,18 @@ class PeoplesMayKnow extends StatelessWidget {
                 friendImage: userModel.image,
               );
               SocialCubit.get(context).sendInAppNotification(
-                contentKey: 'friendRequest',
+                contentKey: AppString.friendRequest,
                 contentId: userModel.uId,
-                content: 'sent you a friend request, check it out!',
+                content: AppString.checkFriendRequest,
                 receiverId: userModel.uId,
                 receiverName: userModel.name,
               );
               SocialCubit.get(context).sendFCMNotification(
-                  token: userModel.token,
-                  senderName: SocialCubit.get(context).userModel!.name,
-                  messageText: '${SocialCubit.get(context).userModel!.name}'
-                      'sent you a friend request, check it out!');
+                token: userModel.token,
+                senderName: SocialCubit.get(context).userModel!.name,
+                messageText: '${SocialCubit.get(context).userModel!.name}'
+                    '${AppString.checkFriendRequest}',
+              );
             },
             child: Container(
               color: ColorManager.blueColor,
@@ -87,7 +89,7 @@ class PeoplesMayKnow extends StatelessWidget {
                               size: 24.sp,
                             ),
                             Text(
-                              'Request Sent',
+                              AppString.sentRequest,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: Theme.of(context).textTheme.titleLarge,
@@ -103,7 +105,7 @@ class PeoplesMayKnow extends StatelessWidget {
                               size: 24.sp,
                             ),
                             Text(
-                              'Add Friend',
+                              AppString.addFriend,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: Theme.of(context).textTheme.titleLarge,
@@ -119,7 +121,7 @@ class PeoplesMayKnow extends StatelessWidget {
                           size: 24.sp,
                         ),
                         Text(
-                          'Profile',
+                          AppString.profile,
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                       ],

@@ -6,6 +6,7 @@ import 'package:socialite/pages/friend/friends_profile_screen.dart';
 import 'package:socialite/shared/components/image_with_shimmer.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 class FriendRequestItems extends StatelessWidget {
@@ -74,23 +75,23 @@ class FriendRequestItems extends StatelessWidget {
                           SocialCubit.get(context)
                               .deleteFriendRequest(userModel.uId);
                           SocialCubit.get(context).sendInAppNotification(
-                            contentKey: 'friendRequestAccepted',
+                            contentKey: AppString.requestAccepted,
                             contentId: SocialCubit.get(context).userModel!.uId,
-                            content:
-                                'accepted your friend request, you are now friends checkout his profile',
+                            content: AppString.requestAcceptedContent,
                             receiverId: userModel.uId,
                             receiverName: userModel.name,
                           );
                           SocialCubit.get(context).sendFCMNotification(
-                              token: userModel.uId,
-                              senderName:
-                                  SocialCubit.get(context).userModel!.name,
-                              messageText:
-                                  '${SocialCubit.get(context).userModel!.name}'
-                                  'accepted your friend request, you are now friends checkout his profile');
+                            token: userModel.uId,
+                            senderName:
+                                SocialCubit.get(context).userModel!.name,
+                            messageText:
+                                '${SocialCubit.get(context).userModel!.name}'
+                                '${AppString.requestAcceptedContent}',
+                          );
                         },
                         child: Text(
-                          'Confirm',
+                          AppString.confirm,
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                       ),
@@ -103,7 +104,7 @@ class FriendRequestItems extends StatelessWidget {
                               .deleteFriendRequest(userModel.uId);
                         },
                         child: Text(
-                          'Delete',
+                          AppString.delete,
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                       ),

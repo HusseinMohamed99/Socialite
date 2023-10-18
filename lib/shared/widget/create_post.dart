@@ -7,6 +7,7 @@ import 'package:socialite/shared/components/image_with_shimmer.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 class CreatePosts extends StatelessWidget {
@@ -59,7 +60,7 @@ class CreatePosts extends StatelessWidget {
                         backgroundColor: Colors.transparent,
                       ),
                       child: Text(
-                        "' What's on your mind ? '",
+                        AppString.yourMind,
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       onPressed: () {

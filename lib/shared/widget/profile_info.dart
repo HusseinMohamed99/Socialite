@@ -8,6 +8,7 @@ import 'package:socialite/shared/components/constants.dart';
 import 'package:socialite/shared/components/my_divider.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 class ProfileInfo extends StatelessWidget {
@@ -122,7 +123,7 @@ class ProfileInfo extends StatelessWidget {
                             .copyWith(color: ColorManager.dividerColor),
                       ),
                       Text(
-                        'Posts',
+                        AppString.post,
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ],
@@ -139,7 +140,7 @@ class ProfileInfo extends StatelessWidget {
                             .copyWith(color: ColorManager.dividerColor),
                       ),
                       Text(
-                        'Followers',
+                        AppString.followers,
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ],
@@ -166,7 +167,7 @@ class ProfileInfo extends StatelessWidget {
                               .copyWith(color: ColorManager.dividerColor),
                         ),
                         Text(
-                          'Friends',
+                          AppString.friends,
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                       ],
@@ -198,7 +199,7 @@ class ProfileInfo extends StatelessWidget {
                     color: ColorManager.titanWithColor,
                   ),
                   label: Text(
-                    'Add story',
+                    AppString.addStory,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
@@ -218,7 +219,7 @@ class ProfileInfo extends StatelessWidget {
                     color: ColorManager.blueColor,
                   ),
                   label: Text(
-                    'Edit profile',
+                    AppString.editProfile,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),

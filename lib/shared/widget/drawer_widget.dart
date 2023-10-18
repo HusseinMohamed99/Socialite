@@ -11,6 +11,7 @@ import 'package:socialite/shared/components/logout.dart';
 import 'package:socialite/shared/components/my_divider.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 class DrawerWidget extends StatelessWidget {
@@ -56,7 +57,7 @@ class DrawerWidget extends StatelessWidget {
                         navigateTo(context, const UserProfileScreen());
                       },
                       cubit: cubit,
-                      text: 'Profile',
+                      text: AppString.profile,
                       iconData: IconlyBroken.user2,
                     ),
                     ListOfItem(
@@ -64,7 +65,7 @@ class DrawerWidget extends StatelessWidget {
                         navigateTo(context, const NotificationScreen());
                       },
                       cubit: cubit,
-                      text: 'Notifications',
+                      text: AppString.notifications,
                       iconData: IconlyBroken.notification,
                     ),
                     ListOfItem(
@@ -72,7 +73,7 @@ class DrawerWidget extends StatelessWidget {
                         navigateTo(context, const SavePostScreen());
                       },
                       cubit: cubit,
-                      text: 'Saved Post',
+                      text: AppString.savePost,
                       iconData: IconlyBroken.bookmark,
                     ),
                     ListOfItem(
@@ -80,7 +81,7 @@ class DrawerWidget extends StatelessWidget {
                         cubit.changeAppMode();
                       },
                       cubit: cubit,
-                      text: 'Theme Mode',
+                      text: AppString.themeMode,
                       iconData: IconlyBroken.star,
                     ),
                     ListOfItem(
@@ -88,7 +89,7 @@ class DrawerWidget extends StatelessWidget {
                         logOut(context);
                       },
                       cubit: cubit,
-                      text: 'Logout',
+                      text: AppString.logout,
                       iconData: IconlyBroken.closeSquare,
                     ),
                   ],

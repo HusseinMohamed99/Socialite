@@ -6,6 +6,7 @@ import 'package:socialite/pages/post/edit_post.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/components/show_toast.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 Future<dynamic> moreOption(BuildContext context, SocialCubit cubit,
@@ -37,7 +38,7 @@ Future<dynamic> moreOption(BuildContext context, SocialCubit cubit,
                   );
                 },
                 iconData: Icons.edit_location_outlined,
-                text: 'Edit Post',
+                text: AppString.editPost,
               ),
             ShowModalSheetItems(
               function: () {
@@ -51,7 +52,7 @@ Future<dynamic> moreOption(BuildContext context, SocialCubit cubit,
                 //     postImage: model.postImage);
               },
               iconData: Icons.turned_in_not_sharp,
-              text: "Save Post",
+              text: AppString.savePost,
             ),
             if (postModel.postImage != '')
               ShowModalSheetItems(
@@ -59,7 +60,7 @@ Future<dynamic> moreOption(BuildContext context, SocialCubit cubit,
                   // cubit.saveToGallery(postModel.postImage!);
                 },
                 iconData: IconlyLight.download,
-                text: 'Saved Image',
+                text: AppString.saveImage,
               ),
             ShowModalSheetItems(
               function: () {
@@ -71,12 +72,12 @@ Future<dynamic> moreOption(BuildContext context, SocialCubit cubit,
                   dateTime: DateTime.now(),
                 );
                 showToast(
-                  text: 'Shared Post Successfully ',
+                  text: AppString.sharedPostSuccessfully,
                   state: ToastStates.success,
                 );
               },
               iconData: Icons.share,
-              text: 'Share',
+              text: AppString.share,
             ),
             if (postModel.uId == cubit.userModel!.uId)
               ShowModalSheetItems(
@@ -84,7 +85,7 @@ Future<dynamic> moreOption(BuildContext context, SocialCubit cubit,
                   cubit.deletePost(postId);
                 },
                 iconData: Icons.delete,
-                text: "Delete Post",
+                text: AppString.deletePost,
               ),
           ],
         ),

@@ -7,6 +7,7 @@ import 'package:socialite/pages/friend/friends_profile_screen.dart';
 import 'package:socialite/shared/components/image_with_shimmer.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 class FriendsBuildItems extends StatelessWidget {
@@ -66,7 +67,7 @@ class FriendsBuildItems extends StatelessWidget {
                   ),
                   SizedBox(width: 5.w),
                   Text(
-                    'Message',
+                    AppString.message,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ],
