@@ -1,6 +1,5 @@
 import 'package:socialite/shared/cubit/restPasswordCubit/rest_password_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ResetPasswordCubit extends Cubit<ResetPasswordStates> {
@@ -19,7 +18,6 @@ class ResetPasswordCubit extends Cubit<ResetPasswordStates> {
         .then((value) {
       emit(ResetPasswordSuccessState());
     }).catchError((error) {
-      debugPrint(error.toString());
       emit(ResetPasswordErrorState());
     });
   }

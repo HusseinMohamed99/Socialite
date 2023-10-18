@@ -513,7 +513,7 @@ class SocialCubit extends Cubit<SocialStates> {
           token: userModel!.token,
           senderName: userModel!.name,
           messageText: '${userModel!.name}'
-              'likes a post you shared',
+              '${AppString.likePost}',
         );
       }
       emit(LikesSuccessState());
@@ -736,7 +736,7 @@ class SocialCubit extends Cubit<SocialStates> {
         .doc(postId)
         .delete()
         .then((value) {
-      showToast(text: 'Post Deleted', state: ToastStates.success);
+      showToast(text: AppString.deletePost, state: ToastStates.success);
       emit(DeletePostSuccessState());
     });
   }
@@ -750,14 +750,14 @@ class SocialCubit extends Cubit<SocialStates> {
         .then((value) {
       showToast(
         state: ToastStates.success,
-        text: 'Change Successful',
+        text: AppString.changePasswordSuccessfully,
       );
       emit(ChangeUserPasswordSuccessState());
       getUserData();
     }).catchError((error) {
       showToast(
         state: ToastStates.error,
-        text: 'Process failed\nYou Should Re-login Before Change Password',
+        text: AppString.changePasswordError,
       );
       emit(ChangeUserPasswordErrorState(error.toString()));
     });
@@ -1400,26 +1400,26 @@ class SocialCubit extends Cubit<SocialStates> {
   }
 
   String notificationContent(String? contentKey) {
-    if (contentKey == 'post') {
-      return 'post';
+    if (contentKey == AppString.post) {
+      return AppString.post;
     }
-    if (contentKey == 'like Post') {
-      return 'like Post';
-    } else if (contentKey == 'commentPost') {
-      return 'comment Post';
-    } else if (contentKey == 'friend Request Accepted') {
-      return 'friend Request Accepted';
+    if (contentKey == AppString.likePost) {
+      return AppString.likePost;
+    } else if (contentKey == AppString.commentPost) {
+      return AppString.commentPost;
+    } else if (contentKey == AppString.requestAccepted) {
+      return AppString.requestAccepted;
     } else {
-      return 'friend Request';
+      return AppString.friendRequest;
     }
   }
 
   IconData notificationContentIcon(String? contentKey) {
-    if (contentKey == 'like Post') {
+    if (contentKey == AppString.likePost) {
       return IconlyBroken.heart;
-    } else if (contentKey == 'comment Post') {
+    } else if (contentKey == AppString.commentPost) {
       return IconlyBroken.chat;
-    } else if (contentKey == 'friend Request Accepted') {
+    } else if (contentKey == AppString.requestAccepted) {
       return IconlyBroken.user2;
     } else {
       return IconlyBroken.user2;

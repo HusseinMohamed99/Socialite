@@ -142,4 +142,9 @@ class AppString {
   static const String token = "token";
   static const String notLaunch = "Could not launch";
   static const String deleteMessage = "Delete Message";
+  static const String deletePost = "Deleted Post";
+  static const String changePasswordSuccessfully =
+      "Change Password Successfully";
+  static const String changePasswordError =
+      "Process failed\nYou Should Re-login Before Change Password";
 }

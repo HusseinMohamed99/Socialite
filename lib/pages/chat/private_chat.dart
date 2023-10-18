@@ -340,7 +340,7 @@ class BuildUserMessageItem extends StatelessWidget {
               context: context,
               builder: (context) => baseAlertDialog(context: context));
           switch (result) {
-            case AppString.deleteForEvery:
+            case AppString.deleteForEveryOne:
               cubit.deleteForEveryone(
                   messageId: messageModel.messageId,
                   receiverId: messageModel.receiverId);
@@ -421,7 +421,7 @@ class BuildUserMessageItem extends StatelessWidget {
               context: context,
               builder: (context) => baseAlertDialog(context: context));
           switch (result) {
-            case AppString.deleteForEvery:
+            case AppString.deleteForEveryOne:
               cubit.deleteForEveryone(
                   messageId: messageModel.messageId,
                   receiverId: messageModel.receiverId);
@@ -531,7 +531,7 @@ class BuildUserMessageItem extends StatelessWidget {
               context: context,
               builder: (context) => baseAlertDialog(context: context));
           switch (result) {
-            case AppString.deleteForEvery:
+            case AppString.deleteForEveryOne:
               cubit.deleteForEveryone(
                   messageId: messageModel.messageId,
                   receiverId: messageModel.receiverId);
@@ -625,7 +625,7 @@ class BuildFriendMessageItem extends StatelessWidget {
               context: context,
               builder: (context) => baseAlertDialog(context: context));
           switch (result) {
-            case AppString.deleteForEvery:
+            case AppString.deleteForEveryOne:
               break;
             case AppString.deleteForMe:
               cubit.deleteForMe(
@@ -703,7 +703,7 @@ class BuildFriendMessageItem extends StatelessWidget {
               context: context,
               builder: (context) => baseAlertDialog(context: context));
           switch (result) {
-            case AppString.deleteForEvery:
+            case AppString.deleteForEveryOne:
               break;
             case AppString.deleteForMe:
               cubit.deleteForMe(
@@ -810,7 +810,7 @@ class BuildFriendMessageItem extends StatelessWidget {
               context: context,
               builder: (context) => baseAlertDialog(context: context));
           switch (result) {
-            case AppString.deleteForEvery:
+            case AppString.deleteForEveryOne:
               break;
             case AppString.deleteForMe:
               cubit.deleteForMe(
