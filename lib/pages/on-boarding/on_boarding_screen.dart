@@ -132,7 +132,7 @@ class OnBoardingItems extends StatelessWidget {
                   child: IconButton(
                     icon: Icon(
                       currentIndex == contents.length - 1
-                          ? Icons.arrow_forward
+                          ? Icons.arrow_back
                           : Icons.arrow_forward,
                       color: ColorManager.titanWithColor,
                     ),
