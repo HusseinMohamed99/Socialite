@@ -47,7 +47,7 @@ int importId() {
   return messageId;
 }
 
-Widget imagePreview(
+Widget imageWithShimmer(
   String? image, {
   double? height,
   double? width,
@@ -64,6 +64,19 @@ Widget imagePreview(
           height: height ?? double.infinity,
           boxFit: BoxFit.fitWidth,
         ),
+      ),
+    ),
+  );
+}
+
+Widget imagePreview(String? image) {
+  return FullScreenWidget(
+    child: Center(
+      child: Image.network(
+        "$image",
+        fit: BoxFit.cover,
+        width: double.infinity,
+        alignment: AlignmentDirectional.topCenter,
       ),
     ),
   );

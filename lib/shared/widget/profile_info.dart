@@ -51,7 +51,7 @@ class ProfileInfo extends StatelessWidget {
                 radius: 75.r,
                 child: CircleAvatar(
                   radius: 70.r,
-                  child: imagePreview(userModel!.image, radius: 65.r),
+                  child: imageWithShimmer(userModel!.image, radius: 65.r),
                 ),
               ),
               Positioned(

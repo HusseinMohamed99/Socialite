@@ -164,14 +164,10 @@ class BuildPostItem extends StatelessWidget {
                 children: [
                   Align(
                     alignment: AlignmentDirectional.bottomCenter,
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 150.h,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15).r,
-                        child: imagePreview(
-                          '${postModel.postImage}',
-                        ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15).r,
+                      child: imagePreview(
+                        '${postModel.postImage}',
                       ),
                     ),
                   ),

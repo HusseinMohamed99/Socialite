@@ -332,8 +332,8 @@ class BuildCommentsItem extends StatelessWidget {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15).r,
                               ),
-                              child:
-                                  imagePreview(comment.commentImage!['image'])),
+                              child: imageWithShimmer(
+                                  comment.commentImage!['image'])),
                         ],
                       )
                     : comment.commentImage != null
@@ -357,7 +357,7 @@ class BuildCommentsItem extends StatelessWidget {
                                         ColorManager.greyColor.withOpacity(0.2),
                                     borderRadius: BorderRadius.circular(15).r,
                                   ),
-                                  child: imagePreview(
+                                  child: imageWithShimmer(
                                       comment.commentImage!['image'])),
                             ],
                           )
