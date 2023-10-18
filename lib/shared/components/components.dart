@@ -1,6 +1,7 @@
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 Widget baseAlertDialog({
@@ -18,7 +19,7 @@ Widget baseAlertDialog({
     content: Padding(
       padding: const EdgeInsetsDirectional.only(start: 15, top: 15),
       child: Text(
-        'Delete Message',
+        AppString.deleteMessage,
         style: Theme.of(context).textTheme.titleLarge,
       ),
     ),
@@ -27,19 +28,19 @@ Widget baseAlertDialog({
     actions: [
       TextButton(
           onPressed: () {
-            Navigator.of(context).pop('DELETE FOR EVERYONE');
+            Navigator.of(context).pop(AppString.deleteForEveryOne);
           },
-          child: const Text('DELETE FOR EVERYONE')),
+          child: const Text(AppString.deleteForEveryOne)),
       TextButton(
           onPressed: () {
-            Navigator.of(context).pop('DELETE FOR ME');
+            Navigator.of(context).pop(AppString.deleteForMe);
           },
-          child: const Text('DELETE FOR ME')),
+          child: const Text(AppString.deleteForMe)),
       TextButton(
           onPressed: () {
             pop(context);
           },
-          child: const Text('CANCEL')),
+          child: const Text(AppString.cancel)),
     ],
   );
 }

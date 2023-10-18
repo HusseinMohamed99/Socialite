@@ -13,6 +13,10 @@ class Assets {
   /// assets/images/email.png
   static const String imagesEmail = "assets/images/email.png";
 
+  /// Assets for imagesError
+  /// assets/images/error.svg
+  static const String imagesError = "assets/images/error.svg";
+
   /// Assets for imagesGoogle
   /// assets/images/google.svg
   static const String imagesGoogle = "assets/images/google.svg";

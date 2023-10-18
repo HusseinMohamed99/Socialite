@@ -31,7 +31,7 @@ class AppString {
   static const String noUsers = 'No Users Yet,\nPlease Add\nSome Friends';
   static const String message = 'Message';
   static const String downloadedToGallery = 'Downloaded to Gallery!';
-  static const String deleteForEvery = 'Delete For EveryOne';
+  static const String deleteForEveryOne = 'Delete For EveryOne';
   static const String deleteForMe = 'Delete For Me';
   static const String readMore = 'Read More';
   static const String readLess = 'Read Less';
@@ -139,4 +139,7 @@ class AppString {
   static const String myStories = "My Stories";
   static const String allStories = "All Stories";
   static const String peopleMayKnow = "People May Know";
+  static const String token = "token";
+  static const String notLaunch = "Could not launch";
+  static const String deleteMessage = "Delete Message";
 }

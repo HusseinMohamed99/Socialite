@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
 import 'package:intl/intl.dart';
 import 'package:socialite/shared/components/image_with_shimmer.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 String daysBetween(DateTime postDate) {
@@ -79,6 +80,6 @@ double intToDouble(int num) {
 
 Future<void> urlLauncher(Uri url) async {
   if (!await launchUrl(url)) {
-    throw Exception('Could not launch $url');
+    throw Exception('${AppString.notLaunch}$url');
   }
 }
