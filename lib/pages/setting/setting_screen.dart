@@ -15,6 +15,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -59,7 +60,7 @@ class SettingScreen extends StatelessWidget {
                                 style: Theme.of(context).textTheme.titleLarge,
                               ),
                               Text(
-                                'See your profile',
+                                AppString.seeProfile,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall!
@@ -100,14 +101,14 @@ class SettingScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 10.h),
                 Text(
-                  'Account',
+                  AppString.account,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const MyDivider(),
                 SettingsListItem(
                   cubit: cubit,
                   iconData: IconlyBroken.profile,
-                  text: 'Your Personal info',
+                  text: AppString.personalInfo,
                   function: () {
                     navigateTo(context, const EditProfileScreen());
                   },
@@ -115,7 +116,7 @@ class SettingScreen extends StatelessWidget {
                 SettingsListItem(
                   cubit: cubit,
                   iconData: IconlyBroken.lock,
-                  text: 'Rest Password',
+                  text: AppString.resetPassword,
                   function: () {
                     navigateTo(context, RestPasswordScreen());
                   },
@@ -123,7 +124,7 @@ class SettingScreen extends StatelessWidget {
                 SettingsListItem(
                   cubit: cubit,
                   iconData: IconlyBroken.unlock,
-                  text: 'Change Password',
+                  text: AppString.changePassword,
                   function: () {
                     bottomSheetChangePassword(
                       context: context,
@@ -135,13 +136,13 @@ class SettingScreen extends StatelessWidget {
                   cubit: cubit,
                   iconData:
                       cubit.isDark ? Icons.nightlight_outlined : Icons.wb_sunny,
-                  text: 'Theme Mode',
+                  text: AppString.themeMode,
                   function: () {
                     AwesomeDialog(
                       context: context,
                       dialogType: DialogType.question,
                       animType: AnimType.topSlide,
-                      title: 'Do you want to change mode ?',
+                      title: AppString.changeMode,
                       btnOkOnPress: () {
                         cubit.changeAppMode();
                       },
@@ -152,13 +153,13 @@ class SettingScreen extends StatelessWidget {
                 SettingsListItem(
                   cubit: cubit,
                   iconData: IconlyBroken.delete,
-                  text: 'Delete your Account',
+                  text: AppString.deleteAccount,
                   function: () {
                     AwesomeDialog(
                       context: context,
                       dialogType: DialogType.error,
                       animType: AnimType.topSlide,
-                      title: "Do you want Delete Account ?",
+                      title: AppString.wantDeleteAccount,
                       btnOkOnPress: () {
                         cubit.deleteAccount(context);
                       },
@@ -169,13 +170,13 @@ class SettingScreen extends StatelessWidget {
                 SettingsListItem(
                   cubit: cubit,
                   iconData: Icons.power_settings_new_rounded,
-                  text: 'LogOut',
+                  text: AppString.logout,
                   function: () {
                     AwesomeDialog(
                       context: context,
                       dialogType: DialogType.warning,
                       animType: AnimType.topSlide,
-                      title: "Do you want LogOut ?",
+                      title: AppString.wantLogout,
                       btnOkOnPress: () {
                         logOut(context);
                         FirebaseAuth.instance.signOut();

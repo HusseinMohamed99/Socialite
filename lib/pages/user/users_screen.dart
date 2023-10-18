@@ -6,6 +6,7 @@ import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 import 'package:socialite/shared/widget/friends_item.dart';
 import 'package:socialite/shared/widget/friends_requests.dart';
@@ -47,7 +48,7 @@ class _UserScreenState extends State<UserScreen> {
                           color: ColorManager.greyColor,
                         ),
                         Text(
-                          'No Users Yet,\nPlease Add\nSome Friends',
+                          AppString.noUsers,
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                       ],
@@ -63,7 +64,7 @@ class _UserScreenState extends State<UserScreen> {
                           children: [
                             SizedBox(height: 15.h),
                             Text(
-                              'Friend Request',
+                              AppString.friendRequest,
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
                             ConditionalBuilder(
@@ -85,14 +86,14 @@ class _UserScreenState extends State<UserScreen> {
                                 ).r,
                                 alignment: AlignmentDirectional.center,
                                 child: Text(
-                                  'No Friend Request',
+                                  AppString.noFriendRequest,
                                   style: Theme.of(context).textTheme.titleLarge,
                                 ),
                               ),
                             ),
                             SizedBox(height: 10.h),
                             Text(
-                              'People May Know',
+                              AppString.peopleMayKnow,
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
                             SizedBox(height: 10.h),
@@ -115,7 +116,7 @@ class _UserScreenState extends State<UserScreen> {
                             ),
                             SizedBox(height: 10.h),
                             Text(
-                              'Friends',
+                              AppString.friends,
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
                             SizedBox(height: 10.h),
@@ -140,7 +141,7 @@ class _UserScreenState extends State<UserScreen> {
                                 ).r,
                                 alignment: AlignmentDirectional.center,
                                 child: Text(
-                                  'No Friends',
+                                  AppString.noFriends,
                                   style: Theme.of(context).textTheme.titleLarge,
                                 ),
                               ),

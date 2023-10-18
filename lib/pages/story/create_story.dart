@@ -10,6 +10,7 @@ import 'package:socialite/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 class CreateStory extends StatelessWidget {
@@ -24,10 +25,16 @@ class CreateStory extends StatelessWidget {
           SocialCubit.get(context).getUserStories(uId);
           SocialCubit.get(context).getStories();
           showToast(
-            text: "Your story is created successfully",
+            text: AppString.createStorySuccessfully,
             state: ToastStates.success,
           );
           navigateAndFinish(context, const HomeLayout());
+        }
+        if (state is CreateStoryErrorState) {
+          showToast(
+            text: AppString.createStoryFailed,
+            state: ToastStates.error,
+          );
         }
       },
       builder: (context, state) {
@@ -132,7 +139,7 @@ class CreateStory extends StatelessWidget {
                               .headlineMedium!
                               .copyWith(color: ColorManager.greyColor),
                           decoration: InputDecoration(
-                            hintText: "What's on your mind ...",
+                            hintText: AppString.yourMind,
                             hintStyle: Theme.of(context)
                                 .textTheme
                                 .headlineMedium!
@@ -175,8 +182,8 @@ class CreateStory extends StatelessWidget {
                                     ),
                                     Text(
                                       bloc.addText
-                                          ? " Add Text"
-                                          : " Remove Text",
+                                          ? AppString.addText
+                                          : AppString.removeText,
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleLarge!
@@ -222,7 +229,7 @@ class CreateStory extends StatelessWidget {
                                         size: 24.sp,
                                       ),
                                       Text(
-                                        "Add Story",
+                                        AppString.addStory,
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleLarge!

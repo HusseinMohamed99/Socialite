@@ -10,6 +10,7 @@ import 'package:socialite/shared/components/image_with_shimmer.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 import 'package:socialite/shared/widget/build_stories_item.dart';
 import 'package:socialite/shared/widget/user_stories.dart';
@@ -36,7 +37,7 @@ class StoryScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0).r,
                 child: Text(
-                  "My Stories",
+                  AppString.myStories,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
@@ -45,7 +46,7 @@ class StoryScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0).r,
                   child: Text(
-                    "All Stories",
+                    AppString.allStories,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
@@ -148,7 +149,7 @@ class CreateNewStories extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                    "Create Story",
+                    AppString.createStory,
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                   const Spacer(),
@@ -189,113 +190,113 @@ class CarouselSliderStories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
-        items: cubit.stories
-            .map(
-              (e) => InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ViewStory(storyModel: e)));
-                },
-                child: Stack(
-                  alignment: AlignmentDirectional.bottomStart,
-                  children: [
-                    Container(
+      items: cubit.stories
+          .map(
+            (e) => InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ViewStory(storyModel: e)));
+              },
+              child: Stack(
+                alignment: AlignmentDirectional.bottomStart,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 230.h,
+                    margin: const EdgeInsets.all(10).r,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50).r,
+                        boxShadow: [
+                          BoxShadow(
+                              color: Theme.of(context)
+                                  .shadowColor
+                                  .withOpacity(0.1),
+                              spreadRadius: 3,
+                              blurRadius: 9,
+                              offset: const Offset(3, 3)),
+                          BoxShadow(
+                              color: Theme.of(context)
+                                  .shadowColor
+                                  .withOpacity(0.4),
+                              spreadRadius: 3,
+                              blurRadius: 9,
+                              offset: const Offset(-1, -1))
+                        ]),
+                    child: ImageWithShimmer(
+                      radius: 50.r,
+                      imageUrl: e.storyImage!,
                       width: double.infinity,
-                      height: 230.h,
-                      margin: const EdgeInsets.all(10).r,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50).r,
-                          boxShadow: [
-                            BoxShadow(
-                                color: Theme.of(context)
-                                    .shadowColor
-                                    .withOpacity(0.1),
-                                spreadRadius: 3,
-                                blurRadius: 9,
-                                offset: const Offset(3, 3)),
-                            BoxShadow(
-                                color: Theme.of(context)
-                                    .shadowColor
-                                    .withOpacity(0.4),
-                                spreadRadius: 3,
-                                blurRadius: 9,
-                                offset: const Offset(-1, -1))
-                          ]),
-                      child: ImageWithShimmer(
-                        radius: 50.r,
-                        imageUrl: e.storyImage!,
-                        width: double.infinity,
-                        height: double.infinity,
-                        boxFit: BoxFit.fitWidth,
-                      ),
+                      height: double.infinity,
+                      boxFit: BoxFit.fitWidth,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(30.0).r,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          CircleAvatar(
-                            radius: 25.r,
-                            child: CircleAvatar(
-                              radius: 22.r,
-                              child: ImageWithShimmer(
-                                imageUrl: e.image!,
-                                width: 80.w,
-                                height: 80.h,
-                                radius: 20.r,
-                                boxFit: BoxFit.fill,
-                              ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(30.0).r,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        CircleAvatar(
+                          radius: 25.r,
+                          child: CircleAvatar(
+                            radius: 22.r,
+                            child: ImageWithShimmer(
+                              imageUrl: e.image!,
+                              width: 80.w,
+                              height: 80.h,
+                              radius: 20.r,
+                              boxFit: BoxFit.fill,
                             ),
                           ),
-                          SizedBox(
-                            width: 5.w,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                e.name!,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge!
-                                    .copyWith(
-                                        color: ColorManager.titanWithColor),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              Text(
-                                daysBetween(
-                                    DateTime.parse(e.dateTime!.toString())),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .copyWith(
-                                      color: ColorManager.greyColor,
-                                    ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                        ),
+                        SizedBox(
+                          width: 5.w,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              e.name!,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(color: ColorManager.titanWithColor),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            Text(
+                              daysBetween(
+                                  DateTime.parse(e.dateTime!.toString())),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                    color: ColorManager.greyColor,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
-            )
-            .toList(),
-        options: CarouselOptions(
-          reverse: false,
-          scrollDirection: Axis.horizontal,
-          autoPlay: true,
-          autoPlayInterval: const Duration(seconds: 3),
-          autoPlayAnimationDuration: const Duration(seconds: 2),
-          viewportFraction: 1,
-          autoPlayCurve: Curves.easeOutSine,
-          initialPage: 0,
-          height: 200.h,
-        ));
+            ),
+          )
+          .toList(),
+      options: CarouselOptions(
+        reverse: false,
+        scrollDirection: Axis.horizontal,
+        autoPlay: true,
+        autoPlayInterval: const Duration(seconds: 3),
+        autoPlayAnimationDuration: const Duration(seconds: 2),
+        viewportFraction: 1,
+        autoPlayCurve: Curves.easeOutSine,
+        initialPage: 0,
+        height: 200.h,
+      ),
+    );
   }
 }

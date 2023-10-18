@@ -52,14 +52,19 @@ class AppString {
   static const String unLikesSuccessfully = 'UnLikes Successfully!';
   static const String noPosts = 'No Posts yet';
   static const String createStory = 'Create Story';
+  static const String createStorySuccessfully =
+      'Your story is created successfully';
+  static const String createStoryFailed = 'Your story is created failed';
+
   static const String friends = 'Friends';
-  static const String noFriends = 'No Friends yet';
+  static const String noFriends = 'No Friends';
   static const String unFriends = 'Un Friends';
   static const String followers = 'Followers';
   static const String alreadyFriends = 'You are already Friends';
   static const String wantUnfriend = 'Do you want to Unfriend ?';
   static const String cancel = 'Cancel';
-  static const String friendRequest = 'friendRequest';
+  static const String friendRequest = 'Friend Request';
+  static const String noFriendRequest = 'No Friend Request';
   static const String checkFriendRequest =
       'Sent you a friend request, check it out!';
   static const String sentRequest = 'Request Sent';
@@ -119,4 +124,19 @@ class AppString {
   static const String emptySearch = "Search can't be empty";
   static const String noResult = "No result is found !";
   static const String mutualFriends = "mutual friends";
+  static const String seeProfile = "See your profile";
+  static const String account = "Account";
+  static const String personalInfo = "Your Personal info";
+  static const String themeMode = "Theme Mode";
+  static const String changeMode = "Do you want to change mode ?";
+  static const String deleteAccount = "Delete Account";
+  static const String wantDeleteAccount = "Do you want Delete Account ?";
+  static const String logout = "LogOut";
+  static const String wantLogout = "Do you want LogOut ?";
+  static const String addText = "Add Text";
+  static const String removeText = "Remove Text";
+  static const String addStory = "Add Story";
+  static const String myStories = "My Stories";
+  static const String allStories = "All Stories";
+  static const String peopleMayKnow = "People May Know";
 }
