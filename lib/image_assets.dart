@@ -38,8 +38,8 @@ class Assets {
   static const String imagesPalestine2 = "assets/images/Palestine2.png";
 
   /// Assets for imagesPalestine3
-  /// assets/images/Palestine3.png
-  static const String imagesPalestine3 = "assets/images/Palestine3.png";
+  /// assets/images/Palestine3.jpg
+  static const String imagesPalestine3 = "assets/images/Palestine3.jpg";
 
   /// Assets for imagesResetPassword
   /// assets/images/ResetPassword.png

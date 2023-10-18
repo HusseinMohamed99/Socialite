@@ -6,7 +6,7 @@ class AppString {
   static const String isDark = 'isDark';
   static const String uId = 'uId';
   static const String onBoarding = 'onBoarding';
-  static const String prayForPalestine = 'Pray for Palestine';
+  static const String prayForPalestine = 'Pray for Palestine 🇵🇸';
   static const String descriptionPalestine1 =
       "Don't stop talking about Palestine, Our people in Palestine are suffering.";
   static const String descriptionPalestine2 =

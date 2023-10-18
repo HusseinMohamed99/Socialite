@@ -127,7 +127,7 @@ class MyApp extends StatelessWidget {
                         ? ThemeMode.light
                         : ThemeMode.dark,
                 debugShowCheckedModeBanner: false,
-                home: startWidget,
+                home: const OnBoardingScreen(),
               );
             },
           );

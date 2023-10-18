@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:socialite/model/onboarding_model.dart';
 import 'package:socialite/pages/on-boarding/on_board_screen.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
+import 'package:socialite/shared/utils/value_manager.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
@@ -76,9 +77,13 @@ class OnBoardingItems extends StatelessWidget {
             contents[index].image,
           ),
           fit: BoxFit.fill,
+          colorFilter: ColorFilter.mode(
+            ColorManager.titanWithColor.withOpacity(0.9),
+            BlendMode.modulate,
+          ),
         ),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -86,13 +91,10 @@ class OnBoardingItems extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  contents[index].title,
-                  style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                        color: ColorManager.blackColor,
-                      ),
-                ),
-                const SizedBox(height: 20),
+                Text(contents[index].title,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.displayLarge),
+                const SizedBox(height: AppSize.s20),
                 Text(
                   contents[index].description,
                   textAlign: TextAlign.center,
@@ -107,7 +109,7 @@ class OnBoardingItems extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 30.0),
+                  padding: const EdgeInsets.only(bottom: AppPadding.p30),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(
@@ -120,18 +122,19 @@ class OnBoardingItems extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  height: 60,
-                  width: 80,
-                  margin: const EdgeInsets.only(bottom: 15.0),
-                  decoration: const BoxDecoration(
-                      color: Colors.white70,
-                      borderRadius: BorderRadius.all(Radius.circular(15))),
+                  margin: const EdgeInsets.only(bottom: AppMargin.m16),
+                  decoration: BoxDecoration(
+                    color: ColorManager.whiteColor.withOpacity(0.5),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(AppSize.s16),
+                    ),
+                  ),
                   child: IconButton(
                     icon: Icon(
                       currentIndex == contents.length - 1
                           ? Icons.arrow_forward
                           : Icons.arrow_forward,
-                      color: Colors.black54,
+                      color: ColorManager.titanWithColor,
                     ),
                     onPressed: () {
                       if (currentIndex == contents.length - 1) {
@@ -143,7 +146,7 @@ class OnBoardingItems extends StatelessWidget {
                         );
                       }
                       controller.nextPage(
-                        duration: const Duration(milliseconds: 2),
+                        duration: const Duration(milliseconds: 1),
                         curve: Curves.bounceIn,
                       );
                     },
@@ -167,10 +170,10 @@ class BuildDotWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 10,
-      width: currentIndex == index ? 25 : 10,
-      margin: const EdgeInsets.only(right: 5),
+      width: currentIndex == index ? AppSize.s28 : AppSize.s10,
+      margin: const EdgeInsets.only(right: AppMargin.m4),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(AppSize.s20),
         color: currentIndex == index
             ? ColorManager.whiteColor
             : ColorManager.greyColor,
