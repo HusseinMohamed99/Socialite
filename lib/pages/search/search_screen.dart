@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -83,7 +84,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   focusedBorder: InputBorder.none,
                   disabledBorder: InputBorder.none,
                   border: InputBorder.none,
-                  hintText: 'Search',
+                  hintText: AppString.search,
                   hintStyle: GoogleFonts.roboto(
                     color: ColorManager.greyColor,
                     fontSize: 18.sp,
@@ -93,7 +94,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 autocorrect: true,
                 validator: (value) {
                   if (value!.trim().isEmpty) {
-                    return 'The search can\'t be empty';
+                    return AppString.emptySearch;
                   }
                   return null;
                 },
@@ -121,7 +122,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       ),
                       SizedBox(height: 15.h),
                       Text(
-                        'No result is found !',
+                        AppString.noResult,
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ],
@@ -185,7 +186,7 @@ class UsersBuilderItems extends StatelessWidget {
                   ),
                   SizedBox(height: 5.h),
                   Text(
-                    '${SocialCubit.get(context).users.length - 1} mutual friends',
+                    '${SocialCubit.get(context).users.length - 1} ${AppString.mutualFriends}',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(

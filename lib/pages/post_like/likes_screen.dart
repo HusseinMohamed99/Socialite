@@ -10,6 +10,7 @@ import 'package:socialite/shared/components/indicator.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 class LikesScreen extends StatelessWidget {
@@ -27,7 +28,7 @@ class LikesScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              'Likes',
+              AppString.likes,
               style: Theme.of(context).textTheme.titleLarge,
             ),
             automaticallyImplyLeading: true,
@@ -50,11 +51,11 @@ class LikesScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "No likes yet,\nPut your like",
+                        AppString.noLikes,
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       Text(
-                        "First Like ❤️",
+                        AppString.firstLikes,
                         style: Theme.of(context).textTheme.titleLarge,
                       )
                     ],
@@ -148,7 +149,7 @@ class UsersLikedItem extends StatelessWidget {
                       color: ColorManager.blueColor,
                     ),
                     Text(
-                      'add Friend',
+                      AppString.addFriend,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ],

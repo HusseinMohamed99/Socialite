@@ -9,6 +9,7 @@ import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 class EditPosts extends StatelessWidget {
@@ -31,8 +32,9 @@ class EditPosts extends StatelessWidget {
             Navigator.pop(context);
             SocialCubit.get(context).removePostImage();
             showToast(
-                text: 'Your post is Edited successfully',
-                state: ToastStates.success);
+              text: AppString.editPostSuccessfully,
+              state: ToastStates.success,
+            );
           }
         },
         builder: (context, state) {
@@ -56,7 +58,7 @@ class EditPosts extends StatelessWidget {
               ),
               titleSpacing: 1,
               title: Text(
-                'Edit Your Post',
+                AppString.editPost,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               actions: [
@@ -80,7 +82,7 @@ class EditPosts extends StatelessWidget {
                     }
                   },
                   child: Text(
-                    'Update',
+                    AppString.update,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
@@ -129,7 +131,7 @@ class EditPosts extends StatelessWidget {
                                     ),
                                     SizedBox(width: 5.w),
                                     Text(
-                                      'public',
+                                      AppString.public,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodySmall!
@@ -156,7 +158,7 @@ class EditPosts extends StatelessWidget {
                               .copyWith(color: ColorManager.blackColor),
                           controller: post,
                           decoration: InputDecoration(
-                            hintText: "' What's on your mind ? '",
+                            hintText: AppString.yourMind,
                             hintStyle: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
@@ -254,7 +256,7 @@ class EditPosts extends StatelessWidget {
                               cubit.getPostImage();
                             },
                             label: Text(
-                              'Add photo'.toUpperCase(),
+                              AppString.addPhoto.toUpperCase(),
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
                             icon: Icon(

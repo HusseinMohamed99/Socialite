@@ -103,4 +103,20 @@ class AppString {
       "Enter the E-mail address associated with your account";
   static const String emailAddress = 'E-mail Address';
   static const String resetPassword = 'Reset Password';
+  static const String editPostSuccessfully = 'Your post is Edited successfully';
+  static const String editPost = 'Edit Post';
+  static const String update = 'Update';
+  static const String likes = 'Likes';
+  static const String noLikes = 'No likes yet,\nPut your like';
+  static const String firstLikes = 'First Like ❤️';
+  static const String updateDataSuccessfully = 'Update Data Successfully';
+  static const String updateDataFailed = 'Update Data Failed';
+  static const String enterBio = 'Please enter your bio';
+  static const String bio = 'Bio...';
+  static const String portfolio = 'Portfolio';
+  static const String enterPortfolio = 'Please enter your portfolio';
+  static const String search = 'Search';
+  static const String emptySearch = "Search can't be empty";
+  static const String noResult = "No result is found !";
+  static const String mutualFriends = "mutual friends";
 }
