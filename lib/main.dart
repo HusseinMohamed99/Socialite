@@ -1,9 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:socialite/firebase_options.dart';
 import 'package:socialite/layout/Home/home_layout.dart';
-import 'package:socialite/pages/Login/login_screen.dart';
+import 'package:socialite/pages/Home/home_page.dart';
 import 'package:socialite/pages/on-boarding/on_boarding_screen.dart';
 import 'package:socialite/shared/components/show_toast.dart';
+import 'package:socialite/shared/cubit/Internet/internet_bloc.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
 import 'package:socialite/shared/bloc_observer.dart';
@@ -71,7 +72,7 @@ void main() async {
     if (uId != null) {
       widget = const HomeLayout();
     } else {
-      widget = const LoginScreen();
+      widget = const HomePage();
     }
   } else {
     widget = const OnBoardingScreen();
@@ -97,12 +98,14 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => SocialCubit()
-            ..getUserData()
             ..getPosts()
             ..getStories()
             ..changeAppMode(
               fromShared: isDark,
             ),
+        ),
+        BlocProvider(
+          create: (context) => InternetCubit(),
         ),
       ],
       child: BlocConsumer<SocialCubit, SocialStates>(
@@ -127,7 +130,7 @@ class MyApp extends StatelessWidget {
                         ? ThemeMode.light
                         : ThemeMode.dark,
                 debugShowCheckedModeBanner: false,
-                home: const OnBoardingScreen(),
+                home: startWidget,
               );
             },
           );

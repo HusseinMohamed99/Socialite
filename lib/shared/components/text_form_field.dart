@@ -127,3 +127,64 @@ class DefaultTextFormField extends StatelessWidget {
     );
   }
 }
+
+class CustomTextFormField extends StatelessWidget {
+  const CustomTextFormField({
+    super.key,
+    required this.prefixIcon,
+    required this.controller,
+    required this.focusNode,
+    required this.textInputAction,
+    required this.hintText,
+    required this.textInputType,
+    required this.onFieldSubmitted,
+    this.validator,
+    this.onChanged,
+    this.suffixIconOnTap,
+    this.obscureText = false,
+    this.suffixIcon,
+  });
+
+  final IconData prefixIcon;
+  final bool obscureText;
+  final IconData? suffixIcon;
+  final TextEditingController controller;
+  final FocusNode focusNode;
+  final TextInputAction textInputAction;
+  final String hintText;
+  final TextInputType textInputType;
+  final Function(String) onFieldSubmitted;
+  final Function(String?)? onChanged;
+  final String? Function(String?)? validator;
+  final Function()? suffixIconOnTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      focusNode: focusNode,
+      textInputAction: textInputAction,
+      onFieldSubmitted: onFieldSubmitted,
+      validator: validator,
+      obscureText: obscureText,
+      obscuringCharacter: '*',
+      cursorColor: Colors.black,
+      cursorHeight: 20,
+      keyboardType: textInputType,
+      onChanged: onChanged,
+      decoration: InputDecoration(
+        hintText: hintText,
+        suffixIcon:
+            GestureDetector(onTap: suffixIconOnTap, child: Icon(suffixIcon)),
+        prefixIcon: Icon(prefixIcon),
+        filled: true,
+        fillColor: const Color(0xffdbe4eb),
+        border: const OutlineInputBorder(),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide.none,
+        ),
+      ),
+    );
+  }
+}

@@ -6,7 +6,7 @@ import 'package:socialite/shared/utils/app_string.dart';
 
 void logOut(context) {
   CacheHelper.removeData(
-    key: AppString.token,
+    key: AppString.uId,
   ).then((value) {
     if (value) {
       FirebaseAuth.instance.signOut();

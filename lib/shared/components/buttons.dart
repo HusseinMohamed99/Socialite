@@ -19,7 +19,7 @@ Widget defaultMaterialButton({
     height: height ?? 40.h,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(
-        radius ?? 8,
+        radius ?? 12,
       ).r,
       color: color ?? ColorManager.whiteColor,
     ),
@@ -29,7 +29,10 @@ Widget defaultMaterialButton({
       },
       child: Text(
         isUpperCase ? text.toUpperCase() : text,
-        style: Theme.of(context).textTheme.headlineMedium,
+        style: Theme.of(context)
+            .textTheme
+            .headlineMedium!
+            .copyWith(color: textColor),
       ),
     ),
   );

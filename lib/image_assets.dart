@@ -5,10 +5,6 @@ class Assets {
   /// assets/images/Achievement.svg
   static const String imagesAchievement = "assets/images/Achievement.svg";
 
-  /// Assets for imagesBack
-  /// assets/images/back.jpg
-  static const String imagesBack = "assets/images/back.jpg";
-
   /// Assets for imagesBackground
   /// assets/images/Background.jpg
   static const String imagesBackground = "assets/images/Background.jpg";
@@ -20,6 +16,10 @@ class Assets {
   /// Assets for imagesError
   /// assets/images/error.svg
   static const String imagesError = "assets/images/error.svg";
+
+  /// Assets for imagesErrorNetwork
+  /// assets/images/errorNetwork.svg
+  static const String imagesErrorNetwork = "assets/images/errorNetwork.svg";
 
   /// Assets for imagesGoogle
   /// assets/images/google.svg

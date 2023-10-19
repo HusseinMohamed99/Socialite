@@ -22,15 +22,92 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
+import 'package:socialite/shared/utils/my_validators.dart';
+import 'package:socialite/shared/utils/value_manager.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
+    final passwordFocusNode = FocusNode();
+    final emailFocusNode = FocusNode();
+    final formKey = GlobalKey<FormState>();
+
+    TextTheme textTheme = Theme.of(context).textTheme;
+
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+      ),
+      child: Scaffold(
+        backgroundColor: SocialCubit.get(context).isDark
+            ? ColorManager.primaryColor
+            : ColorManager.primaryDarkColor,
+        body: Form(
+          key: formKey,
+          child: Column(
+            children: [
+              const ImagesWidget(),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  padding: const EdgeInsets.all(AppPadding.p16),
+                  decoration: BoxDecoration(
+                    color: SocialCubit.get(context).isDark
+                        ? ColorManager.whiteColor
+                        : ColorManager.titanWithColor,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(25),
+                      topRight: Radius.circular(25),
+                    ),
+                  ),
+                  alignment: Alignment.topCenter,
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    keyboardDismissBehavior:
+                        ScrollViewKeyboardDismissBehavior.onDrag,
+                    child: LoginWidget(
+                      textTheme: textTheme,
+                      emailController: emailController,
+                      emailFocusNode: emailFocusNode,
+                      passwordFocusNode: passwordFocusNode,
+                      passwordController: passwordController,
+                      formKey: formKey,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class LoginWidget extends StatelessWidget {
+  const LoginWidget({
+    super.key,
+    required this.textTheme,
+    required this.emailController,
+    required this.emailFocusNode,
+    required this.passwordFocusNode,
+    required this.passwordController,
+    required this.formKey,
+  });
+
+  final TextTheme textTheme;
+  final TextEditingController emailController;
+  final FocusNode emailFocusNode;
+  final FocusNode passwordFocusNode;
+  final TextEditingController passwordController;
+  final GlobalKey<FormState> formKey;
+
+  @override
+  Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginStates>(
@@ -56,9 +133,9 @@ class LoginScreen extends StatelessWidget {
                 },
               );
               SocialCubit.get(context).getUserData();
-              SocialCubit.get(context).getPosts();
-              SocialCubit.get(context).getAllUsers();
-              SocialCubit.get(context).getStories();
+              // SocialCubit.get(context).getPosts();
+              // SocialCubit.get(context).getAllUsers();
+              // SocialCubit.get(context).getStories();
 
               showToast(
                 text: AppString.loginSuccessfully,
@@ -72,239 +149,184 @@ class LoginScreen extends StatelessWidget {
             );
           }
         },
-        builder: (context, state) {
-          return AnnotatedRegion<SystemUiOverlayStyle>(
-            value: const SystemUiOverlayStyle(
-              statusBarColor: Colors.transparent,
-            ),
-            child: Scaffold(
-              backgroundColor: SocialCubit.get(context).isDark
-                  ? ColorManager.primaryColor
-                  : ColorManager.primaryDarkColor,
-              body: Form(
-                key: formKey,
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: SvgPicture.asset(
-                              Assets.imagesGroup1318,
-                            ),
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: SvgPicture.asset(
-                              Assets.imagesWww,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Container(
-                        padding: const EdgeInsets.all(15).r,
-                        decoration: BoxDecoration(
-                          color: SocialCubit.get(context).isDark
-                              ? ColorManager.whiteColor
-                              : ColorManager.titanWithColor,
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(25),
-                            topRight: Radius.circular(25),
-                          ).r,
-                        ),
-                        alignment: Alignment.topCenter,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                AppString.signInNow,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineLarge!
-                                    .copyWith(
-                                      color: ColorManager.blackColor,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                              ),
-                              SizedBox(height: 10.h),
-                              Text(
-                                AppString.yourInformation,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge!
-                                    .copyWith(
-                                      color: ColorManager.greyColor,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                              ),
-                              SizedBox(height: 20.h),
-                              DefaultTextFormField(
-                                color: ColorManager.greyColor,
-                                controller: emailController,
-                                keyboardType: TextInputType.emailAddress,
-                                prefix: Icons.email,
-                                validate: (String? value) {
-                                  if (value!.isEmpty) {
-                                    return AppString.enterEmail;
-                                  }
-                                  return null;
-                                },
-                                label: AppString.email,
-                              ),
-                              SizedBox(height: 15.h),
-                              DefaultTextFormField(
-                                color: ColorManager.greyColor,
-                                controller: passwordController,
-                                keyboardType: TextInputType.visiblePassword,
-                                prefix: Icons.key,
-                                suffix: LoginCubit.get(context).suffix,
-                                isPassword: LoginCubit.get(context).isPassword,
-                                suffixPressed: () {
-                                  LoginCubit.get(context).changePassword();
-                                },
-                                validate: (String? value) {
-                                  if (value!.isEmpty) {
-                                    return AppString.enterPassword;
-                                  }
-                                  return null;
-                                },
-                                label: AppString.password,
-                              ),
-                              Align(
-                                alignment: Alignment.bottomRight,
-                                child: defaultTextButton(
-                                  function: () {
-                                    navigateTo(context, RestPasswordScreen());
-                                  },
-                                  text: AppString.forgotPassword,
-                                  context: context,
-                                  color: ColorManager.greyColor,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 14.sp,
-                                ),
-                              ),
-                              SizedBox(height: 15.h),
-                              LoginCubit.get(context).isCheck
-                                  ? ConditionalBuilder(
-                                      condition: state is! LoginLoadingState,
-                                      builder: (context) {
-                                        return defaultMaterialButton(
-                                          function: () {
-                                            if (formKey.currentState!
-                                                .validate()) {
-                                              LoginCubit.get(context).userLogin(
-                                                email: emailController.text,
-                                                password:
-                                                    passwordController.text,
-                                              );
-                                            }
-                                          },
-                                          text: AppString.signIn,
-                                          textColor: ColorManager.whiteColor,
-                                          radius: 10.r,
-                                          context: context,
-                                        );
-                                      },
-                                      fallback: (context) {
-                                        return const Center(
-                                          child: AdaptiveIndicator(),
-                                        );
-                                      },
-                                    )
-                                  : Container(
-                                      alignment: Alignment.center,
-                                      width: double.infinity,
-                                      height: 48.h,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10).r,
-                                        color: ColorManager.mainColor
-                                            .withOpacity(0.4),
-                                      ),
-                                      child: Text(
-                                        AppString.signIn.toUpperCase(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineSmall!
-                                            .copyWith(
-                                              color: ColorManager.whiteColor,
-                                            ),
-                                      ),
-                                    ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      checkBox(
-                                        context,
-                                        color: ColorManager.greyColor,
-                                      ),
-                                      Text(
-                                        AppString.youAgree,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelLarge!
-                                            .copyWith(
-                                              color: ColorManager.blackColor,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 45).r,
-                                    child: Text(
-                                      AppString.conditions,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelLarge!
-                                          .copyWith(
-                                            height: 0.2,
-                                            color: ColorManager.greenColor,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 40.h),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    AppString.noAccount,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleLarge!
-                                        .copyWith(
-                                            color: ColorManager.blackColor),
-                                  ),
-                                  defaultTextButton(
-                                    function: () {
-                                      navigateTo(
-                                          context, const RegisterScreen());
-                                    },
-                                    text: AppString.signUp.toUpperCase(),
-                                    color: ColorManager.primaryColor,
-                                    context: context,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+        builder: (BuildContext context, LoginStates state) {
+          return Column(
+            children: [
+              Text(
+                AppString.signInNow,
+                style: textTheme.displayLarge,
+              ),
+              SizedBox(height: 10.h),
+              Text(
+                AppString.yourInformation,
+                style: textTheme.titleMedium,
+              ),
+              SizedBox(height: 20.h),
+              CustomTextFormField(
+                controller: emailController,
+                textInputType: TextInputType.emailAddress,
+                prefixIcon: Icons.email,
+                validator: (String? value) {
+                  return MyValidators.emailValidator(value);
+                },
+                hintText: AppString.email,
+                focusNode: emailFocusNode,
+                textInputAction: TextInputAction.next,
+                onFieldSubmitted: (value) {
+                  FocusScope.of(context).requestFocus(passwordFocusNode);
+                },
+              ),
+              SizedBox(height: 15.h),
+              CustomTextFormField(
+                controller: passwordController,
+                focusNode: passwordFocusNode,
+                textInputType: TextInputType.visiblePassword,
+                prefixIcon: Icons.key,
+                suffixIcon: LoginCubit.get(context).suffix,
+                obscureText: LoginCubit.get(context).isPassword,
+                suffixIconOnTap: () {
+                  LoginCubit.get(context).changePassword();
+                },
+                validator: (value) {
+                  return MyValidators.passwordValidator(value);
+                },
+                hintText: AppString.password,
+                textInputAction: TextInputAction.next,
+                onFieldSubmitted: (value) {},
+              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: defaultTextButton(
+                  function: () {
+                    navigateTo(context, RestPasswordScreen());
+                  },
+                  text: AppString.forgotPassword,
+                  context: context,
+                  color: ColorManager.greyColor,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14.sp,
                 ),
               ),
-            ),
+              SizedBox(height: 15.h),
+              LoginCubit.get(context).isCheck
+                  ? ConditionalBuilder(
+                      condition: state is! LoginLoadingState,
+                      builder: (context) {
+                        return defaultMaterialButton(
+                          color: ColorManager.mainColor,
+                          function: () {
+                            if (formKey.currentState!.validate()) {
+                              LoginCubit.get(context).userLogin(
+                                email: emailController.text,
+                                password: passwordController.text,
+                              );
+                            }
+                          },
+                          text: AppString.signIn,
+                          textColor: ColorManager.whiteColor,
+                          context: context,
+                        );
+                      },
+                      fallback: (context) {
+                        return const Center(
+                          child: AdaptiveIndicator(),
+                        );
+                      },
+                    )
+                  : Container(
+                      alignment: Alignment.center,
+                      width: double.infinity,
+                      height: 40.h,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: ColorManager.mainColor.withOpacity(0.4),
+                      ),
+                      child: Text(
+                        AppString.signIn.toUpperCase(),
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                    ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      checkBox(
+                        context,
+                        color: ColorManager.greyColor,
+                      ),
+                      Text(
+                        AppString.youAgree,
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                              color: ColorManager.blackColor,
+                            ),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 45).r,
+                    child: Text(
+                      AppString.conditions,
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                            height: 0.2,
+                            color: ColorManager.greenColor,
+                            fontWeight: FontWeight.w700,
+                          ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 40.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    AppString.noAccount,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge!
+                        .copyWith(color: ColorManager.blackColor),
+                  ),
+                  defaultTextButton(
+                    function: () {
+                      navigateTo(context, const RegisterScreen());
+                    },
+                    text: AppString.signUp.toUpperCase(),
+                    color: ColorManager.primaryColor,
+                    context: context,
+                  ),
+                ],
+              ),
+            ],
           );
         },
+      ),
+    );
+  }
+}
+
+class ImagesWidget extends StatelessWidget {
+  const ImagesWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Row(
+        children: [
+          Expanded(
+            child: SvgPicture.asset(
+              Assets.imagesGroup1318,
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: SvgPicture.asset(
+              Assets.imagesWww,
+            ),
+          ),
+        ],
       ),
     );
   }
