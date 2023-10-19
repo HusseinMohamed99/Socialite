@@ -137,7 +137,7 @@ class CustomTextFormField extends StatelessWidget {
     required this.textInputAction,
     required this.hintText,
     required this.textInputType,
-    required this.onFieldSubmitted,
+    this.onFieldSubmitted,
     this.validator,
     this.onChanged,
     this.suffixIconOnTap,
@@ -153,7 +153,7 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputAction textInputAction;
   final String hintText;
   final TextInputType textInputType;
-  final Function(String) onFieldSubmitted;
+  final Function(String)? onFieldSubmitted;
   final Function(String?)? onChanged;
   final String? Function(String?)? validator;
   final Function()? suffixIconOnTap;
@@ -161,6 +161,7 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: const TextStyle(color: ColorManager.blackColor),
       controller: controller,
       focusNode: focusNode,
       textInputAction: textInputAction,

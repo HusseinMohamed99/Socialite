@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:socialite/Pages/Login/login_screen.dart';
 import 'package:socialite/image_assets.dart';
@@ -5,161 +6,141 @@ import 'package:socialite/shared/components/indicator.dart';
 import 'package:socialite/shared/components/show_toast.dart';
 import 'package:socialite/shared/cubit/restPasswordCubit/rest_password_cubit.dart';
 import 'package:socialite/shared/cubit/restPasswordCubit/rest_password_state.dart';
-import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/components/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/components/text_form_field.dart';
 import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
+import 'package:socialite/shared/utils/my_validators.dart';
+import 'package:socialite/shared/utils/value_manager.dart';
 
-class RestPasswordScreen extends StatelessWidget {
-  final loginFormKey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
-
-  RestPasswordScreen({Key? key}) : super(key: key);
+class ResetPasswordScreen extends StatelessWidget {
+  const ResetPasswordScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ResetPasswordCubit(),
-      child: BlocConsumer<ResetPasswordCubit, ResetPasswordStates>(
-        listener: (context, state) {
-          if (state is ResetPasswordSuccessState) {
-            showToast(text: AppString.checkMail, state: ToastStates.success);
-            navigateAndFinish(context, const LoginScreen());
-          }
-        },
-        builder: (context, state) {
-          SocialCubit cubit = SocialCubit.get(context);
-          return Scaffold(
-            extendBodyBehindAppBar: true,
-            appBar: AppBar(
-              elevation: 1,
-              leading: IconButton(
-                icon: Icon(
-                  IconlyBroken.arrowLeft2,
-                  size: 30.sp,
-                  color: cubit.isDark
-                      ? ColorManager.blackColor
-                      : ColorManager.titanWithColor,
+    final loginFormKey = GlobalKey<FormState>();
+    final emailController = TextEditingController();
+    final emailFocusNode = FocusNode();
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+      ),
+      child: BlocProvider(
+        create: (context) => ResetPasswordCubit(),
+        child: BlocConsumer<ResetPasswordCubit, ResetPasswordStates>(
+          listener: (context, state) {
+            if (state is ResetPasswordSuccessState) {
+              showToast(text: AppString.checkMail, state: ToastStates.success);
+              navigateAndFinish(context, const LoginScreen());
+            }
+          },
+          builder: (context, state) {
+            TextTheme textTheme = Theme.of(context).textTheme;
+            double screenHeight = MediaQuery.sizeOf(context).height;
+            return Scaffold(
+              appBar: AppBar(
+                elevation: 0,
+                title: Text(
+                  AppString.forgotPassword,
+                  style: textTheme.headlineMedium!
+                      .copyWith(color: ColorManager.whiteColor),
                 ),
-                onPressed: () {
-                  emailController.clear();
-                  Navigator.pop(context);
-                },
+                centerTitle: true,
+                automaticallyImplyLeading: false,
               ),
-              titleSpacing: 1,
-              title: Text(
-                AppString.forgotPassword,
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-            ),
-            body: Stack(
-              alignment: AlignmentDirectional.bottomCenter,
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.fitWidth,
-                      image: AssetImage(Assets.imagesResetPassword),
+              body: Column(
+                children: [
+                  Expanded(
+                    child: Image.asset(
+                      Assets.imagesResetPassword,
                     ),
                   ),
-                ),
-                SingleChildScrollView(
-                  child: Column(
+                  Column(
                     children: [
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(20).r,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              AppString.mailAssociated,
-                              style: Theme.of(context).textTheme.headlineMedium,
-                            ),
-                          ],
+                      Padding(
+                        padding: const EdgeInsets.all(AppPadding.p20),
+                        child: Text(
+                          AppString.mailAssociated,
+                          style: textTheme.headlineMedium!
+                              .copyWith(color: ColorManager.whiteColor),
+                          textAlign: TextAlign.center,
                         ),
                       ),
-                      Container(
-                        height: 150.h,
-                        width: double.infinity,
-                        padding: const EdgeInsets.only(
-                          left: 15,
-                          top: 20,
-                          right: 15,
-                          bottom: 0,
-                        ).r,
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              blurStyle: BlurStyle.outer,
-                              color: ColorManager.greenColor,
-                              blurRadius: 9,
-                              spreadRadius: 10.r,
-                              offset: const Offset(0, 1),
-                            )
-                          ],
-                          border: Border.all(color: ColorManager.dividerColor),
-                          color: cubit.isDark
-                              ? ColorManager.titanWithColor
-                              : ColorManager.greyDarkColor,
-                          borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(50.0),
-                            topLeft: Radius.circular(50.0),
-                          ).r,
+                      Card(
+                        margin: EdgeInsets.zero,
+                        elevation: 0,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(25),
+                            topRight: Radius.circular(25),
+                          ),
                         ),
-                        child: Form(
-                          key: loginFormKey,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(height: 10.h),
-                              DefaultTextFormField(
-                                controller: emailController,
-                                keyboardType: TextInputType.emailAddress,
-                                prefix: IconlyBroken.message,
-                                validate: (value) {
-                                  if (value!.trim().isEmpty) {
-                                    return AppString.enterEmail;
-                                  }
-                                  return null;
-                                },
-                                label: AppString.emailAddress,
-                              ),
-                              const Spacer(),
-                              state is ResetPasswordLoadingState
-                                  ? const Center(
-                                      child: AdaptiveIndicator(),
-                                    )
-                                  : defaultTextButton(
-                                      context: context,
-                                      text: AppString.resetPassword,
-                                      function: () {
-                                        if (loginFormKey.currentState!
-                                            .validate()) {
-                                          ResetPasswordCubit.get(context)
-                                              .resetPassword(
-                                            email: emailController.text,
-                                          );
-                                        }
-                                      },
-                                    ),
+                        child: Container(
+                          height: screenHeight * .25,
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(AppPadding.p20),
+                          decoration: const BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                blurStyle: BlurStyle.outer,
+                                color: ColorManager.greenColor,
+                                blurRadius: 9,
+                                spreadRadius: 10,
+                                offset: Offset(0, 1),
+                              )
                             ],
+                          ),
+                          child: Form(
+                            key: loginFormKey,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CustomTextFormField(
+                                  prefixIcon: IconlyBroken.message,
+                                  controller: emailController,
+                                  focusNode: emailFocusNode,
+                                  textInputAction: TextInputAction.next,
+                                  hintText: AppString.emailAddress,
+                                  textInputType: TextInputType.emailAddress,
+                                  onFieldSubmitted: (value) {},
+                                  validator: (value) {
+                                    return MyValidators.emailValidator(value);
+                                  },
+                                ),
+                                const Spacer(),
+                                state is ResetPasswordLoadingState
+                                    ? const Center(
+                                        child: AdaptiveIndicator(),
+                                      )
+                                    : defaultTextButton(
+                                        context: context,
+                                        color: ColorManager.blueColor,
+                                        text: AppString.resetPassword,
+                                        function: () {
+                                          if (loginFormKey.currentState!
+                                              .validate()) {
+                                            ResetPasswordCubit.get(context)
+                                                .resetPassword(
+                                              email: emailController.text,
+                                            );
+                                          }
+                                        },
+                                      ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ],
                   ),
-                ),
-              ],
-            ),
-          );
-        },
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

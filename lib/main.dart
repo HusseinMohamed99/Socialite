@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:socialite/firebase_options.dart';
 import 'package:socialite/layout/Home/home_layout.dart';
 import 'package:socialite/pages/Home/home_page.dart';
-import 'package:socialite/pages/email_verification/email_verification_screen.dart';
 import 'package:socialite/pages/on-boarding/on_boarding_screen.dart';
 import 'package:socialite/shared/components/show_toast.dart';
 import 'package:socialite/shared/cubit/Internet/internet_bloc.dart';
@@ -132,7 +131,7 @@ class MyApp extends StatelessWidget {
                         ? ThemeMode.light
                         : ThemeMode.dark,
                 debugShowCheckedModeBanner: false,
-                home: const EmailVerificationScreen(),
+                home: startWidget,
               );
             },
           );

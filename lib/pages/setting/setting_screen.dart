@@ -1,7 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:socialite/Pages/password/forget_password.dart';
 import 'package:socialite/pages/password/change_password.dart';
+import 'package:socialite/pages/password/forget_password.dart';
 import 'package:socialite/pages/profile/edit_profile_screen.dart';
 import 'package:socialite/pages/profile/user_profile_screen.dart';
 import 'package:socialite/shared/components/constants.dart';
@@ -118,7 +118,7 @@ class SettingScreen extends StatelessWidget {
                   iconData: IconlyBroken.lock,
                   text: AppString.resetPassword,
                   function: () {
-                    navigateTo(context, RestPasswordScreen());
+                    navigateTo(context, const ResetPasswordScreen());
                   },
                 ),
                 SettingsListItem(

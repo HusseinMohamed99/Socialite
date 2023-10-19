@@ -238,7 +238,7 @@ class LoginWidget extends StatelessWidget {
               alignment: Alignment.bottomRight,
               child: defaultTextButton(
                 function: () {
-                  navigateTo(context, RestPasswordScreen());
+                  navigateTo(context, const ResetPasswordScreen());
                 },
                 text: AppString.forgotPassword,
                 context: context,

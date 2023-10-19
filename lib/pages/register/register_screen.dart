@@ -53,33 +53,32 @@ class RegisterScreen extends StatelessWidget {
               const ImagesWidget(),
               Expanded(
                 flex: 2,
-                child: Container(
-                  padding: const EdgeInsets.all(AppPadding.p16),
-                  decoration: BoxDecoration(
-                    color: SocialCubit.get(context).isDark
-                        ? ColorManager.titanWithColor
-                        : ColorManager.blackColor,
-                    borderRadius: const BorderRadius.only(
+                child: Card(
+                  margin: EdgeInsets.zero,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(25),
                       topRight: Radius.circular(25),
-                    ).r,
+                    ),
                   ),
-                  alignment: Alignment.topCenter,
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    keyboardDismissBehavior:
-                        ScrollViewKeyboardDismissBehavior.onDrag,
-                    child: RegisterWidget(
-                      textTheme: textTheme,
-                      emailController: emailController,
-                      nameController: nameController,
-                      phoneController: phoneController,
-                      emailFocusNode: emailFocusNode,
-                      passwordFocusNode: passwordFocusNode,
-                      passwordController: passwordController,
-                      formKey: formKey,
-                      phoneFocusNode: phoneFocusNode,
-                      nameFocusNode: nameFocusNode,
+                  child: Container(
+                    padding: const EdgeInsets.all(AppPadding.p16),
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      keyboardDismissBehavior:
+                          ScrollViewKeyboardDismissBehavior.onDrag,
+                      child: RegisterWidget(
+                        textTheme: textTheme,
+                        emailController: emailController,
+                        nameController: nameController,
+                        phoneController: phoneController,
+                        emailFocusNode: emailFocusNode,
+                        passwordFocusNode: passwordFocusNode,
+                        passwordController: passwordController,
+                        formKey: formKey,
+                        phoneFocusNode: phoneFocusNode,
+                        nameFocusNode: nameFocusNode,
+                      ),
                     ),
                   ),
                 ),
