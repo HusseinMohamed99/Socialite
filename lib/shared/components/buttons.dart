@@ -16,12 +16,12 @@ Widget defaultMaterialButton({
 }) {
   return Container(
     width: width ?? double.infinity,
-    height: height ?? 48.h,
+    height: height ?? 40.h,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(
-        radius ?? 3,
+        radius ?? 8,
       ).r,
-      color: color ?? ColorManager.mainColor,
+      color: color ?? ColorManager.whiteColor,
     ),
     child: MaterialButton(
       onPressed: () {
@@ -29,10 +29,7 @@ Widget defaultMaterialButton({
       },
       child: Text(
         isUpperCase ? text.toUpperCase() : text,
-        style: Theme.of(context)
-            .textTheme
-            .headlineSmall!
-            .copyWith(color: textColor),
+        style: Theme.of(context).textTheme.headlineMedium,
       ),
     ),
   );

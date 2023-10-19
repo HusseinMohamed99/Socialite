@@ -55,11 +55,15 @@ final getThemeData = {
 
     //Text Theme
     textTheme: TextTheme(
+      headlineLarge:
+          getBoldStyle(color: ColorManager.whiteColor, fontSize: FontSize.s60),
       displayLarge:
           getBoldStyle(color: ColorManager.blackColor, fontSize: FontSize.s40),
       titleLarge: getBoldStyle(
           color: ColorManager.whiteColor, fontSize: FontSize.s18, height: 2),
-      headlineMedium: getRegularStyle(
+      headlineMedium:
+          getBoldStyle(color: ColorManager.blackColor, fontSize: FontSize.s20),
+      headlineSmall: getRegularStyle(
           color: ColorManager.greyDarkColor, fontSize: FontSize.s14),
       titleMedium: getMediumStyle(
           color: ColorManager.blackColor, fontSize: FontSize.s16),

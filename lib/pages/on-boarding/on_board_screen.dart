@@ -1,12 +1,11 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:socialite/Pages/Login/login_screen.dart';
 import 'package:socialite/Pages/Register/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:socialite/image_assets.dart';
+import 'package:socialite/shared/components/buttons.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/loginCubit/cubit.dart';
 import 'package:socialite/shared/cubit/loginCubit/state.dart';
@@ -53,6 +52,9 @@ class _OnBoardState extends State<OnBoard> {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+    double screenHeight = MediaQuery.sizeOf(context).height;
+    double screenWidth = MediaQuery.sizeOf(context).width;
     return BlocProvider(
       create: (context) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginStates>(
@@ -65,9 +67,11 @@ class _OnBoardState extends State<OnBoard> {
               statusBarBrightness: Brightness.dark,
             ),
             child: Container(
+              height: screenHeight,
+              width: screenWidth,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(Assets.imagesBack),
+                  image: AssetImage(Assets.imagesBackground),
                   fit: BoxFit.fill,
                 ),
               ),
@@ -75,23 +79,17 @@ class _OnBoardState extends State<OnBoard> {
                 backgroundColor: Colors.transparent,
                 body: Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                      const EdgeInsets.symmetric(horizontal: AppPadding.p20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const Spacer(),
                       Expanded(
-                        flex: 2,
+                        flex: 3,
                         child: Text(
                           AppString.onBoardingBody,
                           textAlign: TextAlign.start,
-                          style: GoogleFonts.roboto(
-                            textStyle: TextStyle(
-                              color: ColorManager.titanWithColor,
-                              fontSize: 60.sp,
-                              overflow: TextOverflow.visible,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
+                          style: textTheme.headlineLarge,
                         ),
                       ),
                       Expanded(
@@ -100,91 +98,52 @@ class _OnBoardState extends State<OnBoard> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Container(
-                                height: 40.h,
-                                width: 300.w,
-                                decoration: BoxDecoration(
-                                  color: ColorManager.whiteColor,
-                                  borderRadius: BorderRadius.circular(10.0).r,
-                                ),
-                                child: MaterialButton(
-                                  onPressed: () {
-                                    submit();
-                                  },
-                                  child: Text(
-                                    AppString.signIn.toUpperCase(),
-                                    style: GoogleFonts.robotoCondensed(
-                                      textStyle: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                              defaultMaterialButton(
+                                function: () {
+                                  submit();
+                                },
+                                text: AppString.signIn,
+                                context: context,
                               ),
                               SizedBox(height: 10.h),
-                              Container(
-                                height: 40.h,
-                                width: 300.w,
-                                decoration: BoxDecoration(
-                                  color: ColorManager.yellowColor,
-                                  borderRadius: BorderRadius.circular(10.0).r,
-                                ),
-                                child: MaterialButton(
-                                  onPressed: () {
-                                    submitted();
-                                  },
-                                  child: Text(
-                                    AppString.signUp.toUpperCase(),
-                                    style: GoogleFonts.robotoCondensed(
-                                      textStyle: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                              defaultMaterialButton(
+                                function: () {
+                                  submitted();
+                                },
+                                text: AppString.signUp,
+                                context: context,
+                                color: ColorManager.yellowColor,
                               ),
-                              SizedBox(height: 10.h),
-                              Container(
-                                height: 40.h,
-                                width: 300.w,
-                                decoration: BoxDecoration(
-                                  color: ColorManager.titanWithColor,
-                                  borderRadius: BorderRadius.circular(10.0).r,
-                                ),
-                                child: MaterialButton(
-                                  onPressed: () {
-                                    LoginCubit.get(context)
-                                        .getGoogleUserCredentials();
-                                  },
-                                  child: state is LoginGoogleUserLoadingState
-                                      ? const Center(
-                                          child: CircularProgressIndicator())
-                                      : Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            SvgPicture.asset(
-                                                Assets.imagesGoogle),
-                                            Text(
-                                              AppString.signInWithGoogle
-                                                  .toUpperCase(),
-                                              style:
-                                                  GoogleFonts.robotoCondensed(
-                                                textStyle: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 20.sp,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                ),
-                              ),
+                              // SizedBox(height: 10.h),
+                              // Container(
+                              //   height: 40.h,
+                              //   decoration: BoxDecoration(
+                              //     color: ColorManager.whiteColor,
+                              //     borderRadius: BorderRadius.circular(8.0),
+                              //   ),
+                              //   child: MaterialButton(
+                              //     onPressed: () {
+                              //       LoginCubit.get(context)
+                              //           .getGoogleUserCredentials();
+                              //     },
+                              //     child: state is LoginGoogleUserLoadingState
+                              //         ? const Center(child: AdaptiveIndicator())
+                              //         : Row(
+                              //             mainAxisAlignment:
+                              //                 MainAxisAlignment.spaceAround,
+                              //             children: [
+                              //               SvgPicture.asset(
+                              //                 Assets.imagesGoogle,
+                              //               ),
+                              //               Text(
+                              //                 AppString.signInWithGoogle
+                              //                     .toUpperCase(),
+                              //                 style: textTheme.headlineMedium,
+                              //               ),
+                              //             ],
+                              //           ),
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),
