@@ -54,7 +54,7 @@ Widget defaultTextButton({
       text,
       style: Theme.of(context)
           .textTheme
-          .titleLarge!
+          .titleMedium!
           .copyWith(color: color, fontSize: fontSize, fontWeight: fontWeight),
     ),
   );

@@ -89,8 +89,14 @@ class SocialCubit extends Cubit<SocialStates> {
   UserModel? userModel;
   void getUserData() {
     emit(GetUserDataLoadingState());
-    FirebaseFirestore.instance.collection('users').doc(uId).get().then((value) {
+
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uId ?? 'HldPJCwmMnS8k6a7BeWmI2Tz67C2')
+        .get()
+        .then((value) {
       userModel = UserModel.fromJson(value.data()!);
+
       setUserToken();
       emit(GetUserDataSuccessState());
     }).catchError((error) {
@@ -118,8 +124,11 @@ class SocialCubit extends Cubit<SocialStates> {
     emit(SetUSerTokenLoadingState());
     String? token = await FirebaseMessaging.instance.getToken();
     debugPrint(' token $token');
-    await FirebaseFirestore.instance.collection('users').doc(uId).update(
-        {'token': token}).then((value) => emit(SetUSerTokenSuccessState()));
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uId ?? 'HldPJCwmMnS8k6a7BeWmI2Tz67C2')
+        .update({'token': token}).then(
+            (value) => emit(SetUSerTokenSuccessState()));
   }
 
   bool isDark = false;

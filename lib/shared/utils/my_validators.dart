@@ -1,3 +1,5 @@
+import 'package:socialite/shared/utils/app_string.dart';
+
 class MyValidators {
   static String? displayNameValidator(String? displayName) {
     if (displayName == null || displayName.isEmpty) {
@@ -5,6 +7,17 @@ class MyValidators {
     }
     if (displayName.length < 3 || displayName.length > 20) {
       return 'Display name must be between 3 and 20 characters';
+    }
+
+    return null; // Return null if display name is valid
+  }
+
+  static String? phoneValidator(String? phone) {
+    if (phone == null || phone.isEmpty) {
+      return 'Phone Number cannot be empty';
+    }
+    if (phone.length > 11) {
+      return AppString.egyptianNumber;
     }
 
     return null; // Return null if display name is valid

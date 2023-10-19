@@ -61,8 +61,8 @@ void main() async {
   });
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
-  bool? isDark = CacheHelper.getBoolean(key: AppString.isDark);
-  uId = CacheHelper.getData(key: AppString.uId);
+  bool? isDark = CacheHelper.getBoolean(key: 'isDark');
+  uId = CacheHelper.getData(key: 'uId');
   debugPrint('*** User ID == $uId ***');
 
   Widget widget;
@@ -98,6 +98,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => SocialCubit()
+            ..getUserData()
             ..getPosts()
             ..getStories()
             ..changeAppMode(

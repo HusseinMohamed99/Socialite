@@ -1,5 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:socialite/image_assets.dart';
 import 'package:socialite/pages/Login/login_screen.dart';
@@ -19,16 +20,129 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
+import 'package:socialite/shared/utils/my_validators.dart';
+import 'package:socialite/shared/utils/value_manager.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    var formKey = GlobalKey<FormState>();
-    var emailController = TextEditingController();
-    var passwordController = TextEditingController();
-    var nameController = TextEditingController();
-    var phoneController = TextEditingController();
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+    final nameController = TextEditingController();
+    final phoneController = TextEditingController();
+    final nameFocusNode = FocusNode();
+    final phoneFocusNode = FocusNode();
+    final passwordFocusNode = FocusNode();
+    final emailFocusNode = FocusNode();
+    final formKey = GlobalKey<FormState>();
+
+    TextTheme textTheme = Theme.of(context).textTheme;
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+      ),
+      child: Scaffold(
+        backgroundColor: SocialCubit.get(context).isDark
+            ? ColorManager.primaryColor
+            : ColorManager.primaryDarkColor,
+        body: Form(
+          key: formKey,
+          child: Column(
+            children: [
+              const ImagesWidget(),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  padding: const EdgeInsets.all(AppPadding.p16),
+                  decoration: BoxDecoration(
+                    color: SocialCubit.get(context).isDark
+                        ? ColorManager.titanWithColor
+                        : ColorManager.blackColor,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(25),
+                      topRight: Radius.circular(25),
+                    ).r,
+                  ),
+                  alignment: Alignment.topCenter,
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    keyboardDismissBehavior:
+                        ScrollViewKeyboardDismissBehavior.onDrag,
+                    child: RegisterWidget(
+                      textTheme: textTheme,
+                      emailController: emailController,
+                      nameController: nameController,
+                      phoneController: phoneController,
+                      emailFocusNode: emailFocusNode,
+                      passwordFocusNode: passwordFocusNode,
+                      passwordController: passwordController,
+                      formKey: formKey,
+                      phoneFocusNode: phoneFocusNode,
+                      nameFocusNode: nameFocusNode,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ImagesWidget extends StatelessWidget {
+  const ImagesWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Row(
+        children: [
+          Expanded(
+            child: SvgPicture.asset(Assets.imagesGroup1320),
+          ),
+          Expanded(
+            flex: 2,
+            child: SvgPicture.asset(Assets.imagesAchievement),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class RegisterWidget extends StatelessWidget {
+  const RegisterWidget({
+    super.key,
+    required this.textTheme,
+    required this.emailController,
+    required this.nameController,
+    required this.phoneController,
+    required this.emailFocusNode,
+    required this.passwordFocusNode,
+    required this.passwordController,
+    required this.formKey,
+    required this.phoneFocusNode,
+    required this.nameFocusNode,
+  });
+
+  final TextTheme textTheme;
+  final TextEditingController nameController;
+  final TextEditingController emailController;
+  final TextEditingController phoneController;
+  final TextEditingController passwordController;
+  final FocusNode emailFocusNode;
+  final FocusNode passwordFocusNode;
+  final FocusNode phoneFocusNode;
+  final FocusNode nameFocusNode;
+  final GlobalKey<FormState> formKey;
+
+  @override
+  Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) => RegisterCubit(),
       child: BlocConsumer<RegisterCubit, RegisterStates>(
@@ -51,251 +165,169 @@ class RegisterScreen extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          return AnnotatedRegion<SystemUiOverlayStyle>(
-            value: const SystemUiOverlayStyle(
-              statusBarColor: Colors.transparent,
-            ),
-            child: Scaffold(
-              backgroundColor: SocialCubit.get(context).isDark
-                  ? ColorManager.primaryColor
-                  : ColorManager.primaryDarkColor,
-              body: Form(
-                key: formKey,
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: SvgPicture.asset(Assets.imagesGroup1320),
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: SvgPicture.asset(Assets.imagesAchievement),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Container(
-                        padding: const EdgeInsets.all(15),
-                        decoration: BoxDecoration(
-                          color: SocialCubit.get(context).isDark
-                              ? ColorManager.whiteColor
-                              : ColorManager.titanWithColor,
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(25),
-                            topRight: Radius.circular(25),
-                          ).r,
-                        ),
-                        alignment: Alignment.topCenter,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                AppString.signUpNow,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineLarge!
-                                    .copyWith(
-                                      color: ColorManager.blackColor,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                              ),
-                              SizedBox(height: 10.h),
-                              Text(
-                                AppString.yourInformation,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge!
-                                    .copyWith(
-                                      color: ColorManager.greyColor,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                              ),
-                              SizedBox(height: 20.h),
-                              DefaultTextFormField(
-                                controller: nameController,
-                                keyboardType: TextInputType.name,
-                                prefix: Icons.person,
-                                validate: (String? value) {
-                                  if (value!.trim().isEmpty ||
-                                      value.length < 3) {
-                                    return AppString.validName;
-                                  }
-                                  return null;
-                                },
-                                label: AppString.name,
-                              ),
-                              SizedBox(height: 15.h),
-                              DefaultTextFormField(
-                                controller: emailController,
-                                keyboardType: TextInputType.emailAddress,
-                                prefix: Icons.email,
-                                validate: (String? value) {
-                                  if (value!.trim().isEmpty ||
-                                      value.length < 13) {
-                                    return AppString.validEmail;
-                                  }
-                                  return null;
-                                },
-                                label: AppString.email,
-                              ),
-                              SizedBox(height: 15.h),
-                              DefaultTextFormField(
-                                controller: phoneController,
-                                keyboardType: TextInputType.phone,
-                                prefix: Icons.phone,
-                                validate: (String? value) {
-                                  if (value!.trim().isEmpty ||
-                                      value.length < 11 ||
-                                      value.length > 11) {
-                                    return AppString.egyptianNumber;
-                                  }
-                                  return null;
-                                },
-                                label: AppString.phone,
-                              ),
-                              SizedBox(height: 15.h),
-                              DefaultTextFormField(
-                                controller: passwordController,
-                                keyboardType: TextInputType.visiblePassword,
-                                prefix: Icons.key,
-                                suffix: RegisterCubit.get(context).suffixIcon,
-                                isPassword:
-                                    RegisterCubit.get(context).isPassword,
-                                suffixPressed: () {
-                                  RegisterCubit.get(context).changePassword();
-                                },
-                                validate: (String? value) {
-                                  if (value!.trim().isEmpty ||
-                                      value.trim().length < 6) {
-                                    return AppString.validPassword;
-                                  }
-                                  return null;
-                                },
-                                label: '*******',
-                              ),
-                              SizedBox(height: 15.h),
-                              RegisterCubit.get(context).isCheck
-                                  ? ConditionalBuilder(
-                                      condition: state is! RegisterLoadingState,
-                                      builder: (context) {
-                                        return defaultMaterialButton(
-                                          function: () {
-                                            if (formKey.currentState!
-                                                .validate()) {
-                                              RegisterCubit.get(context)
-                                                  .userRegister(
-                                                email: emailController.text,
-                                                password:
-                                                    passwordController.text,
-                                                phone: phoneController.text,
-                                                name: nameController.text,
-                                              );
-                                            }
-                                          },
-                                          text: AppString.signUp,
-                                          textColor: ColorManager.whiteColor,
-                                          radius: 10.r,
-                                          context: context,
-                                        );
-                                      },
-                                      fallback: (context) {
-                                        return const Center(
-                                          child: AdaptiveIndicator(),
-                                        );
-                                      },
-                                    )
-                                  : Container(
-                                      alignment: Alignment.center,
-                                      width: double.infinity,
-                                      height: 48.h,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10).r,
-                                        color: ColorManager.mainColor
-                                            .withOpacity(0.4),
-                                      ),
-                                      child: Text(
-                                        AppString.signUp.toUpperCase(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineSmall!
-                                            .copyWith(
-                                              color: ColorManager.whiteColor,
-                                            ),
-                                      ),
-                                    ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      checkBox(
-                                        context,
-                                        ColorManager.greyColor,
-                                      ),
-                                      Text(
-                                        AppString.youAgree,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelLarge!
-                                            .copyWith(
-                                              color: ColorManager.blackColor,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 45).r,
-                                    child: Text(
-                                      AppString.conditions,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelLarge!
-                                          .copyWith(
-                                            height: 0.2,
-                                            color: ColorManager.greenColor,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 15.h),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    AppString.haveAccount,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleLarge!
-                                        .copyWith(
-                                            color: ColorManager.blackColor),
-                                  ),
-                                  defaultTextButton(
-                                    function: () {
-                                      navigateTo(context, const LoginScreen());
-                                    },
-                                    text: AppString.signIn.toUpperCase(),
-                                    color: ColorManager.mainColor,
-                                    context: context,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+          return Column(
+            children: [
+              Text(
+                AppString.signUpNow,
+                style: textTheme.displayLarge,
               ),
-            ),
+              SizedBox(height: 10.h),
+              Text(
+                AppString.yourInformation,
+                style: textTheme.titleMedium,
+              ),
+              SizedBox(height: 20.h),
+              CustomTextFormField(
+                controller: nameController,
+                textInputType: TextInputType.name,
+                prefixIcon: IconlyBroken.user2,
+                validator: (String? value) {
+                  return MyValidators.displayNameValidator(value);
+                },
+                hintText: AppString.name,
+                focusNode: emailFocusNode,
+                textInputAction: TextInputAction.next,
+                onFieldSubmitted: (value) {
+                  FocusScope.of(context).requestFocus(emailFocusNode);
+                },
+              ),
+              SizedBox(height: 15.h),
+              CustomTextFormField(
+                controller: emailController,
+                textInputType: TextInputType.emailAddress,
+                prefixIcon: IconlyBroken.message,
+                validator: (String? value) {
+                  return MyValidators.emailValidator(value);
+                },
+                hintText: AppString.email,
+                focusNode: emailFocusNode,
+                textInputAction: TextInputAction.next,
+                onFieldSubmitted: (value) {
+                  FocusScope.of(context).requestFocus(phoneFocusNode);
+                },
+              ),
+              SizedBox(height: 15.h),
+              CustomTextFormField(
+                controller: phoneController,
+                textInputType: TextInputType.phone,
+                prefixIcon: IconlyBroken.call,
+                validator: (String? value) {
+                  return MyValidators.phoneValidator(value);
+                },
+                hintText: AppString.phone,
+                focusNode: emailFocusNode,
+                textInputAction: TextInputAction.next,
+                onFieldSubmitted: (value) {
+                  FocusScope.of(context).requestFocus(passwordFocusNode);
+                },
+              ),
+              SizedBox(height: 15.h),
+              CustomTextFormField(
+                controller: passwordController,
+                focusNode: passwordFocusNode,
+                textInputType: TextInputType.visiblePassword,
+                prefixIcon: IconlyBroken.password,
+                suffixIcon: RegisterCubit.get(context).suffixIcon,
+                obscureText: RegisterCubit.get(context).isPassword,
+                suffixIconOnTap: () {
+                  RegisterCubit.get(context).changePassword();
+                },
+                validator: (value) {
+                  return MyValidators.passwordValidator(value);
+                },
+                hintText: AppString.password,
+                textInputAction: TextInputAction.next,
+                onFieldSubmitted: (value) {},
+              ),
+              SizedBox(height: 15.h),
+              RegisterCubit.get(context).isCheck
+                  ? ConditionalBuilder(
+                      condition: state is! RegisterLoadingState,
+                      builder: (context) {
+                        return defaultMaterialButton(
+                          color: ColorManager.mainColor,
+                          function: () {
+                            if (formKey.currentState!.validate()) {
+                              RegisterCubit.get(context).userRegister(
+                                email: emailController.text,
+                                password: passwordController.text,
+                                phone: phoneController.text,
+                                name: nameController.text,
+                              );
+                            }
+                          },
+                          text: AppString.signUp,
+                          textColor: ColorManager.whiteColor,
+                          context: context,
+                        );
+                      },
+                      fallback: (context) {
+                        return const Center(
+                          child: AdaptiveIndicator(),
+                        );
+                      },
+                    )
+                  : Container(
+                      alignment: Alignment.center,
+                      width: double.infinity,
+                      height: 40.h,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: ColorManager.mainColor.withOpacity(0.4),
+                      ),
+                      child: Text(
+                        AppString.signUp.toUpperCase(),
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                    ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      checkBox(
+                        context,
+                        ColorManager.greyColor,
+                      ),
+                      Text(
+                        AppString.youAgree,
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 45).r,
+                    child: Text(
+                      AppString.conditions,
+                      style:
+                          Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                height: 0.2,
+                                color: ColorManager.blueColor,
+                                fontWeight: FontWeight.w700,
+                              ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    AppString.noAccount,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  defaultTextButton(
+                    function: () {
+                      navigateTo(context, const LoginScreen());
+                    },
+                    text: AppString.signIn.toUpperCase(),
+                    color: ColorManager.mainColor,
+                    context: context,
+                  ),
+                ],
+              ),
+            ],
           );
         },
       ),
