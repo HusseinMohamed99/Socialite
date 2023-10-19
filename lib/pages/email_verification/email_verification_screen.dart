@@ -13,12 +13,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
+import 'package:socialite/shared/utils/value_manager.dart';
 
 class EmailVerificationScreen extends StatelessWidget {
   const EmailVerificationScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+    double screenHeight = MediaQuery.sizeOf(context).height;
+    double screenWidth = MediaQuery.sizeOf(context).width;
     return BlocProvider(
       create: (BuildContext context) => EmailVerificationCubit(),
       child: BlocConsumer<EmailVerificationCubit, EmailVerificationStates>(
@@ -42,54 +46,44 @@ class EmailVerificationScreen extends StatelessWidget {
         },
         builder: (context, state) {
           EmailVerificationCubit cubit = EmailVerificationCubit.get(context);
+
           return AnnotatedRegion<SystemUiOverlayStyle>(
             value: const SystemUiOverlayStyle(
               statusBarColor: Colors.transparent,
             ),
             child: Scaffold(
-              backgroundColor: SocialCubit.get(context).isDark
-                  ? ColorManager.titanWithColor
-                  : ColorManager.primaryDarkColor,
-              body: Padding(
-                padding: const EdgeInsets.all(20.0).r,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(height: 50.h),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: SocialCubit.get(context).isDark
+              body: SizedBox(
+                height: screenHeight,
+                width: screenWidth,
+                child: Padding(
+                  padding: const EdgeInsets.all(AppPadding.p20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(height: screenHeight * .1),
+                      CircleAvatar(
+                        radius: 83,
+                        backgroundColor: SocialCubit.get(context).isDark
                             ? ColorManager.redColor
-                            : ColorManager.primaryDarkColor,
-                        borderRadius: BorderRadius.circular(75.0).r,
+                            : ColorManager.yellowColor,
+                        child: const CircleAvatar(
+                          radius: 80,
+                          backgroundImage: AssetImage(Assets.imagesEmail),
+                        ),
                       ),
-                      child: CircleAvatar(
-                        radius: 80.0.r,
-                        backgroundImage: const AssetImage(Assets.imagesEmail),
+                      SizedBox(height: 15.h),
+                      Text(
+                        AppString.emailConfirmation,
+                        style: textTheme.headlineMedium,
                       ),
-                    ),
-                    SizedBox(height: 15.h),
-                    Text(
-                      AppString.emailConfirmation,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineMedium!
-                          .copyWith(fontWeight: FontWeight.w900),
-                    ),
-                    SizedBox(height: 10.h),
-                    Text(
-                      "We're happy you signed up for socialite App. To start exploring the \nSocialite App,Please confirm your\nE-mail Address.",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineSmall!
-                          .copyWith(
-                              fontWeight: FontWeight.w400,
-                              color: ColorManager.greyColor),
-                    ),
-                    SizedBox(height: 45.h),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30.0).r,
-                      child: state is SendVerificationLoadingState
+                      SizedBox(height: 10.h),
+                      Text(
+                        "We're happy you signed up for Socialite. To start exploring the Socialite,Please confirm your\nE-mail Address.",
+                        style: textTheme.titleMedium,
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: 45.h),
+                      state is SendVerificationLoadingState
                           ? const AdaptiveIndicator()
                           : cubit.isEmailSent
                               ? Column(
@@ -109,9 +103,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                           ),
                                           Text(
                                             AppString.emailVerification,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headlineSmall,
+                                            style: textTheme.headlineSmall,
                                           ),
                                         ],
                                       ),
@@ -122,7 +114,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                         backgroundColor:
                                             SocialCubit.get(context).isDark
                                                 ? ColorManager.redColor
-                                                : ColorManager.greyColor,
+                                                : ColorManager.titanWithColor,
                                       ),
                                       onPressed: () {
                                         cubit.sendEmailVerification();
@@ -139,7 +131,7 @@ class EmailVerificationScreen extends StatelessWidget {
                               : Card(
                                   color: SocialCubit.get(context).isDark
                                       ? ColorManager.blueColor
-                                      : ColorManager.greyColor,
+                                      : ColorManager.titanWithColor,
                                   child: defaultTextButton(
                                     context: context,
                                     function: () {
@@ -148,15 +140,12 @@ class EmailVerificationScreen extends StatelessWidget {
                                     text: AppString.sendEmail,
                                   ),
                                 ),
-                    ),
-                    SizedBox(height: 15.h),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30.0).r,
-                      child: cubit.isEmailSent
+                      SizedBox(height: 15.h),
+                      cubit.isEmailSent
                           ? Card(
                               color: SocialCubit.get(context).isDark
                                   ? ColorManager.greenColor
-                                  : ColorManager.greyColor,
+                                  : ColorManager.titanWithColor,
                               child: defaultTextButton(
                                 context: context,
                                 function: () {
@@ -182,15 +171,15 @@ class EmailVerificationScreen extends StatelessWidget {
                           : Card(
                               color: SocialCubit.get(context).isDark
                                   ? ColorManager.blueColor
-                                  : ColorManager.greyColor,
+                                  : ColorManager.titanWithColor,
                               child: defaultTextButton(
                                 context: context,
                                 function: () {},
                                 text: AppString.verified,
                               ),
                             ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
