@@ -114,36 +114,6 @@ class _OnBoardState extends State<OnBoard> {
                                 context: context,
                                 color: ColorManager.yellowColor,
                               ),
-                              // SizedBox(height: 10.h),
-                              // Container(
-                              //   height: 40.h,
-                              //   decoration: BoxDecoration(
-                              //     color: ColorManager.whiteColor,
-                              //     borderRadius: BorderRadius.circular(8.0),
-                              //   ),
-                              //   child: MaterialButton(
-                              //     onPressed: () {
-                              //       LoginCubit.get(context)
-                              //           .getGoogleUserCredentials();
-                              //     },
-                              //     child: state is LoginGoogleUserLoadingState
-                              //         ? const Center(child: AdaptiveIndicator())
-                              //         : Row(
-                              //             mainAxisAlignment:
-                              //                 MainAxisAlignment.spaceAround,
-                              //             children: [
-                              //               SvgPicture.asset(
-                              //                 Assets.imagesGoogle,
-                              //               ),
-                              //               Text(
-                              //                 AppString.signInWithGoogle
-                              //                     .toUpperCase(),
-                              //                 style: textTheme.headlineMedium,
-                              //               ),
-                              //             ],
-                              //           ),
-                              //   ),
-                              // ),
                             ],
                           ),
                         ),
