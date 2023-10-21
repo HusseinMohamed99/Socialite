@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
@@ -14,7 +13,7 @@ void showToast({
       timeInSecForIosWeb: 5,
       backgroundColor: chooseToastColor(state),
       textColor: ColorManager.titanWithColor,
-      fontSize: 16.sp,
+      fontSize: 16,
     );
 
 enum ToastStates { success, error, warning }

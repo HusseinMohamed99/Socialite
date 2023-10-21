@@ -22,6 +22,8 @@ class HomeLayout extends StatelessWidget {
       builder: (context, state) {
         var cubit = SocialCubit.get(context);
         return Scaffold(
+            extendBody: true,
+            resizeToAvoidBottomInset: false,
             appBar: AppBar(
               elevation: 0,
               titleSpacing: 0.0,

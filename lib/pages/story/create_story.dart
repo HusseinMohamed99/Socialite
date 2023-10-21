@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
 import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
+import 'package:socialite/shared/utils/value_manager.dart';
 
 class CreateStory extends StatelessWidget {
   const CreateStory({
@@ -60,36 +61,33 @@ class CreateStory extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0).r,
+                      padding: const EdgeInsets.all(AppPadding.p8),
                       child: Row(
                         children: [
                           CircleAvatar(
-                            radius: 20.r,
+                            radius: 20,
                             child: ImageWithShimmer(
-                              imageUrl: bloc.userModel!.image!,
-                              width: 60.w,
-                              height: 60.h,
-                              radius: 25.r,
+                              imageUrl: bloc.userModel!.image,
+                              width: 60,
+                              height: 60,
+                              radius: 25,
                               boxFit: BoxFit.fill,
                             ),
                           ),
-                          SizedBox(width: 15.w),
+                          const SizedBox(width: 15),
                           Expanded(
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  SocialCubit.get(context).userModel!.name!,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge!
-                                      .copyWith(
-                                          color: ColorManager.titanWithColor),
+                                  SocialCubit.get(context).userModel!.name,
+                                  style: Theme.of(context).textTheme.titleLarge,
                                 ),
-                                SizedBox(width: 5.w),
-                                Icon(
+                                const SizedBox(width: 5),
+                                const Icon(
                                   Icons.check_circle,
                                   color: ColorManager.blueColor,
-                                  size: 24.sp,
                                 )
                               ],
                             ),
@@ -115,10 +113,9 @@ class CreateStory extends StatelessWidget {
                               child: CircleAvatar(
                                 backgroundColor:
                                     Theme.of(context).scaffoldBackgroundColor,
-                                child: Icon(
+                                child: const Icon(
                                   Icons.close_rounded,
                                   color: ColorManager.redColor,
-                                  size: 24.sp,
                                 ),
                               ),
                             ),
@@ -126,28 +123,7 @@ class CreateStory extends StatelessWidget {
                         ],
                       ),
                     ),
-                    if (bloc.addText == false)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15.0).r,
-                        child: TextFormField(
-                          controller: story,
-                          keyboardType: TextInputType.text,
-                          maxLines: 6,
-                          minLines: 1,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium!
-                              .copyWith(color: ColorManager.greyColor),
-                          decoration: InputDecoration(
-                            hintText: AppString.yourMind,
-                            hintStyle: Theme.of(context)
-                                .textTheme
-                                .headlineMedium!
-                                .copyWith(color: ColorManager.greyColor),
-                            border: InputBorder.none,
-                          ),
-                        ),
-                      ),
+                    if (bloc.addText == false) TextFieldForm(story: story),
                     Padding(
                       padding: const EdgeInsets.all(10.0).r,
                       child: Row(
@@ -175,10 +151,9 @@ class CreateStory extends StatelessWidget {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(
+                                    const Icon(
                                       Icons.text_fields,
                                       color: ColorManager.blackColor,
-                                      size: 24.sp,
                                     ),
                                     Text(
                                       bloc.addText
@@ -195,7 +170,7 @@ class CreateStory extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(width: 5.w),
+                          const SizedBox(width: 5),
                           Expanded(
                             child: InkWell(
                               onTap: () {
@@ -223,10 +198,9 @@ class CreateStory extends StatelessWidget {
                                   builder: (context) => Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(
+                                      const Icon(
                                         Icons.upload,
                                         color: ColorManager.blackColor,
-                                        size: 24.sp,
                                       ),
                                       Text(
                                         AppString.addStory,
@@ -255,6 +229,36 @@ class CreateStory extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class TextFieldForm extends StatelessWidget {
+  const TextFieldForm({
+    super.key,
+    required this.story,
+  });
+
+  final TextEditingController story;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20).r,
+      child: TextFormField(
+        keyboardType: TextInputType.multiline,
+        maxLines: 20,
+        minLines: 1,
+        style: Theme.of(context).textTheme.titleLarge,
+        controller: story,
+        decoration: InputDecoration(
+          hintText: AppString.yourMind,
+          hintStyle: Theme.of(context).textTheme.titleMedium,
+          border: InputBorder.none,
+          enabledBorder: InputBorder.none,
+          focusedBorder: InputBorder.none,
+        ),
+      ),
     );
   }
 }

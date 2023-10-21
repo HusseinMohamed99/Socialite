@@ -1052,7 +1052,7 @@ class SocialCubit extends Cubit<SocialStates> {
     emit(GetFriendLoadingState());
     FirebaseFirestore.instance
         .collection('users')
-        .doc(userModel!.uId)
+        .doc(uId)
         .collection('friendRequests')
         .snapshots()
         .listen((value) {

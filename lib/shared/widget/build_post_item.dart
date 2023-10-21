@@ -239,7 +239,7 @@ class BuildPostItem extends StatelessWidget {
                     radius: 15.r,
                     child: ImageWithShimmer(
                       radius: 25.r,
-                      imageUrl: SocialCubit.get(context).userModel!.image!,
+                      imageUrl: SocialCubit.get(context).userModel!.image,
                       width: 40.w,
                       height: 40.h,
                       boxFit: BoxFit.fill,

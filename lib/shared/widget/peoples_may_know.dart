@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:socialite/model/user_model.dart';
 import 'package:socialite/pages/friend/friends_profile_screen.dart';
 import 'package:socialite/shared/components/image_with_shimmer.dart';
@@ -13,12 +13,16 @@ class PeoplesMayKnow extends StatelessWidget {
   final UserModel userModel;
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.sizeOf(context).width;
+    double screenHeight = MediaQuery.sizeOf(context).height;
     return Container(
-      width: 120.w,
+      width: screenWidth * .5,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10).r,
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
         border: Border.all(
-            color: ColorManager.greenColor, style: BorderStyle.solid),
+          color: ColorManager.dividerColor,
+          style: BorderStyle.solid,
+        ),
       ),
       clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Column(
@@ -30,26 +34,31 @@ class PeoplesMayKnow extends StatelessWidget {
               SocialCubit.get(context).getUserPosts(userModel.uId);
             },
             child: ImageWithShimmer(
-              imageUrl: userModel.image!,
-              height: 100.h,
-              width: 120.w,
+              radius: 20,
+              imageUrl: userModel.image,
+              height: screenHeight * .2,
+              width: double.infinity,
               boxFit: BoxFit.fitWidth,
             ),
           ),
-          SizedBox(height: 10.h),
+          const SizedBox(height: 5),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10).r,
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  userModel.name!,
+                  userModel.name,
                   style: Theme.of(context).textTheme.titleLarge,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                SizedBox(height: 5.h),
+                const SizedBox(height: 5),
                 Text(
-                  userModel.bio!,
+                  userModel.bio,
                   style: Theme.of(context).textTheme.bodyLarge,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ],
             ),
@@ -58,9 +67,9 @@ class PeoplesMayKnow extends StatelessWidget {
           InkWell(
             onTap: () {
               SocialCubit.get(context).sendFriendRequest(
-                friendsUID: userModel.uId!,
-                friendName: userModel.name!,
-                friendImage: userModel.image!,
+                friendsUID: userModel.uId,
+                friendName: userModel.name,
+                friendImage: userModel.image,
               );
               SocialCubit.get(context).sendInAppNotification(
                 contentKey: AppString.friendRequest,
@@ -70,24 +79,30 @@ class PeoplesMayKnow extends StatelessWidget {
                 receiverName: userModel.name,
               );
               SocialCubit.get(context).sendFCMNotification(
-                token: userModel.token!,
-                senderName: SocialCubit.get(context).userModel!.name!,
+                token: userModel.token,
+                senderName: SocialCubit.get(context).userModel!.name,
                 messageText: '${SocialCubit.get(context).userModel!.name}'
                     '${AppString.checkFriendRequest}',
               );
             },
             child: Container(
-              color: ColorManager.blueColor,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
+                ),
+                color: ColorManager.blueColor,
+              ),
               child: SocialCubit.get(context).isFriend == false
                   ? SocialCubit.get(context).request
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              Icons.person_add_alt_1_rounded,
+                            const Icon(
+                              IconlyBroken.addUser,
                               color: ColorManager.titanWithColor,
-                              size: 24.sp,
                             ),
+                            const SizedBox(width: 10),
                             Text(
                               AppString.sentRequest,
                               maxLines: 2,
@@ -99,11 +114,11 @@ class PeoplesMayKnow extends StatelessWidget {
                       : Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              Icons.person_add_alt_1_rounded,
+                            const Icon(
+                              IconlyBroken.addUser,
                               color: ColorManager.titanWithColor,
-                              size: 24.sp,
                             ),
+                            const SizedBox(width: 10),
                             Text(
                               AppString.addFriend,
                               maxLines: 2,
@@ -115,11 +130,11 @@ class PeoplesMayKnow extends StatelessWidget {
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.person,
+                        const Icon(
+                          IconlyBroken.user2,
                           color: ColorManager.titanWithColor,
-                          size: 24.sp,
                         ),
+                        const SizedBox(width: 10),
                         Text(
                           AppString.profile,
                           style: Theme.of(context).textTheme.titleLarge,
