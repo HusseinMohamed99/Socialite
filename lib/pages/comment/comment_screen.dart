@@ -29,7 +29,7 @@ class CommentsScreen extends StatelessWidget {
       builder: (context) {
         SocialCubit.get(context).getSinglePost(postId);
         SocialCubit.get(context).getComments(postId);
-        SocialCubit.get(context).getUserData(uId);
+        SocialCubit.get(context).getUserData();
         return BlocConsumer<SocialCubit, SocialStates>(
           listener: (context, state) {},
           builder: (context, state) {

@@ -65,7 +65,7 @@ class LoginScreen extends StatelessWidget {
                     }
                   },
                 );
-                SocialCubit.get(context).getUserData(uId);
+                SocialCubit.get(context).getUserData();
                 SocialCubit.get(context).getPosts();
                 SocialCubit.get(context).getAllUsers();
                 SocialCubit.get(context).getStories();
@@ -155,7 +155,7 @@ class LoginWidget extends StatelessWidget {
     return BlocConsumer<LoginCubit, LoginStates>(
       listener: (context, state) {
         if (state is LoginSuccessState) {
-          SocialCubit.get(context).getUserData(uId);
+          SocialCubit.get(context).getUserData();
           CacheHelper.saveData(value: state.uid, key: AppString.uId)
               .then((value) {
             uId = state.uid;
@@ -174,10 +174,6 @@ class LoginWidget extends StatelessWidget {
                 }
               },
             );
-            SocialCubit.get(context).getUserData(uId);
-            // SocialCubit.get(context).getPosts();
-            // SocialCubit.get(context).getAllUsers();
-            // SocialCubit.get(context).getStories();
 
             showToast(
               text: AppString.loginSuccessfully,

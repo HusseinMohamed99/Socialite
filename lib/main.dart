@@ -96,14 +96,25 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => SocialCubit()
-            ..getPosts()
-            ..getStories()
-            ..changeAppMode(
-              fromShared: isDark,
-            ),
-        ),
+        BlocProvider(create: (context) {
+          if (uId != null) {
+            return SocialCubit()
+              ..getUserData()
+              ..getAllUsers()
+              ..getPosts()
+              ..getStories()
+              ..changeAppMode(
+                fromShared: isDark,
+              );
+          } else {
+            return SocialCubit()
+              ..getPosts()
+              ..getStories()
+              ..changeAppMode(
+                fromShared: isDark,
+              );
+          }
+        }),
         BlocProvider(
           create: (context) => InternetCubit(),
         ),

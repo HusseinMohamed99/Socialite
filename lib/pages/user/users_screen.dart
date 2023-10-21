@@ -1,7 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/model/user_model.dart';
-import 'package:socialite/shared/components/constants.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
 import 'package:flutter/material.dart';
@@ -160,7 +159,7 @@ class _UserScreenState extends State<UserScreen> {
 
   Future<void> onRefresh() async {
     await Future.delayed(const Duration(seconds: 1));
-    SocialCubit.get(BuildContext).getUserData(uId);
+    SocialCubit.get(BuildContext).getUserData();
     SocialCubit.get(BuildContext).getFriendRequest();
     SocialCubit.get(BuildContext).getAllUsers();
     SocialCubit.get(BuildContext)

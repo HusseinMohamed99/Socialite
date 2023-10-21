@@ -37,7 +37,6 @@ class BuildPostItem extends StatelessWidget {
     return Card(
       clipBehavior: Clip.antiAliasWithSaveLayer,
       elevation: 10,
-      margin: const EdgeInsets.symmetric(horizontal: 8).r,
       child: Padding(
         padding: const EdgeInsets.all(10.0).r,
         child: Column(
@@ -58,7 +57,7 @@ class BuildPostItem extends StatelessWidget {
                       SocialCubit.get(context).getUserPosts(postModel.uId);
                     } else {
                       SocialCubit.get(context).getUserPosts(postModel.uId);
-                      SocialCubit.get(context).getUserData(uId);
+                      SocialCubit.get(context).getUserData();
 
                       navigateTo(
                         context,
@@ -93,7 +92,7 @@ class BuildPostItem extends StatelessWidget {
                                     FriendsProfileScreen(postModel.uId));
                               } else {
                                 SocialCubit.get(context).getUserPosts(uId);
-                                SocialCubit.get(context).getUserData(uId);
+                                SocialCubit.get(context).getUserData();
                                 navigateTo(
                                   context,
                                   const UserProfileScreen(),

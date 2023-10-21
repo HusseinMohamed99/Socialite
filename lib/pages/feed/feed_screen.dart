@@ -1,5 +1,4 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:socialite/shared/components/constants.dart';
 import 'package:socialite/shared/components/image_with_shimmer.dart';
 import 'package:socialite/shared/components/indicator.dart';
 import 'package:socialite/shared/components/show_toast.dart';
@@ -44,41 +43,41 @@ class FeedScreen extends StatelessWidget {
             ? RefreshIndicator(
                 onRefresh: () async {
                   cubit.getPosts();
-                  return cubit.getUserData(uId);
+                  return cubit.getUserData();
                 },
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      StoriesItem(
-                        cubit: cubit,
-                      ),
-                      CreatePosts(cubit: cubit),
-                      SizedBox(height: 10.h),
-                      ListView.separated(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: cubit.posts.length,
-                        separatorBuilder: (context, index) {
-                          return SizedBox(height: 10.h);
-                        },
-                        itemBuilder: (context, index) {
-                          return BuildPostItem(
-                            postModel: cubit.posts[index],
-                            userModel: cubit.userModel!,
-                            index: index,
-                          );
-                        },
-                      ),
-                    ],
+                child: SafeArea(
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        StoriesItem(
+                          cubit: cubit,
+                        ),
+                        CreatePosts(cubit: cubit),
+                        SizedBox(height: 10.h),
+                        ListView.separated(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: cubit.posts.length,
+                          separatorBuilder: (context, index) {
+                            return SizedBox(height: 10.h);
+                          },
+                          itemBuilder: (context, index) {
+                            return BuildPostItem(
+                              postModel: cubit.posts[index],
+                              userModel: cubit.userModel!,
+                              index: index,
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               )
             : ConditionalBuilder(
-                condition: cubit.stories.isNotEmpty &&
-                    cubit.posts.isEmpty &&
-                    cubit.userModel != null,
+                condition: cubit.stories.isNotEmpty && cubit.posts.isEmpty,
                 builder: (context) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -152,7 +151,7 @@ class StoriesItem extends StatelessWidget {
                         children: [
                           Align(
                             child: ImageWithShimmer(
-                              imageUrl: cubit.userModel!.image!,
+                              imageUrl: cubit.userModel!.image,
                               radius: 10.r,
                               width: double.infinity,
                               height: double.infinity,
