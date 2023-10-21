@@ -167,12 +167,12 @@ class ProfileInfo extends StatelessWidget {
         ),
         SizedBox(height: 5.h),
         Text(
-          friendsProfile.name,
+          friendsProfile.name!,
           style: Theme.of(context).textTheme.titleLarge,
         ),
         SizedBox(height: 5.h),
         Text(
-          friendsProfile.bio,
+          friendsProfile.bio!,
           style: Theme.of(context)
               .textTheme
               .bodyLarge!
@@ -182,11 +182,11 @@ class ProfileInfo extends StatelessWidget {
         InkWell(
           onTap: () {
             urlLauncher(
-              Uri.parse(friendsProfile.portfolio),
+              Uri.parse(friendsProfile.portfolio!),
             );
           },
           child: Text(
-            friendsProfile.portfolio,
+            friendsProfile.portfolio!,
             style: Theme.of(context)
                 .textTheme
                 .bodyLarge!
@@ -285,8 +285,8 @@ class ProfileInfo extends StatelessWidget {
                     if (SocialCubit.get(context).isFriend == false) {
                       SocialCubit.get(context).sendFriendRequest(
                           friendsUID: userUID!,
-                          friendName: friendsProfile.name,
-                          friendImage: friendsProfile.image);
+                          friendName: friendsProfile.name!,
+                          friendImage: friendsProfile.image!);
                       SocialCubit.get(context).checkFriendRequest(userUID);
                       SocialCubit.get(context).sendInAppNotification(
                           contentKey: AppString.friendRequest,
@@ -295,8 +295,8 @@ class ProfileInfo extends StatelessWidget {
                           receiverId: friendsProfile.uId,
                           receiverName: friendsProfile.name);
                       SocialCubit.get(context).sendFCMNotification(
-                        token: friendsProfile.uId,
-                        senderName: SocialCubit.get(context).userModel!.name,
+                        token: friendsProfile.uId!,
+                        senderName: SocialCubit.get(context).userModel!.name!,
                         messageText:
                             '${SocialCubit.get(context).userModel!.name}'
                             '${AppString.checkFriendRequest}',

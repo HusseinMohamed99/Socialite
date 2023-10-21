@@ -53,7 +53,7 @@ class UserStories extends StatelessWidget {
                     child: CircleAvatar(
                       radius: 20.r,
                       child: ImageWithShimmer(
-                        imageUrl: bloc.userModel!.image,
+                        imageUrl: bloc.userModel!.image!,
                         width: 50.w,
                         height: 50.h,
                         boxFit: BoxFit.fill,
@@ -65,7 +65,7 @@ class UserStories extends StatelessWidget {
                   SizedBox(
                     width: 110.w,
                     child: Text(
-                      bloc.userModel!.name,
+                      bloc.userModel!.name!,
                       style: Theme.of(context)
                           .textTheme
                           .bodyLarge!

@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:socialite/image_assets.dart';
 import 'package:socialite/layout/Home/home_layout.dart';
+import 'package:socialite/shared/components/constants.dart';
 import 'package:socialite/shared/components/indicator.dart';
 import 'package:socialite/shared/components/show_toast.dart';
 import 'package:socialite/shared/cubit/EmailVerification/email_verification_cubit.dart';
@@ -32,7 +33,7 @@ class EmailVerificationScreen extends StatelessWidget {
               text: AppString.createAccountSuccessfully,
               state: ToastStates.success,
             );
-            SocialCubit.get(context).getUserData();
+            SocialCubit.get(context).getUserData(uId);
             SocialCubit.get(context).getPosts();
             SocialCubit.get(context).getAllUsers();
             SocialCubit.get(context).getStories();
@@ -154,9 +155,10 @@ class EmailVerificationScreen extends StatelessWidget {
                                       if (cubit.isEmailVerified) {
                                         SocialCubit.get(context)
                                           ..getPosts()
-                                          ..getUserData()
+                                          ..getUserData(uId)
                                           ..getAllUsers();
-                                        SocialCubit.get(context).getUserData();
+                                        SocialCubit.get(context)
+                                            .getUserData(uId);
                                         navigateAndFinish(
                                           context,
                                           const HomeLayout(),

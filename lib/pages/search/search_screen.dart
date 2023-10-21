@@ -39,7 +39,7 @@ class _SearchScreenState extends State<SearchScreen> {
       results = SocialCubit.get(context)
           .users
           .where((user) =>
-              user.name.toLowerCase().contains(enteredKeyword.toLowerCase()))
+              user.name!.toLowerCase().contains(enteredKeyword.toLowerCase()))
           .toList();
     }
 
@@ -161,10 +161,10 @@ class UsersBuilderItems extends StatelessWidget {
             CircleAvatar(
               radius: 30.r,
               backgroundImage: NetworkImage(
-                user.image,
+                user.image!,
               ),
               child: ImageWithShimmer(
-                imageUrl: user.image,
+                imageUrl: user.image!,
                 width: 50.w,
                 height: 50.h,
                 radius: 25.r,
@@ -178,7 +178,7 @@ class UsersBuilderItems extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    user.name,
+                    user.name!,
                     textAlign: TextAlign.start,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,

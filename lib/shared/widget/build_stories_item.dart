@@ -58,7 +58,7 @@ class BuildStoriesItem extends StatelessWidget {
                           radius: 20,
                           child: ImageWithShimmer(
                             imageUrl: storyModel.uId == bloc!.uId
-                                ? bloc.image
+                                ? bloc.image!
                                 : storyModel.image!,
                             width: 50.w,
                             height: 50.h,
@@ -72,7 +72,7 @@ class BuildStoriesItem extends StatelessWidget {
                         width: 110.w,
                         child: Text(
                           storyModel.uId == bloc.uId
-                              ? bloc.name
+                              ? bloc.name!
                               : storyModel.name!,
                           style: Theme.of(context)
                               .textTheme

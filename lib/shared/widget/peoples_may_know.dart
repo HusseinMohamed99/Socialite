@@ -30,7 +30,7 @@ class PeoplesMayKnow extends StatelessWidget {
               SocialCubit.get(context).getUserPosts(userModel.uId);
             },
             child: ImageWithShimmer(
-              imageUrl: userModel.image,
+              imageUrl: userModel.image!,
               height: 100.h,
               width: 120.w,
               boxFit: BoxFit.fitWidth,
@@ -43,12 +43,12 @@ class PeoplesMayKnow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  userModel.name,
+                  userModel.name!,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 SizedBox(height: 5.h),
                 Text(
-                  userModel.bio,
+                  userModel.bio!,
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
               ],
@@ -58,9 +58,9 @@ class PeoplesMayKnow extends StatelessWidget {
           InkWell(
             onTap: () {
               SocialCubit.get(context).sendFriendRequest(
-                friendsUID: userModel.uId,
-                friendName: userModel.name,
-                friendImage: userModel.image,
+                friendsUID: userModel.uId!,
+                friendName: userModel.name!,
+                friendImage: userModel.image!,
               );
               SocialCubit.get(context).sendInAppNotification(
                 contentKey: AppString.friendRequest,
@@ -70,8 +70,8 @@ class PeoplesMayKnow extends StatelessWidget {
                 receiverName: userModel.name,
               );
               SocialCubit.get(context).sendFCMNotification(
-                token: userModel.token,
-                senderName: SocialCubit.get(context).userModel!.name,
+                token: userModel.token!,
+                senderName: SocialCubit.get(context).userModel!.name!,
                 messageText: '${SocialCubit.get(context).userModel!.name}'
                     '${AppString.checkFriendRequest}',
               );

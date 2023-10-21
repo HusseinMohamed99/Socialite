@@ -80,13 +80,13 @@ class SocialCubit extends Cubit<SocialStates> {
       getUserStories(userModel!.uId);
     }
     if (index == 4) {
-      getUserData();
+      getUserData(uId);
     }
     emit(SocialChangeTabBarState());
   }
 
   UserModel? userModel;
-  void getUserData() {
+  void getUserData(String? uId) {
     emit(GetUserDataLoadingState());
 
     FirebaseFirestore.instance.collection('users').doc(uId).get().then((value) {
@@ -320,7 +320,7 @@ class SocialCubit extends Cubit<SocialStates> {
         .update(model.toMap())
         .then((value) {
       emit(UpdateUserSuccessState());
-      getUserData();
+      getUserData(uId);
     }).catchError((error) {
       emit(UpdateUserErrorState());
     });
@@ -486,14 +486,14 @@ class SocialCubit extends Cubit<SocialStates> {
     required DateTime dateTime,
   }) {
     LikesModel likesModel = LikesModel(
-      uId: userModel!.uId,
-      name: userModel!.name,
-      image: userModel!.image,
+      uId: userModel!.uId!,
+      name: userModel!.name!,
+      image: userModel!.image!,
       dateTime: dateTime,
-      bio: userModel!.bio,
-      cover: userModel!.cover,
-      email: userModel!.email,
-      phone: userModel!.phone,
+      bio: userModel!.bio!,
+      cover: userModel!.cover!,
+      email: userModel!.email!,
+      phone: userModel!.phone!,
     );
     FirebaseFirestore.instance
         .collection('posts')
@@ -511,8 +511,8 @@ class SocialCubit extends Cubit<SocialStates> {
           contentKey: 'like Post',
         );
         SocialCubit.get(context).sendFCMNotification(
-          token: userModel!.token,
-          senderName: userModel!.name,
+          token: userModel!.token!,
+          senderName: userModel!.name!,
           messageText: '${userModel!.name}'
               '${AppString.likePost}',
         );
@@ -754,7 +754,7 @@ class SocialCubit extends Cubit<SocialStates> {
         text: AppString.changePasswordSuccessfully,
       );
       emit(ChangeUserPasswordSuccessState());
-      getUserData();
+      getUserData(uId);
     }).catchError((error) {
       showToast(
         state: ToastStates.error,

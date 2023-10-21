@@ -123,7 +123,7 @@ class CreateNewStories extends StatelessWidget {
                               ).r,
                             ),
                             child: ImageWithShimmer(
-                              imageUrl: cubit.userModel!.image,
+                              imageUrl: cubit.userModel!.image!,
                               width: 100.w,
                               height: 100.h,
                               radius: 15.r,

@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/components/show_toast.dart';
@@ -37,11 +36,11 @@ class EditProfileScreen extends StatelessWidget {
         File? profileImage = SocialCubit.get(context).profileImage;
         File? coverImage = SocialCubit.get(context).coverImage;
         var cubit = SocialCubit.get(context);
-        emailController.text = userModel!.email;
-        bioController.text = userModel.bio;
-        nameController.text = userModel.name;
-        phoneController.text = userModel.phone;
-        portfolioController.text = userModel.portfolio;
+        emailController.text = userModel!.email!;
+        bioController.text = userModel.bio!;
+        nameController.text = userModel.name!;
+        phoneController.text = userModel.phone!;
+        portfolioController.text = userModel.portfolio!;
 
         return SocialCubit.get(context).userModel == null
             ? Scaffold(

@@ -1,4 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:socialite/shared/components/constants.dart';
 import 'package:socialite/shared/components/image_with_shimmer.dart';
 import 'package:socialite/shared/components/indicator.dart';
 import 'package:socialite/shared/components/show_toast.dart';
@@ -43,7 +44,7 @@ class FeedScreen extends StatelessWidget {
             ? RefreshIndicator(
                 onRefresh: () async {
                   cubit.getPosts();
-                  return cubit.getUserData();
+                  return cubit.getUserData(uId);
                 },
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
@@ -151,7 +152,7 @@ class StoriesItem extends StatelessWidget {
                         children: [
                           Align(
                             child: ImageWithShimmer(
-                              imageUrl: cubit.userModel!.image,
+                              imageUrl: cubit.userModel!.image!,
                               radius: 10.r,
                               width: double.infinity,
                               height: double.infinity,

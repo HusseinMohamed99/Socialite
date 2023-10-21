@@ -42,7 +42,7 @@ class SettingScreen extends StatelessWidget {
                         CircleAvatar(
                           radius: 25.r,
                           child: ImageWithShimmer(
-                            imageUrl: userModel.image,
+                            imageUrl: userModel.image!,
                             width: 50.w,
                             height: 50.h,
                             radius: 15.r,
@@ -54,7 +54,7 @@ class SettingScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                userModel.name,
+                                userModel.name!,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: Theme.of(context).textTheme.titleLarge,
@@ -69,11 +69,11 @@ class SettingScreen extends StatelessWidget {
                               InkWell(
                                 onTap: () {
                                   urlLauncher(
-                                    Uri.parse(userModel.portfolio),
+                                    Uri.parse(userModel.portfolio!),
                                   );
                                 },
                                 child: Text(
-                                  userModel.portfolio,
+                                  userModel.portfolio!,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge!

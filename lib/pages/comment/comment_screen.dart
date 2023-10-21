@@ -29,7 +29,7 @@ class CommentsScreen extends StatelessWidget {
       builder: (context) {
         SocialCubit.get(context).getSinglePost(postId);
         SocialCubit.get(context).getComments(postId);
-        SocialCubit.get(context).getUserData();
+        SocialCubit.get(context).getUserData(uId);
         return BlocConsumer<SocialCubit, SocialStates>(
           listener: (context, state) {},
           builder: (context, state) {
@@ -227,10 +227,10 @@ class CommentsScreen extends StatelessWidget {
                                     contentKey: AppString.post,
                                   );
                                   SocialCubit.get(context).sendFCMNotification(
-                                    token: user!.token,
+                                    token: user!.token!,
                                     senderName: SocialCubit.get(context)
                                         .userModel!
-                                        .name,
+                                        .name!,
                                     messageText:
                                         '${SocialCubit.get(context).userModel!.name}'
                                         '${AppString.commentedOnPost}',

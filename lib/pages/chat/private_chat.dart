@@ -34,7 +34,7 @@ class PrivateChatScreen extends StatelessWidget {
     return Builder(
       builder: (context) {
         SocialCubit.get(context).getMessage(
-          receiverId: userModel.uId,
+          receiverId: userModel.uId!,
         );
 
         return BlocConsumer<SocialCubit, SocialStates>(
@@ -77,7 +77,7 @@ class PrivateChatScreen extends StatelessWidget {
                     CircleAvatar(
                       radius: 15.r,
                       child: ImageWithShimmer(
-                        imageUrl: userModel.image,
+                        imageUrl: userModel.image!,
                         width: 30.w,
                         height: 30.h,
                         radius: 15.r,
@@ -86,7 +86,7 @@ class PrivateChatScreen extends StatelessWidget {
                     SizedBox(width: 10.w),
                     Expanded(
                       child: Text(
-                        userModel.name,
+                        userModel.name!,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.titleMedium,
@@ -270,7 +270,7 @@ class PrivateChatScreen extends StatelessWidget {
                                 if (cubit.messageImagePicked == null &&
                                     formKey.currentState!.validate()) {
                                   cubit.sendMessage(
-                                    receiverId: userModel.uId,
+                                    receiverId: userModel.uId!,
                                     dateTime: DateTime.now(),
                                     text: textController.text,
                                     messageId: uuid.v4(),
@@ -282,7 +282,7 @@ class PrivateChatScreen extends StatelessWidget {
                                       index: cubit.message.length);
                                 } else if (cubit.messageImagePicked != null) {
                                   SocialCubit.get(context).uploadMessageImage(
-                                    receiverId: userModel.uId,
+                                    receiverId: userModel.uId!,
                                     datetime: DateTime.now(),
                                     text: textController.text,
                                     messageId: uuid.v4(),
@@ -296,10 +296,10 @@ class PrivateChatScreen extends StatelessWidget {
                                   );
                                 } else {}
                                 cubit.sendFCMNotification(
-                                  senderName: cubit.userModel!.name,
+                                  senderName: cubit.userModel!.name!,
                                   messageText: textController.text,
                                   messageImage: cubit.imageURL,
-                                  token: userModel.token,
+                                  token: userModel.token!,
                                 );
                               },
                               child: Icon(
@@ -390,7 +390,7 @@ class BuildUserMessageItem extends StatelessWidget {
                 CircleAvatar(
                   radius: 12.r,
                   child: ImageWithShimmer(
-                    imageUrl: cubit.userModel!.image,
+                    imageUrl: cubit.userModel!.image!,
                     width: 25.w,
                     height: 25.h,
                     radius: 25.r,
@@ -500,7 +500,7 @@ class BuildUserMessageItem extends StatelessWidget {
                 CircleAvatar(
                   radius: 12.r,
                   child: ImageWithShimmer(
-                    imageUrl: cubit.userModel!.image,
+                    imageUrl: cubit.userModel!.image!,
                     width: 25.w,
                     height: 25.h,
                     radius: 25.r,
@@ -581,7 +581,7 @@ class BuildUserMessageItem extends StatelessWidget {
                 CircleAvatar(
                   radius: 12.r,
                   child: ImageWithShimmer(
-                    imageUrl: cubit.userModel!.image,
+                    imageUrl: cubit.userModel!.image!,
                     width: 25.w,
                     height: 25.h,
                     radius: 25.r,
@@ -644,7 +644,7 @@ class BuildFriendMessageItem extends StatelessWidget {
                 CircleAvatar(
                   radius: 12.r,
                   child: ImageWithShimmer(
-                    imageUrl: cubit.userModel!.image,
+                    imageUrl: cubit.userModel!.image!,
                     width: 25.w,
                     height: 25.h,
                     radius: 25.r,
@@ -720,7 +720,7 @@ class BuildFriendMessageItem extends StatelessWidget {
                 CircleAvatar(
                   radius: 12.r,
                   child: ImageWithShimmer(
-                    imageUrl: cubit.userModel!.image,
+                    imageUrl: cubit.userModel!.image!,
                     width: 25.w,
                     height: 25.h,
                     radius: 25.r,
@@ -829,7 +829,7 @@ class BuildFriendMessageItem extends StatelessWidget {
                 CircleAvatar(
                   radius: 12.r,
                   child: ImageWithShimmer(
-                    imageUrl: cubit.userModel!.image,
+                    imageUrl: cubit.userModel!.image!,
                     width: 25.w,
                     height: 25.h,
                     radius: 25.r,

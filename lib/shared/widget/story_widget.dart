@@ -59,7 +59,7 @@ class StoryItem extends StatelessWidget {
                           radius: 20.r,
                           child: storyModel.uId == cubit.userModel!.uId
                               ? ImageWithShimmer(
-                                  imageUrl: cubit.userModel!.image,
+                                  imageUrl: cubit.userModel!.image!,
                                   radius: 20.r,
                                   width: double.infinity,
                                   height: double.infinity,
@@ -80,7 +80,7 @@ class StoryItem extends StatelessWidget {
                         height: 25.h,
                         child: Text(
                           storyModel.uId == cubit.userModel!.uId
-                              ? cubit.userModel!.name
+                              ? cubit.userModel!.name!
                               : storyModel.name!,
                           style: Theme.of(context)
                               .textTheme

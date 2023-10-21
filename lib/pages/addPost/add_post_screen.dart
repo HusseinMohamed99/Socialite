@@ -103,7 +103,7 @@ class AddPostScreen extends StatelessWidget {
                               radius: 25.r,
                               child: ImageWithShimmer(
                                 radius: 20.r,
-                                imageUrl: userModel.image,
+                                imageUrl: userModel.image!,
                                 width: 50.w,
                                 height: 50.h,
                                 boxFit: BoxFit.fill,
@@ -114,7 +114,7 @@ class AddPostScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  userModel.name,
+                                  userModel.name!,
                                   style: Theme.of(context).textTheme.titleLarge,
                                 ),
                                 Row(

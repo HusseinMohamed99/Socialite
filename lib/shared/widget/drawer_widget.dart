@@ -32,7 +32,7 @@ class DrawerWidget extends StatelessWidget {
                       alignment: AlignmentDirectional.bottomCenter,
                       children: [
                         ImageWithShimmer(
-                          imageUrl: cubit.userModel!.cover,
+                          imageUrl: cubit.userModel!.cover!,
                           boxFit: BoxFit.fill,
                           height: 200.h,
                           width: double.infinity,
@@ -41,7 +41,7 @@ class DrawerWidget extends StatelessWidget {
                     ),
                     SizedBox(height: 35.h),
                     Text(
-                      cubit.userModel!.name,
+                      cubit.userModel!.name!,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.headlineMedium,
@@ -106,7 +106,7 @@ class DrawerWidget extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(65).r,
                         child: ImageWithShimmer(
-                          imageUrl: cubit.userModel!.image,
+                          imageUrl: cubit.userModel!.image!,
                           boxFit: BoxFit.fill,
                           height: 200.h,
                           width: double.infinity,

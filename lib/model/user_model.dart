@@ -1,14 +1,14 @@
 class UserModel {
-  String email;
-  String phone;
-  String name;
-  String uId;
-  String token;
-  String image;
-  String cover;
-  String bio;
-  String portfolio;
-  late bool isEmailVerified;
+  String? email;
+  String? phone;
+  String? name;
+  String? uId;
+  String? token;
+  String? image;
+  String? cover;
+  String? bio;
+  String? portfolio;
+  late bool? isEmailVerified;
 
   UserModel({
     this.uId = '',

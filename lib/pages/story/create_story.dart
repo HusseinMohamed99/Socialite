@@ -66,7 +66,7 @@ class CreateStory extends StatelessWidget {
                           CircleAvatar(
                             radius: 20.r,
                             child: ImageWithShimmer(
-                              imageUrl: bloc.userModel!.image,
+                              imageUrl: bloc.userModel!.image!,
                               width: 60.w,
                               height: 60.h,
                               radius: 25.r,
@@ -78,7 +78,7 @@ class CreateStory extends StatelessWidget {
                             child: Row(
                               children: [
                                 Text(
-                                  SocialCubit.get(context).userModel!.name,
+                                  SocialCubit.get(context).userModel!.name!,
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleLarge!

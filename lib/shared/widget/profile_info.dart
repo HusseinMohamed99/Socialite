@@ -76,12 +76,12 @@ class ProfileInfo extends StatelessWidget {
         ),
         SizedBox(height: 5.h),
         Text(
-          userModel!.name,
+          userModel!.name!,
           style: Theme.of(context).textTheme.titleLarge,
         ),
         SizedBox(height: 5.h),
         Text(
-          userModel!.bio,
+          userModel!.bio!,
           style: Theme.of(context)
               .textTheme
               .bodyLarge!
@@ -91,11 +91,11 @@ class ProfileInfo extends StatelessWidget {
         InkWell(
           onTap: () {
             urlLauncher(
-              Uri.parse(userModel!.portfolio),
+              Uri.parse(userModel!.portfolio!),
             );
           },
           child: Text(
-            userModel!.portfolio,
+            userModel!.portfolio!,
             style: Theme.of(context)
                 .textTheme
                 .bodyLarge!

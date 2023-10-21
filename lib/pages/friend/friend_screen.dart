@@ -102,7 +102,7 @@ class FriendsBuilderItems extends StatelessWidget {
           CircleAvatar(
             radius: 20.r,
             child: ImageWithShimmer(
-              imageUrl: friendsModel.image,
+              imageUrl: friendsModel.image!,
               width: 50.w,
               height: 50.h,
               radius: 10.r,
@@ -111,7 +111,7 @@ class FriendsBuilderItems extends StatelessWidget {
           ),
           SizedBox(width: 10.w),
           Text(
-            friendsModel.name,
+            friendsModel.name!,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.titleLarge,

@@ -110,7 +110,7 @@ class BuildUsersOnlineItems extends StatelessWidget {
                   radius: 26.r,
                   child: ImageWithShimmer(
                     radius: 25.r,
-                    imageUrl: users.image,
+                    imageUrl: users.image!,
                     width: 60.w,
                     height: 50.h,
                     boxFit: BoxFit.fill,
@@ -127,7 +127,7 @@ class BuildUsersOnlineItems extends StatelessWidget {
               ],
             ),
             Text(
-              users.name,
+              users.name!,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
               style: Theme.of(context)
@@ -162,7 +162,7 @@ class BuildUsersItems extends StatelessWidget {
               radius: 25.r,
               child: ImageWithShimmer(
                 radius: 25.r,
-                imageUrl: users.image,
+                imageUrl: users.image!,
                 width: 60.w,
                 height: 50.h,
                 boxFit: BoxFit.fill,
@@ -171,7 +171,7 @@ class BuildUsersItems extends StatelessWidget {
             SizedBox(width: 15.w),
             Expanded(
               child: Text(
-                users.name,
+                users.name!,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.titleLarge,
