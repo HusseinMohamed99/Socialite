@@ -14,7 +14,7 @@ final getThemeData = {
     primaryColorDark: ColorManager.primaryDarkColor,
     disabledColor: ColorManager.greyColor,
     splashColor: ColorManager.primaryColor,
-    scaffoldBackgroundColor: ColorManager.primaryColor,
+    scaffoldBackgroundColor: ColorManager.scaffoldBackgroundColor,
 
     //Cards Theme
     cardColor: ColorManager.titanWithColor,
@@ -143,7 +143,7 @@ final getThemeData = {
   ),
   AppTheme.darkTheme: ThemeData(
     cardColor: ColorManager.blackColor,
-    scaffoldBackgroundColor: ColorManager.primaryDarkColor,
+    scaffoldBackgroundColor: ColorManager.scaffoldBackgroundDarkColor,
     primarySwatch: Colors.blue,
     appBarTheme: const AppBarTheme(
       titleSpacing: 20.0,

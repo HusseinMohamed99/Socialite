@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ColorManager {
+  static const Color scaffoldBackgroundDarkColor = Color(0xFF141E46);
+  static const Color scaffoldBackgroundColor = Color(0xFFF5F7F8);
   static const Color primaryColor = Color(0xFF4718AD);
   static const Color primaryDarkColor = Color(0xff200A4D);
 

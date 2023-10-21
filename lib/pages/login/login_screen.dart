@@ -84,7 +84,9 @@ class LoginScreen extends StatelessWidget {
           },
           builder: (context, state) {
             return Scaffold(
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              backgroundColor: SocialCubit.get(context).isDark
+                  ? ColorManager.primaryColor
+                  : ColorManager.primaryDarkColor,
               body: Form(
                 key: formKey,
                 child: Column(

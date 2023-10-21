@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/components/text_form_field.dart';
+import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 import 'package:socialite/shared/utils/my_validators.dart';
@@ -41,6 +42,9 @@ class ResetPasswordScreen extends StatelessWidget {
             TextTheme textTheme = Theme.of(context).textTheme;
             double screenHeight = MediaQuery.sizeOf(context).height;
             return Scaffold(
+              backgroundColor: SocialCubit.get(context).isDark
+                  ? ColorManager.primaryColor
+                  : ColorManager.primaryDarkColor,
               appBar: AppBar(
                 elevation: 0,
                 title: Text(

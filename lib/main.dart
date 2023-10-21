@@ -98,8 +98,6 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => SocialCubit()
-            ..getUserData(uId)
-            ..getAllUsers()
             ..getPosts()
             ..getStories()
             ..changeAppMode(
