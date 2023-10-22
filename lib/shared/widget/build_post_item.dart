@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttericon/linearicons_free_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:socialite/model/post_model.dart';
@@ -182,10 +181,9 @@ class BuildPostItem extends StatelessWidget {
                       cubit
                           .getComments(SocialCubit.get(context).postsId[index]);
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       IconlyBroken.chat,
-                      color: Colors.orangeAccent,
-                      size: 24.sp,
+                      color: ColorManager.dividerColor,
                     ),
                     label: Text(
                       '${postModel.comments}',

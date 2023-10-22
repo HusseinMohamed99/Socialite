@@ -1,32 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/model/post_model.dart';
 import 'package:socialite/pages/post/edit_post.dart';
+import 'package:socialite/shared/components/constants.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/components/show_toast.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
+import 'package:socialite/shared/utils/value_manager.dart';
 
 Future<dynamic> moreOption(BuildContext context, SocialCubit cubit,
     String postId, PostModel postModel) {
   return showModalBottomSheet(
-    backgroundColor: cubit.isDark
-        ? ColorManager.titanWithColor
-        : ColorManager.primaryDarkColor,
+    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     context: context,
     isScrollControlled: true,
-    shape: RoundedRectangleBorder(
-      borderRadius: const BorderRadius.vertical(top: Radius.circular(30)).r,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
     ),
     builder: (context) {
       return Padding(
-        padding: const EdgeInsets.all(15.0).r,
+        padding: const EdgeInsets.all(AppPadding.p16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (postModel.uId == cubit.userModel!.uId)
+            if (postModel.uId == uId)
               ShowModalSheetItems(
                 function: () {
                   navigateTo(
@@ -37,7 +36,7 @@ Future<dynamic> moreOption(BuildContext context, SocialCubit cubit,
                     ),
                   );
                 },
-                iconData: Icons.edit_location_outlined,
+                iconData: IconlyBroken.editSquare,
                 text: AppString.editPost,
               ),
             ShowModalSheetItems(
@@ -51,7 +50,7 @@ Future<dynamic> moreOption(BuildContext context, SocialCubit cubit,
                 //     postText: model.text,
                 //     postImage: model.postImage);
               },
-              iconData: Icons.turned_in_not_sharp,
+              iconData: IconlyBroken.document,
               text: AppString.savePost,
             ),
             if (postModel.postImage != '')
@@ -59,7 +58,7 @@ Future<dynamic> moreOption(BuildContext context, SocialCubit cubit,
                 function: () {
                   // cubit.saveToGallery(postModel.postImage!);
                 },
-                iconData: IconlyLight.download,
+                iconData: IconlyBroken.download,
                 text: AppString.saveImage,
               ),
             ShowModalSheetItems(
@@ -76,7 +75,7 @@ Future<dynamic> moreOption(BuildContext context, SocialCubit cubit,
                   state: ToastStates.success,
                 );
               },
-              iconData: Icons.share,
+              iconData: IconlyBroken.upload,
               text: AppString.share,
             ),
             if (postModel.uId == cubit.userModel!.uId)
@@ -84,7 +83,7 @@ Future<dynamic> moreOption(BuildContext context, SocialCubit cubit,
                 function: () {
                   cubit.deletePost(postId);
                 },
-                iconData: Icons.delete,
+                iconData: IconlyBroken.delete,
                 text: AppString.deletePost,
               ),
           ],
@@ -113,12 +112,7 @@ class ShowModalSheetItems extends StatelessWidget {
         function!();
       },
       child: Padding(
-        padding: EdgeInsets.only(
-          left: 8.r,
-          right: 8.r,
-          top: 20.r,
-          bottom: 0.r,
-        ),
+        padding: const EdgeInsets.all(AppPadding.p8),
         child: Row(
           children: [
             Icon(
@@ -126,9 +120,9 @@ class ShowModalSheetItems extends StatelessWidget {
               color: cubit.isDark
                   ? ColorManager.blackColor
                   : ColorManager.titanWithColor,
-              size: 30.sp,
+              size: 30,
             ),
-            SizedBox(width: 10.w),
+            const SizedBox(width: 10),
             Text(
               text,
               style: Theme.of(context).textTheme.titleLarge,
