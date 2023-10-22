@@ -3,13 +3,11 @@ import 'package:socialite/image_assets.dart';
 import 'package:socialite/model/user_model.dart';
 import 'package:socialite/shared/components/image_with_shimmer.dart';
 import 'package:socialite/shared/components/my_divider.dart';
-import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 import 'package:socialite/shared/utils/value_manager.dart';
@@ -78,20 +76,20 @@ class FriendsBuilderItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(15).r,
+      padding: const EdgeInsets.all(AppPadding.p16),
       child: Row(
         children: [
           CircleAvatar(
-            radius: 20.r,
+            radius: 20,
             child: ImageWithShimmer(
               imageUrl: friendsModel.image,
-              width: 50.w,
-              height: 50.h,
-              radius: 10.r,
+              width: 50,
+              height: 50,
+              radius: 10,
               boxFit: BoxFit.fill,
             ),
           ),
-          SizedBox(width: 10.w),
+          const SizedBox(width: 10),
           Text(
             friendsModel.name,
             maxLines: 1,
@@ -114,11 +112,10 @@ class FriendsBuilderItems extends StatelessWidget {
                 color: cubit.isDark
                     ? ColorManager.blackColor
                     : ColorManager.titanWithColor,
-                size: 24.sp,
               ),
               itemBuilder: (context) => [
                 PopupMenuItem(
-                  height: 20.h,
+                  height: 20,
                   value: AppString.unFriends,
                   child: Row(
                     children: [
@@ -127,9 +124,8 @@ class FriendsBuilderItems extends StatelessWidget {
                         color: cubit.isDark
                             ? ColorManager.titanWithColor
                             : ColorManager.blackColor,
-                        size: 24.sp,
                       ),
-                      SizedBox(width: 15.w),
+                      const SizedBox(width: 15),
                       Text(
                         AppString.unFriends,
                         style: Theme.of(context).textTheme.titleLarge!.copyWith(
