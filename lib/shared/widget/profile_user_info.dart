@@ -11,8 +11,8 @@ import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 import 'package:socialite/shared/utils/value_manager.dart';
 
-class ProfileInfo extends StatelessWidget {
-  const ProfileInfo({
+class ProfileUserInfo extends StatelessWidget {
+  const ProfileUserInfo({
     super.key,
     required this.userModel,
     required this.cubit,
@@ -34,6 +34,7 @@ class ProfileInfo extends StatelessWidget {
               height: screenHeight * .3,
               child: imagePreview(
                 userModel!.cover,
+                height: screenHeight * .3,
               ),
             ),
             SizedBox(height: screenHeight * .07),
@@ -190,8 +191,7 @@ class ProfileInfo extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 10),
-            const MyDivider(),
+            const MyDivider(vertical: AppPadding.p16),
           ],
         ),
         Positioned(

@@ -69,14 +69,14 @@ Widget imageWithShimmer(
   );
 }
 
-Widget imagePreview(String? image) {
+Widget imagePreview(String? image, {double? height}) {
   return FullScreenWidget(
     child: Center(
-      child: Image.network(
-        "$image",
-        fit: BoxFit.fitWidth,
+      child: ImageWithShimmer(
+        boxFit: BoxFit.fitWidth,
         width: double.infinity,
-        alignment: AlignmentDirectional.topCenter,
+        imageUrl: "$image",
+        height: 400,
       ),
     ),
   );

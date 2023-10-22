@@ -29,7 +29,7 @@ class FriendRequestItems extends StatelessWidget {
             child: CircleAvatar(
               radius: 30.r,
               child: ImageWithShimmer(
-                imageUrl: userModel.image!,
+                imageUrl: userModel.image,
                 height: 60.h,
                 width: 60.w,
                 radius: 25.r,
@@ -43,13 +43,13 @@ class FriendRequestItems extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  userModel.name!,
+                  userModel.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 Text(
-                  userModel.bio!,
+                  userModel.bio,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodyLarge,
@@ -64,13 +64,13 @@ class FriendRequestItems extends StatelessWidget {
                         ),
                         onPressed: () {
                           SocialCubit.get(context).addFriend(
-                            friendsUID: userModel.uId!,
-                            friendName: userModel.name!,
-                            friendImage: userModel.image!,
-                            friendCover: userModel.cover!,
-                            friendBio: userModel.bio!,
-                            friendEmail: userModel.email!,
-                            friendPhone: userModel.phone!,
+                            friendsUID: userModel.uId,
+                            friendName: userModel.name,
+                            friendImage: userModel.image,
+                            friendCover: userModel.cover,
+                            friendBio: userModel.bio,
+                            friendEmail: userModel.email,
+                            friendPhone: userModel.phone,
                           );
                           SocialCubit.get(context)
                               .deleteFriendRequest(userModel.uId);
@@ -82,9 +82,9 @@ class FriendRequestItems extends StatelessWidget {
                             receiverName: userModel.name,
                           );
                           SocialCubit.get(context).sendFCMNotification(
-                            token: userModel.uId!,
+                            token: userModel.uId,
                             senderName:
-                                SocialCubit.get(context).userModel!.name!,
+                                SocialCubit.get(context).userModel!.name,
                             messageText:
                                 '${SocialCubit.get(context).userModel!.name}'
                                 '${AppString.requestAcceptedContent}',

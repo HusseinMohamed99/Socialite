@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/value_manager.dart';
 import 'package:socialite/shared/widget/build_post_item.dart';
-import 'package:socialite/shared/widget/profile_info.dart';
+import 'package:socialite/shared/widget/profile_user_info.dart';
 
 class UserProfileScreen extends StatelessWidget {
   const UserProfileScreen({Key? key}) : super(key: key);
@@ -50,7 +50,7 @@ class UserProfileScreen extends StatelessWidget {
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               slivers: [
                 SliverToBoxAdapter(
-                  child: ProfileInfo(userModel: userModel, cubit: cubit),
+                  child: ProfileUserInfo(userModel: userModel, cubit: cubit),
                 ),
                 SliverToBoxAdapter(
                   child: Padding(
