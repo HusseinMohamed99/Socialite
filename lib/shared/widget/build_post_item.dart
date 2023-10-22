@@ -17,313 +17,298 @@ import 'package:socialite/shared/components/show_toast.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
+import 'package:socialite/shared/utils/value_manager.dart';
 import 'package:socialite/shared/widget/more_options.dart';
 
 class BuildPostItem extends StatelessWidget {
-  const BuildPostItem(
-      {super.key,
-      required this.postModel,
-      required this.index,
-      required this.userModel});
+  const BuildPostItem({
+    super.key,
+    required this.postModel,
+    required this.index,
+    required this.userModel,
+    required this.screenHeight,
+    required this.screenWidth,
+  });
 
   final PostModel postModel;
   final int index;
   final UserModel userModel;
+  final double screenHeight;
+  final double screenWidth;
   @override
   Widget build(BuildContext context) {
-    var cubit = SocialCubit.get(context);
+    SocialCubit cubit = SocialCubit.get(context);
     late String postId;
     postId = SocialCubit.get(context).postsId[index];
-    return Card(
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      elevation: 10,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0).r,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                InkWell(
-                  onTap: () {
-                    if (postModel.uId !=
-                        SocialCubit.get(context).userModel!.uId) {
-                      navigateTo(
-                        context,
-                        FriendsProfileScreen(userModel.uId),
-                      );
-
-                      SocialCubit.get(context).getFriendsProfile(postModel.uId);
-                      SocialCubit.get(context).getUserPosts(postModel.uId);
-                    } else {
-                      SocialCubit.get(context).getUserPosts(postModel.uId);
-                      SocialCubit.get(context).getUserData();
-
-                      navigateTo(
-                        context,
-                        const UserProfileScreen(),
-                      );
-                    }
-                  },
-                  borderRadius: BorderRadius.circular(25).r,
-                  child: CircleAvatar(
-                    radius: 25.r,
-                    child: ImageWithShimmer(
-                      radius: 75.r,
-                      imageUrl: postModel.image!,
-                      width: 100.w,
-                      height: 100.h,
-                      boxFit: BoxFit.fill,
+    return ClipRRect(
+      borderRadius: const BorderRadius.all(Radius.circular(25)),
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(AppPadding.p12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      postMethod(context);
+                    },
+                    borderRadius: BorderRadius.circular(25),
+                    child: CircleAvatar(
+                      radius: 25,
+                      child: ImageWithShimmer(
+                        radius: 75,
+                        imageUrl: postModel.image!,
+                        width: 100,
+                        height: 100,
+                        boxFit: BoxFit.fill,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(width: 15.w),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              if (postModel.uId !=
-                                  SocialCubit.get(context).userModel!.uId) {
-                                navigateTo(context,
-                                    FriendsProfileScreen(postModel.uId));
-                              } else {
-                                SocialCubit.get(context).getUserPosts(uId);
-                                SocialCubit.get(context).getUserData();
-                                navigateTo(
-                                  context,
-                                  const UserProfileScreen(),
-                                );
-                              }
-                            },
-                            child: Text(
-                              postModel.name!,
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                          ),
-                          SizedBox(width: 5.w),
-                          Icon(
-                            Icons.check_circle,
-                            color: Colors.blue,
-                            size: 16.sp,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Icon(
-                            LineariconsFree.earth,
-                            size: 16.sp,
-                            color: Colors.grey,
-                          ),
-                          SizedBox(width: 10.w),
-                          Text(
-                            daysBetween(
-                              DateTime.parse(
-                                postModel.dateTime.toString(),
+                  const SizedBox(width: 15),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                postMethod(context);
+                              },
+                              child: Text(
+                                postModel.name!,
+                                style: Theme.of(context).textTheme.titleLarge,
                               ),
                             ),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge!
-                                .copyWith(color: ColorManager.greyColor),
-                          ),
-                        ],
+                            const SizedBox(width: 5),
+                            const Icon(
+                              IconlyBold.tickSquare,
+                              color: Colors.blue,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Icon(
+                              LineariconsFree.earth,
+                              color: Colors.grey,
+                            ),
+                            const SizedBox(width: 10),
+                            Text(
+                              daysBetween(
+                                DateTime.parse(
+                                  postModel.dateTime.toString(),
+                                ),
+                              ),
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 15),
+                  IconButton(
+                    onPressed: () {
+                      moreOption(context, cubit, postId, postModel);
+                    },
+                    icon: const Icon(
+                      IconlyBroken.moreCircle,
+                      color: ColorManager.greyColor,
+                    ),
+                  ),
+                ],
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: AppPadding.p8),
+                child: MyDivider(vertical: AppPadding.p2),
+              ),
+              Text(
+                '${postModel.text}',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              if (postModel.postImage != '')
+                Stack(
+                  alignment: AlignmentDirectional.topEnd,
+                  children: [
+                    Align(
+                      alignment: AlignmentDirectional.bottomCenter,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: imagePostPreview(
+                          '${postModel.postImage}',
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                SizedBox(width: 15.w),
-                IconButton(
-                  onPressed: () {
-                    moreOption(context, cubit, postId, postModel);
-                  },
-                  icon: Icon(
-                    IconlyBroken.moreCircle,
-                    size: 24.sp,
-                    color: ColorManager.greyColor,
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0).r,
-              child: MyDivider(color: ColorManager.greyColor.withOpacity(0.5)),
-            ),
-            Text(
-              '${postModel.text}',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            if (postModel.postImage != '')
-              Stack(
-                alignment: AlignmentDirectional.topEnd,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Align(
-                    alignment: AlignmentDirectional.bottomCenter,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(15).r,
-                      child: imagePreview(
-                        '${postModel.postImage}',
+                  TextButton.icon(
+                    onPressed: () {
+                      cubit.getLikes(postId);
+                      navigateTo(
+                        context,
+                        LikesScreen(
+                          SocialCubit.get(context).postsId[index],
+                        ),
+                      );
+                    },
+                    icon: const Icon(
+                      IconlyBroken.heart,
+                      color: ColorManager.redColor,
+                    ),
+                    label: Text(
+                      '${postModel.likes}',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge!
+                          .copyWith(color: ColorManager.redColor),
+                    ),
+                  ),
+                  TextButton.icon(
+                    onPressed: () {
+                      navigateTo(
+                        context,
+                        CommentsScreen(
+                          likes: postModel.likes,
+                          postId: postModel.postId,
+                          postUid: postModel.uId,
+                        ),
+                      );
+                      cubit
+                          .getComments(SocialCubit.get(context).postsId[index]);
+                    },
+                    icon: Icon(
+                      IconlyBroken.chat,
+                      color: Colors.orangeAccent,
+                      size: 24.sp,
+                    ),
+                    label: Text(
+                      '${postModel.comments}',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge!
+                          .copyWith(color: ColorManager.dividerColor),
+                    ),
+                  ),
+                ],
+              ),
+              const MyDivider(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      navigateTo(context, const UserProfileScreen());
+                    },
+                    child: CircleAvatar(
+                      radius: 15,
+                      child: ImageWithShimmer(
+                        radius: 25,
+                        imageUrl: userModel.image,
+                        width: 40,
+                        height: 40,
+                        boxFit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      navigateTo(
+                        context,
+                        CommentsScreen(
+                          likes: postModel.likes,
+                          postId: postModel.postId,
+                          postUid: postModel.uId,
+                        ),
+                      );
+                    },
+                    child: Expanded(
+                      child: Text(
+                        AppString.writeComment,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  TextButton.icon(
+                    onPressed: () async {
+                      UserModel? postUser = SocialCubit.get(context).userModel;
+                      DateTime now = DateTime.now();
+                      await SocialCubit.get(context).likeByMe(
+                        postUser: postUser,
+                        context: context,
+                        postModel: postModel,
+                        postId: postId,
+                        dataTime: now,
+                      );
+                    },
+                    label: Text(
+                      AppString.likes,
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                            color: ColorManager.redColor,
+                          ),
+                    ),
+                    icon: const Icon(
+                      IconlyBroken.heart,
+                      color: ColorManager.redColor,
+                    ),
+                  ),
+                  TextButton.icon(
+                    onPressed: () {
+                      SocialCubit.get(context).createPost(
+                        userName: SocialCubit.get(context).userModel!.name,
+                        profileImage: SocialCubit.get(context).userModel!.image,
+                        text: postModel.text!,
+                        postImage: postModel.postImage,
+                        dateTime: DateTime.now(),
+                      );
+                      showToast(
+                        text: AppString.sharedPostSuccessfully,
+                        state: ToastStates.success,
+                      );
+                    },
+                    icon: const Icon(
+                      IconlyBroken.upload,
+                      color: ColorManager.greenColor,
+                    ),
+                    label: Text(
+                      AppString.share,
+                      style: GoogleFonts.roboto(
+                        color: ColorManager.greenColor,
                       ),
                     ),
                   ),
                 ],
               ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextButton.icon(
-                  onPressed: () {
-                    cubit.getLikes(postId);
-                    navigateTo(
-                      context,
-                      LikesScreen(
-                        SocialCubit.get(context).postsId[index],
-                      ),
-                    );
-                  },
-                  icon: Icon(
-                    IconlyBroken.heart,
-                    color: Colors.red,
-                    size: 24.sp,
-                  ),
-                  label: Text(
-                    '${postModel.likes}',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(color: ColorManager.redColor),
-                  ),
-                ),
-                TextButton.icon(
-                  onPressed: () {
-                    navigateTo(
-                      context,
-                      CommentsScreen(
-                        likes: postModel.likes,
-                        postId: postModel.postId,
-                        postUid: postModel.uId,
-                      ),
-                    );
-                    cubit.getComments(SocialCubit.get(context).postsId[index]);
-                  },
-                  icon: Icon(
-                    IconlyBroken.chat,
-                    color: Colors.orangeAccent,
-                    size: 24.sp,
-                  ),
-                  label: Text(
-                    '${postModel.comments}',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(color: ColorManager.orangeColor),
-                  ),
-                ),
-              ],
-            ),
-            MyDivider(
-              color: ColorManager.greyColor.withOpacity(0.4),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                InkWell(
-                  onTap: () {
-                    navigateTo(context, const UserProfileScreen());
-                  },
-                  child: CircleAvatar(
-                    radius: 15.r,
-                    child: ImageWithShimmer(
-                      radius: 25.r,
-                      imageUrl: SocialCubit.get(context).userModel!.image,
-                      width: 40.w,
-                      height: 40.h,
-                      boxFit: BoxFit.fill,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 8.w),
-                InkWell(
-                  onTap: () {
-                    navigateTo(
-                      context,
-                      CommentsScreen(
-                        likes: postModel.likes,
-                        postId: postModel.postId,
-                        postUid: postModel.uId,
-                      ),
-                    );
-                  },
-                  child: SizedBox(
-                    width: 120.w,
-                    child: Text(
-                      AppString.writeComment,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .copyWith(color: ColorManager.greyColor),
-                    ),
-                  ),
-                ),
-                TextButton.icon(
-                  onPressed: () async {
-                    UserModel? postUser = SocialCubit.get(context).userModel;
-                    DateTime now = DateTime.now();
-                    await SocialCubit.get(context).likeByMe(
-                      postUser: postUser,
-                      context: context,
-                      postModel: postModel,
-                      postId: postId,
-                      dataTime: now,
-                    );
-                  },
-                  label: Text(
-                    AppString.likes,
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                          color: ColorManager.redColor,
-                        ),
-                  ),
-                  icon: Icon(
-                    IconlyBroken.heart,
-                    color: ColorManager.redColor,
-                    size: 24.sp,
-                  ),
-                ),
-                TextButton.icon(
-                  onPressed: () {
-                    SocialCubit.get(context).createPost(
-                      userName: SocialCubit.get(context).userModel!.name,
-                      profileImage: SocialCubit.get(context).userModel!.image,
-                      text: postModel.text!,
-                      postImage: postModel.postImage,
-                      dateTime: DateTime.now(),
-                    );
-                    showToast(
-                      text: AppString.sharedPostSuccessfully,
-                      state: ToastStates.success,
-                    );
-                  },
-                  icon: Icon(
-                    IconlyBroken.upload,
-                    color: Colors.green,
-                    size: 24.sp,
-                  ),
-                  label: Text(
-                    AppString.share,
-                    style: GoogleFonts.roboto(
-                      color: Colors.green,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  void postMethod(BuildContext context) {
+    if (postModel.uId != SocialCubit.get(context).userModel!.uId) {
+      navigateTo(
+        context,
+        FriendsProfileScreen(userModel.uId),
+      );
+
+      SocialCubit.get(context).getFriendsProfile(postModel.uId);
+      SocialCubit.get(context).getUserPosts(postModel.uId);
+    } else {
+      SocialCubit.get(context).getUserPosts(postModel.uId);
+      SocialCubit.get(context).getUserData();
+
+      navigateTo(
+        context,
+        const UserProfileScreen(),
+      );
+    }
   }
 }

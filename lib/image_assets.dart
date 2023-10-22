@@ -1,6 +1,10 @@
 class Assets {
   Assets._();
   
+  /// Assets for images404error
+  /// assets/images/404error.svg
+  static const String images404error = "assets/images/404error.svg";
+
   /// Assets for imagesAchievement
   /// assets/images/Achievement.svg
   static const String imagesAchievement = "assets/images/Achievement.svg";

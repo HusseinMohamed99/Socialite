@@ -1,4 +1,5 @@
 import 'package:badges/badges.dart' as badges;
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:socialite/Pages/notifications/notifications_screen.dart';
 import 'package:socialite/Pages/search/search_screen.dart';
@@ -22,90 +23,97 @@ class HomeLayout extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = SocialCubit.get(context);
-        return Scaffold(
-            extendBody: true,
-            resizeToAvoidBottomInset: false,
-            appBar: AppBar(
-              elevation: 0,
-              title: Text(
-                cubit.titles[cubit.currentIndex],
-                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                      fontFamily: GoogleFonts.poppins().fontFamily,
-                      letterSpacing: 10,
+        return AnnotatedRegion<SystemUiOverlayStyle>(
+          value: const SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            statusBarIconBrightness: Brightness.dark,
+            statusBarBrightness: Brightness.dark,
+          ),
+          child: Scaffold(
+              extendBody: true,
+              resizeToAvoidBottomInset: false,
+              appBar: AppBar(
+                elevation: 0,
+                title: Text(
+                  cubit.titles[cubit.currentIndex],
+                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                        fontFamily: GoogleFonts.poppins().fontFamily,
+                        letterSpacing: 10,
+                      ),
+                ),
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      cubit.getAllUsers();
+                      navigateTo(
+                        context,
+                        const SearchScreen(),
+                      );
+                    },
+                    splashColor: ColorManager.blueColor,
+                    splashRadius: 20,
+                    icon: const Icon(
+                      IconlyBroken.search,
                     ),
-              ),
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    cubit.getAllUsers();
-                    navigateTo(
-                      context,
-                      const SearchScreen(),
-                    );
-                  },
-                  splashColor: ColorManager.blueColor,
-                  splashRadius: 20,
-                  icon: const Icon(
-                    IconlyBroken.search,
                   ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    cubit.getInAppNotification();
-                    navigateTo(
-                      context,
-                      const NotificationScreen(),
-                    );
-                  },
-                  splashColor: ColorManager.blueColor,
-                  splashRadius: 20,
-                  icon: SocialCubit.get(context).unReadNotificationsCount == 0
-                      ? tabBarBadge(
-                          context,
-                          icon: IconlyBroken.notification,
-                          count:
-                              SocialCubit.get(context).unReadNotificationsCount,
-                        )
-                      : const Icon(
-                          IconlyBroken.notification,
-                        ),
-                ),
-              ],
-            ),
-            drawer: DrawerWidget(cubit: cubit),
-            bottomNavigationBar: BottomNavigationBar(
-              elevation: 0,
-              showSelectedLabels: false,
-              showUnselectedLabels: false,
-              items: cubit.bottomNavigationBarItem,
-              currentIndex: cubit.currentIndex,
-              onTap: (index) {
-                cubit.changeNavBar(index);
-              },
-            ),
-            body: uId != null
-                ? cubit.screens[cubit.currentIndex]
-                : Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'Please Login First',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                  IconButton(
+                    onPressed: () {
+                      cubit.getInAppNotification();
+                      navigateTo(
+                        context,
+                        const NotificationScreen(),
+                      );
+                    },
+                    splashColor: ColorManager.blueColor,
+                    splashRadius: 20,
+                    icon: SocialCubit.get(context).unReadNotificationsCount == 0
+                        ? tabBarBadge(
+                            context,
+                            icon: IconlyBroken.notification,
+                            count: SocialCubit.get(context)
+                                .unReadNotificationsCount,
+                          )
+                        : const Icon(
+                            IconlyBroken.notification,
                           ),
-                        ),
-                        const SizedBox(height: 20),
-                        ElevatedButton(
-                          onPressed: () {
-                            navigateAndFinish(context, const LoginScreen());
-                          },
-                          child: const Text('Login'),
-                        ),
-                      ],
-                    ),
-                  ));
+                  ),
+                ],
+              ),
+              drawer: DrawerWidget(cubit: cubit),
+              bottomNavigationBar: BottomNavigationBar(
+                elevation: 0,
+                showSelectedLabels: false,
+                showUnselectedLabels: false,
+                items: cubit.bottomNavigationBarItem,
+                currentIndex: cubit.currentIndex,
+                onTap: (index) {
+                  cubit.changeNavBar(index);
+                },
+              ),
+              body: uId != null
+                  ? cubit.screens[cubit.currentIndex]
+                  : Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Please Login First',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          ElevatedButton(
+                            onPressed: () {
+                              navigateAndFinish(context, const LoginScreen());
+                            },
+                            child: const Text('Login'),
+                          ),
+                        ],
+                      ),
+                    )),
+        );
       },
     );
   }

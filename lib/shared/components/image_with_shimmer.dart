@@ -10,13 +10,13 @@ class ImageWithShimmer extends StatelessWidget {
     super.key,
     required this.imageUrl,
     required this.width,
-    required this.height,
+    this.height,
     this.boxFit,
     this.radius,
   });
 
   final String imageUrl;
-  final double height;
+  final double? height;
   final double width;
   final BoxFit? boxFit;
   final double? radius;

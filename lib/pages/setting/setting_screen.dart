@@ -1,4 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:socialite/model/user_model.dart';
 import 'package:socialite/pages/password/change_password.dart';
 import 'package:socialite/pages/password/forget_password.dart';
 import 'package:socialite/pages/profile/edit_profile_screen.dart';
@@ -27,7 +28,7 @@ class SettingScreen extends StatelessWidget {
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        var userModel = SocialCubit.get(context).userModel!;
+        UserModel? userModel = SocialCubit.get(context).userModel!;
         SocialCubit cubit = SocialCubit.get(context);
         return ListView(
           physics: const BouncingScrollPhysics(),

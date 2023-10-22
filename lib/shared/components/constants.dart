@@ -1,8 +1,10 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
 import 'package:intl/intl.dart';
+import 'package:socialite/image_assets.dart';
 import 'package:socialite/shared/components/image_with_shimmer.dart';
 import 'package:socialite/shared/utils/app_string.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -76,7 +78,25 @@ Widget imagePreview(String? image, {double? height}) {
         boxFit: BoxFit.fitWidth,
         width: double.infinity,
         imageUrl: "$image",
-        height: 400,
+        height: height,
+      ),
+    ),
+  );
+}
+
+Widget imagePostPreview(String? image) {
+  return FullScreenWidget(
+    child: Center(
+      child: Image.network(
+        fit: BoxFit.fitWidth,
+        width: double.infinity,
+        "$image",
+        alignment: AlignmentDirectional.topCenter,
+        errorBuilder: (context, error, stackTrace) {
+          return Center(
+            child: SvgPicture.asset(Assets.images404error),
+          );
+        },
       ),
     ),
   );

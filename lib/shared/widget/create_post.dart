@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:socialite/image_assets.dart';
 import 'package:socialite/pages/addPost/add_post_screen.dart';
 import 'package:socialite/shared/components/image_with_shimmer.dart';
 import 'package:socialite/shared/components/navigator.dart';
@@ -9,50 +11,55 @@ import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
 import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
+import 'package:socialite/shared/utils/value_manager.dart';
 
 class CreatePosts extends StatelessWidget {
   const CreatePosts({
     super.key,
-    required this.cubit,
+    required this.screenHeight,
+    required this.screenWidth,
   });
 
-  final SocialCubit cubit;
-
+  final double screenHeight;
+  final double screenWidth;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {},
       builder: (context, state) {
+        SocialCubit cubit = SocialCubit.get(context);
         return Card(
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          elevation: 10,
+          elevation: 3,
           shadowColor: ColorManager.titanWithColor,
-          margin: const EdgeInsets.all(10).r,
+          margin: const EdgeInsets.all(AppPadding.p12),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0).r,
+            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
             child: Row(
               children: [
-                CircleAvatar(
-                  radius: 25.r,
-                  child: ImageWithShimmer(
-                    radius: 25.r,
-                    imageUrl: cubit.userModel!.image,
-                    width: 100.w,
-                    height: 100.h,
-                    boxFit: BoxFit.fill,
-                  ),
-                ),
+                cubit.userModel?.image != null
+                    ? CircleAvatar(
+                        radius: 25,
+                        child: ImageWithShimmer(
+                          radius: 25,
+                          imageUrl: cubit.userModel!.image,
+                          width: 100,
+                          height: 100,
+                          boxFit: BoxFit.fill,
+                        ),
+                      )
+                    : SvgPicture.asset(Assets.images404error),
                 Expanded(
                   child: Container(
-                    width: 220.w,
-                    height: 35.h,
+                    width: screenWidth,
+                    height: screenHeight * .06,
                     clipBehavior: Clip.antiAliasWithSaveLayer,
-                    margin: const EdgeInsets.all(10).r,
+                    margin: const EdgeInsets.all(AppPadding.p8),
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: ColorManager.greyColor.withOpacity(0.1),
                       ),
-                      borderRadius: BorderRadius.circular(25).r,
+                      borderRadius: BorderRadius.circular(25),
                     ),
                     child: TextButton(
                       clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -70,8 +77,8 @@ class CreatePosts extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  width: 2.w,
-                  height: 50.h,
+                  width: 2,
+                  height: 50,
                   color: Colors.grey,
                 ),
                 IconButton(
@@ -80,13 +87,12 @@ class CreatePosts extends StatelessWidget {
                     navigateTo(context, const AddPostScreen());
                   },
                   icon: Icon(
-                    Icons.photo_library_outlined,
-                    size: 30.sp,
+                    IconlyBroken.image2,
+                    size: 30,
                     color: cubit.isDark
                         ? CupertinoColors.activeBlue
                         : ColorManager.whiteColor,
                   ),
-                  splashRadius: 20.r,
                 ),
               ],
             ),

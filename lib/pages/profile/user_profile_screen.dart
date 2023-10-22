@@ -39,6 +39,8 @@ class UserProfileScreen extends StatelessWidget {
       builder: (context, state) {
         UserModel? userModel = SocialCubit.get(context).userModel;
         SocialCubit cubit = SocialCubit.get(context);
+        final screenHeight = MediaQuery.sizeOf(context).height;
+        final screenWidth = MediaQuery.sizeOf(context).width;
         return AnnotatedRegion<SystemUiOverlayStyle>(
           value: const SystemUiOverlayStyle(
             statusBarColor: Colors.transparent,
@@ -71,6 +73,8 @@ class UserProfileScreen extends StatelessWidget {
                             postModel: cubit.userPosts[index],
                             userModel: cubit.userModel!,
                             index: index,
+                            screenHeight: screenHeight,
+                            screenWidth: screenWidth,
                           ),
                           childCount: cubit.userPosts.length,
                         ),

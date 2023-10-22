@@ -61,10 +61,10 @@ class SocialCubit extends Cubit<SocialStates> {
   void changeNavBar(int index) {
     currentIndex = index;
     if (index == 0) {
+      getUserData();
       getStories();
       getPosts();
-      getFriendsProfile(userModel!.uId);
-      getUserPosts(userModel!.uId);
+      getUserPosts(uId);
     }
     if (index == 1) {
       getAllUsers();
@@ -109,7 +109,7 @@ class SocialCubit extends Cubit<SocialStates> {
     FirebaseFirestore.instance.collection('users').get().then((event) {
       users = [];
       for (var element in event.docs) {
-        if (element.data()['uId'] != userModel!.uId) {
+        if (element.data()['uId'] != uId) {
           users.add(UserModel.fromJson(element.data()));
         }
       }

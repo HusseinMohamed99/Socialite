@@ -16,8 +16,6 @@ class StoryItem extends StatelessWidget {
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        SocialCubit cubit = SocialCubit.get(context);
-
         return InkWell(
           onTap: () {
             Navigator.push(
@@ -57,21 +55,13 @@ class StoryItem extends StatelessWidget {
                         radius: 23.r,
                         child: CircleAvatar(
                           radius: 20.r,
-                          child: storyModel.uId == cubit.userModel!.uId
-                              ? ImageWithShimmer(
-                                  imageUrl: cubit.userModel!.image,
-                                  radius: 20.r,
-                                  width: double.infinity,
-                                  height: double.infinity,
-                                  boxFit: BoxFit.fill,
-                                )
-                              : ImageWithShimmer(
-                                  imageUrl: storyModel.image!,
-                                  radius: 20.r,
-                                  width: double.infinity,
-                                  height: double.infinity,
-                                  boxFit: BoxFit.fill,
-                                ),
+                          child: ImageWithShimmer(
+                            imageUrl: storyModel.image!,
+                            radius: 20.r,
+                            width: double.infinity,
+                            height: double.infinity,
+                            boxFit: BoxFit.fill,
+                          ),
                         ),
                       ),
                       const Spacer(),
@@ -79,9 +69,7 @@ class StoryItem extends StatelessWidget {
                         width: 110.w,
                         height: 25.h,
                         child: Text(
-                          storyModel.uId == cubit.userModel!.uId
-                              ? cubit.userModel!.name
-                              : storyModel.name!,
+                          storyModel.name!,
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium!
