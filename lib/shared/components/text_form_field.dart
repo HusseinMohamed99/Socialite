@@ -58,10 +58,7 @@ class DefaultTextFormField extends StatelessWidget {
     return TextFormField(
       obscuringCharacter: obscuringCharacter ?? '*',
       onEditingComplete: onEditingComplete,
-      style: Theme.of(context)
-          .textTheme
-          .titleLarge!
-          .copyWith(color: textColor ?? ColorManager.blackColor),
+      style: Theme.of(context).textTheme.titleLarge,
       focusNode: FocusNode(),
       maxLines: maxLines ?? 1,
       minLines: minLines ?? 1,
@@ -87,7 +84,6 @@ class DefaultTextFormField extends StatelessWidget {
                 icon: Icon(
                   suffix,
                   color: ColorManager.greyColor,
-                  size: 24.sp,
                 ),
               )
             : null,
@@ -99,7 +95,7 @@ class DefaultTextFormField extends StatelessWidget {
         labelText: label,
         labelStyle: GoogleFonts.roboto(
           color: color ?? ColorManager.greyColor,
-          fontSize: 18.sp,
+          fontSize: 18,
           fontWeight: FontWeight.w400,
         ),
         hintText: hint,

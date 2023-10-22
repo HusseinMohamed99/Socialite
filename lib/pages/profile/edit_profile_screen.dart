@@ -1,7 +1,6 @@
 import 'dart:io';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter/services.dart';
 import 'package:socialite/model/user_model.dart';
-import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/components/show_toast.dart';
 import 'package:socialite/shared/components/text_form_field.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
@@ -12,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
+import 'package:socialite/shared/utils/value_manager.dart';
 
 class EditProfileScreen extends StatelessWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
@@ -23,6 +23,8 @@ class EditProfileScreen extends StatelessWidget {
     final TextEditingController nameController = TextEditingController();
     final TextEditingController phoneController = TextEditingController();
     final TextEditingController portfolioController = TextEditingController();
+    final double screenWidth = MediaQuery.sizeOf(context).width;
+    final double screenHeight = MediaQuery.sizeOf(context).height;
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {
         if (state is UpdateUserSuccessState) {
@@ -33,150 +35,212 @@ class EditProfileScreen extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        UserModel? userModel = SocialCubit.get(context).userModel;
+        UserModel? userModelData = SocialCubit.get(context).userModel;
         File? profileImage = SocialCubit.get(context).profileImage;
         File? coverImage = SocialCubit.get(context).coverImage;
         SocialCubit cubit = SocialCubit.get(context);
-        emailController.text = userModel!.email;
-        bioController.text = userModel.bio;
-        nameController.text = userModel.name;
-        phoneController.text = userModel.phone;
-        portfolioController.text = userModel.portfolio;
+        emailController.text = userModelData!.email;
+        bioController.text = userModelData.bio;
+        nameController.text = userModelData.name;
+        phoneController.text = userModelData.phone;
+        portfolioController.text = userModelData.portfolio;
 
-        return Scaffold(
-          body: Column(
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
+        return AnnotatedRegion<SystemUiOverlayStyle>(
+          value: const SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            statusBarIconBrightness: Brightness.light,
+          ),
+          child: Scaffold(
+            body: CustomScrollView(
+              physics: const BouncingScrollPhysics(),
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Stack(
                     children: [
-                      SizedBox(
-                        height: 220.h,
-                        child: Stack(
-                          alignment: AlignmentDirectional.bottomCenter,
-                          children: [
-                            Align(
-                              alignment: AlignmentDirectional.topCenter,
-                              child: Stack(
-                                children: [
-                                  Align(
-                                    alignment: AlignmentDirectional.topCenter,
-                                    child: coverImage == null
-                                        ? Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(8),
-                                                topRight: Radius.circular(8),
-                                              ).r,
-                                            ),
-                                            width: double.infinity,
-                                            height: 200.h,
-                                            child: imagePreview(
-                                              userModel.cover,
-                                            ),
-                                          )
-                                        : Container(
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                fit: BoxFit.cover,
-                                                image: FileImage(
-                                                  coverImage,
+                      Column(
+                        children: [
+                          SizedBox(
+                            height: screenHeight * .3,
+                            child: Stack(
+                              alignment: AlignmentDirectional.bottomCenter,
+                              children: [
+                                Align(
+                                  alignment: AlignmentDirectional.topCenter,
+                                  child: Stack(
+                                    children: [
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional.topCenter,
+                                        child: coverImage == null
+                                            ? Container(
+                                                decoration: const BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(8),
+                                                  ),
+                                                ),
+                                                width: double.infinity,
+                                                height: screenHeight * .3,
+                                                child: imagePreview(
+                                                  userModelData.cover,
+                                                ),
+                                              )
+                                            : Container(
+                                                height: screenHeight * .3,
+                                                width: screenWidth,
+                                                decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image: FileImage(
+                                                      coverImage,
+                                                    ),
+                                                  ),
+                                                  borderRadius:
+                                                      const BorderRadius.all(
+                                                    Radius.circular(8),
+                                                  ),
+                                                ),
+                                                child: imagePreview(
+                                                  userModelData.cover,
                                                 ),
                                               ),
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(8),
-                                                topRight: Radius.circular(8),
-                                              ).r,
-                                            ),
-                                            width: double.infinity,
-                                            height: 200.h,
-                                            child: imagePreview(
-                                              userModel.cover,
+                                      ),
+                                      Positioned(
+                                        bottom: screenHeight * .01,
+                                        right: screenHeight * .01,
+                                        child: CircleAvatar(
+                                          backgroundColor:
+                                              ColorManager.greyColor,
+                                          child: IconButton(
+                                            splashRadius: 1,
+                                            onPressed: () {
+                                              cubit.getCoverImage();
+                                            },
+                                            icon: const Icon(
+                                              IconlyBroken.camera,
+                                              color:
+                                                  ColorManager.titanWithColor,
                                             ),
                                           ),
-                                  ),
-                                  Positioned(
-                                    bottom: 30.h,
-                                    right: 10.w,
-                                    child: CircleAvatar(
-                                      radius: 22.r,
-                                      backgroundColor: ColorManager.greyColor,
-                                      child: IconButton(
-                                        splashRadius: 1,
-                                        onPressed: () {
-                                          cubit.getCoverImage();
-                                        },
-                                        icon: Icon(
-                                          IconlyBroken.camera,
-                                          color: ColorManager.titanWithColor,
-                                          size: 30.sp,
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Stack(
-                              children: [
-                                profileImage == null
-                                    ? CircleAvatar(
-                                        backgroundColor:
-                                            ColorManager.dividerColor,
-                                        radius: 75.r,
-                                        child: CircleAvatar(
-                                          radius: 70.r,
-                                          child: imageWithShimmer(
-                                            userModel.image,
-                                            radius: 65.r,
-                                          ),
-                                        ),
-                                      )
-                                    : CircleAvatar(
-                                        backgroundColor:
-                                            ColorManager.dividerColor,
-                                        radius: 75.r,
-                                        child: CircleAvatar(
-                                          radius: 70.r,
-                                          backgroundImage:
-                                              FileImage(profileImage),
-                                        ),
-                                      ),
-                                Positioned(
-                                  top: 90.h,
-                                  left: 95.w,
-                                  child: CircleAvatar(
-                                    radius: 22.r,
-                                    backgroundColor: ColorManager.greyColor,
-                                    child: IconButton(
-                                      splashRadius: 1,
-                                      onPressed: () {
-                                        cubit.getProfileImage();
-                                      },
-                                      icon: Icon(
-                                        IconlyBroken.camera,
-                                        color: ColorManager.titanWithColor,
-                                        size: 30.sp,
-                                      ),
-                                    ),
+                                    ],
                                   ),
                                 ),
                               ],
                             ),
+                          ),
+                          SizedBox(height: screenHeight * .1),
+                          Padding(
+                            padding: const EdgeInsets.all(AppPadding.p12),
+                            child: Column(
+                              children: [
+                                DefaultTextFormField(
+                                  controller: nameController,
+                                  keyboardType: TextInputType.name,
+                                  validate: (String? value) {
+                                    if (value!.trim().isEmpty) {
+                                      return AppString.enterEmail;
+                                    }
+                                    return null;
+                                  },
+                                  label: AppString.name,
+                                  prefix: IconlyBroken.user3,
+                                ),
+                                const SizedBox(height: 20),
+                                DefaultTextFormField(
+                                  controller: bioController,
+                                  keyboardType: TextInputType.text,
+                                  validate: (String? value) {
+                                    if (value!.trim().isEmpty) {
+                                      return AppString.enterBio;
+                                    }
+                                    return null;
+                                  },
+                                  label: AppString.bio,
+                                  prefix: IconlyBroken.infoSquare,
+                                ),
+                                const SizedBox(height: 20),
+                                DefaultTextFormField(
+                                  controller: emailController,
+                                  keyboardType: TextInputType.emailAddress,
+                                  validate: (String? value) {
+                                    if (value!.trim().isEmpty) {
+                                      return AppString.enterEmail;
+                                    }
+                                    return null;
+                                  },
+                                  label: AppString.emailAddress,
+                                  prefix: IconlyBroken.message,
+                                ),
+                                const SizedBox(height: 20),
+                                DefaultTextFormField(
+                                  controller: phoneController,
+                                  keyboardType: TextInputType.phone,
+                                  validate: (String? value) {
+                                    if (value!.trim().isEmpty) {
+                                      return AppString.egyptianNumber;
+                                    }
+                                    return null;
+                                  },
+                                  label: AppString.phone,
+                                  prefix: IconlyBroken.calling,
+                                ),
+                                const SizedBox(height: 20),
+                                DefaultTextFormField(
+                                  controller: portfolioController,
+                                  keyboardType: TextInputType.url,
+                                  validate: (String? value) {
+                                    if (value!.trim().isEmpty) {
+                                      return AppString.enterPortfolio;
+                                    }
+                                    return null;
+                                  },
+                                  label: AppString.portfolio,
+                                  prefix: IconlyBroken.paper,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Positioned(
+                        top: screenHeight * .2,
+                        right: screenWidth * .3,
+                        child: Stack(
+                          children: [
+                            profileImage == null
+                                ? CircleAvatar(
+                                    backgroundColor: ColorManager.dividerColor,
+                                    radius: 75,
+                                    child: CircleAvatar(
+                                      radius: 70,
+                                      child: imageWithShimmer(
+                                        userModelData.image,
+                                        radius: 65,
+                                      ),
+                                    ),
+                                  )
+                                : CircleAvatar(
+                                    backgroundColor: ColorManager.dividerColor,
+                                    radius: 75,
+                                    child: CircleAvatar(
+                                      radius: 70,
+                                      backgroundImage: FileImage(profileImage),
+                                    ),
+                                  ),
                             Positioned(
-                              top: 30.h,
-                              left: 5.w,
-                              child: IconButton(
-                                onPressed: () {
-                                  pop(context);
-                                },
-                                icon: CircleAvatar(
-                                  backgroundColor: ColorManager.greyDarkColor,
-                                  child: Icon(
-                                    IconlyBroken.arrowLeft2,
-                                    size: 24.sp,
+                              bottom: screenHeight * .01,
+                              right: screenWidth * .01,
+                              child: CircleAvatar(
+                                backgroundColor: ColorManager.greyColor,
+                                child: IconButton(
+                                  onPressed: () {
+                                    cubit.getProfileImage();
+                                  },
+                                  icon: const Icon(
+                                    IconlyBroken.camera,
                                     color: ColorManager.titanWithColor,
                                   ),
                                 ),
@@ -185,167 +249,103 @@ class EditProfileScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(height: 15.h),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          children: [
-                            DefaultTextFormField(
-                              controller: nameController,
-                              keyboardType: TextInputType.name,
-                              validate: (String? value) {
-                                if (value!.trim().isEmpty) {
-                                  return AppString.enterEmail;
-                                }
-                                return null;
-                              },
-                              label: AppString.name,
-                              prefix: IconlyBroken.user3,
-                              textColor: cubit.isDark
-                                  ? ColorManager.blackColor
-                                  : ColorManager.titanWithColor,
+                    ],
+                  ),
+                ),
+                SliverToBoxAdapter(child: SizedBox(height: screenHeight * .1)),
+                SliverToBoxAdapter(
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                              height: 48,
+                              child: OutlinedButton(
+                                style: OutlinedButton.styleFrom(
+                                  backgroundColor: cubit.isDark
+                                      ? ColorManager.titanWithColor
+                                      : ColorManager.primaryColor,
+                                ),
+                                onPressed: () {
+                                  updateUserData(
+                                    cubit,
+                                    emailController,
+                                    phoneController,
+                                    nameController,
+                                    bioController,
+                                    portfolioController,
+                                  );
+                                },
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                child: Text(
+                                  AppString.update.toUpperCase(),
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
+                              ),
                             ),
-                            SizedBox(height: 15.h),
-                            DefaultTextFormField(
-                              controller: bioController,
-                              keyboardType: TextInputType.text,
-                              validate: (String? value) {
-                                if (value!.trim().isEmpty) {
-                                  return AppString.enterBio;
-                                }
-                                return null;
-                              },
-                              label: AppString.bio,
-                              prefix: IconlyBroken.infoSquare,
-                              textColor: cubit.isDark
-                                  ? ColorManager.blackColor
-                                  : ColorManager.titanWithColor,
-                            ),
-                            SizedBox(height: 15.h),
-                            DefaultTextFormField(
-                              controller: emailController,
-                              keyboardType: TextInputType.emailAddress,
-                              validate: (String? value) {
-                                if (value!.trim().isEmpty) {
-                                  return AppString.enterEmail;
-                                }
-                                return null;
-                              },
-                              label: AppString.emailAddress,
-                              prefix: IconlyBroken.message,
-                              textColor: cubit.isDark
-                                  ? ColorManager.blackColor
-                                  : ColorManager.titanWithColor,
-                            ),
-                            SizedBox(height: 15.h),
-                            DefaultTextFormField(
-                              controller: phoneController,
-                              keyboardType: TextInputType.phone,
-                              validate: (String? value) {
-                                if (value!.trim().isEmpty) {
-                                  return AppString.egyptianNumber;
-                                }
-                                return null;
-                              },
-                              label: AppString.phone,
-                              prefix: IconlyBroken.calling,
-                              textColor: cubit.isDark
-                                  ? ColorManager.blackColor
-                                  : ColorManager.titanWithColor,
-                            ),
-                            SizedBox(height: 15.h),
-                            DefaultTextFormField(
-                              controller: portfolioController,
-                              keyboardType: TextInputType.url,
-                              validate: (String? value) {
-                                if (value!.trim().isEmpty) {
-                                  return AppString.enterPortfolio;
-                                }
-                                return null;
-                              },
-                              label: AppString.portfolio,
-                              prefix: IconlyBroken.document,
-                              textColor: cubit.isDark
-                                  ? ColorManager.blackColor
-                                  : ColorManager.titanWithColor,
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ),
-              ),
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: SizedBox(
-                          height: 30.h,
-                          child: OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                              backgroundColor: cubit.isDark
-                                  ? ColorManager.titanWithColor
-                                  : ColorManager.primaryColor,
-                            ),
-                            onPressed: () {
-                              if (cubit.coverImage != null &&
-                                  cubit.profileImage == null) {
-                                cubit.uploadCoverImage(
-                                  email: emailController.text,
-                                  phone: phoneController.text,
-                                  name: nameController.text,
-                                  bio: bioController.text,
-                                  portfolio: portfolioController.text,
-                                );
-                              } else if (cubit.profileImage != null &&
-                                  cubit.coverImage == null) {
-                                cubit.uploadProfileImage(
-                                  email: emailController.text,
-                                  phone: phoneController.text,
-                                  name: nameController.text,
-                                  bio: bioController.text,
-                                  portfolio: portfolioController.text,
-                                );
-                              } else if (cubit.profileImage == null &&
-                                  cubit.coverImage == null) {
-                                cubit.updateUserData(
-                                  email: emailController.text,
-                                  phone: phoneController.text,
-                                  name: nameController.text,
-                                  bio: bioController.text,
-                                  portfolio: portfolioController.text,
-                                );
-                              } else if (cubit.coverImage != null &&
-                                  cubit.profileImage != null) {
-                                cubit.uploadProfileAndCoverImage(
-                                  email: emailController.text,
-                                  phone: phoneController.text,
-                                  name: nameController.text,
-                                  bio: bioController.text,
-                                  portfolio: portfolioController.text,
-                                );
-                              }
-                            },
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            child: Text(
-                              AppString.update.toUpperCase(),
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              if (state is UpdateUserLoadingState)
-                const LinearProgressIndicator(),
-            ],
+                if (state is UpdateUserLoadingState)
+                  const SliverToBoxAdapter(
+                      child: LinearProgressIndicator(
+                    value: 0.5,
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                        ColorManager.dividerColor),
+                    color: ColorManager.primaryColor,
+                    backgroundColor: ColorManager.dividerColor,
+                  )),
+              ],
+            ),
           ),
         );
       },
     );
+  }
+
+  void updateUserData(
+      SocialCubit cubit,
+      TextEditingController emailController,
+      TextEditingController phoneController,
+      TextEditingController nameController,
+      TextEditingController bioController,
+      TextEditingController portfolioController) {
+    if (cubit.coverImage != null && cubit.profileImage == null) {
+      cubit.uploadCoverImage(
+        email: emailController.text,
+        phone: phoneController.text,
+        name: nameController.text,
+        bio: bioController.text,
+        portfolio: portfolioController.text,
+      );
+    } else if (cubit.profileImage != null && cubit.coverImage == null) {
+      cubit.uploadProfileImage(
+        email: emailController.text,
+        phone: phoneController.text,
+        name: nameController.text,
+        bio: bioController.text,
+        portfolio: portfolioController.text,
+      );
+    } else if (cubit.profileImage == null && cubit.coverImage == null) {
+      cubit.updateUserData(
+        email: emailController.text,
+        phone: phoneController.text,
+        name: nameController.text,
+        bio: bioController.text,
+        portfolio: portfolioController.text,
+      );
+    } else if (cubit.coverImage != null && cubit.profileImage != null) {
+      cubit.uploadProfileAndCoverImage(
+        email: emailController.text,
+        phone: phoneController.text,
+        name: nameController.text,
+        bio: bioController.text,
+        portfolio: portfolioController.text,
+      );
+    }
   }
 }

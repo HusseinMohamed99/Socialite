@@ -49,6 +49,10 @@ class Assets {
   /// assets/images/ResetPassword.png
   static const String imagesResetPassword = "assets/images/ResetPassword.png";
 
+  /// Assets for imagesUndrawNotFound
+  /// assets/images/undraw_not_found.svg
+  static const String imagesUndrawNotFound = "assets/images/undraw_not_found.svg";
+
   /// Assets for imagesWww
   /// assets/images/Www.svg
   static const String imagesWww = "assets/images/Www.svg";

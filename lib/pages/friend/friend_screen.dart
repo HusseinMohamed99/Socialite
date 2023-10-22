@@ -1,3 +1,5 @@
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:socialite/image_assets.dart';
 import 'package:socialite/model/user_model.dart';
 import 'package:socialite/shared/components/image_with_shimmer.dart';
 import 'package:socialite/shared/components/my_divider.dart';
@@ -10,6 +12,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
+import 'package:socialite/shared/utils/value_manager.dart';
 
 class FriendsScreen extends StatelessWidget {
   final bool? myFriends;
@@ -29,42 +32,19 @@ class FriendsScreen extends StatelessWidget {
           return Scaffold(
             extendBodyBehindAppBar: true,
             appBar: AppBar(
-              elevation: 1,
-              leading: IconButton(
-                onPressed: () {
-                  pop(context);
-                },
-                icon: Icon(
-                  IconlyBroken.arrowLeft2,
-                  size: 30.sp,
-                  color: cubit.isDark
-                      ? ColorManager.blackColor
-                      : ColorManager.titanWithColor,
-                ),
-              ),
-              titleSpacing: 1,
+              automaticallyImplyLeading: false,
+              centerTitle: true,
               title: Text(
                 AppString.friends,
-                style: Theme.of(context).textTheme.titleLarge,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge!
+                    .copyWith(letterSpacing: 10),
               ),
             ),
             body: friends!.isEmpty
                 ? Center(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          IconlyBroken.infoSquare,
-                          color: ColorManager.greyColor,
-                          size: 60.sp,
-                        ),
-                        Text(
-                          AppString.noFriends,
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                      ],
-                    ),
+                    child: SvgPicture.asset(Assets.imagesUndrawNotFound),
                   )
                 : ListView.separated(
                     physics: const BouncingScrollPhysics(),
@@ -73,7 +53,9 @@ class FriendsScreen extends StatelessWidget {
                       myFriend: myFriends ?? false,
                       cubit: cubit,
                     ),
-                    separatorBuilder: (context, index) => const MyDivider(),
+                    separatorBuilder: (context, index) => const MyDivider(
+                      vertical: AppPadding.p12,
+                    ),
                     itemCount: friends.length,
                   ),
           );
@@ -102,7 +84,7 @@ class FriendsBuilderItems extends StatelessWidget {
           CircleAvatar(
             radius: 20.r,
             child: ImageWithShimmer(
-              imageUrl: friendsModel.image!,
+              imageUrl: friendsModel.image,
               width: 50.w,
               height: 50.h,
               radius: 10.r,
@@ -111,7 +93,7 @@ class FriendsBuilderItems extends StatelessWidget {
           ),
           SizedBox(width: 10.w),
           Text(
-            friendsModel.name!,
+            friendsModel.name,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.titleLarge,

@@ -116,7 +116,7 @@ class HomeLayout extends StatelessWidget {
       ignorePointer: false,
       position: badges.BadgePosition.topStart(top: -15, start: -12),
       badgeContent: Text(
-        '11',
+        "$count",
         style: Theme.of(context)
             .textTheme
             .bodySmall!

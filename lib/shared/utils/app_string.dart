@@ -56,7 +56,7 @@ class AppString {
       'Your story is created successfully';
   static const String createStoryFailed = 'Your story is created failed';
 
-  static const String friends = 'Friends';
+  static const String friends = 'My Friends';
   static const String noFriends = 'No Friends';
   static const String unFriends = 'Un Friends';
   static const String followers = 'Followers';
