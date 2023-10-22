@@ -1,14 +1,13 @@
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter/services.dart';
+import 'package:socialite/model/user_model.dart';
 import 'package:socialite/shared/components/indicator.dart';
 import 'package:socialite/shared/components/show_toast.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:socialite/shared/utils/app_string.dart';
-import 'package:socialite/shared/utils/color_manager.dart';
+import 'package:socialite/shared/utils/value_manager.dart';
 import 'package:socialite/shared/widget/build_post_item.dart';
 import 'package:socialite/shared/widget/profile_info.dart';
 
@@ -38,75 +37,53 @@ class UserProfileScreen extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        var userModel = SocialCubit.get(context).userModel;
+        UserModel? userModel = SocialCubit.get(context).userModel;
         SocialCubit cubit = SocialCubit.get(context);
-        return SocialCubit.get(context).userModel == null
-            ? Scaffold(
-                body: Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        IconlyBroken.infoSquare,
-                        size: 100.sp,
-                        color: ColorManager.greyColor,
+        return AnnotatedRegion<SystemUiOverlayStyle>(
+          value: const SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            statusBarIconBrightness: Brightness.light,
+          ),
+          child: Scaffold(
+            body: CustomScrollView(
+              physics: const BouncingScrollPhysics(),
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              slivers: [
+                SliverToBoxAdapter(
+                  child: ProfileInfo(userModel: userModel, cubit: cubit),
+                ),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.all(AppPadding.p12),
+                    child: Align(
+                      alignment: AlignmentDirectional.topStart,
+                      child: Text(
+                        AppString.post,
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
-                      Text(
-                        AppString.noPosts,
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      const CircularProgressIndicator(),
-                    ],
+                    ),
                   ),
                 ),
-              )
-            : Scaffold(
-                body: cubit.userPosts.isEmpty
-                    ? ProfileInfo(userModel: userModel, cubit: cubit)
-                    : ConditionalBuilder(
-                        condition: cubit.userPosts.isNotEmpty,
-                        builder: (BuildContext context) =>
-                            SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              ProfileInfo(userModel: userModel, cubit: cubit),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                  left: 10.0,
-                                  right: 10,
-                                  top: 10,
-                                ).r,
-                                child: Align(
-                                  alignment: AlignmentDirectional.topStart,
-                                  child: Text(
-                                    AppString.post,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall,
-                                  ),
-                                ),
-                              ),
-                              ListView.separated(
-                                padding: const EdgeInsets.only(top: 10).r,
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: cubit.userPosts.length,
-                                separatorBuilder: (context, index) =>
-                                    SizedBox(height: 10.h),
-                                itemBuilder: (context, index) => (BuildPostItem(
-                                  postModel: cubit.userPosts[index],
-                                  userModel: cubit.userModel!,
-                                  index: index,
-                                )),
-                              ),
-                            ],
+                cubit.userPosts.isNotEmpty
+                    ? SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) => BuildPostItem(
+                            postModel: cubit.userPosts[index],
+                            userModel: cubit.userModel!,
+                            index: index,
                           ),
+                          childCount: cubit.userPosts.length,
                         ),
-                        fallback: (BuildContext context) => const Center(
+                      )
+                    : const SliverToBoxAdapter(
+                        child: Center(
                           child: AdaptiveIndicator(),
                         ),
                       ),
-              );
+              ],
+            ),
+          ),
+        );
       },
     );
   }

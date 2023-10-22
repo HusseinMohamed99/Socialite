@@ -23,7 +23,7 @@ dependencies:
   image_picker: ^1.0.1
   conditional_builder_null_safety: ^0.0.6
   bubble: ^1.2.1
-  badges: ^3.1.1
+  badges: ^3.1.2
   carousel_slider: ^4.1.1
   timeago: ^3.3.0
   dio: ^5.2.1+1

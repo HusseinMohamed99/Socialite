@@ -1,14 +1,15 @@
 import 'package:badges/badges.dart' as badges;
-import 'package:badges/badges.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:socialite/Pages/notifications/notifications_screen.dart';
 import 'package:socialite/Pages/search/search_screen.dart';
+import 'package:socialite/pages/login/login_screen.dart';
+import 'package:socialite/shared/components/constants.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 import 'package:socialite/shared/widget/drawer_widget.dart';
 
@@ -26,10 +27,12 @@ class HomeLayout extends StatelessWidget {
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
               elevation: 0,
-              titleSpacing: 0.0,
               title: Text(
                 cubit.titles[cubit.currentIndex],
-                style: Theme.of(context).textTheme.headlineSmall,
+                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      letterSpacing: 10,
+                    ),
               ),
               actions: [
                 IconButton(
@@ -41,13 +44,9 @@ class HomeLayout extends StatelessWidget {
                     );
                   },
                   splashColor: ColorManager.blueColor,
-                  splashRadius: 20.r,
-                  icon: Icon(
+                  splashRadius: 20,
+                  icon: const Icon(
                     IconlyBroken.search,
-                    color: cubit.isDark
-                        ? ColorManager.greyDarkColor
-                        : ColorManager.titanWithColor,
-                    size: 24.sp,
                   ),
                 ),
                 IconButton(
@@ -59,17 +58,16 @@ class HomeLayout extends StatelessWidget {
                     );
                   },
                   splashColor: ColorManager.blueColor,
-                  splashRadius: 20.r,
-                  icon: SocialCubit.get(context).unReadNotificationsCount != 0
+                  splashRadius: 20,
+                  icon: SocialCubit.get(context).unReadNotificationsCount == 0
                       ? tabBarBadge(
                           context,
                           icon: IconlyBroken.notification,
                           count:
                               SocialCubit.get(context).unReadNotificationsCount,
                         )
-                      : Icon(
+                      : const Icon(
                           IconlyBroken.notification,
-                          size: 24.sp,
                         ),
                 ),
               ],
@@ -85,27 +83,59 @@ class HomeLayout extends StatelessWidget {
                 cubit.changeNavBar(index);
               },
             ),
-            body: cubit.screens[cubit.currentIndex]);
+            body: uId != null
+                ? cubit.screens[cubit.currentIndex]
+                : Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Please Login First',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () {
+                            navigateAndFinish(context, const LoginScreen());
+                          },
+                          child: const Text('Login'),
+                        ),
+                      ],
+                    ),
+                  ));
       },
     );
   }
 
   Widget tabBarBadge(context, {required IconData icon, required int count}) {
     return badges.Badge(
-      position: BadgePosition.topStart(start: -12),
+      showBadge: true,
+      ignorePointer: false,
+      position: badges.BadgePosition.topStart(top: -15, start: -12),
       badgeContent: Text(
-        '$count',
+        '11',
         style: Theme.of(context)
             .textTheme
-            .bodyLarge!
-            .copyWith(color: ColorManager.dividerColor),
+            .bodySmall!
+            .copyWith(color: ColorManager.whiteColor),
+      ),
+      badgeAnimation: const badges.BadgeAnimation.rotation(
+        animationDuration: Duration(seconds: 1),
+        colorChangeAnimationDuration: Duration(seconds: 1),
+        loopAnimation: false,
+        curve: Curves.fastOutSlowIn,
+        colorChangeAnimationCurve: Curves.easeInCubic,
       ),
       badgeStyle: const badges.BadgeStyle(
-        shape: BadgeShape.circle,
+        padding: EdgeInsets.all(5),
+        badgeColor: ColorManager.greenColor,
+        shape: badges.BadgeShape.circle,
       ),
       child: Icon(
         icon,
-        size: 24.sp,
       ),
     );
   }

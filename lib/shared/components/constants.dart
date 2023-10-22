@@ -74,7 +74,7 @@ Widget imagePreview(String? image) {
     child: Center(
       child: Image.network(
         "$image",
-        fit: BoxFit.cover,
+        fit: BoxFit.fitWidth,
         width: double.infinity,
         alignment: AlignmentDirectional.topCenter,
       ),

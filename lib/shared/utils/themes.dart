@@ -34,9 +34,9 @@ final getThemeData = {
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
-      selectedItemColor: ColorManager.orangeColor,
+      selectedItemColor: ColorManager.blueColor,
       unselectedItemColor: ColorManager.greyDarkColor,
-      backgroundColor: ColorManager.whiteColor,
+      backgroundColor: ColorManager.scaffoldBackgroundColor,
       elevation: 25.0,
       unselectedIconTheme: IconThemeData(
         color: ColorManager.greyDarkColor,
@@ -100,9 +100,9 @@ final getThemeData = {
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
-      selectedItemColor: ColorManager.blueColor,
-      unselectedItemColor: ColorManager.whiteColor,
-      backgroundColor: ColorManager.greyDarkColor,
+      selectedItemColor: ColorManager.whiteColor,
+      unselectedItemColor: ColorManager.greyColor,
+      backgroundColor: ColorManager.scaffoldBackgroundDarkColor,
       elevation: 25.0,
     ),
     textTheme: TextTheme(
