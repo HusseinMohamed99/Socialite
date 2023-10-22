@@ -72,6 +72,8 @@ class StoryScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(AppPadding.p12),
                 child: GridView.count(
+                  keyboardDismissBehavior:
+                      ScrollViewKeyboardDismissBehavior.onDrag,
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   reverse: true,
