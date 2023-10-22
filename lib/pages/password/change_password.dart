@@ -10,9 +10,7 @@ import 'package:socialite/shared/utils/color_manager.dart';
 void bottomSheetChangePassword(
     {required BuildContext context, required SocialCubit cubit}) {
   showModalBottomSheet(
-    backgroundColor: cubit.isDark
-        ? ColorManager.titanWithColor
-        : ColorManager.primaryDarkColor,
+    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     isScrollControlled: true,
     shape: RoundedRectangleBorder(
       borderRadius: const BorderRadius.only(
@@ -46,9 +44,7 @@ class ShowModalBottomSheet extends StatelessWidget {
           controller: scrollController,
           child: Container(
             decoration: BoxDecoration(
-              color: cubit.isDark
-                  ? ColorManager.whiteColor
-                  : ColorManager.primaryDarkColor,
+              color: Theme.of(context).scaffoldBackgroundColor,
               borderRadius:
                   BorderRadius.vertical(top: const Radius.circular(20).r),
             ),
