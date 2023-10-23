@@ -1,4 +1,3 @@
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -55,98 +54,104 @@ class CommentsScreen extends StatelessWidget {
             ),
             elevation: 0,
           ),
-          body: Form(
-            key: formKey,
-            child: Stack(
-              alignment: Alignment.bottomCenter,
-              children: [
-                ListView(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        navigateTo(context, LikesScreen(postID: postId));
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: AppPadding.p20),
-                        child: Row(
-                          children: [
-                            const Icon(
-                              IconlyBroken.heart,
-                              color: Colors.red,
-                            ),
-                            const SizedBox(width: 5),
-                            Text(
-                              '$likes',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge!
-                                  .copyWith(color: ColorManager.dividerColor),
-                            ),
-                            const Spacer(),
-                            const Icon(IconlyBroken.arrowRightCircle),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const MyDivider(vertical: AppPadding.p16),
-                    ConditionalBuilder(
-                      condition: comments.isNotEmpty,
-                      builder: (context) => Expanded(
-                        child: ListView.separated(
-                          itemBuilder: (context, index) =>
-                              BuildCommentsItem(comment: comments[index]),
-                          separatorBuilder: (context, index) =>
-                              SizedBox(height: 10.h),
-                          itemCount: cubit.comments.length,
-                        ),
-                      ),
-                      fallback: (context) => Center(
-                        child: SvgPicture.asset(Assets.imagesUndrawNotFound),
-                      ),
-                    ),
-                    if (cubit.isCommentImageLoading)
-                      const LinearProgressIndicator(
-                        color: Colors.blueAccent,
-                      ),
-                    if (commentImage != null)
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8).r,
-                        child: Align(
-                          alignment: AlignmentDirectional.topStart,
+          body: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              CustomScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  keyboardDismissBehavior:
+                      ScrollViewKeyboardDismissBehavior.onDrag,
+                  slivers: [
+                    SliverToBoxAdapter(
+                      child: InkWell(
+                        onTap: () {
+                          navigateTo(context, LikesScreen(postID: postId));
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: AppPadding.p20),
                           child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(
-                                width: 200,
-                                height: 200,
-                                child: Image.file(
-                                  commentImage,
-                                  fit: BoxFit.fitWidth,
-                                  width: 200,
-                                ),
+                              const Icon(
+                                IconlyBroken.heart,
+                                color: Colors.red,
                               ),
                               const SizedBox(width: 5),
-                              CircleAvatar(
-                                backgroundColor: Colors.grey[300],
-                                child: IconButton(
-                                  onPressed: () {
-                                    SocialCubit.get(context).popCommentImage();
-                                  },
-                                  icon: const Icon(IconlyBroken.closeSquare),
-                                ),
-                              )
+                              Text(
+                                '$likes',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .copyWith(color: ColorManager.dividerColor),
+                              ),
+                              const Spacer(),
+                              const Icon(IconlyBroken.arrowRightCircle),
                             ],
                           ),
                         ),
                       ),
-                  ],
-                ),
-                if (cubit.comments.isEmpty)
-                  const SizedBox(
-                    height: 200,
-                  ),
-                TextFormField(
+                    ),
+                    const SliverToBoxAdapter(
+                      child: MyDivider(vertical: AppPadding.p16),
+                    ),
+                    comments.isNotEmpty
+                        ? SliverList(
+                            delegate: SliverChildBuilderDelegate(
+                              (context, index) =>
+                                  BuildCommentsItem(comment: comments[index]),
+                              childCount: cubit.comments.length,
+                            ),
+                          )
+                        : SliverToBoxAdapter(
+                            child: Center(
+                              child:
+                                  SvgPicture.asset(Assets.imagesUndrawNotFound),
+                            ),
+                          ),
+                    if (cubit.isCommentImageLoading)
+                      const SliverToBoxAdapter(
+                        child: LinearProgressIndicator(
+                          color: Colors.blueAccent,
+                        ),
+                      ),
+                    if (commentImage != null)
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 8).r,
+                          child: Align(
+                            alignment: AlignmentDirectional.topStart,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: 200,
+                                  height: 200,
+                                  child: Image.file(
+                                    commentImage,
+                                    fit: BoxFit.fitWidth,
+                                    width: 200,
+                                  ),
+                                ),
+                                const SizedBox(width: 5),
+                                CircleAvatar(
+                                  backgroundColor: Colors.grey[300],
+                                  child: IconButton(
+                                    onPressed: () {
+                                      SocialCubit.get(context)
+                                          .popCommentImage();
+                                    },
+                                    icon: const Icon(IconlyBroken.closeSquare),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                  ]),
+              Form(
+                key: formKey,
+                child: TextFormField(
                   controller: commentTextControl,
                   autofocus: false,
                   textAlignVertical: TextAlignVertical.center,
@@ -216,8 +221,8 @@ class CommentsScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },

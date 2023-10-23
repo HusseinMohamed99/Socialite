@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
+import 'package:socialite/shared/utils/value_manager.dart';
 
 class EditPosts extends StatelessWidget {
   final PostModel postModel;
@@ -49,8 +50,7 @@ class EditPosts extends StatelessWidget {
                   cubit.removePostImage();
                 },
                 icon: Icon(
-                  IconlyLight.arrowLeft2,
-                  size: 24.sp,
+                  IconlyBroken.arrowLeft2,
                   color: cubit.isDark
                       ? ColorManager.blackColor
                       : ColorManager.titanWithColor,
@@ -88,192 +88,197 @@ class EditPosts extends StatelessWidget {
                 ),
               ],
             ),
-            body: Column(
+            body: Stack(
+              alignment: Alignment.bottomCenter,
               children: [
-                SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      if (state is CreatePostLoadingState)
-                        const LinearProgressIndicator(),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: 5,
-                          left: 20,
-                        ).r,
-                        child: Row(
-                          children: [
-                            CircleAvatar(
-                              radius: 25.r,
-                              child: ImageWithShimmer(
-                                radius: 20.r,
-                                imageUrl: userModel.image!,
-                                width: 50.w,
-                                height: 50.h,
-                                boxFit: BoxFit.fill,
+                ListView(
+                  children: [
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(AppPadding.p16),
+                          child: Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 32,
+                                backgroundColor: ColorManager.dividerColor,
+                                child: ImageWithShimmer(
+                                  radius: 30,
+                                  imageUrl: userModel.image,
+                                  width: 60,
+                                  height: 60,
+                                  boxFit: BoxFit.fill,
+                                ),
                               ),
-                            ),
-                            SizedBox(width: 10.w),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  userModel.name!,
-                                  style: Theme.of(context).textTheme.titleLarge,
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      IconlyLight.user2,
-                                      color: cubit.isDark
-                                          ? Colors.black
-                                          : Colors.white,
-                                      size: 14.sp,
-                                    ),
-                                    SizedBox(width: 5.w),
-                                    Text(
-                                      AppString.public,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                            color: ColorManager.greyColor,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 10.h),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20).r,
-                        child: TextFormField(
-                          maxLines: 6,
-                          minLines: 1,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge!
-                              .copyWith(color: ColorManager.blackColor),
-                          controller: post,
-                          decoration: InputDecoration(
-                            hintText: AppString.yourMind,
-                            hintStyle: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(
-                                  color: ColorManager.greyColor,
-                                ),
-                            border: InputBorder.none,
+                              const SizedBox(width: 10),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    userModel.name,
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        IconlyLight.user2,
+                                        color: cubit.isDark
+                                            ? Colors.black
+                                            : Colors.white,
+                                      ),
+                                      const SizedBox(width: 5),
+                                      Text(
+                                        AppString.public,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge!,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
-                      ),
-                      if (cubit.postImagePicked != null ||
-                          postModel.postImage != '')
-                        Stack(
-                          alignment: AlignmentDirectional.topEnd,
-                          children: [
-                            Align(
-                              alignment: AlignmentDirectional.bottomCenter,
-                              child: Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10).r,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: ColorManager.greyColor
-                                          .withOpacity(0.4),
-                                    ),
-                                  ],
-                                ),
-                                child: cubit.postImagePicked != null
-                                    ? ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Image(
-                                          image:
-                                              FileImage(cubit.postImagePicked!),
-                                          fit: BoxFit.fitHeight,
-                                        ),
-                                      )
-                                    : ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Image(
-                                          image: NetworkImage(
-                                              postModel.postImage!),
-                                          fit: BoxFit.fitHeight,
-                                        ),
+                        const SizedBox(height: 10),
+                        TextFieldForm(textController: post),
+                        if (SocialCubit.get(context).postImagePicked != null ||
+                            postModel.postImage != '')
+                          Stack(
+                            alignment: AlignmentDirectional.topEnd,
+                            children: [
+                              Align(
+                                alignment: AlignmentDirectional.bottomCenter,
+                                child: Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10).r,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: ColorManager.greyColor
+                                            .withOpacity(0.4),
                                       ),
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                cubit.removePostImage();
-                                postModel.postImage = '';
-                              },
-                              icon: Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: ColorManager.greyColor
-                                          .withOpacity(0.4),
-                                      blurRadius: 9,
-                                      spreadRadius: 4,
-                                      offset: const Offset(0, 4),
-                                    )
-                                  ],
+                                    ],
+                                  ),
+                                  child: cubit.postImagePicked != null
+                                      ? ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: Image(
+                                            image: FileImage(
+                                                cubit.postImagePicked!),
+                                            fit: BoxFit.fitHeight,
+                                          ),
+                                        )
+                                      : ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: Image(
+                                            image: NetworkImage(
+                                              postModel.postImage!,
+                                            ),
+                                            fit: BoxFit.fitHeight,
+                                          ),
+                                        ),
                                 ),
-                                child: CircleAvatar(
-                                  backgroundColor: ColorManager.redColor,
-                                  child: Icon(
-                                    Icons.close_rounded,
-                                    color: Colors.white,
-                                    size: 24.sp,
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  cubit.removePostImage();
+                                },
+                                icon: Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: ColorManager.greyColor
+                                            .withOpacity(0.4),
+                                        blurRadius: 9,
+                                        spreadRadius: 4,
+                                        offset: const Offset(0, 4),
+                                      )
+                                    ],
+                                  ),
+                                  child: CircleAvatar(
+                                    backgroundColor: Theme.of(context)
+                                        .scaffoldBackgroundColor,
+                                    child: const Icon(
+                                      IconlyBold.closeSquare,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            )
-                          ],
-                        ),
-                    ],
-                  ),
+                              )
+                            ],
+                          ),
+                      ],
+                    ),
+                  ],
                 ),
-                const Spacer(),
-                if (cubit.postImagePicked == null && postModel.postImage == '')
-                  Row(
-                    children: [
-                      Expanded(
-                        child: SizedBox(
-                          height: 30.h,
-                          child: OutlinedButton.icon(
-                            style: OutlinedButton.styleFrom(
-                              backgroundColor: cubit.isDark
-                                  ? ColorManager.titanWithColor
-                                  : ColorManager.primaryColor,
-                            ),
-                            onPressed: () {
-                              cubit.getPostImage();
-                            },
-                            label: Text(
-                              AppString.addPhoto.toUpperCase(),
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                            icon: Icon(
-                              IconlyLight.image,
-                              color: ColorManager.titanWithColor,
-                              size: 24.sp,
-                            ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: SizedBox(
+                        height: 48,
+                        child: OutlinedButton.icon(
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor:
+                                Theme.of(context).scaffoldBackgroundColor,
+                          ),
+                          onPressed: () {
+                            cubit.getPostImage();
+                          },
+                          label: Text(
+                            AppString.addPhoto.toUpperCase(),
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          icon: Icon(
+                            IconlyBroken.image,
+                            color: cubit.isDark
+                                ? ColorManager.scaffoldBackgroundDarkColor
+                                : ColorManager.scaffoldBackgroundColor,
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
+                ),
               ],
             ),
           );
         },
       );
     });
+  }
+}
+
+class TextFieldForm extends StatelessWidget {
+  const TextFieldForm({
+    super.key,
+    required this.textController,
+  });
+
+  final TextEditingController textController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: TextFormField(
+        keyboardType: TextInputType.multiline,
+        maxLines: 20,
+        minLines: 1,
+        style: Theme.of(context).textTheme.titleLarge,
+        controller: textController,
+        decoration: InputDecoration(
+          hintText: AppString.yourMind,
+          hintStyle: Theme.of(context).textTheme.titleMedium,
+          border: InputBorder.none,
+          enabledBorder: InputBorder.none,
+          focusedBorder: InputBorder.none,
+        ),
+      ),
+    );
   }
 }

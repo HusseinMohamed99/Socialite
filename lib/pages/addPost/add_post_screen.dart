@@ -89,7 +89,7 @@ class AddPostScreen extends StatelessWidget {
                                   boxFit: BoxFit.fill,
                                 ),
                               ),
-                              SizedBox(width: 10.w),
+                              const SizedBox(width: 10),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -106,7 +106,7 @@ class AddPostScreen extends StatelessWidget {
                                             ? Colors.black
                                             : Colors.white,
                                       ),
-                                      SizedBox(width: 5.w),
+                                      const SizedBox(width: 5),
                                       Text(
                                         AppString.public,
                                         style: Theme.of(context)
@@ -120,7 +120,7 @@ class AddPostScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(height: 10.h),
+                        const SizedBox(height: 10),
                         TextFieldForm(textController: textController),
                         if (SocialCubit.get(context).postImagePicked != null)
                           Stack(
@@ -169,9 +169,8 @@ class AddPostScreen extends StatelessWidget {
                                     backgroundColor: Theme.of(context)
                                         .scaffoldBackgroundColor,
                                     child: const Icon(
-                                      Icons.close_rounded,
+                                      IconlyBroken.closeSquare,
                                       color: Colors.white,
-                                      size: 24,
                                     ),
                                   ),
                                 ),
@@ -252,7 +251,7 @@ class TextFieldForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20).r,
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: TextFormField(
         keyboardType: TextInputType.multiline,
         maxLines: 20,
