@@ -56,7 +56,11 @@ class StoriesItem extends StatelessWidget {
                                   height: screenHeight * .18,
                                   boxFit: BoxFit.fill,
                                 )
-                              : SvgPicture.asset(Assets.images404error),
+                              : SvgPicture.asset(
+                                  Assets.images404error,
+                                  width: double.infinity,
+                                  height: screenHeight * .18,
+                                ),
                         ),
                         CircleAvatar(
                           backgroundColor:

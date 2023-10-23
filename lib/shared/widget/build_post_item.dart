@@ -170,16 +170,18 @@ class BuildPostItem extends StatelessWidget {
                   ),
                   TextButton.icon(
                     onPressed: () {
+                      SocialCubit.get(context).getSinglePost(postId);
+                      print(postId);
+                      cubit
+                          .getComments(SocialCubit.get(context).postsId[index]);
                       navigateTo(
                         context,
                         CommentsScreen(
-                          likes: postModel.likes,
-                          postId: postModel.postId,
-                          postUid: postModel.uId,
+                          likes: postModel.likes!,
+                          postId: postModel.postId!,
+                          postUid: postModel.uId!,
                         ),
                       );
-                      cubit
-                          .getComments(SocialCubit.get(context).postsId[index]);
                     },
                     icon: const Icon(
                       IconlyBroken.chat,
@@ -216,12 +218,15 @@ class BuildPostItem extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
+                      SocialCubit.get(context).getSinglePost(postId);
+                      SocialCubit.get(context).getComments(postId);
+                      SocialCubit.get(context).getUserData();
                       navigateTo(
                         context,
                         CommentsScreen(
-                          likes: postModel.likes,
-                          postId: postModel.postId,
-                          postUid: postModel.uId,
+                          likes: postModel.likes!,
+                          postId: postModel.postId!,
+                          postUid: postModel.uId!,
                         ),
                       );
                     },
