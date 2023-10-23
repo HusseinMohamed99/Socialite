@@ -56,7 +56,6 @@ class BuildUsersItems extends StatelessWidget {
               ),
               icon: const Icon(
                 IconlyBroken.chat,
-                size: 24,
               ),
             )
           ],

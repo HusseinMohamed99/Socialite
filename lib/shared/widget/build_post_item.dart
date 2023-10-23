@@ -171,7 +171,6 @@ class BuildPostItem extends StatelessWidget {
                   TextButton.icon(
                     onPressed: () {
                       SocialCubit.get(context).getSinglePost(postId);
-                      print(postId);
                       cubit
                           .getComments(SocialCubit.get(context).postsId[index]);
                       navigateTo(
