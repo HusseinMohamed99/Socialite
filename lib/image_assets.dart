@@ -13,6 +13,10 @@ class Assets {
   /// assets/images/Background.jpg
   static const String imagesBackground = "assets/images/Background.jpg";
 
+  /// Assets for imagesBackgroundImage
+  /// assets/images/backgroundImage.png
+  static const String imagesBackgroundImage = "assets/images/backgroundImage.png";
+
   /// Assets for imagesEmail
   /// assets/images/email.png
   static const String imagesEmail = "assets/images/email.png";
@@ -56,6 +60,10 @@ class Assets {
   /// Assets for imagesUndrawNotFound
   /// assets/images/undraw_not_found.svg
   static const String imagesUndrawNotFound = "assets/images/undraw_not_found.svg";
+
+  /// Assets for imagesWhatsappBack
+  /// assets/images/whatsapp_Back.png
+  static const String imagesWhatsappBack = "assets/images/whatsapp_Back.png";
 
   /// Assets for imagesWww
   /// assets/images/Www.svg

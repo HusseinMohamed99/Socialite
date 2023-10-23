@@ -50,6 +50,7 @@ dependencies:
   uuid: ^4.1.0
   connectivity_plus: ^5.0.1
   glassmorphism: ^3.0.0
+  emoji_picker_flutter: ^1.6.2
 
 dev_dependencies:
   flutter_test:
