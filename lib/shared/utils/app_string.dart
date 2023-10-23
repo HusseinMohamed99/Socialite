@@ -58,7 +58,7 @@ class AppString {
 
   static const String friends = 'My Friends';
   static const String noFriends = 'No Friends';
-  static const String unFriends = 'Un Friends';
+  static const String unFriends = 'UnFriends';
   static const String followers = 'Followers';
   static const String alreadyFriends = 'You are already Friends';
   static const String wantUnfriend = 'Do you want to Unfriend ?';
