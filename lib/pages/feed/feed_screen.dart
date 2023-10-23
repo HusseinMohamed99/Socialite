@@ -56,15 +56,9 @@ class FeedScreen extends StatelessWidget {
             ),
             const SliverToBoxAdapter(child: SizedBox(height: 10)),
             if (cubit.posts.isNotEmpty)
-              SliverToBoxAdapter(
-                child: ListView.separated(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: cubit.posts.length,
-                  separatorBuilder: (context, index) {
-                    return const SizedBox(height: 10);
-                  },
-                  itemBuilder: (context, index) {
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
                     return BuildPostItem(
                       postModel: cubit.posts[index],
                       userModel: cubit.userModel!,
@@ -73,6 +67,7 @@ class FeedScreen extends StatelessWidget {
                       screenWidth: screenWidth,
                     );
                   },
+                  childCount: cubit.posts.length,
                 ),
               )
             else

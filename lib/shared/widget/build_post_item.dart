@@ -152,7 +152,7 @@ class BuildPostItem extends StatelessWidget {
                       navigateTo(
                         context,
                         LikesScreen(
-                          SocialCubit.get(context).postsId[index],
+                          postID: SocialCubit.get(context).postsId[index],
                         ),
                       );
                     },
@@ -225,11 +225,9 @@ class BuildPostItem extends StatelessWidget {
                         ),
                       );
                     },
-                    child: Expanded(
-                      child: Text(
-                        AppString.writeComment,
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
+                    child: Text(
+                      AppString.writeComment,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ),
                   const SizedBox(width: 10),

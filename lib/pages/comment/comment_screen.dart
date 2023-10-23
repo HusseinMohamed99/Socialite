@@ -65,7 +65,7 @@ class CommentsScreen extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        navigateTo(context, LikesScreen(postId));
+                        navigateTo(context, LikesScreen(postID: postId!));
                       },
                       child: Row(
                         children: [
@@ -227,10 +227,10 @@ class CommentsScreen extends StatelessWidget {
                                     contentKey: AppString.post,
                                   );
                                   SocialCubit.get(context).sendFCMNotification(
-                                    token: user!.token!,
+                                    token: user!.token,
                                     senderName: SocialCubit.get(context)
                                         .userModel!
-                                        .name!,
+                                        .name,
                                     messageText:
                                         '${SocialCubit.get(context).userModel!.name}'
                                         '${AppString.commentedOnPost}',
