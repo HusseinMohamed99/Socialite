@@ -56,7 +56,7 @@ Future<dynamic> moreOption(BuildContext context, SocialCubit cubit,
             if (postModel.postImage != '')
               ShowModalSheetItems(
                 function: () {
-                  // cubit.saveToGallery(postModel.postImage!);
+                  cubit.saveImageToGallery(context, postModel.postImage!);
                 },
                 iconData: IconlyBroken.download,
                 text: AppString.saveImage,

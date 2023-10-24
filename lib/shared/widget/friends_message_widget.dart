@@ -182,7 +182,8 @@ class BuildFriendMessageItem extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () {
-                    // cubit.saveToGallery(messageModel.messageImage!);
+                    cubit.saveImageToGallery(
+                        context, messageModel.messageImage!);
                   },
                   icon: const Icon(
                     IconlyBroken.download,
@@ -260,7 +261,8 @@ class BuildFriendMessageItem extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () {
-                    // cubit.saveToGallery(messageModel.messageImage!);
+                    cubit.saveImageToGallery(
+                        context, messageModel.messageImage!);
                   },
                   icon: const Icon(
                     IconlyBroken.download,

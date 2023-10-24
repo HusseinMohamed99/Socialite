@@ -126,7 +126,8 @@ class BuildOwnMessageItem extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {
-                    // cubit.saveToGallery(messageModel.messageImage!);
+                    cubit.saveImageToGallery(
+                        context, messageModel.messageImage!);
                   },
                   icon: const Icon(
                     IconlyBroken.download,
@@ -237,7 +238,8 @@ class BuildOwnMessageItem extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {
-                    // cubit.saveToGallery(messageModel.messageImage!);
+                    cubit.saveImageToGallery(
+                        context, messageModel.messageImage!);
                   },
                   icon: const Icon(
                     IconlyBroken.download,

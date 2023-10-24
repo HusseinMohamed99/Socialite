@@ -1,6 +1,10 @@
 import 'dart:io';
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:socialite/pages/chat/chat_screen.dart';
 import 'package:socialite/pages/feed/feed_screen.dart';
 import 'package:socialite/pages/on-boarding/on_boarding_screen.dart';
@@ -29,6 +33,7 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:socialite/shared/network/dio_helper.dart';
 import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
+import 'package:http/http.dart' as http;
 
 class SocialCubit extends Cubit<SocialStates> {
   SocialCubit() : super(SocialInitialState());
@@ -664,15 +669,61 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  // void saveToGallery(String imageUrl) {
-  //   emit(SavedToGalleryLoadingState());
-  //   GallerySaver.saveImage(imageUrl, albumName: 'Socialite').then((value) {
-  //     emit(SavedToGallerySuccessState());
-  //   }).catchError((error) {
-  //     debugPrint("${error.toString()} from saveToGallery");
-  //     emit(SavedToGalleryErrorState());
-  //   });
-  // }
+  var random = Random();
+
+  Future<void> saveImageToGallery(context, String imageUrl) async {
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    late String message;
+    emit(SavedToGalleryLoadingState());
+    try {
+      // Download image
+      final http.Response response = await http.get(Uri.parse(imageUrl));
+
+      // Get temporary directory
+      final dir = await getTemporaryDirectory();
+
+      // Create an image name
+      var filename = '${dir.path}/SaveImage${random.nextInt(100)}.png';
+
+      // Save to filesystem
+      final file = File(filename);
+      await file.writeAsBytes(response.bodyBytes);
+
+      // Ask the user to save it
+      final params = SaveFileDialogParams(sourceFilePath: file.path);
+      final finalPath = await FlutterFileDialog.saveFile(params: params);
+
+      if (finalPath != null) {
+        message = 'Image saved to disk';
+      }
+    } catch (e) {
+      emit(SavedToGalleryErrorState());
+      message = e.toString();
+      scaffoldMessenger.showSnackBar(SnackBar(
+        content: Text(
+          message,
+          style: const TextStyle(
+            fontSize: 12,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: const Color(0xFFe91e63),
+      ));
+    }
+    emit(SavedToGallerySuccessState());
+    scaffoldMessenger.showSnackBar(SnackBar(
+      content: Text(
+        message,
+        style: const TextStyle(
+          fontSize: 12,
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      backgroundColor: const Color(0xFFe91e63),
+    ));
+  }
 
   void editPost({
     required String dateTime,

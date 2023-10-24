@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:socialite/shared/cubit/loginCubit/cubit.dart';
+import 'package:socialite/shared/cubit/loginCubit/login_cubit.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 Widget checkBox(BuildContext context, {Color? color}) {

@@ -4,7 +4,7 @@ import 'package:socialite/model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:socialite/shared/cubit/registerCubit/state.dart';
+import 'package:socialite/shared/cubit/registerCubit/register_state.dart';
 import 'package:socialite/shared/network/cache_helper.dart';
 
 class RegisterCubit extends Cubit<RegisterStates> {

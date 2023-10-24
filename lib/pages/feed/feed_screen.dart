@@ -19,10 +19,7 @@ class FeedScreen extends StatelessWidget {
         if (state is SavedToGalleryLoadingState) {
           Navigator.pop(context);
         }
-        if (state is SavedToGallerySuccessState) {
-          showToast(
-              text: AppString.downloadedToGallery, state: ToastStates.success);
-        }
+
         if (state is LikesSuccessState) {
           showToast(
               text: AppString.likesSuccessfully, state: ToastStates.success);
