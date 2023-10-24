@@ -708,7 +708,7 @@ class SocialCubit extends Cubit<SocialStates> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: const Color(0xFFe91e63),
+        backgroundColor: ColorManager.redColor,
       ));
     }
     emit(SavedToGallerySuccessState());
@@ -721,7 +721,7 @@ class SocialCubit extends Cubit<SocialStates> {
           fontWeight: FontWeight.bold,
         ),
       ),
-      backgroundColor: const Color(0xFFe91e63),
+      backgroundColor: ColorManager.greenColor,
     ));
   }
 
