@@ -65,6 +65,11 @@ class SocialCubit extends Cubit<SocialStates> {
       getStories();
       getPosts();
       getUserPosts(uId);
+      getFriends(userModel!.uId);
+      getFriendsProfile(userModel!.uId);
+      getFriendRequest();
+      checkFriends(userModel!.uId);
+      checkFriendRequest(userModel!.uId);
     }
     if (index == 1) {
       getAllUsers();
@@ -901,6 +906,7 @@ class SocialCubit extends Cubit<SocialStates> {
           friendsProfile = UserModel.fromJson(element.data());
         }
       }
+
       emit(GetFriendProfileSuccessState());
     });
   }

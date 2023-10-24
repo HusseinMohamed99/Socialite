@@ -17,12 +17,13 @@ class FriendsBuildItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).build(context);
+        SocialCubit.get(context).getUserPosts(userModel.uId);
+        SocialCubit.get(context).getFriendsProfile(userModel.uId);
+
         navigateTo(
           context,
           FriendsProfileScreen(userModel.uId),
         );
-        SocialCubit.get(context).getUserPosts(userModel.uId);
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12),

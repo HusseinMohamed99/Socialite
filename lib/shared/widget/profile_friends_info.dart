@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:socialite/model/user_model.dart';
 import 'package:socialite/shared/components/constants.dart';
 import 'package:socialite/shared/components/my_divider.dart';
-import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 import 'package:socialite/shared/utils/value_manager.dart';
 
@@ -10,11 +9,9 @@ class ProfileFriendsInfo extends StatelessWidget {
   const ProfileFriendsInfo({
     super.key,
     required this.userModel,
-    required this.cubit,
   });
 
   final UserModel? userModel;
-  final SocialCubit cubit;
 
   @override
   Widget build(BuildContext context) {

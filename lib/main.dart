@@ -103,6 +103,8 @@ class MyApp extends StatelessWidget {
               ..getAllUsers()
               ..getPosts()
               ..getStories()
+              ..getFriends(uId)
+              ..getFriendsProfile(uId)
               ..changeAppMode(
                 fromShared: isDark,
               );

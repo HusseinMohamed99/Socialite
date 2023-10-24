@@ -35,6 +35,7 @@ class PeoplesMayKnow extends StatelessWidget {
               socialCubit.getFriendsProfile(userModel.uId);
               socialCubit.getUserPosts(userModel.uId);
               navigateTo(context, FriendsProfileScreen(userModel.uId));
+              socialCubit.getFriendsProfile(userModel.uId);
             },
             child: ImageWithShimmer(
               radius: 20,

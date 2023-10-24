@@ -12,7 +12,7 @@ import 'package:socialite/shared/widget/profile_friends_info.dart';
 
 class FriendsProfileScreen extends StatelessWidget {
   const FriendsProfileScreen(this.userUID, {Key? key}) : super(key: key);
-  final String userUID;
+  final String? userUID;
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +34,7 @@ class FriendsProfileScreen extends StatelessWidget {
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               slivers: [
                 SliverToBoxAdapter(
-                  child:
-                      ProfileFriendsInfo(userModel: friendsModel, cubit: cubit),
+                  child: ProfileFriendsInfo(userModel: friendsModel),
                 ),
                 SliverToBoxAdapter(
                   child: Padding(
