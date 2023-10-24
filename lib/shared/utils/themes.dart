@@ -8,8 +8,11 @@ import 'package:socialite/shared/utils/value_manager.dart';
 
 final getThemeData = {
   AppTheme.lightTheme: ThemeData(
-    scaffoldBackgroundColor: ColorManager.scaffoldBackgroundColor,
     cardColor: ColorManager.titanWithColor,
+    cardTheme: const CardTheme(
+      color: ColorManager.titanWithColor,
+    ),
+    scaffoldBackgroundColor: ColorManager.scaffoldBackgroundColor,
     primarySwatch: Colors.blue,
     appBarTheme: AppBarTheme(
       titleSpacing: 6,
@@ -74,7 +77,10 @@ final getThemeData = {
     ),
   ),
   AppTheme.darkTheme: ThemeData(
-    cardColor: ColorManager.blackColor,
+    cardColor: ColorManager.titanWithColor,
+    cardTheme: const CardTheme(
+      color: ColorManager.blackColor,
+    ),
     scaffoldBackgroundColor: ColorManager.scaffoldBackgroundDarkColor,
     primarySwatch: Colors.blue,
     appBarTheme: const AppBarTheme(

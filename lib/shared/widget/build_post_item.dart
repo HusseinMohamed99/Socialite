@@ -33,7 +33,7 @@ class BuildPostItem extends StatelessWidget {
 
   final PostModel postModel;
   final int index;
-  final UserModel userModel;
+  final UserModel? userModel;
   final double screenHeight;
   final double screenWidth;
   @override
@@ -212,13 +212,22 @@ class BuildPostItem extends StatelessWidget {
                         },
                         child: CircleAvatar(
                           radius: 15,
-                          child: ImageWithShimmer(
-                            radius: 25,
-                            imageUrl: userModel.image,
-                            width: 40,
-                            height: 40,
-                            boxFit: BoxFit.fill,
-                          ),
+                          child: userModel?.image != null
+                              ? ImageWithShimmer(
+                                  radius: 25,
+                                  imageUrl: userModel!.image,
+                                  width: 40,
+                                  height: 40,
+                                  boxFit: BoxFit.fill,
+                                )
+                              : const ImageWithShimmer(
+                                  radius: 25,
+                                  imageUrl:
+                                      'https://img.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg?w=740&t=st=1692497461~exp=1692498061~hmac=4e76f888ce2372f12e339835e14f04b559236b4ae063439961923a24133f274b',
+                                  width: 40,
+                                  height: 40,
+                                  boxFit: BoxFit.fill,
+                                ),
                         ),
                       ),
                       InkWell(

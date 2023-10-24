@@ -61,7 +61,7 @@ class FeedScreen extends StatelessWidget {
                   (context, index) {
                     return BuildPostItem(
                       postModel: cubit.posts[index],
-                      userModel: cubit.userModel!,
+                      userModel: cubit.userModel,
                       index: index,
                       screenHeight: screenHeight,
                       screenWidth: screenWidth,
