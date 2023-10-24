@@ -46,7 +46,7 @@ class ViewStory extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      FriendsProfileScreen(storyModel.uId),
+                                      FriendsProfileScreen(storyModel.uId!),
                                 ),
                               );
                             } else {

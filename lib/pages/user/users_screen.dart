@@ -4,9 +4,7 @@ import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:socialite/shared/utils/app_string.dart';
-import 'package:socialite/shared/utils/color_manager.dart';
 import 'package:socialite/shared/utils/value_manager.dart';
 import 'package:socialite/shared/widget/friends_item.dart';
 import 'package:socialite/shared/widget/friends_requests.dart';
@@ -28,109 +26,91 @@ class UserScreen extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        List<UserModel> peopleYouMayKnow =
-            SocialCubit.get(context).users.cast<UserModel>();
-        List<UserModel> friendRequests =
-            SocialCubit.get(context).friendRequests.cast<UserModel>();
-        List<UserModel> friends =
-            SocialCubit.get(context).friends.cast<UserModel>();
-        return SocialCubit.get(context).users.isEmpty
-            ? Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      IconlyBroken.chat,
-                      size: 70,
-                      color: ColorManager.greyColor,
-                    ),
-                    Text(
-                      AppString.noUsers,
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                  ],
+        SocialCubit cubit = SocialCubit.get(context);
+        List<UserModel> peopleYouMayKnow = cubit.users.cast<UserModel>();
+        List<UserModel> friendRequests = cubit.friendRequests.cast<UserModel>();
+        List<UserModel> friends = cubit.friends.cast<UserModel>();
+        return CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          slivers: [
+            if (friendRequests.isNotEmpty)
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppPadding.p12,
+                  ),
+                  child: Text(
+                    AppString.friendRequest,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
                 ),
-              )
-            : CustomScrollView(
-                physics: const BouncingScrollPhysics(),
-                slivers: [
-                  if (friendRequests.isNotEmpty)
-                    SliverToBoxAdapter(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: AppPadding.p12,
-                        ),
-                        child: Text(
-                          AppString.friendRequest,
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                      ),
-                    ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return FriendRequestItems(
-                            userModel: friendRequests[index]);
-                      },
-                      childCount: friendRequests.length,
-                    ),
+              ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  return FriendRequestItems(userModel: friendRequests[index]);
+                },
+                childCount: friendRequests.length,
+              ),
+            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 10)),
+            if (peopleYouMayKnow.isNotEmpty)
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppPadding.p12,
                   ),
-                  const SliverToBoxAdapter(child: SizedBox(height: 10)),
-                  if (peopleYouMayKnow.isNotEmpty)
-                    SliverToBoxAdapter(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: AppPadding.p12,
-                        ),
-                        child: Text(
-                          AppString.peopleMayKnow,
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                      ),
-                    ),
-                  const SliverToBoxAdapter(child: SizedBox(height: 10)),
-                  SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: screenHeight * .35,
-                      child: ListView.separated(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: AppPadding.p12),
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return PeoplesMayKnow(
-                              userModel: peopleYouMayKnow[index]);
-                        },
-                        separatorBuilder: (context, index) {
-                          return const SizedBox(width: 10);
-                        },
-                        itemCount: peopleYouMayKnow.length,
-                      ),
-                    ),
+                  child: Text(
+                    AppString.peopleMayKnow,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
-                  if (friends.isNotEmpty)
-                    SliverToBoxAdapter(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: AppPadding.p12,
-                        ),
-                        child: Text(
-                          AppString.friends,
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                      ),
-                    ),
-                  const SliverToBoxAdapter(child: SizedBox(height: 10)),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return FriendsBuildItems(userModel: friends[index]);
-                      },
-                      childCount: friends.length,
-                    ),
+                ),
+              ),
+            const SliverToBoxAdapter(child: SizedBox(height: 10)),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: screenHeight * .35,
+                child: ListView.separated(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: AppPadding.p12),
+                  physics: const BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return PeoplesMayKnow(
+                      userModel: peopleYouMayKnow[index],
+                      socialCubit: cubit,
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(width: 10);
+                  },
+                  itemCount: peopleYouMayKnow.length,
+                ),
+              ),
+            ),
+            if (friends.isNotEmpty)
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppPadding.p12,
                   ),
-                ],
-              );
+                  child: Text(
+                    AppString.friends,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                ),
+              ),
+            const SliverToBoxAdapter(child: SizedBox(height: 10)),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  return FriendsBuildItems(userModel: friends[index]);
+                },
+                childCount: friends.length,
+              ),
+            ),
+          ],
+        );
       },
     );
   }

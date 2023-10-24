@@ -99,7 +99,7 @@ class NotificationsBuilder extends StatelessWidget {
   void notificationMethod(BuildContext context) {
     if (notifications.contentKey == AppString.requestAccepted) {
       SocialCubit.get(context).readNotification(notifications.notificationId);
-      navigateTo(context, FriendsProfileScreen(notifications.contentId));
+      navigateTo(context, FriendsProfileScreen(notifications.contentId!));
     } else if (notifications.contentKey == AppString.likePost ||
         notifications.contentKey == AppString.commentPost) {
       SocialCubit.get(context).readNotification(notifications.notificationId);

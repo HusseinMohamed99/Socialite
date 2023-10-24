@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:socialite/model/user_model.dart';
 import 'package:socialite/shared/components/indicator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
@@ -11,14 +12,14 @@ import 'package:socialite/shared/widget/profile_friends_info.dart';
 
 class FriendsProfileScreen extends StatelessWidget {
   const FriendsProfileScreen(this.userUID, {Key? key}) : super(key: key);
-  final String? userUID;
+  final String userUID;
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        var friendsModel = SocialCubit.get(context).friendsProfile;
+        UserModel? friendsModel = SocialCubit.get(context).friendsProfile;
         SocialCubit cubit = SocialCubit.get(context);
         final screenHeight = MediaQuery.sizeOf(context).height;
         final screenWidth = MediaQuery.sizeOf(context).width;

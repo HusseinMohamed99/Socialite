@@ -9,8 +9,10 @@ import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 class PeoplesMayKnow extends StatelessWidget {
-  const PeoplesMayKnow({super.key, required this.userModel});
+  const PeoplesMayKnow(
+      {super.key, required this.userModel, required this.socialCubit});
   final UserModel userModel;
+  final SocialCubit socialCubit;
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.sizeOf(context).width;
@@ -30,8 +32,9 @@ class PeoplesMayKnow extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
+              socialCubit.getFriendsProfile(userModel.uId);
+              socialCubit.getUserPosts(userModel.uId);
               navigateTo(context, FriendsProfileScreen(userModel.uId));
-              SocialCubit.get(context).getUserPosts(userModel.uId);
             },
             child: ImageWithShimmer(
               radius: 20,
@@ -66,22 +69,22 @@ class PeoplesMayKnow extends StatelessWidget {
           const Spacer(),
           InkWell(
             onTap: () {
-              SocialCubit.get(context).sendFriendRequest(
+              socialCubit.sendFriendRequest(
                 friendsUID: userModel.uId,
                 friendName: userModel.name,
                 friendImage: userModel.image,
               );
-              SocialCubit.get(context).sendInAppNotification(
+              socialCubit.sendInAppNotification(
                 contentKey: AppString.friendRequest,
                 contentId: userModel.uId,
                 content: AppString.checkFriendRequest,
                 receiverId: userModel.uId,
                 receiverName: userModel.name,
               );
-              SocialCubit.get(context).sendFCMNotification(
+              socialCubit.sendFCMNotification(
                 token: userModel.token,
-                senderName: SocialCubit.get(context).userModel!.name,
-                messageText: '${SocialCubit.get(context).userModel!.name}'
+                senderName: socialCubit.userModel!.name,
+                messageText: '${socialCubit.userModel!.name}'
                     '${AppString.checkFriendRequest}',
               );
             },
@@ -93,8 +96,8 @@ class PeoplesMayKnow extends StatelessWidget {
                 ),
                 color: ColorManager.blueColor,
               ),
-              child: SocialCubit.get(context).isFriend == false
-                  ? SocialCubit.get(context).request
+              child: socialCubit.isFriend == false
+                  ? socialCubit.request
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

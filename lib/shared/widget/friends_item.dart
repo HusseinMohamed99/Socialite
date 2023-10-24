@@ -52,7 +52,7 @@ class FriendsBuildItems extends StatelessWidget {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: SocialCubit.get(context).isDark
-                      ? ColorManager.primaryDarkColor
+                      ? ColorManager.blueColor
                       : ColorManager.primaryColor,
                 ),
                 onPressed: () => navigateTo(

@@ -7,7 +7,6 @@ class AdaptiveIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const CircularProgressIndicator.adaptive(
-      value: 0.5,
       backgroundColor: ColorManager.greyColor,
       valueColor: AlwaysStoppedAnimation<Color>(ColorManager.mainColor),
       strokeWidth: 6,
