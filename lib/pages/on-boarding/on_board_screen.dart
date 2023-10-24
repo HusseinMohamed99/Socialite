@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socialite/Pages/Login/login_screen.dart';
 import 'package:socialite/Pages/Register/register_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/image_assets.dart';
 import 'package:socialite/shared/components/buttons.dart';
 import 'package:socialite/shared/components/navigator.dart';
@@ -104,13 +103,15 @@ class _OnBoardState extends State<OnBoard> {
                                 },
                                 text: AppString.signIn,
                                 context: context,
+                                textColor: ColorManager.blackColor,
                               ),
-                              SizedBox(height: 10.h),
+                              const SizedBox(height: 10),
                               defaultMaterialButton(
                                 function: () {
                                   submitted();
                                 },
                                 text: AppString.signUp,
+                                textColor: ColorManager.blackColor,
                                 context: context,
                                 color: ColorManager.yellowColor,
                               ),
