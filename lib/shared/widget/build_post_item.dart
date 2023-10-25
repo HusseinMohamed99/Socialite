@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:fluttericon/linearicons_free_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:socialite/model/post_model.dart';
 import 'package:socialite/model/user_model.dart';
@@ -97,7 +96,7 @@ class BuildPostItem extends StatelessWidget {
                             Row(
                               children: [
                                 const Icon(
-                                  LineariconsFree.earth,
+                                  Icons.timer,
                                   color: Colors.grey,
                                 ),
                                 const SizedBox(width: 10),
@@ -190,14 +189,14 @@ class BuildPostItem extends StatelessWidget {
                         },
                         icon: const Icon(
                           IconlyBroken.chat,
-                          color: ColorManager.dividerColor,
+                          color: ColorManager.blueColor,
                         ),
                         label: Text(
                           '${postModel.comments}',
                           style: Theme.of(context)
                               .textTheme
                               .bodyLarge!
-                              .copyWith(color: ColorManager.dividerColor),
+                              .copyWith(color: ColorManager.blueColor),
                         ),
                       ),
                     ],
@@ -255,7 +254,7 @@ class BuildPostItem extends StatelessWidget {
                           UserModel? postUser =
                               SocialCubit.get(context).userModel;
                           DateTime now = DateTime.now();
-                          await SocialCubit.get(context).likeByMe(
+                          SocialCubit.get(context).likeByMe(
                             postUser: postUser,
                             context: context,
                             postModel: postModel,
@@ -267,12 +266,16 @@ class BuildPostItem extends StatelessWidget {
                           AppString.likes,
                           style:
                               Theme.of(context).textTheme.titleMedium!.copyWith(
-                                    color: ColorManager.redColor,
+                                    color: cubit.isLikedByMe
+                                        ? ColorManager.redColor
+                                        : ColorManager.greyColor,
                                   ),
                         ),
-                        icon: const Icon(
+                        icon: Icon(
                           IconlyBroken.heart,
-                          color: ColorManager.redColor,
+                          color: cubit.isLikedByMe
+                              ? ColorManager.redColor
+                              : ColorManager.greyColor,
                         ),
                       ),
                       TextButton.icon(
@@ -291,7 +294,7 @@ class BuildPostItem extends StatelessWidget {
                           );
                         },
                         icon: const Icon(
-                          IconlyBroken.upload,
+                          Icons.share,
                           color: ColorManager.greenColor,
                         ),
                         label: Text(

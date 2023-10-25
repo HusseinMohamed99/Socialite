@@ -1,3 +1,5 @@
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:socialite/image_assets.dart';
 import 'package:socialite/shared/components/indicator.dart';
 import 'package:socialite/shared/components/show_toast.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
@@ -67,11 +69,18 @@ class FeedScreen extends StatelessWidget {
                   childCount: cubit.posts.length,
                 ),
               )
-            else
+            else if (state is GetPostsLoadingState)
               const SliverFillRemaining(
                 hasScrollBody: false,
                 child: Center(
                   child: AdaptiveIndicator(),
+                ),
+              ),
+            if (cubit.posts.isEmpty)
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Center(
+                  child: SvgPicture.asset(Assets.images404error),
                 ),
               ),
           ],

@@ -17,7 +17,6 @@ dependencies:
   shared_preferences: ^2.0.15
   bloc: ^8.0.3
   flutter_bloc: ^8.0.1
-  bot_toast: ^4.0.2
   fluttertoast: ^8.0.9
   flutter_iconly: ^1.0.2
   image_picker: ^1.0.1
@@ -25,12 +24,10 @@ dependencies:
   bubble: ^1.2.1
   badges: ^3.1.2
   carousel_slider: ^4.1.1
-  timeago: ^3.3.0
   dio: ^5.2.1+1
   flutter_screenutil: ^5.7.0
   cached_network_image: ^3.2.3
   google_fonts: ^6.1.0
-  fluttericon: ^2.0.0
   full_screen_image_null_safe: any
   intl: ^0.18.1
   shimmer: ^3.0.0

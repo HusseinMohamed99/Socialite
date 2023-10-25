@@ -94,6 +94,11 @@ class LikedByMeCheckedLoadingState extends SocialStates {}
 
 class LikedByMeCheckedSuccessState extends SocialStates {}
 
+class LikedByMeCheckedErrorState extends SocialStates {
+  final String error;
+  LikedByMeCheckedErrorState(this.error);
+}
+
 class DisLikesSuccessState extends SocialStates {}
 
 class DisLikesErrorState extends SocialStates {

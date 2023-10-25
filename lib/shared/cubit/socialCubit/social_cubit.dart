@@ -457,7 +457,9 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  Future<bool> likeByMe({
+  bool isLikedByMe = true;
+
+  likeByMe({
     context,
     String? postId,
     PostModel? postModel,
@@ -465,7 +467,7 @@ class SocialCubit extends Cubit<SocialStates> {
     required DateTime dataTime,
   }) async {
     emit(LikedByMeCheckedLoadingState());
-    bool isLikedByMe = false;
+    isLikedByMe = true;
     FirebaseFirestore.instance
         .collection('posts')
         .doc(postId)
@@ -474,11 +476,11 @@ class SocialCubit extends Cubit<SocialStates> {
       var likes = await event.reference.collection('likes').get();
       for (var element in likes.docs) {
         if (element.id == userModel!.uId) {
-          isLikedByMe = true;
+          isLikedByMe = false;
           disLikePost(postId!);
         }
       }
-      if (isLikedByMe == false) {
+      if (isLikedByMe == true) {
         likePosts(
           postId: postId,
           context: context,
@@ -488,8 +490,8 @@ class SocialCubit extends Cubit<SocialStates> {
         );
       }
       emit(LikedByMeCheckedSuccessState());
+      return isLikedByMe;
     });
-    return isLikedByMe;
   }
 
   void likePosts({

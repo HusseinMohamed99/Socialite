@@ -8,6 +8,7 @@ class PostModel {
   String? text;
   int? likes;
   int? comments;
+  bool? isLike;
 
   PostModel({
     this.uId,
@@ -19,22 +20,22 @@ class PostModel {
     this.likes,
     this.comments,
     this.postId,
+    this.isLike = false,
   });
 
-  factory PostModel.fromJson(Map<String, dynamic> json) {
-    return PostModel(
-      uId: json['uId'],
-      dateTime: DateTime.fromMillisecondsSinceEpoch(json['dateTime']),
-      name: json['name'],
-      text: json['text'],
-      image: json['image'],
-      postImage: json['postImage'],
-      likes: json['likes'],
-      comments: json['comments'],
-      postId: json['postId'],
-    );
-  }
-
+  PostModel.fromJson(Map<String, dynamic> json)
+      : this(
+          uId: json['uId'],
+          dateTime: DateTime.fromMillisecondsSinceEpoch(json['dateTime']),
+          name: json['name'],
+          text: json['text'],
+          image: json['image'],
+          postImage: json['postImage'],
+          likes: json['likes'],
+          comments: json['comments'],
+          postId: json['postId'],
+          isLike: json['isLike'],
+        );
   Map<String, dynamic> toMap() {
     return {
       'dateTime': dateTime!.millisecondsSinceEpoch,
@@ -46,6 +47,7 @@ class PostModel {
       'likes': likes,
       'comments': comments,
       'postId': postId,
+      'isLike': isLike,
     };
   }
 }
