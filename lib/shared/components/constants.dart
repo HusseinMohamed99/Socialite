@@ -1,13 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
 import 'package:intl/intl.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:socialite/image_assets.dart';
 import 'package:socialite/shared/components/image_with_shimmer.dart';
 import 'package:socialite/shared/utils/app_string.dart';
-import 'package:socialite/shared/utils/color_manager.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 String daysBetween(DateTime postDate) {
@@ -59,29 +56,11 @@ Widget imageWithShimmer(
 Widget imagePreview(String? image, {double? height}) {
   return FullScreenWidget(
     child: Center(
-      child: CachedNetworkImage(
-        fit: BoxFit.fitWidth,
+      child: ImageWithShimmer(
+        boxFit: BoxFit.fitWidth,
         width: double.infinity,
-        height: height,
-        placeholder: (_, __) => Shimmer.fromColors(
-          baseColor: Colors.grey[850]!,
-          highlightColor: Colors.grey[800]!,
-          child: Container(
-            color: ColorManager.greyColor,
-          ),
-        ),
-        imageBuilder: (context, imageProvider) {
-          return Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.fitWidth,
-              ),
-            ),
-          );
-        },
-        errorWidget: (_, __, ___) => SvgPicture.asset(Assets.imagesError),
         imageUrl: "$image",
+        height: height,
       ),
     ),
   );
@@ -90,28 +69,16 @@ Widget imagePreview(String? image, {double? height}) {
 Widget imagePostPreview(String? image) {
   return FullScreenWidget(
     child: Center(
-      child: CachedNetworkImage(
-        imageUrl: "$image",
+      child: Image.network(
         fit: BoxFit.fitWidth,
         width: double.infinity,
-        placeholder: (_, __) => Shimmer.fromColors(
-          baseColor: Colors.grey[850]!,
-          highlightColor: Colors.grey[800]!,
-          child: Container(
-            color: ColorManager.greyColor,
-          ),
-        ),
-        imageBuilder: (context, imageProvider) {
-          return Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.fitWidth,
-              ),
-            ),
+        "$image",
+        alignment: AlignmentDirectional.topCenter,
+        errorBuilder: (context, error, stackTrace) {
+          return Center(
+            child: SvgPicture.asset(Assets.images404error),
           );
         },
-        errorWidget: (_, __, ___) => SvgPicture.asset(Assets.imagesError),
       ),
     ),
   );

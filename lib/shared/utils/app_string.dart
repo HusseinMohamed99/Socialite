@@ -1,7 +1,7 @@
 class AppString {
   static const String appTitle = 'Socialite';
   static const String authorizationStatus = 'User granted permission';
-  static const String receivedMessage = 'You Received Message';
+  static const String sentMessage = 'You Send Message';
   static const String openedApp = 'on Message Opened App';
   static const String isDark = 'isDark';
   static const String uId = 'uId';

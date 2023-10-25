@@ -226,28 +226,28 @@ class CarouselSliderStories extends StatelessWidget {
                 children: [
                   Container(
                     width: screenWidth,
-                    height: screenHeight * .35,
+                    height: screenHeight * .3,
                     margin: const EdgeInsets.all(AppMargin.m12),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(AppSize.s50),
+                        borderRadius: BorderRadius.circular(AppSize.s20),
                         boxShadow: [
                           BoxShadow(
                               color: Theme.of(context)
                                   .shadowColor
                                   .withOpacity(0.1),
                               spreadRadius: 3,
-                              blurRadius: 9,
+                              blurRadius: 3,
                               offset: const Offset(3, 3)),
                           BoxShadow(
                               color: Theme.of(context)
                                   .shadowColor
                                   .withOpacity(0.4),
                               spreadRadius: 3,
-                              blurRadius: 9,
+                              blurRadius: 3,
                               offset: const Offset(-1, -1))
                         ]),
                     child: ImageWithShimmer(
-                      radius: 45,
+                      radius: 20,
                       imageUrl: e.storyImage!,
                       width: double.infinity,
                       height: double.infinity,

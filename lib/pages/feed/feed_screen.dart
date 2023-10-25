@@ -83,6 +83,11 @@ class FeedScreen extends StatelessWidget {
                   child: SvgPicture.asset(Assets.images404error),
                 ),
               ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 60,
+              ),
+            )
           ],
         );
       },

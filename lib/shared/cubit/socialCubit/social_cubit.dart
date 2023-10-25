@@ -457,9 +457,7 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  bool isLikedByMe = true;
-
-  likeByMe({
+  Future<bool> likeByMe({
     context,
     String? postId,
     PostModel? postModel,
@@ -467,7 +465,7 @@ class SocialCubit extends Cubit<SocialStates> {
     required DateTime dataTime,
   }) async {
     emit(LikedByMeCheckedLoadingState());
-    isLikedByMe = true;
+    bool isLikedByMe = false;
     FirebaseFirestore.instance
         .collection('posts')
         .doc(postId)
@@ -476,11 +474,11 @@ class SocialCubit extends Cubit<SocialStates> {
       var likes = await event.reference.collection('likes').get();
       for (var element in likes.docs) {
         if (element.id == userModel!.uId) {
-          isLikedByMe = false;
+          isLikedByMe = true;
           disLikePost(postId!);
         }
       }
-      if (isLikedByMe == true) {
+      if (isLikedByMe == false) {
         likePosts(
           postId: postId,
           context: context,
@@ -490,8 +488,8 @@ class SocialCubit extends Cubit<SocialStates> {
         );
       }
       emit(LikedByMeCheckedSuccessState());
-      return isLikedByMe;
     });
+    return isLikedByMe;
   }
 
   void likePosts({
@@ -521,10 +519,11 @@ class SocialCubit extends Cubit<SocialStates> {
       getPosts();
       if (postModel!.uId != userModel!.uId) {
         SocialCubit.get(context).sendInAppNotification(
-          receiverName: userModel!.name,
-          receiverId: userModel!.uId,
+          receiverName: postModel.name,
+          receiverId: postModel.uId,
           contentId: userModel!.uId,
-          contentKey: 'like Post',
+          contentKey: AppString.likePost,
+          content: AppString.likePost,
         );
         SocialCubit.get(context).sendFCMNotification(
           token: userModel!.token,
@@ -1394,9 +1393,8 @@ class SocialCubit extends Cubit<SocialStates> {
     emit(GetInAppNotificationLoadingState());
     FirebaseFirestore.instance
         .collection('users')
-        .doc(userModel!.uId)
+        .doc(uId)
         .collection('notifications')
-        .orderBy('dateTime', descending: true)
         .snapshots()
         .listen((event) async {
       notifications = [];

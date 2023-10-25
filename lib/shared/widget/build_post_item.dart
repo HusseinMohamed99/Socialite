@@ -266,16 +266,12 @@ class BuildPostItem extends StatelessWidget {
                           AppString.likes,
                           style:
                               Theme.of(context).textTheme.titleMedium!.copyWith(
-                                    color: cubit.isLikedByMe
-                                        ? ColorManager.redColor
-                                        : ColorManager.greyColor,
+                                    color: ColorManager.greyColor,
                                   ),
                         ),
-                        icon: Icon(
+                        icon: const Icon(
                           IconlyBroken.heart,
-                          color: cubit.isLikedByMe
-                              ? ColorManager.redColor
-                              : ColorManager.greyColor,
+                          color: ColorManager.greyColor,
                         ),
                       ),
                       TextButton.icon(

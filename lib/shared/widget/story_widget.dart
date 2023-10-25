@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/model/story_model.dart';
 import 'package:socialite/pages/story/view_story.dart';
 import 'package:socialite/shared/components/image_with_shimmer.dart';
@@ -26,20 +25,20 @@ class StoryItem extends StatelessWidget {
             );
           },
           child: Container(
-            width: 110.w,
-            height: 180.h,
+            width: 110,
+            height: 180,
             decoration: BoxDecoration(
               color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(17).r,
+              borderRadius: BorderRadius.circular(17),
             ),
             child: Stack(
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(14).r,
+                    borderRadius: BorderRadius.circular(14),
                   ),
                   child: ImageWithShimmer(
-                    radius: 15.r,
+                    radius: 15,
                     imageUrl: storyModel.storyImage!,
                     width: double.infinity,
                     height: double.infinity,
@@ -47,17 +46,17 @@ class StoryItem extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0).r,
+                  padding: const EdgeInsets.all(8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CircleAvatar(
-                        radius: 23.r,
+                        radius: 23,
                         child: CircleAvatar(
-                          radius: 20.r,
+                          radius: 20,
                           child: ImageWithShimmer(
                             imageUrl: storyModel.image!,
-                            radius: 20.r,
+                            radius: 20,
                             width: double.infinity,
                             height: double.infinity,
                             boxFit: BoxFit.fill,
@@ -66,8 +65,8 @@ class StoryItem extends StatelessWidget {
                       ),
                       const Spacer(),
                       SizedBox(
-                        width: 110.w,
-                        height: 25.h,
+                        width: 110,
+                        height: 25,
                         child: Text(
                           storyModel.name!,
                           style: Theme.of(context)

@@ -66,7 +66,7 @@ class HomeLayout extends StatelessWidget {
                     },
                     splashColor: ColorManager.blueColor,
                     splashRadius: 20,
-                    icon: SocialCubit.get(context).unReadNotificationsCount == 0
+                    icon: SocialCubit.get(context).unReadNotificationsCount != 0
                         ? tabBarBadge(
                             context,
                             icon: IconlyBroken.notification,

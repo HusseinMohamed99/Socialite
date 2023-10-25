@@ -2,12 +2,12 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:socialite/image_assets.dart';
 import 'package:socialite/shared/components/my_divider.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
 import 'package:socialite/shared/utils/app_string.dart';
-import 'package:socialite/shared/utils/color_manager.dart';
 import 'package:socialite/shared/utils/value_manager.dart';
 import 'package:socialite/shared/widget/notifications_widget.dart';
 
@@ -28,7 +28,10 @@ class NotificationScreen extends StatelessWidget {
                 automaticallyImplyLeading: false,
                 title: Text(
                   AppString.notifications,
-                  style: Theme.of(context).textTheme.titleLarge,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(letterSpacing: 10),
                 ),
               ),
               body: ConditionalBuilder(
@@ -46,22 +49,7 @@ class NotificationScreen extends StatelessWidget {
                   itemCount: cubit.notifications.length,
                 ),
                 fallback: (context) => Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        IconlyLight.notification,
-                        color: ColorManager.greyColor,
-                        size: 60,
-                      ),
-                      const SizedBox(height: 15),
-                      Text(
-                        AppString.noNotifications,
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                    ],
-                  ),
+                  child: SvgPicture.asset(Assets.imagesUndrawNotFound),
                 ),
               ),
             );

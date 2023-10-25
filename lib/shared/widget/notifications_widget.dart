@@ -70,7 +70,7 @@ class NotificationsBuilder extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .bodyLarge!
-                        .copyWith(color: ColorManager.dividerColor),
+                        .copyWith(color: ColorManager.blueColor),
                   ),
                   Text(
                     getDate(notifications.dateTime),

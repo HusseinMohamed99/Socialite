@@ -23,7 +23,7 @@ import 'shared/network/cache_helper.dart';
 
 FirebaseMessaging messaging = FirebaseMessaging.instance;
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  showToast(text: AppString.receivedMessage, state: ToastStates.success);
+  showToast(text: AppString.sentMessage, state: ToastStates.success);
 }
 
 void main() async {
@@ -53,7 +53,7 @@ void main() async {
   DioHelper.init();
   //when the app is opened
   FirebaseMessaging.onMessage.listen((event) {
-    showToast(text: AppString.receivedMessage, state: ToastStates.success);
+    showToast(text: AppString.sentMessage, state: ToastStates.success);
   });
   // when click on notification to open app
   FirebaseMessaging.onMessageOpenedApp.listen((event) {
@@ -105,6 +105,7 @@ class MyApp extends StatelessWidget {
               ..getStories()
               ..getFriends(uId)
               ..getFriendsProfile(uId)
+              ..getInAppNotification()
               ..changeAppMode(
                 fromShared: isDark,
               );
