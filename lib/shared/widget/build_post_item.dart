@@ -248,7 +248,6 @@ class BuildPostItem extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),
-                      const SizedBox(width: 10),
                       TextButton.icon(
                         onPressed: () async {
                           UserModel? postUser =

@@ -30,99 +30,104 @@ class DrawerWidget extends StatelessWidget {
       child: Drawer(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         child: cubit.userModel != null
-            ? Stack(
+            ? ListView(
                 children: [
-                  Column(
+                  Stack(
                     children: [
-                      Stack(
-                        alignment: AlignmentDirectional.bottomCenter,
+                      Column(
                         children: [
-                          ImageWithShimmer(
-                            imageUrl: cubit.userModel!.cover,
-                            boxFit: BoxFit.fill,
-                            height: screenHeight * .4,
-                            width: double.infinity,
+                          Stack(
+                            alignment: AlignmentDirectional.bottomCenter,
+                            children: [
+                              ImageWithShimmer(
+                                imageUrl: cubit.userModel!.cover,
+                                boxFit: BoxFit.fill,
+                                height: screenHeight * .4,
+                                width: double.infinity,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 50),
+                          Text(
+                            cubit.userModel!.name,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium!
+                                .copyWith(
+                                    fontFamily:
+                                        GoogleFonts.pacifico().fontFamily),
+                          ),
+                          const MyDivider(
+                            vertical: AppPadding.p12,
+                          ),
+                          ListOfItem(
+                            function: () {
+                              cubit.getUserPosts(uId);
+                              cubit.getFriends(uId!);
+                              navigateTo(context, const UserProfileScreen());
+                            },
+                            cubit: cubit,
+                            text: AppString.profile,
+                            iconData: IconlyBroken.user2,
+                          ),
+                          ListOfItem(
+                            function: () {
+                              navigateTo(context, const NotificationScreen());
+                            },
+                            cubit: cubit,
+                            text: AppString.notifications,
+                            iconData: IconlyBroken.notification,
+                          ),
+                          ListOfItem(
+                            function: () {
+                              navigateTo(context, const SavePostScreen());
+                            },
+                            cubit: cubit,
+                            text: AppString.savePost,
+                            iconData: IconlyBroken.bookmark,
+                          ),
+                          ListOfItem(
+                            function: () {
+                              cubit.changeAppMode();
+                            },
+                            cubit: cubit,
+                            text: AppString.themeMode,
+                            iconData: IconlyBroken.star,
+                          ),
+                          ListOfItem(
+                            function: () {
+                              cubit.currentIndex = 0;
+                              logOut(context);
+                            },
+                            cubit: cubit,
+                            text: AppString.logout,
+                            iconData: IconlyBroken.closeSquare,
                           ),
                         ],
                       ),
-                      const SizedBox(height: 50),
-                      Text(
-                        cubit.userModel!.name,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium!
-                            .copyWith(
-                                fontFamily: GoogleFonts.pacifico().fontFamily),
-                      ),
-                      const MyDivider(
-                        vertical: AppPadding.p12,
-                      ),
-                      ListOfItem(
-                        function: () {
-                          cubit.getUserPosts(uId);
-                          cubit.getFriends(uId!);
-                          navigateTo(context, const UserProfileScreen());
-                        },
-                        cubit: cubit,
-                        text: AppString.profile,
-                        iconData: IconlyBroken.user2,
-                      ),
-                      ListOfItem(
-                        function: () {
-                          navigateTo(context, const NotificationScreen());
-                        },
-                        cubit: cubit,
-                        text: AppString.notifications,
-                        iconData: IconlyBroken.notification,
-                      ),
-                      ListOfItem(
-                        function: () {
-                          navigateTo(context, const SavePostScreen());
-                        },
-                        cubit: cubit,
-                        text: AppString.savePost,
-                        iconData: IconlyBroken.bookmark,
-                      ),
-                      ListOfItem(
-                        function: () {
-                          cubit.changeAppMode();
-                        },
-                        cubit: cubit,
-                        text: AppString.themeMode,
-                        iconData: IconlyBroken.star,
-                      ),
-                      ListOfItem(
-                        function: () {
-                          cubit.currentIndex = 0;
-                          logOut(context);
-                        },
-                        cubit: cubit,
-                        text: AppString.logout,
-                        iconData: IconlyBroken.closeSquare,
-                      ),
-                    ],
-                  ),
-                  Positioned(
-                    top: screenHeight * .35,
-                    left: screenWidth * .25,
-                    child: CircleAvatar(
-                      backgroundColor: ColorManager.blueColor,
-                      radius: 42,
-                      child: CircleAvatar(
-                        radius: 40,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(40),
-                          child: ImageWithShimmer(
-                            imageUrl: cubit.userModel!.image,
-                            boxFit: BoxFit.fill,
-                            height: 200,
-                            width: double.infinity,
+                      Positioned(
+                        top: screenHeight * .35,
+                        left: screenWidth * .25,
+                        child: CircleAvatar(
+                          backgroundColor: ColorManager.blueColor,
+                          radius: 42,
+                          child: CircleAvatar(
+                            radius: 40,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(40),
+                              child: ImageWithShimmer(
+                                imageUrl: cubit.userModel!.image,
+                                boxFit: BoxFit.fill,
+                                height: 200,
+                                width: double.infinity,
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
                 ],
               )
