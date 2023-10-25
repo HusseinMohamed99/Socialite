@@ -80,7 +80,7 @@ class FeedScreen extends StatelessWidget {
               SliverFillRemaining(
                 hasScrollBody: false,
                 child: Center(
-                  child: SvgPicture.asset(Assets.images404error),
+                  child: SvgPicture.asset(Assets.imagesUndrawNotFound),
                 ),
               ),
             const SliverToBoxAdapter(

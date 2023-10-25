@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socialite/model/story_model.dart';
+import 'package:socialite/pages/story/create_story.dart';
 import 'package:socialite/pages/story/view_story.dart';
 import 'package:socialite/shared/components/image_with_shimmer.dart';
+import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
@@ -13,7 +15,11 @@ class StoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SocialCubit, SocialStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is CreateStoryImagePickedSuccessState) {
+          navigateTo(context, const CreateStory());
+        }
+      },
       builder: (context, state) {
         return InkWell(
           onTap: () {

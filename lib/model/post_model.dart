@@ -8,7 +8,6 @@ class PostModel {
   String? text;
   int? likes;
   int? comments;
-  bool? isLike;
 
   PostModel({
     this.uId,
@@ -20,7 +19,6 @@ class PostModel {
     this.likes,
     this.comments,
     this.postId,
-    this.isLike = false,
   });
 
   PostModel.fromJson(Map<String, dynamic> json)
@@ -34,7 +32,6 @@ class PostModel {
           likes: json['likes'],
           comments: json['comments'],
           postId: json['postId'],
-          isLike: json['isLike'],
         );
   Map<String, dynamic> toMap() {
     return {
@@ -47,7 +44,6 @@ class PostModel {
       'likes': likes,
       'comments': comments,
       'postId': postId,
-      'isLike': isLike,
     };
   }
 }

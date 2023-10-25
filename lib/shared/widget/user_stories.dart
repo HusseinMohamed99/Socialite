@@ -26,7 +26,7 @@ class UserStories extends StatelessWidget {
       },
       child: Container(
         width: screenWidth * .35,
-        height: screenHeight * .25,
+        height: screenHeight * .3,
         decoration: BoxDecoration(
           color: Colors.grey[300],
           borderRadius: BorderRadius.circular(17),
@@ -35,14 +35,14 @@ class UserStories extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14),
+                borderRadius: BorderRadius.circular(30),
               ),
               child: ImageWithShimmer(
                 imageUrl: storyModel.storyImage!,
                 width: double.infinity,
                 height: double.infinity,
-                boxFit: BoxFit.fitWidth,
-                radius: 10,
+                boxFit: BoxFit.fitHeight,
+                radius: 20,
               ),
             ),
             Padding(

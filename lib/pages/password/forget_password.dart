@@ -64,8 +64,7 @@ class ResetPasswordScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(AppPadding.p20),
                         child: Text(
                           AppString.mailAssociated,
-                          style: textTheme.headlineMedium!
-                              .copyWith(color: ColorManager.whiteColor),
+                          style: textTheme.headlineMedium,
                           textAlign: TextAlign.center,
                         ),
                       ),

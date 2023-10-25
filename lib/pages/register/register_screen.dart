@@ -184,7 +184,7 @@ class RegisterWidget extends StatelessWidget {
                   return MyValidators.displayNameValidator(value);
                 },
                 hintText: AppString.name,
-                focusNode: emailFocusNode,
+                focusNode: nameFocusNode,
                 textInputAction: TextInputAction.next,
                 onFieldSubmitted: (value) {
                   FocusScope.of(context).requestFocus(emailFocusNode);
@@ -214,7 +214,7 @@ class RegisterWidget extends StatelessWidget {
                   return MyValidators.phoneValidator(value);
                 },
                 hintText: AppString.phone,
-                focusNode: emailFocusNode,
+                focusNode: phoneFocusNode,
                 textInputAction: TextInputAction.next,
                 onFieldSubmitted: (value) {
                   FocusScope.of(context).requestFocus(passwordFocusNode);

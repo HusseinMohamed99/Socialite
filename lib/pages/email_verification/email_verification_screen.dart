@@ -89,9 +89,13 @@ class EmailVerificationScreen extends StatelessWidget {
                               ? Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Card(
+                                    Container(
+                                      width: 250,
+                                      height: 40,
                                       color: ColorManager.greenColor,
                                       child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           Icon(
                                             Icons.check_circle_outline,
@@ -99,7 +103,6 @@ class EmailVerificationScreen extends StatelessWidget {
                                                 SocialCubit.get(context).isDark
                                                     ? ColorManager.whiteColor
                                                     : ColorManager.blackColor,
-                                            size: 24.sp,
                                           ),
                                           Text(
                                             AppString.emailVerification,
@@ -108,7 +111,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    SizedBox(width: 10.w),
+                                    const SizedBox(width: 10),
                                     TextButton(
                                       style: TextButton.styleFrom(
                                         backgroundColor:
@@ -128,9 +131,9 @@ class EmailVerificationScreen extends StatelessWidget {
                                     ),
                                   ],
                                 )
-                              : Card(
+                              : Container(
                                   color: SocialCubit.get(context).isDark
-                                      ? ColorManager.blueColor
+                                      ? ColorManager.scaffoldBackgroundDarkColor
                                       : ColorManager.titanWithColor,
                                   child: defaultTextButton(
                                     context: context,
@@ -142,7 +145,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                 ),
                       SizedBox(height: 15.h),
                       cubit.isEmailSent
-                          ? Card(
+                          ? Container(
                               color: SocialCubit.get(context).isDark
                                   ? ColorManager.greenColor
                                   : ColorManager.titanWithColor,
@@ -152,11 +155,11 @@ class EmailVerificationScreen extends StatelessWidget {
                                   cubit.reloadUser().then(
                                     (value) {
                                       if (cubit.isEmailVerified) {
-                                        SocialCubit.get(context)
-                                          ..getPosts()
-                                          ..getUserData()
-                                          ..getAllUsers();
-                                        SocialCubit.get(context).getUserData();
+                                        // SocialCubit.get(context)
+                                        //   ..getPosts()
+                                        //   ..getUserData()
+                                        //   ..getAllUsers();
+                                        // SocialCubit.get(context).getUserData();
                                         navigateAndFinish(
                                           context,
                                           const HomeLayout(),
@@ -168,9 +171,9 @@ class EmailVerificationScreen extends StatelessWidget {
                                 text: AppString.verified,
                               ),
                             )
-                          : Card(
+                          : Container(
                               color: SocialCubit.get(context).isDark
-                                  ? ColorManager.blueColor
+                                  ? ColorManager.scaffoldBackgroundDarkColor
                                   : ColorManager.titanWithColor,
                               child: defaultTextButton(
                                 context: context,

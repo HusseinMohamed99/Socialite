@@ -69,7 +69,7 @@ class UserScreen extends StatelessWidget {
             const SliverToBoxAdapter(child: SizedBox(height: 10)),
             SliverToBoxAdapter(
               child: SizedBox(
-                height: screenHeight * .35,
+                height: screenHeight * .4,
                 child: ListView.separated(
                   padding:
                       const EdgeInsets.symmetric(horizontal: AppPadding.p12),

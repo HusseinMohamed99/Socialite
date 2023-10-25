@@ -120,7 +120,7 @@ class CreateNewStories extends StatelessWidget {
             },
             child: Container(
               width: screenWidth * .35,
-              height: screenHeight * .25,
+              height: screenHeight * .3,
               margin: const EdgeInsets.only(left: AppMargin.m12),
               decoration: BoxDecoration(
                 color: Colors.grey.withOpacity(0.3),
@@ -147,7 +147,7 @@ class CreateNewStories extends StatelessWidget {
                               width: 100,
                               height: 100,
                               radius: 15,
-                              boxFit: BoxFit.fitHeight,
+                              boxFit: BoxFit.fitWidth,
                             ),
                           ),
                         ),
@@ -178,7 +178,7 @@ class CreateNewStories extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           SizedBox(
-            height: screenHeight * .25,
+            height: screenHeight * .3,
             child: ListView.separated(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,

@@ -40,14 +40,14 @@ class BuildStoriesItem extends StatelessWidget {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(14),
+                    borderRadius: BorderRadius.circular(25),
                   ),
                   child: ImageWithShimmer(
                     imageUrl: storyModel.storyImage!,
                     width: double.infinity,
                     height: double.infinity,
                     boxFit: BoxFit.fitWidth,
-                    radius: 10,
+                    radius: 25,
                   ),
                 ),
                 Padding(

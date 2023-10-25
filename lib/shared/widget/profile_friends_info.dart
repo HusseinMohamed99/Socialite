@@ -61,7 +61,7 @@ class ProfileFriendsInfo extends StatelessWidget {
           ],
         ),
         Positioned(
-          top: screenHeight * .2,
+          top: screenHeight * .15,
           left: screenWidth * .3,
           child: CircleAvatar(
             backgroundColor: ColorManager.dividerColor,
