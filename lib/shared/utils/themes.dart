@@ -25,8 +25,8 @@ final getThemeData = {
       elevation: 0,
       titleTextStyle: GoogleFonts.roboto(
         color: ColorManager.greyDarkColor,
-        fontSize: 20.0,
-        fontWeight: FontWeight.bold,
+        fontSize: FontSize.s20,
+        fontWeight: FontWeightManager.bold,
       ),
       iconTheme: const IconThemeData(
         color: ColorManager.blackColor,
@@ -53,7 +53,7 @@ final getThemeData = {
       ),
       bodyMedium: GoogleFonts.roboto(
         color: ColorManager.blackColor,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeightManager.medium,
       ),
       displayLarge: GoogleFonts.roboto(
           color: ColorManager.blackColor, fontSize: FontSize.s40),
@@ -94,8 +94,8 @@ final getThemeData = {
       elevation: 0,
       titleTextStyle: TextStyle(
         color: ColorManager.whiteColor,
-        fontSize: 20.0,
-        fontWeight: FontWeight.bold,
+        fontSize: FontSize.s20,
+        fontWeight: FontWeightManager.bold,
       ),
       iconTheme: IconThemeData(
         color: ColorManager.whiteColor,
@@ -119,7 +119,7 @@ final getThemeData = {
       ),
       bodyMedium: GoogleFonts.roboto(
         color: ColorManager.whiteColor,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeightManager.medium,
       ),
       displayLarge: GoogleFonts.roboto(
           color: ColorManager.whiteColor, fontSize: FontSize.s40),
