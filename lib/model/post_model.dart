@@ -21,18 +21,20 @@ class PostModel {
     this.postId,
   });
 
-  PostModel.fromJson(Map<String, dynamic> json)
-      : this(
-          uId: json['uId'],
-          dateTime: DateTime.fromMillisecondsSinceEpoch(json['dateTime']),
-          name: json['name'],
-          text: json['text'],
-          image: json['image'],
-          postImage: json['postImage'],
-          likes: json['likes'],
-          comments: json['comments'],
-          postId: json['postId'],
-        );
+  factory PostModel.fromJson(Map<String, dynamic> json) {
+    return PostModel(
+      uId: json['uId'],
+      dateTime: DateTime.fromMillisecondsSinceEpoch(json['dateTime']),
+      name: json['name'],
+      text: json['text'],
+      image: json['image'],
+      postImage: json['postImage'],
+      likes: json['likes'],
+      comments: json['comments'],
+      postId: json['postId'],
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'dateTime': dateTime!.millisecondsSinceEpoch,

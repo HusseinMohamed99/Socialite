@@ -88,7 +88,10 @@ class _OnBoardState extends State<OnBoard> {
                         child: Text(
                           AppString.onBoardingBody,
                           textAlign: TextAlign.start,
-                          style: textTheme.headlineLarge,
+                          style: textTheme.headlineLarge!.copyWith(
+                            color: ColorManager.whiteColor,
+                            letterSpacing: 2,
+                          ),
                         ),
                       ),
                       Expanded(

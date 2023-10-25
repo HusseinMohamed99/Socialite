@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
+import 'package:socialite/shared/utils/font_manager.dart';
 
 class DefaultTextFormField extends StatelessWidget {
   const DefaultTextFormField({
@@ -73,7 +73,6 @@ class DefaultTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         prefixIcon: Icon(
           prefix,
-          size: 24.sp,
           color: ColorManager.greyColor,
         ),
         suffixIcon: suffix != null
@@ -87,37 +86,17 @@ class DefaultTextFormField extends StatelessWidget {
                 ),
               )
             : null,
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
-            color: ColorManager.blueColor,
-          ),
-        ),
         labelText: label,
         labelStyle: GoogleFonts.roboto(
           color: color ?? ColorManager.greyColor,
           fontSize: 18,
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeightManager.regular,
         ),
         hintText: hint,
-        disabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
-            color: ColorManager.greyColor,
-          ),
-        ),
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
-            color: ColorManager.greyColor,
-          ),
-        ),
-        errorBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
-            color: ColorManager.redColor,
-          ),
-        ),
-        focusedErrorBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
-            color: ColorManager.redColor,
-          ),
+        border: const OutlineInputBorder(),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide.none,
         ),
       ),
     );

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
 
 Widget defaultMaterialButton({
@@ -16,11 +15,9 @@ Widget defaultMaterialButton({
 }) {
   return Container(
     width: width ?? double.infinity,
-    height: height ?? 40.h,
+    height: height ?? 48,
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(
-        radius ?? 12,
-      ).r,
+      borderRadius: BorderRadius.circular(radius ?? 8),
       color: color ?? ColorManager.whiteColor,
     ),
     child: MaterialButton(

@@ -15,13 +15,15 @@ class CommentModel {
     this.commentText,
   });
 
-  CommentModel.fromJson(Map<String, dynamic>? json) {
-    uId = json!['uId'];
-    name = json['name'];
-    userImage = json['userImage'];
-    commentImage = json['commentImage'];
-    commentText = json['comment'];
-    dateTime = DateTime.fromMillisecondsSinceEpoch(json['dateTime']);
+  factory CommentModel.fromJson(Map<String, dynamic>? json) {
+    return CommentModel(
+      uId: json!['uId'],
+      name: json['name'],
+      userImage: json['userImage'],
+      commentImage: json['commentImage'],
+      commentText: json['comment'],
+      dateTime: DateTime.fromMillisecondsSinceEpoch(json['dateTime']),
+    );
   }
 
   Map<String, dynamic> toMap() {

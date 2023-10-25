@@ -15,15 +15,17 @@ class MessageModel {
     this.messageImage,
   });
 
-  MessageModel.fromJson(Map<String, dynamic> json)
-      : this(
-          senderId: json['senderId'],
-          receiverId: json['receiverId'],
-          dateTime: DateTime.fromMillisecondsSinceEpoch(json['dateTime']),
-          text: json['text'],
-          messageId: json['messageId'],
-          messageImage: json['messageImage'],
-        );
+  factory MessageModel.fromJson(Map<String, dynamic> json) {
+    return MessageModel(
+      senderId: json['senderId'],
+      receiverId: json['receiverId'],
+      dateTime: DateTime.fromMillisecondsSinceEpoch(json['dateTime']),
+      text: json['text'],
+      messageId: json['messageId'],
+      messageImage: json['messageImage'],
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'text': text,

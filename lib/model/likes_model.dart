@@ -19,17 +19,18 @@ class LikesModel {
     required this.dateTime,
   });
 
-  LikesModel.fromJson(Map<String, dynamic> json)
-      : this(
-          uId: json['uId'],
-          name: json['name'],
-          image: json['image'],
-          bio: json['bio'],
-          cover: json['cover'],
-          email: json['email'],
-          phone: json['phone'],
-          dateTime: DateTime.fromMillisecondsSinceEpoch(json['dateTime']),
-        );
+  factory LikesModel.fromJson(Map<String, dynamic> json) {
+    return LikesModel(
+      uId: json['uId'],
+      name: json['name'],
+      image: json['image'],
+      bio: json['bio'],
+      cover: json['cover'],
+      email: json['email'],
+      phone: json['phone'],
+      dateTime: DateTime.fromMillisecondsSinceEpoch(json['dateTime']),
+    );
+  }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

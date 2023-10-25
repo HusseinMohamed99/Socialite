@@ -1,12 +1,13 @@
-import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
 import 'package:intl/intl.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:socialite/image_assets.dart';
 import 'package:socialite/shared/components/image_with_shimmer.dart';
 import 'package:socialite/shared/utils/app_string.dart';
+import 'package:socialite/shared/utils/color_manager.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 String daysBetween(DateTime postDate) {
@@ -31,23 +32,7 @@ String getDate(DateTime dateTime) {
   return date;
 }
 
-String getNowDateTime(Timestamp dateTime) {
-  String date = DateFormat.yMMMd().format(dateTime.toDate()).toString();
-  String time = DateFormat.Hm().format(dateTime.toDate()).toString();
-  List<String> nowSeparated = [date, time];
-  String nowJoined = nowSeparated.join(' at ');
-  return nowJoined;
-}
-
-String time = DateTime.now().toString().split(' ').elementAt(1);
-
 String? uId = '';
-
-int messageId = 0;
-int importId() {
-  messageId++;
-  return messageId;
-}
 
 Widget imageWithShimmer(
   String? image, {
@@ -74,11 +59,29 @@ Widget imageWithShimmer(
 Widget imagePreview(String? image, {double? height}) {
   return FullScreenWidget(
     child: Center(
-      child: ImageWithShimmer(
-        boxFit: BoxFit.fitWidth,
+      child: CachedNetworkImage(
+        fit: BoxFit.fitWidth,
         width: double.infinity,
-        imageUrl: "$image",
         height: height,
+        placeholder: (_, __) => Shimmer.fromColors(
+          baseColor: Colors.grey[850]!,
+          highlightColor: Colors.grey[800]!,
+          child: Container(
+            color: ColorManager.greyColor,
+          ),
+        ),
+        imageBuilder: (context, imageProvider) {
+          return Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.fitWidth,
+              ),
+            ),
+          );
+        },
+        errorWidget: (_, __, ___) => SvgPicture.asset(Assets.imagesError),
+        imageUrl: "$image",
       ),
     ),
   );
@@ -87,23 +90,31 @@ Widget imagePreview(String? image, {double? height}) {
 Widget imagePostPreview(String? image) {
   return FullScreenWidget(
     child: Center(
-      child: Image.network(
+      child: CachedNetworkImage(
+        imageUrl: "$image",
         fit: BoxFit.fitWidth,
         width: double.infinity,
-        "$image",
-        alignment: AlignmentDirectional.topCenter,
-        errorBuilder: (context, error, stackTrace) {
-          return Center(
-            child: SvgPicture.asset(Assets.images404error),
+        placeholder: (_, __) => Shimmer.fromColors(
+          baseColor: Colors.grey[850]!,
+          highlightColor: Colors.grey[800]!,
+          child: Container(
+            color: ColorManager.greyColor,
+          ),
+        ),
+        imageBuilder: (context, imageProvider) {
+          return Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.fitWidth,
+              ),
+            ),
           );
         },
+        errorWidget: (_, __, ___) => SvgPicture.asset(Assets.imagesError),
       ),
     ),
   );
-}
-
-String getOs() {
-  return Platform.operatingSystem;
 }
 
 double intToDouble(int num) {
@@ -114,22 +125,5 @@ double intToDouble(int num) {
 Future<void> urlLauncher(Uri url) async {
   if (!await launchUrl(url)) {
     throw Exception('${AppString.notLaunch}$url');
-  }
-}
-
-class DateTimeUtils {
-  static String formatTasksDate(DateTime dateTime) {
-    DateFormat dateFormat = DateFormat('dd/MM/yyyy');
-    return dateFormat.format(dateTime);
-  }
-
-  static DateTime extractDateOnly(DateTime dateTime) {
-    return DateTime(dateTime.year, dateTime.month, dateTime.day);
-  }
-}
-
-extension ExtractDate on DateTime {
-  DateTime extractDateOnly() {
-    return DateTime(year, month, day);
   }
 }

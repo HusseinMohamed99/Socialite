@@ -29,20 +29,21 @@ class NotificationModel {
     this.serverTimeStamp,
   });
 
-  NotificationModel.fromJson(Map<String, dynamic>? json)
-      : this(
-          notificationId: json!['notificationId'],
-          contentKey: json['contentKey'],
-          contentId: json['contentId'],
-          content: json['content'],
-          senderName: json['senderName'],
-          receiverName: json['receiverName'],
-          senderId: json['senderId'],
-          receiverId: json['receiverId'],
-          senderImage: json['senderImage'],
-          read: json['read'],
-          dateTime: DateTime.fromMillisecondsSinceEpoch(json['dateTime']),
-        );
+  factory NotificationModel.fromJson(Map<String, dynamic>? json) {
+    return NotificationModel(
+      notificationId: json!['notificationId'],
+      contentKey: json['contentKey'],
+      contentId: json['contentId'],
+      content: json['content'],
+      senderName: json['senderName'],
+      receiverName: json['receiverName'],
+      senderId: json['senderId'],
+      receiverId: json['receiverId'],
+      senderImage: json['senderImage'],
+      read: json['read'],
+      dateTime: DateTime.fromMillisecondsSinceEpoch(json['dateTime']),
+    );
+  }
 
   Map<String, dynamic> toMap() {
     return {

@@ -10,8 +10,8 @@ class Assets {
   static const String imagesAchievement = "assets/images/Achievement.svg";
 
   /// Assets for imagesBackground
-  /// assets/images/Background.jpg
-  static const String imagesBackground = "assets/images/Background.jpg";
+  /// assets/images/Background.png
+  static const String imagesBackground = "assets/images/Background.png";
 
   /// Assets for imagesBackgroundImage
   /// assets/images/backgroundImage.png

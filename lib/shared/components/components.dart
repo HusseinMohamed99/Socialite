@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_cubit.dart';
 import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
+import 'package:socialite/shared/utils/value_manager.dart';
 
 Widget baseAlertDialog({
   required context,
@@ -17,14 +18,15 @@ Widget baseAlertDialog({
         ? ColorManager.titanWithColor
         : ColorManager.greyDarkColor,
     content: Padding(
-      padding: const EdgeInsetsDirectional.only(start: 15, top: 15),
+      padding: const EdgeInsetsDirectional.only(
+          start: AppPadding.p16, top: AppPadding.p16),
       child: Text(
         AppString.deleteMessage,
         style: Theme.of(context).textTheme.titleLarge,
       ),
     ),
     elevation: 8,
-    contentPadding: const EdgeInsets.all(15),
+    contentPadding: const EdgeInsets.all(AppPadding.p16),
     actions: [
       TextButton(
           onPressed: () {
@@ -42,38 +44,5 @@ Widget baseAlertDialog({
           },
           child: const Text(AppString.cancel)),
     ],
-  );
-}
-
-Widget searchBar({
-  required context,
-  bool readOnly = true,
-  double height = 40,
-  double width = double.infinity,
-}) {
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 10),
-    height: height,
-    width: width,
-    child: TextFormField(
-      readOnly: readOnly,
-      style: const TextStyle(color: Colors.grey),
-      // onTap: () => navigateTo(context, SearchScreen()),
-      decoration: InputDecoration(
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-        filled: true,
-        // fillColor: SocialCubit.get(context).unreadMessage,
-        disabledBorder:
-            OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-        focusedBorder:
-            OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-        hintText: 'LocaleKeys.search.tr()',
-        hintStyle: const TextStyle(fontSize: 15, color: Colors.grey),
-        prefixIcon: const Icon(
-          Icons.search,
-          color: Colors.grey,
-        ),
-      ),
-    ),
   );
 }

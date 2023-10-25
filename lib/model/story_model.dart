@@ -14,15 +14,16 @@ class StoryModel {
       this.dateTime,
       this.storyImage});
 
-  StoryModel.fromJson(Map<String, dynamic> json)
-      : this(
-          name: json['name'],
-          uId: json['uId'],
-          image: json['image'],
-          storyImage: json['storyImage'],
-          dateTime: DateTime.fromMillisecondsSinceEpoch(json['dateTime']),
-          text: json['text'],
-        );
+  factory StoryModel.fromJson(Map<String, dynamic> json) {
+    return StoryModel(
+      name: json['name'],
+      uId: json['uId'],
+      image: json['image'],
+      storyImage: json['storyImage'],
+      dateTime: DateTime.fromMillisecondsSinceEpoch(json['dateTime']),
+      text: json['text'],
+    );
+  }
 
   Map<String, dynamic> toMap() {
     return {
