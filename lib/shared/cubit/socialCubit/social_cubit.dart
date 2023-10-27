@@ -2,14 +2,17 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:socialite/pages/chat/chat_screen.dart';
-import 'package:socialite/pages/feed/feed_screen.dart';
-import 'package:socialite/pages/on-boarding/on_boarding_screen.dart';
-import 'package:socialite/pages/setting/setting_screen.dart';
-import 'package:socialite/pages/user/users_screen.dart';
 import 'package:socialite/model/comment_model.dart';
 import 'package:socialite/model/likes_model.dart';
 import 'package:socialite/model/message_model.dart';
@@ -17,23 +20,20 @@ import 'package:socialite/model/notifications_model.dart';
 import 'package:socialite/model/post_model.dart';
 import 'package:socialite/model/story_model.dart';
 import 'package:socialite/model/user_model.dart';
+import 'package:socialite/pages/chat/chat_screen.dart';
+import 'package:socialite/pages/feed/feed_screen.dart';
+import 'package:socialite/pages/on-boarding/on_boarding_screen.dart';
+import 'package:socialite/pages/setting/setting_screen.dart';
 import 'package:socialite/pages/story/stories_screen.dart';
+import 'package:socialite/pages/user/users_screen.dart';
 import 'package:socialite/shared/components/constants.dart';
 import 'package:socialite/shared/components/navigator.dart';
 import 'package:socialite/shared/components/show_toast.dart';
 import 'package:socialite/shared/cubit/socialCubit/social_state.dart';
 import 'package:socialite/shared/network/cache_helper.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:socialite/shared/network/dio_helper.dart';
 import 'package:socialite/shared/utils/app_string.dart';
 import 'package:socialite/shared/utils/color_manager.dart';
-import 'package:http/http.dart' as http;
 
 class SocialCubit extends Cubit<SocialStates> {
   SocialCubit() : super(SocialInitialState());
@@ -168,7 +168,6 @@ class SocialCubit extends Cubit<SocialStates> {
       profileImage = await cropImage(imageFile: profileImage!);
       emit(GetProfileImagePickedSuccessState());
     } else {
-      debugPrint('No image selected');
       emit(GetProfileImagePickedErrorState());
     }
   }
@@ -326,8 +325,9 @@ class SocialCubit extends Cubit<SocialStates> {
       cover: cover ?? userModel!.cover,
       image: image ?? userModel!.image,
       uId: userModel!.uId,
-      isEmailVerified: false,
+      isEmailVerified: userModel!.isEmailVerified,
     );
+
     FirebaseFirestore.instance
         .collection('users')
         .doc(userModel!.uId)
